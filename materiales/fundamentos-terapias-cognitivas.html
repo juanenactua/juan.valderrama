@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beck y Ellis · Fundamentos de las terapias cognitivas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Fundamentos de las terapias cognitivas: Beck y Ellis">
+<meta name="jc-descripcion" content="Artefacto interactivo sobre los fundamentos conceptuales de las terapias cognitivas de Aaron Beck y Albert Ellis, con comparaciones, simulaciones, casos, debates y autoevaluación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Terapias cognitivas, Aaron Beck, Albert Ellis, Terapia cognitiva, REBT, TREC, Pensamientos automáticos, Distorsiones cognitivas, Esquemas cognitivos, Creencias irracionales, Modelo ABC, Reestructuración cognitiva">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  /* ============================================================
+     PALETA: azul oscuro profundo + acento ámbar + neutro claro
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --info: #60a5fa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  /* ---- BARRA DE PROGRESO ---- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- NAV LATERAL ---- */
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 235px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1150px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.86rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  /* ---- MAIN ---- */
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1150px) {
+    main { margin-left: 255px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  /* ---- TARJETAS Y CALLOUTS ---- */
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  /* ---- ACORDEÓN ---- */
+  .accordion {
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-mid);
+  }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.05rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-main);
+    transition: background 0.2s;
+    font-family: var(--font);
+  }
+  .accordion-header:hover { background: var(--bg-soft); }
+  .accordion-header .icon {
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 1.3rem;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .accordion-content p { padding: 0.9rem 0; margin: 0; color: var(--text-soft); }
+  .accordion-item.active .accordion-content { max-height: 600px; padding: 0.2rem 1.3rem 1.1rem; }
+
+  /* ---- TARJETAS FLIP ---- */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 200px;
+    cursor: pointer;
+    outline: none;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: var(--radius);
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .flip-front {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+    background: var(--bg-mid);
+    box-shadow: var(--shadow);
+  }
+  .flip-front::after {
+    content: '↻ clic para girar';
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    font-weight: 400;
+  }
+  .flip-back {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    transform: rotateY(180deg);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flip-back small { display: block; margin-top: 0.6rem; font-size: 0.78rem; opacity: 0.85; }
+
+  /* ---- SIMULACIÓN ---- */
+  .sim-container {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem 1.5rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+  }
+  .sim-stage {
+    background: #060f1c;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    margin: 1.2rem 0;
+    min-height: 360px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(240, 180, 41, 0.15);
+  }
+  .sim-scene {
+    display: none;
+    animation: fadeIn 0.6s ease;
+  }
+  .sim-scene.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+
+  .sim-controls {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-step {
+    flex: 1; min-width: 130px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .sim-step:hover { background: var(--bg-mid); color: var(--text-main); }
+  .sim-step.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(240, 180, 41, 0.4);
+  }
+
+  .sim-explanation {
+    background: rgba(240, 180, 41, 0.08);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    min-height: 80px;
+  }
+  .sim-explanation strong { color: var(--accent); }
+
+  /* Modelo ABC */
+  .abc-flow {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
+    gap: 0.8rem; margin: 1.5rem 0;
+  }
+  .abc-box {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1rem;
+    min-width: 160px;
+    flex: 1;
+    text-align: center;
+    transition: all 0.4s;
+  }
+  .abc-box.highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(240, 180, 41, 0.5);
+    transform: scale(1.05);
+  }
+  .abc-box .abc-letter {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .abc-box .abc-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .abc-box .abc-content {
+    font-size: 0.9rem;
+    color: var(--text-main);
+  }
+  .abc-arrow {
+    color: var(--accent);
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  /* Personas en escena */
+  .scene-row {
+    display: flex; flex-wrap: wrap;
+    gap: 1.5rem; justify-content: center;
+    align-items: flex-start;
+  }
+  .persona {
+    background: rgba(240, 180, 41, 0.08);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    width: 250px;
+    text-align: center;
+    transition: all 0.4s;
+  }
+  .persona.highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(240, 180, 41, 0.5);
+    transform: translateY(-6px);
+  }
+  .persona-avatar { font-size: 2.6rem; margin-bottom: 0.4rem; display: block; }
+  .persona-name { font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; }
+  .persona-desc { font-size: 0.85rem; color: var(--text-soft); }
+
+  /* ---- PREGUNTAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  /* ---- BOTONES GRANDES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  /* ---- TABLA COMPARATIVA ---- */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.95rem;
+  }
+  .compare-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.9rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .compare-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--bg-soft); }
+  .compare-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  /* ---- REFERENCIAS ---- */
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 700px) {
+    h1 { font-size: 1.7rem; }
+    h2 { font-size: 1.35rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .scene-row { flex-direction: column; align-items: center; }
+    .persona { width: 100%; max-width: 300px; }
+    .sim-step { min-width: 100%; }
+    .abc-flow { flex-direction: column; }
+    .abc-arrow { transform: rotate(90deg); }
+    .compare-table { font-size: 0.85rem; }
+    .compare-table th, .compare-table td { padding: 0.6rem; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .flip-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ---- ANIMACIONES ---- */
+  .fade-slide { animation: fadeSlide 0.5s ease both; }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .highlight-pulse { animation: highlightPulse 1.2s ease; }
+  @keyframes highlightPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 30px rgba(240, 180, 41, 0.6); }
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 1.4rem;
+    display: inline-block;
+    animation: arrowPulse 1.5s infinite;
+  }
+  @keyframes arrowPulse {
+    0%, 100% { opacity: 0.5; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(4px); }
+  }
+
+  /* ---- ESCENAS ANIMADAS ---- */
+  .thought-bubble {
+    background: var(--bg-soft);
+    border: 2px dashed var(--error);
+    border-radius: 20px;
+    padding: 0.8rem 1.2rem;
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    color: #fbc7c7;
+    position: relative;
+    animation: bubbleIn 0.6s ease;
+  }
+  @keyframes bubbleIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .thought-bubble::before {
+    content: '💭';
+    position: absolute;
+    top: -14px; left: 12px;
+    font-size: 1.2rem;
+  }
+  .thought-bubble.rational {
+    border-color: var(--success);
+    color: #b9f5cc;
+  }
+  .thought-bubble.rational::before { content: '🧠'; }
+
+  /* ---- DISTORSIÓN TAG ---- */
+  .distortion-tag {
+    display: inline-block;
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--error);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+    border: 1px solid rgba(248, 113, 113, 0.3);
+  }
+  .distortion-tag.healthy {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--success);
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Aaron Beck y Albert Ellis: fundamentos</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta de aprendizaje</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#resultados">Resultados de aprendizaje</a></li>
+    <li><a href="#delimitacion">1. Delimitación</a></li>
+    <li><a href="#definiciones">2. Definiciones</a></li>
+    <li><a href="#comparador">3. Comparador Beck/Ellis</a></li>
+    <li><a href="#simulacion-beck">4. Simulación: pensamiento automático</a></li>
+    <li><a href="#simulacion-ellis">5. Simulación: modelo ABC</a></li>
+    <li><a href="#ejemplos">6. Ejemplos animados</a></li>
+    <li><a href="#debates">7. Debates y malentendidos</a></li>
+    <li><a href="#sintesis">8. Síntesis</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Psicología clínica · Terapias cognitivas</span>
+    <h1>Aaron Beck y Albert Ellis: fundamentos conceptuales</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 750px; margin-top: 0.8rem;">
+      Dos autores fundamentales en el desarrollo de las terapias cognitivas contemporáneas. Sus teorías explican
+      cómo el pensamiento influye en las emociones y la conducta. Aquí explorarás sus conceptos centrales,
+      coincidencias, diferencias y aplicaciones.
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado (nivel introductorio con rigor conceptual)</p>
+      <p><strong>Duración estimada:</strong> 60–80 minutos</p>
+      <p><strong>Palabras clave:</strong> terapia cognitiva, REBT, pensamiento automático, distorsión cognitiva, esquema cognitivo, creencia irracional, modelo ABC, disputa cognitiva</p>
+    </div>
+    <div class="callout">
+      <strong>¿Cómo recorrer este artefacto?</strong> Encontrarás simulaciones interactivas, tarjetas giratorias,
+      acordeones, ejemplos animados y preguntas abiertas y cerradas con retroalimentación. Tu progreso se muestra
+      en la barra superior.
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section id="resultados" class="reveal">
+    <h2>Resultados de aprendizaje</h2>
+    <p>Al finalizar este artefacto, el estudiante será capaz de:</p>
+    <ul>
+      <li><strong>Explicar</strong> la idea central de la Terapia Cognitiva de Beck y de la Terapia Racional-Emotiva Conductual de Ellis.</li>
+      <li><strong>Diferenciar</strong> los conceptos de pensamiento automático, distorsión cognitiva y esquema (Beck) frente a creencia irracional y modelo ABC (Ellis).</li>
+      <li><strong>Aplicar</strong> el modelo ABC a situaciones cotidianas identificando acontecimiento, creencia y consecuencia.</li>
+      <li><strong>Analizar</strong> críticamente los malentendidos frecuentes sobre las terapias cognitivas (pensamiento positivo, control emocional).</li>
+      <li><strong>Argumentar</strong> por escrito sobre las coincidencias y diferencias entre ambos autores.</li>
+    </ul>
+  </section>
+
+  <!-- 1. DELIMITACIÓN -->
+  <section id="delimitacion" class="reveal">
+    <h2>1. Delimitación del tema</h2>
+    <p>
+      Este tema abarca las propuestas teóricas de Aaron T. Beck y Albert Ellis, dos autores fundamentales en el
+      desarrollo de las terapias cognitivas contemporáneas. El foco principal es comprender cómo explican el origen
+      de los problemas emocionales, qué papel atribuyen al pensamiento en la conducta y las emociones, y cuáles son
+      los conceptos centrales de cada teoría.
+    </p>
+    <p>Estas teorías se utilizan principalmente en psicología clínica, psicoterapia, salud mental, psicología de la salud, intervención educativa y programas de prevención psicológica.</p>
+    <div class="callout">
+      <strong>Quedan fuera de este abordaje:</strong> los procedimientos terapéuticos avanzados, la evaluación clínica
+      especializada, los desarrollos de tercera generación (ACT, DBT, MBCT) y la investigación neurocientífica reciente.
+    </div>
+  </section>
+
+  <!-- 2. DEFINICIONES -->
+  <section id="definiciones" class="reveal">
+    <h2>2. Definiciones clave</h2>
+
+    <h3>Aaron Beck: Terapia Cognitiva</h3>
+    <p>
+      Beck desarrolló la <strong>Terapia Cognitiva</strong> como un modelo que sostiene que las emociones y las conductas
+      están influidas por la forma en que las personas interpretan los acontecimientos. Los problemas emocionales se
+      relacionan con patrones de pensamiento sesgados o distorsionados. Esta formulación aparece de manera sistemática
+      en <em>Cognitive Therapy and the Emotional Disorders</em> (1976).
+    </p>
+    <div class="callout">
+      <strong>Idea central de Beck:</strong> No son los acontecimientos por sí mismos los que determinan la reacción
+      emocional, sino la interpretación cognitiva que realiza el individuo sobre esos acontecimientos.
+    </div>
+
+    <h3>Albert Ellis: Terapia Racional-Emotiva Conductual (REBT)</h3>
+    <p>
+      Ellis desarrolló inicialmente la <strong>Terapia Racional-Emotiva</strong> (posteriormente denominada Terapia
+      Racional-Emotiva Conductual, REBT). Según este enfoque, gran parte del malestar emocional surge de creencias
+      irracionales mantenidas por las personas acerca de sí mismas, los demás y el mundo. Esta propuesta fue expuesta
+      formalmente en <em>Reason and Emotion in Psychotherapy</em> (1962).
+    </p>
+    <div class="callout">
+      <strong>Idea central de Ellis:</strong> Las consecuencias emocionales y conductuales dependen de las creencias
+      que la persona mantiene sobre los acontecimientos y no únicamente de los acontecimientos mismos.
+    </div>
+
+    <h3>Términos clave (tarjetas giratorias)</h3>
+    <p>Haz clic en cada tarjeta para ver su definición y ejemplo.</p>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cognición">
+        <div class="flip-inner">
+          <div class="flip-front">Cognición</div>
+          <div class="flip-back">Proceso psicológico relacionado con la percepción, interpretación, almacenamiento y utilización de la información. <small>No es lo mismo que inteligencia.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pensamiento automático">
+        <div class="flip-inner">
+          <div class="flip-front">Pensamiento automático</div>
+          <div class="flip-back">Pensamiento que surge de manera rápida y espontánea ante una situación. <small>En Beck, es la unidad básica de análisis clínico.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Esquema cognitivo">
+        <div class="flip-inner">
+          <div class="flip-front">Esquema cognitivo</div>
+          <div class="flip-back">Estructura cognitiva relativamente estable que organiza la información y orienta las interpretaciones. <small>Explica por qué personas distintas interpretan lo mismo de forma diferente.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Distorsión cognitiva">
+        <div class="flip-inner">
+          <div class="flip-front">Distorsión cognitiva</div>
+          <div class="flip-back">Error sistemático en el procesamiento o interpretación de la información. <small>Ej.: sobregeneralización, catastrofización, pensamiento dicotómico, personalización.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Creencia">
+        <div class="flip-inner">
+          <div class="flip-front">Creencia</div>
+          <div class="flip-back">Proposición que una persona considera verdadera y que orienta su interpretación de los acontecimientos.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Creencia irracional">
+        <div class="flip-inner">
+          <div class="flip-front">Creencia irracional</div>
+          <div class="flip-back">En Ellis, creencia rígida, extrema y poco realista que favorece respuestas emocionales desadaptativas. <small>Ej.: "Debo hacerlo todo perfectamente".</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta cerrada 1 -->
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál es la idea central de la Terapia Cognitiva de Beck?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c1" value="a"> a) Los acontecimientos determinan directamente las emociones.</label>
+        <label class="q-option"><input type="radio" name="c1" value="b"> b) La interpretación cognitiva de los acontecimientos determina la reacción emocional.</label>
+        <label class="q-option"><input type="radio" name="c1" value="c"> c) Las emociones negativas siempre son patológicas.</label>
+        <label class="q-option"><input type="radio" name="c1" value="d"> d) El pensamiento positivo es el objetivo terapéutico.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+  </section>
+
+  <!-- 3. COMPARADOR BECK/ELLIS -->
+  <section id="comparador" class="reveal">
+    <h2>3. Comparador: Beck y Ellis lado a lado</h2>
+    <p>
+      Aunque suelen agruparse dentro de las terapias cognitivas, no son teorías idénticas. Esta tabla te ayuda a
+      ver sus diferencias de un vistazo.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Aspecto</th>
+          <th>Beck</th>
+          <th>Ellis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Concepto principal</td>
+          <td>Distorsiones cognitivas</td>
+          <td>Creencias irracionales</td>
+        </tr>
+        <tr>
+          <td>Nivel de análisis</td>
+          <td>Pensamientos específicos y esquemas</td>
+          <td>Filosofía personal y creencias generales</td>
+        </tr>
+        <tr>
+          <td>Estilo terapéutico</td>
+          <td>Exploración colaborativa</td>
+          <td>Confrontación racional</td>
+        </tr>
+        <tr>
+          <td>Objetivo central</td>
+          <td>Modificar interpretaciones sesgadas</td>
+          <td>Cuestionar exigencias irracionales</td>
+        </tr>
+        <tr>
+          <td>Modelo característico</td>
+          <td>Pensamientos automáticos → distorsiones → esquemas</td>
+          <td>Modelo ABC (Acontecimiento → Creencia → Consecuencia)</td>
+        </tr>
+        <tr>
+          <td>Concepto de "irracional"</td>
+          <td>Sesgo en el procesamiento</td>
+          <td>Exigencia absolutista ("debo", "tengo que")</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pregunta cerrada 2 -->
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Qué concepto es más característico de Ellis que de Beck?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c2" value="a"> a) Esquema cognitivo</label>
+        <label class="q-option"><input type="radio" name="c2" value="b"> b) Pensamiento automático</label>
+        <label class="q-option"><input type="radio" name="c2" value="c"> c) Creencia irracional</label>
+        <label class="q-option"><input type="radio" name="c2" value="d"> d) Distorsión cognitiva</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+
+    <!-- Pregunta abierta 1 -->
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Con tus palabras: ¿cuál es la diferencia entre una "distorsión cognitiva" (Beck) y una "creencia irracional" (Ellis)? Da un ejemplo de cada una.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 1"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(1)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb1">
+        <strong>Respuesta modelo:</strong> Una distorsión cognitiva es un error en el procesamiento de la información: la persona interpreta los datos de forma sesgada. Ejemplo: "Saqué 2.5 en el examen, así que soy un fracaso" (sobregeneralización). Una creencia irracional es una exigencia absoluta y rígida sobre cómo deben ser las cosas. Ejemplo: "Debo ser siempre el mejor en todo lo que hago". La distorsión es un sesgo puntual; la creencia irracional es una filosofía de vida subyacente.
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SIMULACIÓN: PENSAMIENTO AUTOMÁTICO (BECK) -->
+  <section id="simulacion-beck" class="reveal">
+    <h2>4. Simulación: el pensamiento automático en acción</h2>
+    <p>
+      Vamos a recorrer paso a paso cómo surge un pensamiento automático según Beck. Pulsa cada botón para avanzar
+      y observa qué ocurre en la mente del estudiante.
+    </p>
+
+    <div class="sim-container">
+      <div class="sim-controls">
+        <button class="sim-step active" data-sim="beck" data-scene="0">① Situación</button>
+        <button class="sim-step" data-sim="beck" data-scene="1">② Pensamiento automático</button>
+        <button class="sim-step" data-sim="beck" data-scene="2">③ Emoción y conducta</button>
+        <button class="sim-step" data-sim="beck" data-scene="3">④ Distorsión identificada</button>
+        <button class="sim-step" data-sim="beck" data-scene="4">⑤ Reestructuración</button>
+      </div>
+
+      <div class="sim-stage" id="simStageBeck">
+        <!-- Escena 0 -->
+        <div class="sim-scene active" data-scene="0">
+          <div style="text-align: center;">
+            <span style="font-size: 3.5rem;">📝</span>
+            <h4 style="color: var(--accent); margin-top: 0.5rem;">Situación</h4>
+            <p style="color: var(--text-soft); max-width: 500px; margin: 0.5rem auto;">
+              Un estudiante universitario recibe la calificación de un examen: <strong>2.5 / 5.0</strong>.
+            </p>
+          </div>
+          <div class="sim-explanation">
+            <strong>Punto de partida:</strong> El acontecimiento es objetivo: una nota baja. Beck diría que la nota
+            por sí sola no explica la reacción emocional; hay un paso intermedio: la interpretación.
+          </div>
+        </div>
+
+        <!-- Escena 1 -->
+        <div class="sim-scene" data-scene="1">
+          <div style="text-align: center;">
+            <span style="font-size: 3.5rem;">🧠</span>
+            <h4 style="color: var(--accent); margin-top: 0.5rem;">Pensamiento automático</h4>
+            <div class="thought-bubble" style="max-width: 400px; margin: 1rem auto;">
+              "Soy incapaz para esta carrera. Nunca voy a poder con esto."
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 1 — El pensamiento automático:</strong> Surge de forma rápida y espontánea. No es una
+            deliberación lenta; aparece casi instantáneamente ante la nota. En Beck, esta es la unidad básica de análisis clínico.
+          </div>
+        </div>
+
+        <!-- Escena 2 -->
+        <div class="sim-scene" data-scene="2">
+          <div class="scene-row">
+            <div class="persona highlight">
+              <span class="persona-avatar">😢</span>
+              <div class="persona-name">Emoción</div>
+              <div class="persona-desc">Tristeza intensa, desesperanza, ganas de abandonar.</div>
+            </div>
+            <div class="persona highlight">
+              <span class="persona-avatar">🚫</span>
+              <div class="persona-name">Conducta</div>
+              <div class="persona-desc">Deja de estudiar, evita la siguiente clase, se aísla.</div>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 2 — Emoción y conducta:</strong> La tristeza y la evitación no vienen directamente de la nota,
+            sino de la interpretación "soy incapaz". Si el pensamiento hubiera sido otro, la emoción habría sido distinta.
+          </div>
+        </div>
+
+        <!-- Escena 3 -->
+        <div class="sim-scene" data-scene="3">
+          <h4 style="text-align: center; color: var(--accent); margin-bottom: 1rem;">Distorsiones cognitivas presentes</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem;">
+            <div style="background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+              <span class="distortion-tag">Sobregeneralización</span>
+              <p style="font-size: 0.88rem; margin-top: 0.5rem; color: var(--text-soft);">"Una nota baja = soy incapaz para toda la carrera".</p>
+            </div>
+            <div style="background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+              <span class="distortion-tag">Catastrofización</span>
+              <p style="font-size: 0.88rem; margin-top: 0.5rem; color: var(--text-soft);">"Nunca voy a poder con esto".</p>
+            </div>
+            <div style="background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 8px; padding: 1rem; text-align: center;">
+              <span class="distortion-tag">Pensamiento dicotómico</span>
+              <p style="font-size: 0.88rem; margin-top: 0.5rem; color: var(--text-soft);">"O soy brillante o soy un fracaso".</p>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 3 — Identificación:</strong> El terapeuta cognitivo ayuda a etiquetar estas distorsiones.
+            No se trata de "pensar positivo", sino de detectar el error de procesamiento.
+          </div>
+        </div>
+
+        <!-- Escena 4 -->
+        <div class="sim-scene" data-scene="4">
+          <div style="text-align: center;">
+            <span style="font-size: 3.5rem;">🔄</span>
+            <h4 style="color: var(--accent); margin-top: 0.5rem;">Reestructuración cognitiva</h4>
+            <div class="thought-bubble rational" style="max-width: 450px; margin: 1rem auto;">
+              "Saqué 2.5 en este examen. Es una nota baja, pero no define mi capacidad para toda la carrera.
+              Puedo revisar qué falló y prepararme mejor para el próximo."
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 4 — Reestructuración:</strong> El objetivo de Beck no es sustituir el pensamiento negativo por
+            uno positivo, sino por uno <em>más preciso y ajustado a la evidencia</em>. La emoción resultante sería
+            decepción funcional, no desesperanza.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta abierta 2 -->
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Piensa en una situación reciente que te haya generado malestar. Identifica: (a) el acontecimiento, (b) tu pensamiento automático, (c) la emoción, (d) qué distorsión cognitiva crees que estaba presente.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 2"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(2)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb2">
+        <strong>Respuesta modelo:</strong> Ejemplo: (a) Un amigo no respondió a mi mensaje en todo el día. (b) Pensé: "Está enojado conmigo, seguro hice algo mal". (c) Sentí ansiedad y culpa. (d) Distorsión: personalización y lectura de mente. La reestructuración sería: "No sé por qué no respondió. Puede estar ocupado o sin batería. No tengo evidencia de que esté enojado". La emoción cambiaría a una preocupación leve y funcional.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SIMULACIÓN: MODELO ABC (ELLIS) -->
+  <section id="simulacion-ellis" class="reveal">
+    <h2>5. Simulación: el modelo ABC de Ellis</h2>
+    <p>
+      Ellis propuso el modelo ABC para explicar cómo las creencias median entre los acontecimientos y las consecuencias.
+      Pulsa cada paso para verlo en acción.
+    </p>
+
+    <div class="sim-container">
+      <div class="sim-controls">
+        <button class="sim-step active" data-sim="ellis" data-scene="0">① A: Acontecimiento</button>
+        <button class="sim-step" data-sim="ellis" data-scene="1">② B: Creencia</button>
+        <button class="sim-step" data-sim="ellis" data-scene="2">③ C: Consecuencia</button>
+        <button class="sim-step" data-sim="ellis" data-scene="3">④ D: Disputa</button>
+        <button class="sim-step" data-sim="ellis" data-scene="4">⑤ E: Efecto</button>
+      </div>
+
+      <div class="sim-stage" id="simStageEllis">
+        <!-- Escena 0 -->
+        <div class="sim-scene active" data-scene="0">
+          <div class="abc-flow">
+            <div class="abc-box highlight">
+              <span class="abc-letter">A</span>
+              <span class="abc-label">Activating Event</span>
+              <span class="abc-content">Un atleta termina tercero en una carrera regional.</span>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>A — Acontecimiento activador:</strong> Es la situación que ocurre. En sí misma, no determina la
+            reacción emocional. Es el punto de partida del modelo.
+          </div>
+        </div>
+
+        <!-- Escena 1 -->
+        <div class="sim-scene" data-scene="1">
+          <div class="abc-flow">
+            <div class="abc-box">
+              <span class="abc-letter">A</span>
+              <span class="abc-label">Acontecimiento</span>
+              <span class="abc-content">Tercer lugar</span>
+            </div>
+            <span class="abc-arrow">→</span>
+            <div class="abc-box highlight">
+              <span class="abc-letter">B</span>
+              <span class="abc-label">Belief</span>
+              <span class="abc-content">"Debo ser siempre el mejor. Quedar tercero es un fracaso terrible."</span>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>B — Creencia:</strong> Aquí está el núcleo de la teoría de Ellis. La creencia irracional es rígida,
+            absolutista y exigente: "debo", "tengo que", "es terrible". No es un simple pensamiento negativo; es una
+            exigencia sobre cómo <em>debería</em> ser el mundo.
+          </div>
+        </div>
+
+        <!-- Escena 2 -->
+        <div class="sim-scene" data-scene="2">
+          <div class="abc-flow">
+            <div class="abc-box">
+              <span class="abc-letter">A</span>
+              <span class="abc-label">Acontecimiento</span>
+              <span class="abc-content">Tercer lugar</span>
+            </div>
+            <span class="abc-arrow">→</span>
+            <div class="abc-box">
+              <span class="abc-letter">B</span>
+              <span class="abc-label">Creencia</span>
+              <span class="abc-content">"Debo ser siempre el mejor."</span>
+            </div>
+            <span class="abc-arrow">→</span>
+            <div class="abc-box highlight">
+              <span class="abc-letter">C</span>
+              <span class="abc-label">Consequence</span>
+              <span class="abc-content">Frustración intensa, autocrítica excesiva, ganas de abandonar.</span>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>C — Consecuencia:</strong> La frustración intensa no viene del tercer lugar, sino de la creencia
+            "debo ser siempre el mejor". Si la creencia fuera "preferiría haber ganado, pero un tercer lugar es un
+            resultado aceptable", la emoción sería decepción funcional, no desesperación.
+          </div>
+        </div>
+
+        <!-- Escena 3 -->
+        <div class="sim-scene" data-scene="3">
+          <div style="text-align: center;">
+            <span style="font-size: 3.5rem;">⚖️</span>
+            <h4 style="color: var(--accent); margin-top: 0.5rem;">D — Disputa cognitiva</h4>
+            <div style="background: rgba(96, 165, 250, 0.08); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 8px; padding: 1rem; margin: 1rem auto; max-width: 500px; text-align: left;">
+              <p style="margin-bottom: 0.5rem;"><strong style="color: var(--info);">Preguntas de disputa:</strong></p>
+              <p style="font-size: 0.9rem; color: var(--text-soft); margin-bottom: 0.3rem;">• ¿Dónde está escrito que debo ser siempre el mejor?</p>
+              <p style="font-size: 0.9rem; color: var(--text-soft); margin-bottom: 0.3rem;">• ¿Qué evidencia tengo de que quedar tercero me convierte en un fracaso?</p>
+              <p style="font-size: 0.9rem; color: var(--text-soft);">• ¿Es lógico que una carrera se decida por un solo resultado?</p>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>D — Disputa:</strong> Ellis propone cuestionar la validez lógica y empírica de la creencia irracional.
+            No se trata de consolar, sino de confrontar racionalmente la exigencia absolutista.
+          </div>
+        </div>
+
+        <!-- Escena 4 -->
+        <div class="sim-scene" data-scene="4">
+          <div style="text-align: center;">
+            <span style="font-size: 3.5rem;">✅</span>
+            <h4 style="color: var(--accent); margin-top: 0.5rem;">E — Efecto</h4>
+            <div class="thought-bubble rational" style="max-width: 450px; margin: 1rem auto;">
+              "Me habría gustado ganar, pero un tercer lugar no me convierte en un fracaso.
+              Puedo analizar qué mejorar y seguir compitiendo."
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>E — Efecto:</strong> Al disputar la creencia irracional, aparece una creencia racional: flexible,
+            realista y consistente con la evidencia. La emoción resultante es decepción funcional, no autocrítica destructiva.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta cerrada 3 -->
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">En el modelo ABC de Ellis, ¿qué representa la letra B?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c3" value="a"> a) La consecuencia emocional</label>
+        <label class="q-option"><input type="radio" name="c3" value="b"> b) El acontecimiento activador</label>
+        <label class="q-option"><input type="radio" name="c3" value="c"> c) La creencia o interpretación</label>
+        <label class="q-option"><input type="radio" name="c3" value="d"> d) La disputa cognitiva</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(3, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb3"></div>
+    </div>
+
+    <!-- Pregunta abierta 3 -->
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Aplica el modelo ABC a una situación cotidiana. Escribe: A (acontecimiento), B (creencia irracional), C (consecuencia), D (pregunta de disputa), E (efecto o creencia racional).</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 3"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(3)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb3">
+        <strong>Respuesta modelo:</strong> A: Un amigo no me saluda al pasar. B: "Debe estar enojado conmigo. Seguro hice algo mal. ¡No puedo soportar que alguien esté molesto conmigo!". C: Ansiedad, culpa, ganas de evitar a esa persona. D: "¿Qué evidencia tengo de que está enojado? ¿No podría estar distraído? ¿Es realmente insoportable que alguien esté molesto conmigo?". E: "No sé por qué no me saludó. Puede tener mil razones. Si hay un problema, ya lo hablaré. Puedo tolerar que alguien esté molesto."
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. EJEMPLOS ANIMADOS -->
+  <section id="ejemplos" class="reveal">
+    <h2>6. Ejemplos animados y aplicaciones</h2>
+
+    <h3>Ejemplo 1: Caso prototípico (Beck)</h3>
+    <div class="card">
+      <p><strong>Contexto:</strong> Estudiante universitario que obtiene 2.5/5.0 en un examen.</p>
+      <p><strong>Pensamiento automático:</strong> "Soy incapaz para esta carrera."</p>
+      <p><strong>Análisis:</strong> La emoción surge de la interpretación sobre la nota, no de la nota misma. Distorsiones: sobregeneralización y catastrofización.</p>
+    </div>
+
+    <h3>Ejemplo 2: Deporte competitivo (Ellis)</h3>
+    <div class="card">
+      <p><strong>Contexto:</strong> Un atleta termina tercero en una carrera regional.</p>
+      <p><strong>Creencia irracional:</strong> "Debo ser siempre el mejor."</p>
+      <p><strong>Análisis:</strong> La exigencia absoluta favorece frustración intensa y autocrítica excesiva. La disputa permitiría una creencia racional: "Prefiero ganar, pero no es obligatorio".</p>
+    </div>
+
+    <h3>Ejemplo 3: Ejemplo límite o ambiguo</h3>
+    <div class="callout info">
+      <strong>Contexto:</strong> Trabajador despedido por reducción de personal. Experimenta tristeza durante varias semanas.<br><br>
+      <strong>Análisis:</strong> La tristeza puede ser una respuesta adaptativa ante una pérdida real. No toda emoción
+      negativa indica distorsiones cognitivas o creencias irracionales. Tanto Beck como Ellis reconocieron que
+      emociones como tristeza, preocupación o decepción pueden ser normales.
+    </div>
+
+    <h3>Ejemplo 4: Contraejemplo</h3>
+    <div class="callout info">
+      <strong>Contexto:</strong> Paciente con hipoglucemia severa. Presenta irritabilidad, ansiedad y confusión.<br><br>
+      <strong>Análisis:</strong> Lo que parece ser un problema cognitivo no lo es. La causa principal es fisiológica.
+      Las teorías de Beck y Ellis se centran en procesos cognitivos, no en alteraciones metabólicas.
+    </div>
+
+    <h3>Ejemplo 5: Aplicación conjunta de Beck y Ellis</h3>
+    <div class="card">
+      <p><strong>Contexto:</strong> Profesional en una entrevista laboral. No es seleccionado.</p>
+      <p><strong>Interpretación inicial:</strong> "Jamás conseguiré empleo."</p>
+      <p><strong>Análisis de Beck:</strong> Sobregeneralización y catastrofización.</p>
+      <p><strong>Análisis de Ellis:</strong> Creencia irracional: "Debía ser contratado obligatoriamente."</p>
+      <p><strong>Reformulación:</strong> "No fui seleccionado en esta ocasión. Puedo buscar otras oportunidades y aprender de la experiencia."</p>
+    </div>
+
+    <!-- Pregunta cerrada 4 -->
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de los siguientes es un malentendido frecuente sobre las terapias cognitivas?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c4" value="a"> a) Las interpretaciones influyen en las emociones.</label>
+        <label class="q-option"><input type="radio" name="c4" value="b"> b) La terapia cognitiva enseña a pensar positivamente.</label>
+        <label class="q-option"><input type="radio" name="c4" value="c"> c) Las creencias rígidas pueden generar malestar.</label>
+        <label class="q-option"><input type="radio" name="c4" value="d"> d) Beck y Ellis son autores de las terapias cognitivas.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(4, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb4"></div>
+    </div>
+
+    <!-- Pregunta abierta 4 -->
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">¿Por qué se dice que la terapia cognitiva NO es lo mismo que "pensamiento positivo"? Explica con un ejemplo basado en Beck o Ellis.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 4"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(4)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb4">
+        <strong>Respuesta modelo:</strong> Porque el objetivo no es sustituir un pensamiento negativo por uno positivo, sino por uno más preciso y ajustado a la evidencia. Ejemplo: si saqué 2.5 en un examen, el pensamiento positivo sería "¡Soy genial, seguro aprobaré todo!" (irreal). La reestructuración cognitiva sería: "Saqué 2.5. Es una nota baja, pero puedo revisar qué falló y prepararme mejor". Es un pensamiento realista, no optimista ciego. Beck insistía en desarrollar interpretaciones más precisas, no en eliminar toda emoción negativa.
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. DEBATES Y MALENTENDIDOS -->
+  <section id="debates" class="reveal">
+    <h2>7. Debates, límites y malentendidos</h2>
+
+    <h3>Críticas principales</h3>
+    <div class="accordion" id="acordeonCriticas">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Crítica 1: énfasis excesivo en la cognición <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Algunos autores sostienen que las emociones, la historia interpersonal, la cultura y factores biológicos pueden tener un peso que no siempre queda suficientemente representado en los modelos cognitivos clásicos.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Crítica 2: diferencias entre Beck y Ellis <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Aunque suelen agruparse dentro de las terapias cognitivas, no son teorías idénticas. Beck enfatizó distorsiones cognitivas, procesamiento de información y esquemas. Ellis enfatizó creencias irracionales, filosofía personal y exigencias absolutistas.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Crítica 3: universalidad de las creencias racionales <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Algunos investigadores han discutido si los criterios de racionalidad son igualmente válidos en todos los contextos culturales.</p></div>
+      </div>
+    </div>
+
+    <h3>Malentendidos frecuentes</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Malentendido 1">
+        <div class="flip-inner">
+          <div class="flip-front">"Las emociones negativas son siempre patológicas"</div>
+          <div class="flip-back"><strong>Incorrecto.</strong> Tanto Beck como Ellis reconocieron que emociones como tristeza, preocupación o decepción pueden ser respuestas normales ante situaciones adversas.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Malentendido 2">
+        <div class="flip-inner">
+          <div class="flip-front">"La terapia cognitiva enseña a pensar positivamente"</div>
+          <div class="flip-back"><strong>Incorrecto.</strong> El objetivo es desarrollar interpretaciones razonables y respaldadas por evidencia, no optimismo ciego.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Malentendido 3">
+        <div class="flip-inner">
+          <div class="flip-front">"Las personas pueden controlar completamente sus emociones"</div>
+          <div class="flip-back"><strong>Incorrecto.</strong> Las teorías cognitivas sostienen que las cogniciones influyen en las emociones, pero no afirman un control absoluto sobre ellas.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta cerrada 5 -->
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estas afirmaciones es correcta según Beck y Ellis?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c5" value="a"> a) Toda emoción negativa es patológica.</label>
+        <label class="q-option"><input type="radio" name="c5" value="b"> b) La terapia cognitiva busca eliminar todas las emociones negativas.</label>
+        <label class="q-option"><input type="radio" name="c5" value="c"> c) Las emociones negativas pueden ser respuestas normales ante situaciones adversas.</label>
+        <label class="q-option"><input type="radio" name="c5" value="d"> d) El objetivo es reemplazar todo pensamiento negativo por uno positivo.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(5, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb5"></div>
+    </div>
+
+    <!-- Pregunta abierta 5 -->
+    <div class="question-block" data-open="5">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">¿Qué crítica le harías a las teorías de Beck y Ellis? ¿Crees que subestiman algún factor (emocional, cultural, biológico)? Justifica.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 5"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(5)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb5">
+        <strong>Respuesta modelo:</strong> Una crítica posible es que las teorías cognitivas clásicas subestiman el peso de factores biológicos y contextuales. Por ejemplo, en el caso de la hipoglucemia, el malestar es fisiológico y ninguna reestructuración cognitiva lo resolvería. También se ha señalado que los criterios de racionalidad pueden variar culturalmente. Sin embargo, Beck y Ellis nunca negaron los factores biológicos; simplemente se centraron en el nivel cognitivo. La crítica es más bien sobre el énfasis, no sobre la negación.
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. SÍNTESIS -->
+  <section id="sintesis" class="reveal">
+    <h2>8. Síntesis</h2>
+    <ol>
+      <li>Aaron Beck desarrolló la Terapia Cognitiva para explicar cómo las interpretaciones influyen en las emociones y la conducta.</li>
+      <li>Albert Ellis desarrolló la Terapia Racional-Emotiva Conductual para explicar el papel de las creencias irracionales en el malestar psicológico.</li>
+      <li>Beck enfatizó los pensamientos automáticos, las distorsiones cognitivas y los esquemas cognitivos.</li>
+      <li>Ellis enfatizó las creencias irracionales y el modelo ABC.</li>
+      <li>Ambos autores sostuvieron que la evaluación cognitiva de los acontecimientos influye significativamente en la respuesta emocional.</li>
+      <li>Las dos teorías constituyen bases fundamentales de las terapias cognitivo-conductuales contemporáneas.</li>
+      <li>Ninguna de las dos teorías propone eliminar todas las emociones negativas ni sustituirlas por optimismo permanente.</li>
+    </ol>
+    <div class="callout">
+      <strong>Para llevarte:</strong> La terapia cognitiva no es "pensar bonito". Es aprender a detectar sesgos y
+      exigencias irracionales para responder de forma más adaptativa. Beck y Ellis coinciden en que el pensamiento
+      media entre el acontecimiento y la emoción, pero difieren en el nivel de análisis y el estilo terapéutico.
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias (APA 7)</h2>
+    <h3>Obras fundacionales</h3>
+    <ul class="ref-list">
+      <li>Beck, A. T. (1976). <em>Cognitive therapy and the emotional disorders</em>. International Universities Press.</li>
+      <li>Beck, A. T., Rush, A. J., Shaw, B. F., &amp; Emery, G. (1979). <em>Cognitive therapy of depression</em>. Guilford Press.</li>
+      <li>Ellis, A. (1962). <em>Reason and emotion in psychotherapy</em>. Lyle Stuart.</li>
+      <li>Ellis, A. (1994). <em>Reason and emotion in psychotherapy</em> (Rev. ed.). Birch Lane Press.</li>
+    </ul>
+    <h3>Obras de síntesis y desarrollo posterior</h3>
+    <ul class="ref-list">
+      <li>Beck, J. S. (2020). <em>Cognitive behavior therapy: Basics and beyond</em> (3.ª ed.). Guilford Press.</li>
+      <li>Dryden, W. (2019). <em>Rational emotive behaviour therapy: Distinctive features</em> (2.ª ed.). Routledge.</li>
+      <li>David, D., Lynn, S. J., &amp; Ellis, A. (2010). <em>Rational and irrational beliefs: Research, theory, and clinical practice</em>. Oxford University Press.</li>
+      <li>Dobson, K. S., &amp; Dozois, D. J. A. (Eds.). (2021). <em>Handbook of cognitive-behavioral therapies</em> (4.ª ed.). Guilford Press.</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="6">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la idea central de la Terapia Cognitiva de Beck?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) Los acontecimientos determinan directamente las emociones.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) La interpretación cognitiva de los acontecimientos determina la reacción emocional.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) Las emociones negativas siempre son patológicas.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) El pensamiento positivo es el objetivo terapéutico.</label>
+      </div>
+      <div class="feedback-box" id="qFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="7">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">En el modelo ABC de Ellis, ¿qué representa la letra B?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) La consecuencia emocional</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) El acontecimiento activador</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) La creencia o interpretación</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) La disputa cognitiva</label>
+      </div>
+      <div class="feedback-box" id="qFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="8">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">¿Qué concepto es más característico de Ellis que de Beck?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) Esquema cognitivo</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) Pensamiento automático</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) Creencia irracional</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) Distorsión cognitiva</label>
+      </div>
+      <div class="feedback-box" id="qFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="9">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">¿Cuál de estos es un malentendido frecuente sobre las terapias cognitivas?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Las interpretaciones influyen en las emociones.</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) La terapia cognitiva enseña a pensar positivamente.</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Las creencias rígidas pueden generar malestar.</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) Beck y Ellis son autores de las terapias cognitivas.</label>
+      </div>
+      <div class="feedback-box" id="qFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="10">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Cuál de estas afirmaciones es correcta según Beck y Ellis?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) Toda emoción negativa es patológica.</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) La terapia cognitiva busca eliminar todas las emociones negativas.</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) Las emociones negativas pueden ser respuestas normales ante situaciones adversas.</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) El objetivo es reemplazar todo pensamiento negativo por uno positivo.</label>
+      </div>
+      <div class="feedback-box" id="qFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="6">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">Explica con tus palabras la diferencia entre la "distorsión cognitiva" de Beck y la "creencia irracional" de Ellis. Usa un ejemplo para cada una.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 6"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(6)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb6">
+        <strong>Respuesta modelo:</strong> La distorsión cognitiva es un error puntual en el procesamiento de la información (por ejemplo, "si fallé una vez, fallaré siempre" = sobregeneralización). La creencia irracional es una exigencia absoluta y rígida que subyace a muchos pensamientos (por ejemplo, "debo ser perfecto en todo"). La distorsión es el síntoma cognitivo; la creencia irracional es la filosofía de fondo. Beck trabaja más con las distorsiones y esquemas; Ellis, con las exigencias absolutistas.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="7">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Aplica el modelo ABC de Ellis a una situación que hayas vivido. Identifica A, B, C, D y E.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 7"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(7)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb7">
+        <strong>Respuesta modelo:</strong> A: Recibí una crítica en el trabajo. B: "No deberían criticarme. Si me critican, es que soy incompetente. ¡Es terrible!". C: Ansiedad, rabia, ganas de renunciar. D: "¿Por qué no deberían criticarme? ¿La crítica es necesariamente cierta? ¿Es realmente terrible que alguien señale un error?". E: "Puedo recibir una crítica sin que ello destruya mi valor. Si es justa, puedo aprender; si no, puedo dejarla pasar". La emoción cambia a molestia funcional o simple incomodidad.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="8">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué te parece más valioso de cada autor y qué te genera dudas? Justifica con al menos un argumento visto en el artefacto.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 8"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(8)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb8">
+        <strong>Respuesta modelo:</strong> De Beck valoro la claridad del concepto de pensamiento automático y la utilidad de identificar distorsiones concretas. De Ellis valoro el modelo ABC, que es muy didáctico y muestra el papel de las exigencias absolutistas. Me genera dudas la crítica sobre el énfasis excesivo en la cognición: hay casos (como la hipoglucemia) donde lo fisiológico es determinante y ninguna reestructuración cognitiva bastaría. También me pregunto si los criterios de racionalidad son universales o culturalmente situados. En conjunto, creo que ambas teorías son herramientas poderosas, pero no explican todo el malestar humano.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Aaron Beck y Albert Ellis: fundamentos conceptuales</strong> · Artefacto educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============ BARRA DE PROGRESO ============ */
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  /* ============ SCROLL REVEAL ============ */
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============ ACORDEÓN ============ */
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isActive = item.classList.contains('active');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.accordion-item').forEach(sib => {
+        sib.classList.remove('active');
+        const h = sib.querySelector('.accordion-header');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ============ FLIP CARDS ============ */
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  /* ============ SIMULACIONES ============ */
+  document.querySelectorAll('.sim-step').forEach(step => {
+    step.addEventListener('click', function() {
+      const sim = this.dataset.sim;
+      const sceneIndex = this.dataset.scene;
+      // Activar botón
+      document.querySelectorAll(`.sim-step[data-sim="${sim}"]`).forEach(s => s.classList.remove('active'));
+      this.classList.add('active');
+      // Activar escena
+      const stage = sim === 'beck' ? document.getElementById('simStageBeck') : document.getElementById('simStageEllis');
+      stage.querySelectorAll('.sim-scene').forEach(scene => {
+        scene.classList.remove('active');
+        if (scene.dataset.scene === sceneIndex) {
+          void scene.offsetWidth;
+          scene.classList.add('active');
+        }
+      });
+    });
+  });
+
+  /* ============ PREGUNTAS CERRADAS ============ */
+  const closedAnswers = {
+    1: { correct: 'b', fbCorrect: '¡Correcto! Beck sostiene que la interpretación cognitiva media entre el acontecimiento y la emoción.', fbIncorrect: 'Incorrecto. La respuesta correcta es la b. Beck no dice que los acontecimientos determinen directamente las emociones.' },
+    2: { correct: 'c', fbCorrect: '¡Bien! La creencia irracional es el concepto más característico de Ellis.', fbIncorrect: 'Incorrecto. La creencia irracional es de Ellis; esquema, pensamiento automático y distorsión son de Beck.' },
+    3: { correct: 'c', fbCorrect: 'Exacto. En el modelo ABC, B = Belief (creencia o interpretación).', fbIncorrect: 'Incorrecto. B = Belief (creencia). A = Acontecimiento, C = Consecuencia, D = Disputa.' },
+    4: { correct: 'b', fbCorrect: '¡Correcto! La terapia cognitiva no enseña a pensar positivamente, sino a desarrollar interpretaciones precisas.', fbIncorrect: 'Incorrecto. El malentendido es que la terapia cognitiva enseña a pensar positivamente.' },
+    5: { correct: 'c', fbCorrect: 'Muy bien. Beck y Ellis reconocieron que las emociones negativas pueden ser respuestas normales.', fbIncorrect: 'Incorrecto. La opción correcta es la c: las emociones negativas pueden ser normales ante situaciones adversas.' },
+    6: { correct: 'b', fbCorrect: '¡Correcto! Beck sostiene que la interpretación cognitiva media entre el acontecimiento y la emoción.', fbIncorrect: 'Incorrecto. La respuesta correcta es la b.' },
+    7: { correct: 'c', fbCorrect: 'Exacto. En el modelo ABC, B = Belief (creencia o interpretación).', fbIncorrect: 'Incorrecto. B = Belief (creencia).' },
+    8: { correct: 'c', fbCorrect: '¡Bien! La creencia irracional es el concepto más característico de Ellis.', fbIncorrect: 'Incorrecto. La creencia irracional es de Ellis.' },
+    9: { correct: 'b', fbCorrect: '¡Correcto! La terapia cognitiva no enseña a pensar positivamente.', fbIncorrect: 'Incorrecto. El malentendido es que enseña a pensar positivamente.' },
+    10: { correct: 'c', fbCorrect: 'Muy bien. Las emociones negativas pueden ser respuestas normales.', fbIncorrect: 'Incorrecto. La opción correcta es la c.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  /* ============ PREGUNTAS ABIERTAS ============ */
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  /* ============ CALIFICAR CERRADAS (autoevaluación final) ============ */
+  const finalQuestions = [
+    { name: 'q1', correct: 'b', id: 6 },
+    { name: 'q2', correct: 'c', id: 7 },
+    { name: 'q3', correct: 'c', id: 8 },
+    { name: 'q4', correct: 'b', id: 9 },
+    { name: 'q5', correct: 'c', id: 10 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`qFb${q.id - 5}`);
+      const options = block.querySelectorAll('.q-option');
+
+      options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Dominas los fundamentos de Beck y Ellis. Ahora te invitamos a profundizar en las preguntas abiertas.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles. Las preguntas abiertas te ayudarán a consolidar.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las secciones 2 a 6 y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+    // Reiniciar simulaciones
+    document.querySelectorAll('.sim-step').forEach((s, i) => {
+      s.classList.toggle('active', s.dataset.scene === '0');
+    });
+    document.querySelectorAll('.sim-scene').forEach(s => {
+      s.classList.toggle('active', s.dataset.scene === '0');
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

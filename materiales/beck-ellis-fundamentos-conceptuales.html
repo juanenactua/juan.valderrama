@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaron Beck y Albert Ellis: fundamentos conceptuales — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Aaron Beck y Albert Ellis: fundamentos conceptuales">
+<meta name="jc-descripcion" content="Presentación interactiva sobre las bases conceptuales de Aaron Beck y Albert Ellis, sus conceptos centrales, diferencias, modelo ABC, ejemplos, debates, limitaciones y malentendidos frecuentes.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Aaron Beck, Albert Ellis, Terapias cognitivas, Terapia cognitiva, REBT, TREC, Pensamientos automáticos, Esquemas cognitivos, Distorsiones cognitivas, Creencias irracionales, Modelo ABC, Psicología clínica">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root {
+    --azul-oscuro: #0B2545;
+    --azul-medio: #13315C;
+    --azul-acento: #13538A;
+    --dorado: #E7C873;
+    --gris-calido: #F5F3EF;
+    --blanco: #FFFFFF;
+    --texto: #1A1A2E;
+    --texto-suave: #3D3D4E;
+    --sombra: 0 4px 20px rgba(11, 37, 69, 0.08);
+    --radio: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+  }
+
+  body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ============================================================
+     SIDEBAR
+     ============================================================ */
+  #sidebar {
+    width: 290px;
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    transition: width 0.35s ease;
+  }
+
+  #sidebar.colapsada { width: 0; overflow: hidden; }
+
+  #sidebar-header {
+    padding: 26px 22px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  #sidebar-header h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--dorado);
+    margin-bottom: 5px;
+  }
+
+  #sidebar-header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  #sidebar nav { padding: 14px 0; }
+
+  #sidebar nav a {
+    display: block;
+    padding: 11px 22px;
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.4;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+
+  #sidebar nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+  #sidebar nav a.activa {
+    background: rgba(231, 200, 115, 0.14);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+    font-weight: 600;
+  }
+
+  #sidebar nav a .num {
+    display: inline-block;
+    width: 24px;
+    font-size: 13px;
+    opacity: 0.55;
+  }
+
+  #toggle-sidebar {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+
+  #toggle-sidebar:hover { opacity: 1; }
+
+  /* ============================================================
+     LAYOUT PRINCIPAL
+     ============================================================ */
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--blanco);
+  }
+
+  #slides-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ============================================================
+     DIAPOSITIVAS
+     ============================================================ */
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 55px 75px 70px;
+    overflow-y: auto;
+    background: var(--blanco);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    display: block;
+  }
+
+  .slide.activa {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+  }
+
+  .slide-inner {
+    max-width: 1150px;
+    margin: 0 auto;
+  }
+
+  .slide.portada {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 100%);
+    color: #fff;
+    padding: 40px 60px;
+  }
+
+  .slide.portada .slide-inner { max-width: 1000px; }
+
+  .slide.portada h1 {
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    color: #fff;
+  }
+
+  .slide.portada .subtitulo {
+    font-size: 26px;
+    color: var(--dorado);
+    margin-bottom: 46px;
+  }
+
+  .slide.portada .autor {
+    font-size: 24px;
+    color: rgba(255,255,255,0.88);
+    border-top: 1px solid rgba(255,255,255,0.22);
+    padding-top: 24px;
+    display: inline-block;
+  }
+
+  /* ============================================================
+     TIPOGRAFÍA
+     ============================================================ */
+  .slide h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+    margin-bottom: 26px;
+  }
+
+  .slide h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--azul-medio);
+    margin-bottom: 14px;
+  }
+
+  .slide p {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--texto-suave);
+    margin-bottom: 18px;
+  }
+
+  .slide ul { list-style: none; }
+
+  .slide ul li {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--texto-suave);
+    margin-bottom: 16px;
+    padding-left: 36px;
+    position: relative;
+  }
+
+  .slide ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--azul-acento);
+  }
+
+  .slide ul li.destacado::before { background: var(--dorado); }
+
+  /* ============================================================
+     BLOQUES
+     ============================================================ */
+  .bloque {
+    background: var(--gris-calido);
+    border-left: 6px solid var(--azul-acento);
+    padding: 24px 28px;
+    border-radius: 0 var(--radio) var(--radio) 0;
+    margin: 22px 0;
+  }
+
+  .bloque.dorado {
+    border-left-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  .bloque.verde {
+    border-left-color: #2E7D4F;
+    background: #EBF7EE;
+  }
+
+  .bloque.rojo {
+    border-left-color: #C0392B;
+    background: #FDF0F0;
+  }
+
+  .bloque p { margin-bottom: 0; font-size: 24px; }
+
+  .bloque .etiqueta {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--azul-acento);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .bloque.dorado .etiqueta { color: #B8942E; }
+  .bloque.verde .etiqueta { color: #2E7D4F; }
+  .bloque.rojo .etiqueta { color: #A04040; }
+
+  /* ============================================================
+     TARJETAS
+     ============================================================ */
+  .tarjetas {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .tarjeta {
+    flex: 1;
+    min-width: 220px;
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-radius: var(--radio);
+    padding: 22px 24px;
+  }
+
+  .tarjeta h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 10px;
+  }
+
+  .tarjeta p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .tarjeta.destacada {
+    border-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  /* ============================================================
+     TABLA
+     ============================================================ */
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 21px;
+  }
+
+  .tabla th {
+    background: var(--azul-oscuro);
+    color: #fff;
+    padding: 15px 18px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 21px;
+  }
+
+  .tabla td {
+    padding: 15px 18px;
+    border-bottom: 1px solid #E0E4EC;
+    color: var(--texto-suave);
+    line-height: 1.5;
+    font-size: 20px;
+  }
+
+  .tabla tr:nth-child(even) td { background: #FAFBFD; }
+  .tabla tr.highlight td {
+    background: #FDF9EE;
+    border-left: 4px solid var(--dorado);
+  }
+
+  /* Animación de filas */
+  .tabla tbody tr.fila-anim {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+
+  .tabla tbody tr.fila-anim.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============================================================
+     COMPARATIVA
+     ============================================================ */
+  .comparativa {
+    display: flex;
+    gap: 24px;
+    margin: 22px 0;
+    flex-wrap: wrap;
+  }
+
+  .comparativa .lado {
+    flex: 1;
+    min-width: 280px;
+    padding: 24px;
+    border-radius: var(--radio);
+    border: 2px solid #E0E4EC;
+  }
+
+  .comparativa .lado h4 {
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--dorado);
+  }
+
+  .comparativa .lado ul li { font-size: 20px; margin-bottom: 10px; }
+
+  /* ============================================================
+     GRAFO
+     ============================================================ */
+  .grafo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 22px 0;
+  }
+
+  .nodo-grafo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 22px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .nodo-grafo.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nodo-grafo .num-nodo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--azul-acento);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .nodo-grafo .texto-nodo h4 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 3px;
+  }
+
+  .nodo-grafo .texto-nodo p {
+    font-size: 17px;
+    margin-bottom: 0;
+    line-height: 1.45;
+  }
+
+  .flecha-grafo {
+    text-align: center;
+    font-size: 20px;
+    color: var(--dorado);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .flecha-grafo.visible { opacity: 1; }
+
+  /* ============================================================
+     PIRÁMIDE DE BECK
+     ============================================================ */
+  .piramide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0;
+  }
+
+  .nivel-piramide {
+    padding: 16px 24px;
+    border-radius: var(--radio);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.6s ease;
+    border: 2px solid transparent;
+  }
+
+  .nivel-piramide.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nivel-piramide h5 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 4px;
+  }
+
+  .nivel-piramide p {
+    font-size: 17px;
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+
+  .nivel-1 { background: #EBF0F7; border-color: var(--azul-acento); width: 65%; }
+  .nivel-2 { background: #FDF9EE; border-color: var(--dorado); width: 80%; }
+  .nivel-3 { background: #EBF7EE; border-color: #2E7D4F; width: 92%; }
+  .nivel-4 { background: #FDF0F0; border-color: #C0392B; width: 100%; }
+
+  /* ============================================================
+     MODELO ABC
+     ============================================================ */
+  .abc-flujo {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+
+  .abc-paso {
+    flex: 1;
+    min-width: 200px;
+    padding: 22px 24px;
+    border-radius: var(--radio);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease;
+    position: relative;
+  }
+
+  .abc-paso.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .abc-paso.a {
+    background: #EBF0F7;
+    border: 2px solid var(--azul-acento);
+  }
+
+  .abc-paso.b {
+    background: #FDF9EE;
+    border: 2px solid var(--dorado);
+  }
+
+  .abc-paso.c {
+    background: #FDF0F0;
+    border: 2px solid #C0392B;
+  }
+
+  .abc-paso .letra {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .abc-paso.a .letra { color: var(--azul-acento); }
+  .abc-paso.b .letra { color: #B8942E; }
+  .abc-paso.c .letra { color: #C0392B; }
+
+  .abc-paso h4 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 8px;
+  }
+
+  .abc-paso p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .abc-flecha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--dorado);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .abc-flecha.visible { opacity: 1; }
+
+  /* ============================================================
+     EJEMPLO APLICADO (entrevista)
+     ============================================================ */
+  .analisis-doble {
+    display: flex;
+    gap: 24px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .analisis-bloque {
+    flex: 1;
+    min-width: 300px;
+    padding: 24px;
+    border-radius: var(--radio);
+    border: 2px solid #E0E4EC;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.6s ease;
+  }
+
+  .analisis-bloque.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .analisis-bloque.beck {
+    border-left: 6px solid var(--azul-acento);
+  }
+
+  .analisis-bloque.ellis {
+    border-left: 6px solid var(--dorado);
+  }
+
+  .analisis-bloque h4 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 14px;
+  }
+
+  .analisis-bloque ul li {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* ============================================================
+     MALENTENDIDOS
+     ============================================================ */
+  .grid-malentendidos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .tarjeta-voltear {
+    perspective: 1000px;
+    cursor: pointer;
+    height: 180px;
+  }
+
+  .tarjeta-voltear .interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .tarjeta-voltear.volteada .interior { transform: rotateY(180deg); }
+
+  .tarjeta-voltear .frente,
+  .tarjeta-voltear .reverso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radio);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tarjeta-voltear .frente {
+    background: #FDF0F0;
+    border: 2px solid #E8B4B4;
+  }
+
+  .tarjeta-voltear .reverso {
+    background: #EBF7EE;
+    border: 2px solid #A8D5B5;
+    transform: rotateY(180deg);
+  }
+
+  .tarjeta-voltear h5 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .tarjeta-voltear .frente h5 { color: #A04040; }
+  .tarjeta-voltear .reverso h5 { color: #2E7D4F; }
+
+  .tarjeta-voltear p { font-size: 17px; line-height: 1.45; margin-bottom: 0; }
+  .tarjeta-voltear .frente p { color: #6B4040; }
+  .tarjeta-voltear .reverso p { color: #3A5A45; }
+
+  /* ============================================================
+     DEBATE
+     ============================================================ */
+  .diagrama-debate {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 22px 0;
+  }
+
+  .caja-debate {
+    padding: 20px 24px;
+    border-radius: var(--radio);
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .caja-debate.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .caja-debate.critica {
+    background: #FDF0F0;
+    border-left: 5px solid #C0392B;
+  }
+
+  .caja-debate.strong {
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #A04040;
+  }
+
+  /* ============================================================
+     RESULTADOS DE APRENDIZAJE
+     ============================================================ */
+  .resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .resultado {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 22px 26px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-left: 6px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .resultado.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .resultado .num-resultado {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .resultado .texto-resultado h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 6px;
+  }
+
+  .resultado .texto-resultado p {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  /* ============================================================
+     CONCLUSIONES
+     ============================================================ */
+  .conclusiones {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .conclusion {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-radius: var(--radio);
+    background: #F8FAFD;
+    border-left: 5px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+
+  .conclusion.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .conclusion .icono-conclusion {
+    font-size: 26px;
+    flex-shrink: 0;
+    line-height: 1;
+    color: var(--dorado);
+  }
+
+  .conclusion p {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  .conclusion p strong { color: var(--azul-oscuro); }
+
+  /* ============================================================
+     ÍNDICE
+     ============================================================ */
+  .grid-indice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .item-indice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 1.5px solid #E0E4EC;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  .item-indice.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .item-indice:hover {
+    border-color: var(--azul-acento);
+    background: #F8FAFD;
+  }
+
+  .item-indice .num-indice {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .item-indice span {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+  }
+
+  /* ============================================================
+     REFERENCIAS
+     ============================================================ */
+  .refs p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--texto-suave);
+    margin-bottom: 12px;
+    padding-left: 28px;
+    text-indent: -28px;
+  }
+
+  .refs h3 {
+    font-size: 22px;
+    color: var(--azul-oscuro);
+    margin: 22px 0 12px;
+  }
+
+  /* ============================================================
+     NAVEGACIÓN INFERIOR
+     ============================================================ */
+  #nav-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    background: #fff;
+    border-top: 1px solid #EEF0F4;
+    flex-shrink: 0;
+  }
+
+  .btn-nav {
+    padding: 10px 22px;
+    border: 1.5px solid #D0D5DE;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--texto-suave);
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-nav:hover { opacity: 1; border-color: var(--azul-acento); color: var(--azul-oscuro); }
+  .btn-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+
+  #indicador-progreso {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--texto-suave);
+  }
+
+  #barra-progreso {
+    width: 140px;
+    height: 5px;
+    background: #EEF0F4;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  #barra-progreso .relleno {
+    height: 100%;
+    background: var(--azul-acento);
+    transition: width 0.4s ease;
+  }
+
+  /* ============================================================
+     BOTÓN DE ANIMACIÓN
+     ============================================================ */
+  .btn-animacion {
+    padding: 12px 26px;
+    border: none;
+    border-radius: 10px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 14px rgba(11, 37, 69, 0.25);
+    margin-top: 16px;
+  }
+
+  .btn-animacion:hover {
+    background: var(--azul-acento);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(19, 83, 138, 0.35);
+  }
+
+  .btn-animacion:disabled {
+    background: #D0D5DE;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-animacion.reiniciar {
+    background: #fff;
+    color: var(--azul-oscuro);
+    border: 2px solid var(--azul-oscuro);
+    box-shadow: none;
+  }
+
+  .btn-animacion.reiniciar:hover {
+    background: var(--gris-calido);
+  }
+
+  .controles-animacion {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hint-clic {
+    font-size: 16px;
+    color: var(--texto-suave);
+    font-style: italic;
+    opacity: 0.75;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 1200px) {
+    .slide { padding: 45px 45px 60px; }
+    .slide h2 { font-size: 36px; }
+    .slide p, .slide ul li { font-size: 22px; }
+    .slide.portada h1 { font-size: 46px; }
+  }
+
+  @media (max-width: 1024px) {
+    .slide { padding: 40px 35px 60px; }
+    .slide h2 { font-size: 32px; }
+    .slide p, .slide ul li { font-size: 21px; }
+    .slide.portada h1 { font-size: 38px; }
+    .grid-malentendidos { grid-template-columns: 1fr; }
+    .abc-flujo { flex-direction: column; }
+    .abc-flecha { transform: rotate(90deg); }
+  }
+
+  @media (max-width: 768px) {
+    #sidebar { position: fixed; height: 100%; z-index: 150; }
+    #sidebar:not(.colapsada) { width: 290px; }
+    .slide { padding: 28px 20px 60px; }
+    .slide h2 { font-size: 24px; }
+    .slide p, .slide ul li { font-size: 18px; }
+    .slide.portada h1 { font-size: 30px; }
+    .tarjetas, .comparativa, .analisis-doble { flex-direction: column; }
+    .grid-indice, .grid-malentendidos { grid-template-columns: 1fr; }
+  }
+
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-thumb { background: #D0D5DE; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h2>Beck y Ellis</h2>
+    <p>Fundamentos conceptuales</p>
+  </div>
+  <nav id="nav-secciones"></nav>
+</aside>
+
+<button id="toggle-sidebar" title="Mostrar/ocultar">☰</button>
+
+<div id="main">
+  <div id="slides-container">
+
+    <!-- 0 PORTADA -->
+    <section class="slide portada activa" data-seccion="portada">
+      <div class="slide-inner">
+        <h1>Aaron Beck<br>y Albert Ellis</h1>
+        <div class="subtitulo">Fundamentos conceptuales de sus teorías psicológicas</div>
+        <div class="autor">Juan Carlos Valderrama Cárdenas</div>
+      </div>
+    </section>
+
+    <!-- 1 RESULTADOS DE APRENDIZAJE -->
+    <section class="slide" data-seccion="resultados">
+      <div class="slide-inner">
+        <h2>Resultados de aprendizaje</h2>
+        <p>Al finalizar el recorrido, se espera que el estudiante sea capaz de:</p>
+        <div class="resultados" id="lista-resultados"></div>
+        <button class="btn-animacion" data-anim="resultados">Mostrar resultados ▶</button>
+      </div>
+    </section>
+
+    <!-- 2 ÍNDICE -->
+    <section class="slide" data-seccion="indice">
+      <div class="slide-inner">
+        <h2>Recorrido de la clase</h2>
+        <div class="grid-indice" id="grid-indice"></div>
+        <button class="btn-animacion" data-anim="indice">Mostrar índice ▶</button>
+      </div>
+    </section>
+
+    <!-- 3 DELIMITACIÓN: QUÉ ABARCA -->
+    <section class="slide" data-seccion="delimitacion">
+      <div class="slide-inner">
+        <h2>¿Qué abarca este tema?</h2>
+        <p>Las propuestas teóricas de Aaron T. Beck y Albert Ellis, dos autores fundamentales en el desarrollo de las terapias cognitivas contemporáneas.</p>
+        <div class="bloque">
+          <span class="etiqueta">Foco principal</span>
+          <p>Comprender cómo explican el origen de los problemas emocionales, qué papel atribuyen al pensamiento, cuáles son sus conceptos centrales y en qué coinciden y difieren.</p>
+        </div>
+        <h3 style="margin-top:24px;">Ámbitos de aplicación</h3>
+        <ul>
+          <li>Psicología clínica y psicoterapia.</li>
+          <li>Salud mental y psicología de la salud.</li>
+          <li>Intervención educativa.</li>
+          <li>Programas de prevención psicológica.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4 DELIMITACIÓN: QUÉ QUEDA FUERA -->
+    <section class="slide" data-seccion="delimitacion">
+      <div class="slide-inner">
+        <h2>¿Qué queda fuera de este abordaje?</h2>
+        <div class="bloque rojo">
+          <span class="etiqueta">No se aborda</span>
+          <p>Este recorrido se centra en los fundamentos conceptuales. No desarrolla procedimientos terapéuticos avanzados ni evaluación clínica especializada.</p>
+        </div>
+        <ul>
+          <li>Los desarrollos contemporáneos de tercera generación (ACT, DBT, MBCT).</li>
+          <li>La investigación neurocientífica reciente sobre cognición y emoción.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5 BECK: DEFINICIÓN -->
+    <section class="slide" data-seccion="beck">
+      <div class="slide-inner">
+        <h2>Aaron Beck: la Terapia Cognitiva</h2>
+        <p>Beck desarrolló la Terapia Cognitiva como un modelo que sostiene que las emociones y las conductas están influidas por la forma en que las personas <strong>interpretan los acontecimientos</strong>.</p>
+        <div class="bloque">
+          <span class="etiqueta">Formulación sistemática</span>
+          <p><em>Cognitive Therapy and the Emotional Disorders</em> (1976).</p>
+        </div>
+        <p>Los problemas emocionales se relacionan con <strong>patrones de pensamiento sesgados o distorsionados</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 6 BECK: IDEA CENTRAL -->
+    <section class="slide" data-seccion="beck">
+      <div class="slide-inner">
+        <h2>La idea central de Beck</h2>
+        <div class="bloque dorado">
+          <span class="etiqueta">Idea central</span>
+          <p>No son los acontecimientos por sí mismos los que determinan la reacción emocional, sino la <strong>interpretación cognitiva</strong> que realiza el individuo sobre esos acontecimientos.</p>
+        </div>
+        <p>Esta afirmación es el núcleo de toda la Terapia Cognitiva: entre el evento y la emoción media siempre una interpretación.</p>
+      </div>
+    </section>
+
+    <!-- 7 ELLIS: DEFINICIÓN -->
+    <section class="slide" data-seccion="ellis">
+      <div class="slide-inner">
+        <h2>Albert Ellis: la Terapia Racional-Emotiva</h2>
+        <p>Ellis desarrolló inicialmente la Terapia Racional-Emotiva, posteriormente denominada <strong>Terapia Racional-Emotiva Conductual (REBT)</strong>.</p>
+        <div class="bloque">
+          <span class="etiqueta">Formulación sistemática</span>
+          <p><em>Reason and Emotion in Psychotherapy</em> (1962).</p>
+        </div>
+        <p>Gran parte del malestar emocional surge de <strong>creencias irracionales</strong> mantenidas por las personas acerca de sí mismas, los demás y el mundo.</p>
+      </div>
+    </section>
+
+    <!-- 8 ELLIS: IDEA CENTRAL -->
+    <section class="slide" data-seccion="ellis">
+      <div class="slide-inner">
+        <h2>La idea central de Ellis</h2>
+        <div class="bloque dorado">
+          <span class="etiqueta">Idea central</span>
+          <p>Las consecuencias emocionales y conductuales dependen de las <strong>creencias</strong> que la persona mantiene sobre los acontecimientos, y no únicamente de los acontecimientos mismos.</p>
+        </div>
+        <p>Las creencias irracionales —rígidas, absolutistas, exigentes— son el blanco principal de la intervención.</p>
+      </div>
+    </section>
+
+    <!-- 9 TÉRMINOS CLAVE: GRAFO -->
+    <section class="slide" data-seccion="terminos">
+      <div class="slide-inner">
+        <h2>Términos clave y su encadenamiento</h2>
+        <div class="grafo" id="grafo-terminos"></div>
+        <button class="btn-animacion" data-anim="grafo">Mostrar términos ▶</button>
+      </div>
+    </section>
+
+    <!-- 10 TÉRMINOS CLAVE: DEFINICIONES -->
+    <section class="slide" data-seccion="terminos">
+      <div class="slide-inner">
+        <h2>Definiciones de los términos clave</h2>
+        <ul>
+          <li><strong>Cognición:</strong> proceso psicológico de percepción, interpretación, almacenamiento y utilización de información.</li>
+          <li><strong>Pensamiento automático:</strong> pensamiento rápido y espontáneo ante una situación. En Beck, unidad básica de análisis clínico.</li>
+          <li><strong>Esquema cognitivo:</strong> estructura relativamente estable que organiza la información y orienta las interpretaciones.</li>
+          <li><strong>Distorsión cognitiva:</strong> error sistemático en el procesamiento o interpretación de la información.</li>
+          <li><strong>Creencia irracional:</strong> en Ellis, creencia rígida, extrema y poco realista que favorece respuestas desadaptativas.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 11 DISTORSIONES COGNITIVAS -->
+    <section class="slide" data-seccion="terminos">
+      <div class="slide-inner">
+        <h2>Distorsiones cognitivas frecuentes</h2>
+        <p>Patrones sistemáticos de error en la interpretación de la información:</p>
+        <div class="tarjetas">
+          <div class="tarjeta">
+            <h4>Sobregeneralización</h4>
+            <p>Extraer una conclusión general de un solo caso.</p>
+          </div>
+          <div class="tarjeta">
+            <h4>Catastrofización</h4>
+            <p>Anticipar el peor resultado posible.</p>
+          </div>
+          <div class="tarjeta">
+            <h4>Pensamiento dicotómico</h4>
+            <p>Ver todo en términos de blanco o negro.</p>
+          </div>
+          <div class="tarjeta">
+            <h4>Personalización</h4>
+            <p>Atribuirse la causa de eventos externos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 DIFERENCIAS BECK/ELLIS — TABLA ANIMADA -->
+    <section class="slide" data-seccion="diferencias">
+      <div class="slide-inner">
+        <h2>Diferencias entre Beck y Ellis</h2>
+        <table class="tabla" id="tabla-diferencias">
+          <thead>
+            <tr>
+              <th>Aspecto</th>
+              <th>Beck</th>
+              <th>Ellis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fila-anim"><td><strong>Concepto principal</strong></td><td>Distorsiones cognitivas</td><td>Creencias irracionales</td></tr>
+            <tr class="fila-anim"><td><strong>Nivel de análisis</strong></td><td>Pensamientos específicos y esquemas</td><td>Filosofía personal y creencias generales</td></tr>
+            <tr class="fila-anim"><td><strong>Estilo terapéutico</strong></td><td>Exploración colaborativa</td><td>Confrontación racional</td></tr>
+            <tr class="fila-anim"><td><strong>Objetivo central</strong></td><td>Modificar interpretaciones sesgadas</td><td>Cuestionar exigencias irracionales</td></tr>
+          </tbody>
+        </table>
+        <button class="btn-animacion" data-anim="tabla-diferencias">Mostrar comparación ▶</button>
+      </div>
+    </section>
+
+    <!-- 13 CONCEPTOS QUE SE CONFUNDEN -->
+    <section class="slide" data-seccion="confusiones">
+      <div class="slide-inner">
+        <h2>Conceptos con los que suele confundirse</h2>
+        <p>Haz clic en cada tarjeta para ver la aclaración.</p>
+        <div class="grid-malentendidos">
+          <div class="tarjeta-voltear">
+            <div class="interior">
+              <div class="frente">
+                <h5>Terapia cognitiva</h5>
+                <p>¿Es lo mismo que «pensamiento positivo»?</p>
+              </div>
+              <div class="reverso">
+                <h5>No</h5>
+                <p>Beck no afirmó que las personas deban pensar positivamente. Su propuesta es desarrollar interpretaciones más precisas y ajustadas a la evidencia.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tarjeta-voltear">
+            <div class="interior">
+              <div class="frente">
+                <h5>REBT</h5>
+                <p>¿Es lo mismo que «control emocional»?</p>
+              </div>
+              <div class="reverso">
+                <h5>No</h5>
+                <p>Ellis no planteó eliminar las emociones negativas. Diferenció entre emociones negativas funcionales y disfuncionales.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tarjeta-voltear">
+            <div class="interior">
+              <div class="frente">
+                <h5>Cognición</h5>
+                <p>¿Es lo mismo que «inteligencia»?</p>
+              </div>
+              <div class="reverso">
+                <h5>No</h5>
+                <p>Las cogniciones son interpretaciones y pensamientos. La inteligencia es una capacidad psicológica distinta.</p>
+              </div>
+            </div>
+          </div>
+          <div class="tarjeta-voltear">
+            <div class="interior">
+              <div class="frente">
+                <h5>Emoción negativa</h5>
+                <p>¿Es siempre patológica?</p>
+              </div>
+              <div class="reverso">
+                <h5>No</h5>
+                <p>Tanto Beck como Ellis reconocieron que la tristeza, la preocupación o la decepción pueden ser respuestas normales ante situaciones adversas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 COMPONENTES DE BECK: PIRÁMIDE -->
+    <section class="slide" data-seccion="componentes-beck">
+      <div class="slide-inner">
+        <h2>Componentes de la teoría de Beck</h2>
+        <p>La arquitectura cognitiva se organiza en niveles de profundidad:</p>
+        <div class="piramide" id="piramide-beck">
+          <div class="nivel-piramide nivel-1" data-nivel="1">
+            <h5>Esquemas cognitivos</h5>
+            <p>Estructuras profundas que guían el procesamiento de la información.</p>
+          </div>
+          <div class="nivel-piramide nivel-2" data-nivel="2">
+            <h5>Creencias intermedias</h5>
+            <p>Reglas y supuestos que organizan la conducta.</p>
+          </div>
+          <div class="nivel-piramide nivel-3" data-nivel="3">
+            <h5>Distorsiones cognitivas</h5>
+            <p>Patrones sistemáticos de error en la interpretación.</p>
+          </div>
+          <div class="nivel-piramide nivel-4" data-nivel="4">
+            <h5>Pensamientos automáticos</h5>
+            <p>Interpretaciones inmediatas ante una situación.</p>
+          </div>
+        </div>
+        <button class="btn-animacion" data-anim="piramide">Construir pirámide ▶</button>
+      </div>
+    </section>
+
+    <!-- 15 BECK: EJEMPLOS DE CADA COMPONENTE -->
+    <section class="slide" data-seccion="componentes-beck">
+      <div class="slide-inner">
+        <h2>Ejemplos de los componentes de Beck</h2>
+        <div class="bloque">
+          <span class="etiqueta">Pensamiento automático</span>
+          <p>«Cometí un error en la exposición; todos pensarán que soy incompetente.»</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">Creencia intermedia</span>
+          <p>«Si no obtengo excelentes resultados, soy un fracaso.»</p>
+        </div>
+        <div class="bloque verde">
+          <span class="etiqueta">Esquema cognitivo</span>
+          <p>Un esquema de incompetencia puede llevar a interpretar cualquier crítica como prueba de incapacidad.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 ELLIS: MODELO ABC -->
+    <section class="slide" data-seccion="componentes-ellis">
+      <div class="slide-inner">
+        <h2>El modelo ABC de Ellis</h2>
+        <p>El modelo explica cómo se genera la respuesta emocional:</p>
+        <div class="abc-flujo" id="abc-flujo">
+          <div class="abc-paso a" data-paso="a">
+            <span class="letra">A</span>
+            <h4>Activating Event</h4>
+            <p>Acontecimiento activador: la situación que ocurre.</p>
+          </div>
+          <div class="abc-flecha" data-flecha="1">→</div>
+          <div class="abc-paso b" data-paso="b">
+            <span class="letra">B</span>
+            <h4>Belief</h4>
+            <p>Creencia: la interpretación o valoración de la situación.</p>
+          </div>
+          <div class="abc-flecha" data-flecha="2">→</div>
+          <div class="abc-paso c" data-paso="c">
+            <span class="letra">C</span>
+            <h4>Consequence</h4>
+            <p>Consecuencia: la respuesta emocional y conductual.</p>
+          </div>
+        </div>
+        <button class="btn-animacion" data-anim="abc">Construir modelo ABC ▶</button>
+      </div>
+    </section>
+
+    <!-- 17 ELLIS: CREENCIAS RACIONALES E IRRACIONALES -->
+    <section class="slide" data-seccion="componentes-ellis">
+      <div class="slide-inner">
+        <h2>Creencias racionales e irracionales</h2>
+        <div class="comparativa">
+          <div class="lado">
+            <h4>Creencias racionales</h4>
+            <ul>
+              <li>Flexibles.</li>
+              <li>Realistas.</li>
+              <li>Consistentes con la evidencia.</li>
+            </ul>
+          </div>
+          <div class="lado">
+            <h4>Creencias irracionales</h4>
+            <ul>
+              <li>Rígidas.</li>
+              <li>Absolutistas.</li>
+              <li>Exigentes.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bloque rojo">
+          <span class="etiqueta">Expresiones frecuentes de irracionalidad</span>
+          <p>«Debo…» · «Tengo que…» · «Es terrible…»</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 18 ELLIS: DISPUTA COGNITIVA -->
+    <section class="slide" data-seccion="componentes-ellis">
+      <div class="slide-inner">
+        <h2>La disputa cognitiva</h2>
+        <p>Proceso dirigido a cuestionar la <strong>validez lógica y empírica</strong> de las creencias irracionales.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">Preguntas típicas de la disputa</span>
+          <p>¿Qué evidencia respalda esta creencia? ¿Es lógicamente consistente? ¿Qué alternativas más flexibles existen?</p>
+        </div>
+        <p>El objetivo no es sustituir una creencia por otra igualmente rígida, sino desarrollar una <strong>filosofía personal más flexible y realista</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 19 EJEMPLO 1: PROTOTÍPICO -->
+    <section class="slide" data-seccion="ejemplos">
+      <div class="slide-inner">
+        <h2>Ejemplo prototípico: la calificación baja</h2>
+        <div class="bloque">
+          <span class="etiqueta">Contexto</span>
+          <p>Estudiante universitario que obtiene 2.5/5.0 en un examen.</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">Elemento ilustrado: pensamiento automático de Beck</span>
+          <p>«Soy incapaz para esta carrera.»</p>
+        </div>
+        <p>La emoción surge de la <strong>interpretación</strong> realizada sobre la nota, y no únicamente de la nota misma.</p>
+      </div>
+    </section>
+
+    <!-- 20 EJEMPLO 2: DEPORTE -->
+    <section class="slide" data-seccion="ejemplos">
+      <div class="slide-inner">
+        <h2>Ejemplo en otro contexto: el atleta</h2>
+        <div class="bloque">
+          <span class="etiqueta">Contexto</span>
+          <p>Un atleta termina tercero en una carrera regional.</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">Elemento ilustrado: creencia irracional de Ellis</span>
+          <p>«Debo ser siempre el mejor.»</p>
+        </div>
+        <p>La exigencia absoluta favorece <strong>frustración intensa y autocrítica excesiva</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 21 EJEMPLO 3: LÍMITE -->
+    <section class="slide" data-seccion="ejemplos">
+      <div class="slide-inner">
+        <h2>Ejemplo límite: la pérdida real</h2>
+        <div class="bloque">
+          <span class="etiqueta">Contexto</span>
+          <p>Trabajador despedido por reducción de personal. Experimenta tristeza durante varias semanas.</p>
+        </div>
+        <div class="bloque verde">
+          <span class="etiqueta">Elemento ilustrado: límite entre reacción normal y problema cognitivo</span>
+          <p>La tristeza puede ser una <strong>respuesta adaptativa</strong> ante una pérdida real.</p>
+        </div>
+        <p>No toda emoción negativa indica distorsiones cognitivas o creencias irracionales.</p>
+      </div>
+    </section>
+
+    <!-- 22 EJEMPLO 4: CONTRAEJEMPLO -->
+    <section class="slide" data-seccion="ejemplos">
+      <div class="slide-inner">
+        <h2>Contraejemplo: cuando la causa es fisiológica</h2>
+        <div class="bloque">
+          <span class="etiqueta">Contexto</span>
+          <p>Paciente con hipoglucemia severa. Presenta irritabilidad, ansiedad y confusión.</p>
+        </div>
+        <div class="bloque rojo">
+          <span class="etiqueta">Elemento ilustrado: lo que parece cognitivo pero no lo es</span>
+          <p>La causa principal es <strong>fisiológica</strong>. Las teorías de Beck y Ellis se centran en procesos cognitivos, no en alteraciones metabólicas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23 EJEMPLO 5: APLICADO — ANIMACIÓN DOBLE -->
+    <section class="slide" data-seccion="ejemplos">
+      <div class="slide-inner">
+        <h2>Ejemplo aplicado: la entrevista laboral</h2>
+        <div class="bloque">
+          <span class="etiqueta">Contexto</span>
+          <p>Profesional en una entrevista laboral. No es seleccionado. Interpretación inicial: «Jamás conseguiré empleo.»</p>
+        </div>
+        <div class="analisis-doble" id="analisis-doble">
+          <div class="analisis-bloque beck" data-analisis="beck">
+            <h4>Análisis desde Beck</h4>
+            <ul>
+              <li><strong>Sobregeneralización:</strong> de un rechazo a «jamás conseguiré empleo».</li>
+              <li><strong>Catastrofización:</strong> anticipar un futuro laboral catastrófico.</li>
+            </ul>
+          </div>
+          <div class="analisis-bloque ellis" data-analisis="ellis">
+            <h4>Análisis desde Ellis</h4>
+            <ul>
+              <li><strong>Creencia irracional:</strong> «Debía ser contratado obligatoriamente.»</li>
+              <li><strong>Exigencia absolutista:</strong> convertir un deseo en una obligación.</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn-animacion" data-anim="analisis">Mostrar análisis ▶</button>
+      </div>
+    </section>
+
+    <!-- 24 DEBATES: CRÍTICA 1 -->
+    <section class="slide" data-seccion="debates">
+      <div class="slide-inner">
+        <h2>Crítica 1: énfasis excesivo en la cognición</h2>
+        <div class="caja-debate critica">
+          <span class="strong">Crítica</span>
+          Algunos autores sostienen que las emociones, la historia interpersonal, la cultura y los factores biológicos pueden tener un peso que no siempre queda suficientemente representado en los modelos cognitivos clásicos.
+        </div>
+      </div>
+    </section>
+
+    <!-- 25 DEBATES: CRÍTICA 2 -->
+    <section class="slide" data-seccion="debates">
+      <div class="slide-inner">
+        <h2>Crítica 2: diferencias entre Beck y Ellis</h2>
+        <p>Aunque suelen agruparse dentro de las terapias cognitivas, <strong>no son teorías idénticas</strong>.</p>
+        <div class="comparativa">
+          <div class="lado">
+            <h4>Beck enfatizó</h4>
+            <ul>
+              <li>Distorsiones cognitivas.</li>
+              <li>Procesamiento de información.</li>
+              <li>Esquemas cognitivos.</li>
+            </ul>
+          </div>
+          <div class="lado">
+            <h4>Ellis enfatizó</h4>
+            <ul>
+              <li>Creencias irracionales.</li>
+              <li>Filosofía personal.</li>
+              <li>Exigencias absolutistas.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 DEBATES: CRÍTICA 3 -->
+    <section class="slide" data-seccion="debates">
+      <div class="slide-inner">
+        <h2>Crítica 3: universalidad de las creencias racionales</h2>
+        <div class="caja-debate critica">
+          <span class="strong">Crítica</span>
+          Algunos investigadores han discutido si los criterios de racionalidad son igualmente válidos en todos los contextos culturales.
+        </div>
+        <p>Esta crítica invita a considerar el contexto cultural al evaluar qué se considera una creencia «racional» o «irracional».</p>
+      </div>
+    </section>
+
+    <!-- 27 MALENTENDIDOS: TARJETAS VOLTEABLES -->
+    <section class="slide" data-seccion="malentendidos">
+      <div class="slide-inner">
+        <h2>Malentendidos frecuentes</h2>
+        <p>Haz clic en cada tarjeta para ver la corrección.</p>
+        <div class="grid-malentendidos" id="grid-malentendidos"></div>
+      </div>
+    </section>
+
+    <!-- 28 SÍNTESIS -->
+    <section class="slide" data-seccion="sintesis">
+      <div class="slide-inner">
+        <h2>Síntesis: conceptos clave</h2>
+        <div class="conclusiones" id="lista-sintesis"></div>
+        <button class="btn-animacion" data-anim="sintesis">Mostrar síntesis ▶</button>
+      </div>
+    </section>
+
+    <!-- 29 CONCLUSIONES -->
+    <section class="slide" data-seccion="conclusiones">
+      <div class="slide-inner">
+        <h2>Conclusiones</h2>
+        <div class="conclusiones" id="lista-conclusiones"></div>
+        <button class="btn-animacion" data-anim="conclusiones">Mostrar conclusiones ▶</button>
+      </div>
+    </section>
+
+    <!-- 30 REFERENCIAS -->
+    <section class="slide" data-seccion="referencias">
+      <div class="slide-inner">
+        <h2>Referencias (APA 7)</h2>
+        <div class="refs" id="lista-referencias"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="nav-inferior">
+    <button class="btn-nav" id="btn-anterior" disabled>← Anterior</button>
+    <div id="indicador-progreso">
+      <span id="num-diapositiva">1 / 31</span>
+      <div id="barra-progreso"><div class="relleno" id="relleno-progreso"></div></div>
+    </div>
+    <button class="btn-nav" id="btn-siguiente">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATOS DE SECCIONES
+   ============================================================ */
+var secciones = [
+  { id: 'portada', nombre: 'Portada', icono: '◆' },
+  { id: 'resultados', nombre: 'Resultados de aprendizaje', icono: '★' },
+  { id: 'indice', nombre: 'Índice', icono: '☰' },
+  { id: 'delimitacion', nombre: 'Delimitación del tema', icono: '1' },
+  { id: 'beck', nombre: 'Beck: Terapia Cognitiva', icono: '2' },
+  { id: 'ellis', nombre: 'Ellis: REBT', icono: '3' },
+  { id: 'terminos', nombre: 'Términos clave', icono: '4' },
+  { id: 'diferencias', nombre: 'Diferencias Beck/Ellis', icono: '5' },
+  { id: 'confusiones', nombre: 'Conceptos que se confunden', icono: '6' },
+  { id: 'componentes-beck', nombre: 'Componentes de Beck', icono: '7' },
+  { id: 'componentes-ellis', nombre: 'Componentes de Ellis', icono: '8' },
+  { id: 'ejemplos', nombre: 'Ejemplos', icono: '9' },
+  { id: 'debates', nombre: 'Debates y limitaciones', icono: '10' },
+  { id: 'malentendidos', nombre: 'Malentendidos', icono: '11' },
+  { id: 'sintesis', nombre: 'Síntesis', icono: '12' },
+  { id: 'conclusiones', nombre: 'Conclusiones', icono: '✓' },
+  { id: 'referencias', nombre: 'Referencias', icono: '13' }
+];
+
+var indiceActual = 0;
+var slides = [];
+var seccionesMap = {};
+
+/* ============================================================
+   ESTADO DE ANIMACIONES
+   ============================================================ */
+var animaciones = {};
+
+/* ============================================================
+   INICIALIZACIÓN
+   ============================================================ */
+window.addEventListener('load', function() {
+  slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  construirNavegacion();
+  construirIndice();
+  construirResultados();
+  construirGrafoTerminos();
+  construirSintesis();
+  construirConclusiones();
+  construirMalentendidos();
+  construirReferencias();
+  configurarEventos();
+  configurarBotonesAnimacion();
+  configurarTarjetasVolteables();
+  actualizarSlide(0, true);
+});
+
+/* ============================================================
+   NAVEGACIÓN LATERAL
+   ============================================================ */
+function construirNavegacion() {
+  var nav = document.getElementById('nav-secciones');
+  secciones.forEach(function(sec) {
+    var a = document.createElement('a');
+    a.href = '#';
+    a.innerHTML = '<span class="num">' + sec.icono + '</span>' + sec.nombre;
+    a.dataset.seccion = sec.id;
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      irASeccion(sec.id);
+    });
+    nav.appendChild(a);
+  });
+
+  secciones.forEach(function(sec) { seccionesMap[sec.id] = []; });
+  slides.forEach(function(slide, i) {
+    var sec = slide.dataset.seccion;
+    if (seccionesMap[sec]) seccionesMap[sec].push(i);
+  });
+}
+
+function irASeccion(secId) {
+  var indices = seccionesMap[secId];
+  if (indices && indices.length > 0) actualizarSlide(indices[0]);
+}
+
+function actualizarNavActiva() {
+  var secActual = slides[indiceActual].dataset.seccion;
+  var enlaces = document.querySelectorAll('#nav-secciones a');
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].classList.toggle('activa', enlaces[i].dataset.seccion === secActual);
+  }
+}
+
+/* ============================================================
+   CONSTRUCCIÓN DE CONTENIDO
+   ============================================================ */
+function construirIndice() {
+  var grid = document.getElementById('grid-indice');
+  var seccionesIndice = secciones.filter(function(s) {
+    return s.id !== 'portada' && s.id !== 'indice' && s.id !== 'resultados';
+  });
+  seccionesIndice.forEach(function(sec, i) {
+    var div = document.createElement('div');
+    div.className = 'item-indice';
+    div.innerHTML = '<div class="num-indice">' + (i + 1) + '</div><span>' + sec.nombre + '</span>';
+    div.addEventListener('click', function() { irASeccion(sec.id); });
+    grid.appendChild(div);
+  });
+}
+
+function construirResultados() {
+  var contenedor = document.getElementById('lista-resultados');
+  var resultados = [
+    { titulo: 'Comprender las teorías de Beck y Ellis', desc: 'Explicar con precisión qué sostiene cada autor sobre el origen de los problemas emocionales y el papel del pensamiento.' },
+    { titulo: 'Identificar los conceptos centrales', desc: 'Reconocer los pensamientos automáticos, las distorsiones cognitivas y los esquemas en Beck; las creencias irracionales y el modelo ABC en Ellis.' },
+    { titulo: 'Distinguir ambas propuestas', desc: 'Diferenciar la Terapia Cognitiva de Beck de la Terapia Racional-Emotiva Conductual de Ellis, identificando sus énfasis y estilos propios.' },
+    { titulo: 'Aplicar los conceptos a casos', desc: 'Analizar situaciones concretas y determinar qué elementos de cada teoría permiten comprender la respuesta emocional.' },
+    { titulo: 'Reconocer límites y malentendidos', desc: 'Identificar las críticas principales y corregir las confusiones frecuentes sobre ambas teorías.' }
+  ];
+  resultados.forEach(function(r, i) {
+    var div = document.createElement('div');
+    div.className = 'resultado';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="num-resultado">' + (i + 1) + '</div>' +
+      '<div class="texto-resultado"><h4>' + r.titulo + '</h4><p>' + r.desc + '</p></div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirGrafoTerminos() {
+  var contenedor = document.getElementById('grafo-terminos');
+  var terminos = [
+    { num: '1', titulo: 'Cognición', desc: 'Proceso psicológico de percepción, interpretación, almacenamiento y uso de información.' },
+    { num: '2', titulo: 'Pensamiento automático', desc: 'Pensamiento rápido y espontáneo ante una situación. Unidad básica de análisis en Beck.' },
+    { num: '3', titulo: 'Esquema cognitivo', desc: 'Estructura relativamente estable que organiza la información y orienta las interpretaciones.' },
+    { num: '4', titulo: 'Distorsión cognitiva', desc: 'Error sistemático en el procesamiento o interpretación de la información.' },
+    { num: '5', titulo: 'Creencia irracional', desc: 'En Ellis, creencia rígida, extrema y poco realista que favorece respuestas desadaptativas.' }
+  ];
+  terminos.forEach(function(t, i) {
+    var div = document.createElement('div');
+    div.className = 'nodo-grafo';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="num-nodo">' + t.num + '</div><div class="texto-nodo"><h4>' + t.titulo + '</h4><p>' + t.desc + '</p></div>';
+    contenedor.appendChild(div);
+    if (i < terminos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-grafo';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '▼';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirSintesis() {
+  var contenedor = document.getElementById('lista-sintesis');
+  var sintesis = [
+    { icono: '◆', texto: 'Aaron Beck desarrolló la <strong>Terapia Cognitiva</strong> para explicar cómo las interpretaciones influyen en las emociones y la conducta.' },
+    { icono: '◆', texto: 'Albert Ellis desarrolló la <strong>Terapia Racional-Emotiva Conductual</strong> para explicar el papel de las creencias irracionales en el malestar psicológico.' },
+    { icono: '◆', texto: 'Beck enfatizó los <strong>pensamientos automáticos, las distorsiones cognitivas y los esquemas cognitivos</strong>.' },
+    { icono: '◆', texto: 'Ellis enfatizó las <strong>creencias irracionales y el modelo ABC</strong>.' },
+    { icono: '◆', texto: 'Ambos autores sostuvieron que la <strong>evaluación cognitiva de los acontecimientos</strong> influye significativamente en la respuesta emocional.' },
+    { icono: '◆', texto: 'Las dos teorías constituyen <strong>bases fundamentales de las terapias cognitivo-conductuales contemporáneas</strong>.' },
+    { icono: '◆', texto: 'Ninguna de las dos teorías propone <strong>eliminar todas las emociones negativas</strong> ni sustituirlas por optimismo permanente.' }
+  ];
+  sintesis.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'conclusion';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="icono-conclusion">' + c.icono + '</div><p>' + c.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirConclusiones() {
+  var contenedor = document.getElementById('lista-conclusiones');
+  var conclusiones = [
+    { icono: '◆', texto: 'Beck y Ellis comparten una tesis central: <strong>la interpretación cognitiva de los acontecimientos</strong> media entre el evento y la respuesta emocional.' },
+    { icono: '◆', texto: 'Sus teorías se distinguen por el énfasis: Beck en las <strong>distorsiones y esquemas</strong>; Ellis en las <strong>creencias irracionales y las exigencias absolutistas</strong>.' },
+    { icono: '◆', texto: 'Ambas reconocen que las <strong>emociones negativas pueden ser funcionales</strong> y no toda reacción adversa indica un problema cognitivo.' },
+    { icono: '◆', texto: 'Las críticas principales señalan el <strong>énfasis excesivo en la cognición</strong>, la <strong>heterogeneidad entre ambas teorías</strong> y la <strong>universalidad cultural de los criterios de racionalidad</strong>.' },
+    { icono: '◆', texto: 'Estas teorías constituyen el <strong>fundamento histórico y conceptual</strong> de las terapias cognitivo-conductuales actuales.' }
+  ];
+  conclusiones.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'conclusion';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="icono-conclusion">' + c.icono + '</div><p>' + c.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirMalentendidos() {
+  var contenedor = document.getElementById('grid-malentendidos');
+  var malentendidos = [
+    { mito: '«Las emociones negativas son siempre patológicas.»', correccion: 'Incorrecto. Tanto Beck como Ellis reconocieron que la tristeza, la preocupación o la decepción pueden ser respuestas normales ante situaciones adversas.' },
+    { mito: '«La terapia cognitiva enseña a pensar positivamente.»', correccion: 'Incorrecto. El objetivo es desarrollar interpretaciones razonables y respaldadas por evidencia, no sustituir todo por optimismo.' },
+    { mito: '«Las personas pueden controlar completamente sus emociones.»', correccion: 'Incorrecto. Las teorías cognitivas sostienen que las cogniciones influyen en las emociones, pero no afirman un control absoluto sobre ellas.' },
+    { mito: '«Beck y Ellis son lo mismo.»', correccion: 'Incorrecto. Aunque comparten la tesis central, difieren en conceptos, nivel de análisis, estilo terapéutico y objetivo central.' }
+  ];
+  malentendidos.forEach(function(m) {
+    var div = document.createElement('div');
+    div.className = 'tarjeta-voltear';
+    div.innerHTML = '<div class="interior">' +
+      '<div class="frente"><h5>Malentendido</h5><p>' + m.mito + '</p></div>' +
+      '<div class="reverso"><h5>Corrección</h5><p>' + m.correccion + '</p></div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirReferencias() {
+  var contenedor = document.getElementById('lista-referencias');
+
+  var h3a = document.createElement('h3');
+  h3a.textContent = 'Obras fundacionales';
+  contenedor.appendChild(h3a);
+
+  var refsFundacionales = [
+    'Beck, A. T. (1976). Cognitive therapy and the emotional disorders. International Universities Press.',
+    'Beck, A. T., Rush, A. J., Shaw, B. F., & Emery, G. (1979). Cognitive therapy of depression. Guilford Press.',
+    'Ellis, A. (1962). Reason and emotion in psychotherapy. Lyle Stuart.',
+    'Ellis, A. (1994). Reason and emotion in psychotherapy (Rev. ed.). Birch Lane Press.'
+  ];
+  refsFundacionales.forEach(function(r) {
+    var p = document.createElement('p');
+    p.textContent = r;
+    contenedor.appendChild(p);
+  });
+
+  var h3b = document.createElement('h3');
+  h3b.textContent = 'Obras de síntesis y desarrollo posterior';
+  contenedor.appendChild(h3b);
+
+  var refsSintesis = [
+    'Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3.ª ed.). Guilford Press.',
+    'Dryden, W. (2019). Rational emotive behaviour therapy: Distinctive features (2.ª ed.). Routledge.',
+    'David, D., Lynn, S. J., & Ellis, A. (2010). Rational and irrational beliefs: Research, theory, and clinical practice. Oxford University Press.',
+    'Dobson, K. S., & Dozois, D. J. A. (Eds.). (2021). Handbook of cognitive-behavioral therapies (4.ª ed.). Guilford Press.'
+  ];
+  refsSintesis.forEach(function(r) {
+    var p = document.createElement('p');
+    p.textContent = r;
+    contenedor.appendChild(p);
+  });
+}
+
+/* ============================================================
+   TARJETAS VOLTEABLES
+   ============================================================ */
+function configurarTarjetasVolteables() {
+  var tarjetas = document.querySelectorAll('.tarjeta-voltear');
+  for (var i = 0; i < tarjetas.length; i++) {
+    tarjetas[i].addEventListener('click', function() {
+      this.classList.toggle('volteada');
+    });
+  }
+}
+
+/* ============================================================
+   BOTONES DE ANIMACIÓN
+   ============================================================ */
+function configurarBotonesAnimacion() {
+  var botones = document.querySelectorAll('.btn-animacion[data-anim]');
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].addEventListener('click', function() {
+      var tipo = this.dataset.anim;
+      ejecutarAnimacion(tipo, this);
+    });
+  }
+}
+
+function ejecutarAnimacion(tipo, boton) {
+  // Inicializar contador si no existe
+  if (!animaciones[tipo]) animaciones[tipo] = 0;
+
+  var elementos, maximo;
+
+  switch(tipo) {
+    case 'resultados':
+      elementos = document.querySelectorAll('#lista-resultados .resultado');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Resultados completos ✓';
+      }
+      break;
+
+    case 'indice':
+      elementos = document.querySelectorAll('#grid-indice .item-indice');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Índice completo ✓';
+      }
+      break;
+
+    case 'grafo':
+      var nodos = document.querySelectorAll('#grafo-terminos .nodo-grafo');
+      var flechas = document.querySelectorAll('#grafo-terminos .flecha-grafo');
+      maximo = nodos.length + flechas.length;
+      if (animaciones[tipo] < maximo) {
+        var idx = animaciones[tipo];
+        if (idx < nodos.length) {
+          nodos[idx].classList.add('visible');
+        } else {
+          flechas[idx - nodos.length].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Términos completos ✓';
+      }
+      break;
+
+    case 'tabla-diferencias':
+      elementos = document.querySelectorAll('#tabla-diferencias tbody tr.fila-anim');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Comparación completa ✓';
+      }
+      break;
+
+    case 'piramide':
+      elementos = document.querySelectorAll('#piramide-beck .nivel-piramide');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Pirámide completa ✓';
+      }
+      break;
+
+    case 'abc':
+      var pasosABC = document.querySelectorAll('#abc-flujo .abc-paso');
+      var flechasABC = document.querySelectorAll('#abc-flujo .abc-flecha');
+      maximo = pasosABC.length + flechasABC.length;
+      if (animaciones[tipo] < maximo) {
+        var idxABC = animaciones[tipo];
+        if (idxABC === 0) {
+          pasosABC[0].classList.add('visible');
+        } else if (idxABC === 1) {
+          flechasABC[0].classList.add('visible');
+        } else if (idxABC === 2) {
+          pasosABC[1].classList.add('visible');
+        } else if (idxABC === 3) {
+          flechasABC[1].classList.add('visible');
+        } else if (idxABC === 4) {
+          pasosABC[2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Modelo completo ✓';
+      }
+      break;
+
+    case 'analisis':
+      elementos = document.querySelectorAll('#analisis-doble .analisis-bloque');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Análisis completo ✓';
+      }
+      break;
+
+    case 'sintesis':
+      elementos = document.querySelectorAll('#lista-sintesis .conclusion');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Síntesis completa ✓';
+      }
+      break;
+
+    case 'conclusiones':
+      elementos = document.querySelectorAll('#lista-conclusiones .conclusion');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Conclusiones completas ✓';
+      }
+      break;
+  }
+}
+
+/* ============================================================
+   RESETEO DE ANIMACIONES AL CAMBIAR DE DIAPOSITIVA
+   ============================================================ */
+function resetearAnimacionesSlide(slide) {
+  // Resetear todos los elementos animados dentro de esta diapositiva
+  var elementos = slide.querySelectorAll('.resultado, .nodo-grafo, .flecha-grafo, .fila-anim, .nivel-piramide, .abc-paso, .abc-flecha, .analisis-bloque, .conclusion, .item-indice, .caja-debate');
+  for (var i = 0; i < elementos.length; i++) {
+    elementos[i].classList.remove('visible');
+  }
+
+  // Resetear botones
+  var botones = slide.querySelectorAll('.btn-animacion[data-anim]');
+  for (var j = 0; j < botones.length; j++) {
+    botones[j].disabled = false;
+    var tipo = botones[j].dataset.anim;
+    if (tipo === 'resultados') botones[j].textContent = 'Mostrar resultados ▶';
+    else if (tipo === 'indice') botones[j].textContent = 'Mostrar índice ▶';
+    else if (tipo === 'grafo') botones[j].textContent = 'Mostrar términos ▶';
+    else if (tipo === 'tabla-diferencias') botones[j].textContent = 'Mostrar comparación ▶';
+    else if (tipo === 'piramide') botones[j].textContent = 'Construir pirámide ▶';
+    else if (tipo === 'abc') botones[j].textContent = 'Construir modelo ABC ▶';
+    else if (tipo === 'analisis') botones[j].textContent = 'Mostrar análisis ▶';
+    else if (tipo === 'sintesis') botones[j].textContent = 'Mostrar síntesis ▶';
+    else if (tipo === 'conclusiones') botones[j].textContent = 'Mostrar conclusiones ▶';
+  }
+}
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+function configurarEventos() {
+  document.getElementById('btn-anterior').addEventListener('click', function() {
+    if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+  });
+  document.getElementById('btn-siguiente').addEventListener('click', function() {
+    if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+  });
+  document.getElementById('toggle-sidebar').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('colapsada');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+    }
+  });
+}
+
+/* ============================================================
+   CAMBIO DE DIAPOSITIVA
+   ============================================================ */
+function actualizarSlide(nuevoIndice, forzar) {
+  if (!forzar && nuevoIndice === indiceActual) return;
+  if (nuevoIndice < 0 || nuevoIndice >= slides.length) return;
+
+  // Resetear animaciones de la diapositiva actual antes de salir
+  if (slides[indiceActual]) {
+    resetearAnimacionesSlide(slides[indiceActual]);
+  }
+
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.remove('activa');
+  }
+  slides[nuevoIndice].classList.add('activa');
+  slides[nuevoIndice].scrollTop = 0;
+  indiceActual = nuevoIndice;
+
+  // Resetear contadores de animación al entrar a una nueva diapositiva
+  animaciones = {};
+
+  actualizarNavActiva();
+  document.getElementById('num-diapositiva').textContent = (indiceActual + 1) + ' / ' + slides.length;
+  document.getElementById('relleno-progreso').style.width = ((indiceActual + 1) / slides.length * 100) + '%';
+  document.getElementById('btn-anterior').disabled = indiceActual === 0;
+  document.getElementById('btn-siguiente').disabled = indiceActual === slides.length - 1;
+}
+</script>
+</body>
+</html>
