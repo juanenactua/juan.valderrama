@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tutoría 7: Cognición social — Psicología Cognitiva | Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Cognición social">
+<meta name="jc-descripcion" content="Tutoría interactiva sobre atribución, formación de impresiones, esquemas sociales, estereotipos, teoría de la mente, lenguaje, cultura e interpretación social.">
+<meta name="jc-tipo" content="Tutoría interactiva">
+<meta name="jc-etiquetas" content="Cognición social, Atribución, Heider, Kelley, Asch, Formación de impresiones, Esquemas sociales, Error fundamental de atribución, Estereotipos, Teoría de la mente, Lenguaje, Cultura">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EA;
+    --gris-texto:#1F2A37;
+    --gris-suave:#E9EEF5;
+    --blanco:#FFFFFF;
+    --sombra:0 10px 30px rgba(11,37,69,.10);
+    --radio:16px;
+    --transicion:all .35s cubic-bezier(.4,.0,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--blanco);color:var(--gris-texto);
+    font-size:28px;line-height:1.5;overflow:hidden;
+  }
+  #app{display:flex;height:100vh;width:100vw;position:relative;}
+
+  #sidebar{
+    width:340px;background:var(--azul-oscuro);color:var(--blanco);
+    display:flex;flex-direction:column;padding:28px 20px;
+    transition:var(--transicion);flex-shrink:0;position:relative;z-index:20;
+  }
+  #sidebar.oculto{margin-left:-340px;}
+  #sidebar h2{font-size:21px;font-weight:600;letter-spacing:.3px;margin-bottom:6px;color:var(--dorado);line-height:1.25;}
+  #sidebar .autor{font-size:15px;opacity:.75;margin-bottom:22px;line-height:1.3;}
+  #sidebar nav ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+  #sidebar nav a{
+    display:block;color:rgba(255,255,255,.82);text-decoration:none;
+    font-size:15.5px;padding:8px 12px;border-radius:8px;cursor:pointer;
+    transition:var(--transicion);border-left:3px solid transparent;line-height:1.25;
+  }
+  #sidebar nav a:hover{background:rgba(255,255,255,.07);color:var(--blanco);}
+  #sidebar nav a.activo{background:rgba(231,200,115,.15);color:var(--dorado);border-left-color:var(--dorado);}
+  #toggleSidebar{
+    position:fixed;top:18px;left:356px;z-index:30;
+    background:var(--azul-oscuro);color:var(--blanco);border:none;
+    width:42px;height:42px;border-radius:50%;cursor:pointer;
+    font-size:18px;display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--sombra);transition:var(--transicion);
+  }
+  #toggleSidebar:hover{background:var(--azul-acento);}
+  #toggleSidebar.oculto{left:18px;}
+
+  #stage{flex:1;position:relative;overflow:hidden;background:var(--blanco);}
+  .slide{
+    position:absolute;inset:0;padding:60px 80px 110px 80px;
+    opacity:0;visibility:hidden;transform:translateX(30px);
+    transition:opacity .5s ease, transform .5s ease, visibility .5s;
+    overflow-y:auto;display:flex;flex-direction:column;
+  }
+  .slide.activa{opacity:1;visibility:visible;transform:translateX(0);}
+  .slide::-webkit-scrollbar{width:10px;}
+  .slide::-webkit-scrollbar-thumb{background:var(--gris-suave);border-radius:5px;}
+  .slide h1{font-size:72px;color:var(--azul-oscuro);font-weight:700;line-height:1.1;margin-bottom:18px;}
+  .slide h2{font-size:56px;color:var(--azul-oscuro);font-weight:700;line-height:1.15;margin-bottom:26px;}
+  .slide h3{font-size:36px;color:var(--azul-acento);font-weight:600;margin:22px 0 12px;}
+  .slide p, .slide li{font-size:28px;line-height:1.55;margin-bottom:14px;}
+  .slide ul{margin-left:28px;margin-bottom:18px;}
+  .slide li{margin-bottom:12px;}
+
+  .subtitulo{font-size:32px;color:var(--azul-acento);font-weight:400;margin-bottom:32px;}
+  .etiqueta{
+    display:inline-block;background:var(--gris-calido);color:var(--azul-oscuro);
+    font-size:18px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+    padding:8px 18px;border-radius:22px;margin-bottom:20px;
+  }
+  .etiqueta.dorada{background:var(--dorado);}
+
+  .tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin:22px 0;}
+  .tarjeta{background:var(--gris-calido);border-radius:var(--radio);padding:26px;border-left:6px solid var(--azul-acento);transition:var(--transicion);}
+  .tarjeta:hover{transform:translateY(-3px);box-shadow:var(--sombra);}
+  .tarjeta h4{font-size:26px;color:var(--azul-oscuro);margin-bottom:10px;}
+  .tarjeta p{font-size:22px;margin-bottom:0;line-height:1.5;}
+  .destacado{background:var(--azul-oscuro);color:var(--blanco);border-radius:var(--radio);padding:28px 32px;margin:24px 0;font-size:28px;line-height:1.5;border-left:7px solid var(--dorado);}
+  .destacado strong{color:var(--dorado);}
+  .cita{background:var(--gris-calido);border-left:6px solid var(--dorado);padding:24px 30px;border-radius:var(--radio);font-size:26px;font-style:italic;color:var(--azul-medio);margin:22px 0;line-height:1.5;}
+  .ejemplo-cotidiano{background:linear-gradient(135deg,#FFF8E7 0%,#FDF4DC 100%);border:2px dashed var(--dorado);border-radius:var(--radio);padding:20px 26px;margin:16px 0;font-size:25px;color:var(--azul-medio);line-height:1.45;}
+  .ejemplo-cotidiano::before{content:"💡 Ejemplo cotidiano: ";font-weight:700;color:var(--azul-oscuro);}
+  table{width:100%;border-collapse:collapse;margin:22px 0;font-size:22px;}
+  th,td{padding:14px 16px;text-align:left;border-bottom:2px solid var(--gris-suave);}
+  th{background:var(--azul-oscuro);color:var(--blanco);font-weight:700;font-size:22px;}
+  tr:nth-child(even) td{background:#FAFBFD;}
+
+  #slide-1{justify-content:center;align-items:flex-start;background:linear-gradient(135deg,var(--blanco) 55%,var(--gris-calido) 100%);}
+  #slide-1 h1{font-size:80px;max-width:1150px;margin-bottom:22px;line-height:1.05;}
+  #slide-1 .subtitulo{font-size:34px;color:var(--azul-medio);margin-bottom:44px;max-width:1000px;}
+  .info-docente{background:var(--azul-oscuro);color:var(--blanco);padding:26px 38px;border-radius:var(--radio);display:inline-block;border-left:8px solid var(--dorado);}
+  .info-docente .nombre{font-size:30px;font-weight:700;color:var(--dorado);margin-bottom:6px;}
+  .info-docente .detalle{font-size:20px;opacity:.85;}
+  .pregunta-portada{margin-top:44px;font-size:30px;font-style:italic;color:var(--azul-acento);max-width:1050px;line-height:1.4;}
+
+  .actividad{background:var(--gris-suave);border-radius:var(--radio);padding:30px 34px;margin:22px 0;}
+  .btn{background:var(--azul-acento);color:var(--blanco);border:none;padding:16px 28px;font-size:22px;border-radius:12px;cursor:pointer;transition:var(--transicion);font-weight:600;}
+  .btn:hover{background:var(--azul-oscuro);transform:translateY(-2px);}
+  .btn-sec{background:transparent;color:var(--azul-acento);border:3px solid var(--azul-acento);}
+  .btn-sec:hover{background:var(--azul-acento);color:var(--blanco);}
+
+  .clasif-item{
+    background:var(--blanco);border-radius:12px;padding:20px 24px;margin:14px 0;
+    font-size:25px;transition:var(--transicion);
+    border-left:6px solid var(--azul-acento);color:var(--gris-texto);line-height:1.4;
+  }
+  .clasif-item .opciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .clasif-item .opciones button{
+    padding:12px 20px;font-size:20px;border-radius:10px;border:3px solid var(--azul-acento);
+    background:transparent;color:var(--azul-acento);cursor:pointer;transition:var(--transicion);font-weight:700;
+  }
+  .clasif-item .opciones button:hover{background:var(--azul-acento);color:var(--blanco);}
+  .clasif-item .opciones button:disabled{cursor:default;opacity:.7;}
+  .clasif-item .opciones button.ok{background:#1E7A46;border-color:#1E7A46;color:var(--blanco);opacity:1;}
+  .clasif-item .opciones button.no{background:#B3261E;border-color:#B3261E;color:var(--blanco);opacity:1;}
+  .clasif-item .explicacion{
+    font-size:21px;color:var(--azul-medio);
+    background:var(--gris-calido);padding:14px 18px;border-radius:10px;
+    margin-top:12px;display:none;line-height:1.5;
+  }
+  .clasif-item.resuelto .explicacion{display:block;}
+
+  .quiz-pregunta{margin:22px 0;}
+  .quiz-pregunta h4{font-size:26px;color:var(--azul-oscuro);margin-bottom:14px;line-height:1.3;}
+  .quiz-opciones{display:flex;flex-direction:column;gap:12px;}
+  .quiz-opciones button{
+    text-align:left;padding:18px 22px;font-size:22px;background:var(--blanco);
+    border:3px solid var(--gris-suave);border-radius:12px;cursor:pointer;
+    transition:var(--transicion);color:var(--gris-texto);line-height:1.4;
+  }
+  .quiz-opciones button:hover{border-color:var(--azul-acento);}
+  .quiz-opciones button.correcta{background:#E3F4E9;border-color:#1E7A46;color:#1E7A46;font-weight:700;}
+  .quiz-opciones button.incorrecta{background:#FBE9E7;border-color:#B3261E;color:#B3261E;}
+  .explicacion-quiz{margin-top:14px;font-size:21px;color:var(--azul-medio);background:#FFF8E7;border-left:5px solid var(--dorado);padding:14px 18px;border-radius:10px;display:none;line-height:1.5;}
+  .explicacion-quiz.visible{display:block;}
+
+  /* ANIMACIÓN */
+  .anim-impresion{
+    background:var(--blanco);border-radius:var(--radio);padding:24px;
+    box-shadow:var(--sombra);margin:22px 0;display:flex;flex-direction:column;align-items:center;
+  }
+  .anim-botones{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;}
+  .anim-botones button{padding:14px 24px;font-size:20px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:var(--transicion);color:var(--blanco);}
+  .anim-botones button:hover{transform:translateY(-2px);box-shadow:var(--sombra);}
+  #btn-orden1{background:#13538A;}
+  #btn-orden2{background:#E7C873;color:#0B2545;}
+  #btn-reset-imp{background:var(--azul-oscuro);}
+  #anim-impresion-canvas{background:#FBFCFE;border-radius:12px;border:2px solid var(--gris-suave);max-width:100%;}
+  #anim-impresion-texto{
+    margin-top:16px;font-size:22px;font-weight:600;text-align:center;
+    color:var(--azul-oscuro);background:var(--gris-calido);
+    padding:16px 22px;border-radius:12px;min-height:80px;
+    display:flex;align-items:center;justify-content:center;
+    line-height:1.45;max-width:920px;
+  }
+
+  /* SIMULACIÓN */
+  .simulacion{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;align-items:start;margin-top:18px;}
+  .controles{display:flex;flex-direction:column;gap:16px;}
+  .control{background:var(--gris-calido);padding:16px 20px;border-radius:12px;}
+  .control label{display:flex;justify-content:space-between;font-size:20px;font-weight:700;color:var(--azul-oscuro);margin-bottom:8px;}
+  .control label span{color:var(--azul-acento);font-weight:700;font-size:22px;}
+  .control input[type=range]{width:100%;accent-color:var(--azul-acento);cursor:pointer;height:28px;}
+  #sim-canvas-wrap{background:var(--blanco);border-radius:var(--radio);padding:22px;box-shadow:var(--sombra);display:flex;flex-direction:column;align-items:center;}
+  #sim-canvas{max-width:100%;}
+  #sim-mensaje{
+    margin-top:16px;font-size:22px;font-weight:600;text-align:center;
+    padding:16px 20px;border-radius:12px;background:var(--gris-suave);
+    color:var(--azul-oscuro);transition:var(--transicion);min-height:110px;
+    display:flex;align-items:center;justify-content:center;line-height:1.4;
+  }
+
+  #barra-progreso{position:fixed;top:0;left:0;height:5px;background:linear-gradient(90deg,var(--azul-acento),var(--dorado));transition:width .4s ease;z-index:40;}
+  #controles-nav{position:fixed;bottom:22px;right:26px;display:flex;gap:12px;align-items:center;z-index:30;}
+  #controles-nav button{
+    width:54px;height:54px;border-radius:50%;border:3px solid var(--azul-oscuro);
+    background:var(--blanco);color:var(--azul-oscuro);font-size:24px;cursor:pointer;
+    transition:var(--transicion);display:flex;align-items:center;justify-content:center;
+  }
+  #controles-nav button:hover:not(:disabled){background:var(--azul-oscuro);color:var(--blanco);}
+  #controles-nav button:disabled{opacity:.35;cursor:not-allowed;}
+  #contador{position:fixed;bottom:32px;left:26px;font-size:18px;color:var(--azul-oscuro);opacity:.65;z-index:30;font-weight:700;letter-spacing:1.2px;}
+
+  @media (max-width:1300px){
+    body{font-size:24px;}
+    .slide{padding:50px 50px 100px 50px;}
+    .slide h1{font-size:56px;}
+    .slide h2{font-size:44px;}
+    .slide h3{font-size:30px;}
+    .slide p,.slide li{font-size:24px;}
+    .tarjeta h4{font-size:23px;}
+    .tarjeta p{font-size:20px;}
+    .destacado{font-size:24px;}
+    .cita{font-size:22px;}
+    .ejemplo-cotidiano{font-size:22px;}
+    table{font-size:19px;}
+    th{font-size:19px;}
+    .clasif-item{font-size:22px;}
+    .clasif-item .opciones button{font-size:18px;padding:10px 16px;}
+    .quiz-pregunta h4{font-size:23px;}
+    .quiz-opciones button{font-size:20px;padding:14px 18px;}
+    #sidebar{width:300px;}
+    #sidebar.oculto{margin-left:-300px;}
+    #toggleSidebar{left:316px;}
+  }
+  @media (max-width:900px){
+    .slide{padding:36px 26px 100px 26px;}
+    .slide h1{font-size:42px;}
+    .slide h2{font-size:34px;}
+    body{font-size:20px;}
+    .slide p,.slide li{font-size:20px;}
+    .tarjetas{grid-template-columns:1fr;}
+    .simulacion{grid-template-columns:1fr;}
+    #sidebar{position:fixed;left:0;top:0;height:100%;}
+    #toggleSidebar{left:18px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="barra-progreso"></div>
+
+<div id="app">
+  <aside id="sidebar">
+    <h2>Tutoría 7 · Cognición social</h2>
+    <div class="autor">Psicología Cognitiva<br>Juan Carlos Valderrama Cárdenas</div>
+    <nav>
+      <ul>
+        <li><a data-ir="1">1. Portada</a></li>
+        <li><a data-ir="2">2. Agenda</a></li>
+        <li><a data-ir="3">3. La pregunta que abre todo</a></li>
+        <li><a data-ir="4">4. ¿Qué es cognición social?</a></li>
+        <li><a data-ir="5">5. El equipo teórico</a></li>
+        <li><a data-ir="6">6. Atribución</a></li>
+        <li><a data-ir="7">7. Modelo de covariación de Kelley</a></li>
+        <li><a data-ir="8">8. Actividad: ¿disposición o situación?</a></li>
+        <li><a data-ir="9">9. Formación de impresiones</a></li>
+        <li><a data-ir="10">10. Animación: orden y primera impresión</a></li>
+        <li><a data-ir="11">11. Esquemas sociales</a></li>
+        <li><a data-ir="12">12. Error fundamental de atribución</a></li>
+        <li><a data-ir="13">13. Actividad: tres explicaciones</a></li>
+        <li><a data-ir="14">14. Estereotipo, prejuicio y discriminación</a></li>
+        <li><a data-ir="15">15. ¿Cómo funcionan los estereotipos?</a></li>
+        <li><a data-ir="16">16. Teoría de la mente</a></li>
+        <li><a data-ir="17">17. Cognición social y lenguaje</a></li>
+        <li><a data-ir="18">18. Simulación: interpretación social</a></li>
+        <li><a data-ir="19">19. Cognición social situada y cultura</a></li>
+        <li><a data-ir="20">20. Actividad: detectives de la cognición social</a></li>
+        <li><a data-ir="21">21. Matriz de análisis social</a></li>
+        <li><a data-ir="22">22. Cierre y evaluación</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <button id="toggleSidebar" title="Mostrar/ocultar índice">☰</button>
+
+  <main id="stage">
+
+    <section class="slide" id="slide-1">
+      <span class="etiqueta dorada">Psicología Cognitiva · Tutoría 7</span>
+      <h1>Cognición social</h1>
+      <p class="subtitulo">Cómo construimos interpretaciones sobre otras personas y cómo esas interpretaciones orientan nuestra conducta social</p>
+      <div class="info-docente">
+        <div class="nombre">Juan Carlos Valderrama Cárdenas</div>
+        <div class="detalle">Docente · Psicología Cognitiva</div>
+      </div>
+      <p class="pregunta-portada">“En la vida social no respondemos únicamente a lo que las otras personas hacen; respondemos a la interpretación que construimos sobre lo que hacen.”</p>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <span class="etiqueta">Recorrido</span>
+      <h2>Agenda: ¿qué recorreremos hoy?</h2>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>1. ¿Qué es cognición social?</h4><p>Los procesos con los que construimos significado sobre el mundo social.</p></div>
+        <div class="tarjeta"><h4>2. Atribución</h4><p>Heider, Kelley, Jones y Davis: ¿cómo explicamos las causas de la conducta?</p></div>
+        <div class="tarjeta"><h4>3. Formación de impresiones</h4><p>Asch y el efecto de primacía: cómo organizamos los rasgos en una impresión integrada.</p></div>
+        <div class="tarjeta"><h4>4. Esquemas y atribución sesgada</h4><p>Error fundamental de atribución y sesgo actor-observador.</p></div>
+        <div class="tarjeta"><h4>5. Estereotipos y teoría de la mente</h4><p>Distinciones conceptuales y cómo inferimos estados mentales.</p></div>
+        <div class="tarjeta"><h4>6. Simulación y cierre</h4><p>Laboratorio de interpretación social y matriz de análisis.</p></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <span class="etiqueta">Encuadre</span>
+      <h2>La pregunta que abre todo</h2>
+      <div class="destacado">
+        ¿Cómo construimos interpretaciones sobre otras personas y cómo esas interpretaciones orientan nuestra conducta social?
+      </div>
+      <p>Dos personas pueden ver exactamente la misma escena y salir con interpretaciones distintas. No porque una esté equivocada, sino porque <strong>la cognición social construye significado</strong> a partir de información incompleta.</p>
+      <div class="ejemplo-cotidiano">Un compañero no te saluda al entrar. ¿Es antipático, está distraído, te vio y no quiso saludarte, o simplemente no te vio?</div>
+      <div class="ejemplo-cotidiano">Alguien llega tarde a una reunión. ¿Es irresponsable, o hubo un problema en el transporte?</div>
+      <div class="ejemplo-cotidiano">Un amigo contesta mensajes muy cortos. ¿Está molesto contigo, o está ocupado y cansado?</div>
+      <p style="margin-top:18px;">La tutoría de hoy es aprender a <strong>separar la conducta observable de la interpretación que construimos sobre ella</strong>.</p>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <span class="etiqueta">Teoría 1</span>
+      <h2>¿Qué es cognición social?</h2>
+      <div class="cita">La cognición social estudia los procesos mediante los cuales las personas perciben, interpretan, recuerdan y utilizan información relacionada con otras personas y situaciones sociales.</div>
+      <p>Incluye preguntas como:</p>
+      <ul>
+        <li>¿Cómo formamos impresiones sobre otras personas?</li>
+        <li>¿Cómo inferimos sus intenciones?</li>
+        <li>¿Cómo explicamos su comportamiento?</li>
+        <li>¿Cómo interpretamos una expresión facial?</li>
+        <li>¿Por qué dos personas interpretan distinto la misma escena?</li>
+      </ul>
+      <div class="destacado">No consiste simplemente en <strong>“pensar sobre otras personas”</strong>: es el conjunto de procesos cognitivos mediante los cuales <strong>construimos significado sobre el mundo social</strong>.</div>
+      <div class="ejemplo-cotidiano">Una sonrisa puede leerse como amabilidad, ironía, incomodidad o acuerdo, según el contexto, el lenguaje corporal y quién la emite.</div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <span class="etiqueta">Teoría 2</span>
+      <h2>El equipo teórico</h2>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>Fritz Heider</h4><p><strong>Atribución.</strong> ¿Cómo explicamos las causas de la conducta? Persona vs. situación.</p></div>
+        <div class="tarjeta"><h4>Harold Kelley</h4><p><strong>Modelo de covariación.</strong> Consenso, distintividad y consistencia como pistas para atribuir causas.</p></div>
+        <div class="tarjeta"><h4>Jones &amp; Davis</h4><p><strong>Inferencias disposicionales.</strong> ¿Qué información necesitamos para inferir una característica estable a partir de una conducta?</p></div>
+        <div class="tarjeta"><h4>Solomon Asch</h4><p><strong>Formación de impresiones.</strong> No procesamos rasgos aislados: construimos una impresión integrada.</p></div>
+      </div>
+      <div class="ejemplo-cotidiano">Cuando alguien te cae “bien de entrada” o “mal sin saber por qué”, probablemente estás usando estos procesos.</div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <span class="etiqueta">Teoría 3</span>
+      <h2>Atribución: ¿por qué ocurrió?</h2>
+      <p>Heider planteó una pregunta fundamental: <strong>¿cómo explicamos las causas de la conducta?</strong></p>
+      <p>Cuando vemos que alguien llega tarde podemos pensar:</p>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>Atribución disposicional</h4><p>“Es irresponsable.” Se atribuye la causa a características estables de la persona.</p></div>
+        <div class="tarjeta"><h4>Atribución situacional</h4><p>“Tuvo un problema con el transporte.” Se atribuye la causa a factores del contexto.</p></div>
+      </div>
+      <div class="destacado">La misma conducta admite ambas atribuciones, pero <strong>producen consecuencias psicológicas muy distintas</strong>: si alguien es “irresponsable”, lo juzgamos; si tuvo un problema, lo comprendemos.</div>
+      <div class="ejemplo-cotidiano">Un amigo no contesta el teléfono. ¿“Ya no le intereso” o “está ocupado”?</div>
+      <div class="ejemplo-cotidiano">Un estudiante no participa en clase. ¿“Es desinteresado” o “tiene miedo a equivocarse”?</div>
+    </section>
+
+    <section class="slide" id="slide-7">
+      <span class="etiqueta">Teoría 4</span>
+      <h2>Modelo de covariación de Kelley</h2>
+      <p>Kelley propuso que inferimos causas observando <strong>tres tipos de información</strong>:</p>
+      <table>
+        <thead><tr><th>Pista</th><th>Pregunta</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Consenso</strong></td><td>¿Otras personas reaccionan igual?</td><td>¿Otros estudiantes también están molestos con este profesor?</td></tr>
+          <tr><td><strong>Distintividad</strong></td><td>¿La persona reacciona así solo ante este estímulo?</td><td>¿Carlos se molesta solo con este profesor, o con todos?</td></tr>
+          <tr><td><strong>Consistencia</strong></td><td>¿Reacciona así repetidamente?</td><td>¿Le pasa siempre o fue algo puntual?</td></tr>
+        </tbody>
+      </table>
+      <div class="destacado">Si el consenso y la distintividad son altos → atribuimos a la <strong>situación</strong>. Si el consenso es bajo y la consistencia alta → atribuimos a la <strong>persona</strong>.</div>
+      <div class="ejemplo-cotidiano">Si nadie más se queja del profesor y Carlos se molesta con todos los profesores, probablemente sea algo de Carlos. Si todos se quejan, es el profesor.</div>
+    </section>
+
+    <section class="slide" id="slide-8">
+      <span class="etiqueta dorada">Actividad 1</span>
+      <h2>¿Disposición o situación?</h2>
+      <p>Lee cada atribución y decide si es principalmente <strong>disposicional</strong> (característica estable de la persona) o <strong>situacional</strong> (contexto). Recibirás retroalimentación.</p>
+      <div class="actividad" id="act-disposicion"></div>
+      <button class="btn btn-sec" id="reiniciar-disposicion" style="margin-top:14px;">Reiniciar actividad</button>
+    </section>
+
+    <section class="slide" id="slide-9">
+      <span class="etiqueta">Teoría 5</span>
+      <h2>Formación de impresiones: Asch</h2>
+      <p>Asch mostró que no procesamos cada rasgo social de forma independiente: <strong>construimos una impresión integrada</strong>. Un rasgo puede modificar la interpretación del resto.</p>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>inteligente · trabajador · frío</h4><p>Impresión: alguien competente pero distante.</p></div>
+        <div class="tarjeta"><h4>inteligente · trabajador · cálido</h4><p>Impresión: alguien competente y cercano.</p></div>
+      </div>
+      <div class="destacado">No basta con saber los rasgos: <strong>importa cómo se organizan y en qué orden aparecen</strong>. Es el llamado <strong>efecto de primacía</strong>: lo primero que escuchamos pesa más.</div>
+      <div class="ejemplo-cotidiano">Una persona descrita como “tímida e inteligente” se siente distinta a “inteligente y tímida”.</div>
+      <div class="ejemplo-cotidiano">Un nuevo compañero que llegó “sonriendo” el primer día te predispone más favorablemente que si llegó “serio”.</div>
+    </section>
+
+    <section class="slide" id="slide-10">
+      <span class="etiqueta dorada">Animación</span>
+      <h2>El orden importa: primera impresión en acción</h2>
+      <p>Vas a ver las mismas 6 características en dos órdenes distintos. Pulsa cada botón para ver cómo se forma la impresión global.</p>
+      <div class="anim-impresion">
+        <div class="anim-botones">
+          <button id="btn-orden1">▶ Orden A: positiva primero</button>
+          <button id="btn-orden2">▶ Orden B: negativa primero</button>
+          <button id="btn-reset-imp">↻ Reiniciar</button>
+        </div>
+        <canvas id="anim-impresion-canvas" width="860" height="400"></canvas>
+        <div id="anim-impresion-texto">Pulsa un botón para iniciar la animación.</div>
+      </div>
+      <div class="ejemplo-cotidiano">Dos referencias de un mismo candidato pueden presentarse en orden distinto y producir impresiones contrarias.</div>
+    </section>
+
+    <section class="slide" id="slide-11">
+      <span class="etiqueta">Teoría 6</span>
+      <h2>Esquemas sociales</h2>
+      <p>Un <strong>esquema</strong> es una estructura de conocimiento que organiza e interpreta información. Tenemos esquemas sobre profesores, médicos, amigos, familias, relaciones, situaciones académicas.</p>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>Ventaja</h4><p>Facilitan la interpretación rápida de situaciones nuevas: no empezamos desde cero.</p></div>
+        <div class="tarjeta"><h4>Riesgo</h4><p>Generan expectativas que influyen en aquello que percibimos, recordamos o inferimos.</p></div>
+      </div>
+      <div class="destacado">Los esquemas <strong>no son solo conocimiento</strong>: son filtros activos que orientan lo que vemos y lo que dejamos de ver.</div>
+      <div class="ejemplo-cotidiano">Si tienes un esquema de “profesor estricto”, puedes interpretar una corrección razonable como injusta.</div>
+      <div class="ejemplo-cotidiano">Si tienes un esquema de “médico que no escucha”, puedes sentir que no te prestó atención aunque te haya examinado bien.</div>
+    </section>
+
+    <section class="slide" id="slide-12">
+      <span class="etiqueta">Teoría 7</span>
+      <h2>Error fundamental de atribución</h2>
+      <p>Cuando explicamos la conducta de otra persona, solemos <strong>sobrevalorar los factores disposicionales</strong> y <strong>subestimar los situacionales</strong>.</p>
+      <div class="ejemplo-cotidiano">Un estudiante no participa en clase: “es desinteresado”. Pero podría no haber comprendido la actividad, tener miedo a equivocarse, no haber tenido material o estar procesando otra tarea.</div>
+      <h3>Sesgo actor-observador</h3>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>Cuando yo llego tarde</h4><p>“Había mucho tráfico.” (situacional)</p></div>
+        <div class="tarjeta"><h4>Cuando otro llega tarde</h4><p>“Es irresponsable.” (disposicional)</p></div>
+      </div>
+      <div class="destacado">La pregunta clave no es “¿quién tiene razón?”, sino: <strong>¿qué información necesitamos antes de atribuir una característica personal?</strong></div>
+    </section>
+
+    <section class="slide" id="slide-13">
+      <span class="etiqueta dorada">Actividad 2</span>
+      <h2>El mismo comportamiento, tres explicaciones</h2>
+      <p>Situación: <strong>un estudiante sale del salón antes de terminar la clase.</strong> Evalúa cada explicación propuesta.</p>
+      <div class="actividad" id="act-tres-explicaciones"></div>
+      <button class="btn btn-sec" id="reiniciar-tres" style="margin-top:14px;">Reiniciar actividad</button>
+    </section>
+
+    <section class="slide" id="slide-14">
+      <span class="etiqueta">Teoría 8</span>
+      <h2>Estereotipo, prejuicio y discriminación</h2>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>Estereotipo</h4><p><strong>Creencia</strong> o estructura de conocimiento asociada a un grupo.</p></div>
+        <div class="tarjeta"><h4>Prejuicio</h4><p><strong>Evaluación o actitud</strong> hacia un grupo.</p></div>
+        <div class="tarjeta"><h4>Discriminación</h4><p><strong>Conducta diferencial</strong> hacia miembros de un grupo.</p></div>
+      </div>
+      <div class="destacado"><strong>Estereotipo ≠ prejuicio ≠ discriminación.</strong> Pueden relacionarse, pero no son intercambiables.</div>
+      <div class="ejemplo-cotidiano">Pensar que “los médicos son fríos” es un estereotipo. Sentir rechazo hacia ellos es prejuicio. Negarles la palabra en una reunión es discriminación.</div>
+    </section>
+
+    <section class="slide" id="slide-15">
+      <span class="etiqueta">Teoría 9</span>
+      <h2>¿Cómo funcionan cognitivamente los estereotipos?</h2>
+      <p>Cuando una categoría social se activa, puede influir en atención, interpretación, memoria, expectativas e inferencias. Pero conviene evitar un determinismo simplista.</p>
+      <div class="destacado">La activación de una asociación <strong>no implica automáticamente una conducta discriminatoria</strong>. Entre representación y acción intervienen objetivos, normas, contexto, control ejecutivo y motivación.</div>
+      <div class="ejemplo-cotidiano">Puedes tener un estereotipo activado y aun así no actuar conforme a él: el control ejecutivo y las normas sociales regulan la conducta final.</div>
+      <div class="ejemplo-cotidiano">Un docente con un estereotipo puede corregirlo al ver evidencia que lo contradice si está motivado a ser justo.</div>
+    </section>
+
+    <section class="slide" id="slide-16">
+      <span class="etiqueta">Teoría 10</span>
+      <h2>Teoría de la mente</h2>
+      <p>La cognición social incluye la capacidad de representar los estados mentales de otras personas: ¿qué sabe? ¿qué cree? ¿qué desea? ¿qué pretende? ¿qué cree que yo sé?</p>
+      <h3>Ejemplo clásico de falsa creencia</h3>
+      <div class="cita" style="font-style:normal;">Alicia guarda un objeto en una caja y sale. Otra persona lo cambia de lugar. ¿Dónde buscará Alicia?</div>
+      <p>Quien responde bien distingue <strong>realidad actual</strong> de <strong>representación mental ajena</strong>.</p>
+      <div class="ejemplo-cotidiano">Entender que mamá no sabe lo que pasó en el recreo porque no estaba allí es teoría de la mente en acción.</div>
+      <div class="ejemplo-cotidiano">Darse cuenta de que un amigo cree que llegaste tarde por desinterés, cuando en realidad fue el tráfico, también lo es.</div>
+    </section>
+
+    <section class="slide" id="slide-17">
+      <span class="etiqueta">Teoría 11</span>
+      <h2>Cognición social y lenguaje</h2>
+      <p>El lenguaje también construye significado social. La elección de palabras puede modificar la interpretación de una misma escena factual.</p>
+      <div class="tarjetas">
+        <div class="tarjeta"><h4>“Juan criticó el trabajo.”</h4><p>Lectura más neutra.</p></div>
+        <div class="tarjeta"><h4>“Juan atacó el trabajo.”</h4><p>Lectura más hostil, aunque el hecho factual sea el mismo.</p></div>
+      </div>
+      <div class="destacado">Categorización, encuadre, atribución y construcción narrativa <strong>operan también a través del lenguaje</strong>.</div>
+      <div class="ejemplo-cotidiano">“Fue firme” vs. “fue agresivo” sobre la misma intervención de un compañero en clase.</div>
+      <div class="ejemplo-cotidiano">“Se le olvidó” vs. “no le importó”: mismo hecho, distinta atribución.</div>
+    </section>
+
+    <section class="slide" id="slide-18">
+      <span class="etiqueta dorada">Simulación interactiva</span>
+      <h2>Laboratorio de interpretación social</h2>
+      <p>Ajusta las condiciones en que alguien interpreta una conducta ajena. Observa cómo cambia la probabilidad estimada de que la interpretación derive en un juicio sesgado.</p>
+      <div class="simulacion">
+        <div class="controles">
+          <div class="control">
+            <label>Información disponible <span id="val-info">40</span></label>
+            <input type="range" id="info" min="0" max="100" value="40">
+          </div>
+          <div class="control">
+            <label>Activación de estereotipo <span id="val-estereotipo">40</span></label>
+            <input type="range" id="estereotipo" min="0" max="100" value="40">
+          </div>
+          <div class="control">
+            <label>Carga emocional <span id="val-emocion">30</span></label>
+            <input type="range" id="emocion" min="0" max="100" value="30">
+          </div>
+          <div class="control">
+            <label>Control ejecutivo <span id="val-control">50</span></label>
+            <input type="range" id="control" min="0" max="100" value="50">
+          </div>
+        </div>
+        <div id="sim-canvas-wrap">
+          <canvas id="sim-canvas" width="540" height="340"></canvas>
+          <div id="sim-mensaje">Ajusta los controles para ver el resultado.</div>
+        </div>
+      </div>
+      <div class="ejemplo-cotidiano">Poca información + estereotipo activo + alta emoción + bajo control ejecutivo = la tormenta perfecta para un juicio social sesgado.</div>
+    </section>
+
+    <section class="slide" id="slide-19">
+      <span class="etiqueta">Teoría 12</span>
+      <h2>Cognición social situada y cultura</h2>
+      <p>La cognición social no ocurre exclusivamente “dentro de la cabeza”. Depende también de cuerpo, ambiente, otras personas, lenguaje, normas sociales, objetos e historia de interacción.</p>
+      <div class="destacado">La misma expresión facial puede interpretarse de manera muy distinta según el contexto en que aparece.</div>
+      <h3>Cultura y cognición social</h3>
+      <p>Normas, roles, atribución, individualismo/colectivismo, expresiones emocionales, autoconcepto y expectativas sociales pueden variar entre culturas.</p>
+      <div class="destacado">Precaución metodológica: <strong>tendencia grupal ≠ característica de cada individuo</strong>. Las diferencias culturales no deben convertirse en estereotipos.</div>
+      <div class="ejemplo-cotidiano">Mirar directo a los ojos puede ser señal de sinceridad en un contexto y de falta de respeto en otro.</div>
+    </section>
+
+    <section class="slide" id="slide-20">
+      <span class="etiqueta dorada">Actividad 3</span>
+      <h2>Detectives de la cognición social</h2>
+      <div class="cita" style="font-style:normal;">
+        Profesor: “¿Por qué no entregaste el trabajo?”<br>
+        Estudiante: “No tuve tiempo.”<br>
+        Profesor: “Siempre dices lo mismo.”
+      </div>
+      <div class="actividad" id="act-detectives"></div>
+      <button class="btn btn-sec" id="reiniciar-detectives" style="margin-top:14px;">Reiniciar actividad</button>
+    </section>
+
+    <section class="slide" id="slide-21">
+      <span class="etiqueta">Teoría 13</span>
+      <h2>Matriz para analizar cualquier situación social</h2>
+      <p>Herramienta transversal para el resto del curso y la práctica profesional.</p>
+      <table>
+        <thead><tr><th>Nivel</th><th>Pregunta</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Conducta</strong></td><td>¿Qué ocurrió realmente?</td></tr>
+          <tr><td><strong>Percepción</strong></td><td>¿Qué observó la persona?</td></tr>
+          <tr><td><strong>Atención</strong></td><td>¿A qué información prestó atención?</td></tr>
+          <tr><td><strong>Conocimiento previo</strong></td><td>¿Qué esquemas tenía disponibles?</td></tr>
+          <tr><td><strong>Inferencia</strong></td><td>¿Qué concluyó sobre la otra persona?</td></tr>
+          <tr><td><strong>Atribución</strong></td><td>¿A qué causa atribuyó la conducta?</td></tr>
+          <tr><td><strong>Emoción</strong></td><td>¿Qué reacción emocional produjo?</td></tr>
+          <tr><td><strong>Decisión</strong></td><td>¿Qué decidió hacer?</td></tr>
+          <tr><td><strong>Conducta</strong></td><td>¿Qué hizo finalmente?</td></tr>
+          <tr><td><strong>Contexto</strong></td><td>¿Qué elementos situacionales influyeron?</td></tr>
+          <tr><td><strong>Cultura</strong></td><td>¿Qué normas o significados sociales podrían intervenir?</td></tr>
+        </tbody>
+      </table>
+      <div class="destacado"><strong>Percibir → interpretar → atribuir → decidir → actuar</strong> no son procesos equivalentes.</div>
+    </section>
+
+    <section class="slide" id="slide-22">
+      <span class="etiqueta dorada">Cierre</span>
+      <h2>Lo que debería quedar</h2>
+      <div class="destacado">
+        En la vida social no respondemos únicamente a lo que las otras personas hacen; respondemos a la interpretación que construimos sobre lo que hacen.
+      </div>
+      <div class="destacado" style="border-left-color:var(--azul-acento);">
+        Estudiar cognición social implica estudiar cómo pasamos de la <strong>conducta observable</strong> a <strong>significados, intenciones, causas y decisiones</strong>.
+      </div>
+      <h3>Evaluación de cierre</h3>
+      <p style="background:var(--gris-calido);padding:20px 24px;border-radius:14px;font-size:24px;line-height:1.5;">
+        Selecciona una situación cotidiana de interacción social. Analiza cómo una persona puede percibir la situación, interpretar la conducta de otra, realizar una atribución, generar una impresión y tomar una decisión. Identifica al menos un posible sesgo y propón qué información adicional permitiría evaluar una explicación alternativa.
+      </p>
+      <h3>Ticket de salida</h3>
+      <p style="background:var(--gris-suave);padding:20px 24px;border-radius:14px;font-size:23px;line-height:1.5;">
+        Una persona observa que su compañero no saluda al entrar al salón y concluye: “Es antipático”. ¿Qué proceso cognitivo está ocurriendo? ¿Qué información falta? ¿Qué explicación alternativa podría existir? ¿Qué sesgo podría influir en la interpretación?
+      </p>
+      <h3>Bibliografía nuclear (APA 7)</h3>
+      <p style="font-size:16px;line-height:1.5;">
+        Asch, S. E. (1946). Forming impressions of personality. <em>The Journal of Abnormal and Social Psychology, 41</em>(3), 258–290.<br>
+        Fiske, S. T. (1998). Stereotyping, prejudice, and discrimination. En D. T. Gilbert, S. T. Fiske, &amp; G. Lindzey (Eds.), <em>The handbook of social psychology</em> (4th ed.). McGraw-Hill.<br>
+        Fiske, S. T., &amp; Taylor, S. E. (2013). <em>Social cognition: From brains to culture</em> (2nd ed.). Sage.<br>
+        Greenwald, A. G., &amp; Banaji, M. R. (1995). Implicit social cognition: Attitudes, self-esteem, and stereotypes. <em>Psychological Review, 102</em>(1), 4–27.<br>
+        Heider, F. (1958). <em>The psychology of interpersonal relations</em>. Wiley.<br>
+        Jones, E. E., &amp; Davis, K. E. (1965). From acts to dispositions: The attribution process in person perception. En L. Berkowitz (Ed.), <em>Advances in Experimental Social Psychology</em> (Vol. 2, pp. 219–266). Academic Press.<br>
+        Kelley, H. H. (1967). Attribution theory in social psychology. En D. Levine (Ed.), <em>Nebraska Symposium on Motivation</em> (Vol. 15, pp. 192–238). University of Nebraska Press.<br>
+        Wellman, H. M. (2014). <em>Making minds: How theory of mind develops</em>. Oxford University Press.
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<div id="contador">1 / 22</div>
+<div id="controles-nav">
+  <button id="btn-prev" title="Anterior (←)">‹</button>
+  <button id="btn-next" title="Siguiente (→)">›</button>
+</div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let actual = 0;
+const barraProgreso = document.getElementById('barra-progreso');
+const contador = document.getElementById('contador');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+const enlaces = document.querySelectorAll('#sidebar nav a');
+
+function irA(indice){
+  if(indice < 0 || indice >= totalSlides) return;
+  slides[actual].classList.remove('activa');
+  actual = indice;
+  slides[actual].classList.add('activa');
+  slides[actual].scrollTop = 0;
+  barraProgreso.style.width = ((actual+1)/totalSlides*100) + '%';
+  contador.textContent = (actual+1) + ' / ' + totalSlides;
+  btnPrev.disabled = actual === 0;
+  btnNext.disabled = actual === totalSlides - 1;
+  enlaces.forEach(a => a.classList.toggle('activo', parseInt(a.dataset.ir) === actual+1));
+}
+btnPrev.addEventListener('click', () => irA(actual-1));
+btnNext.addEventListener('click', () => irA(actual+1));
+enlaces.forEach(a => a.addEventListener('click', () => irA(parseInt(a.dataset.ir)-1)));
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowRight' || e.key === ' '){ e.preventDefault(); irA(actual+1); }
+  if(e.key === 'ArrowLeft'){ e.preventDefault(); irA(actual-1); }
+  if(e.key === 'Home'){ e.preventDefault(); irA(0); }
+  if(e.key === 'End'){ e.preventDefault(); irA(totalSlides-1); }
+});
+const sidebar = document.getElementById('sidebar');
+const toggle = document.getElementById('toggleSidebar');
+toggle.addEventListener('click', () => {
+  sidebar.classList.toggle('oculto');
+  toggle.classList.toggle('oculto');
+});
+irA(0);
+
+/* ============================================================
+   2. ANIMACIÓN: ORDEN Y PRIMERA IMPRESIÓN
+   ============================================================ */
+const animCanvas = document.getElementById('anim-impresion-canvas');
+const animCtx = animCanvas.getContext('2d');
+const animTexto = document.getElementById('anim-impresion-texto');
+let animRAF = null;
+let animFrame = 0;
+
+const rasgosOrdenA = [
+  {t:'inteligente',   w: 3},
+  {t:'trabajadora',   w: 3},
+  {t:'impulsiva',     w:-1},
+  {t:'crítica',       w:-1},
+  {t:'obstinada',     w:-1},
+  {t:'envidiosa',     w:-2}
+];
+const rasgosOrdenB = [
+  {t:'envidiosa',     w:-2},
+  {t:'obstinada',     w:-1},
+  {t:'crítica',       w:-1},
+  {t:'impulsiva',     w:-1},
+  {t:'trabajadora',   w: 3},
+  {t:'inteligente',   w: 3}
+];
+
+function limpiarEscenaAnim(){
+  animCtx.clearRect(0,0,animCanvas.width,animCanvas.height);
+  animCtx.fillStyle = '#FBFCFE';
+  animCtx.fillRect(0,0,animCanvas.width,animCanvas.height);
+}
+
+function dibujarRasgos(rasgos, x, y, ancho, resaltarHasta, colorBorde){
+  const altoFila = 42;
+  const sep = 10;
+  rasgos.forEach((r, i) => {
+    const fy = y + i*(altoFila+sep);
+    const activo = i <= resaltarHasta;
+    animCtx.fillStyle = activo ? '#FFFFFF' : '#F4F1EA';
+    animCtx.fillRect(x, fy, ancho, altoFila);
+    animCtx.strokeStyle = activo ? colorBorde : '#E9EEF5';
+    animCtx.lineWidth = activo ? 3 : 1.5;
+    animCtx.strokeRect(x, fy, ancho, altoFila);
+
+    animCtx.fillStyle = activo ? '#0B2545' : 'rgba(11,37,69,.35)';
+    animCtx.font = '700 22px Segoe UI, Arial';
+    animCtx.textAlign = 'left';
+    animCtx.fillText(r.t, x + 16, fy + 29);
+  });
+}
+
+function dibujarBarraImpresion(x, y, ancho, alto, valor, color){
+  animCtx.fillStyle = '#E9EEF5';
+  animCtx.fillRect(x, y, ancho, alto);
+  animCtx.fillStyle = color;
+  animCtx.fillRect(x, y, ancho * valor, alto);
+  animCtx.strokeStyle = '#0B2545';
+  animCtx.lineWidth = 2;
+  animCtx.strokeRect(x, y, ancho, alto);
+}
+
+function animarOrden(rasgos, color){
+  if(animRAF) cancelAnimationFrame(animRAF);
+  animFrame = 0;
+  const total = rasgos.length * 30 + 60;
+  let acumulado = 0;
+  let maxAbs = 0;
+  rasgos.forEach(r => maxAbs += Math.abs(r.w));
+
+  function loop(){
+    limpiarEscenaAnim();
+
+    // Título
+    animCtx.fillStyle = '#0B2545';
+    animCtx.font = '700 22px Segoe UI, Arial';
+    animCtx.textAlign = 'left';
+    animCtx.fillText('Rasgos presentados en orden:', 40, 40);
+
+    // Columna de rasgos
+    const resaltarHasta = Math.min(rasgos.length-1, Math.floor(animFrame/30));
+    dibujarRasgos(rasgos, 40, 70, 300, resaltarHasta, color);
+
+    // Cálculo progresivo de impresión
+    let sumaProgresiva = 0;
+    for(let i=0; i<=resaltarHasta; i++){
+      // El peso de los primeros rasgos se pondera más (efecto de primacía)
+      const pesoPrimacia = 1 + (rasgos.length - i) * 0.15;
+      sumaProgresiva += rasgos[i].w * pesoPrimacia;
+    }
+    const impresion = Math.max(-1, Math.min(1, sumaProgresiva / maxAbs));
+
+    // Barra de impresión
+    const bx = 420, by = 110, bw = 400, bh = 40;
+    animCtx.fillStyle = '#0B2545';
+    animCtx.font = '700 20px Segoe UI, Arial';
+    animCtx.fillText('Impresión global formada:', bx, by - 14);
+
+    dibujarBarraImpresion(bx, by, bw, bh, (impresion+1)/2, color);
+
+    // Indicador numérico
+    const pct = Math.round((impresion+1)/2 * 100);
+    animCtx.fillStyle = '#0B2545';
+    animCtx.font = '800 26px Segoe UI, Arial';
+    animCtx.textAlign = 'center';
+    animCtx.fillText(pct + '% positiva', bx + bw/2, by + bh + 40);
+
+    // Mensaje contextual
+    animCtx.fillStyle = '#13315C';
+    animCtx.font = '600 18px Segoe UI, Arial';
+    animCtx.textAlign = 'left';
+    animCtx.fillText('Los primeros rasgos pesan más (efecto de primacía).', bx, by + bh + 90);
+    animCtx.fillText('Las mismas 6 características producen impresiones distintas.', bx, by + bh + 120);
+
+    animFrame++;
+    if(animFrame < total) animRAF = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function resetAnimImpresion(){
+  if(animRAF) cancelAnimationFrame(animRAF);
+  limpiarEscenaAnim();
+  animCtx.fillStyle = '#0B2545';
+  animCtx.font = '700 24px Segoe UI, Arial';
+  animCtx.textAlign = 'center';
+  animCtx.fillText('Pulsa un botón para iniciar la animación.', animCanvas.width/2, animCanvas.height/2);
+  animTexto.textContent = 'Pulsa un botón para iniciar la animación.';
+}
+
+document.getElementById('btn-orden1').addEventListener('click', () => {
+  animTexto.textContent = 'Orden A: primero lo positivo. La impresión global tiende a ser favorable, y los rasgos negativos se atenúan.';
+  animarOrden(rasgosOrdenA, '#13538A');
+});
+document.getElementById('btn-orden2').addEventListener('click', () => {
+  animTexto.textContent = 'Orden B: primero lo negativo. La impresión global tiende a ser desfavorable, y los rasgos positivos se atenúan.';
+  animarOrden(rasgosOrdenB, '#E7C873');
+});
+document.getElementById('btn-reset-imp').addEventListener('click', resetAnimImpresion);
+resetAnimImpresion();
+
+/* ============================================================
+   3. ACTIVIDAD 1: ¿DISPOSICIÓN O SITUACIÓN?
+   ============================================================ */
+const datosDisposicion = [
+  {texto:"“Llegó tarde porque es una persona desorganizada.”", correcta:"disposicional",
+   expl:"Se atribuye la causa a una característica estable de la persona."},
+  {texto:"“Llegó tarde porque hubo un accidente en la vía.”", correcta:"situacional",
+   expl:"Se atribuye la causa al contexto, no a la persona."},
+  {texto:"“No me llamó porque es un mal amigo.”", correcta:"disposicional",
+   expl:"Es una atribución a un rasgo estable (“mal amigo”) a partir de una sola conducta."},
+  {texto:"“No me llamó porque tuvo un día muy complicado en el trabajo.”", correcta:"situacional",
+   expl:"Se considera una causa externa a la persona."},
+  {texto:"“Perdió el examen porque es poco inteligente.”", correcta:"disposicional",
+   expl:"Atribuye un resultado a una capacidad estable, sin considerar otros factores."},
+  {texto:"“Perdió el examen porque no durmió bien esa noche.”", correcta:"situacional",
+   expl:"Atribuye el resultado a un factor contextual específico."}
+];
+function construirActividadDisposicion(){
+  const cont = document.getElementById('act-disposicion');
+  cont.innerHTML = '';
+  datosDisposicion.forEach((d) => {
+    const div = document.createElement('div');
+    div.className = 'clasif-item';
+    div.innerHTML = `
+      <div>${d.texto}</div>
+      <div class="opciones">
+        <button data-op="disposicional">Disposicional</button>
+        <button data-op="situacional">Situacional</button>
+      </div>
+      <div class="explicacion"></div>`;
+    cont.appendChild(div);
+    div.querySelectorAll('.opciones button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(div.classList.contains('resuelto')) return;
+        const botones = div.querySelectorAll('.opciones button');
+        if(btn.dataset.op === d.correcta){
+          btn.classList.add('ok');
+          div.classList.add('resuelto');
+          div.querySelector('.explicacion').textContent = '✅ ' + d.expl;
+          botones.forEach(b => b.disabled = true);
+        } else {
+          btn.classList.add('no');
+          const ex = div.querySelector('.explicacion');
+          ex.textContent = '❌ Revisa: ¿se atribuye la conducta a la persona o a la situación?';
+          ex.style.display = 'block';
+        }
+      });
+    });
+  });
+}
+construirActividadDisposicion();
+document.getElementById('reiniciar-disposicion').addEventListener('click', construirActividadDisposicion);
+
+/* ============================================================
+   4. ACTIVIDAD 2: TRES EXPLICACIONES
+   ============================================================ */
+const datosTres = [
+  {pregunta: "“Sale del salón antes de terminar la clase porque no le interesa la materia.” ¿Qué tipo de explicación es?",
+   opciones: [
+     {txt:"a) Disposicional: atribuye la causa a una característica estable de la persona.", ok:true, exp:"Correcto: “no le interesa” es una característica del estudiante."},
+     {txt:"b) Situacional: atribuye la causa al contexto.", ok:false, exp:"No: aquí no se menciona ningún factor del contexto."},
+     {txt:"c) Relacional: atribuye la causa a la relación con otra persona.", ok:false, exp:"No: no aparece la relación con otro."}
+   ]},
+  {pregunta: "“Sale del salón porque recibió una llamada urgente.” ¿Qué tipo de explicación es?",
+   opciones: [
+     {txt:"a) Disposicional.", ok:false, exp:"No: la causa está fuera de la persona."},
+     {txt:"b) Situacional: atribuye la causa a un evento del contexto.", ok:true, exp:"Correcto: una llamada urgente es un factor situacional."},
+     {txt:"c) Relacional.", ok:false, exp:"No: no describe una relación interpersonal."}
+   ]},
+  {pregunta: "“Sale del salón porque tuvo un conflicto con otro estudiante.” ¿Qué tipo de explicación es?",
+   opciones: [
+     {txt:"a) Disposicional.", ok:false, exp:"No: no se atribuye a un rasgo estable de la persona."},
+     {txt:"b) Situacional.", ok:false, exp:"Parcialmente: el conflicto es situacional, pero lo específico es que involucra una relación."},
+     {txt:"c) Relacional: la causa está en la interacción con otra persona.", ok:true, exp:"Correcto: el foco está en la relación interpersonal."}
+   ]}
+];
+function construirActividadTres(){
+  const cont = document.getElementById('act-tres-explicaciones');
+  cont.innerHTML = '';
+  datosTres.forEach((p) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-pregunta';
+    div.innerHTML = `
+      <h4>${p.pregunta}</h4>
+      <div class="quiz-opciones"></div>
+      <div class="explicacion-quiz"></div>`;
+    cont.appendChild(div);
+    const contOp = div.querySelector('.quiz-opciones');
+    const expl = div.querySelector('.explicacion-quiz');
+    p.opciones.forEach((o) => {
+      const b = document.createElement('button');
+      b.textContent = o.txt;
+      b.addEventListener('click', () => {
+        if(b.disabled) return;
+        if(o.ok){
+          b.classList.add('correcta');
+          expl.textContent = '✅ ' + o.exp;
+        } else {
+          b.classList.add('incorrecta');
+          expl.textContent = '❌ ' + o.exp;
+        }
+        expl.classList.add('visible');
+        contOp.querySelectorAll('button').forEach(x => x.disabled = true);
+      });
+      contOp.appendChild(b);
+    });
+  });
+}
+construirActividadTres();
+document.getElementById('reiniciar-tres').addEventListener('click', construirActividadTres);
+
+/* ============================================================
+   5. ACTIVIDAD 3: DETECTIVES DE LA COGNICIÓN SOCIAL
+   ============================================================ */
+const datosDetectives = [
+  {pregunta: "1. ¿Qué conducta observable tenemos en el diálogo?",
+   opciones: [
+     {txt:"a) El estudiante no entregó el trabajo y el profesor lo confronta.", ok:true, exp:"Correcto: eso es lo observable."},
+     {txt:"b) El estudiante es irresponsable.", ok:false, exp:"No: eso es una interpretación, no una observación."},
+     {txt:"c) El profesor es injusto.", ok:false, exp:"No: también es una interpretación."}
+   ]},
+  {pregunta: "2. ¿Qué está infiriendo el profesor al decir “siempre dices lo mismo”?",
+   opciones: [
+     {txt:"a) Que el estudiante es una persona que sistemáticamente pone excusas.", ok:true, exp:"Correcto: es una inferencia disposicional a partir de un patrón percibido."},
+     {txt:"b) Que hubo un problema objetivo de tiempo.", ok:false, exp:"No: el profesor descarta esa posibilidad."},
+     {txt:"c) Que el estudiante está enfermo.", ok:false, exp:"No: eso no aparece en el diálogo."}
+   ]},
+  {pregunta: "3. ¿Qué información previa parece utilizar el profesor?",
+   opciones: [
+     {txt:"a) Una historia previa de incumplimientos o excusas del estudiante.", ok:true, exp:"Correcto: “siempre” implica una expectativa construida con base en experiencias anteriores."},
+     {txt:"b) El rendimiento del estudiante en matemáticas.", ok:false, exp:"No relevante."},
+     {txt:"c) La opinión de otros docentes.", ok:false, exp:"No se menciona."}
+   ]},
+  {pregunta: "4. ¿Qué información falta en la escena?",
+   opciones: [
+     {txt:"a) Si hubo causas objetivas que impidieron entregar el trabajo.", ok:true, exp:"Correcto: causas situacionales que podrían explicar la conducta."},
+     {txt:"b) El nombre completo del estudiante.", ok:false, exp:"No es relevante para el análisis."},
+     {txt:"c) Si la universidad es pública o privada.", ok:false, exp:"No afecta el análisis del sesgo."}
+   ]},
+  {pregunta: "5. ¿Cómo podría cambiar la interpretación si conociéramos el contexto?",
+   opciones: [
+     {txt:"a) Si el estudiante tuvo una urgencia familiar, la atribución disposicional perdería fuerza.", ok:true, exp:"Correcto: un factor situacional cambia radicalmente la lectura."},
+     {txt:"b) No podría cambiar: el profesor ya tiene un patrón formado.", ok:false, exp:"Sí puede cambiar si se actualiza la información."},
+     {txt:"c) Cambiaría solo si otros estudiantes también tienen la misma dificultad.", ok:false, exp:"No: basta con conocer mejor el caso."}
+   ]}
+];
+function construirActividadDetectives(){
+  const cont = document.getElementById('act-detectives');
+  cont.innerHTML = '';
+  datosDetectives.forEach((p) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-pregunta';
+    div.innerHTML = `
+      <h4>${p.pregunta}</h4>
+      <div class="quiz-opciones"></div>
+      <div class="explicacion-quiz"></div>`;
+    cont.appendChild(div);
+    const contOp = div.querySelector('.quiz-opciones');
+    const expl = div.querySelector('.explicacion-quiz');
+    p.opciones.forEach((o) => {
+      const b = document.createElement('button');
+      b.textContent = o.txt;
+      b.addEventListener('click', () => {
+        if(b.disabled) return;
+        if(o.ok){
+          b.classList.add('correcta');
+          expl.textContent = '✅ ' + o.exp;
+        } else {
+          b.classList.add('incorrecta');
+          expl.textContent = '❌ ' + o.exp;
+        }
+        expl.classList.add('visible');
+        contOp.querySelectorAll('button').forEach(x => x.disabled = true);
+      });
+      contOp.appendChild(b);
+    });
+  });
+}
+construirActividadDetectives();
+document.getElementById('reiniciar-detectives').addEventListener('click', construirActividadDetectives);
+
+/* ============================================================
+   6. SIMULACIÓN: LABORATORIO DE INTERPRETACIÓN SOCIAL
+   ============================================================ */
+const canvas = document.getElementById('sim-canvas');
+const ctx = canvas.getContext('2d');
+const infoEl = document.getElementById('info');
+const estereotipoEl = document.getElementById('estereotipo');
+const emocionEl = document.getElementById('emocion');
+const controlEl = document.getElementById('control');
+const valInfo = document.getElementById('val-info');
+const valEstereotipo = document.getElementById('val-estereotipo');
+const valEmocion = document.getElementById('val-emocion');
+const valControl = document.getElementById('val-control');
+const mensajeEl = document.getElementById('sim-mensaje');
+
+function calcularSesgo(){
+  const info = +infoEl.value;
+  const est = +estereotipoEl.value;
+  const emo = +emocionEl.value;
+  const ctrl = +controlEl.value;
+
+  let prob = 50
+    - info * 0.30
+    + est  * 0.25
+    + emo  * 0.20
+    - ctrl * 0.30;
+
+  prob = Math.max(0, Math.min(100, Math.round(prob)));
+  return {prob, info, est, emo, ctrl};
+}
+
+function dibujarMedidor(prob){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const cx = canvas.width/2;
+  const cy = 210;
+  const r = 130;
+
+  // Arco fondo
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, Math.PI, 2*Math.PI);
+  ctx.lineWidth = 28;
+  ctx.strokeStyle = '#E9EEF5';
+  ctx.stroke();
+
+  // Arco valor
+  const angulo = Math.PI + (prob/100)*Math.PI;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, Math.PI, angulo);
+  let color;
+  if(prob < 30) color = '#1E7A46';
+  else if(prob < 60) color = '#D4A017';
+  else color = '#B3261E';
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 28;
+  ctx.stroke();
+
+  // Aguja
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(cx + Math.cos(angulo)*r*0.78, cy + Math.sin(angulo)*r*0.78);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = '#0B2545';
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 12, 0, 2*Math.PI);
+  ctx.fillStyle = '#0B2545';
+  ctx.fill();
+
+  // Texto
+  ctx.fillStyle = '#0B2545';
+  ctx.font = '800 38px Segoe UI, Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(prob + '%', cx, cy - 30);
+  ctx.font = '700 15px Segoe UI, Arial';
+  ctx.fillStyle = '#13315C';
+  ctx.fillText('Probabilidad de juicio social sesgado', cx, cy + 45);
+}
+
+function generarMensaje(s){
+  const {prob, info, est, emo, ctrl} = s;
+
+  // Escenario bajo control ejecutivo: el sesgo se regula
+  if(ctrl >= 70 && prob < 40){
+    return {txt:'🟢 Control ejecutivo alto: incluso con estereotipos activados, la persona puede regular el juicio. La conducta final no es un reflejo automático del sesgo (Greenwald & Banaji).', bg:'#E3F4E9', col:'#1E7A46'};
+  }
+  // Buena información: interpretación más ajustada
+  if(info >= 70 && est <= 40 && prob < 35){
+    return {txt:'🟢 Buena información disponible y estereotipo poco activo: la interpretación se ajusta mejor a la evidencia (Kelley).', bg:'#E3F4E9', col:'#1E7A46'};
+  }
+  // Estereotipo alto y poca info: representatividad social
+  if(est >= 70 && info <= 40){
+    return {txt:'🟠 Estereotipo muy activo con poca información: riesgo alto de inferir características a partir de la categoría social (Fiske).', bg:'#FDEBD3', col:'#A15C13'};
+  }
+  // Alta emoción: atribución disposicional
+  if(emo >= 70 && info <= 50){
+    return {txt:'🟠 Carga emocional alta: aumenta la probabilidad de atribución disposicional y de error fundamental de atribución (Heider).', bg:'#FDEBD3', col:'#A15C13'};
+  }
+  // Sobrecarga: todo apunta a juicio sesgado
+  if(prob >= 75){
+    return {txt:'🔴 Poca información + estereotipo + emoción + bajo control: escenario típico de un juicio social sesgado. Aquí la interpretación probablemente no refleje la conducta observable.', bg:'#FBE9E7', col:'#B3261E'};
+  }
+  return {txt:'🟡 Configuración intermedia: hay condiciones para sesgo, pero también recursos (información, control) para reducirlo.', bg:'#FFF8E7', col:'#8A6D1A'};
+}
+
+function actualizarSimulacion(){
+  valInfo.textContent = infoEl.value;
+  valEstereotipo.textContent = estereotipoEl.value;
+  valEmocion.textContent = emocionEl.value;
+  valControl.textContent = controlEl.value;
+
+  const s = calcularSesgo();
+  dibujarMedidor(s.prob);
+
+  const msg = generarMensaje(s);
+  mensajeEl.textContent = msg.txt;
+  mensajeEl.style.background = msg.bg;
+  mensajeEl.style.color = msg.col;
+}
+[infoEl, estereotipoEl, emocionEl, controlEl].forEach(el => el.addEventListener('input', actualizarSimulacion));
+actualizarSimulacion();
+</script>
+</body>
+</html>
