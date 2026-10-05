@@ -106,6 +106,43 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Memoria de trabajo: de guardar a manipular información",
+    "descripcion": "Recurso interactivo sobre memoria de trabajo, capacidad limitada, chunking y el modelo de Baddeley y Hitch, con simulaciones, actividades y casos aplicados.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/memoria-de-trabajo.html",
+    "etiquetas": [
+      "Memoria de trabajo",
+      "Baddeley",
+      "Hitch",
+      "Bucle fonológico",
+      "Agenda visoespacial",
+      "Ejecutivo central",
+      "Chunking",
+      "Atención",
+      "Psicología cognitiva"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Pregunta de investigación: construcción y delimitación",
+    "descripcion": "Presentación interactiva para formular y delimitar preguntas de investigación mediante criterios de claridad, investigabilidad, relevancia, viabilidad, población, contexto y tipo de conocimiento.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/pregunta-de-investigacion.html",
+    "etiquetas": [
+      "Pregunta de investigación",
+      "Formulación del problema",
+      "Delimitación",
+      "Investigación",
+      "Metodología",
+      "Viabilidad",
+      "Población",
+      "Diseño de investigación"
+    ],
+    "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Sesgos cognitivos: 7 errores que sabotean tus decisiones",
     "descripcion": "Taller interactivo de lectura, análisis y diseño de casos sobre sesgos cognitivos, heurísticas, sistema 1 y sistema 2 y toma de decisiones.",
     "tipo": "Taller interactivo",
@@ -160,6 +197,24 @@
       "Investigación cuantitativa",
       "Diseño convergente",
       "Semillero"
+    ],
+    "curso": "Semillero SOM4TICA",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Test de Stroop",
+    "descripcion": "Instrumento interactivo para explorar interferencia cognitiva y control inhibitorio mediante condiciones congruentes e incongruentes, con tiempos de reacción, precisión y descarga de resultados.",
+    "tipo": "Instrumento interactivo",
+    "archivo": "materiales/test-de-stroop.html",
+    "etiquetas": [
+      "Stroop",
+      "Interferencia cognitiva",
+      "Control inhibitorio",
+      "Funciones ejecutivas",
+      "Atención",
+      "Tiempo de reacción",
+      "Cognición",
+      "SOM4TICA"
     ],
     "curso": "Semillero SOM4TICA",
     "autor": "Juan Carlos Valderrama Cárdenas"
