@@ -1,0 +1,143 @@
+name: Actualizar catalogo
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "materiales/**"
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Generar catalogo
+        run: |
+          python3 <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          carpeta = Path("materiales")
+          materiales = []
+
+          def obtener_meta(contenido, nombre):
+              patron = rf'<meta\s+name=.*?["\']\s*/?>'
+              resultado = re.search(
+                  patron,
+                  contenido,
+                  re.IGNORECASE | re.DOTALL
+              )
+              return resultado.group(1).strip() if resultado else ""
+
+          for archivo in sorted(carpeta.glob("*.html")):
+
+              contenido = archivo.read_text(
+                  encoding="utf-8",
+                  errors="ignore"
+              )
+
+              titulo = obtener_meta(contenido, "jc-titulo")
+
+              if not titulo:
+                  print(
+                      f"Ignorado: {archivo.name} "
+                      "(no tiene jc-titulo)"
+                  )
+                  continue
+
+              descripcion = obtener_meta(
+                  contenido,
+                  "jc-descripcion"
+              )
+
+              tipo = obtener_meta(
+                  contenido,
+                  "jc-tipo"
+              ) or "HTML"
+
+              etiquetas_texto = obtener_meta(
+                  contenido,
+                  "jc-etiquetas"
+              )
+
+              etiquetas = [
+                  etiqueta.strip()
+                  for etiqueta in etiquetas_texto.split(",")
+                  if etiqueta.strip()
+              ]
+
+              curso = obtener_meta(
+                  contenido,
+                  "jc-curso"
+              )
+
+              autor = obtener_meta(
+                  contenido,
+                  "jc-autor"
+              )
+
+              material = {
+                  "titulo": titulo,
+                  "descripcion": descripcion,
+                  "tipo": tipo,
+                  "archivo": archivo.as_posix(),
+                  "etiquetas": etiquetas
+              }
+
+              if curso:
+                  material["curso"] = curso
+
+              if autor:
+                  material["autor"] = autor
+
+              materiales.append(material)
+
+              print(f"Agregado: {titulo}")
+
+          materiales.sort(
+              key=lambda item: item["titulo"].casefold()
+          )
+
+          with open(
+              "catalogo.json",
+              "w",
+              encoding="utf-8"
+          ) as salida:
+
+              json.dump(
+                  materiales,
+                  salida,
+                  ensure_ascii=False,
+                  indent=2
+              )
+
+              salida.write("\n")
+
+          print(
+              f"Catalogo generado: "
+              f"{len(materiales)} materiales"
+          )
+
+          PY
+
+      - name: Guardar catalogo actualizado
+        run: |
+          if git diff --quiet catalogo.json; then
+            echo "El catalogo ya esta actualizado."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add catalogo.json
+          git commit -m "Actualizar catalogo automaticamente"
+          git push
