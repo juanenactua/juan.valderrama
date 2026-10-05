@@ -152,6 +152,50 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "La hipótesis de la mente extendida",
+    "descripcion": "Artefacto educativo interactivo sobre la hipótesis de la mente extendida, sus fundamentos, condiciones, ejemplos, objeciones, aplicaciones éticas y autoevaluación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/mente-extendida-artefacto.html",
+    "etiquetas": [
+      "Mente extendida",
+      "Cognición extendida",
+      "Cognición 4E",
+      "Clark",
+      "Chalmers",
+      "Externismo activo",
+      "Principio de paridad",
+      "Acoplamiento",
+      "Constitución cognitiva",
+      "Otto e Inga",
+      "Filosofía de la mente",
+      "Ciencias cognitivas"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "La hipótesis de la mente extendida: presentación",
+    "descripcion": "Presentación interactiva sobre la mente extendida, el principio de paridad, Otto e Inga, variantes teóricas, conceptos cercanos, ejemplos, debates, objeciones y aplicaciones éticas.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/mente-extendida-presentacion.html",
+    "etiquetas": [
+      "Mente extendida",
+      "Cognición extendida",
+      "Cognición 4E",
+      "Clark",
+      "Chalmers",
+      "Principio de paridad",
+      "Otto e Inga",
+      "Cognición embebida",
+      "Cognición distribuida",
+      "Tetris",
+      "Neuroética",
+      "Filosofía de la mente"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Laboratorio de sesgos cognitivos",
     "descripcion": "Laboratorio interactivo de decisiones metacognitivas con experimentos sobre anclaje, disponibilidad, representatividad, framing y costo hundido.",
     "tipo": "Laboratorio interactivo",
