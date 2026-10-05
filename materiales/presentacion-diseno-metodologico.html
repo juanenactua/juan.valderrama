@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diseño metodológico — Presentación de clase</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Diseño metodológico: presentación de clase">
+<meta name="jc-descripcion" content="Presentación de clase sobre la arquitectura lógica del diseño metodológico, con diseños cuantitativos y cualitativos, actividades y coherencia metodológica.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Investigación, Metodología, Diseño metodológico, Investigación cuantitativa, Investigación cualitativa, Presentación, Coherencia metodológica">
+<meta name="jc-curso" content="Introducción a la Investigación">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     ESTILOS
+     Paleta: blanco, azul oscuro #0B2545, acentos #13315C/#13538A,
+     dorado #E7C873 con moderación. Tipografía grande para clase.
+     Formato presentación con diapositivas y navegación tipo keynote.
+     ============================================================ -->
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EC;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --sombra:0 12px 34px rgba(11,37,69,.12);
+    --radio:16px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--blanco); color:var(--texto);
+    font-size:30px; line-height:1.5; overflow:hidden;
+  }
+
+  /* ---------- Escenario ---------- */
+  .stage{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    padding:60px 80px 90px;
+    overflow-y:auto;
+  }
+
+  .slide{
+    max-width:1400px; width:100%;
+    opacity:0; visibility:hidden;
+    position:absolute; left:80px; right:80px; top:60px;
+    transition:opacity .45s ease, transform .45s ease, visibility .45s;
+    transform:translateY(18px);
+  }
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  h1{font-size:66px; color:var(--azul-oscuro); margin:0 0 18px; line-height:1.1;}
+  h2{font-size:52px; color:var(--azul-oscuro); margin:0 0 26px; line-height:1.15;}
+  h3{font-size:34px; color:var(--azul-medio); margin:0 0 12px;}
+  p, li{font-size:30px; color:var(--texto);}
+  .lead{font-size:33px; color:var(--texto-suave);}
+  .subtitulo{font-size:36px; color:var(--azul-acento); font-weight:600; margin-bottom:10px;}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{padding-left:44px; position:relative; margin-bottom:14px;}
+  ul.clean li::before{
+    content:"›"; position:absolute; left:10px; top:-4px;
+    color:var(--dorado); font-size:42px; font-weight:700;
+  }
+
+  .card{
+    background:var(--gris-calido); border-left:8px solid var(--azul-acento);
+    border-radius:var(--radio); padding:26px 30px; margin:18px 0;
+    box-shadow:var(--sombra);
+  }
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB;}
+  .card.azul{background:#EAF1F8; border-left-color:var(--azul-medio);}
+  .card.verde{background:#E4F3E6; border-left-color:var(--verde);}
+  .card.rojo{background:#FBE9E7; border-left-color:var(--rojo);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:30px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+
+  .pill{
+    display:inline-block; background:var(--azul-oscuro); color:var(--blanco);
+    border-radius:40px; padding:9px 24px; font-size:22px; font-weight:600;
+    letter-spacing:.4px; margin-bottom:18px;
+  }
+  .pill.dorado{background:var(--dorado); color:var(--azul-oscuro);}
+  .pill.verde{background:var(--verde); color:var(--blanco);}
+  .pill.rojo{background:var(--rojo); color:var(--blanco);}
+
+  /* ---------- Portada ---------- */
+  .portada{text-align:center; padding-top:30px;}
+  .portada h1{font-size:72px; margin-bottom:20px;}
+  .portada .linea{
+    width:150px; height:6px; background:var(--dorado);
+    margin:32px auto; border-radius:3px;
+  }
+  .portada .autor{font-size:38px; color:var(--azul-oscuro); font-weight:700; margin-top:14px;}
+  .portada .contexto{font-size:26px; color:var(--texto-suave); margin-top:8px;}
+
+  /* ---------- Resultados de aprendizaje ---------- */
+  .ra-lista{display:flex; flex-direction:column; gap:14px;}
+  .ra-item{
+    display:grid; grid-template-columns:70px 1fr; gap:18px;
+    background:var(--blanco); border-radius:var(--radio);
+    padding:20px 26px; box-shadow:var(--sombra);
+    border-left:6px solid var(--dorado); align-items:center;
+  }
+  .ra-num{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-radius:50%; width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; font-weight:700;
+  }
+  .ra-texto{font-size:24px; line-height:1.45;}
+
+  /* ---------- Desafío ---------- */
+  .desafio{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:var(--radio);
+    padding:34px 40px; margin:24px 0;
+    box-shadow:0 16px 40px rgba(11,37,69,.28);
+  }
+  .desafio h3{color:var(--dorado); margin:0 0 16px; font-size:32px;}
+  .desafio p{color:var(--blanco); font-size:28px; margin:8px 0; line-height:1.5;}
+
+  .interrogante{
+    background:#FBF7EB; border-left:10px solid var(--dorado);
+    border-radius:var(--radio); padding:24px 32px; margin:22px 0;
+    font-size:30px; font-weight:600; color:var(--azul-oscuro);
+    line-height:1.45;
+  }
+  .interrogante::before{
+    content:"?"; display:inline-block;
+    background:var(--dorado); color:var(--azul-oscuro);
+    width:48px; height:48px; border-radius:50%;
+    text-align:center; line-height:48px; font-weight:900;
+    margin-right:18px; font-size:30px; vertical-align:middle;
+  }
+
+  /* ---------- Opciones ---------- */
+  .opcion{
+    display:block; width:100%; text-align:left;
+    background:var(--blanco); border:3px solid var(--azul-medio);
+    border-radius:var(--radio); padding:20px 26px; margin:12px 0;
+    font-size:26px; color:var(--texto); cursor:pointer; line-height:1.45;
+    transition:background .2s, transform .15s;
+    font-family:inherit;
+  }
+  .opcion:hover:not(:disabled){background:#EAF1F8; transform:translateX(5px);}
+  .opcion:disabled{cursor:default;}
+  .opcion.correcta{background:#E4F3E6; border-color:var(--verde);}
+  .opcion.incorrecta{background:#FBE9E7; border-color:var(--rojo);}
+  .feedback{
+    margin-top:18px; padding:20px 26px; border-radius:var(--radio);
+    font-size:25px; display:none; line-height:1.5;
+  }
+  .feedback.ok{background:#E4F3E6; color:#1F5A2A; display:block;}
+  .feedback.no{background:#FBE9E7; color:#7A2E1C; display:block;}
+
+  /* ---------- Clasificación ---------- */
+  .clasif-item{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; background:var(--blanco); border:3px solid var(--azul-medio);
+    border-radius:12px; padding:16px 22px; margin:12px 0;
+    font-size:24px; line-height:1.45; flex-wrap:wrap;
+  }
+  .clasif-item .texto{flex:1; min-width:240px;}
+  .clasif-item .btns{display:flex; gap:10px; flex-wrap:wrap;}
+  .clasif-btn{
+    border:2px solid var(--azul-medio); background:var(--blanco);
+    color:var(--azul-medio); border-radius:10px;
+    padding:10px 18px; font-size:19px; font-weight:700;
+    cursor:pointer; transition:background .2s, color .2s;
+    font-family:inherit;
+  }
+  .clasif-btn:hover:not(:disabled){background:#EAF1F8;}
+  .clasif-btn:disabled{cursor:default;}
+  .clasif-btn.selected{background:var(--azul-medio); color:var(--blanco);}
+  .clasif-item.ok{border-color:var(--verde); background:#E4F3E6;}
+  .clasif-item.fail{border-color:var(--rojo); background:#FBE9E7;}
+
+  /* ---------- Árbol de decisión ---------- */
+  .arbol-layout{display:grid; grid-template-columns:400px 1fr; gap:30px; align-items:start;}
+  .arbol-controls{
+    background:var(--gris-calido); border-radius:var(--radio);
+    padding:26px; box-shadow:var(--sombra);
+  }
+  .arbol-controls label{
+    display:block; font-size:22px; font-weight:600;
+    color:var(--azul-medio); margin:16px 0 6px;
+  }
+  .arbol-controls select{
+    width:100%; padding:14px; font-size:22px; border-radius:10px;
+    border:3px solid var(--azul-medio); background:var(--blanco);
+    color:var(--texto); font-family:inherit;
+  }
+  .arbol-resultado{
+    background:var(--blanco); border-radius:var(--radio);
+    box-shadow:var(--sombra); padding:30px 34px; min-height:400px;
+  }
+  .arbol-badge{
+    display:inline-block; border-radius:30px; padding:8px 22px;
+    font-size:20px; font-weight:700; margin-bottom:16px;
+  }
+  .badge-cuanti{background:#E6F1FB; color:#0B3A6B;}
+  .arbol-resultado h3{font-size:32px; margin:0 0 14px;}
+
+  /* ---------- Autoevaluación metacognitiva (versión diapositiva) ---------- */
+  .meta-layout{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .meta-card{
+    background:var(--blanco); border-radius:var(--radio);
+    box-shadow:var(--sombra); padding:24px 28px;
+    border-top:6px solid var(--dorado);
+  }
+  .meta-card .enunciado{
+    font-size:24px; font-weight:600; margin:0 0 16px; line-height:1.4;
+  }
+  .meta-escala{display:flex; flex-direction:column; gap:8px;}
+  .meta-escala .item{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 18px; border-radius:10px;
+    border:2px solid #D6DEE9; cursor:pointer;
+    font-size:20px; transition:background .2s, border-color .2s;
+  }
+  .meta-escala .item:hover{background:#EAF1F8;}
+  .meta-escala .item.selected{background:#EAF1F8; border-color:var(--azul-medio); font-weight:600;}
+  .meta-escala .item .circulo{
+    width:26px; height:26px; border-radius:50%;
+    border:3px solid var(--azul-medio); flex-shrink:0;
+  }
+  .meta-escala .item.selected .circulo{background:var(--azul-acento);}
+
+  .meta-abierta{
+    width:100%; min-height:100px; padding:16px 20px;
+    font-size:21px; border-radius:12px;
+    border:2px solid var(--azul-medio); background:var(--blanco);
+    font-family:inherit; resize:vertical; color:var(--texto);
+    line-height:1.5;
+  }
+  .meta-abierta:focus{
+    outline:none; border-color:var(--azul-acento);
+    box-shadow:0 0 0 4px rgba(19,83,138,.15);
+  }
+
+  /* ---------- Navegación ---------- */
+  .nav-bottom{
+    position:fixed; bottom:22px; right:26px; z-index:65;
+    display:flex; align-items:center; gap:12px;
+  }
+  .nav-btn{
+    background:var(--azul-oscuro); color:var(--blanco); border:none;
+    border-radius:50%; width:56px; height:56px; font-size:28px;
+    cursor:pointer; box-shadow:var(--sombra);
+    transition:background .2s, transform .15s;
+  }
+  .nav-btn:hover{background:var(--azul-acento); transform:scale(1.06);}
+  .nav-btn:disabled{opacity:.35; cursor:default; transform:none;}
+
+  .progress{
+    position:fixed; bottom:0; left:0; height:5px;
+    background:var(--dorado); width:0%; transition:width .3s ease; z-index:70;
+  }
+
+  .counter{
+    position:fixed; bottom:32px; left:26px; z-index:65;
+    font-size:22px; color:var(--texto-suave); font-weight:700;
+    background:rgba(255,255,255,.9); padding:6px 16px; border-radius:20px;
+    box-shadow:0 4px 12px rgba(11,37,69,.08);
+  }
+
+  .titulo-clase{
+    position:fixed; top:22px; left:26px; z-index:65;
+    font-size:16px; color:var(--texto-suave); font-weight:600;
+    letter-spacing:.4px;
+  }
+  .titulo-clase::before{
+    content:"●"; color:var(--dorado); margin-right:10px; font-size:14px;
+  }
+
+  .toggle-indice{
+    position:fixed; top:20px; right:26px; z-index:65;
+    background:var(--azul-oscuro); color:var(--blanco);
+    border:none; border-radius:24px; padding:10px 20px;
+    font-size:16px; cursor:pointer; box-shadow:var(--sombra);
+    transition:background .2s, transform .15s;
+  }
+  .toggle-indice:hover{background:var(--azul-acento); transform:scale(1.03);}
+
+  /* ---------- Panel de índice ---------- */
+  .indice-panel{
+    position:fixed; top:0; right:0; bottom:0; width:360px;
+    background:var(--azul-oscuro); color:var(--blanco);
+    padding:80px 24px 26px; overflow-y:auto;
+    transform:translateX(100%); transition:transform .35s ease;
+    z-index:75; box-shadow:-8px 0 30px rgba(11,37,69,.25);
+  }
+  .indice-panel.open{transform:translateX(0);}
+  .indice-panel h2{
+    color:var(--dorado); font-size:22px; margin:0 0 22px;
+    font-weight:600; letter-spacing:.5px;
+  }
+  .indice-panel ol{list-style:none; margin:0; padding:0;}
+  .indice-panel li{
+    font-size:17px; padding:10px 12px; border-radius:8px;
+    cursor:pointer; margin-bottom:4px; color:#C9D6E8;
+    line-height:1.35; transition:background .2s, color .2s;
+  }
+  .indice-panel li:hover{background:rgba(231,200,115,.14); color:var(--blanco);}
+  .indice-panel li.active{background:var(--azul-acento); color:var(--blanco); font-weight:600;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px){
+    body{font-size:22px;}
+    h1{font-size:40px;} h2{font-size:34px;} h3{font-size:26px;}
+    p, li{font-size:22px;} .lead{font-size:23px;}
+    .portada h1{font-size:44px;}
+    .portada .autor{font-size:26px;}
+    .portada .contexto{font-size:19px;}
+    .pill{font-size:17px; padding:7px 18px;}
+    .grid-2, .grid-3, .arbol-layout, .meta-layout{grid-template-columns:1fr;}
+    .stage{padding:80px 24px 100px;}
+    .slide{left:24px; right:24px; top:80px;}
+    .ra-texto{font-size:20px;}
+    .desafio h3{font-size:24px;}
+    .desafio p{font-size:21px;}
+    .interrogante{font-size:22px; padding:18px 22px;}
+    .interrogante::before{width:38px; height:38px; line-height:38px; font-size:22px;}
+    .opcion{font-size:21px; padding:16px 20px;}
+    .clasif-item{font-size:21px;}
+    .clasif-btn{font-size:16px;}
+    .meta-card .enunciado{font-size:20px;}
+    .meta-escala .item{font-size:18px;}
+    .meta-abierta{font-size:18px;}
+    .indice-panel{width:280px;}
+    .toggle-indice{font-size:14px; padding:8px 16px;}
+    .titulo-clase{font-size:14px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Encabezado fijo con título de clase -->
+<div class="titulo-clase">Diseño metodológico · Introducción a la Investigación</div>
+
+<!-- Botón para abrir el índice -->
+<button class="toggle-indice" id="toggleIndice" aria-label="Mostrar índice">☰ Índice</button>
+
+<!-- Panel de índice lateral -->
+<nav class="indice-panel" id="indicePanel">
+  <h2>DIAPOSITIVAS</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<!-- Contador de diapositiva -->
+<div class="counter" id="counter">1 / 22</div>
+
+<!-- Escenario con diapositivas -->
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada active" data-title="Portada">
+    <span class="pill dorado">Clase · Introducción a la Investigación</span>
+    <h1>Diseño metodológico</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">La arquitectura lógica de una investigación</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">45 minutos · Sesión expositiva con actividades breves</p>
+  </section>
+
+  <!-- ===== 2. RESULTADOS DE APRENDIZAJE ===== -->
+  <section class="slide" data-title="Resultados de aprendizaje">
+    <span class="pill">Resultados de aprendizaje</span>
+    <h2>Al terminar esta clase podrás…</h2>
+    <div class="ra-lista">
+      <div class="ra-item">
+        <div class="ra-num">1</div>
+        <div class="ra-texto">Distinguir <strong>enfoque, diseño y técnica</strong>, y explicar por qué no son lo mismo.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">2</div>
+        <div class="ra-texto">Reconocer la lógica interna de los <strong>diseños cuantitativos</strong>: descriptivo, correlacional, comparativo, experimental, cuasiexperimental.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">3</div>
+        <div class="ra-texto">Diferenciar los <strong>cinco grandes diseños cualitativos</strong> según el objeto de comprensión.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">4</div>
+        <div class="ra-texto">Analizar la <strong>coherencia metodológica</strong> entre pregunta, enfoque, diseño y evidencia.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. AGENDA ===== -->
+  <section class="slide" data-title="Agenda">
+    <span class="pill">Agenda</span>
+    <h2>Recorrido de la clase</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Desafío inicial: tres preguntas, un fenómeno</li>
+        <li>Enfoque, diseño y técnica</li>
+        <li>Actividad breve: clasificación</li>
+        <li>Lógica del diseño cuantitativo</li>
+        <li>Familia no experimental y dimensión temporal</li>
+      </ul>
+      <ul class="clean">
+        <li>Familia experimental y explicaciones alternativas</li>
+        <li>Actividad: árbol de decisión cuantitativo</li>
+        <li>Puente hacia lo cualitativo</li>
+        <li>Los cinco diseños cualitativos</li>
+        <li>Coherencia metodológica y síntesis</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      La clase combina exposición con <strong>tres actividades breves</strong> y una <strong>autoevaluación metacognitiva final</strong>.
+    </div>
+  </section>
+
+  <!-- ===== 4. DESAFÍO INICIAL ===== -->
+  <section class="slide" data-title="Desafío inicial">
+    <span class="pill rojo">Desafío inicial</span>
+    <h2>Tres preguntas, un mismo fenómeno</h2>
+    <p class="lead">Fenómeno: <strong>procrastinación académica</strong> en universitarios.</p>
+    <div class="desafio">
+      <p><strong>Pregunta A:</strong> ¿Existe relación entre carga académica percibida y procrastinación?</p>
+      <p><strong>Pregunta B:</strong> ¿Una estrategia de autorregulación reduce la procrastinación?</p>
+      <p><strong>Pregunta C:</strong> ¿Cómo experimentan los estudiantes la procrastinación en periodos de alta carga?</p>
+    </div>
+    <div class="interrogante">
+      Las tres preguntas hablan del mismo fenómeno. ¿Por qué requerirían arquitecturas metodológicas diferentes?
+    </div>
+  </section>
+
+  <!-- ===== 5. DISEÑAR NO ES ELEGIR ENCUESTA O ENTREVISTA ===== -->
+  <section class="slide" data-title="Diseñar">
+    <span class="pill">Idea central</span>
+    <h2>Diseñar no es elegir encuesta o entrevista</h2>
+    <div class="card rojo">
+      <h3>Error frecuente</h3>
+      <p>Pregunta → elegir encuesta o entrevista → aplicar el instrumento.</p>
+    </div>
+    <div class="card verde">
+      <h3>Lo correcto</h3>
+      <p>Problema → pregunta → enfoque → diseño → participantes/casos → técnicas → análisis.</p>
+    </div>
+    <div class="card azul">
+      <p><strong>La pregunta que orienta todo el diseño es:</strong> ¿qué tendría que ocurrir metodológicamente para responder esta pregunta de forma válida?</p>
+    </div>
+  </section>
+
+  <!-- ===== 6. ENFOQUE, DISEÑO Y TÉCNICA ===== -->
+  <section class="slide" data-title="Tres niveles">
+    <span class="pill">Distinción fundamental</span>
+    <h2>Enfoque, diseño y técnica no son lo mismo</h2>
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Enfoque</h3>
+        <p>Orientación general: cuantitativo, cualitativo, mixto.</p>
+        <p class="lead"><em>¿Qué tipo de conocimiento busco?</em></p>
+      </div>
+      <div class="card dorado">
+        <h3>Diseño</h3>
+        <p>Arquitectura lógica que organiza el estudio.</p>
+        <p class="lead"><em>¿Cómo debo estructurarlo?</em></p>
+      </div>
+      <div class="card">
+        <h3>Técnica</h3>
+        <p>Procedimientos concretos: encuesta, entrevista, observación.</p>
+        <p class="lead"><em>¿Con qué obtengo la evidencia?</em></p>
+      </div>
+    </div>
+    <div class="interrogante">
+      Si alguien dice “usé entrevistas”, ¿ya sabemos qué diseño utilizó?
+    </div>
+  </section>
+
+  <!-- ===== 7. ACTIVIDAD 1 ===== -->
+  <section class="slide" data-title="Actividad 1">
+    <span class="pill">Actividad breve</span>
+    <h2>¿Enfoque, diseño o técnica?</h2>
+    <p class="lead">Clasifiquen cada expresión según el nivel al que corresponde.</p>
+    <div id="clasifNiveles">
+      <div class="clasif-item" data-correcto="tecnica">
+        <span class="texto">“Apliqué una entrevista semiestructurada de 60 minutos.”</span>
+        <div class="btns">
+          <button class="clasif-btn" data-valor="enfoque">Enfoque</button>
+          <button class="clasif-btn" data-valor="diseno">Diseño</button>
+          <button class="clasif-btn" data-valor="tecnica">Técnica</button>
+        </div>
+      </div>
+      <div class="clasif-item" data-correcto="diseno">
+        <span class="texto">“El estudio tendrá un diseño correlacional transversal.”</span>
+        <div class="btns">
+          <button class="clasif-btn" data-valor="enfoque">Enfoque</button>
+          <button class="clasif-btn" data-valor="diseno">Diseño</button>
+          <button class="clasif-btn" data-valor="tecnica">Técnica</button>
+        </div>
+      </div>
+      <div class="clasif-item" data-correcto="enfoque">
+        <span class="texto">“La investigación será cualitativa.”</span>
+        <div class="btns">
+          <button class="clasif-btn" data-valor="enfoque">Enfoque</button>
+          <button class="clasif-btn" data-valor="diseno">Diseño</button>
+          <button class="clasif-btn" data-valor="tecnica">Técnica</button>
+        </div>
+      </div>
+    </div>
+    <div class="feedback" id="fbNiveles"></div>
+  </section>
+
+  <!-- ===== 8. LÓGICA CUANTITATIVA ===== -->
+  <section class="slide" data-title="Lógica cuantitativa">
+    <span class="pill">Parte I · Cuantitativa</span>
+    <h2>La lógica del diseño cuantitativo</h2>
+    <p class="lead">En cuantitativa trabajamos con <strong>variables</strong>. La pregunta clave es:</p>
+    <div class="card azul">
+      <p style="font-size:34px; text-align:center; margin:10px 0;"><strong>¿Qué voy a hacer con las variables?</strong></p>
+    </div>
+    <div class="card dorado">
+      <p>Variables → ¿qué quiero saber? → Describir · Relacionar · Comparar · Estimar efectos → ¿Cómo organizo la observación? → <strong>DISEÑO</strong></p>
+    </div>
+    <div class="interrogante">
+      ¿Basta con decir “mi investigación será cuantitativa”? ¿Qué información falta?
+    </div>
+  </section>
+
+  <!-- ===== 9. PRIMERA GRAN DECISIÓN ===== -->
+  <section class="slide" data-title="¿Intervenir o no?">
+    <span class="pill">Primera decisión</span>
+    <h2>¿Intervenir o solo observar?</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Observo lo que existe</h3>
+        <p>No introduzco intervención. Mido estrés y sueño tal como aparecen.</p>
+        <p class="lead">Lógica <strong>no experimental</strong>.</p>
+      </div>
+      <div class="card verde">
+        <h3>Introduzco una intervención</h3>
+        <p>Aplico un programa y comparo con un grupo control.</p>
+        <p class="lead">Lógica <strong>experimental</strong> o <strong>cuasiexperimental</strong>.</p>
+      </div>
+    </div>
+    <div class="desafio">
+      <h3>Pregunta clave para clasificar cualquier diseño cuantitativo</h3>
+      <p>¿Existe manipulación deliberada de una variable o intervención?</p>
+    </div>
+  </section>
+
+  <!-- ===== 10. FAMILIA NO EXPERIMENTAL ===== -->
+  <section class="slide" data-title="No experimental">
+    <span class="pill">No experimental</span>
+    <h2>Familia no experimental</h2>
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Descriptivo</h3>
+        <p>Caracteriza una variable o condición.</p>
+        <p class="lead">¿Cuál es el nivel de procrastinación en primer semestre?</p>
+      </div>
+      <div class="card azul">
+        <h3>Correlacional</h3>
+        <p>Relaciona dos o más variables sin manipularlas.</p>
+        <p class="lead">Correlación no implica causalidad.</p>
+      </div>
+      <div class="card azul">
+        <h3>Comparativo</h3>
+        <p>Compara grupos o condiciones ya existentes.</p>
+        <p class="lead">Estudiantes que trabajan vs. quienes no.</p>
+      </div>
+    </div>
+    <div class="interrogante">
+      El comparativo compara grupos existentes. ¿Qué precaución hay al concluir que las diferencias se deben a esa condición?
+    </div>
+  </section>
+
+  <!-- ===== 11. DIMENSIÓN TEMPORAL ===== -->
+  <section class="slide" data-title="Transversal y longitudinal">
+    <span class="pill">Dimensión temporal</span>
+    <h2>Transversal y longitudinal</h2>
+    <p class="lead">No describen el propósito del estudio: describen su <strong>estructura temporal</strong>.</p>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Transversal</h3>
+        <p>Un solo momento o periodo delimitado.</p>
+        <p class="lead">Correlación entre procrastinación y estrés durante un semestre.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Longitudinal</h3>
+        <p>Varios momentos (T1, T2, T3…).</p>
+        <p class="lead">Permite estudiar cambio, estabilidad y trayectorias.</p>
+      </div>
+    </div>
+    <div class="card">
+      <p>Existen combinaciones como <strong>correlacional transversal</strong> o <strong>correlacional longitudinal</strong>. Un diseño tiene varias dimensiones simultáneas.</p>
+    </div>
+  </section>
+
+  <!-- ===== 12. FAMILIA EXPERIMENTAL ===== -->
+  <section class="slide" data-title="Experimental">
+    <span class="pill">Experimental</span>
+    <h2>Familia experimental</h2>
+    <div class="grid-3">
+      <div class="card verde">
+        <h3>Experimento verdadero</h3>
+        <p>Manipulación + comparación + asignación aleatoria.</p>
+        <p class="lead">Estructura más fuerte para inferencia causal.</p>
+      </div>
+      <div class="card verde">
+        <h3>Cuasiexperimental</h3>
+        <p>Intervención con grupos ya existentes, sin aleatorización.</p>
+        <p class="lead">Atención a diferencias iniciales.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Preexperimental</h3>
+        <p>Un solo grupo, medición antes y después.</p>
+        <p class="lead">Estructura débil para sostener causalidad.</p>
+      </div>
+    </div>
+    <div class="card azul">
+      <p>La asignación aleatoria reduce la probabilidad de que diferencias iniciales expliquen sistemáticamente el resultado.</p>
+    </div>
+  </section>
+
+  <!-- ===== 13. EXPLICACIONES ALTERNATIVAS ===== -->
+  <section class="slide" data-title="Explicaciones alternativas">
+    <span class="pill">Corazón del diseño experimental</span>
+    <h2>El verdadero problema: explicaciones alternativas</h2>
+    <div class="card azul">
+      <p>El investigador afirma: “la intervención produjo la mejora”. El diseño debe permitir preguntar: <strong>¿qué otras cosas podrían explicar esa mejora?</strong></p>
+    </div>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Maduración de los participantes</li>
+        <li>Eventos externos simultáneos</li>
+        <li>Familiaridad con la medición</li>
+      </ul>
+      <ul class="clean">
+        <li>Cambios en la motivación</li>
+        <li>Efecto del evaluador</li>
+        <li>Diferencias iniciales entre grupos</li>
+      </ul>
+    </div>
+    <div class="desafio">
+      <h3>Idea clave</h3>
+      <p>Un buen diseño no es “hacer un experimento”: es organizar condiciones que permitan sostener razonablemente una inferencia causal.</p>
+    </div>
+  </section>
+
+  <!-- ===== 14. ACTIVIDAD 2: ÁRBOL DE DECISIÓN ===== -->
+  <section class="slide" data-title="Actividad 2">
+    <span class="pill dorado">Actividad</span>
+    <h2>Árbol de decisión cuantitativo</h2>
+    <p class="lead">Respondan las preguntas encadenadas y observen qué diseño emerge.</p>
+
+    <div class="arbol-layout">
+      <div class="arbol-controls">
+        <label>1. ¿Voy a intervenir sobre las variables?</label>
+        <select id="a1">
+          <option value="">— Selecciona —</option>
+          <option value="no">No. Observo cómo se presentan</option>
+          <option value="si">Sí. Introduzco una intervención</option>
+        </select>
+
+        <label id="lbl2a" style="display:none;">2. ¿Qué quiero hacer con las variables?</label>
+        <select id="a2" style="display:none;">
+          <option value="">— Selecciona —</option>
+          <option value="descriptivo">Caracterizar una variable</option>
+          <option value="correlacional">Relacionar dos o más variables</option>
+          <option value="comparativo">Comparar grupos existentes</option>
+        </select>
+
+        <label id="lbl2b" style="display:none;">2. ¿Cómo asigno a los participantes?</label>
+        <select id="a2b" style="display:none;">
+          <option value="">— Selecciona —</option>
+          <option value="experimental">Aleatoriamente a las condiciones</option>
+          <option value="cuasi">Los grupos ya existen, no puedo aleatorizar</option>
+          <option value="pre">Un solo grupo, sin comparación real</option>
+        </select>
+
+        <label id="lbl3" style="display:none;">3. ¿Cuántos momentos de observación necesito?</label>
+        <select id="a3" style="display:none;">
+          <option value="">— Selecciona —</option>
+          <option value="transversal">Uno solo (transversal)</option>
+          <option value="longitudinal">Varios momentos (longitudinal)</option>
+        </select>
+      </div>
+
+      <div class="arbol-resultado" id="arbolRes">
+        <h3>Árbol en construcción</h3>
+        <p class="lead">Responde las preguntas para ver qué diseño emerge.</p>
+        <div class="card azul" style="margin-top:16px; font-size:20px;">
+          <strong>Recuerda:</strong> un diseño no es una etiqueta aislada. Es una combinación coherente de decisiones.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 15. PUENTE HACIA LO CUALITATIVO ===== -->
+  <section class="slide" data-title="Puente cualitativo">
+    <span class="pill">Parte II · Cualitativa</span>
+    <h2>En cualitativa no aplicamos la misma lógica</h2>
+    <p class="lead">No preguntamos “¿qué variables voy a relacionar?”, sino “¿qué fenómeno necesito comprender y desde qué perspectiva?”.</p>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Cuantitativa</h3>
+        <p>Variables → relaciones → estructura de observación.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Cualitativa</h3>
+        <p>Fenómeno → significado / contexto / proceso → estrategia de comprensión.</p>
+      </div>
+    </div>
+    <div class="interrogante">
+      ¿Por qué decir “haré entrevistas” no equivale a decir “mi diseño es fenomenológico”?
+    </div>
+  </section>
+
+  <!-- ===== 16. LOS CINCO DISEÑOS CUALITATIVOS ===== -->
+  <section class="slide" data-title="Cinco diseños cualitativos">
+    <span class="pill verde">Cualitativo</span>
+    <h2>Cinco grandes diseños cualitativos</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Fenomenología</h3>
+        <p>Comprender la <strong>experiencia vivida</strong> de un fenómeno por varias personas.</p>
+      </div>
+      <div class="card azul">
+        <h3>Teoría fundamentada</h3>
+        <p>Comprender <strong>procesos, acciones e interacciones</strong>, y construir teoría desde los datos.</p>
+      </div>
+      <div class="card azul">
+        <h3>Etnografía</h3>
+        <p>Comprender una <strong>cultura o grupo</strong>: prácticas, normas, lenguaje, rituales.</p>
+      </div>
+      <div class="card azul">
+        <h3>Estudio de caso</h3>
+        <p>Comprender en profundidad un <strong>sistema delimitado</strong>: institución, programa, proyecto.</p>
+      </div>
+      <div class="card azul">
+        <h3>Investigación narrativa</h3>
+        <p>Comprender cómo una persona <strong>construye su historia y trayectoria</strong>.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Idea clave</h3>
+        <p>No son “técnicas”: son <strong>formas distintas de construir el objeto de estudio</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 17. EL MISMO TEMA, CINCO DISEÑOS ===== -->
+  <section class="slide" data-title="Mismo tema, cinco diseños">
+    <span class="pill">Contraste</span>
+    <h2>El mismo tema, cinco diseños</h2>
+    <p class="lead">Tema: <strong>abandono universitario</strong>.</p>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Fenomenología</h3>
+        <p>¿Cómo viven los estudiantes la experiencia de considerar abandonar?</p>
+      </div>
+      <div class="card azul">
+        <h3>Teoría fundamentada</h3>
+        <p>¿Cómo se desarrolla el proceso que lleva a decidir abandonar?</p>
+      </div>
+      <div class="card azul">
+        <h3>Etnografía</h3>
+        <p>¿Qué prácticas y significados caracterizan un programa con alta permanencia?</p>
+      </div>
+      <div class="card azul">
+        <h3>Estudio de caso</h3>
+        <p>¿Cómo afrontó el Programa X el aumento del abandono entre 2024 y 2026?</p>
+      </div>
+      <div class="card azul">
+        <h3>Narrativa</h3>
+        <p>¿Cómo reconstruyen los jóvenes que abandonaron su trayectoria educativa?</p>
+      </div>
+      <div class="card dorado">
+        <p>El diseño no lo define el tema, sino <strong>lo que se busca comprender</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 18. COHERENCIA METODOLÓGICA ===== -->
+  <section class="slide" data-title="Coherencia">
+    <span class="pill">Síntesis</span>
+    <h2>Coherencia metodológica</h2>
+    <p class="lead">Un diseño no es una etiqueta suelta. Es una <strong>cadena de decisiones alineadas</strong>.</p>
+    <div class="card dorado">
+      <p><strong>Problema → Pregunta → Propósito → Enfoque → Diseño → Evidencia → Participantes/casos → Técnicas → Análisis → Conclusión posible</strong></p>
+    </div>
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Incoherente</h3>
+        <p>Enfoque cuantitativo + fenomenología + encuesta cerrada.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Incoherente</h3>
+        <p>Pregunta por experiencia vivida + correlación de variables.</p>
+      </div>
+    </div>
+    <div class="desafio">
+      <h3>Principio central</h3>
+      <p>Si una pieza cambia, las demás pueden verse afectadas.</p>
+    </div>
+  </section>
+
+  <!-- ===== 19. ACTIVIDAD 3 ===== -->
+  <section class="slide" data-title="Actividad 3">
+    <span class="pill">Actividad breve</span>
+    <h2>¿Cuál combinación es coherente?</h2>
+    <p class="lead">Analicen las tres combinaciones y elijan la que respeta la coherencia metodológica.</p>
+
+    <div id="quizCoherencia">
+      <button class="opcion" data-correct="false">
+        Pregunta: “¿Cómo experimentan los estudiantes la presión académica?” · Enfoque cuantitativo · Diseño fenomenológico · Encuesta de 20 ítems.
+      </button>
+      <button class="opcion" data-correct="true">
+        Pregunta: “¿Cómo experimentan los estudiantes la presión académica?” · Enfoque cualitativo · Diseño fenomenológico · Entrevistas en profundidad.
+      </button>
+      <button class="opcion" data-correct="false">
+        Pregunta: “¿Qué relación existe entre autoestima y rendimiento?” · Enfoque cualitativo · Diseño correlacional · Escalas psicométricas.
+      </button>
+    </div>
+    <div class="feedback" id="fbCoherencia"></div>
+  </section>
+
+  <!-- ===== 20. SÍNTESIS ===== -->
+  <section class="slide" data-title="Síntesis">
+    <span class="pill">Cierre</span>
+    <h2>Lo esencial que te llevas</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Un diseño es…</h3>
+        <ul class="clean">
+          <li>La arquitectura lógica de un estudio</li>
+          <li>Una cadena de decisiones coherentes</li>
+          <li>La respuesta a: ¿qué permite concluir esta evidencia?</li>
+        </ul>
+      </div>
+      <div class="card dorado">
+        <h3>La idea fuerza</h3>
+        <p>El método no se elige por preferencia, sino por <strong>correspondencia con la pregunta</strong>.</p>
+        <p class="lead">Pregunta → enfoque → diseño → evidencia → conclusión posible.</p>
+      </div>
+    </div>
+    <div class="desafio">
+      <h3>Pregunta final</h3>
+      <p>Frente a cualquier pregunta de investigación: ¿qué tendría que ocurrir metodológicamente para poder responderla?</p>
+    </div>
+  </section>
+
+  <!-- ===== 21. AUTOEVALUACIÓN METACOGNITIVA ===== -->
+  <section class="slide" data-title="Autoevaluación">
+    <span class="pill rojo">Autoevaluación metacognitiva</span>
+    <h2>¿Qué aprendiste y cómo lo aprendiste?</h2>
+    <p class="lead">Responde con calma. No hay respuestas correctas o incorrectas.</p>
+
+    <div class="meta-layout">
+      <div class="meta-card">
+        <p class="enunciado">1. ¿Qué tan clara te resulta la diferencia entre enfoque, diseño y técnica?</p>
+        <div class="meta-escala">
+          <div class="item" data-preg="1" data-val="1"><div class="circulo"></div>Muy confusa</div>
+          <div class="item" data-preg="1" data-val="2"><div class="circulo"></div>Algo clara</div>
+          <div class="item" data-preg="1" data-val="3"><div class="circulo"></div>Bastante clara</div>
+          <div class="item" data-preg="1" data-val="4"><div class="circulo"></div>Muy clara</div>
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <p class="enunciado">2. ¿Qué tan seguro te sientes al clasificar diseños cuantitativos?</p>
+        <div class="meta-escala">
+          <div class="item" data-preg="2" data-val="1"><div class="circulo"></div>Nada seguro</div>
+          <div class="item" data-preg="2" data-val="2"><div class="circulo"></div>Poco seguro</div>
+          <div class="item" data-preg="2" data-val="3"><div class="circulo"></div>Bastante seguro</div>
+          <div class="item" data-preg="2" data-val="4"><div class="circulo"></div>Muy seguro</div>
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <p class="enunciado">3. ¿Qué tan claro te resulta distinguir los cinco diseños cualitativos?</p>
+        <div class="meta-escala">
+          <div class="item" data-preg="3" data-val="1"><div class="circulo"></div>Muy confuso</div>
+          <div class="item" data-preg="3" data-val="2"><div class="circulo"></div>Algo claro</div>
+          <div class="item" data-preg="3" data-val="3"><div class="circulo"></div>Bastante claro</div>
+          <div class="item" data-preg="3" data-val="4"><div class="circulo"></div>Muy claro</div>
+        </div>
+      </div>
+
+      <div class="meta-card">
+        <p class="enunciado">4. Piensa en una pregunta de investigación que te interese. ¿Qué necesitarías saber para decidir su diseño?</p>
+        <textarea class="meta-abierta" id="metaAbierta4" placeholder="Escribe tu reflexión aquí..."></textarea>
+      </div>
+
+      <div class="meta-card" style="grid-column:1/-1;">
+        <p class="enunciado">5. ¿Qué duda sigue abierta después de esta clase? ¿Qué te gustaría seguir trabajando?</p>
+        <textarea class="meta-abierta" id="metaAbierta5" placeholder="Escribe tu reflexión aquí..."></textarea>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:26px;">
+      <p><strong>Importante:</strong> esta autoevaluación no tiene respuestas correctas. Su propósito es que puedas reconocer qué aprendiste, qué necesitas repasar y qué preguntas te quedan abiertas.</p>
+    </div>
+  </section>
+
+  <!-- ===== 22. REFERENCIAS ===== -->
+  <section class="slide" data-title="Referencias">
+    <span class="pill">Referencias</span>
+    <h2>Fuentes base (APA 7)</h2>
+    <div class="card azul">
+      <p style="font-size:20px; line-height:1.55;">
+        American Psychological Association. (2023). <em>APA handbook of research methods in psychology</em> (2nd ed.). APA.<br><br>
+        Creswell, J. W., &amp; Creswell, J. D. (2018). <em>Research design: Qualitative, quantitative, and mixed methods approaches</em> (5th ed.). SAGE.<br><br>
+        Creswell, J. W., &amp; Poth, C. N. (2018). <em>Qualitative inquiry and research design: Choosing among five approaches</em> (5th ed.). SAGE.<br><br>
+        Fetters, M. D., Curry, L. A., &amp; Creswell, J. W. (2013). Achieving integration in mixed methods designs. <em>Health Services Research, 48</em>(6 Pt. 2), 2134–2156.<br><br>
+        Yin, R. K. (2018). <em>Case study research and applications: Design and methods</em> (6th ed.). SAGE.
+      </p>
+    </div>
+    <div class="card dorado">
+      <p><strong>Fin de la clase.</strong> Recuerda: el diseño es la arquitectura lógica de una investigación, no una etiqueta decorativa.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Navegación inferior -->
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+<div class="progress" id="progress"></div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN ENTRE DIAPOSITIVAS
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let current = 0;
+
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  li.addEventListener('click', () => {
+    goTo(i);
+    document.getElementById('indicePanel').classList.remove('open');
+  });
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+  updateUI();
+}
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  counter.textContent = (current + 1) + ' / ' + slides.length;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+/* ---------- Índice lateral ---------- */
+document.getElementById('toggleIndice').addEventListener('click', () => {
+  document.getElementById('indicePanel').classList.toggle('open');
+});
+
+/* ============================================================
+   2. QUIZ DE COHERENCIA
+   ============================================================ */
+const quizCoherencia = document.getElementById('quizCoherencia');
+const fbCoherencia = document.getElementById('fbCoherencia');
+
+if (quizCoherencia && fbCoherencia){
+  quizCoherencia.querySelectorAll('.opcion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (quizCoherencia.dataset.answered === 'true') return;
+      quizCoherencia.dataset.answered = 'true';
+      const correct = btn.dataset.correct === 'true';
+      quizCoherencia.querySelectorAll('.opcion').forEach(b => {
+        b.disabled = true;
+        if (b.dataset.correct === 'true') b.classList.add('correcta');
+      });
+      if (!correct) btn.classList.add('incorrecta');
+      fbCoherencia.classList.add(correct ? 'ok' : 'no');
+      fbCoherencia.classList.remove(correct ? 'no' : 'ok');
+      fbCoherencia.innerHTML = correct
+        ? '✔ Correcto. La pregunta pide comprender una experiencia: enfoque cualitativo, diseño fenomenológico y entrevistas en profundidad están alineados.'
+        : '✘ Cuidado. Revisa la coherencia: la pregunta, el enfoque, el diseño y las técnicas deben responder al mismo tipo de conocimiento.';
+    });
+  });
+}
+
+/* ============================================================
+   3. ACTIVIDAD DE CLASIFICACIÓN
+   ============================================================ */
+(function(){
+  const cont = document.getElementById('clasifNiveles');
+  const fb = document.getElementById('fbNiveles');
+  if (!cont || !fb) return;
+  const items = cont.querySelectorAll('.clasif-item');
+  let respondidos = 0, aciertos = 0;
+
+  items.forEach(item => {
+    item.querySelectorAll('.clasif-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (item.dataset.answered === 'true') return;
+        item.dataset.answered = 'true';
+        const correcto = item.dataset.correcto === btn.dataset.valor;
+        item.querySelectorAll('.clasif-btn').forEach(b => {
+          b.disabled = true;
+          if (b.dataset.valor === item.dataset.correcto) b.classList.add('selected');
+        });
+        item.classList.add(correcto ? 'ok' : 'fail');
+        respondidos++; if (correcto) aciertos++;
+
+        if (respondidos === items.length){
+          const perfecto = aciertos === items.length;
+          fb.classList.add(perfecto ? 'ok' : 'no');
+          fb.classList.remove(perfecto ? 'no' : 'ok');
+          fb.innerHTML = `Han acertado ${aciertos} de ${items.length}. ` +
+            (perfecto
+              ? 'Enfoque es la orientación general; diseño es la arquitectura del estudio; técnica es el procedimiento concreto.'
+              : 'Enfoque: orientación general. Diseño: arquitectura del estudio. Técnica: procedimiento concreto.');
+        }
+      });
+    });
+  });
+})();
+
+/* ============================================================
+   4. ÁRBOL DE DECISIÓN CUANTITATIVO
+   ============================================================ */
+const a1 = document.getElementById('a1');
+const a2 = document.getElementById('a2');
+const a2b = document.getElementById('a2b');
+const a3 = document.getElementById('a3');
+const lbl2a = document.getElementById('lbl2a');
+const lbl2b = document.getElementById('lbl2b');
+const lbl3 = document.getElementById('lbl3');
+const arbolRes = document.getElementById('arbolRes');
+
+function mostrarPaso2(){
+  const v = a1.value;
+  if (v === 'no'){
+    a2.style.display = 'block';
+    lbl2a.style.display = 'block';
+    a2b.style.display = 'none';
+    lbl2b.style.display = 'none';
+    a2b.value = '';
+  } else if (v === 'si'){
+    a2b.style.display = 'block';
+    lbl2b.style.display = 'block';
+    a2.style.display = 'none';
+    lbl2a.style.display = 'none';
+    a2.value = '';
+  } else {
+    a2.style.display = 'none';
+    a2b.style.display = 'none';
+    lbl2a.style.display = 'none';
+    lbl2b.style.display = 'none';
+  }
+  a3.style.display = 'none';
+  lbl3.style.display = 'none';
+  a3.value = '';
+  renderArbol();
+}
+
+function mostrarPaso3(){
+  const intervenir = a1.value;
+  let mostrarTemp = false;
+  if (intervenir === 'no' && a2.value) mostrarTemp = true;
+  if (intervenir === 'si' && a2b.value) mostrarTemp = true;
+  if (mostrarTemp){
+    a3.style.display = 'block';
+    lbl3.style.display = 'block';
+  } else {
+    a3.style.display = 'none';
+    lbl3.style.display = 'none';
+    a3.value = '';
+  }
+  renderArbol();
+}
+
+function renderArbol(){
+  const v1 = a1.value;
+  if (!v1){
+    arbolRes.innerHTML = `
+      <h3>Árbol en construcción</h3>
+      <p class="lead">Responde las preguntas para ver qué diseño emerge.</p>
+      <div class="card azul" style="margin-top:16px; font-size:20px;">
+        <strong>Recuerda:</strong> un diseño no es una etiqueta aislada. Es una combinación coherente de decisiones.
+      </div>
+    `;
+    return;
+  }
+  if (v1 === 'no'){
+    const v2 = a2.value;
+    if (!v2){
+      arbolRes.innerHTML = `
+        <span class="arbol-badge badge-cuanti">No experimental</span>
+        <h3>Vas por la rama no experimental</h3>
+        <p>Falta decidir qué quieres hacer con las variables.</p>
+      `;
+      return;
+    }
+    const nombres = {
+      descriptivo: 'Diseño descriptivo',
+      correlacional: 'Diseño correlacional',
+      comparativo: 'Diseño comparativo'
+    };
+    const explicaciones = {
+      descriptivo: 'Tu propósito es caracterizar una variable.',
+      correlacional: 'Tu propósito es relacionar variables. Recuerda: correlación no implica causalidad.',
+      comparativo: 'Tu propósito es comparar grupos existentes.'
+    };
+    let temporal = '';
+    if (a3.value === 'transversal') temporal = ' Temporalidad: <strong>transversal</strong>.';
+    else if (a3.value === 'longitudinal') temporal = ' Temporalidad: <strong>longitudinal</strong>.';
+
+    arbolRes.innerHTML = `
+      <span class="arbol-badge badge-cuanti">No experimental</span>
+      <h3>${nombres[v2]}</h3>
+      <p>${explicaciones[v2]}${temporal}</p>
+    `;
+  } else {
+    const v2 = a2b.value;
+    if (!v2){
+      arbolRes.innerHTML = `
+        <span class="arbol-badge badge-cuanti">Experimental</span>
+        <h3>Vas por la rama experimental</h3>
+        <p>Falta decidir cómo asignas a los participantes.</p>
+      `;
+      return;
+    }
+    const nombres = {
+      experimental: 'Experimento verdadero',
+      cuasi: 'Diseño cuasiexperimental',
+      pre: 'Diseño preexperimental'
+    };
+    const explicaciones = {
+      experimental: 'Hay intervención, comparación y asignación aleatoria.',
+      cuasi: 'Hay intervención y comparación, pero los grupos ya existen.',
+      pre: 'Un solo grupo, sin comparación real. Estructura débil para causalidad.'
+    };
+    let temporal = '';
+    if (a3.value === 'transversal') temporal = ' Temporalidad: <strong>transversal</strong>.';
+    else if (a3.value === 'longitudinal') temporal = ' Temporalidad: <strong>longitudinal</strong>.';
+
+    arbolRes.innerHTML = `
+      <span class="arbol-badge badge-cuanti">Experimental</span>
+      <h3>${nombres[v2]}</h3>
+      <p>${explicaciones[v2]}${temporal}</p>
+    `;
+  }
+}
+
+a1.addEventListener('change', mostrarPaso2);
+a2.addEventListener('change', mostrarPaso3);
+a2b.addEventListener('change', mostrarPaso3);
+a3.addEventListener('change', renderArbol);
+
+/* ============================================================
+   5. AUTOEVALUACIÓN METACOGNITIVA (escalas + abiertas)
+   ============================================================ */
+document.querySelectorAll('.meta-escala').forEach(grupo => {
+  const items = grupo.querySelectorAll('.item');
+  items.forEach(it => {
+    it.addEventListener('click', () => {
+      items.forEach(i => i.classList.remove('selected'));
+      it.classList.add('selected');
+    });
+  });
+});
+</script>
+</body>
+</html>

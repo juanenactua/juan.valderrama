@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Casos de Psicología Cognitiva — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Casos de Psicología Cognitiva">
+<meta name="jc-descripcion" content="Cinco casos clínicos, educativos y cotidianos para aplicar memoria de trabajo, procesamiento de información, sesgos cognitivos, funciones ejecutivas y cognición-emoción.">
+<meta name="jc-tipo" content="Artefacto de aprendizaje">
+<meta name="jc-etiquetas" content="Psicología cognitiva, Memoria de trabajo, Procesamiento de información, Sesgos cognitivos, Funciones ejecutivas, Cognición, Emoción, Casos">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EA;
+    --gris-texto:#1F2A37;
+    --gris-suave:#E9EEF5;
+    --blanco:#FFFFFF;
+    --verde:#1E7A46;
+    --rojo:#B3261E;
+    --sombra:0 10px 30px rgba(11,37,69,.10);
+    --radio:16px;
+    --transicion:all .3s ease;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--blanco);color:var(--gris-texto);
+    font-size:22px;line-height:1.6;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+
+  /* ============================================================
+     BARRA SUPERIOR STICKY
+     ============================================================ */
+  #topbar{
+    position:sticky;top:0;z-index:100;
+    background:var(--blanco);
+    border-bottom:2px solid var(--gris-suave);
+    padding:14px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:20px;flex-wrap:wrap;
+    box-shadow:0 2px 10px rgba(11,37,69,.04);
+  }
+  #topbar .marca{
+    display:flex;flex-direction:column;
+  }
+  #topbar .marca .titulo{
+    font-size:20px;font-weight:800;color:var(--azul-oscuro);
+  }
+  #topbar .marca .sub{
+    font-size:14px;color:var(--azul-medio);opacity:.8;
+  }
+  #topbar nav ul{
+    list-style:none;display:flex;gap:6px;flex-wrap:wrap;
+  }
+  #topbar nav a{
+    color:var(--azul-medio);text-decoration:none;
+    font-size:15px;font-weight:600;
+    padding:8px 14px;border-radius:8px;
+    transition:var(--transicion);
+  }
+  #topbar nav a:hover{background:var(--gris-calido);color:var(--azul-oscuro);}
+  #topbar nav a.activo{background:var(--azul-oscuro);color:var(--blanco);}
+
+  #progreso{
+    position:fixed;top:0;left:0;height:4px;
+    background:linear-gradient(90deg,var(--azul-acento),var(--dorado));
+    transition:width .3s ease;z-index:101;
+  }
+
+  /* ============================================================
+     CONTENEDOR GENERAL
+     ============================================================ */
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 40px 120px 40px;
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero{
+    padding:80px 0 60px;
+    border-bottom:2px solid var(--gris-suave);
+    margin-bottom:50px;
+  }
+  .hero .etiqueta{
+    display:inline-block;background:var(--dorado);
+    color:var(--azul-oscuro);
+    font-size:14px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:8px 18px;border-radius:22px;margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:64px;color:var(--azul-oscuro);font-weight:800;
+    line-height:1.1;margin-bottom:22px;letter-spacing:-1px;
+  }
+  .hero .lead{
+    font-size:26px;color:var(--azul-medio);line-height:1.5;
+    max-width:850px;margin-bottom:32px;
+  }
+  .hero-info{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;margin-top:32px;
+  }
+  .hero-info .caja{
+    background:var(--gris-calido);border-radius:14px;
+    padding:20px 24px;
+  }
+  .hero-info .caja .label{
+    font-size:13px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--azul-acento);
+    margin-bottom:6px;
+  }
+  .hero-info .caja .valor{
+    font-size:19px;font-weight:600;color:var(--azul-oscuro);line-height:1.4;
+  }
+
+  /* ============================================================
+     SECCIONES
+     ============================================================ */
+  section{
+    padding:60px 0;
+    border-bottom:1px solid var(--gris-suave);
+  }
+  section:last-of-type{border-bottom:none;}
+  section .header-seccion{
+    margin-bottom:34px;
+  }
+  section h2{
+    font-size:44px;color:var(--azul-oscuro);font-weight:800;
+    line-height:1.15;margin-bottom:14px;letter-spacing:-.5px;
+  }
+  section h2 .numero{
+    display:inline-block;
+    background:var(--azul-oscuro);color:var(--dorado);
+    font-size:22px;font-weight:800;
+    padding:6px 16px;border-radius:12px;
+    margin-right:14px;vertical-align:middle;
+  }
+  section .subtitulo{
+    font-size:22px;color:var(--azul-medio);opacity:.85;line-height:1.5;
+    max-width:850px;
+  }
+  section h3{
+    font-size:28px;color:var(--azul-oscuro);
+    font-weight:700;margin:34px 0 14px;
+  }
+  section h4{
+    font-size:22px;color:var(--azul-oscuro);
+    font-weight:700;margin:22px 0 10px;
+  }
+  section p{margin-bottom:16px;font-size:21px;}
+  section ul, section ol{margin-left:26px;margin-bottom:18px;}
+  section li{margin-bottom:10px;font-size:21px;line-height:1.55;}
+
+  /* ============================================================
+     ÍNDICE ACORDEÓN
+     ============================================================ */
+  .indice{
+    background:var(--gris-calido);border-radius:var(--radio);
+    padding:10px;
+  }
+  .acordeon-item{
+    background:var(--blanco);border-radius:12px;
+    margin-bottom:8px;overflow:hidden;
+    box-shadow:0 2px 8px rgba(11,37,69,.04);
+  }
+  .acordeon-item:last-child{margin-bottom:0;}
+  .acordeon-header{
+    padding:20px 26px;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:18px;
+    transition:var(--transicion);
+    font-size:22px;font-weight:700;color:var(--azul-oscuro);
+  }
+  .acordeon-header:hover{background:var(--gris-calido);}
+  .acordeon-header .flecha{
+    font-size:18px;color:var(--azul-acento);
+    transition:transform .3s ease;
+  }
+  .acordeon-item.abierto .acordeon-header .flecha{
+    transform:rotate(180deg);
+  }
+  .acordeon-body{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease;
+    padding:0 26px;
+    color:var(--azul-medio);
+    font-size:19px;line-height:1.55;
+  }
+  .acordeon-item.abierto .acordeon-body{
+    max-height:600px;padding:0 26px 24px 26px;
+  }
+  .acordeon-body ul{margin-left:22px;margin-top:10px;}
+
+  /* ============================================================
+     RESULTADOS DE APRENDIZAJE
+     ============================================================ */
+  .ra-lista{display:flex;flex-direction:column;gap:14px;margin-top:20px;}
+  .ra-item{
+    background:var(--blanco);border-radius:14px;
+    padding:20px 24px;
+    box-shadow:0 4px 14px rgba(11,37,69,.06);
+    border-left:6px solid var(--azul-acento);
+    display:flex;gap:18px;align-items:flex-start;
+  }
+  .ra-item .ra-num{
+    background:var(--azul-oscuro);color:var(--dorado);
+    font-weight:800;font-size:18px;
+    width:38px;height:38px;flex-shrink:0;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+  }
+  .ra-item .ra-txt{font-size:20px;line-height:1.5;color:var(--azul-oscuro);}
+  .ra-item .ra-txt strong{color:var(--azul-acento);}
+
+  /* ============================================================
+     CASOS
+     ============================================================ */
+  .caso{
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:0 8px 30px rgba(11,37,69,.08);
+    overflow:hidden;
+    margin:34px 0;
+    border-top:8px solid var(--azul-acento);
+  }
+  .caso-header{
+    background:linear-gradient(135deg,var(--azul-oscuro) 0%,var(--azul-medio) 100%);
+    color:var(--blanco);
+    padding:28px 36px;
+  }
+  .caso-header .caso-num{
+    display:inline-block;background:var(--dorado);color:var(--azul-oscuro);
+    font-size:14px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;padding:6px 14px;border-radius:16px;margin-bottom:14px;
+  }
+  .caso-header h3{
+    font-size:32px;color:var(--blanco);font-weight:800;
+    line-height:1.2;margin:0 0 10px 0;
+  }
+  .caso-header .tag{
+    font-size:17px;opacity:.85;
+    display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;
+  }
+  .caso-header .tag span{
+    background:rgba(255,255,255,.15);
+    padding:5px 12px;border-radius:14px;
+  }
+  .caso-body{padding:30px 36px 36px;}
+
+  .bloque-caso{
+    background:var(--gris-calido);border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--azul-acento);
+  }
+  .bloque-caso .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--azul-acento);
+    margin-bottom:10px;
+  }
+  .bloque-caso p{font-size:20px;line-height:1.6;margin-bottom:0;}
+
+  .bloque-datos{
+    background:#F0F6FC;border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--azul-medio);
+  }
+  .bloque-datos .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--azul-medio);margin-bottom:12px;
+  }
+  .bloque-datos ul{margin-left:22px;margin-bottom:0;}
+  .bloque-datos ul li{font-size:19px;line-height:1.55;}
+
+  /* Preguntas desplegables */
+  .preguntas{
+    background:#FFF8E7;border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--dorado);
+  }
+  .preguntas .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:#8A6D1A;margin-bottom:12px;
+  }
+  .pregunta-item{
+    border-bottom:1px solid rgba(138,109,26,.15);
+    padding:12px 0;
+  }
+  .pregunta-item:last-child{border-bottom:none;}
+  .pregunta-item .preg{
+    display:flex;justify-content:space-between;align-items:center;
+    cursor:pointer;font-size:20px;font-weight:700;color:var(--azul-oscuro);
+    gap:14px;transition:var(--transicion);
+  }
+  .pregunta-item .preg:hover{color:var(--azul-acento);}
+  .pregunta-item .preg .flecha{
+    font-size:16px;color:#8A6D1A;transition:transform .3s ease;
+  }
+  .pregunta-item.abierta .preg .flecha{transform:rotate(180deg);}
+  .pregunta-item .resp{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease;
+    font-size:19px;color:var(--azul-medio);line-height:1.55;
+    padding-left:10px;
+  }
+  .pregunta-item.abierta .resp{
+    max-height:500px;padding-top:12px;
+  }
+
+  /* Análisis */
+  .analisis{
+    background:#E3F4E9;border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--verde);
+  }
+  .analisis .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--verde);margin-bottom:12px;
+  }
+  .analisis p{font-size:20px;line-height:1.6;margin-bottom:12px;}
+  .analisis p:last-child{margin-bottom:0;}
+
+  /* Concepto vinculado */
+  .concepto{
+    background:var(--azul-oscuro);color:var(--blanco);
+    border-radius:12px;padding:26px 30px;margin:22px 0;
+    border-left:7px solid var(--dorado);
+  }
+  .concepto .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--dorado);margin-bottom:12px;
+  }
+  .concepto h5{font-size:24px;color:var(--blanco);margin-bottom:12px;}
+  .concepto p{font-size:20px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.92);}
+  .concepto .autores{
+    font-size:17px;color:var(--dorado);opacity:.9;
+    border-top:1px solid rgba(231,200,115,.3);
+    padding-top:12px;margin-top:12px;
+  }
+
+  /* Etiqueta RA */
+  .ra-vinculado{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gris-calido);color:var(--azul-oscuro);
+    padding:10px 18px;border-radius:22px;
+    font-size:16px;font-weight:700;
+    margin-top:14px;
+  }
+  .ra-vinculado::before{
+    content:"🎯";font-size:18px;
+  }
+
+  /* ============================================================
+     ACTIVIDAD INTEGRADORA
+     ============================================================ */
+  .actividad-integradora{
+    background:linear-gradient(135deg,#FFF8E7 0%,#FDF4DC 100%);
+    border-radius:var(--radio);
+    padding:32px 38px;
+    border:2px dashed var(--dorado);
+    margin:30px 0;
+  }
+  .actividad-integradora h3{
+    font-size:30px;color:var(--azul-oscuro);margin:0 0 16px 0;
+  }
+  .actividad-integradora p{font-size:21px;line-height:1.6;}
+  .actividad-integradora label{
+    display:block;font-size:18px;font-weight:700;color:var(--azul-oscuro);
+    margin-bottom:8px;margin-top:22px;
+  }
+  .actividad-integradora input[type=text],
+  .actividad-integradora textarea,
+  .actividad-integradora select{
+    width:100%;padding:14px 16px;
+    font-size:19px;font-family:inherit;
+    border:2px solid var(--gris-suave);
+    border-radius:10px;background:var(--blanco);
+    color:var(--gris-texto);line-height:1.5;
+    resize:vertical;
+  }
+  .actividad-integradora textarea{min-height:100px;}
+  .actividad-integradora input:focus,
+  .actividad-integradora textarea:focus,
+  .actividad-integradora select:focus{
+    outline:none;border-color:var(--azul-acento);
+  }
+  .btn{
+    display:inline-block;
+    background:var(--azul-acento);color:var(--blanco);
+    border:none;padding:16px 30px;font-size:19px;
+    border-radius:12px;cursor:pointer;
+    font-weight:700;font-family:inherit;
+    transition:var(--transicion);margin-top:20px;margin-right:10px;
+  }
+  .btn:hover{background:var(--azul-oscuro);transform:translateY(-2px);}
+  .btn-sec{background:transparent;color:var(--azul-acento);border:2px solid var(--azul-acento);}
+  .btn-sec:hover{background:var(--azul-acento);color:var(--blanco);}
+  .btn-dorado{background:var(--dorado);color:var(--azul-oscuro);}
+  .btn-dorado:hover{background:var(--azul-oscuro);color:var(--dorado);}
+
+  .salida-actividad{
+    background:var(--blanco);border-radius:12px;
+    padding:22px 26px;margin-top:22px;
+    box-shadow:0 4px 14px rgba(11,37,69,.08);
+    font-size:19px;line-height:1.6;
+    display:none;
+  }
+  .salida-actividad.visible{display:block;}
+  .salida-actividad h4{
+    font-size:22px;color:var(--azul-oscuro);margin-bottom:12px;
+  }
+
+  /* ============================================================
+     CHECKLIST DE RESULTADOS
+     ============================================================ */
+  .checklist{
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:0 8px 30px rgba(11,37,69,.08);
+    padding:34px 38px;margin:30px 0;
+    border-top:6px solid var(--verde);
+  }
+  .checklist h3{
+    font-size:30px;color:var(--azul-oscuro);margin:0 0 12px 0;
+  }
+  .checklist > p{font-size:20px;color:var(--azul-medio);margin-bottom:24px;}
+  .check-item{
+    display:flex;align-items:flex-start;gap:16px;
+    padding:18px 20px;margin-bottom:10px;
+    background:var(--gris-calido);border-radius:12px;
+    cursor:pointer;transition:var(--transicion);
+    border-left:5px solid transparent;
+  }
+  .check-item:hover{background:#EEF2F7;}
+  .check-item.marcado{
+    background:#E3F4E9;border-left-color:var(--verde);
+  }
+  .check-item input[type=checkbox]{
+    width:26px;height:26px;flex-shrink:0;margin-top:4px;
+    accent-color:var(--verde);cursor:pointer;
+  }
+  .check-item .check-txt{
+    font-size:20px;line-height:1.5;color:var(--azul-oscuro);
+    flex:1;
+  }
+  .check-item .check-txt .nivel{
+    display:block;font-size:15px;color:var(--azul-medio);
+    opacity:.75;margin-top:6px;font-weight:600;
+  }
+
+  .resumen-checklist{
+    background:var(--azul-oscuro);color:var(--blanco);
+    border-radius:14px;padding:26px 30px;margin-top:26px;
+  }
+  .resumen-checklist h4{
+    font-size:22px;color:var(--dorado);margin-bottom:14px;
+  }
+  .resumen-checklist .barra-progreso{
+    background:rgba(255,255,255,.15);
+    height:16px;border-radius:8px;overflow:hidden;margin:14px 0;
+  }
+  .resumen-checklist .barra-progreso .fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,var(--dorado),#F0D89A);
+    transition:width .6s ease;
+  }
+  .resumen-checklist .porcentaje{
+    font-size:34px;font-weight:800;color:var(--dorado);margin-bottom:8px;
+  }
+  .resumen-checklist .mensaje{font-size:19px;line-height:1.55;opacity:.92;}
+
+  /* ============================================================
+     CIERRE
+     ============================================================ */
+  .cierre{
+    background:linear-gradient(135deg,var(--azul-oscuro) 0%,var(--azul-medio) 100%);
+    color:var(--blanco);
+    border-radius:var(--radio);
+    padding:50px 46px;margin:40px 0;
+  }
+  .cierre h3{
+    font-size:32px;color:var(--blanco);margin-bottom:20px;
+  }
+  .cierre p{font-size:21px;line-height:1.6;color:rgba(255,255,255,.92);margin-bottom:16px;}
+  .cierre p strong{color:var(--dorado);}
+  .cierre .referencias{
+    font-size:15px;line-height:1.6;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(231,200,115,.3);
+    padding-top:22px;margin-top:22px;
+  }
+  .cierre .referencias strong{
+    display:block;color:var(--dorado);margin-bottom:10px;font-size:17px;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:900px){
+    body{font-size:20px;}
+    #topbar{padding:12px 22px;}
+    #topbar nav ul{display:none;}
+    main{padding:0 22px 80px 22px;}
+    .hero{padding:50px 0 40px;}
+    .hero h1{font-size:42px;}
+    .hero .lead{font-size:22px;}
+    section h2{font-size:32px;}
+    section h2 .numero{font-size:18px;padding:5px 12px;}
+    section .subtitulo{font-size:19px;}
+    .caso-header{padding:22px 24px;}
+    .caso-header h3{font-size:24px;}
+    .caso-body{padding:22px 24px 28px;}
+    .bloque-caso,.bloque-datos,.preguntas,.analisis,.concepto{padding:18px 20px;}
+    .actividad-integradora{padding:24px 26px;}
+    .checklist{padding:24px 26px;}
+    .cierre{padding:34px 28px;}
+    .cierre h3{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progreso"></div>
+
+<!-- ============================================================
+     BARRA SUPERIOR STICKY
+     ============================================================ -->
+<header id="topbar">
+  <div class="marca">
+    <span class="titulo">Casos de Psicología Cognitiva</span>
+    <span class="sub">Enfoque Cognitivo · Juan Carlos Valderrama Cárdenas</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#indice">Índice</a></li>
+      <li><a href="#ra">Resultados</a></li>
+      <li><a href="#caso1">Caso 1</a></li>
+      <li><a href="#caso2">Caso 2</a></li>
+      <li><a href="#caso3">Caso 3</a></li>
+      <li><a href="#caso4">Caso 4</a></li>
+      <li><a href="#caso5">Caso 5</a></li>
+      <li><a href="#actividad">Actividad</a></li>
+      <li><a href="#autoevaluacion">Autoevaluación</a></li>
+      <li><a href="#cierre">Cierre</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <span class="etiqueta">Artefacto de aprendizaje · 45 min</span>
+    <h1>Casos de Psicología Cognitiva</h1>
+    <p class="lead">Cinco casos clínicos, educativos y cotidianos para abordar los conceptos centrales del enfoque cognitivo: memoria de trabajo, procesamiento de información, sesgos, funciones ejecutivas y cognición-emoción. Al final, autoevaluarás tus resultados de aprendizaje.</p>
+
+    <div class="hero-info">
+      <div class="caja">
+        <div class="label">Docente</div>
+        <div class="valor">Juan Carlos Valderrama Cárdenas</div>
+      </div>
+      <div class="caja">
+        <div class="label">Curso</div>
+        <div class="valor">Enfoque Cognitivo · Psicología Cognitiva</div>
+      </div>
+      <div class="caja">
+        <div class="label">Tiempo estimado</div>
+        <div class="valor">45 minutos de trabajo autónomo</div>
+      </div>
+      <div class="caja">
+        <div class="label">Modalidad</div>
+        <div class="valor">Lectura activa + análisis + autoevaluación</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ÍNDICE
+       ============================================================ -->
+  <section id="indice">
+    <div class="header-seccion">
+      <h2><span class="numero">01</span>Índice de contenidos</h2>
+      <p class="subtitulo">Cada caso sigue la misma estructura: contexto → datos observables → preguntas guía → análisis → concepto vinculado → resultado de aprendizaje.</p>
+    </div>
+
+    <div class="indice">
+
+      <div class="acordeon-item">
+        <div class="acordeon-header" data-acordeon>
+          <span>📖 ¿Cómo leer este artefacto?</span>
+          <span class="flecha">▾</span>
+        </div>
+        <div class="acordeon-body">
+          <p>Este artefacto está diseñado para que <strong>abordes los conceptos desde los casos</strong>, no desde las definiciones abstractas. Recorrerás cinco situaciones y en cada una:</p>
+          <ul>
+            <li>Leerás un caso breve.</li>
+            <li>Identificarás los datos observables (qué sabemos y qué no).</li>
+            <li>Responderás preguntas guía antes de ver el análisis.</li>
+            <li>Compararás tu razonamiento con el análisis sugerido.</li>
+            <li>Verás el concepto psicológico vinculado, con autores y referencia.</li>
+            <li>Identificarás qué resultado de aprendizaje se está trabajando.</li>
+          </ul>
+          <p>Al final encontrarás una actividad integradora y una autoevaluación de seis resultados de aprendizaje.</p>
+        </div>
+      </div>
+
+      <div class="acordeon-item">
+        <div class="acordeon-header" data-acordeon>
+          <span>📚 Conceptos que abordarás</span>
+          <span class="flecha">▾</span>
+        </div>
+        <div class="acordeon-body">
+          <ul>
+            <li><strong>Caso 1:</strong> memoria de trabajo, carga cognitiva y ejecutivo central.</li>
+            <li><strong>Caso 2:</strong> procesamiento de información, codificación, almacenamiento y recuperación.</li>
+            <li><strong>Caso 3:</strong> sesgos cognitivos (disponibilidad, confirmación, framing).</li>
+            <li><strong>Caso 4:</strong> funciones ejecutivas: inhibición, flexibilidad, planificación.</li>
+            <li><strong>Caso 5:</strong> funciones ejecutivas "calientes", cognición y emoción.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="acordeon-item">
+        <div class="acordeon-header" data-acordeon>
+          <span>🎯 Cómo se relaciona con el curso</span>
+          <span class="flecha">▾</span>
+        </div>
+        <div class="acordeon-body">
+          <p>Los casos están diseñados para cubrir los conceptos centrales del curso Enfoque Cognitivo, tanto de la Unidad 1 (orígenes y modelos) como de la Unidad 2 (aplicaciones clínicas y educativas).</p>
+          <p>Al final, encontrarás una lista de <strong>seis resultados de aprendizaje</strong> verificables que puedes usar para saber si estás listo para la evaluación.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESULTADOS DE APRENDIZAJE
+       ============================================================ -->
+  <section id="ra">
+    <div class="header-seccion">
+      <h2><span class="numero">02</span>Resultados de aprendizaje</h2>
+      <p class="subtitulo">Al terminar este artefacto deberías poder demostrar estos seis resultados. Los retomarás marcables al final del recorrido.</p>
+    </div>
+
+    <div class="ra-lista">
+      <div class="ra-item">
+        <div class="ra-num">RA1</div>
+        <div class="ra-txt"><strong>Explicar</strong> qué es un modelo cognitivo y en qué se diferencia del conductismo, usando al menos un autor clave.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA2</div>
+        <div class="ra-txt"><strong>Analizar</strong> situaciones reales aplicando los conceptos de memoria de trabajo y procesamiento de información.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA3</div>
+        <div class="ra-txt"><strong>Identificar</strong> sesgos cognitivos (disponibilidad, confirmación, framing) en situaciones sociales y de decisión.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA4</div>
+        <div class="ra-txt"><strong>Diferenciar</strong> inhibición, flexibilidad y planificación como funciones ejecutivas relacionadas pero distinguibles.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA5</div>
+        <div class="ra-txt"><strong>Reconocer</strong> el papel de la emoción y la motivación en el control ejecutivo (FE "calientes").</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA6</div>
+        <div class="ra-txt"><strong>Transferir</strong> conceptos cognitivos a contextos clínicos, educativos o cotidianos, proponiendo análisis razonados.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTRODUCCIÓN
+       ============================================================ -->
+  <section id="intro">
+    <div class="header-seccion">
+      <h2><span class="numero">03</span>¿Por qué casos y no definiciones?</h2>
+    </div>
+    <p>Estudiar psicología cognitiva no consiste en memorizar listas de conceptos. Consiste en aprender a <strong>mirar la conducta con lentes analíticas</strong>: reconocer procesos donde antes veíamos solo "comportamiento", distinguir mecanismos donde antes veíamos "la persona es así", y construir explicaciones que puedan examinarse con evidencia.</p>
+    <p>Los cinco casos que siguen están diseñados para que abordes los conceptos desde situaciones concretas y, a partir de ellas, llegues a las definiciones y a los autores. Cada caso es una <strong>oportunidad para pensar como psicólogo cognitivo</strong>: primero observas, luego infieres, después conceptualizas.</p>
+    <p>Cada caso te va a pedir algo distinto: en unos deberás <strong>diferenciar</strong> conceptos que se confunden fácilmente; en otros, <strong>aplicar</strong> un modelo para explicar un fenómeno; en otros, <strong>cuestionar</strong> conclusiones apresuradas. Al final, autoevaluarás si lograste los seis resultados de aprendizaje.</p>
+  </section>
+
+  <!-- ============================================================
+       CASO 1 — MEMORIA DE TRABAJO
+       ============================================================ -->
+  <section id="caso1">
+    <div class="header-seccion">
+      <h2><span class="numero">04</span>Caso 1 · Julia y el examen</h2>
+      <p class="subtitulo">Memoria de trabajo, carga cognitiva y ejecutivo central</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso clínico-educativo</span>
+        <h3>Julia estudia, pero no puede seguir el hilo</h3>
+        <div class="tag">
+          <span>Memoria de trabajo</span>
+          <span>Carga cognitiva</span>
+          <span>Ejecutivo central</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Julia es una estudiante de segundo semestre. La semana pasada, mientras estudiaba para un examen de estadística, intentó resolver un problema de probabilidad leyendo el enunciado en su tableta mientras el celular sonaba con notificaciones cada pocos minutos. Después de media hora, cerró el cuaderno frustrada: había leído el mismo párrafo cuatro veces y no lograba mantener los datos en la cabeza mientras calculaba.</p>
+          <p>Al día siguiente, en la biblioteca y sin el celular, resolvió el mismo problema en ocho minutos.</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>La tarea requería mantener varios datos numéricos mientras operaba con ellos.</li>
+            <li>En el primer escenario había notificaciones intermitentes del celular.</li>
+            <li>En el segundo escenario, el mismo problema se resolvió en menos tiempo y sin errores.</li>
+            <li>La estudiante reportó "leer y olvidar" repetidamente en el primer escenario.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar antes de ver el análisis</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué componente de la memoria de trabajo se vio más afectado por las notificaciones del celular?</span>
+            </div>
+            <div class="resp">El <strong>ejecutivo central</strong>: las notificaciones compiten por recursos atencionales que deberían estar coordinando la tarea principal.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Cómo se relaciona el ejemplo con los tres componentes del modelo de Baddeley y Hitch?</span>
+            </div>
+            <div class="resp">La tarea usa el <strong>bucle fonológico</strong> (leer datos verbalmente), la <strong>agenda visoespacial</strong> (leer en la tableta) y el <strong>ejecutivo central</strong> (coordinar todo mientras se calcula). El celular sobrecarga al ejecutivo central.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Es correcto decir que "Julia tiene mala memoria"?</span>
+            </div>
+            <div class="resp">No. La memoria de trabajo no es una capacidad fija: depende de la <strong>carga concurrente</strong>, la atención disponible y el contexto. En un ambiente sin distracciones resolvió el mismo problema rápidamente.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Qué estrategia cognitiva habría podido reducir la carga sobre la memoria de trabajo?</span>
+            </div>
+            <div class="resp">Externalizar los datos (anotarlos en papel), <strong>agrupar información (chunking)</strong> o silenciar el celular. Todas liberan recursos del ejecutivo central.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>Julia no tiene "mala memoria": tiene una <strong>memoria de trabajo sobrecargada</strong>. La tarea que realiza (leer, mantener números, operar con ellos y volver a leer) exige coordinación de recursos cognitivos finitos. Las notificaciones intermitentes compiten con la tarea principal por esos recursos, especialmente por el ejecutivo central.</p>
+          <p>Cuando el ambiente cambia, el mismo sistema cognitivo rinde de forma distinta. Esto muestra algo fundamental: la memoria de trabajo no es una capacidad fija medible, sino un <strong>sistema dinámico sensible a la carga</strong> y al contexto.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Memoria de trabajo</h5>
+          <p>Sistema que permite <strong>mantener y manipular información</strong> durante una tarea. Sus componentes incluyen el bucle fonológico, la agenda visoespacial y el ejecutivo central, que coordina los recursos atencionales y los otros subsistemas.</p>
+          <p>El ejecutivo central opera como "director de orquesta": asigna recursos limitados a las distintas demandas de la tarea.</p>
+          <div class="autores">Baddeley, A. D., &amp; Hitch, G. (1974). Working memory. En G. H. Bower (Ed.), <em>The psychology of learning and motivation</em> (Vol. 8). Academic Press.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA2: analizar situaciones aplicando memoria de trabajo y procesamiento de información</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CASO 2 — PROCESAMIENTO DE INFORMACIÓN
+       ============================================================ -->
+  <section id="caso2">
+    <div class="header-seccion">
+      <h2><span class="numero">05</span>Caso 2 · Andrés y el aula</h2>
+      <p class="subtitulo">Codificación, almacenamiento y recuperación en contexto educativo</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso educativo</span>
+        <h3>Andrés aprueba los quizzes, pero falla el examen final</h3>
+        <div class="tag">
+          <span>Procesamiento de información</span>
+          <span>Codificación</span>
+          <span>Recuperación</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Andrés es un estudiante muy aplicado. Antes de cada clase lee el capítulo completo dos veces y subraya casi todas las oraciones. Responde bien los quizzes semanales, que son de reconocimiento. Pero en el examen final, que exige aplicar los conceptos a situaciones nuevas, sus calificaciones son bajas: "me sabía todo", dice, "pero no entendí qué me pedían".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Lectura repetida y subrayado extensivo: proceso de <strong>codificación superficial</strong>.</li>
+            <li>Buen desempeño en tareas de <strong>reconocimiento</strong>.</li>
+            <li>Bajo desempeño en tareas de <strong>transferencia</strong> a contextos nuevos.</li>
+            <li>Reporte del estudiante: "me sabía todo" pero "no entendí la pregunta".</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿En qué etapa del procesamiento de información está fallando Andrés?</span>
+            </div>
+            <div class="resp">En la <strong>codificación</strong>: está procesando la información de forma superficial (repetición literal), no significativa. Sin una buena codificación, el almacenamiento no permite la transferencia.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Por qué funciona en quizzes de reconocimiento pero no en exámenes de aplicación?</span>
+            </div>
+            <div class="resp">Porque el <strong>reconocimiento</strong> solo requiere identificar la respuesta correcta entre opciones, mientras la <strong>transferencia</strong> exige recuperar información y operar con ella en un contexto nuevo. Requiere una codificación más profunda.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Qué diferencia hay entre "tener la información" y "poder recuperarla y usarla"?</span>
+            </div>
+            <div class="resp">Que el almacenamiento no garantiza la <strong>recuperación</strong>. A veces la información está disponible pero no accesible en el momento adecuado. La <strong>clave de recuperación</strong> (contexto, significado, organización) determina si emerge.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Qué estrategia cognitiva recomendarías?</span>
+            </div>
+            <div class="resp">Favorecer la <strong>codificación significativa</strong> (relacionar con conocimiento previo, generar preguntas, autoevaluarse) en lugar de la repetición literal. Esto produce representaciones mejor organizadas y más recuperables.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>El problema de Andrés no es de esfuerzo ni de capacidad: es de <strong>profundidad de procesamiento</strong>. Leer dos veces y subrayar activa una codificación superficial, útil para reconocimiento pero insuficiente para aplicar conceptos.</p>
+          <p>La información está codificada de forma literal, y por eso el estudiante la "sabe" pero no puede usarla. La recuperación depende de las claves: si la codificación fue superficial, las claves disponibles son también superficiales, y la transferencia falla.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Codificación, almacenamiento y recuperación</h5>
+          <p>El procesamiento de información implica tres operaciones: <strong>codificar</strong> la información en una forma utilizable, <strong>almacenarla</strong> en los sistemas de memoria y <strong>recuperarla</strong> cuando se necesita. La calidad de la codificación determina la calidad de la recuperación.</p>
+          <p>El olvido no siempre refleja problemas de almacenamiento: puede ser un problema de <strong>recuperación</strong> por falta de claves adecuadas.</p>
+          <div class="autores">Atkinson, R. C., &amp; Shiffrin, R. M. (1968). Human memory: A proposed system and its control processes. En K. W. Spence &amp; J. T. Spence (Eds.), <em>The psychology of learning and motivation</em> (Vol. 2). Academic Press.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA2 y RA6: analizar situaciones aplicando procesamiento de información y transferir a contextos educativos</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CASO 3 — SESGOS COGNITIVOS
+       ============================================================ -->
+  <section id="caso3">
+    <div class="header-seccion">
+      <h2><span class="numero">06</span>Caso 3 · Camila y las noticias</h2>
+      <p class="subtitulo">Disponibilidad, confirmación y framing en la vida cotidiana</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso cotidiano</span>
+        <h3>Camila cree que la ciudad es insegura, pero los datos dicen otra cosa</h3>
+        <div class="tag">
+          <span>Disponibilidad</span>
+          <span>Confirmación</span>
+          <span>Framing</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Camila empezó a seguir varias cuentas de noticias en redes sociales. Desde entonces, cada día lee casos de robos y homicidios en la ciudad. Su percepción de inseguridad ha aumentado y ya casi no sale de noche, aunque su barrio no ha tenido incidentes en cinco años.</p>
+          <p>Cuando su hermana le mostró las estadísticas oficiales, que muestran una disminución de homicidios en los últimos tres años, Camila respondió: "esas cifras siempre están manipuladas".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Consumo frecuente de noticias sobre eventos violentos (poco frecuentes pero altamente salientes).</li>
+            <li>Aumento en la percepción de inseguridad sin cambio en su entorno inmediato.</li>
+            <li>Descarte inmediato de información que contradice su creencia.</li>
+            <li>Uso de expresiones como "esas cifras siempre están manipuladas" sin evidencia.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué sesgo explica mejor el aumento de la percepción de inseguridad?</span>
+            </div>
+            <div class="resp">La <strong>disponibilidad</strong>: los eventos violentos se recuerdan fácilmente porque son llamativos y frecuentes en su feed, y eso hace que parezcan más comunes de lo que son.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Qué sesgo aparece en su respuesta a las estadísticas?</span>
+            </div>
+            <div class="resp">El <strong>sesgo de confirmación</strong>: la información contraria se descarta sin examinarla, mientras se refuerza la creencia previa.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Dónde aparece el framing en este caso?</span>
+            </div>
+            <div class="resp">En que las noticias están <strong>encuadradas</strong> de manera que maximizan el impacto emocional y la percepción de amenaza, aunque la frecuencia real del evento sea baja.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Qué pregunta clave aplicaría el pensamiento científico aquí?</span>
+            </div>
+            <div class="resp">"¿Qué evidencia me haría cambiar de opinión?" Si Camila no puede responder esa pregunta, es probable que su creencia esté protegida del examen, no abierta a la evidencia.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>Camila no está "siendo irracional": su sistema cognitivo está operando con información sesgada por la exposición selectiva a noticias salientes. Los tres sesgos se refuerzan mutuamente: la <strong>disponibilidad</strong> amplifica los eventos raros, el <strong>framing</strong> de las noticias maximiza el impacto emocional, y la <strong>confirmación</strong> descarta lo que contradice la impresión inicial.</p>
+          <p>Ninguno de estos procesos es un defecto moral. Son tendencias sistemáticas del sistema cognitivo que se activan especialmente cuando hay alta carga emocional e información limitada.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Sesgos cognitivos</h5>
+          <p>Tendencias sistemáticas a producir juicios o decisiones desviadas respecto de un criterio de referencia. Se agrupan en familias según su mecanismo: disponibilidad (facilidad de recuerdo), representatividad (parecido con prototipo), evaluación de alternativas (framing, aversión a la pérdida) y coherencia interna (confirmación, hindsight).</p>
+          <p>Reconocer un sesgo <strong>no significa</strong> demostrar que una decisión fue equivocada: significa identificar un mecanismo que podría haber influido y evaluar si lo explica.</p>
+          <div class="autores">Kahneman, D., &amp; Tversky, A. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131.<br>Nickerson, R. S. (1998). Confirmation bias: A ubiquitous phenomenon in many guises. <em>Review of General Psychology, 2</em>(2), 175–220.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA3: identificar sesgos cognitivos en situaciones sociales y de decisión</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CASO 4 — FUNCIONES EJECUTIVAS
+       ============================================================ -->
+  <section id="caso4">
+    <div class="header-seccion">
+      <h2><span class="numero">07</span>Caso 4 · Tomás y el diagnóstico</h2>
+      <p class="subtitulo">Inhibición, flexibilidad y planificación en contexto clínico</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso clínico</span>
+        <h3>Tomás tiene 9 años y "no puede quedarse quieto"</h3>
+        <div class="tag">
+          <span>Inhibición</span>
+          <span>Flexibilidad</span>
+          <span>Planificación</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Tomás, 9 años, es derivado a evaluación. Sus profesores reportan que interrumpe, responde antes de que terminen las preguntas, y "olvida" las instrucciones de dos pasos. En casa, sus padres describen que no puede esperar su turno en juegos, se frustra si cambia un plan sin aviso, y organizar la tarea de la semana le resulta muy difícil.</p>
+          <p>En la evaluación neuropsicológica se le aplican tareas de inhibición (Stop-Signal), de cambio de regla (Dimensional Change Card Sort) y de planificación (Torre de Londres). Los tres dominios muestran dificultades.</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Dificultad para inhibir respuestas prepotentes (interrumpir, responder antes de escuchar).</li>
+            <li>Dificultad para cambiar de regla cuando la situación lo exige.</li>
+            <li>Dificultad para organizar acciones en pasos hacia una meta.</li>
+            <li>Los tres dominios muestran dificultades, pero no en el mismo grado.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué función ejecutiva explica mejor el hecho de responder antes de que terminen las preguntas?</span>
+            </div>
+            <div class="resp">La <strong>inhibición</strong>: la respuesta prepotente no puede frenarse a tiempo para esperar la información completa.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Qué función explica la dificultad para cambiar de plan sin aviso?</span>
+            </div>
+            <div class="resp">La <strong>flexibilidad cognitiva</strong>: cambiar de regla o estrategia cuando las condiciones cambian.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Qué función explica la dificultad para organizar la tarea de la semana?</span>
+            </div>
+            <div class="resp">La <strong>planificación</strong>: organizar acciones hacia una meta y ajustarlas según obstáculos.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Es correcto decir que "tiene mala función ejecutiva"?</span>
+            </div>
+            <div class="resp">No. Es más preciso decir que muestra <strong>dificultades diferenciadas en varios componentes ejecutivos</strong>. Miyake et al. (2000) mostraron que inhibición, actualización y cambio son distinguibles aunque correlacionados. Y Diamond (2013) insiste en que las FE dependen del contexto y las demandas de la tarea.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>Tomás no presenta "una" dificultad ejecutiva: presenta dificultades en varios componentes que cooperan normalmente para regular la conducta. La inhibición, la flexibilidad y la planificación son procesos <strong>relacionados pero distinguibles</strong>, y esto se refleja en que los tres dominios muestran déficits, pero no en el mismo grado.</p>
+          <p>Conceptualizar "función ejecutiva" como un bloque monolítico no permite diseñar una intervención específica. En cambio, identificar qué componente está más afectado permite orientar el apoyo educativo y clínico.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Funciones ejecutivas</h5>
+          <p>Conjunto de procesos de control cognitivo que permiten mantener una meta, regular la conducta y modificarla cuando la respuesta automática no basta. Los tres componentes nucleares son <strong>inhibición</strong>, <strong>memoria de trabajo/actualización</strong> y <strong>flexibilidad cognitiva</strong>. De su coordinación emergen procesos de orden superior como la planificación y la resolución de problemas.</p>
+          <p>El modelo de <strong>unidad y diversidad</strong> muestra que estos componentes están relacionados pero son distinguibles, lo cual tiene implicaciones clínicas y educativas.</p>
+          <div class="autores">Diamond, A. (2013). Executive functions. <em>Annual Review of Psychology, 64</em>, 135–168.<br>Miyake, A., Friedman, N. P., Emerson, M. J., Witzki, A. H., Howerter, A., &amp; Wager, T. D. (2000). The unity and diversity of executive functions. <em>Cognitive Psychology, 41</em>(1), 49–100.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA4: diferenciar inhibición, flexibilidad y planificación como FE relacionadas pero distinguibles</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CASO 5 — FUNCIONES EJECUTIVAS CALIENTES
+       ============================================================ -->
+  <section id="caso5">
+    <div class="header-seccion">
+      <h2><span class="numero">08</span>Caso 5 · Sofía y la clase virtual</h2>
+      <p class="subtitulo">Funciones ejecutivas "calientes", cognición y emoción</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso educativo</span>
+        <h3>Sofía sabe qué hacer, pero no lo hace bajo presión</h3>
+        <div class="tag">
+          <span>FE calientes</span>
+          <span>Cognición y emoción</span>
+          <span>Autorregulación</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Sofía es una estudiante que rinde muy bien en clases tranquilas. Pero cuando el profesor la pone en el centro de la clase virtual, con la cámara encendida y todos mirándola, se bloquea: olvida lo que iba a decir, se queda en silencio y luego se siente mal por "haber fallado".</p>
+          <p>Curiosamente, cuando estudia sola, puede explicar perfectamente los conceptos. Incluso grabó un video para una amiga donde explicaba con claridad el tema. Pero en vivo, y frente a la clase, sus recursos cognitivos parecen desaparecer.</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Desempeño alto en contextos sin carga emocional.</li>
+            <li>Desempeño bajo cuando aumenta la presión social y emocional.</li>
+            <li>Conocimiento del contenido intacto (probado en video grabado).</li>
+            <li>Bloqueo y autorreproche posterior ("fallé").</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Por qué el conocimiento parece "desaparecer" bajo presión?</span>
+            </div>
+            <div class="resp">Porque el control ejecutivo en situaciones con carga emocional ("calientes") es distinto del control en situaciones neutrales ("frías"). La activación emocional consume recursos que de otro modo estarían disponibles para la tarea.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Esta dificultad significa que Sofía "no sabe" el contenido?</span>
+            </div>
+            <div class="resp">No. La evidencia (el video grabado) muestra que el contenido está disponible. Lo que falla es el <strong>acceso en una condición emocional específica</strong>.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Qué aporta la distinción entre FE "frías" y "calientes"?</span>
+            </div>
+            <div class="resp">Permite entender que el control ejecutivo no es solo cognitivo: también está implicado en regular emoción, motivación y respuestas ante recompensa o amenaza. Es la propuesta de Zelazo y colaboradores.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Qué implicaciones tiene esto para la práctica docente?</span>
+            </div>
+            <div class="resp">Que no basta con enseñar el contenido: hay que enseñar también a regular la respuesta bajo presión. Y no conviene evaluar la competencia solo en condiciones "frías" o solo en condiciones "calientes".</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>Sofía no tiene "menos capacidad" cuando está frente a la clase: tiene <strong>una demanda ejecutiva adicional</strong> que no aparece en contextos tranquilos. La emoción (miedo a equivocarse, exposición pública) consume recursos ejecutivos que normalmente estarían disponibles para recuperar y organizar la información.</p>
+          <p>La distinción <strong>frío / caliente</strong> es clave: los mismos procesos ejecutivos operan de manera distinta según la carga emocional del contexto. Reconocer esto permite abandonar explicaciones simplistas ("es tímida", "no sabe") y proponer intervenciones más específicas.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Funciones ejecutivas frías y calientes</h5>
+          <p>Las <strong>FE frías</strong> operan en situaciones con poca carga emocional: resolver un problema, inhibir una respuesta en laboratorio, cambiar una clasificación. Las <strong>FE calientes</strong> operan cuando intervienen emoción, recompensa, castigo, deseo o conflicto social.</p>
+          <p>No son dos sistemas separados: son modos de operar del mismo sistema ejecutivo según el contexto. Esta distinción permite entender por qué el desempeño puede caer drásticamente bajo presión, aunque el conocimiento permanezca intacto.</p>
+          <div class="autores">Zelazo, P. D., &amp; Carlson, S. M. (2012). Hot and cool executive function: Foundations for learning and development. <em>Child Development Perspectives, 6</em>(4), 354–360.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA5: reconocer el papel de la emoción y la motivación en el control ejecutivo</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ACTIVIDAD INTEGRADORA
+       ============================================================ -->
+  <section id="actividad">
+    <div class="header-seccion">
+      <h2><span class="numero">09</span>Actividad integradora</h2>
+      <p class="subtitulo">Diseña tu propio mini-caso y aplica al menos dos conceptos vistos</p>
+    </div>
+
+    <div class="actividad-integradora">
+      <h3>✏️ Tu caso</h3>
+      <p>Piensa en una situación real (clínica, educativa o cotidiana) donde alguno de los conceptos del recorrido esté operando. Descríbela brevemente y analízala con al menos dos conceptos.</p>
+
+      <label for="act-titulo">1. Título breve del caso</label>
+      <input type="text" id="act-titulo" placeholder="Ej: 'Martín y la procrastinación' o 'La decisión de Laura'">
+
+      <label for="act-contexto">2. Contexto (¿qué ocurre? ¿quiénes participan?)</label>
+      <textarea id="act-contexto" placeholder="Describe la situación en 4-6 líneas..."></textarea>
+
+      <label for="act-concepto1">3. Primer concepto aplicado</label>
+      <select id="act-concepto1">
+        <option value="">— Selecciona —</option>
+        <option>Memoria de trabajo</option>
+        <option>Procesamiento de información (codificación / recuperación)</option>
+        <option>Sesgos cognitivos (disponibilidad, confirmación, framing)</option>
+        <option>Funciones ejecutivas (inhibición, flexibilidad, planificación)</option>
+        <option>Funciones ejecutivas frías / calientes</option>
+      </select>
+
+      <label for="act-justifica1">4. Justificación del primer concepto (¿cómo se manifiesta? ¿por qué?)</label>
+      <textarea id="act-justifica1" placeholder="Explica con tus palabras..."></textarea>
+
+      <label for="act-concepto2">5. Segundo concepto aplicado (opcional)</label>
+      <select id="act-concepto2">
+        <option value="">— Ninguno —</option>
+        <option>Memoria de trabajo</option>
+        <option>Procesamiento de información (codificación / recuperación)</option>
+        <option>Sesgos cognitivos (disponibilidad, confirmación, framing)</option>
+        <option>Funciones ejecutivas (inhibición, flexibilidad, planificación)</option>
+        <option>Funciones ejecutivas frías / calientes</option>
+      </select>
+
+      <label for="act-justifica2">6. Justificación del segundo concepto (opcional)</label>
+      <textarea id="act-justifica2" placeholder="Explica con tus palabras..."></textarea>
+
+      <label for="act-intervencion">7. ¿Qué intervención o análisis propondrías?</label>
+      <textarea id="act-intervencion" placeholder="Describe qué harías o qué recomendarías..."></textarea>
+
+      <button class="btn btn-dorado" id="btn-exportar-caso">📄 Generar resumen de mi caso</button>
+      <button class="btn btn-sec" id="btn-limpiar-caso">Limpiar</button>
+
+      <div class="salida-actividad" id="salida-actividad">
+        <h4>Resumen de tu mini-caso</h4>
+        <div id="salida-contenido"></div>
+        <p style="font-size:17px;color:var(--azul-medio);margin-top:16px;opacity:.8;">Puedes copiar este texto para entregarlo como evidencia de la actividad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       AUTOEVALUACIÓN DE RESULTADOS
+       ============================================================ -->
+  <section id="autoevaluacion">
+    <div class="header-seccion">
+      <h2><span class="numero">10</span>Autoevaluación de resultados de aprendizaje</h2>
+      <p class="subtitulo">Marca los resultados que consideras que has alcanzado después de recorrer los casos. No es una calificación: es una fotografía de tu aprendizaje.</p>
+    </div>
+
+    <div class="checklist">
+      <h3>🎯 Resultados de aprendizaje alcanzados</h3>
+      <p>Marca cada resultado solo si puedes <strong>demostrarlo con un ejemplo propio</strong>. Si dudas, deja la casilla sin marcar: es más útil para saber qué reforzar.</p>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-1">
+        <label class="check-txt" for="ra-check-1">
+          <strong>RA1 · Explicar qué es un modelo cognitivo</strong> y en qué se diferencia del conductismo, usando al menos un autor clave.
+          <span class="nivel">Se trabajó en el Caso 2 (procesamiento de información)</span>
+        </label>
+      </div>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-2">
+        <label class="check-txt" for="ra-check-2">
+          <strong>RA2 · Analizar situaciones reales</strong> aplicando los conceptos de memoria de trabajo y procesamiento de información.
+          <span class="nivel">Se trabajó en los Casos 1 y 2</span>
+        </label>
+      </div>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-3">
+        <label class="check-txt" for="ra-check-3">
+          <strong>RA3 · Identificar sesgos cognitivos</strong> (disponibilidad, confirmación, framing) en situaciones sociales y de decisión.
+          <span class="nivel">Se trabajó en el Caso 3</span>
+        </label>
+      </div>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-4">
+        <label class="check-txt" for="ra-check-4">
+          <strong>RA4 · Diferenciar inhibición, flexibilidad y planificación</strong> como funciones ejecutivas relacionadas pero distinguibles.
+          <span class="nivel">Se trabajó en el Caso 4</span>
+        </label>
+      </div>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-5">
+        <label class="check-txt" for="ra-check-5">
+          <strong>RA5 · Reconocer el papel de la emoción y la motivación</strong> en el control ejecutivo (FE "calientes").
+          <span class="nivel">Se trabajó en el Caso 5</span>
+        </label>
+      </div>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-6">
+        <label class="check-txt" for="ra-check-6">
+          <strong>RA6 · Transferir conceptos cognitivos</strong> a contextos clínicos, educativos o cotidianos, proponiendo análisis razonados.
+          <span class="nivel">Se trabajó en la actividad integradora</span>
+        </label>
+      </div>
+
+      <div class="resumen-checklist">
+        <h4>Tu cobertura de resultados</h4>
+        <div class="porcentaje" id="porcentaje-ra">0 %</div>
+        <div class="barra-progreso"><div class="fill" id="fill-ra"></div></div>
+        <div class="mensaje" id="mensaje-ra">Marca tus resultados para ver tu cobertura.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CIERRE
+       ============================================================ -->
+  <section id="cierre">
+    <div class="cierre">
+      <h3>Lo que debería quedar</h3>
+      <p>Estudiar psicología cognitiva no es memorizar una lista de conceptos: es aprender a <strong>mirar la conducta con lentes analíticas</strong>. Los casos que recorriste muestran algo importante: los procesos cognitivos no operan en el vacío. Dependen de la carga, del contexto, de la emoción y de la información disponible.</p>
+      <p><strong>Reconocer un mecanismo no es demostrar que ocurrió.</strong> Es identificar una hipótesis razonada que puede examinarse con evidencia. Este es el paso del pensamiento cotidiano al pensamiento psicológico.</p>
+
+      <div class="referencias">
+        <strong>Referencias fundamentales (APA 7)</strong>
+        Atkinson, R. C., &amp; Shiffrin, R. M. (1968). Human memory: A proposed system and its control processes. En K. W. Spence &amp; J. T. Spence (Eds.), <em>The psychology of learning and motivation</em> (Vol. 2). Academic Press.<br>
+        Baddeley, A. D., &amp; Hitch, G. (1974). Working memory. En G. H. Bower (Ed.), <em>The psychology of learning and motivation</em> (Vol. 8). Academic Press.<br>
+        Diamond, A. (2013). Executive functions. <em>Annual Review of Psychology, 64</em>, 135–168.<br>
+        Kahneman, D., &amp; Tversky, A. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131.<br>
+        Miyake, A., Friedman, N. P., Emerson, M. J., Witzki, A. H., Howerter, A., &amp; Wager, T. D. (2000). The unity and diversity of executive functions. <em>Cognitive Psychology, 41</em>(1), 49–100.<br>
+        Nickerson, R. S. (1998). Confirmation bias: A ubiquitous phenomenon in many guises. <em>Review of General Psychology, 2</em>(2), 175–220.<br>
+        Simon, H. A. (1955). A behavioral model of rational choice. <em>The Quarterly Journal of Economics, 69</em>(1), 99–118.<br>
+        Tversky, A., &amp; Kahneman, D. (1981). The framing of decisions and the psychology of choice. <em>Science, 211</em>(4481), 453–458.<br>
+        Zelazo, P. D., &amp; Carlson, S. M. (2012). Hot and cool executive function: Foundations for learning and development. <em>Child Development Perspectives, 6</em>(4), 354–360.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ============================================================
+   1. BARRA DE PROGRESO DE SCROLL
+   ============================================================ */
+const progreso = document.getElementById('progreso');
+window.addEventListener('scroll', () => {
+  const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+  const avance = (window.scrollY / alturaTotal) * 100;
+  progreso.style.width = Math.max(0, Math.min(100, avance)) + '%';
+});
+
+/* ============================================================
+   2. ACORDEÓN DEL ÍNDICE
+   ============================================================ */
+document.querySelectorAll('[data-acordeon]').forEach(header => {
+  header.addEventListener('click', () => {
+    const item = header.parentElement;
+    item.classList.toggle('abierto');
+  });
+});
+
+/* ============================================================
+   3. PREGUNTAS DESPLEGABLES EN CASOS
+   ============================================================ */
+document.querySelectorAll('[data-preg]').forEach(preg => {
+  preg.addEventListener('click', () => {
+    const item = preg.parentElement;
+    item.classList.toggle('abierta');
+  });
+});
+
+/* ============================================================
+   4. ACTIVIDAD INTEGRADORA - GENERAR RESUMEN
+   ============================================================ */
+document.getElementById('btn-exportar-caso').addEventListener('click', () => {
+  const titulo = document.getElementById('act-titulo').value.trim() || '(sin título)';
+  const contexto = document.getElementById('act-contexto').value.trim() || '(sin contexto)';
+  const c1 = document.getElementById('act-concepto1').value || '(sin concepto 1)';
+  const j1 = document.getElementById('act-justifica1').value.trim() || '(sin justificación)';
+  const c2 = document.getElementById('act-concepto2').value || '';
+  const j2 = document.getElementById('act-justifica2').value.trim() || '';
+  const intervencion = document.getElementById('act-intervencion').value.trim() || '(sin propuesta)';
+
+  let html = `
+    <p><strong>Mini-caso:</strong> ${titulo}</p>
+    <p><strong>Contexto:</strong> ${contexto}</p>
+    <p><strong>Primer concepto aplicado:</strong> ${c1}</p>
+    <p><strong>Justificación:</strong> ${j1}</p>
+  `;
+
+  if(c2){
+    html += `<p><strong>Segundo concepto aplicado:</strong> ${c2}</p>`;
+    html += `<p><strong>Justificación:</strong> ${j2}</p>`;
+  }
+
+  html += `<p><strong>Propuesta de intervención o análisis:</strong> ${intervencion}</p>`;
+
+  document.getElementById('salida-contenido').innerHTML = html;
+  document.getElementById('salida-actividad').classList.add('visible');
+});
+
+document.getElementById('btn-limpiar-caso').addEventListener('click', () => {
+  document.getElementById('act-titulo').value = '';
+  document.getElementById('act-contexto').value = '';
+  document.getElementById('act-concepto1').value = '';
+  document.getElementById('act-justifica1').value = '';
+  document.getElementById('act-concepto2').value = '';
+  document.getElementById('act-justifica2').value = '';
+  document.getElementById('act-intervencion').value = '';
+  document.getElementById('salida-actividad').classList.remove('visible');
+});
+
+/* ============================================================
+   5. AUTOEVALUACIÓN - CHECKLIST DE RESULTADOS
+   ============================================================ */
+const checks = document.querySelectorAll('.check-item input[type=checkbox]');
+const porcentajeRA = document.getElementById('porcentaje-ra');
+const fillRA = document.getElementById('fill-ra');
+const mensajeRA = document.getElementById('mensaje-ra');
+
+function actualizarChecklist(){
+  let marcados = 0;
+  checks.forEach(c => {
+    if(c.checked){
+      marcados++;
+      c.closest('.check-item').classList.add('marcado');
+    } else {
+      c.closest('.check-item').classList.remove('marcado');
+    }
+  });
+
+  const total = checks.length;
+  const porcentaje = Math.round((marcados/total)*100);
+  porcentajeRA.textContent = porcentaje + ' %';
+  fillRA.style.width = porcentaje + '%';
+
+  let mensaje = '';
+  if(marcados === 0){
+    mensaje = 'Marca tus resultados para ver tu cobertura.';
+  } else if(marcados === total){
+    mensaje = '🌟 Has cubierto los seis resultados de aprendizaje. Considera aplicar estos conceptos a un caso nuevo de tu práctica profesional para consolidar la transferencia.';
+  } else if(marcados >= 4){
+    mensaje = '🟢 Buena cobertura. Revisa los resultados no marcados: puede ser útil volver al caso correspondiente y hacer una segunda lectura con más calma.';
+  } else if(marcados >= 2){
+    mensaje = '🟡 Cobertura parcial. Los casos donde no marcaste resultado son los que conviene reforzar: anota qué duda específica tienes sobre ese concepto.';
+  } else {
+    mensaje = '🟠 Cobertura baja. Sugerimos volver al inicio y recorrer los casos con más tiempo, deteniéndote en las preguntas guía antes de ver el análisis.';
+  }
+  mensajeRA.textContent = mensaje;
+}
+checks.forEach(c => c.addEventListener('change', actualizarChecklist));
+actualizarChecklist();
+
+/* ============================================================
+   6. RESALTAR ENLACE ACTIVO EN TOPBAR
+   ============================================================ */
+const secciones = document.querySelectorAll('main > section');
+const enlacesTop = document.querySelectorAll('#topbar nav a');
+
+window.addEventListener('scroll', () => {
+  let actual = '';
+  secciones.forEach(sec => {
+    const top = sec.offsetTop - 100;
+    if(window.scrollY >= top){
+      actual = sec.id;
+    }
+  });
+  enlacesTop.forEach(a => {
+    a.classList.toggle('activo', a.getAttribute('href') === '#' + actual);
+  });
+});
+</script>
+</body>
+</html>
