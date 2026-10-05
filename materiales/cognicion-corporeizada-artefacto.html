@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cognición corporeizada · Recurso educativo interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Cognición corporeizada: abordaje conceptual introductorio">
+<meta name="jc-descripcion" content="Recurso autónomo sobre cognición corporeizada como familia de enfoques, cognición fundamentada, enactivismo, las seis tesis de Wilson, ejemplos, debates y autoevaluación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Cognición corporeizada, Cognición fundamentada, Grounded cognition, Enactivismo, Wilson, Barsalou, Varela, Thompson, Rosch, Representación modal, Sistemas sensoriomotores, Cognición situada, Cognición extendida">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  /* ---- BARRA DE PROGRESO ---- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- NAV LATERAL ---- */
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 245px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1150px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  /* ---- MAIN ---- */
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1150px) {
+    main { margin-left: 265px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  /* ---- TARJETAS Y CALLOUTS ---- */
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  /* ---- ACORDEÓN ---- */
+  .accordion {
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-mid);
+  }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.05rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-main);
+    transition: background 0.2s;
+    font-family: var(--font);
+  }
+  .accordion-header:hover { background: var(--bg-soft); }
+  .accordion-header .icon {
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 1.3rem;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .accordion-content p { padding: 0.9rem 0; margin: 0; color: var(--text-soft); }
+  .accordion-item.active .accordion-content { max-height: 800px; padding: 0.2rem 1.3rem 1.1rem; }
+
+  /* ---- TARJETAS FLIP ---- */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 220px;
+    cursor: pointer;
+    outline: none;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: var(--radius);
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .flip-front {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+    background: var(--bg-mid);
+    box-shadow: var(--shadow);
+  }
+  .flip-front::after {
+    content: '↻ clic para girar';
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    font-weight: 400;
+  }
+  .flip-back {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    transform: rotateY(180deg);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flip-back small { display: block; margin-top: 0.6rem; font-size: 0.76rem; opacity: 0.85; }
+
+  /* ---- SEIS TESIS DE WILSON ---- */
+  .six-theses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .thesis-card {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    border-left: 4px solid var(--accent);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .thesis-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.15);
+    border-left-color: var(--accent);
+  }
+  .thesis-card.controversial {
+    border-left-color: var(--error);
+  }
+  .thesis-card.controversial:hover {
+    box-shadow: 0 6px 20px rgba(248, 113, 113, 0.15);
+  }
+  .thesis-card .thesis-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .thesis-card.controversial .thesis-num { color: var(--error); }
+  .thesis-card .thesis-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  .thesis-card .thesis-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- COMPARADOR CONCEPTOS ---- */
+  .comparator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) { .comparator { grid-template-columns: 1fr; } }
+  .comparator-col {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.3s;
+  }
+  .comparator-col:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .comparator-col .col-title {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparator-col p {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- DOS FORMULACIONES ---- */
+  .two-formulations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) { .two-formulations { grid-template-columns: 1fr; } }
+  .formulation-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.3s;
+  }
+  .formulation-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .formulation-card .form-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+  }
+  .formulation-card.amodal { border-left: 5px solid var(--error); }
+  .formulation-card.amodal .form-label { color: var(--error); }
+  .formulation-card.modal { border-left: 5px solid var(--success); }
+  .formulation-card.modal .form-label { color: var(--success); }
+  .formulation-card .form-text {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+  }
+  .formulation-card .form-desc {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- EJEMPLOS ---- */
+  .example-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .example-card {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    transition: all 0.3s;
+  }
+  .example-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.15);
+  }
+  .example-card.prototypical { border-top: 4px solid var(--success); }
+  .example-card.linguistic { border-top: 4px solid var(--info); }
+  .example-card.download { border-top: 4px solid var(--accent); }
+  .example-card.limit { border-top: 4px solid var(--violet); }
+  .example-card.counterexample { border-top: 4px solid var(--error); }
+  .example-card.educational { border-top: 4px solid #f472b6; }
+  .example-card .ex-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .example-card.prototypical .ex-label { color: var(--success); }
+  .example-card.linguistic .ex-label { color: var(--info); }
+  .example-card.download .ex-label { color: var(--accent); }
+  .example-card.limit .ex-label { color: var(--violet); }
+  .example-card.counterexample .ex-label { color: var(--error); }
+  .example-card.educational .ex-label { color: #f472b6; }
+  .example-card .ex-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+  .example-card .ex-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+  .example-card .ex-illustrates {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* ---- HIGHLIGHT BOX ---- */
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success {
+    border-color: var(--success);
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.15);
+  }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error {
+    border-color: var(--error);
+    box-shadow: 0 0 30px rgba(248, 113, 113, 0.15);
+  }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info {
+    border-color: var(--info);
+    box-shadow: 0 0 30px rgba(96, 165, 250, 0.15);
+  }
+  .highlight-box.info p { color: var(--info); }
+
+  /* ---- PREGUNTAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .six-theses { grid-template-columns: 1fr; }
+    .example-grid { grid-template-columns: 1fr; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .flip-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 24px rgba(240, 180, 41, 0.5); }
+  }
+  .pulse { animation: pulse 2s infinite; }
+
+  /* ---- FLUJO ---- */
+  .flow-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .flow-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.92rem;
+    text-align: center;
+    min-width: 240px;
+  }
+  .flow-box.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .flow-arrow-down {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Cognición corporeizada</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta de aprendizaje</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#resultado">Resultado de aprendizaje</a></li>
+    <li><a href="#tesis">1. Tesis central</a></li>
+    <li><a href="#delimitacion">2. Delimitación</a></li>
+    <li><a href="#definiciones">3. Definiciones</a></li>
+    <li><a href="#tres-formulaciones">4. Tres formulaciones</a></li>
+    <li><a href="#terminos">5. Términos clave</a></li>
+    <li><a href="#no-equivalentes">6. Conceptos no equivalentes</a></li>
+    <li><a href="#seis-tesis">7. Las seis tesis de Wilson</a></li>
+    <li><a href="#ejemplos">8. Ejemplos</a></li>
+    <li><a href="#debates">9. Debates y malentendidos</a></li>
+    <li><a href="#sintesis">10. Síntesis</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Recurso educativo interactivo · Ciencias cognitivas</span>
+    <h1>Cognición corporeizada: abordaje conceptual introductorio</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      La cognición corporeizada no designa una única teoría cerrada. Es una familia de enfoques que cuestiona
+      la idea de que el cuerpo sea solamente un medio de entrada sensorial y salida motora. Este recurso explora
+      su pluralidad interna, sus formulaciones principales y sus debates abiertos.
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología y Ciencias Cognitivas</p>
+      <p><strong>Tipo de recurso:</strong> Artefacto educativo interactivo de estudio autónomo</p>
+      <p><strong>Palabras clave:</strong> cognición corporeizada, cognición fundamentada, enactivismo, simulación modal, representación amodal, sistemas sensoriomotores, seis tesis de Wilson</p>
+    </div>
+    <div class="callout">
+      <strong>Idea central:</strong> El punto común no consiste simplemente en afirmar que "las personas tienen un
+      cuerpo". Esa afirmación es trivial. La cuestión científicamente relevante es más precisa: ¿en qué medida la
+      estructura y actividad del cuerpo participan en la constitución o ejecución de los procesos cognitivos?
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="resultado" class="reveal">
+    <h2>Resultado de aprendizaje</h2>
+    <p>Al finalizar este recurso, el estudiante debería poder:</p>
+    <div class="card">
+      <p><strong>Distinguir</strong> la cognición corporeizada de conceptos cercanos como cognición situada,
+      cognición fundamentada, cognición extendida y enactivismo, reconociendo que no designan lo mismo.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--success);">
+      <p><strong>Identificar</strong> las seis tesis de Margaret Wilson y evaluar cuáles tienen mayor o menor respaldo,
+      especialmente la cuarta (el entorno como parte del sistema cognitivo).</p>
+    </div>
+    <div class="card" style="border-left-color: var(--info);">
+      <p><strong>Analizar</strong> críticamente la relación entre activación sensoriomotora y necesidad funcional,
+      comprendiendo que coactivación no equivale a constitución necesaria.</p>
+    </div>
+    <div class="callout info">
+      <strong>Nota importante:</strong> Este recurso no pretende resolver los debates abiertos sobre la corporeización.
+      Pretende que comprendas la pluralidad interna del programa y las preguntas que permanecen abiertas.
+    </div>
+  </section>
+
+  <!-- 1. TESIS -->
+  <section id="tesis" class="reveal">
+    <h2>1. La tesis central</h2>
+    <div class="highlight-box">
+      <p>NO ES UNA ÚNICA TEORÍA CERRADA, SINO UNA FAMILIA DE ENFOQUES</p>
+    </div>
+
+    <div class="callout error">
+      <strong>Malentendido fundamental:</strong> preguntar simplemente "¿es verdadera la cognición corporeizada?"
+      resulta insuficientemente específico.
+    </div>
+
+    <p>Una pregunta científicamente más precisa sería:</p>
+    <div class="highlight-box success">
+      <p>¿ES NECESARIO EL RECLUTAMIENTO DE SISTEMAS MOTORES PARA REPRESENTAR EL SIGNIFICADO DE CONCEPTOS DE ACCIÓN?</p>
+    </div>
+
+    <p>Esta segunda formulación permite generar hipótesis y evidencia discriminante.</p>
+  </section>
+
+  <!-- 2. DELIMITACIÓN -->
+  <section id="delimitacion" class="reveal">
+    <h2>2. Delimitación del tema</h2>
+
+    <h3>¿Qué abarca?</h3>
+    <p>Aborda el papel que desempeñan el cuerpo, la percepción, la acción y la interacción organismo-entorno en la cognición. Según la teoría específica, esta participación puede referirse a:</p>
+    <ul>
+      <li>Percepción</li>
+      <li>Memoria</li>
+      <li>Formación de conceptos</li>
+      <li>Comprensión lingüística</li>
+      <li>Razonamiento</li>
+      <li>Cognición social</li>
+      <li>Planificación de acciones</li>
+    </ul>
+
+    <h3>¿Dónde se utiliza?</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Psicología cognitiva">
+        <div class="flip-inner">
+          <div class="flip-front">Psicología cognitiva</div>
+          <div class="flip-back">Estudio de procesos como memoria, atención, lenguaje y razonamiento desde la perspectiva corporeizada.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Neurociencia cognitiva">
+        <div class="flip-inner">
+          <div class="flip-front">Neurociencia cognitiva</div>
+          <div class="flip-back">Investigación de la relación entre sistemas neurales perceptivos, motores e introspectivos y los procesos cognitivos.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Filosofía de la mente">
+        <div class="flip-inner">
+          <div class="flip-front">Filosofía de la mente</div>
+          <div class="flip-back">Debates sobre la naturaleza de la cognición, la representación y la relación mente-cuerpo-entorno.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Psicolingüística">
+        <div class="flip-inner">
+          <div class="flip-front">Psicolingüística</div>
+          <div class="flip-back">Estudio de cómo el lenguaje se procesa y comprende, incluyendo el papel de sistemas motores en verbos de acción.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Robótica">
+        <div class="flip-inner">
+          <div class="flip-front">Robótica y ciencias cognitivas situadas</div>
+          <div class="flip-back">Diseño de sistemas artificiales que interactúan con el entorno de manera corporeizada y situada.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Ciencias del desarrollo">
+        <div class="flip-inner">
+          <div class="flip-front">Ciencias del desarrollo</div>
+          <div class="flip-back">Estudio de cómo la cognición se desarrolla en interacción con el cuerpo y el entorno a lo largo del tiempo.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>¿Qué queda fuera?</h3>
+    <div class="callout error">
+      <strong>No toda influencia fisiológica sobre el comportamiento constituye, por sí misma, evidencia de cognición
+      corporeizada.</strong> Que una persona tenga dificultades de concentración debido a falta de sueño demuestra una
+      influencia corporal sobre el rendimiento, pero no determina por sí solo cómo están constituidos los procesos cognitivos.
+    </div>
+
+    <div class="callout info">
+      <strong>Tampoco debe identificarse automáticamente</strong> con la afirmación de que todo proceso cognitivo
+      requiere movimiento corporal observable. Algunas teorías corporeizadas admiten procesos <em>offline</em>.
+    </div>
+
+    <!-- Pregunta cerrada 1 -->
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Qué queda fuera de la cognición corporeizada?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c1" value="a"> a) Cualquier influencia fisiológica sobre la conducta, considerada por sí sola.</label>
+        <label class="q-option"><input type="radio" name="c1" value="b"> b) El estudio de la percepción y la acción.</label>
+        <label class="q-option"><input type="radio" name="c1" value="c"> c) La comprensión lingüística.</label>
+        <label class="q-option"><input type="radio" name="c1" value="d"> d) La formación de conceptos.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'a')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+  </section>
+
+  <!-- 3. DEFINICIONES -->
+  <section id="definiciones" class="reveal">
+    <h2>3. Definiciones</h2>
+
+    <h3>Definición de trabajo</h3>
+    <div class="card">
+      <p><strong>Cognición corporeizada:</strong> familia de teorías según las cuales las propiedades y actividades
+      del cuerpo, especialmente sus sistemas perceptivos y motores y sus posibilidades de interacción con el entorno,
+      participan de manera relevante en uno o más procesos cognitivos.</p>
+      <p style="color: var(--text-soft); font-size: 0.9rem; margin: 0;">La expresión "participan de manera relevante"
+      es deliberadamente amplia. Algunas teorías sostienen una dependencia fuerte; otras defienden una participación más limitada.</p>
+    </div>
+
+    <h3>Las seis tesis de Wilson</h3>
+    <p>Margaret Wilson advierte que la formulación general reúne varias tesis que no tienen el mismo grado de respaldo ni las mismas consecuencias teóricas. En su artículo <em>Six views of embodied cognition</em> distingue seis afirmaciones diferentes:</p>
+
+    <div class="six-theses">
+      <div class="thesis-card">
+        <div class="thesis-num">Tesis 1</div>
+        <div class="thesis-title">La cognición está situada</div>
+        <div class="thesis-desc">Parte del procesamiento cognitivo depende de la interacción concreta que el organismo mantiene con su entorno.</div>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-num">Tesis 2</div>
+        <div class="thesis-title">Restricción temporal</div>
+        <div class="thesis-desc">Muchas acciones ocurren bajo límites temporales reales. Percibir, decidir y actuar pueden integrarse en procesos que deben ajustarse continuamente a cambios ambientales.</div>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-num">Tesis 3</div>
+        <div class="thesis-title">Descarga cognitiva sobre el entorno</div>
+        <div class="thesis-desc">Las personas pueden modificar físicamente su entorno para reducir determinadas demandas cognitivas.</div>
+      </div>
+      <div class="thesis-card controversial">
+        <div class="thesis-num">Tesis 4 · Controversial</div>
+        <div class="thesis-title">El entorno podría formar parte del sistema cognitivo</div>
+        <div class="thesis-desc">Wilson considera esta afirmación problemática y distinta de las demás. Es la tesis más fuerte y la que más debate genera.</div>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-num">Tesis 5</div>
+        <div class="thesis-title">Orientación hacia la acción</div>
+        <div class="thesis-desc">Una función fundamental de determinados procesos perceptivos y cognitivos consiste en organizar acciones posibles.</div>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-num">Tesis 6</div>
+        <div class="thesis-title">Corporeización offline</div>
+        <div class="thesis-desc">El cuerpo puede ser relevante incluso sin interacción inmediata con el objeto correspondiente. Para Wilson, es una de las tesis mejor documentadas.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Aceptar alguna forma de cognición corporeizada no obliga a aceptar las seis tesis.</strong> Wilson
+      no considera que todas tengan el mismo respaldo.
+    </div>
+  </section>
+
+  <!-- 4. TRES FORMULACIONES -->
+  <section id="tres-formulaciones" class="reveal">
+    <h2>4. Tres formulaciones que conviene diferenciar</h2>
+
+    <h3>A. Cognición corporeizada en sentido amplio</h3>
+    <p>Corresponde a la familia general que atribuye al cuerpo un papel explicativo en la cognición. Es el paraguas bajo el cual conviven las seis tesis de Wilson.</p>
+
+    <h3>B. Cognición fundamentada (grounded cognition)</h3>
+    <p>Lawrence W. Barsalou utiliza una formulación relacionada denominada <strong>cognición fundamentada</strong>. Esta rechaza la tesis de que la cognición dependa exclusivamente de símbolos amodales separados de los sistemas cerebrales de percepción, acción e introspección.</p>
+
+    <div class="two-formulations">
+      <div class="formulation-card amodal">
+        <div class="form-label">Representación amodal</div>
+        <div class="form-text">Representación cuyo formato no depende específicamente de una modalidad perceptiva o motora concreta.</div>
+        <div class="form-desc">Es la posición que la cognición fundamentada rechaza como explicación exclusiva.</div>
+      </div>
+      <div class="formulation-card modal">
+        <div class="form-label">Representación modal</div>
+        <div class="form-text">Representación vinculada funcionalmente con sistemas que participan en modalidades perceptivas, motoras o introspectivas.</div>
+        <div class="form-desc">Para Barsalou, numerosos procesos conceptuales pueden recurrir a la reactivación parcial de estados adquiridos durante experiencias perceptivas, motoras e internas.</div>
+      </div>
+    </div>
+
+    <h3>C. Enactivismo</h3>
+    <p>En <em>The Embodied Mind</em> (1991), Francisco J. Varela, Evan Thompson y Eleanor Rosch desarrollaron una propuesta más específica: la <strong>enacción</strong>. El libro tuvo un papel fundacional en el desarrollo contemporáneo de los enfoques corporeizados.</p>
+
+    <div class="callout violet">
+      <strong>Importante:</strong> cognición corporeizada y enactivismo no son términos equivalentes. El enactivismo
+      es una posición particular dentro del conjunto más amplio de propuestas que atribuyen al cuerpo y la acción
+      relevancia cognitiva.
+    </div>
+
+    <div class="highlight-box info">
+      <p>LA ENACCIÓN CARACTERIZA LA COGNICIÓN COMO EMERGENCIA DE UN MUNDO SIGNIFICATIVO MEDIANTE LA ACTIVIDAD CORPOREIZADA</p>
+    </div>
+  </section>
+
+  <!-- 5. TÉRMINOS CLAVE -->
+  <section id="terminos" class="reveal">
+    <h2>5. Términos necesarios para comprender el concepto</h2>
+    <p>Conviene introducirlos en este orden. Haz clic en cada uno para ver su definición.</p>
+
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cognición">
+        <div class="flip-inner">
+          <div class="flip-front">1. Cognición</div>
+          <div class="flip-back">Conjunto de procesos implicados en percepción, memoria, atención, comprensión lingüística, formación de conceptos, razonamiento, aprendizaje y planificación.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cuerpo">
+        <div class="flip-inner">
+          <div class="flip-front">2. Cuerpo</div>
+          <div class="flip-back">No significa únicamente estructura anatómica. Incluye las propiedades del organismo implicadas en percepción y acción: sistemas sensoriales, sistema motor, postura, movimientos y estados corporales relevantes. <small>No es solo anatomía.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Acción">
+        <div class="flip-inner">
+          <div class="flip-front">3. Acción</div>
+          <div class="flip-back">Actividad mediante la cual un organismo modifica su relación con el entorno. En las teorías corporeizadas, acción y percepción pueden participar conjuntamente en determinadas operaciones cognitivas.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cognición situada">
+        <div class="flip-inner">
+          <div class="flip-front">4. Cognición situada</div>
+          <div class="flip-back">Procesamiento cognitivo que ocurre en condiciones concretas de interacción con un entorno y cuya organización depende parcialmente de esas condiciones.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Simulación">
+        <div class="flip-inner">
+          <div class="flip-front">5. Simulación</div>
+          <div class="flip-back">Reactividad parcial de estados adquiridos previamente mediante sistemas perceptivos, motores o introspectivos. <small>No implica necesariamente que la persona ejecute físicamente la acción simulada.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Representación conceptual">
+        <div class="flip-inner">
+          <div class="flip-front">6. Representación conceptual</div>
+          <div class="flip-back">Información cognitiva que permite categorizar, reconocer, razonar o utilizar conocimiento acerca de entidades, acciones, propiedades o relaciones. <small>Una discusión central es cómo se representa el conocimiento conceptual y qué papel desempeñan los sistemas sensoriomotores.</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. NO EQUIVALENTES -->
+  <section id="no-equivalentes" class="reveal">
+    <h2>6. Conceptos cercanos que no son equivalentes</h2>
+
+    <div class="comparator">
+      <div class="comparator-col">
+        <div class="col-title">Cognición corporeizada</div>
+        <p>Familia de teorías que atribuye al cuerpo, la percepción y la acción un papel explicativo en la cognición.</p>
+      </div>
+      <div class="comparator-col">
+        <div class="col-title">Cognición situada</div>
+        <p>Destaca la dependencia respecto al contexto inmediato. La cognición corporeizada formula específicamente preguntas sobre la contribución del cuerpo. <small>Pueden coincidir pero no son idénticas.</small></p>
+      </div>
+    </div>
+
+    <div class="comparator">
+      <div class="comparator-col">
+        <div class="col-title">Cognición corporeizada</div>
+        <p>Categoría más amplia que incluye diversas posiciones teóricas.</p>
+      </div>
+      <div class="comparator-col">
+        <div class="col-title">Enactivismo</div>
+        <p>Posición teórica específica dentro de la cognición corporeizada. Varela, Thompson y Rosch desarrollan explícitamente la enacción. <small>No son términos equivalentes.</small></p>
+      </div>
+    </div>
+
+    <div class="comparator">
+      <div class="comparator-col">
+        <div class="col-title">Cognición corporeizada</div>
+        <p>Se pregunta por el papel del cuerpo en la cognición.</p>
+      </div>
+      <div class="comparator-col">
+        <div class="col-title">Cognición extendida</div>
+        <p>Plantea una cuestión adicional: si determinados componentes externos al organismo pueden constituir partes de un sistema cognitivo. Wilson considera esta afirmación distinta y más problemática. <small>No son equivalentes.</small></p>
+      </div>
+    </div>
+
+    <div class="callout error">
+      <strong>Error frecuente:</strong> confundir cognición corporeizada con cualquier efecto corporal sobre la conducta.
+      Una modificación corporal que afecta indirectamente el rendimiento no demuestra automáticamente que el contenido
+      o mecanismo de una operación cognitiva sea corporeizado.
+    </div>
+
+    <!-- Pregunta cerrada 2 -->
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estas afirmaciones es correcta sobre la relación entre cognición corporeizada y enactivismo?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c2" value="a"> a) Son exactamente lo mismo.</label>
+        <label class="q-option"><input type="radio" name="c2" value="b"> b) El enactivismo es una posición específica dentro de la cognición corporeizada, no son equivalentes.</label>
+        <label class="q-option"><input type="radio" name="c2" value="c"> c) El enactivismo niega la cognición corporeizada.</label>
+        <label class="q-option"><input type="radio" name="c2" value="d"> d) La cognición corporeizada es una posición dentro del enactivismo.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+  </section>
+
+  <!-- 7. SEIS TESIS -->
+  <section id="seis-tesis" class="reveal">
+    <h2>7. Las seis tesis de Wilson en detalle</h2>
+    <p>Wilson no considera que todas las tesis tengan el mismo respaldo. En particular, considera problemática la cuarta. Estas son las dimensiones que organizan el espacio teórico:</p>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">3.1. Situación <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Parte del procesamiento cognitivo depende de la interacción concreta que el organismo mantiene con su entorno. Por ejemplo, una tarea puede resolverse utilizando información perceptiva continuamente disponible, sin necesidad de construir previamente una representación interna exhaustiva de todos sus elementos.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">3.2. Restricción temporal <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Muchas acciones ocurren bajo límites temporales reales. Percibir, decidir y actuar pueden integrarse en procesos que deben ajustarse continuamente a cambios ambientales. Esta dimensión es particularmente relevante para estudiar actividades que requieren coordinación perceptivo-motora.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">3.3. Descarga cognitiva sobre el entorno <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Las personas pueden modificar físicamente su entorno para reducir determinadas demandas cognitivas. Escribir información, ordenar objetos o utilizar marcas espaciales puede alterar el procedimiento necesario para realizar una tarea. Esto todavía no implica necesariamente que esos objetos externos formen parte del sistema cognitivo. Esa afirmación corresponde a una tesis más fuerte (la cuarta).</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">3.4. Orientación hacia la acción <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Algunos enfoques corporeizados sostienen que una función fundamental de determinados procesos perceptivos y cognitivos consiste en organizar acciones posibles. Percepción y acción, desde esta posición, no tienen que estudiarse como fases completamente independientes.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">3.5. Fundamentación sensoriomotora <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Una parte del conocimiento puede depender de sistemas perceptivos y motores utilizados durante la experiencia. Barsalou sostiene que simulaciones modales y estados corporales participan en la cognición, en contraste con teorías que recurren exclusivamente a símbolos amodales.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">3.6. Corporeización offline <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>El cuerpo puede ser relevante incluso sin interacción inmediata con el objeto correspondiente. Recordar una acción, comprender una expresión relacionada con movimiento o anticipar una actividad puede involucrar sistemas previamente utilizados en percepción o acción. Para Wilson, esta constituye una de las tesis mejor documentadas dentro de las seis que analiza.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>La cuarta tesis: la más problemática</h3>
+    <div class="callout error">
+      <strong>El entorno podría formar parte del sistema cognitivo.</strong> Wilson considera esta afirmación problemática
+      y la distingue de las demás. Es la tesis que conecta con la cognición extendida, pero también la que más debate genera.
+    </div>
+  </section>
+
+  <!-- 8. EJEMPLOS -->
+  <section id="ejemplos" class="reveal">
+    <h2>8. Ejemplos</h2>
+
+    <div class="example-grid">
+      <div class="example-card prototypical">
+        <div class="ex-label">Prototípico</div>
+        <div class="ex-title">Tomar una taza</div>
+        <div class="ex-desc">La información visual sobre la posición y orientación de la taza se relaciona con la planificación del movimiento del brazo, la apertura de la mano y la configuración de los dedos para agarrarla.</div>
+        <div class="ex-illustrates">Ilustra: integración entre percepción y acción.</div>
+      </div>
+
+      <div class="example-card linguistic">
+        <div class="ex-label">Lingüístico</div>
+        <div class="ex-title">Comprender un verbo de acción</div>
+        <div class="ex-desc">Al procesar una oración que describe una acción manual, algunas teorías predicen participación de información motora vinculada con esas acciones durante el procesamiento conceptual.</div>
+        <div class="ex-illustrates">Ilustra: fundamentación sensoriomotora y cognición offline.</div>
+      </div>
+
+      <div class="example-card download">
+        <div class="ex-label">Descarga cognitiva</div>
+        <div class="ex-title">Organizar físicamente elementos</div>
+        <div class="ex-desc">Un estudiante distribuye físicamente tarjetas con conceptos sobre una mesa según categorías y modifica su posición. La disposición externa permite consultar relaciones espaciales durante el proceso.</div>
+        <div class="ex-illustrates">Ilustra: descarga de trabajo cognitivo sobre el entorno. No implica que las tarjetas sean literalmente partes de su mente.</div>
+      </div>
+
+      <div class="example-card limit">
+        <div class="ex-label">Caso límite</div>
+        <div class="ex-title">Comprender conceptos abstractos</div>
+        <div class="ex-desc">Al razonar sobre el concepto de justicia, no existe una única modalidad sensorial ni una única acción corporal que corresponda directamente al concepto.</div>
+        <div class="ex-illustrates">Ilustra: el problema de la corporeización de conceptos abstractos. Es un desafío central para las teorías corporeizadas.</div>
+      </div>
+
+      <div class="example-card counterexample">
+        <div class="ex-label">Contraejemplo</div>
+        <div class="ex-title">Hambre y rendimiento en una prueba</div>
+        <div class="ex-desc">Un estudiante experimenta hambre y tiene dificultades para sostener la atención en un examen. Muestra una influencia corporal sobre la cognición.</div>
+        <div class="ex-illustrates">No constituye por sí solo cognición corporeizada. Mostrar que una variable fisiológica modifica el rendimiento no demuestra que los mecanismos de razonamiento estén constituidos por representaciones corporales.</div>
+      </div>
+
+      <div class="example-card educational">
+        <div class="ex-label">Aplicación educativa</div>
+        <div class="ex-title">Aprendizaje de relaciones espaciales mediante acción</div>
+        <div class="ex-desc">Los estudiantes modifican manualmente la orientación de objetos y observan continuamente las consecuencias perceptivas de esas acciones, en lugar de solo observar imágenes estáticas.</div>
+        <div class="ex-illustrates">Ilustra: acoplamiento entre percepción y acción durante el aprendizaje. La predicción relevante debe especificar una relación funcional entre acción y contenido.</div>
+      </div>
+    </div>
+
+    <!-- Pregunta abierta 1 -->
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Explica con tus palabras por qué el ejemplo del hambre y el rendimiento NO constituye por sí solo un caso suficiente de cognición corporeizada. ¿Qué faltaría para convertirlo en evidencia relevante?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 1"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(1)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb1">
+        <strong>Respuesta modelo:</strong> El ejemplo del hambre muestra que una variable fisiológica (estado nutricional) modifica el rendimiento cognitivo (atención sostenida). Pero esto solo demuestra una interacción entre estado fisiológico y rendimiento, no que los mecanismos específicos de razonamiento utilizados para resolver las preguntas estén constituidos por representaciones corporales o sensoriomotoras. Para convertirlo en evidencia relevante para una teoría concreta de cognición corporeizada, sería necesario especificar qué mecanismo corporeizado se propone y formular predicciones que permitan contrastarlo con explicaciones alternativas. Por ejemplo, se podría predecir que el contenido del razonamiento cambia de una manera específica según el estado corporal, no solo la eficiencia general.
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. DEBATES -->
+  <section id="debates" class="reveal">
+    <h2>9. Debates, limitaciones y malentendidos</h2>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.1. No existe una única "teoría de la cognición corporeizada" <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Este es probablemente el malentendido fundamental. Wilson mostró que bajo el término aparecen afirmaciones diferentes y evaluó algunas como considerablemente más problemáticas que otras. Preguntar simplemente "¿es verdadera la cognición corporeizada?" resulta insuficientemente específico. Una pregunta científicamente más precisa sería: "¿Es necesario el reclutamiento de sistemas motores para representar el significado de conceptos de acción?". Esta segunda formulación permite generar hipótesis y evidencia discriminante.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.2. Activación cerebral no equivale automáticamente a necesidad funcional <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Esta distinción es fundamental. Bradford Z. Mahon y Alfonso Caramazza cuestionaron inferencias fuertes según las cuales la activación de regiones sensoriales o motoras durante el procesamiento conceptual demostraría que esas regiones constituyen necesariamente el concepto. Señalan que esa activación también podría resultar de interacciones entre representaciones conceptuales y sistemas sensoriomotores. Por ello: coactivación ≠ constitución necesaria. Se necesitan diseños capaces de distinguir entre distintas explicaciones causales.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.3. Versiones fuertes y versiones moderadas <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Las teorías pueden ordenarse aproximadamente según cuánto dependa la representación conceptual de los sistemas sensoriomotores. En una posición fuerte, el contenido conceptual estaría constituido por información de dichos sistemas. En una posición moderada, representaciones conceptuales y sistemas sensoriomotores pueden interactuar sin que los primeros se reduzcan completamente a los segundos. La revisión de Meteyard y colaboradores concluyó que los extremos no estaban respaldados por el conjunto de evidencia que analizaron; las propuestas intermedias incorporaban tanto contenido modal como mecanismos de convergencia.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.4. El problema de los conceptos abstractos <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Conceptos como democracia, probabilidad, obligación o justicia presentan dificultades específicas para las explicaciones puramente sensoriomotoras. Una teoría completa debe especificar: qué información fundamenta estos conceptos; cómo se integra información procedente de distintas modalidades; qué papel desempeña el lenguaje; qué componentes son necesarios y cuáles solamente acompañan el procesamiento. Barsalou ya identificaba la representación de conceptos abstractos entre los problemas teóricos de la cognición fundamentada.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.5. Corporeización no significa eliminación del cerebro <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Otro malentendido consiste en interpretar las propuestas corporeizadas como si negaran la actividad cerebral. Las teorías contemporáneas de cognición fundamentada investigan precisamente la relación entre sistemas neurales perceptivos, motores, introspectivos y los procesos cognitivos. Barsalou revisa conjuntamente evidencia conductual y neural. La controversia se refiere a cómo debe explicarse la cognición, no a si el cerebro participa en ella.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.6. Corporeización no implica que todo pensamiento exija movimiento efectivo <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>La persona puede permanecer físicamente inmóvil mientras recuerda, anticipa, comprende lenguaje o realiza otras operaciones cognitivas relacionadas con experiencias perceptivas o motoras anteriores. La distinción de Wilson entre cognición situada y cognición corporeizada offline muestra precisamente que interacción corporal actual y fundamentación corporal no constituyen la misma afirmación.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">5.7. Consenso y desacuerdo <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Puede hacerse una distinción prudente entre tres niveles:</p>
+          <ul>
+            <li><strong>Relativamente poco controvertido:</strong> los sistemas perceptivos, motores y corporales interactúan con numerosas actividades cognitivas.</li>
+            <li><strong>Debatido:</strong> cuánto contribuyen estos sistemas al contenido conceptual y cuándo su intervención resulta funcionalmente necesaria.</li>
+            <li><strong>Más controversial:</strong> que puedan eliminarse completamente las representaciones amodales o que componentes ambientales externos deban considerarse literalmente partes constitutivas del sistema cognitivo.</li>
+          </ul>
+          <p>La literatura revisada muestra un continuo entre posiciones fuertes, moderadas y descorporeizadas, en lugar de una dicotomía simple.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box error">
+      <p>COACTIVACIÓN ≠ CONSTITUCIÓN NECESARIA</p>
+    </div>
+
+    <!-- Pregunta cerrada 3 -->
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">Según Mahon y Caramazza, ¿qué problema hay con inferir que la activación de regiones motoras durante el procesamiento conceptual demuestra que esas regiones constituyen el concepto?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c3" value="a"> a) Que la activación nunca ocurre.</label>
+        <label class="q-option"><input type="radio" name="c3" value="b"> b) Que la activación también podría resultar de interacciones entre representaciones conceptuales y sistemas sensoriomotores, sin que estos constituyan necesariamente el concepto.</label>
+        <label class="q-option"><input type="radio" name="c3" value="c"> c) Que el cerebro no participa en la cognición.</label>
+        <label class="q-option"><input type="radio" name="c3" value="d"> d) Que los conceptos abstractos no existen.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(3, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb3"></div>
+    </div>
+
+    <!-- Pregunta abierta 2 -->
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Explica la diferencia entre la posición fuerte y la posición moderada en cognición corporeizada. ¿Por qué la revisión de Meteyard y colaboradores concluyó que los extremos no estaban respaldados?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 2"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(2)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb2">
+        <strong>Respuesta modelo:</strong> La posición fuerte sostiene que el contenido conceptual está constituido por información de los sistemas sensoriomotores; es decir, los conceptos se reducen a reactivaciones modales. La posición moderada sostiene que representaciones conceptuales y sistemas sensoriomotores pueden interactuar sin que los primeros se reduzcan completamente a los segundos; hay contenido modal pero también mecanismos de convergencia. Meteyard y colaboradores revisaron la evidencia y concluyeron que ni los extremos (teorías fuertemente corporeizadas ni completamente descorporeizadas) estaban respaldados. Las propuestas intermedias, que incorporan tanto contenido modal como mecanismos de convergencia, eran las que mejor se ajustaban al conjunto de evidencia analizado.
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. SÍNTESIS -->
+  <section id="sintesis" class="reveal">
+    <h2>10. Síntesis</h2>
+
+    <div class="card" style="border-left-color: var(--accent);">
+      <p>La cognición corporeizada es una <strong>familia de enfoques</strong> y no una teoría única.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--success);">
+      <p>Su tesis general sostiene que las propiedades y actividades corporales tienen un papel explicativo relevante en determinados procesos cognitivos.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--info);">
+      <p>Las distintas teorías difieren respecto de si los sistemas perceptivos y motores <em>influyen</em> en la cognición, <em>participan necesariamente</em> en ella o <em>constituyen parte</em> de sus representaciones.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--violet);">
+      <p>Cognición corporeizada, cognición situada, cognición fundamentada, cognición extendida y enactivismo son conceptos <strong>relacionados pero no equivalentes</strong>.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--error);">
+      <p>La presencia de actividad sensorial o motora durante una tarea cognitiva <strong>no demuestra por sí sola</strong> que esa actividad sea necesaria para la representación conceptual.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--accent);">
+      <p>La explicación de los conceptos abstractos y la determinación del papel causal de los sistemas sensoriomotores siguen siendo <strong>problemas centrales</strong> para las teorías de cognición corporeizada.</p>
+    </div>
+
+    <div class="highlight-box">
+      <p>UNA EVALUACIÓN RIGUROSA REQUIERE IDENTIFICAR QUÉ VERSIÓN DE LA TEORÍA SE EXAMINA, QUÉ PROCESO COGNITIVO SE PRETENDE EXPLICAR Y QUÉ EVIDENCIA PERMITIRÍA DISTINGUIRLA DE EXPLICACIONES ALTERNATIVAS</p>
+    </div>
+
+    <h3>Idea conceptual que conviene retener</h3>
+    <div class="callout">
+      <p>En un curso introductorio de ciencias cognitivas, el punto más importante no es aprender simplemente que
+      "el cuerpo influye en la mente". Esa formulación resulta demasiado general para representar adecuadamente el
+      programa de investigación.</p>
+      <p style="margin-bottom: 0;">La cuestión central es determinar <strong>qué componente corporal interviene, en qué
+      proceso cognitivo, mediante qué mecanismo, con qué grado de necesidad y qué evidencia permite distinguir esa
+      explicación de una teoría alternativa</strong>.</p>
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias (APA 7)</h2>
+    <h3>Obras fundacionales y fundamentales</h3>
+    <ul class="ref-list">
+      <li>Varela, F. J., Thompson, E., &amp; Rosch, E. (1991). <em>The embodied mind: Cognitive science and human experience</em>. MIT Press.</li>
+      <li>Wilson, M. (2002). Six views of embodied cognition. <em>Psychonomic Bulletin &amp; Review, 9</em>(4), 625-636.</li>
+      <li>Barsalou, L. W. (2008). Grounded cognition. <em>Annual Review of Psychology, 59</em>, 617-645.</li>
+    </ul>
+    <h3>Obras críticas y de síntesis</h3>
+    <ul class="ref-list">
+      <li>Mahon, B. Z., &amp; Caramazza, A. (2008). A critical look at the embodied cognition hypothesis and a new proposal for grounding conceptual content. <em>Journal of Physiology-Paris, 102</em>(1-3), 59-70.</li>
+      <li>Meteyard, L., Rodriguez Cuadrado, S., Bahrami, B., &amp; Vigliocco, G. (2012). Coming of age: A review of embodiment and the neuroscience of semantics. <em>Cortex, 48</em>(7), 788-804.</li>
+      <li>Varela, F. J., Thompson, E., &amp; Rosch, E. (2017). <em>The embodied mind: Cognitive science and human experience</em> (Rev. ed.). MIT Press.</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la diferencia entre la cognición corporeizada y el enactivismo?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) Son exactamente lo mismo.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) El enactivismo es una posición específica dentro de la cognición corporeizada; no son equivalentes.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) El enactivismo niega la cognición corporeizada.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) La cognición corporeizada es una posición dentro del enactivismo.</label>
+      </div>
+      <div class="feedback-box" id="qFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">¿Cuál de las seis tesis de Wilson es considerada por ella misma como problemática?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) La cognición está situada.</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) La restricción temporal.</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) El entorno podría formar parte del sistema cognitivo.</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) La corporeización offline.</label>
+      </div>
+      <div class="feedback-box" id="qFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="6">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">¿Qué significa que coactivación no equivale a constitución necesaria?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) Que la activación cerebral nunca es relevante.</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) Que la activación de regiones sensoriales o motoras durante una tarea no demuestra por sí sola que esas regiones constituyan necesariamente el concepto.</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) Que los conceptos no existen.</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) Que el cerebro no participa en la cognición.</label>
+      </div>
+      <div class="feedback-box" id="qFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="7">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">¿Cuál de estos conceptos NO es equivalente a cognición corporeizada?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Cognición situada</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) Cognición fundamentada</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Enactivismo</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) Todas las anteriores son conceptos relacionados pero no equivalentes.</label>
+      </div>
+      <div class="feedback-box" id="qFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="8">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Qué problema central sigue abierto para las teorías de cognición corporeizada?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) La existencia del cuerpo.</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) La explicación de los conceptos abstractos y la determinación del papel causal de los sistemas sensoriomotores.</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) La existencia de la percepción.</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) La existencia del lenguaje.</label>
+      </div>
+      <div class="feedback-box" id="qFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">Explica con tus palabras por qué el ejemplo del hambre y el rendimiento NO constituye por sí solo un caso suficiente de cognición corporeizada. ¿Qué faltaría para convertirlo en evidencia relevante?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 3"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(3)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb3">
+        <strong>Respuesta modelo:</strong> El ejemplo del hambre muestra que una variable fisiológica (estado nutricional) modifica el rendimiento cognitivo (atención sostenida). Pero esto solo demuestra una interacción entre estado fisiológico y rendimiento, no que los mecanismos específicos de razonamiento utilizados para resolver las preguntas estén constituidos por representaciones corporales o sensoriomotoras. Para convertirlo en evidencia relevante para una teoría concreta de cognición corporeizada, sería necesario especificar qué mecanismo corporeizado se propone y formular predicciones que permitan contrastarlo con explicaciones alternativas. Por ejemplo, se podría predecir que el contenido del razonamiento cambia de una manera específica según el estado corporal, no solo la eficiencia general.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Explica la diferencia entre la posición fuerte y la posición moderada en cognición corporeizada. ¿Por qué la revisión de Meteyard y colaboradores concluyó que los extremos no estaban respaldados?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 4"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(4)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb4">
+        <strong>Respuesta modelo:</strong> La posición fuerte sostiene que el contenido conceptual está constituido por información de los sistemas sensoriomotores; es decir, los conceptos se reducen a reactivaciones modales. La posición moderada sostiene que representaciones conceptuales y sistemas sensoriomotores pueden interactuar sin que los primeros se reduzcan completamente a los segundos; hay contenido modal pero también mecanismos de convergencia. Meteyard y colaboradores revisaron la evidencia y concluyeron que ni los extremos (teorías fuertemente corporeizadas ni completamente descorporeizadas) estaban respaldados. Las propuestas intermedias, que incorporan tanto contenido modal como mecanismos de convergencia, eran las que mejor se ajustaban al conjunto de evidencia analizado.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="5">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué cambió en tu forma de entender la cognición corporeizada después de recorrer este recurso? ¿Qué te genera más dudas?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 5"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(5)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb5">
+        <strong>Respuesta modelo:</strong> Antes pensaba que la cognición corporeizada era una teoría única que decía "el cuerpo influye en la mente". Ahora entiendo que es una familia de enfoques con tesis muy diferentes, algunas más respaldadas que otras. La distinción entre coactivación y constitución necesaria me parece fundamental: que una región motora se active durante una tarea no significa que sea necesaria para el concepto. Lo que más me cuesta es entender cómo se explican los conceptos abstractos desde una perspectiva corporeizada, y cómo distinguir experimentalmente entre posiciones fuertes y moderadas. Me genera dudas también la relación entre cognición corporeizada y cognición extendida: ¿son programas compatibles o compiten?
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Cognición corporeizada: abordaje conceptual introductorio</strong> · Recurso educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isActive = item.classList.contains('active');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.accordion-item').forEach(sib => {
+        sib.classList.remove('active');
+        const h = sib.querySelector('.accordion-header');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  const closedAnswers = {
+    1: { correct: 'a', fbCorrect: '¡Correcto! No toda influencia fisiológica sobre la conducta constituye por sí sola evidencia de cognición corporeizada.', fbIncorrect: 'Incorrecto. La opción correcta es la a: no toda influencia fisiológica constituye cognición corporeizada.' },
+    2: { correct: 'b', fbCorrect: '¡Bien! El enactivismo es una posición específica dentro de la cognición corporeizada, no son equivalentes.', fbIncorrect: 'Incorrecto. El enactivismo es una posición particular dentro de la cognición corporeizada.' },
+    3: { correct: 'b', fbCorrect: 'Exacto. La activación también podría resultar de interacciones entre representaciones conceptuales y sistemas sensoriomotores, sin que estos constituyan necesariamente el concepto.', fbIncorrect: 'Incorrecto. La opción correcta es la b: la activación podría ser resultado de interacciones, no necesariamente de constitución.' },
+    4: { correct: 'b', fbCorrect: '¡Correcto! El enactivismo es una posición específica dentro de la cognición corporeizada.', fbIncorrect: 'Incorrecto. El enactivismo es una posición específica dentro de la cognición corporeizada.' },
+    5: { correct: 'c', fbCorrect: '¡Bien! Wilson considera problemática la tesis de que el entorno podría formar parte del sistema cognitivo.', fbIncorrect: 'Incorrecto. La tesis problemática es la cuarta: el entorno podría formar parte del sistema cognitivo.' },
+    6: { correct: 'b', fbCorrect: 'Exacto. Coactivación no equivale a constitución necesaria.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    7: { correct: 'd', fbCorrect: '¡Correcto! Todos son conceptos relacionados pero no equivalentes a cognición corporeizada.', fbIncorrect: 'Incorrecto. Todos son conceptos relacionados pero no equivalentes.' },
+    8: { correct: 'b', fbCorrect: '¡Bien! La explicación de conceptos abstractos y la determinación del papel causal de los sistemas sensoriomotores siguen siendo problemas centrales.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  const finalQuestions = [
+    { name: 'q1', correct: 'b', id: 4 },
+    { name: 'q2', correct: 'c', id: 5 },
+    { name: 'q3', correct: 'b', id: 6 },
+    { name: 'q4', correct: 'd', id: 7 },
+    { name: 'q5', correct: 'b', id: 8 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`qFb${q.id - 3}`);
+      const options = block.querySelectorAll('.q-option');
+
+      options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Comprendes la pluralidad interna de la cognición corporeizada y sus debates abiertos.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles. Las preguntas abiertas te ayudarán a consolidar.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las secciones 3 a 9 y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+  });
+
+})();
+</script>
+</body>
+</html>
