@@ -170,6 +170,51 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "David McNeill: gesto, lenguaje y pensamiento",
+    "descripcion": "Recurso autónomo sobre la teoría de David McNeill: unidad gesto-habla, sincronía, coexpresividad, dialéctica imagen-lenguaje, growth point, tipos y fases del gesto y relación con la cognición corporeizada.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/mcneill-gesto-lenguaje-pensamiento-artefacto.html",
+    "etiquetas": [
+      "David McNeill",
+      "Gesto",
+      "Lenguaje",
+      "Pensamiento",
+      "Gesto-habla",
+      "Growth point",
+      "Coexpresividad",
+      "Sincronía",
+      "Cognición corporeizada",
+      "Thinking for speaking",
+      "Barsalou",
+      "Ciencias cognitivas"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "David McNeill: gesto, lenguaje y pensamiento — presentación",
+    "descripcion": "Presentación interactiva de 50 diapositivas sobre la teoría de David McNeill, con unidad gesto-habla, dialéctica imagen-lenguaje, growth point, tipos y estructura temporal del gesto, cognición corporeizada y aplicaciones docentes.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/mcneill-gesto-lenguaje-pensamiento-presentacion.html",
+    "etiquetas": [
+      "David McNeill",
+      "Gesto",
+      "Lenguaje",
+      "Pensamiento",
+      "Gesto-habla",
+      "Growth point",
+      "Dialéctica imagen-lenguaje",
+      "Tipos de gestos",
+      "Stroke",
+      "Cognición corporeizada",
+      "Thinking for speaking",
+      "Barsalou",
+      "Docencia"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Del tema al problema de investigación",
     "descripcion": "Recurso autónomo para distinguir tema, situación problemática, problema de conocimiento, vacíos de literatura, delimitación y pregunta de investigación, con actividades y autoevaluación.",
     "tipo": "Artefacto educativo interactivo",
