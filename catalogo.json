@@ -50,6 +50,26 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Interocepción: el cuerpo en la cognición",
+    "descripcion": "Presentación interactiva sobre interocepción, cognición corporeizada, atención, memoria, emoción, procesamiento predictivo, sensibilidad interoceptiva y MAIA.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/interocepcion.html",
+    "etiquetas": [
+      "Interocepción",
+      "Cognición corporeizada",
+      "Cognición 4E",
+      "Atención interoceptiva",
+      "Emoción",
+      "Memoria",
+      "Predictive processing",
+      "MAIA",
+      "Sensibilidad interoceptiva",
+      "Psicología cognitiva"
+    ],
+    "curso": "Semillero SOM4TICA",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Laboratorio de sesgos cognitivos",
     "descripcion": "Laboratorio interactivo de decisiones metacognitivas con experimentos sobre anclaje, disponibilidad, representatividad, framing y costo hundido.",
     "tipo": "Laboratorio interactivo",
@@ -65,6 +85,24 @@
       "Metacognición"
     ],
     "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "MAIA: evaluación multidimensional de la conciencia interoceptiva",
+    "descripcion": "Aplicación interactiva del MAIA de 32 ítems y 8 subescalas, con cálculo de puntuaciones e interpretación orientativa del perfil de conciencia interoceptiva.",
+    "tipo": "Instrumento interactivo",
+    "archivo": "materiales/maia.html",
+    "etiquetas": [
+      "MAIA",
+      "Interocepción",
+      "Conciencia interoceptiva",
+      "Sensibilidad interoceptiva",
+      "Evaluación",
+      "Cuestionario",
+      "Autorregulación",
+      "Conciencia corporal"
+    ],
+    "curso": "Semillero SOM4TICA",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
@@ -104,6 +142,26 @@
       "Psicología cognitiva"
     ],
     "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Sobrecarga mental y sensibilidad interoceptiva",
+    "descripcion": "Presentación interactiva de un proyecto de investigación sobre carga mental, distribución de tareas y sensibilidad interoceptiva, con diseño mixto convergente de prioridad cualitativa.",
+    "tipo": "Presentación de proyecto",
+    "archivo": "materiales/proyecto-carga-mental-interocepcion.html",
+    "etiquetas": [
+      "Carga mental",
+      "Interocepción",
+      "Sensibilidad interoceptiva",
+      "MAIA",
+      "NASA-TLX",
+      "Métodos mixtos",
+      "Investigación cualitativa",
+      "Investigación cuantitativa",
+      "Diseño convergente",
+      "Semillero"
+    ],
+    "curso": "Semillero SOM4TICA",
     "autor": "Juan Carlos Valderrama Cárdenas"
   }
 ]
