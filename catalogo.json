@@ -82,6 +82,25 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Del tema al problema de investigación",
+    "descripcion": "Recurso autónomo para distinguir tema, situación problemática, problema de conocimiento, vacíos de literatura, delimitación y pregunta de investigación, con actividades y autoevaluación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/del-tema-al-problema.html",
+    "etiquetas": [
+      "Problema de investigación",
+      "Tema de investigación",
+      "Situación problemática",
+      "Vacío de conocimiento",
+      "Revisión de literatura",
+      "Pregunta de investigación",
+      "Delimitación",
+      "Formulación de proyectos",
+      "Metodología de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Diseño metodológico",
     "descripcion": "Recurso interactivo para comprender el diseño metodológico como arquitectura de una investigación y diferenciar diseños cuantitativos y cualitativos.",
     "tipo": "Artefacto interactivo",
@@ -390,6 +409,25 @@
       "Semillero"
     ],
     "curso": "Semillero SOM4TICA",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Tengo un tema, ¿pero tengo un problema de investigación?",
+    "descripcion": "Presentación de clase para transformar un interés o tema en un problema de investigación mediante problematización, revisión de literatura, tipos de vacío, delimitación y formulación de preguntas.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/tengo-un-tema-pero-tengo-un-problema.html",
+    "etiquetas": [
+      "Problema de investigación",
+      "Tema de investigación",
+      "Problema de conocimiento",
+      "Vacío de conocimiento",
+      "Revisión de literatura",
+      "Pregunta de investigación",
+      "Delimitación",
+      "Formulación de proyectos",
+      "Problematización"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
