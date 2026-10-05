@@ -1,5 +1,23 @@
 [
   {
+    "titulo": "Casos de Psicología Cognitiva",
+    "descripcion": "Cinco casos clínicos, educativos y cotidianos para aplicar memoria de trabajo, procesamiento de información, sesgos cognitivos, funciones ejecutivas y cognición-emoción.",
+    "tipo": "Artefacto de aprendizaje",
+    "archivo": "materiales/casos-psicologia-cognitiva.html",
+    "etiquetas": [
+      "Psicología cognitiva",
+      "Memoria de trabajo",
+      "Procesamiento de información",
+      "Sesgos cognitivos",
+      "Funciones ejecutivas",
+      "Cognición",
+      "Emoción",
+      "Casos"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Diseño metodológico",
     "descripcion": "Recurso interactivo para comprender el diseño metodológico como arquitectura de una investigación y diferenciar diseños cuantitativos y cualitativos.",
     "tipo": "Artefacto interactivo",
@@ -12,6 +30,41 @@
       "Investigación cualitativa"
     ],
     "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Diseño metodológico: presentación de clase",
+    "descripcion": "Presentación de clase sobre la arquitectura lógica del diseño metodológico, con diseños cuantitativos y cualitativos, actividades y coherencia metodológica.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/presentacion-diseno-metodologico.html",
+    "etiquetas": [
+      "Investigación",
+      "Metodología",
+      "Diseño metodológico",
+      "Investigación cuantitativa",
+      "Investigación cualitativa",
+      "Presentación",
+      "Coherencia metodológica"
+    ],
+    "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Laboratorio de sesgos cognitivos",
+    "descripcion": "Laboratorio interactivo de decisiones metacognitivas con experimentos sobre anclaje, disponibilidad, representatividad, framing y costo hundido.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-sesgos-cognitivos.html",
+    "etiquetas": [
+      "Sesgos cognitivos",
+      "Anclaje",
+      "Disponibilidad",
+      "Representatividad",
+      "Framing",
+      "Costo hundido",
+      "Toma de decisiones",
+      "Metacognición"
+    ],
+    "curso": "Enfoque Cognitivo",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
