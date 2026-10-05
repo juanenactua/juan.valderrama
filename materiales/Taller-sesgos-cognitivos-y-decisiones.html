@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller · Sesgos cognitivos y decisiones · Enfoque cognitivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f6f8fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: #1e2b3c;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .artifact {
+            max-width: 1020px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 12px 35px rgba(0, 20, 30, 0.06), 0 4px 12px rgba(0, 0, 0, 0.02);
+            padding: 2rem 2.2rem;
+            transition: all 0.2s;
+        }
+
+        /* encabezado */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .title-section h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b2b3c;
+        }
+
+        .title-section .subhead {
+            font-size: 1.05rem;
+            color: #5a6f7e;
+            margin-top: 0.3rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #e8f0f7;
+            color: #1f4f6b;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 0.01em;
+        }
+
+        .badge.cognitivo {
+            background: #e0e9f5;
+            color: #1d3f6b;
+        }
+
+        /* cronómetro */
+        .timer-block {
+            background: #f2f6fc;
+            border-radius: 60px;
+            padding: 0.5rem 1.4rem 0.5rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #d9e2ec;
+        }
+
+        .timer-display {
+            font-size: 1.9rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+            color: #0b2b3c;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timer-btn {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            padding: 0.4rem 1.1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e3b4f;
+            cursor: pointer;
+            transition: background 0.15s, border 0.15s;
+            font-family: inherit;
+        }
+
+        .timer-btn:hover {
+            background: #e6edf5;
+            border-color: #a0b8cc;
+        }
+
+        .timer-btn.reset {
+            color: #9b3e3e;
+            border-color: #e6c9c9;
+        }
+
+        .timer-btn.reset:hover {
+            background: #f7e9e9;
+        }
+
+        /* secciones */
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0e2c3e;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.01em;
+            border-left: 6px solid #6b9ac4;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e3e58;
+            margin-bottom: 0.8rem;
+        }
+
+        .lectura {
+            background: #f9fcff;
+            border-radius: 18px;
+            padding: 1.8rem 2rem;
+            font-size: 1.05rem;
+            border: 1px solid #e3edf5;
+            color: #1f3e55;
+            max-height: 480px;
+            overflow-y: auto;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+            scrollbar-width: thin;
+        }
+
+        .lectura p {
+            margin-bottom: 1.1rem;
+        }
+
+        .lectura p:last-child {
+            margin-bottom: 0;
+        }
+
+        .lectura strong {
+            color: #0b334b;
+            font-weight: 600;
+        }
+
+        .lectura h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e3e58;
+            margin: 1.2rem 0 0.6rem;
+        }
+
+        .lectura ul {
+            margin: 0.6rem 0 1rem 1.4rem;
+        }
+
+        .lectura li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* bloques individual / grupal */
+        .momento {
+            border-radius: 22px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .momento-individual {
+            background: #fbfdff;
+            border-color: #d9e8f5;
+            box-shadow: 0 4px 12px rgba(90, 130, 180, 0.04);
+        }
+
+        .momento-grupal {
+            background: #f8fbf9;
+            border-color: #cfe4d8;
+            box-shadow: 0 4px 12px rgba(70, 130, 100, 0.04);
+        }
+
+        .momento-etiqueta {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            padding: 0.35rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.4rem;
+            background: #e8f0f7;
+            color: #1f4f6b;
+        }
+
+        .momento-grupal .momento-etiqueta {
+            background: #dff0e6;
+            color: #1d6b4a;
+        }
+
+        /* preguntas */
+        .preguntas-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .pregunta-card {
+            background: white;
+            border: 1px solid #e2eaf2;
+            border-radius: 20px;
+            padding: 1.7rem 1.9rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+            transition: border 0.2s;
+        }
+
+        .pregunta-card:hover {
+            border-color: #c7d9e9;
+        }
+
+        .pregunta-label {
+            display: flex;
+            gap: 0.7rem;
+            font-weight: 500;
+            margin-bottom: 0.9rem;
+            color: #1e3a4e;
+            font-size: 1.05rem;
+        }
+
+        .pregunta-num {
+            background: #e3eef9;
+            color: #1e4b6b;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+            padding-left: 0.4rem;
+        }
+
+        .opcion {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            font-size: 1.05rem;
+            color: #223c4e;
+            cursor: pointer;
+            padding: 0.45rem 0.4rem;
+            border-radius: 10px;
+            transition: background 0.1s;
+        }
+
+        .opcion:hover {
+            background: #f0f7fe;
+        }
+
+        .opcion input[type="radio"] {
+            margin-top: 0.3rem;
+            accent-color: #2c6b9e;
+            width: 1.15rem;
+            height: 1.15rem;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border: 1px solid #d3e0ec;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            color: #1e2b3c;
+            background: #ffffff;
+            transition: border 0.15s, box-shadow 0.15s;
+            resize: vertical;
+            min-height: 110px;
+            margin-top: 0.6rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #7fa9cc;
+            box-shadow: 0 0 0 3px rgba(108, 156, 199, 0.15);
+        }
+
+        .feedback-msg {
+            font-size: 0.95rem;
+            margin-top: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            background: #eaf1f9;
+            color: #17557a;
+        }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #dee9f2;
+        }
+
+        .btn {
+            background: #1e3e58;
+            color: white;
+            border: none;
+            padding: 0.85rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1.05rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s, transform 0.1s;
+            letter-spacing: 0.01em;
+            box-shadow: 0 4px 10px rgba(0, 40, 70, 0.08);
+        }
+
+        .btn:hover {
+            background: #123147;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #b6cbdf;
+            color: #1e3a4e;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: #eef5fb;
+            border-color: #8eb0cc;
+        }
+
+        .nota {
+            font-size: 0.9rem;
+            color: #5c7487;
+            margin-top: 1.4rem;
+            text-align: right;
+            font-style: italic;
+        }
+
+        /* --- EJEMPLOS VISUALES CON ANIMACIONES Y GRÁFICAS --- */
+        .ejemplo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.8rem;
+        }
+
+        @media (max-width: 750px) {
+            .ejemplo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ejemplo-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2eaf2;
+            padding: 1.6rem 1.6rem 1.8rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .ejemplo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(40, 80, 120, 0.08);
+        }
+
+        .ejemplo-card h4 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #0e2c3e;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ejemplo-card p {
+            font-size: 0.98rem;
+            color: #2f465a;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            background: #e4eef7;
+            color: #1d4b6b;
+        }
+
+        .tag.cualitativo {
+            background: #e4f0ea;
+            color: #1b6b4a;
+        }
+
+        /* animación barras cuantitativas */
+        .barras {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 150px;
+            gap: 1rem;
+            margin: 1.2rem 0 0.8rem;
+            padding: 0 0.4rem;
+        }
+
+        .barra {
+            width: 40px;
+            background: #4a7ea8;
+            border-radius: 8px 8px 4px 4px;
+            position: relative;
+            transition: height 1.2s cubic-bezier(0.22, 0.97, 0.36, 1);
+            height: 0;
+            animation: crecerBarra 1.4s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        .barra:nth-child(2) { animation-delay: 0.4s; background: #5f93b8; }
+        .barra:nth-child(3) { animation-delay: 0.6s; background: #74a4c2; }
+        .barra:nth-child(4) { animation-delay: 0.8s; background: #8ab5cd; }
+
+        .barra-label {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #3f627a;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        @keyframes crecerBarra {
+            0% { height: 0; }
+            100% { height: var(--altura); }
+        }
+
+        /* animación línea cualitativa */
+        .linea-tiempo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1.2rem 0 0.8rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .linea-tiempo::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #b8d0e0;
+            border-radius: 4px;
+        }
+
+        .evento {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            position: relative;
+            opacity: 0;
+            animation: aparecerEvento 0.6s ease forwards;
+            font-size: 0.98rem;
+            color: #2c465a;
+        }
+
+        .evento:nth-child(1) { animation-delay: 0.2s; }
+        .evento:nth-child(2) { animation-delay: 0.5s; }
+        .evento:nth-child(3) { animation-delay: 0.8s; }
+        .evento:nth-child(4) { animation-delay: 1.1s; }
+
+        .evento::before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #4a8a7a;
+            border: 3px solid #dff0e8;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        @keyframes aparecerEvento {
+            0% { opacity: 0; transform: translateX(-8px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ---- DISEÑO DE CASOS (ACTIVIDAD GRUPAL) ---- */
+        .caso-plantilla {
+            background: #ffffffd9;
+            border-radius: 20px;
+            padding: 1.6rem 1.8rem;
+            margin-top: 1.6rem;
+            border: 1px solid #cfe4d8;
+            box-shadow: 0 4px 12px rgba(60, 120, 90, 0.04);
+        }
+
+        .caso-plantilla h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1d6b4a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .campo {
+            margin-bottom: 1.1rem;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #2c5e48;
+            margin-bottom: 0.35rem;
+        }
+
+        .campo input[type="text"],
+        .campo textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #cfe4d8;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #1e2b3c;
+            background: #fdfefe;
+            transition: border 0.15s, box-shadow 0.15s;
+            resize: vertical;
+        }
+
+        .campo input:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: #6da58c;
+            box-shadow: 0 0 0 3px rgba(109, 165, 140, 0.15);
+        }
+
+        .campo textarea {
+            min-height: 70px;
+        }
+
+        .caso-divisor {
+            border: 0;
+            border-top: 2px dashed #cfe4d8;
+            margin: 2rem 0 1.6rem;
+        }
+
+        .sesgo-select {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.4rem;
+        }
+
+        .sesgo-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #eef7f2;
+            border: 1px solid #cfe4d8;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #1d6b4a;
+            cursor: pointer;
+            transition: background 0.15s, border 0.15s;
+            user-select: none;
+        }
+
+        .sesgo-chip:hover {
+            background: #dff0e6;
+        }
+
+        .sesgo-chip input[type="checkbox"] {
+            accent-color: #2c7a58;
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+        }
+
+        .caso-ejemplo-msg {
+            font-size: 0.9rem;
+            color: #3a6178;
+            background: #f0f7fe;
+            border-radius: 14px;
+            padding: 0.8rem 1.1rem;
+            margin-top: 1.2rem;
+            border-left: 4px solid #6b9ac4;
+        }
+
+        .tabla-sesgos {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 0.98rem;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .tabla-sesgos th {
+            background: #eef4fa;
+            color: #1e3e58;
+            font-weight: 600;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #d9e2ec;
+        }
+
+        .tabla-sesgos td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #eef2f7;
+            color: #2c465a;
+            vertical-align: top;
+        }
+
+        .tabla-sesgos tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tabla-sesgos tr:hover {
+            background: #f9fcff;
+        }
+
+        /* scroll bonito */
+        .lectura::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lectura::-webkit-scrollbar-track {
+            background: #eef4fa;
+            border-radius: 10px;
+        }
+
+        .lectura::-webkit-scrollbar-thumb {
+            background: #c1d4e6;
+            border-radius: 10px;
+        }
+
+        .lectura::-webkit-scrollbar-thumb:hover {
+            background: #9fb9d0;
+        }
+
+        @media (max-width: 650px) {
+            .artifact {
+                padding: 1.5rem 1.2rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .timer-block {
+                width: 100%;
+                justify-content: space-between;
+                padding-left: 1rem;
+            }
+            .title-section h1 {
+                font-size: 1.7rem;
+            }
+            h2 {
+                font-size: 1.35rem;
+            }
+            .tabla-sesgos {
+                font-size: 0.85rem;
+            }
+            .tabla-sesgos th,
+            .tabla-sesgos td {
+                padding: 0.6rem 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="artifact">
+        <!-- ENCABEZADO + CRONÓMETRO -->
+        <div class="header">
+            <div class="title-section">
+                <h1>Sesgos cognitivos: 7 errores que sabotean tus decisiones</h1>
+                <div class="subhead">
+                    <span>Taller de lectura y diseño de casos</span>
+                    <span class="badge cognitivo">Enfoque cognitivo</span>
+                </div>
+            </div>
+            <div class="timer-block">
+                <div class="timer-display" id="timerDisplay">45:00</div>
+                <div class="timer-controls">
+                    <button class="timer-btn" id="startBtn">▶ Iniciar</button>
+                    <button class="timer-btn reset" id="resetBtn">↺ Reiniciar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LECTURA -->
+        <section>
+            <h2>📖 Lectura base</h2>
+            <div class="lectura" id="textoLectura">
+                <p><strong>Mapa rápido para estudiar o exponer</strong></p>
+                <ul>
+                    <li>Qué son los sesgos cognitivos y por qué no son “errores tontos”</li>
+                    <li>El modelo de los dos sistemas (Kahneman): pensar rápido vs pensar lento</li>
+                    <li>Los 7 sesgos que más sabotean tus decisiones cotidianas</li>
+                    <li>Cómo se forman los sesgos: heurísticas y atajos del pensamiento</li>
+                    <li>Sesgo de confirmación: por qué solo ves lo que ya crees</li>
+                    <li>El sesgo en la clínica, el aula y la vida diaria</li>
+                    <li>Cómo reducir el efecto de los sesgos (no eliminarlos)</li>
+                    <li>Errores frecuentes al estudiar sesgos para parcial</li>
+                </ul>
+
+                <h4>Definición corta para parcial</h4>
+                <p>Los <strong>sesgos cognitivos</strong> son atajos sistemáticos del pensamiento que el cerebro usa para tomar decisiones rápidas, a costa de desviaciones predecibles de la lógica o la evidencia. Son patrones de procesamiento inconsciente que aparecen cuando el cerebro recurre a <strong>heurísticas</strong> para ahorrar energía y carga cognitiva. Los más estudiados: confirmación, ancla, disponibilidad y representatividad.</p>
+
+                <p>Incluye estas 7 palabras en tu respuesta: <em>sesgo cognitivo, heurística, Kahneman, Tversky, sistema 1, sistema 2, sesgo de confirmación</em>. Si solo dices “son errores del pensamiento”, estás describiendo un lugar común, no la escuela Kahneman-Tversky. Lo que los vuelve sesgos cognitivos y no simples errores es que son <strong>sistemáticos, predecibles y nacen del sistema 1 como atajo adaptativo</strong>.</p>
+
+                <h4>Resumen</h4>
+                <p>Tu cerebro toma alrededor de 35,000 decisiones al día, y la mayoría las toma antes de que te des cuenta. La psicología cognitiva lleva más de 50 años estudiando por qué esas decisiones rápidas son predeciblemente erróneas, y las ha agrupado en lo que hoy llamamos sesgos cognitivos: atajos sistemáticos que tu mente usa para ahorrar energía, y que tienen un costo. Este artículo revisa los 7 sesgos más documentados en la literatura — confirmación, anclaje, disponibilidad, halo, statu quo, Dunning-Kruger e hindsight —, los explica con ejemplos cotidianos y académicos, los integra en el marco sistema 1 vs sistema 2 de Kahneman, y termina con una aplicación directa a parciales, papers y exposiciones.</p>
+
+                <h4>TL;DR</h4>
+                <ul>
+                    <li>Un sesgo cognitivo es un atajo sistemático del pensamiento que produce errores predecibles (Tversky y Kahneman, 1974, Science). No es falta de inteligencia, es cómo funciona el cerebro.</li>
+                    <li>Los 7 sesgos con más evidencia: confirmación, anclaje, disponibilidad, halo, statu quo, Dunning-Kruger e hindsight.</li>
+                    <li>El marco que los unifica: Kahneman distingue el sistema 1 (rápido, automático, emocional) del sistema 2 (lento, deliberado, lógico). Los sesgos nacen cuando el sistema 1 decide solo, sin que el sistema 2 lo corrija (Stanovich y West, 2000).</li>
+                    <li>En el parcial, en el paper, en la exposición: los sesgos más peligrosos son confirmación (lees solo lo que confirma tu tesis) y Dunning-Kruger (creas que entiendes lo que no entiendes).</li>
+                    <li>Salir del sesgo no es eliminar el sistema 1 (es imposible), sino diseñar el contexto para que el sistema 2 tenga chance de activarse.</li>
+                </ul>
+
+                <h4>Caso ilustrativo (compuesto)</h4>
+                <p>Daniela tiene 24 años, está en el último año de psicología y en seis semanas rinde el parcial final de Cognición. Lleva dos semanas leyendo papers para su monografía. Elige un paper fundacional de Tversky y Kahneman (1974) y lo lee con una lapicera verde en la mano: lo que confirma su intuición lo subraya, lo que la contradice lo anota al margen con signo de pregunta. Cuando su tutora le devuelve el borrador con un comentario —“no estás discutiendo los contraargumentos”— Daniela se sorprende: ella sentía que estaba leyendo “toda” la literatura. En paralelo, Daniela cree firmemente que entiende la diferencia entre sistema 1 y sistema 2. Pero cuando un compañero le pregunta “¿y cuándo el sistema 2 puede equivocarse?”, Daniela no sabe responder. Cree que sabe. No sabe. En este artículo vamos a recorrer, sesgo por sesgo, qué le está pasando a Daniela — y qué nos pasa a todos cuando no lo vemos.</p>
+
+                <h4>1. ¿Qué es un sesgo cognitivo y por qué tu cerebro lo hace?</h4>
+                <p><strong>Lo que se dice.</strong> Un sesgo cognitivo es un error de pensamiento, una distorsión, algo que ocurre cuando el cerebro “falla” o se equivoca. Si lo eliminamos, pensamos mejor. La lógica y la razón son siempre la salida.</p>
+                <p><strong>Lo que dice la evidencia.</strong> En 1974, Amos Tversky y Daniel Kahneman publicaron en Science un paper que fundó un campo entero: “Judgment under uncertainty: Heuristics and biases”. Ahí mostraron que los humanos, al tomar decisiones bajo incertidumbre, no siguen las reglas de la estadística bayesiana: usan heurísticas (atajos mentales) que producen sesgos predecibles. No son errores aleatorios: son sistemáticos. Ocurren en personas inteligentes, con información completa, sin presión de tiempo. Son parte de cómo funciona el cerebro.</p>
+                <p><strong>¿Por qué existen?</strong> Haselton, Nettle y Andrews (2005) propusieron un marco evolutivo: los sesgos son atajos adaptativos en el entorno ancestral que se vuelven errores en el entorno moderno. Tu cerebro no está “roto”: está calibrado para un mundo que ya no existe.</p>
+                <p><strong>Aplicación práctica.</strong> Un sesgo no es un defecto moral ni un problema de inteligencia. Es una propiedad del sistema. La salida no es “ser más racional”: es diseñar el contexto para que el sistema 2 tenga tiempo de activarse, hacer pausas explícitas, y buscar activamente lo que confirma la posición contraria. A eso se le llama <em>consider the opposite</em>.</p>
+
+                <h4>2. Sesgo de confirmación: tu cerebro busca lo que ya cree</h4>
+                <p>Lo que hacemos es buscar, interpretar y recordar selectivamente la información que confirma lo que ya creemos. Raymond Nickerson publicó en 1998 una revisión comprehensiva del fenómeno: el sesgo de confirmación aparece en memoria, en interpretación y en búsqueda. Es uno de los sesgos más robustos y peor autocorregidos.</p>
+                <p><strong>Aplicación práctica.</strong> En la monografía de Daniela, el patrón es claro: subrayar en verde lo que confirma, marcar con signo de pregunta lo que contradice. La herramienta concreta es el <em>consider the opposite</em>: antes de cerrar una conclusión, listar 3 argumentos en contra y buscar evidencia para ellos.</p>
+
+                <h4>3. Sesgo de anclaje: el primer número domina la decisión</h4>
+                <p>Tversky y Kahneman (1974) mostraron el efecto de anclaje con un experimento clásico: pedían estimar el porcentaje de países africanos en la ONU. Un número al azar de una ruleta modificaba en 20 puntos la estimación. El anclaje no desaparece con entrenamiento ni con advertencias explícitas.</p>
+                <p><strong>Aplicación práctica.</strong> El primer paper que lees sobre un tema “ancla” tu lectura de los siguientes. La salida: leer primero 2-3 fuentes con posiciones distintas antes de profundizar en una.</p>
+
+                <h4>4. Sesgo de disponibilidad: lo reciente te parece más probable</h4>
+                <p>La mente confunde “lo que recuerdas rápido” con “lo que es más probable”. Después de una noticia de un accidente aéreo, compras menos pasajes. Después de un parcial donde un compañero se equivocó en el tema 3, crees que el tema 3 es “el que toma la profe”.</p>
+
+                <h4>5. Efecto halo: una cualidad buena nubla todo lo demás</h4>
+                <p>El efecto halo es la tendencia a que una impresión general influya en juicios sobre rasgos específicos. Si un profesor te cae bien, crees que sus clases son mejores, sus evaluaciones más justas, su material más riguroso — incluso cuando la evidencia objetiva no lo sostiene.</p>
+
+                <h4>6. Sesgo de statu quo: por qué prefieres no cambiar (aunque cambiar sea mejor)</h4>
+                <p>Kahneman y Tversky (1979) publicaron la teoría del prospecto, que mostró que los humanos evaluamos pérdidas con el doble de peso psicológico que ganancias equivalentes. Si ya tienes un plan de tesis, cambiar de tema se siente como una pérdida, aunque el tema nuevo sea mejor.</p>
+
+                <h4>7. Efecto Dunning-Kruger: quien menos sabe, menos se da cuenta</h4>
+                <p>Las personas con poco conocimiento en un dominio sobreestiman sistemáticamente su competencia. La explicación: la misma habilidad que se necesita para resolver un problema se necesita para reconocer que uno no lo está resolviendo bien. El caso de Daniela es Dunning-Kruger puro.</p>
+
+                <h4>8. Sesgo de hindsight: “yo ya lo sabía” (y no, no lo sabías)</h4>
+                <p>Fischhoff (1975) lo demostró: la gente re-escribe la probabilidad que le asignó al evento después de saber el resultado. La memoria del juicio original se sobreescribe con la memoria del resultado.</p>
+
+                <h4>9. Sistema 1 vs sistema 2: el marco de Kahneman</h4>
+                <p>Stanovich y West (2000) propusieron la distinción hoy canónica: el sistema 1 es rápido, automático, emocional; el sistema 2 es lento, deliberado, lógico. Los 7 sesgos no son 7 fenómenos distintos: son manifestaciones de un mismo fenómeno — el sistema 1 tomando decisiones sin que el sistema 2 las supervise.</p>
+
+                <h4>Tabla resumen de los 7 sesgos</h4>
+                <table class="tabla-sesgos">
+                    <thead>
+                        <tr>
+                            <th>Sesgo</th>
+                            <th>Definición corta</th>
+                            <th>Ejemplo cotidiano</th>
+                            <th>Sistema</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Confirmación</td><td>Buscas/recuerdas lo que confirma tu tesis</td><td>Subrayas en verde lo que confirma tu monografía</td><td>1</td></tr>
+                        <tr><td>Anclaje</td><td>El primer número domina la estimación</td><td>El primer precio que ves en una compra</td><td>1</td></tr>
+                        <tr><td>Disponibilidad</td><td>Lo reciente te parece más probable</td><td>Después de una noticia, crees que el evento es más común</td><td>1</td></tr>
+                        <tr><td>Halo</td><td>Una cualidad buena nubla el resto</td><td>Si te cae bien un profe, crees que su materia es más fácil</td><td>1</td></tr>
+                        <tr><td>Statu quo</td><td>Prefieres no cambiar aunque cambiar sea mejor</td><td>No cambias de plan de tesis aunque el nuevo sea mejor</td><td>1 + 2</td></tr>
+                        <tr><td>Dunning-Kruger</td><td>Quien menos sabe, menos se da cuenta</td><td>Crees que entiendes sistema 1-2 sin poder explicarlo</td><td>1 + 2</td></tr>
+                        <tr><td>Hindsight</td><td>“Yo ya lo sabía” (no lo sabías)</td><td>Después del parcial, todo parece obvio</td><td>1 (memoria)</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>10. Aplicación práctica: cómo usar los sesgos en parcial, paper y exposición</h4>
+                <table class="tabla-sesgos">
+                    <thead>
+                        <tr>
+                            <th>Contexto académico</th>
+                            <th>Sesgo más común</th>
+                            <th>Cómo evitarlo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Leer para una monografía</td><td>Confirmación</td><td>Anota al menos 2 fuentes con posición contraria ANTES de profundizar</td></tr>
+                        <tr><td>Estudiar para un parcial</td><td>Disponibilidad</td><td>Hacer simulacro con preguntas del año pasado, no solo releer</td></tr>
+                        <tr><td>Responder una pregunta de parcial</td><td>Anclaje</td><td>Releer la pregunta completa antes de responder; la primera interpretación no es la única</td></tr>
+                        <tr><td>Preparar una exposición</td><td>Halo</td><td>Practicar con alguien que NO te admire (un crítico)</td></tr>
+                        <tr><td>Elegir tema de tesis</td><td>Statu quo</td><td>Calcular: “Si empezara de cero hoy, ¿qué tema elegiría?”</td></tr>
+                        <tr><td>Evaluar el propio aprendizaje</td><td>Dunning-Kruger</td><td>Explicar el tema en voz alta sin mirar apuntes</td></tr>
+                        <tr><td>Mirar para atrás un parcial</td><td>Hindsight</td><td>Anotar predicciones ANTES de saber el resultado</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>11. Errores frecuentes y checklist para pensar con más cuidado</h4>
+                <p>Conocer el sesgo de confirmación no elimina el sesgo de confirmación. Lo atenúa un poco, en algunas condiciones, en algunas personas. La salida no es conocer: es diseñar el contexto con herramientas concretas.</p>
+                <p><strong>Checklist de 5 puntos antes de cualquier decisión importante:</strong></p>
+                <ul>
+                    <li>¿Qué creo y por qué? Anótalo en una línea. Fuerza la razón.</li>
+                    <li>¿Qué posición contraria existe? Anota al menos 2 argumentos en contra. Anota una fuente para cada uno.</li>
+                    <li>¿Qué me sesga? Anota qué sesgo de los 7 podría estar operando.</li>
+                    <li>¿Qué predigo, antes de saber el resultado? Anota tu predicción. En 1 mes, compara.</li>
+                    <li>¿Qué le diría a un amigo en mi lugar? Sal de tu cabeza. La distancia social reduce el sesgo.</li>
+                </ul>
+
+                <h4>Resumen para parcial</h4>
+                <ul>
+                    <li><strong>Sesgo cognitivo:</strong> atajo sistemático del pensamiento que produce errores predecibles (Tversky y Kahneman, 1974, Science).</li>
+                    <li><strong>Origen evolutivo:</strong> atajos adaptativos en entorno ancestral que fallan en entorno moderno (Haselton et al., 2005).</li>
+                    <li><strong>Sistema 1 vs sistema 2:</strong> sistema 1 = rápido, automático, emocional; sistema 2 = lento, deliberado, lógico. Sesgos = sistema 1 sin supervisión del sistema 2 (Stanovich y West, 2000; Kahneman, 2003).</li>
+                    <li><strong>7 sesgos centrales:</strong> confirmación, anclaje, disponibilidad, halo, statu quo, Dunning-Kruger, hindsight.</li>
+                    <li><strong>Aplicación:</strong> diseñar el contexto para que el sistema 2 tenga chance, no eliminar el sistema 1.</li>
+                    <li><strong>Lectura complementaria:</strong> Kahneman, D. (2011). Thinking, fast and slow.</li>
+                </ul>
+
+                <p style="font-size:0.95rem; color:#5f7e96; border-top:1px dashed #cbdae7; padding-top:0.8rem; margin-top:1rem;"><em>Artículo original: Ricardo De Castro King — Psicólogo · T.P. 106127 (COLPSIC) · Universidad del Norte · Barranquilla, Colombia · Última revisión: 2026-06-12.</em></p>
+            </div>
+        </section>
+
+        <!-- ================= MOMENTO INDIVIDUAL ================= -->
+        <div class="momento momento-individual">
+            <div class="momento-etiqueta">🧑‍🔬 Momento individual · 20 min</div>
+            <p style="font-size:1.05rem; margin-bottom:1.6rem; color:#2a4a62;">Lee el texto con atención y responde las preguntas de manera individual. Puedes tomar notas en las preguntas abiertas. <strong>No compartas respuestas todavía.</strong></p>
+
+            <div class="preguntas-grid">
+                <!-- Pregunta 1 (cerrada) -->
+                <div class="pregunta-card" data-pregunta="1">
+                    <div class="pregunta-label">
+                        <span class="pregunta-num">1</span>
+                        <span>¿Qué distingue a un sesgo cognitivo de un simple error de pensamiento, según la escuela Kahneman-Tversky?</span>
+                    </div>
+                    <div class="opciones">
+                        <label class="opcion"><input type="radio" name="p1" value="A"> A) Que ocurre solo en personas con bajo coeficiente intelectual.</label>
+                        <label class="opcion"><input type="radio" name="p1" value="B"> B) Que es sistemático, predecible y nace del sistema 1 como atajo adaptativo.</label>
+                        <label class="opcion"><input type="radio" name="p1" value="C"> C) Que se puede eliminar con entrenamiento en lógica formal.</label>
+                        <label class="opcion"><input type="radio" name="p1" value="D"> D) Que solo aparece cuando hay presión de tiempo.</label>
+                    </div>
+                    <div class="feedback-msg" id="fb-p1" style="display: none;"></div>
+                </div>
+
+                <!-- Pregunta 2 (cerrada) -->
+                <div class="pregunta-card" data-pregunta="2">
+                    <div class="pregunta-label">
+                        <span class="pregunta-num">2</span>
+                        <span>¿Cuál es la diferencia principal entre el sistema 1 y el sistema 2 según Kahneman?</span>
+                    </div>
+                    <div class="opciones">
+                        <label class="opcion"><input type="radio" name="p2" value="A"> A) El sistema 1 es lento y deliberado; el sistema 2 es rápido y automático.</label>
+                        <label class="opcion"><input type="radio" name="p2" value="B"> B) El sistema 1 es rápido, automático y emocional; el sistema 2 es lento, deliberado y lógico.</label>
+                        <label class="opcion"><input type="radio" name="p2" value="C"> C) Ambos son igualmente rápidos, pero el sistema 2 es más preciso.</label>
+                        <label class="opcion"><input type="radio" name="p2" value="D"> D) El sistema 1 solo se activa en decisiones importantes; el sistema 2 en decisiones cotidianas.</label>
+                    </div>
+                    <div class="feedback-msg" id="fb-p2" style="display: none;"></div>
+                </div>
+
+                <!-- Pregunta 3 (cerrada) -->
+                <div class="pregunta-card" data-pregunta="3">
+                    <div class="pregunta-label">
+                        <span class="pregunta-num">3</span>
+                        <span>El efecto Dunning-Kruger se explica porque:</span>
+                    </div>
+                    <div class="opciones">
+                        <label class="opcion"><input type="radio" name="p3" value="A"> A) Las personas con mucho conocimiento siempre se sobreestiman.</label>
+                        <label class="opcion"><input type="radio" name="p3" value="B"> B) La misma habilidad necesaria para resolver un problema se necesita para reconocer que no se resuelve bien.</label>
+                        <label class="opcion"><input type="radio" name="p3" value="C"> C) El sistema 2 siempre corrige al sistema 1 en personas inteligentes.</label>
+                        <label class="opcion"><input type="radio" name="p3" value="D"> D) Es un sesgo exclusivo de estudiantes de psicología.</label>
+                    </div>
+                    <div class="feedback-msg" id="fb-p3" style="display: none;"></div>
+                </div>
+
+                <!-- Pregunta 4 (abierta individual) -->
+                <div class="pregunta-card" data-pregunta="4">
+                    <div class="pregunta-label">
+                        <span class="pregunta-num">4</span>
+                        <span><strong>Pregunta abierta:</strong> Explica con tus palabras por qué el sesgo de confirmación es uno de los más peligrosos en el ámbito académico. Usa el caso de Daniela como ejemplo.</span>
+                    </div>
+                    <textarea id="abierta1" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+
+                <!-- Pregunta 5 (abierta individual) -->
+                <div class="pregunta-card" data-pregunta="5">
+                    <div class="pregunta-label">
+                        <span class="pregunta-num">5</span>
+                        <span><strong>Pregunta abierta:</strong> Menciona dos estrategias concretas para reducir el impacto de los sesgos cognitivos en tus decisiones académicas y explica por qué funcionan.</span>
+                    </div>
+                    <textarea id="abierta2" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; text-align: right;">
+                <button class="btn" id="verificarBtn">✅ Verificar respuestas cerradas</button>
+            </div>
+        </div>
+
+        <!-- ================= MOMENTO GRUPAL: DISEÑO DE CASOS ================= -->
+        <div class="momento momento-grupal">
+            <div class="momento-etiqueta">👥 Momento grupal · 25 min · Diseño de casos</div>
+            <p style="font-size:1.05rem; margin-bottom:1.2rem; color:#1f4a38;">Reúnete en grupos de 3-4 personas. Compartan sus respuestas individuales y luego <strong>diseñen 2 casos de la vida cotidiana</strong> donde se evidencien sesgos cognitivos. Cada caso debe mostrar la situación, el sesgo que opera y su consecuencia.</p>
+
+            <!-- EJEMPLOS VISUALES (REFERENCIA) -->
+            <h3 style="margin-top: 1.8rem;">📊 Ejemplos visuales de referencia</h3>
+            <div class="ejemplo-grid">
+                <!-- Ejemplo cuantitativo -->
+                <div class="ejemplo-card">
+                    <h4><span class="tag">Cuantitativo</span> Efecto de la terapia cognitiva</h4>
+                    <p>Un estudio mide la reducción de síntomas de ansiedad (escala 0-100) en 4 grupos: control, terapia breve, terapia estándar y terapia intensiva. Los resultados se muestran en el gráfico.</p>
+                    <div class="barras">
+                        <div class="barra" style="--altura: 30px; height: 30px;"></div>
+                        <div class="barra" style="--altura: 65px; height: 65px;"></div>
+                        <div class="barra" style="--altura: 95px; height: 95px;"></div>
+                        <div class="barra" style="--altura: 120px; height: 120px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; font-size:0.8rem; color:#3f627a; margin-top:0.6rem; font-weight:500;">
+                        <span>Control</span>
+                        <span>Breve</span>
+                        <span>Estándar</span>
+                        <span>Intensiva</span>
+                    </div>
+                    <p style="font-size:0.9rem; margin-top:1.2rem; color:#4f6c82;">📌 <em>Análisis estadístico: ANOVA, comparaciones post-hoc. Los resultados positivos suelen publicarse más (sesgo de publicación).</em></p>
+                </div>
+
+                <!-- Ejemplo cualitativo -->
+                <div class="ejemplo-card">
+                    <h4><span class="tag cualitativo">Cualitativo</span> Experiencia del duelo</h4>
+                    <p>Entrevistas en profundidad a 12 personas que perdieron un familiar. Se identifican 4 fases emocionales recurrentes a lo largo del tiempo.</p>
+                    <div class="linea-tiempo">
+                        <div class="evento">Shock e incredulidad</div>
+                        <div class="evento">Negación y aislamiento</div>
+                        <div class="evento">Ira y negociación</div>
+                        <div class="evento">Aceptación y reorganización</div>
+                    </div>
+                    <p style="font-size:0.9rem; margin-top:1.6rem; color:#4f6c82;">📌 <em>Análisis temático. Los resultados negativos o no concluyentes rara vez se publican (HARKing, sesgo retrospectivo).</em></p>
+                </div>
+            </div>
+
+            <!-- PLANTILLA DE DISEÑO DE CASOS -->
+            <h3 style="margin-top: 2.2rem;">🧩 Diseñen sus 2 casos</h3>
+            <p style="font-size:1rem; color:#2c5e48; margin-bottom:1.2rem;">Completen la plantilla para cada caso. Usen situaciones reales o verosímiles de la vida cotidiana (casa, universidad, trabajo, redes sociales, compras, relaciones, etc.).</p>
+
+            <!-- CASO 1 -->
+            <div class="caso-plantilla">
+                <h5>🔹 Caso 1</h5>
+
+                <div class="campo">
+                    <label for="caso1_titulo">Título breve del caso:</label>
+                    <input type="text" id="caso1_titulo" placeholder="Ej: 'La compra del celular que ya quería'">
+                </div>
+
+                <div class="campo">
+                    <label for="caso1_situacion">Descripción de la situación (¿qué pasa, quién, dónde?):</label>
+                    <textarea id="caso1_situacion" placeholder="Describan la escena cotidiana con detalle..."></textarea>
+                </div>
+
+                <div class="campo">
+                    <label>¿Qué sesgo(s) cognitivo(s) se evidencian? Marquen los que apliquen:</label>
+                    <div class="sesgo-select">
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="confirmacion"> Confirmación</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="anclaje"> Anclaje</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="disponibilidad"> Disponibilidad</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="halo"> Halo</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="statuquo"> Statu quo</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="dunning"> Dunning-Kruger</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso1_sesgos" value="hindsight"> Hindsight</label>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="caso1_evidencia">¿Cómo se evidencia el sesgo en la situación? (conducta, pensamiento o decisión concreta):</label>
+                    <textarea id="caso1_evidencia" placeholder="Expliquen qué hace o piensa la persona que muestra el sesgo..."></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="caso1_consecuencia">Consecuencia del sesgo (¿qué pasa después?):</label>
+                    <textarea id="caso1_consecuencia" placeholder="¿Qué efecto tiene esa decisión sesgada?"></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="caso1_alternativa">¿Qué haría el sistema 2 si se activara? (alternativa racional):</label>
+                    <textarea id="caso1_alternativa" placeholder="¿Cuál sería una respuesta menos sesgada?"></textarea>
+                </div>
+            </div>
+
+            <!-- CASO 2 -->
+            <div class="caso-plantilla">
+                <h5>🔸 Caso 2</h5>
+
+                <div class="campo">
+                    <label for="caso2_titulo">Título breve del caso:</label>
+                    <input type="text" id="caso2_titulo" placeholder="Ej: 'El grupo de WhatsApp que confirma lo que ya creo'">
+                </div>
+
+                <div class="campo">
+                    <label for="caso2_situacion">Descripción de la situación (¿qué pasa, quién, dónde?):</label>
+                    <textarea id="caso2_situacion" placeholder="Describan la escena cotidiana con detalle..."></textarea>
+                </div>
+
+                <div class="campo">
+                    <label>¿Qué sesgo(s) cognitivo(s) se evidencian? Marquen los que apliquen:</label>
+                    <div class="sesgo-select">
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="confirmacion"> Confirmación</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="anclaje"> Anclaje</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="disponibilidad"> Disponibilidad</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="halo"> Halo</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="statuquo"> Statu quo</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="dunning"> Dunning-Kruger</label>
+                        <label class="sesgo-chip"><input type="checkbox" name="caso2_sesgos" value="hindsight"> Hindsight</label>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="caso2_evidencia">¿Cómo se evidencia el sesgo en la situación? (conducta, pensamiento o decisión concreta):</label>
+                    <textarea id="caso2_evidencia" placeholder="Expliquen qué hace o piensa la persona que muestra el sesgo..."></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="caso2_consecuencia">Consecuencia del sesgo (¿qué pasa después?):</label>
+                    <textarea id="caso2_consecuencia" placeholder="¿Qué efecto tiene esa decisión sesgada?"></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="caso2_alternativa">¿Qué haría el sistema 2 si se activara? (alternativa racional):</label>
+                    <textarea id="caso2_alternativa" placeholder="¿Cuál sería una respuesta menos sesgada?"></textarea>
+                </div>
+            </div>
+
+            <!-- PUESTA EN COMÚN -->
+            <div class="grupo-pregunta" style="margin-top:2rem;">
+                <p>💬 <strong>Puesta en común (últimos 5 min):</strong> cada grupo presenta brevemente uno de sus dos casos al resto de la clase. El docente o los compañeros identifican si el sesgo señalado es el correcto y proponen una alternativa desde el sistema 2.</p>
+                <div class="instruccion-grupal">
+                    <span>1</span> Elijan el caso más claro o el más difícil de detectar.
+                </div>
+                <div class="instruccion-grupal">
+                    <span>2</span> Preséntenlo en 2 minutos: situación, sesgo y consecuencia.
+                </div>
+                <div class="instruccion-grupal">
+                    <span>3</span> El resto del grupo opina: ¿coinciden con el sesgo identificado? ¿Qué otra lectura cabe?
+                </div>
+                <textarea id="grupalReflexion" placeholder="Notas de la puesta en común del grupo..." style="margin-top:1.2rem; min-height:130px;"></textarea>
+            </div>
+
+            <!-- Pregunta final de reflexión -->
+            <div class="pregunta-card" style="margin-top:2rem; background:#ffffffd9;">
+                <div class="pregunta-label">
+                    <span class="pregunta-num">6</span>
+                    <span><strong>Reflexión final (acuerdo grupal):</strong> ¿Por qué diseñar casos cotidianos ayuda a comprender mejor los sesgos cognitivos que solo memorizar definiciones? Justifiquen con lo trabajado en sus dos casos.</span>
+                </div>
+                <textarea id="abierta3" placeholder="Escribe la reflexión consensuada del grupo..."></textarea>
+                <div class="feedback-msg" id="fb-p6" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- ACCIONES FINALES -->
+        <div class="acciones">
+            <button class="btn btn-outline" id="limpiarBtn">🧹 Limpiar todo</button>
+            <span style="font-size:0.95rem; color:#4f6c82;">⏱️ Tiempo total sugerido: 45 min</span>
+        </div>
+        <div class="nota">
+            Las preguntas abiertas y el diseño de casos no se corrigen automáticamente. Guarden sus respuestas y preparen la puesta en común.
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // --- CRONÓMETRO 45 MINUTOS ---
+            const TIEMPO_INICIAL = 45 * 60;
+            let tiempoRestante = TIEMPO_INICIAL;
+            let intervalo = null;
+            let corriendo = false;
+
+            const timerDisplay = document.getElementById('timerDisplay');
+            const startBtn = document.getElementById('startBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            function formatearTiempo(segundos) {
+                const mins = Math.floor(segundos / 60);
+                const segs = segundos % 60;
+                return `${mins.toString().padStart(2, '0')}:${segs.toString().padStart(2, '0')}`;
+            }
+
+            function actualizarDisplay() {
+                timerDisplay.textContent = formatearTiempo(tiempoRestante);
+                if (tiempoRestante <= 0) {
+                    timerDisplay.style.color = '#b23b3b';
+                } else {
+                    timerDisplay.style.color = '#0b2b3c';
+                }
+            }
+
+            function detenerIntervalo() {
+                if (intervalo) {
+                    clearInterval(intervalo);
+                    intervalo = null;
+                }
+                corriendo = false;
+                startBtn.textContent = '▶ Iniciar';
+            }
+
+            function iniciarIntervalo() {
+                if (intervalo) return;
+                if (tiempoRestante <= 0) return;
+
+                intervalo = setInterval(() => {
+                    if (tiempoRestante > 0) {
+                        tiempoRestante--;
+                        actualizarDisplay();
+                        if (tiempoRestante === 0) {
+                            detenerIntervalo();
+                            startBtn.textContent = '⏸ Pausado';
+                            alert('¡Tiempo finalizado! El cronómetro ha llegado a 0.');
+                        }
+                    } else {
+                        detenerIntervalo();
+                    }
+                }, 1000);
+                corriendo = true;
+                startBtn.textContent = '⏸ Pausar';
+            }
+
+            startBtn.addEventListener('click', () => {
+                if (tiempoRestante <= 0) {
+                    tiempoRestante = TIEMPO_INICIAL;
+                    actualizarDisplay();
+                }
+                if (corriendo) {
+                    detenerIntervalo();
+                } else {
+                    iniciarIntervalo();
+                }
+            });
+
+            resetBtn.addEventListener('click', () => {
+                detenerIntervalo();
+                tiempoRestante = TIEMPO_INICIAL;
+                actualizarDisplay();
+                startBtn.textContent = '▶ Iniciar';
+            });
+
+            actualizarDisplay();
+
+            // --- VERIFICACIÓN DE PREGUNTAS CERRADAS ---
+            const respuestasCorrectas = {
+                p1: 'B',
+                p2: 'B',
+                p3: 'B'
+            };
+
+            const explicaciones = {
+                p1: 'Lo que los vuelve sesgos cognitivos y no simples errores es que son sistemáticos, predecibles y nacen del sistema 1 como atajo adaptativo (Tversky y Kahneman, 1974).',
+                p2: 'El sistema 1 es rápido, automático, emocional, paralelo y siempre activo. El sistema 2 es lento, deliberado, lógico, serial y perezoso. Los sesgos ocurren cuando el sistema 1 decide sin supervisión del sistema 2.',
+                p3: 'Dunning y Kruger (1999) explicaron que la misma habilidad que se necesita para resolver un problema se necesita para reconocer que uno no lo está resolviendo bien. Si no la tienes, tampoco puedes reconocer que te falta.'
+            };
+
+            document.getElementById('verificarBtn').addEventListener('click', () => {
+                const p1Seleccion = document.querySelector('input[name="p1"]:checked');
+                const fb1 = document.getElementById('fb-p1');
+                if (p1Seleccion) {
+                    if (p1Seleccion.value === respuestasCorrectas.p1) {
+                        fb1.textContent = '✔ Correcto. ' + explicaciones.p1;
+                        fb1.style.background = '#e0f2e9';
+                        fb1.style.color = '#0f5c3e';
+                    } else {
+                        fb1.textContent = '✘ Incorrecto. La respuesta correcta es B. ' + explicaciones.p1;
+                        fb1.style.background = '#fbe9e9';
+                        fb1.style.color = '#a13d3d';
+                    }
+                } else {
+                    fb1.textContent = '⚠ Selecciona una opción.';
+                    fb1.style.background = '#fff6e0';
+                    fb1.style.color = '#8a6d2b';
+                }
+                fb1.style.display = 'inline-block';
+
+                const p2Seleccion = document.querySelector('input[name="p2"]:checked');
+                const fb2 = document.getElementById('fb-p2');
+                if (p2Seleccion) {
+                    if (p2Seleccion.value === respuestasCorrectas.p2) {
+                        fb2.textContent = '✔ Correcto. ' + explicaciones.p2;
+                        fb2.style.background = '#e0f2e9';
+                        fb2.style.color = '#0f5c3e';
+                    } else {
+                        fb2.textContent = '✘ Incorrecto. La respuesta correcta es B. ' + explicaciones.p2;
+                        fb2.style.background = '#fbe9e9';
+                        fb2.style.color = '#a13d3d';
+                    }
+                } else {
+                    fb2.textContent = '⚠ Selecciona una opción.';
+                    fb2.style.background = '#fff6e0';
+                    fb2.style.color = '#8a6d2b';
+                }
+                fb2.style.display = 'inline-block';
+
+                const p3Seleccion = document.querySelector('input[name="p3"]:checked');
+                const fb3 = document.getElementById('fb-p3');
+                if (p3Seleccion) {
+                    if (p3Seleccion.value === respuestasCorrectas.p3) {
+                        fb3.textContent = '✔ Correcto. ' + explicaciones.p3;
+                        fb3.style.background = '#e0f2e9';
+                        fb3.style.color = '#0f5c3e';
+                    } else {
+                        fb3.textContent = '✘ Incorrecto. La respuesta correcta es B. ' + explicaciones.p3;
+                        fb3.style.background = '#fbe9e9';
+                        fb3.style.color = '#a13d3d';
+                    }
+                } else {
+                    fb3.textContent = '⚠ Selecciona una opción.';
+                    fb3.style.background = '#fff6e0';
+                    fb3.style.color = '#8a6d2b';
+                }
+                fb3.style.display = 'inline-block';
+            });
+
+            // --- LIMPIAR TODO ---
+            document.getElementById('limpiarBtn').addEventListener('click', () => {
+                document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+                document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+                document.querySelectorAll('input[type="text"]').forEach(t => t.value = '');
+                document.querySelectorAll('textarea').forEach(t => t.value = '');
+                ['fb-p1','fb-p2','fb-p3','fb-p4','fb-p5','fb-p6'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.style.display = 'none';
+                        el.textContent = '';
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
