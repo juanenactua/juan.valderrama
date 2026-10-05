@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Del tema al problema de investigación · Recurso educativo interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Del tema al problema de investigación">
+<meta name="jc-descripcion" content="Recurso autónomo para distinguir tema, situación problemática, problema de conocimiento, vacíos de literatura, delimitación y pregunta de investigación, con actividades y autoevaluación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Problema de investigación, Tema de investigación, Situación problemática, Vacío de conocimiento, Revisión de literatura, Pregunta de investigación, Delimitación, Formulación de proyectos, Metodología de investigación">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  /* ---- BARRA DE PROGRESO ---- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- NAV LATERAL ---- */
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 240px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1150px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  /* ---- MAIN ---- */
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1150px) {
+    main { margin-left: 260px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  /* ---- TARJETAS Y CALLOUTS ---- */
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  /* ---- ACORDEÓN ---- */
+  .accordion {
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-mid);
+  }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.05rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-main);
+    transition: background 0.2s;
+    font-family: var(--font);
+  }
+  .accordion-header:hover { background: var(--bg-soft); }
+  .accordion-header .icon {
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 1.3rem;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .accordion-content p { padding: 0.9rem 0; margin: 0; color: var(--text-soft); }
+  .accordion-item.active .accordion-content { max-height: 700px; padding: 0.2rem 1.3rem 1.1rem; }
+
+  /* ---- TARJETAS FLIP ---- */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 210px;
+    cursor: pointer;
+    outline: none;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: var(--radius);
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .flip-front {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+    background: var(--bg-mid);
+    box-shadow: var(--shadow);
+  }
+  .flip-front::after {
+    content: '↻ clic para girar';
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    font-weight: 400;
+  }
+  .flip-back {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    transform: rotateY(180deg);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flip-back small { display: block; margin-top: 0.6rem; font-size: 0.76rem; opacity: 0.85; }
+
+  /* ---- CADENA CONCEPTUAL ---- */
+  .chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 2rem 0;
+  }
+  .chain-step {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 220px;
+    transition: all 0.3s;
+    position: relative;
+    cursor: pointer;
+  }
+  .chain-step.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.4);
+    transform: scale(1.05);
+  }
+  .chain-arrow {
+    color: var(--accent);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  /* ---- ESCENARIOS ---- */
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .scenario {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .scenario:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .scenario.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(240, 180, 41, 0.35);
+  }
+  .scenario .scenario-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .scenario .scenario-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+  .scenario .scenario-desc {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+  .scenario .scenario-type {
+    display: inline-block;
+    margin-top: 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .scenario .scenario-type.knowledge {
+    background: rgba(96, 165, 250, 0.15);
+    color: var(--info);
+  }
+  .scenario .scenario-type.practical {
+    background: rgba(248, 113, 113, 0.15);
+    color: var(--error);
+  }
+
+  /* ---- EJEMPLO LONGITUDINAL ---- */
+  .longitudinal {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+  }
+  .version-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0.5;
+    transition: all 0.4s;
+  }
+  .version-step:last-child { border-bottom: none; }
+  .version-step.active {
+    opacity: 1;
+    transform: translateX(8px);
+  }
+  .version-step .version-num {
+    background: var(--bg-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: center;
+  }
+  .version-step.active .version-num {
+    background: var(--accent);
+    color: #0a1628;
+  }
+  .version-step .version-content { flex: 1; }
+  .version-step .version-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .version-step .version-text {
+    color: var(--text-main);
+    font-size: 0.95rem;
+  }
+  .version-step .version-note {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+  .version-controls {
+    display: flex; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap;
+  }
+  .version-btn {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+  }
+  .version-btn:hover { background: var(--bg-mid); color: var(--text-main); }
+  .version-btn.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+
+  /* ---- TIPOLOGÍA ---- */
+  .tipologia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .tipologia-item {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    transition: all 0.3s;
+    border-left: 4px solid var(--accent);
+  }
+  .tipologia-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.15);
+  }
+  .tipologia-item .tipo-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .tipologia-item .tipo-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  .tipologia-item .tipo-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- ESCALA DE CALIDAD ---- */
+  .quality-scale {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .quality-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    background: var(--bg-mid);
+    border-radius: 8px;
+    border-left: 4px solid;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .quality-item:hover { transform: translateX(6px); }
+  .quality-item.weak { border-left-color: var(--error); }
+  .quality-item.medium { border-left-color: var(--accent); }
+  .quality-item.strong { border-left-color: var(--success); }
+  .quality-item .quality-level {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-width: 70px;
+  }
+  .quality-item.weak .quality-level { color: var(--error); }
+  .quality-item.medium .quality-level { color: var(--accent); }
+  .quality-item.strong .quality-level { color: var(--success); }
+  .quality-item .quality-text {
+    font-size: 0.92rem;
+    color: var(--text-main);
+  }
+
+  /* ---- FÓRMULA ---- */
+  .formula {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+  .formula-part {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 30px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    transition: all 0.3s;
+  }
+  .formula-part:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  /* ---- PREGUNTAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  /* ---- REFERENCIAS ---- */
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .scenarios { grid-template-columns: 1fr; }
+    .tipologia { grid-template-columns: 1fr; }
+    .chain-step { min-width: 100%; }
+    .formula { flex-direction: column; align-items: center; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .flip-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ---- ANIMACIONES ---- */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 24px rgba(240, 180, 41, 0.5); }
+  }
+  .pulse { animation: pulse 2s infinite; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Del tema al problema de investigación</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta de aprendizaje</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#resultado">Resultado de aprendizaje</a></li>
+    <li><a href="#tesis">1. Tesis central</a></li>
+    <li><a href="#cadena">2. Cadena conceptual</a></li>
+    <li><a href="#provocacion">3. Provocación inicial</a></li>
+    <li><a href="#tema-problema">4. Tema ≠ problema</a></li>
+    <li><a href="#escenarios">5. Práctico vs. conocimiento</a></li>
+    <li><a href="#tipologia">6. Tipología de vacíos</a></li>
+    <li><a href="#longitudinal">7. Ejemplo longitudinal</a></li>
+    <li><a href="#falsos-vacios">8. Falsos vacíos</a></li>
+    <li><a href="#escala">9. Escala de calidad</a></li>
+    <li><a href="#delimitacion">10. Delimitar y preguntar</a></li>
+    <li><a href="#ficha">Ficha de formulación</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Recurso educativo interactivo · Formulación de proyectos</span>
+    <h1>Del tema al problema de investigación</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 750px; margin-top: 0.8rem;">
+      Un recorrido guiado para entender por qué un tema no es todavía un problema de investigación, y cómo la
+      literatura científica transforma una intuición inicial en una pregunta investigable.
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Tipo de recurso:</strong> Artefacto educativo interactivo de estudio autónomo</p>
+      <p><strong>Palabras clave:</strong> problema de investigación, tema, situación problemática, vacío de conocimiento, revisión de literatura, pregunta de investigación, delimitación</p>
+    </div>
+    <div class="callout">
+      <strong>Idea central:</strong> Un tema no es todavía un problema de investigación. Y un problema de investigación
+      no aparece simplemente porque formulemos una pregunta. Para demostrar que existe un problema de conocimiento
+      necesitamos confrontar nuestra intuición inicial con la literatura científica.
+    </div>
+    <div class="callout info">
+      <strong>Cómo recorrer este recurso:</strong> Avanza sección por sección. Encontrarás cadenas interactivas,
+      escenarios clicables, un ejemplo que evoluciona, tarjetas giratorias y preguntas abiertas y cerradas con
+      retroalimentación. Tu progreso se muestra en la barra superior.
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="resultado" class="reveal">
+    <h2>Resultado de aprendizaje</h2>
+    <p>Al finalizar este recurso, el estudiante debería poder:</p>
+    <div class="card">
+      <p><strong>Distinguir</strong> un tema de investigación de una situación problemática, un problema de conocimiento,
+      un vacío en la literatura y una pregunta de investigación, y reconocer cómo estos elementos se articulan
+      progresivamente en la formulación de un proyecto psicológico.</p>
+    </div>
+    <div class="callout info">
+      <strong>Nota importante:</strong> No se pretende que al terminar este recurso produzcas una formulación
+      perfecta de tu problema. Eso sería prematuro porque todavía no has revisado suficientemente la literatura.
+    </div>
+  </section>
+
+  <!-- 1. TESIS -->
+  <section id="tesis" class="reveal">
+    <h2>1. La tesis central</h2>
+    <p>Todo el recurso gira alrededor de una tesis muy sencilla:</p>
+    <div class="callout" style="font-size: 1.1rem; text-align: center;">
+      <strong>Un tema no es todavía un problema de investigación.</strong><br>
+      Y un problema de investigación no aparece simplemente porque formulemos una pregunta.
+    </div>
+    <p>La segunda idea, que queda sembrada al final, es:</p>
+    <div class="callout success" style="font-size: 1.1rem; text-align: center;">
+      <strong>Para demostrar que existe un problema de conocimiento necesitamos confrontar nuestra intuición inicial con la literatura científica.</strong>
+    </div>
+    <p>Esto cambia la lógica usual del estudiante:</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0;">
+      <div style="background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: var(--radius); padding: 1.2rem;">
+        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--error); font-weight: 700; margin-bottom: 0.5rem;">Lógica usual</p>
+        <p style="font-size: 0.95rem; margin: 0; color: var(--text-soft);">Me interesa X → invento una pregunta → busco autores que la respalden.</p>
+      </div>
+      <div style="background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: var(--radius); padding: 1.2rem;">
+        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--success); font-weight: 700; margin-bottom: 0.5rem;">Lógica investigativa</p>
+        <p style="font-size: 0.95rem; margin: 0; color: var(--text-main);">Me interesa X → exploro qué sabemos → identifico qué no sabemos → delimito qué merece ser investigado → construyo una pregunta.</p>
+      </div>
+    </div>
+    <p><strong>Ese cambio de razonamiento es el verdadero objetivo de este recurso.</strong></p>
+  </section>
+
+  <!-- 2. CADENA CONCEPTUAL -->
+  <section id="cadena" class="reveal">
+    <h2>2. La arquitectura conceptual</h2>
+    <p>Este recurso utiliza una cadena progresiva. Haz clic en cada eslabón para ver su descripción.</p>
+
+    <div class="chain" id="chainInteractive">
+      <div class="chain-step" data-desc="Motivación inicial. Puede surgir de experiencia, práctica profesional, curiosidad, observación, debate social, curso académico, noticia, teoría o investigación previa. Todavía no determina qué investigar.">INTERÉS</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Área o fenómeno delimitado de forma amplia. Los temas se estudian; los problemas se investigan. 'Ansiedad', 'burnout' o 'autoestima' son temas, no problemas.">TEMA</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Algo ocurre y tiene consecuencias individuales, educativas o sociales. Es preocupante, pero no necesariamente constituye un problema de conocimiento.">SITUACIÓN PROBLEMÁTICA</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Primer contacto con la literatura. ¿Qué se ha investigado? ¿Qué evidencia existe? ¿Qué metodologías se han usado?">¿QUÉ SABEMOS?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Identificación de límites, contradicciones, ausencias o insuficiencias en el conocimiento disponible.">¿QUÉ NO SABEMOS?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="No basta con que algo no se haya estudiado. El vacío necesita importancia teórica, empírica o práctica.">VACÍO / INCERTIDUMBRE</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Formulación explícita de lo que no se sabe y por qué importa saberlo. Es el núcleo del proyecto.">PROBLEMA DE INVESTIGACIÓN</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Decisión consciente de qué NO se va a investigar. Fenómeno, población, contexto, tiempo y ángulo.">DELIMITACIÓN</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step" data-desc="Interrogante específico que guía la investigación. Aparece al final, no al principio.">PREGUNTA</div>
+    </div>
+
+    <div id="chainDescription" class="card" style="min-height: 80px;">
+      <p style="color: var(--text-soft); font-style: italic;">Haz clic en un eslabón de la cadena para ver su descripción.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Precisión importante:</strong> este proceso no es perfectamente lineal. La revisión de literatura puede
+      obligarnos a regresar y reformular.
+    </div>
+
+    <div class="card">
+      <p style="font-weight: 600; color: var(--accent); margin-bottom: 0.8rem;">Ciclo iterativo real:</p>
+      <p style="color: var(--text-soft); margin: 0;">Tema → Problema preliminar → Búsqueda de literatura → "Esto ya se sabe" → Reformulación → Nueva búsqueda → Problema mejor delimitado</p>
+    </div>
+  </section>
+
+  <!-- 3. PROVOCACIÓN -->
+  <section id="provocacion" class="reveal">
+    <h2>3. Provocación inicial: "quiero investigar la ansiedad"</h2>
+
+    <div style="background: #060f1c; border: 2px solid var(--accent); border-radius: var(--radius); padding: 2rem; text-align: center; margin: 1.5rem 0; box-shadow: 0 0 30px rgba(240, 180, 41, 0.2);">
+      <p style="font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin: 0;">
+        QUIERO INVESTIGAR LA ANSIEDAD EN UNIVERSITARIOS
+      </p>
+    </div>
+
+    <p style="font-size: 1.15rem; text-align: center; color: var(--accent); font-weight: 600;">
+      ¿Aquí hay un problema de investigación?
+    </p>
+
+    <p style="text-align: center; color: var(--text-soft); font-style: italic;">
+      (Tómate unos segundos para pensarlo antes de continuar)
+    </p>
+
+    <div class="callout">
+      Hay un tema interesante. Pero todavía no sabemos si existe aquí un problema de investigación.
+    </div>
+
+    <h3>Preguntas aparentemente razonables</h3>
+    <p>Haz clic en cada una para ver si resisten el análisis.</p>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Por qué los universitarios tienen ansiedad? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Parece investigable, pero es demasiado amplia. ¿Todos los universitarios? ¿Toda la ansiedad? ¿Causas biológicas, psicológicas, sociales? No hay delimitación ni justificación de por qué vale la pena hacerla.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿La ansiedad afecta el rendimiento académico? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Es más específica, pero sigue siendo una pregunta que ya tiene mucha literatura. ¿Qué aportaría una investigación más? ¿Hay contradicciones? ¿Poblaciones no estudiadas? ¿Mecanismos no comprendidos? Sin eso, no hay problema justificado.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Las redes sociales causan ansiedad en los universitarios? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Suena científica, pero "causan" exige un diseño que permita inferencia causal. Además, "redes sociales" es una categoría enorme. ¿Qué plataforma? ¿Qué uso? ¿Qué aspecto de ansiedad? La pregunta es prematura.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Cómo experimentan la ansiedad los estudiantes durante su primer semestre universitario? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Es cualitativa e interpretativa. Puede ser válida, pero necesita justificación: ¿por qué esa población? ¿por qué ese momento? ¿qué se sabe ya? ¿qué vacío llena? Todavía no lo sabemos.</p></div>
+      </div>
+    </div>
+
+    <div class="callout" style="font-size: 1.05rem;">
+      <strong>Provocación:</strong> Todas parecen preguntas investigables. ¿Pero de dónde salieron?
+    </div>
+
+    <div class="card">
+      <p style="font-size: 1.05rem; font-style: italic; color: var(--text-main); margin: 0;">
+        "Uno de los errores más frecuentes al formular proyectos consiste en confundir la capacidad para escribir una
+        oración interrogativa con la capacidad para formular una pregunta de investigación. Una pregunta puede sonar
+        científica y, sin embargo, no estar científicamente justificada."
+      </p>
+    </div>
+
+    <p><strong>Para poder defender una pregunta debo ser capaz de explicar por qué vale la pena hacerla.</strong> Y aquí aparece la literatura.</p>
+  </section>
+
+  <!-- 4. TEMA ≠ PROBLEMA -->
+  <section id="tema-problema" class="reveal">
+    <h2>4. Tema, situación problemática y problema de investigación</h2>
+
+    <h3>Nivel 1. Interés</h3>
+    <div class="card">
+      <p><em>"Me interesa la salud mental de los universitarios."</em></p>
+      <p>Es una motivación. Puede surgir de experiencia, práctica profesional, curiosidad, observación, debate social, curso académico, noticia, teoría o investigación previa. Pero el interés todavía no determina qué investigar.</p>
+    </div>
+
+    <h3>Nivel 2. Tema</h3>
+    <div class="card">
+      <p><em>Ansiedad en estudiantes universitarios.</em></p>
+      <p>Ya hemos delimitado algo, pero muy poco.</p>
+      <div class="callout" style="margin-top: 1rem;">
+        <strong>Los temas se estudian. Los problemas se investigan.</strong><br>
+        "Ansiedad", "depresión", "burnout", "autoestima", "inteligencia artificial", "violencia" o "adicciones" son
+        áreas o fenómenos de interés, no problemas de investigación en sí mismos.
+      </div>
+    </div>
+
+    <h3>La prueba del "¿y qué?"</h3>
+    <p>Cuando alguien dice:</p>
+    <div class="card">
+      <p><em>"Quiero investigar el burnout en profesores universitarios."</em></p>
+      <p style="color: var(--accent); font-weight: 600;">¿Y qué del burnout?</p>
+      <p style="color: var(--text-soft); font-size: 0.9rem;">Si todavía necesitamos esa pregunta, probablemente tenemos un tema y no un problema.</p>
+    </div>
+
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Prueba 1">
+        <div class="flip-inner">
+          <div class="flip-front">"Discriminación racial y autoestima"</div>
+          <div class="flip-back">¿Y qué relación entre ambas? <small>Falta delimitación del tipo de relación, población y contexto.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Prueba 2">
+        <div class="flip-inner">
+          <div class="flip-front">"Redes sociales y salud mental"</div>
+          <div class="flip-back">¿En quiénes? ¿Qué aspecto de salud mental? ¿Qué uso de redes? ¿Qué queremos saber exactamente? <small>Demasiadas dimensiones sin delimitar.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Prueba 3">
+        <div class="flip-inner">
+          <div class="flip-front">"Inteligencia artificial y aprendizaje"</div>
+          <div class="flip-back">¿Aprendizaje de qué? ¿Uso de qué herramientas? ¿Comparado con qué? ¿Desde qué dimensión psicológica? <small>Falta el ángulo específico.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta cerrada 1 -->
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">Según el recurso, ¿cuál es la diferencia entre un tema y un problema de investigación?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c1" value="a"> a) El tema es más amplio y el problema es más específico, pero son lo mismo.</label>
+        <label class="q-option"><input type="radio" name="c1" value="b"> b) Los temas se estudian; los problemas se investigan. El problema requiere justificación epistémica.</label>
+        <label class="q-option"><input type="radio" name="c1" value="c"> c) El tema es para tesis y el problema para artículos.</label>
+        <label class="q-option"><input type="radio" name="c1" value="d"> d) No hay diferencia real; es solo una cuestión de redacción.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+
+    <!-- Pregunta abierta 1 -->
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Aplica la prueba del "¿y qué?" a este tema: "Violencia en relaciones de pareja en jóvenes universitarios". Escribe al menos tres preguntas que surgirían y explica por qué el tema solo no basta.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 1"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(1)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb1">
+        <strong>Respuesta modelo:</strong> Preguntas que surgirían: ¿Y qué tipo de violencia? (física, psicológica, sexual, económica). ¿En qué momento de la relación? (inicio, consolidación, ruptura). ¿Qué queremos saber? (prevalencia, factores de riesgo, consecuencias, significados). ¿Comparado con qué? (otras poblaciones, otros contextos culturales). El tema solo no basta porque no indica qué aspecto específico se va a investigar, ni por qué ese aspecto merece ser investigado frente a lo que ya se sabe.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ESCENARIOS -->
+  <section id="escenarios" class="reveal">
+    <h2>5. Problema práctico vs. problema de conocimiento</h2>
+    <p>
+      Podríamos observar que en una universidad se reporta una proporción considerable de estudiantes con niveles
+      elevados de ansiedad. Eso constituye una <strong>situación problemática</strong>. Pero ¿que algo sea preocupante
+      significa necesariamente que exista un problema de investigación?
+    </p>
+
+    <div class="scenarios">
+      <div class="scenario" data-scenario="a">
+        <div class="scenario-label">Escenario A</div>
+        <div class="scenario-title">Situación problemática</div>
+        <div class="scenario-desc">Muchos estudiantes universitarios experimentan ansiedad. Es preocupante y tiene consecuencias. Pero conocemos razonablemente bien sus causas y mecanismos.</div>
+        <span class="scenario-type practical">Problema práctico</span>
+      </div>
+      <div class="scenario" data-scenario="b">
+        <div class="scenario-label">Escenario B</div>
+        <div class="scenario-title">Incertidumbre empírica</div>
+        <div class="scenario-desc">No sabemos si determinados patrones de uso de redes sociales están asociados con síntomas de ansiedad en determinada población universitaria.</div>
+        <span class="scenario-type knowledge">Problema de conocimiento</span>
+      </div>
+      <div class="scenario" data-scenario="c">
+        <div class="scenario-label">Escenario C</div>
+        <div class="scenario-title">Contradicción en la literatura</div>
+        <div class="scenario-desc">Los estudios disponibles encuentran resultados contradictorios sobre esa asociación. Hay muchos estudios, pero no tenemos una respuesta estable.</div>
+        <span class="scenario-type knowledge">Problema de conocimiento</span>
+      </div>
+    </div>
+
+    <div id="scenarioDetail" class="card" style="min-height: 80px;">
+      <p style="color: var(--text-soft); font-style: italic;">Haz clic en un escenario para ver su análisis detallado.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Distinción clave:</strong> Un problema práctico es algo que quisiéramos intervenir. Un problema de
+      conocimiento es algo relevante que todavía no comprendemos suficientemente. Ambos pueden conectarse, pero no son lo mismo.
+    </div>
+  </section>
+
+  <!-- 6. TIPOLOGÍA -->
+  <section id="tipologia" class="reveal">
+    <h2>6. Seis maneras en que puede aparecer un problema en la literatura</h2>
+    <p>No todo vacío es igual. Esta tipología ayuda a reconocer qué tipo de problema estamos enfrentando.</p>
+
+    <div class="tipologia">
+      <div class="tipologia-item">
+        <div class="tipo-num">Tipo 1</div>
+        <div class="tipo-title">Vacío empírico</div>
+        <div class="tipo-desc">Existe poca evidencia sobre una cuestión determinada. <em>Pregunta clave:</em> ¿Hay razones para pensar que ese contexto puede ofrecer información nueva?</div>
+      </div>
+      <div class="tipologia-item">
+        <div class="tipo-num">Tipo 2</div>
+        <div class="tipo-title">Resultados inconsistentes</div>
+        <div class="tipo-desc">Unos estudios encuentran una asociación y otros no. No falta investigación: sobra, pero no converge. <em>Pregunta clave:</em> ¿Qué explica la inconsistencia?</div>
+      </div>
+      <div class="tipologia-item">
+        <div class="tipo-num">Tipo 3</div>
+        <div class="tipo-title">Vacío metodológico</div>
+        <div class="tipo-desc">Existe literatura, pero se ha investigado el fenómeno de una sola forma. <em>Advertencia:</em> usar otro método no es justificación por sí sola; debe permitir responder algo que la estrategia anterior no permitía.</div>
+      </div>
+      <div class="tipologia-item">
+        <div class="tipo-num">Tipo 4</div>
+        <div class="tipo-title">Vacío poblacional o contextual</div>
+        <div class="tipo-desc">Una conclusión proviene de determinados contextos. <em>Advertencia:</em> "nadie lo ha hecho en Bogotá" no basta. ¿Existe razón teórica, cultural o social para esperar diferencias?</div>
+      </div>
+      <div class="tipologia-item">
+        <div class="tipo-num">Tipo 5</div>
+        <div class="tipo-title">Vacío teórico</div>
+        <div class="tipo-desc">Distintas explicaciones compiten para explicar el mismo fenómeno. No preguntamos solo qué ocurre, sino qué explicación interpreta mejor lo que ocurre.</div>
+      </div>
+      <div class="tipologia-item">
+        <div class="tipo-num">Tipo 6</div>
+        <div class="tipo-title">Vacío de integración</div>
+        <div class="tipo-desc">Muchos estudios, poco conocimiento integrado. A veces la investigación necesaria no produce nuevos datos: organiza, evalúa e integra rigurosamente lo que ya existe.</div>
+      </div>
+    </div>
+
+    <div class="callout violet">
+      <strong>Idea clave:</strong> A veces la investigación que necesitamos hacer no implica producir
+      nuevos datos. Puede consistir en organizar, evaluar e integrar rigurosamente el conocimiento que ya existe.
+    </div>
+
+    <!-- Pregunta cerrada 2 -->
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estos NO es un tipo de vacío de conocimiento según la tipología presentada?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c2" value="a"> a) Vacío empírico</label>
+        <label class="q-option"><input type="radio" name="c2" value="b"> b) Resultados inconsistentes</label>
+        <label class="q-option"><input type="radio" name="c2" value="c"> c) Vacío emocional</label>
+        <label class="q-option"><input type="radio" name="c2" value="d"> d) Vacío de integración</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+  </section>
+
+  <!-- 7. EJEMPLO LONGITUDINAL -->
+  <section id="longitudinal" class="reveal">
+    <h2>7. Un ejemplo que evoluciona</h2>
+    <p>
+      Para ver cómo un tema se transforma en un problema, seguimos un mismo ejemplo a lo largo de varias versiones.
+      Pulsa cada versión para ver la transformación.
+    </p>
+
+    <div class="longitudinal">
+      <div class="version-controls">
+        <button class="version-btn active" data-version="0">V0</button>
+        <button class="version-btn" data-version="1">V1</button>
+        <button class="version-btn" data-version="2">V2</button>
+        <button class="version-btn" data-version="3">V3</button>
+        <button class="version-btn" data-version="4">V4</button>
+      </div>
+
+      <div class="version-step active" data-version="0">
+        <div class="version-num">Versión 0</div>
+        <div class="version-content">
+          <div class="version-label">Punto de partida</div>
+          <div class="version-text">Salud mental.</div>
+          <div class="version-note">Demasiado amplio. No hay delimitación.</div>
+        </div>
+      </div>
+      <div class="version-step" data-version="1">
+        <div class="version-num">Versión 1</div>
+        <div class="version-content">
+          <div class="version-label">Tema</div>
+          <div class="version-text">Ansiedad en universitarios.</div>
+          <div class="version-note">Ya hay un fenómeno y una población, pero sigue siendo un tema.</div>
+        </div>
+      </div>
+      <div class="version-step" data-version="2">
+        <div class="version-num">Versión 2</div>
+        <div class="version-content">
+          <div class="version-label">Dos fenómenos</div>
+          <div class="version-text">Ansiedad y redes sociales en universitarios.</div>
+          <div class="version-note">Dos conceptos, pero todavía no sabemos qué problema queremos estudiar.</div>
+        </div>
+      </div>
+      <div class="version-step" data-version="3">
+        <div class="version-num">Versión 3</div>
+        <div class="version-content">
+          <div class="version-label">Relación</div>
+          <div class="version-text">Relación entre uso de redes sociales y ansiedad en universitarios.</div>
+          <div class="version-note">Aparece una relación, pero todavía necesitamos justificar por qué preguntarla.</div>
+        </div>
+      </div>
+      <div class="version-step" data-version="4">
+        <div class="version-num">Versión 4</div>
+        <div class="version-content">
+          <div class="version-label">Problema emergente</div>
+          <div class="version-text">Existe abundante investigación sobre redes sociales y ansiedad, pero los resultados no son completamente consistentes y los estudios utilizan distintas formas de conceptualizar y medir el "uso de redes sociales".</div>
+          <div class="version-note">Ahora sí aparece algo interesante. La literatura no solo responde preguntas: mejora las preguntas que somos capaces de formular.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Preguntas que emergen en la Versión 4:</strong> ¿Estamos hablando de tiempo de uso? ¿Uso problemático?
+      ¿Uso activo y pasivo? ¿Plataformas específicas? ¿Comparación social? ¿Exposición nocturna?
+    </div>
+
+    <!-- Pregunta abierta 2 -->
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Toma un tema de tu interés. Escribe la evolución en 4 versiones: interés amplio → tema → relación → problema emergente tras imaginar una revisión de literatura.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 2"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(2)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb2">
+        <strong>Respuesta modelo:</strong> V0: Educación. V1: Motivación académica en estudiantes de secundaria. V2: Motivación y uso de metodologías activas. V3: Relación entre metodologías activas y motivación académica. V4: Existe investigación sobre metodologías activas y motivación, pero los estudios difieren en cómo conceptualizan la motivación (intrínseca, extrínseca, autoconcepto) y en los resultados según el tipo de metodología y el contexto cultural. El problema emergente sería: ¿qué dimensiones específicas de la motivación se relacionan de manera diferencial con distintos tipos de metodologías activas en contextos educativos latinoamericanos?
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FALSOS VACÍOS -->
+  <section id="falsos-vacios" class="reveal">
+    <h2>8. El detective de falsos vacíos</h2>
+    <p>
+      No toda afirmación sobre un vacío es igual de sólida. Lee las siguientes afirmaciones y decide mentalmente
+      si son débiles o fuertes. Luego abre cada una para ver el análisis.
+    </p>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          A. "No existen estudios sobre este tema." <span class="icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <p><strong style="color: var(--error);">Alerta máxima.</strong> ¿Cómo lo sabemos? ¿Qué bases consultamos? ¿Qué términos? ¿Qué idiomas? ¿Qué periodo? Esta afirmación es casi siempre falsa o indemostrable.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          B. "Existe poca investigación en Colombia." <span class="icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <p><strong style="color: var(--accent);">Todavía insuficiente.</strong> ¿Por qué debería ser relevante estudiarlo específicamente aquí? ¿Hay razones teóricas, culturales o institucionales para esperar diferencias?</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          C. "Los estudios revisados presentan resultados contradictorios." <span class="icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <p><strong style="color: var(--success);">Potencialmente interesante.</strong> Ahora debemos saber si la contradicción es real y qué podría explicarla. Este es un vacío de tipo 2 (resultados inconsistentes).</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">
+          D. "Los estudios disponibles se han concentrado en asociaciones transversales, por lo que sabemos menos sobre la dirección temporal entre los fenómenos." <span class="icon">+</span>
+        </button>
+        <div class="accordion-content">
+          <p><strong style="color: var(--success);">Mucho más fuerte.</strong> Aquí la limitación metodológica conduce a una incertidumbre concreta. Es un vacío de tipo 3 (metodológico) bien justificado.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta cerrada 3 -->
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estas afirmaciones constituye una justificación más fuerte para un problema de investigación?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c3" value="a"> a) "Este tema es muy importante actualmente."</label>
+        <label class="q-option"><input type="radio" name="c3" value="b"> b) "No se ha estudiado en nuestra universidad."</label>
+        <label class="q-option"><input type="radio" name="c3" value="c"> c) "La evidencia disponible no permite establecer con claridad X debido a Y."</label>
+        <label class="q-option"><input type="radio" name="c3" value="d"> d) "Existen pocos estudios sobre el tema."</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(3, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb3"></div>
+    </div>
+  </section>
+
+  <!-- 9. ESCALA -->
+  <section id="escala" class="reveal">
+    <h2>9. Una escala de calidad de la justificación</h2>
+    <p>Haz clic en cada nivel para ver su estructura y por qué es más o menos sólido.</p>
+
+    <div class="quality-scale">
+      <div class="quality-item weak" data-detail="Es una afirmación de importancia genérica. No dice nada sobre el conocimiento disponible. No justifica una investigación.">
+        <span class="quality-level">Débil</span>
+        <span class="quality-text">"Este tema es muy importante actualmente."</span>
+      </div>
+      <div class="quality-item weak" data-detail="La ausencia de estudios no es automáticamente un vacío relevante. Puede que nadie lo haya estudiado porque no hay razón para esperar algo diferente.">
+        <span class="quality-level">Débil</span>
+        <span class="quality-text">"Existen pocos estudios."</span>
+      </div>
+      <div class="quality-item weak" data-detail="Cambiar de contexto no aporta conocimiento nuevo si no hay razones teóricas, culturales o institucionales para esperar diferencias.">
+        <span class="quality-level">Débil</span>
+        <span class="quality-text">"No se ha estudiado en nuestra universidad."</span>
+      </div>
+      <div class="quality-item medium" data-detail="Es un paso adelante. Reconoce limitaciones, pero todavía no especifica qué incertidumbre concreta genera esa limitación.">
+        <span class="quality-level">Media</span>
+        <span class="quality-text">"Los estudios presentan limitaciones metodológicas."</span>
+      </div>
+      <div class="quality-item medium" data-detail="Ya hay una incertidumbre concreta. Falta articular qué se sabe y por qué importa resolver esa incertidumbre.">
+        <span class="quality-level">Media</span>
+        <span class="quality-text">"La evidencia disponible no permite establecer con claridad X debido a Y."</span>
+      </div>
+      <div class="quality-item strong" data-detail="Esta es la estructura intelectual del recurso: lo conocido + lo incierto + por qué importa + qué propongo. No es una plantilla de redacción, es una estructura de razonamiento.">
+        <span class="quality-level">Fuerte</span>
+        <span class="quality-text">"La literatura disponible permite sostener A, pero todavía no permite resolver B, debido a C. Por ello resulta pertinente investigar D."</span>
+      </div>
+    </div>
+
+    <div id="qualityDetail" class="card" style="min-height: 80px;">
+      <p style="color: var(--text-soft); font-style: italic;">Haz clic en un nivel para ver su análisis.</p>
+    </div>
+
+    <div class="formula">
+      <span class="formula-part">Lo conocido</span>
+      <span style="color: var(--accent); font-size: 1.2rem; align-self: center;">+</span>
+      <span class="formula-part">Lo incierto</span>
+      <span style="color: var(--accent); font-size: 1.2rem; align-self: center;">+</span>
+      <span class="formula-part">Por qué importa</span>
+      <span style="color: var(--accent); font-size: 1.2rem; align-self: center;">+</span>
+      <span class="formula-part">Qué propongo</span>
+    </div>
+  </section>
+
+  <!-- 10. DELIMITACIÓN -->
+  <section id="delimitacion" class="reveal">
+    <h2>10. Del problema a una pregunta delimitada</h2>
+    <p>Una pregunta de investigación introduce decisiones. No es lo mismo preguntar:</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+      <div style="background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: var(--radius); padding: 1.2rem;">
+        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--error); font-weight: 700; margin-bottom: 0.5rem;">Demasiado amplia</p>
+        <p style="font-size: 0.95rem; margin: 0; color: var(--text-main);">¿Cómo afectan las redes sociales a las personas?</p>
+      </div>
+      <div style="background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: var(--radius); padding: 1.2rem;">
+        <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--success); font-weight: 700; margin-bottom: 0.5rem;">Delimitada</p>
+        <p style="font-size: 0.95rem; margin: 0; color: var(--text-main);">¿Qué relación existe entre X e Y en Z?</p>
+      </div>
+    </div>
+
+    <h3>Cuatro familias de preguntas</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta descriptiva">
+        <div class="flip-inner">
+          <div class="flip-front">Descriptiva</div>
+          <div class="flip-back">¿Cuáles son las características de X en determinada población? <small>Produce un tipo de conocimiento: caracterización.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta relacional">
+        <div class="flip-inner">
+          <div class="flip-front">Relacional</div>
+          <div class="flip-back">¿Qué relación existe entre X e Y? <small>Produce otro tipo: asociación o covariación.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta comparativa">
+        <div class="flip-inner">
+          <div class="flip-front">Comparativa</div>
+          <div class="flip-back">¿Existen diferencias en X entre A y B? <small>Produce otro tipo: contraste entre grupos o condiciones.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta interpretativa">
+        <div class="flip-inner">
+          <div class="flip-front">Interpretativa</div>
+          <div class="flip-back">¿Cómo experimentan o significan X determinados participantes? <small>Produce otro tipo: comprensión de significados.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>No son cuatro maneras diferentes de redactar la misma investigación.</strong> Son cuatro formas
+      diferentes de querer conocer. La pregunta que hagamos determinará qué evidencia necesitamos, y la evidencia
+      necesaria condicionará nuestras decisiones metodológicas.
+    </div>
+
+    <h3>La delimitación como renuncia consciente</h3>
+    <p>Formular un buen proyecto también significa decidir qué NO voy a investigar.</p>
+
+    <div class="tipologia" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+      <div class="tipologia-item" style="border-left-color: var(--accent);">
+        <div class="tipo-num">¿QUÉ?</div>
+        <div class="tipo-desc">Fenómeno / constructo</div>
+      </div>
+      <div class="tipologia-item" style="border-left-color: var(--accent);">
+        <div class="tipo-num">¿QUIÉNES?</div>
+        <div class="tipo-desc">Población</div>
+      </div>
+      <div class="tipologia-item" style="border-left-color: var(--accent);">
+        <div class="tipo-num">¿DÓNDE?</div>
+        <div class="tipo-desc">Contexto</div>
+      </div>
+      <div class="tipologia-item" style="border-left-color: var(--accent);">
+        <div class="tipo-num">¿CUÁNDO?</div>
+        <div class="tipo-desc">Marco temporal</div>
+      </div>
+      <div class="tipologia-item" style="border-left-color: var(--accent);">
+        <div class="tipo-num">¿DESDE QUÉ ÁNGULO?</div>
+        <div class="tipo-desc">Relación, experiencia, mecanismo, comparación, significado</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>La delimitación no hace menos interesante un proyecto. Lo convierte en realizable y epistemológicamente más preciso.</strong>
+    </div>
+
+    <h3>La síntesis final</h3>
+    <p>Regresamos a la pregunta inicial:</p>
+
+    <div style="background: #060f1c; border: 2px solid var(--accent); border-radius: var(--radius); padding: 2rem; text-align: center; margin: 1.5rem 0;">
+      <p style="font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin: 0;">
+        QUIERO INVESTIGAR LA ANSIEDAD EN UNIVERSITARIOS
+      </p>
+    </div>
+
+    <p style="font-size: 1.15rem; text-align: center; color: var(--accent); font-weight: 600;">
+      ¿Tengo ya un problema de investigación?
+    </p>
+
+    <div class="callout" style="text-align: center; font-size: 1.05rem;">
+      <strong>No. Tengo un punto de partida.</strong>
+    </div>
+
+    <p>Para tener un problema necesito avanzar hacia algo como:</p>
+
+    <div class="chain">
+      <div class="chain-step">¿Qué ocurre?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">¿Qué sabemos sobre ello?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">¿Cómo llegamos a saberlo?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">¿Qué permanece incierto?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">¿Por qué esa incertidumbre importa?</div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">¿Qué pregunta permitiría reducirla?</div>
+    </div>
+
+    <div class="callout" style="font-size: 1.1rem; text-align: center;">
+      <strong>La calidad de un proyecto no empieza por la sofisticación del método. Empieza por la calidad del problema que hemos construido.</strong>
+    </div>
+  </section>
+
+  <!-- FICHA -->
+  <section id="ficha" class="reveal">
+    <h2>Ficha de formulación inicial</h2>
+    <p>Este ejercicio te permite aplicar lo aprendido a tu propio interés. La ficha no es definitiva: su función es que empieces a construir tu problema y a detectar qué te falta por saber.</p>
+
+    <div class="question-block">
+      <p class="q-text">1. Mi interés (una frase)</p>
+      <textarea class="open-textarea" placeholder="Ej.: Me interesa la salud mental de los jóvenes..." aria-label="Interés"></textarea>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">2. Mi tema (máximo 15 palabras)</p>
+      <textarea class="open-textarea" placeholder="Ej.: Ansiedad y redes sociales en universitarios..." aria-label="Tema" style="min-height: 60px;"></textarea>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">3. ¿Qué situación me resulta problemática? (100 palabras)</p>
+      <textarea class="open-textarea" placeholder="Describe la situación que te preocupa..." aria-label="Situación problemática"></textarea>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">4. ¿Qué creo que ya sabemos? (máximo tres afirmaciones)</p>
+      <textarea class="open-textarea" placeholder="1. ...&#10;2. ...&#10;3. ..." aria-label="Lo que sabemos"></textarea>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">5. ¿Qué creo que todavía no sabemos? (máximo tres afirmaciones)</p>
+      <textarea class="open-textarea" placeholder="1. ...&#10;2. ...&#10;3. ..." aria-label="Lo que no sabemos"></textarea>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">6. ¿Qué evidencia tengo para decir que no lo sabemos?</p>
+      <textarea class="open-textarea" placeholder="Aquí puedes responder: 'Todavía no tengo evidencia suficiente'..." aria-label="Evidencia"></textarea>
+      <div class="callout info" style="margin-top: 0.8rem;">
+        <strong>Nota:</strong> "Todavía no tengo evidencia suficiente" es una respuesta válida e interesante en este punto.
+      </div>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">7. Mi problema preliminar (150 palabras)</p>
+      <textarea class="open-textarea" placeholder="Formula tu problema preliminar..." aria-label="Problema preliminar"></textarea>
+    </div>
+
+    <div class="question-block">
+      <p class="q-text">8. Mi pregunta provisional (una pregunta)</p>
+      <textarea class="open-textarea" placeholder="¿...?" aria-label="Pregunta provisional" style="min-height: 60px;"></textarea>
+      <div class="callout" style="margin-top: 0.8rem;">
+        <strong>Advertencia:</strong> Esta pregunta no es definitiva. Tu trabajo posterior consistirá, entre otras cosas,
+        en intentar demostrar que tu propia pregunta merece existir.
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias (APA 7)</h2>
+    <ul class="ref-list">
+      <li>Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. (2016). <em>The craft of research</em> (4.ª ed.). University of Chicago Press.</li>
+      <li>Hart, C. (2018). <em>Doing a literature review: Releasing the research imagination</em> (2.ª ed.). SAGE.</li>
+      <li>Hernández Sampieri, R., Fernández Collado, C., &amp; Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill.</li>
+      <li>Maxwell, J. A. (2013). <em>Qualitative research design: An interactive approach</em> (3.ª ed.). SAGE.</li>
+      <li>Snyder, H. (2019). Literature review as a research methodology: An overview and guidelines. <em>Journal of Business Research, 104</em>, 333-339.</li>
+      <li>Swales, J. M., &amp; Feak, C. B. (2012). <em>Academic writing for graduate students</em> (3.ª ed.). University of Michigan Press.</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la tesis central de este recurso?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) Un tema es lo mismo que un problema de investigación.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) Un tema no es todavía un problema de investigación; se necesita confrontar con la literatura.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) Cualquier pregunta bien redactada es un problema de investigación.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) La revisión de literatura solo sirve para el marco teórico.</label>
+      </div>
+      <div class="feedback-box" id="qFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">¿Cuál de estos es un tipo de vacío de conocimiento según la tipología presentada?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) Vacío emocional</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) Vacío de integración</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) Vacío administrativo</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) Vacío económico</label>
+      </div>
+      <div class="feedback-box" id="qFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="6">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">¿Cuál de estas afirmaciones constituye una justificación más fuerte para un problema de investigación?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) "Este tema es muy importante actualmente."</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) "No se ha estudiado en nuestra universidad."</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) "La evidencia disponible no permite establecer con claridad X debido a Y."</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) "Existen pocos estudios sobre el tema."</label>
+      </div>
+      <div class="feedback-box" id="qFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="7">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">¿Qué significa la delimitación como "renuncia consciente"?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Que el proyecto es menos interesante si es específico.</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) Que formular un buen proyecto implica decidir qué NO se va a investigar.</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Que hay que eliminar todas las preguntas secundarias.</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) Que solo se puede investigar un fenómeno a la vez.</label>
+      </div>
+      <div class="feedback-box" id="qFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="8">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Cuál de estas NO es una de las cuatro familias de preguntas de investigación presentadas?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) Descriptiva</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) Relacional</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) Comparativa</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) Predictiva</label>
+      </div>
+      <div class="feedback-box" id="qFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">Explica con tus palabras la diferencia entre un problema práctico y un problema de conocimiento. Usa el ejemplo de la ansiedad en universitarios.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 3"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(3)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb3">
+        <strong>Respuesta modelo:</strong> Un problema práctico es algo que quisiéramos intervenir: por ejemplo, que muchos universitarios tengan ansiedad elevada. Sabemos que ocurre y queremos reducirlo. Un problema de conocimiento es algo que no comprendemos suficientemente: por ejemplo, no sabemos si ciertos patrones de uso de redes sociales están asociados con la ansiedad, o los estudios existentes se contradicen. El problema práctico puede resolverse con intervenciones basadas en conocimiento ya disponible; el problema de conocimiento exige investigación para generar nuevo saber. Ambos se conectan, pero no son lo mismo.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Imagina que revisas literatura sobre "burnout en profesores universitarios" y encuentras que la mayoría de estudios usan cuestionarios transversales. ¿Qué tipo de vacío es este? ¿Qué pregunta de investigación podría derivarse? ¿Qué advertencia harías antes de proponerla?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 4"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(4)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb4">
+        <strong>Respuesta modelo:</strong> Es un vacío metodológico (tipo 3). La pregunta podría ser: "¿Cómo se desarrolla el burnout en profesores universitarios a lo largo de un semestre académico?" usando un diseño longitudinal o diario. La advertencia: usar otro método no es justificación por sí sola. Debe permitir responder algo que la estrategia anterior (cuestionarios transversales) no permitía conocer: por ejemplo, la dirección temporal de la relación entre demandas laborales y agotamiento, o los procesos de recuperación. Si el nuevo método no aporta esa diferencia epistémica, no está justificado.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="5">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué cambió en tu forma de entender la formulación de un problema de investigación después de recorrer este recurso? ¿Qué te genera más dudas?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 5"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(5)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb5">
+        <strong>Respuesta modelo:</strong> Antes pensaba que un problema de investigación era simplemente una pregunta que se me ocurría sobre un tema. Ahora entiendo que la pregunta es el resultado de un proceso: explorar qué se sabe, identificar qué no se sabe y justificar por qué esa incertidumbre importa. Lo que más me cuesta es aceptar que el problema no aparece al principio, sino después de la revisión de literatura. Me genera dudas cómo saber cuándo tengo suficiente literatura revisada para formular el problema, y cómo distinguir un vacío relevante de uno trivial.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Del tema al problema de investigación</strong> · Recurso educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============ BARRA DE PROGRESO ============ */
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  /* ============ SCROLL REVEAL ============ */
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============ ACORDEÓN ============ */
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isActive = item.classList.contains('active');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.accordion-item').forEach(sib => {
+        sib.classList.remove('active');
+        const h = sib.querySelector('.accordion-header');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ============ FLIP CARDS ============ */
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  /* ============ CADENA INTERACTIVA ============ */
+  const chainSteps = document.querySelectorAll('#chainInteractive .chain-step');
+  const chainDescription = document.getElementById('chainDescription');
+  chainSteps.forEach(step => {
+    step.addEventListener('click', function() {
+      chainSteps.forEach(s => s.classList.remove('highlight'));
+      this.classList.add('highlight');
+      chainDescription.innerHTML = `<p style="color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;">${this.textContent}</p><p style="color: var(--text-soft); margin: 0;">${this.dataset.desc}</p>`;
+    });
+  });
+
+  /* ============ ESCENARIOS ============ */
+  const scenarios = document.querySelectorAll('.scenario');
+  const scenarioDetail = document.getElementById('scenarioDetail');
+  const scenarioDescriptions = {
+    a: 'Situación problemática: algo ocurre y quisiéramos intervenirlo. Puede existir un problema práctico aunque conozcamos razonablemente bien sus causas y mecanismos. No es automáticamente un problema de conocimiento.',
+    b: 'Incertidumbre empírica: no sabemos algo concreto. Aquí ya hay un problema de conocimiento porque hay una pregunta sin responder que requiere investigación empírica.',
+    c: 'Contradicción en la literatura: los estudios existentes no convergen. No falta investigación: sobra, pero no tenemos una respuesta estable. Este es un problema de conocimiento de tipo "resultados inconsistentes".'
+  };
+  scenarios.forEach(sc => {
+    sc.addEventListener('click', function() {
+      scenarios.forEach(s => s.classList.remove('active'));
+      this.classList.add('active');
+      const key = this.dataset.scenario;
+      scenarioDetail.innerHTML = `<p style="color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;">${this.querySelector('.scenario-title').textContent}</p><p style="color: var(--text-soft); margin: 0;">${scenarioDescriptions[key]}</p>`;
+    });
+  });
+
+  /* ============ EJEMPLO LONGITUDINAL ============ */
+  const versionBtns = document.querySelectorAll('.version-btn');
+  const versionSteps = document.querySelectorAll('.version-step');
+  versionBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const v = this.dataset.version;
+      versionBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      versionSteps.forEach(step => {
+        step.classList.toggle('active', step.dataset.version === v);
+      });
+    });
+  });
+
+  /* ============ ESCALA DE CALIDAD ============ */
+  const qualityItems = document.querySelectorAll('.quality-item');
+  const qualityDetail = document.getElementById('qualityDetail');
+  qualityItems.forEach(item => {
+    item.addEventListener('click', function() {
+      qualityDetail.innerHTML = `<p style="color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;">${this.querySelector('.quality-text').textContent}</p><p style="color: var(--text-soft); margin: 0;">${this.dataset.detail}</p>`;
+    });
+  });
+
+  /* ============ PREGUNTAS CERRADAS ============ */
+  const closedAnswers = {
+    1: { correct: 'b', fbCorrect: '¡Correcto! Los temas se estudian; los problemas se investigan y requieren justificación epistémica.', fbIncorrect: 'Incorrecto. La respuesta correcta es la b: el problema requiere justificación, no es solo una cuestión de redacción.' },
+    2: { correct: 'c', fbCorrect: '¡Bien! El "vacío emocional" no existe en la tipología. Los seis tipos son: empírico, resultados inconsistentes, metodológico, poblacional/contextual, teórico y de integración.', fbIncorrect: 'Incorrecto. El "vacío emocional" no es parte de la tipología presentada.' },
+    3: { correct: 'c', fbCorrect: 'Exacto. La estructura "no permite establecer X debido a Y" es la más fuerte porque articula lo conocido, lo incierto y la razón.', fbIncorrect: 'Incorrecto. La opción c es la más fuerte porque especifica la incertidumbre y su causa.' },
+    4: { correct: 'b', fbCorrect: '¡Correcto! Un tema no es todavía un problema; se necesita confrontar con la literatura.', fbIncorrect: 'Incorrecto. La tesis central es que un tema no es todavía un problema de investigación.' },
+    5: { correct: 'b', fbCorrect: '¡Bien! El vacío de integración es uno de los seis tipos presentados.', fbIncorrect: 'Incorrecto. El vacío de integración sí es parte de la tipología.' },
+    6: { correct: 'c', fbCorrect: 'Exacto. La estructura "no permite establecer X debido a Y" es la más fuerte.', fbIncorrect: 'Incorrecto. La opción c es la más fuerte.' },
+    7: { correct: 'b', fbCorrect: '¡Correcto! Delimitar es renunciar conscientemente a investigar ciertos aspectos.', fbIncorrect: 'Incorrecto. La delimitación como renuncia consciente significa decidir qué NO investigar.' },
+    8: { correct: 'd', fbCorrect: '¡Bien! Las cuatro familias son: descriptiva, relacional, comparativa e interpretativa.', fbIncorrect: 'Incorrecto. "Predictiva" no fue presentada como familia.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  /* ============ PREGUNTAS ABIERTAS ============ */
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  /* ============ CALIFICAR CERRADAS ============ */
+  const finalQuestions = [
+    { name: 'q1', correct: 'b', id: 4 },
+    { name: 'q2', correct: 'b', id: 5 },
+    { name: 'q3', correct: 'c', id: 6 },
+    { name: 'q4', correct: 'b', id: 7 },
+    { name: 'q5', correct: 'd', id: 8 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`qFb${q.id - 3}`);
+      const options = block.querySelectorAll('.q-option');
+
+      options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Dominas la lógica de la problematización. Ahora te invitamos a completar la ficha de formulación inicial.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles. Las preguntas abiertas te ayudarán a consolidar.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las secciones 4 a 9 y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+    chainSteps.forEach(s => s.classList.remove('highlight'));
+    chainDescription.innerHTML = '<p style="color: var(--text-soft); font-style: italic;">Haz clic en un eslabón de la cadena para ver su descripción.</p>';
+    scenarios.forEach(s => s.classList.remove('active'));
+    scenarioDetail.innerHTML = '<p style="color: var(--text-soft); font-style: italic;">Haz clic en un escenario para ver su análisis detallado.</p>';
+    versionBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
+    versionSteps.forEach((s, i) => s.classList.toggle('active', i === 0));
+    qualityDetail.innerHTML = '<p style="color: var(--text-soft); font-style: italic;">Haz clic en un nivel para ver su análisis.</p>';
+  });
+
+})();
+</script>
+</body>
+</html>

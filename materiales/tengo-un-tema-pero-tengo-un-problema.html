@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tengo un tema, ¿pero tengo un problema de investigación? — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Tengo un tema, ¿pero tengo un problema de investigación?">
+<meta name="jc-descripcion" content="Presentación de clase para transformar un interés o tema en un problema de investigación mediante problematización, revisión de literatura, tipos de vacío, delimitación y formulación de preguntas.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Problema de investigación, Tema de investigación, Problema de conocimiento, Vacío de conocimiento, Revisión de literatura, Pregunta de investigación, Delimitación, Formulación de proyectos, Problematización">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root {
+    --azul-oscuro: #0B2545;
+    --azul-medio: #13315C;
+    --azul-acento: #13538A;
+    --dorado: #E7C873;
+    --gris-calido: #F5F3EF;
+    --blanco: #FFFFFF;
+    --texto: #1A1A2E;
+    --texto-suave: #3D3D4E;
+    --sombra: 0 4px 20px rgba(11, 37, 69, 0.08);
+    --radio: 14px;
+    --verde: #2E7D4F;
+    --rojo: #C0392B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+  }
+
+  body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 290px;
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    transition: width 0.35s ease;
+  }
+
+  #sidebar.colapsada { width: 0; overflow: hidden; }
+
+  #sidebar-header {
+    padding: 26px 22px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  #sidebar-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dorado);
+    margin-bottom: 5px;
+  }
+
+  #sidebar-header p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  #sidebar nav { padding: 14px 0; }
+
+  #sidebar nav a {
+    display: block;
+    padding: 10px 22px;
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.4;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+
+  #sidebar nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+  #sidebar nav a.activa {
+    background: rgba(231, 200, 115, 0.14);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+    font-weight: 600;
+  }
+
+  #sidebar nav a .num {
+    display: inline-block;
+    width: 24px;
+    font-size: 13px;
+    opacity: 0.55;
+  }
+
+  #toggle-sidebar {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+
+  #toggle-sidebar:hover { opacity: 1; }
+
+  /* LAYOUT */
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--blanco);
+  }
+
+  #slides-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* DIAPOSITIVAS */
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 55px 75px 70px;
+    overflow-y: auto;
+    background: var(--blanco);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    display: block;
+  }
+
+  .slide.activa {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+  }
+
+  .slide-inner {
+    max-width: 1150px;
+    margin: 0 auto;
+  }
+
+  .slide.portada {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 100%);
+    color: #fff;
+    padding: 40px 60px;
+  }
+
+  .slide.portada .slide-inner { max-width: 1000px; }
+
+  .slide.portada h1 {
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 24px;
+    color: #fff;
+  }
+
+  .slide.portada .subtitulo {
+    font-size: 24px;
+    color: var(--dorado);
+    margin-bottom: 20px;
+  }
+
+  .slide.portada .curso {
+    font-size: 20px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+  }
+
+  .slide.portada .autor {
+    font-size: 22px;
+    color: rgba(255,255,255,0.88);
+    border-top: 1px solid rgba(255,255,255,0.22);
+    padding-top: 22px;
+    display: inline-block;
+  }
+
+  /* TIPOGRAFÍA */
+  .slide h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+    margin-bottom: 26px;
+  }
+
+  .slide h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--azul-medio);
+    margin-bottom: 14px;
+  }
+
+  .slide p {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--texto-suave);
+    margin-bottom: 18px;
+  }
+
+  .slide ul { list-style: none; }
+
+  .slide ul li {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--texto-suave);
+    margin-bottom: 16px;
+    padding-left: 36px;
+    position: relative;
+  }
+
+  .slide ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--azul-acento);
+  }
+
+  /* PREGUNTA GIGANTE */
+  .pregunta-grande {
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+    text-align: center;
+    margin: 40px 0;
+    padding: 30px;
+  }
+
+  .pregunta-grande.dorada {
+    color: var(--dorado);
+    background: var(--azul-oscuro);
+    border-radius: var(--radio);
+  }
+
+  /* PREGUNTA EN NEGRILLA */
+  .pregunta {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--azul-acento);
+    font-style: italic;
+    margin: 22px 0;
+    padding-left: 24px;
+    border-left: 4px solid var(--dorado);
+  }
+
+  /* BLOQUES */
+  .bloque {
+    background: var(--gris-calido);
+    border-left: 6px solid var(--azul-acento);
+    padding: 24px 28px;
+    border-radius: 0 var(--radio) var(--radio) 0;
+    margin: 22px 0;
+  }
+
+  .bloque.dorado {
+    border-left-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  .bloque.verde {
+    border-left-color: var(--verde);
+    background: #EBF7EE;
+  }
+
+  .bloque.rojo {
+    border-left-color: var(--rojo);
+    background: #FDF0F0;
+  }
+
+  .bloque p { margin-bottom: 0; font-size: 24px; }
+
+  .bloque .etiqueta {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--azul-acento);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .bloque.dorado .etiqueta { color: #B8942E; }
+  .bloque.verde .etiqueta { color: var(--verde); }
+  .bloque.rojo .etiqueta { color: #A04040; }
+
+  /* TARJETAS */
+  .tarjetas {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .tarjeta {
+    flex: 1;
+    min-width: 220px;
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-radius: var(--radio);
+    padding: 22px 24px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .tarjeta.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tarjeta h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 10px;
+  }
+
+  .tarjeta p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .tarjeta.destacada {
+    border-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  /* CADENA CONCEPTUAL */
+  .cadena {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 24px 0;
+  }
+
+  .eslabon {
+    padding: 14px 22px;
+    border-radius: 10px;
+    background: #EBF0F7;
+    border-left: 5px solid var(--azul-acento);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .eslabon.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .eslabon.final {
+    background: var(--azul-oscuro);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+  }
+
+  .eslabon.pregunta {
+    background: #FDF9EE;
+    border-left-color: var(--dorado);
+    color: #B8942E;
+  }
+
+  .flecha-cadena {
+    text-align: center;
+    font-size: 22px;
+    color: var(--dorado);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .flecha-cadena.visible { opacity: 1; }
+
+  /* COMPARATIVA */
+  .comparativa {
+    display: flex;
+    gap: 24px;
+    margin: 22px 0;
+    flex-wrap: wrap;
+  }
+
+  .comparativa .lado {
+    flex: 1;
+    min-width: 280px;
+    padding: 24px;
+    border-radius: var(--radio);
+    border: 2px solid #E0E4EC;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .comparativa .lado.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .comparativa .lado h4 {
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--dorado);
+  }
+
+  .comparativa .lado ul li { font-size: 20px; margin-bottom: 10px; }
+
+  /* EJEMPLO LONGITUDINAL */
+  .version-ejemplo {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 22px 26px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .version-ejemplo.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .version-ejemplo .version-num {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--azul-acento);
+    padding: 6px 14px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+
+  .version-ejemplo.v0 .version-num { background: #B0B8C4; }
+  .version-ejemplo.v1 .version-num { background: var(--azul-acento); }
+  .version-ejemplo.v2 .version-num { background: var(--azul-medio); }
+  .version-ejemplo.v3 .version-num { background: #B8942E; }
+  .version-ejemplo.v4 .version-num { background: var(--dorado); color: var(--azul-oscuro); }
+
+  .version-ejemplo .version-texto {
+    flex: 1;
+  }
+
+  .version-ejemplo .version-texto h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 6px;
+  }
+
+  .version-ejemplo .version-texto p {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* ESCALA DE CALIDAD */
+  .escala {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 22px 0;
+  }
+
+  .nivel-escala {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.5s ease;
+  }
+
+  .nivel-escala.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nivel-escala .nivel-marca {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 16px;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+
+  .nivel-escala.debil { border-left: 5px solid #B0B8C4; }
+  .nivel-escala.debil .nivel-marca { background: #E0E4EC; color: #6A7280; }
+
+  .nivel-escala.medio { border-left: 5px solid #D4B85A; }
+  .nivel-escala.medio .nivel-marca { background: #FDF0C8; color: #8B6B1F; }
+
+  .nivel-escala.fuerte { border-left: 5px solid var(--verde); }
+  .nivel-escala.fuerte .nivel-marca { background: #C8E8D2; color: var(--verde); }
+
+  .nivel-escala p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    color: var(--texto-suave);
+  }
+
+  /* DETECTIVE */
+  .grid-detectives {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .caso-detectives {
+    padding: 22px 24px;
+    border-radius: var(--radio);
+    border: 2px solid #E0E4EC;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.5s ease;
+  }
+
+  .caso-detectives.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .caso-detectives.alerta-alta {
+    border-left: 6px solid var(--rojo);
+    background: #FDF0F0;
+  }
+
+  .caso-detectives.alerta-media {
+    border-left: 6px solid #D4B85A;
+    background: #FDF9EE;
+  }
+
+  .caso-detectives.alerta-baja {
+    border-left: 6px solid var(--verde);
+    background: #EBF7EE;
+  }
+
+  .caso-detectives .alerta {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 5px 12px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+
+  .caso-detectives.alerta-alta .alerta { background: #F5C6C6; color: #8B2020; }
+  .caso-detectives.alerta-media .alerta { background: #F0E0A8; color: #8B6B1F; }
+  .caso-detectives.alerta-baja .alerta { background: #C8E8D2; color: var(--verde); }
+
+  .caso-detectives h4 {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 10px;
+  }
+
+  .caso-detectives p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    color: var(--texto-suave);
+  }
+
+  /* FAMILIAS DE PREGUNTAS */
+  .grid-familias {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .familia-pregunta {
+    padding: 22px 24px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-top: 5px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .familia-pregunta.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .familia-pregunta:nth-child(2) { border-top-color: var(--dorado); }
+  .familia-pregunta:nth-child(3) { border-top-color: var(--verde); }
+  .familia-pregunta:nth-child(4) { border-top-color: #B8942E; }
+
+  .familia-pregunta .tipo {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--azul-acento);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .familia-pregunta:nth-child(2) .tipo { color: #B8942E; }
+  .familia-pregunta:nth-child(3) .tipo { color: var(--verde); }
+  .familia-pregunta:nth-child(4) .tipo { color: #B8942E; }
+
+  .familia-pregunta .pregunta-modelo {
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .familia-pregunta p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* DELIMITACIÓN */
+  .grid-delimitacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .dimension {
+    padding: 20px 24px;
+    border-radius: var(--radio);
+    background: #EBF0F7;
+    border-left: 5px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: all 0.5s ease;
+  }
+
+  .dimension.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .dimension:nth-child(2) { background: #FDF9EE; border-left-color: var(--dorado); }
+  .dimension:nth-child(3) { background: #EBF7EE; border-left-color: var(--verde); }
+  .dimension:nth-child(4) { background: #FDF0F0; border-left-color: var(--rojo); }
+  .dimension:nth-child(5) { background: #F5F3EF; border-left-color: var(--azul-medio); grid-column: 1 / -1; }
+
+  .dimension h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 8px;
+  }
+
+  .dimension p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* RESULTADOS DE APRENDIZAJE */
+  .resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .resultado {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 22px 26px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-left: 6px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .resultado.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .resultado .num-resultado {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .resultado .texto-resultado h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 6px;
+  }
+
+  .resultado .texto-resultado p {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  /* CONCLUSIONES */
+  .conclusiones {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .conclusion {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-radius: var(--radio);
+    background: #F8FAFD;
+    border-left: 5px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+
+  .conclusion.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .conclusion .icono-conclusion {
+    font-size: 26px;
+    flex-shrink: 0;
+    line-height: 1;
+    color: var(--dorado);
+  }
+
+  .conclusion p {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  .conclusion p strong { color: var(--azul-oscuro); }
+
+  /* ÍNDICE */
+  .grid-indice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .item-indice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 1.5px solid #E0E4EC;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  .item-indice.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .item-indice:hover {
+    border-color: var(--azul-acento);
+    background: #F8FAFD;
+  }
+
+  .item-indice .num-indice {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .item-indice span {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+  }
+
+  /* REFERENCIAS */
+  .refs p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--texto-suave);
+    margin-bottom: 12px;
+    padding-left: 28px;
+    text-indent: -28px;
+  }
+
+  /* FICHA */
+  .ficha {
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-radius: var(--radio);
+    padding: 26px 30px;
+    margin-top: 20px;
+  }
+
+  .ficha-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed #D0D5DE;
+  }
+
+  .ficha-item:last-child { border-bottom: none; }
+
+  .ficha-item .ficha-num {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--azul-acento);
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+  }
+
+  .ficha-item .ficha-texto {
+    font-size: 20px;
+    color: var(--texto-suave);
+    line-height: 1.5;
+  }
+
+  .ficha-advertencia {
+    background: #FDF9EE;
+    border-left: 5px solid var(--dorado);
+    padding: 18px 22px;
+    border-radius: 0 var(--radio) var(--radio) 0;
+    margin-top: 22px;
+    font-size: 19px;
+    color: var(--texto-suave);
+    line-height: 1.55;
+  }
+
+  /* NAVEGACIÓN INFERIOR */
+  #nav-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    background: #fff;
+    border-top: 1px solid #EEF0F4;
+    flex-shrink: 0;
+  }
+
+  .btn-nav {
+    padding: 10px 22px;
+    border: 1.5px solid #D0D5DE;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--texto-suave);
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-nav:hover { opacity: 1; border-color: var(--azul-acento); color: var(--azul-oscuro); }
+  .btn-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+
+  #indicador-progreso {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--texto-suave);
+  }
+
+  #barra-progreso {
+    width: 140px;
+    height: 5px;
+    background: #EEF0F4;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  #barra-progreso .relleno {
+    height: 100%;
+    background: var(--azul-acento);
+    transition: width 0.4s ease;
+  }
+
+  /* BOTÓN DE ANIMACIÓN */
+  .btn-animacion {
+    padding: 12px 26px;
+    border: none;
+    border-radius: 10px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 14px rgba(11, 37, 69, 0.25);
+    margin-top: 16px;
+  }
+
+  .btn-animacion:hover {
+    background: var(--azul-acento);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(19, 83, 138, 0.35);
+  }
+
+  .btn-animacion:disabled {
+    background: #D0D5DE;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1200px) {
+    .slide { padding: 45px 45px 60px; }
+    .slide h2 { font-size: 36px; }
+    .slide p, .slide ul li { font-size: 22px; }
+    .slide.portada h1 { font-size: 42px; }
+    .pregunta-grande { font-size: 42px; }
+  }
+
+  @media (max-width: 1024px) {
+    .slide { padding: 40px 35px 60px; }
+    .slide h2 { font-size: 32px; }
+    .slide p, .slide ul li { font-size: 21px; }
+    .slide.portada h1 { font-size: 36px; }
+    .grid-detectives, .grid-familias, .grid-delimitacion { grid-template-columns: 1fr; }
+    .dimension:nth-child(5) { grid-column: 1; }
+    .pregunta-grande { font-size: 34px; }
+  }
+
+  @media (max-width: 768px) {
+    #sidebar { position: fixed; height: 100%; z-index: 150; }
+    #sidebar:not(.colapsada) { width: 290px; }
+    .slide { padding: 28px 20px 60px; }
+    .slide h2 { font-size: 24px; }
+    .slide p, .slide ul li { font-size: 18px; }
+    .slide.portada h1 { font-size: 28px; }
+    .tarjetas, .comparativa { flex-direction: column; }
+    .grid-indice { grid-template-columns: 1fr; }
+    .pregunta-grande { font-size: 26px; }
+  }
+
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-thumb { background: #D0D5DE; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h2>Del tema al problema</h2>
+    <p>Formulación de Proyectos · Clase 1</p>
+  </div>
+  <nav id="nav-secciones"></nav>
+</aside>
+
+<button id="toggle-sidebar" title="Mostrar/ocultar">☰</button>
+
+<div id="main">
+  <div id="slides-container">
+
+    <!-- 0 PORTADA -->
+    <section class="slide portada activa" data-seccion="portada">
+      <div class="slide-inner">
+        <h1>Tengo un tema,<br>¿pero tengo un problema<br>de investigación?</h1>
+        <div class="subtitulo">Del tema al problema de investigación</div>
+        <div class="curso">Formulación de Proyectos de Investigación en Psicología · Clase 1</div>
+        <div class="autor">Juan Carlos Valderrama Cárdenas</div>
+      </div>
+    </section>
+
+    <!-- 1 RESULTADOS DE APRENDIZAJE -->
+    <section class="slide" data-seccion="resultados">
+      <div class="slide-inner">
+        <h2>Resultado de aprendizaje</h2>
+        <p>Al finalizar esta primera clase, el estudiante debería poder:</p>
+        <div class="resultados" id="lista-resultados"></div>
+        <div class="bloque dorado" style="margin-top:24px;">
+          <span class="etiqueta">Advertencia importante</span>
+          <p>No se pretende que al terminar esta sesión se produzca una formulación perfecta del problema. Eso sería prematuro: todavía no se ha revisado suficientemente la literatura.</p>
+        </div>
+        <button class="btn-animacion" data-anim="resultados">Mostrar resultado ▶</button>
+      </div>
+    </section>
+
+    <!-- 2 ÍNDICE -->
+    <section class="slide" data-seccion="indice">
+      <div class="slide-inner">
+        <h2>Recorrido de la clase</h2>
+        <p>Seis movimientos narrativos para pasar de un tema a un problema de investigación.</p>
+        <div class="grid-indice" id="grid-indice"></div>
+        <button class="btn-animacion" data-anim="indice">Mostrar recorrido ▶</button>
+      </div>
+    </section>
+
+    <!-- 3 PROVOCACIÓN INICIAL: TEMA -->
+    <section class="slide" data-seccion="provocacion">
+      <div class="slide-inner">
+        <p class="pregunta-grande" id="provocacion-texto">QUIERO INVESTIGAR<br>LA ANSIEDAD EN UNIVERSITARIOS</p>
+        <button class="btn-animacion" data-anim="provocacion">Ver pregunta ▶</button>
+      </div>
+    </section>
+
+    <!-- 4 PROVOCACIÓN INICIAL: PREGUNTA -->
+    <section class="slide" data-seccion="provocacion">
+      <div class="slide-inner">
+        <p class="pregunta-grande dorada">¿Aquí hay un problema<br>de investigación?</p>
+        <p style="text-align:center; font-size:28px; margin-top:30px;">Hay un tema interesante.<br>Pero todavía no sabemos si existe aquí un problema de investigación.</p>
+      </div>
+    </section>
+
+    <!-- 5 PREGUNTAS APARENTEMENTE RAZONABLES -->
+    <section class="slide" data-seccion="provocacion">
+      <div class="slide-inner">
+        <h2>Preguntas aparentemente razonables</h2>
+        <div class="pregunta">¿Por qué los universitarios tienen ansiedad?</div>
+        <div class="pregunta">¿La ansiedad afecta el rendimiento académico?</div>
+        <div class="pregunta">¿Las redes sociales causan ansiedad en los universitarios?</div>
+        <div class="pregunta">¿Cómo experimentan la ansiedad los estudiantes durante su primer semestre universitario?</div>
+        <p style="font-size:26px; margin-top:30px;">Todas parecen preguntas investigables. <strong>¿Pero de dónde salieron?</strong></p>
+      </div>
+    </section>
+
+    <!-- 6 TEMA, SITUACIÓN PROBLEMÁTICA Y PROBLEMA -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Tema, situación problemática y problema de investigación</h2>
+        <p>Uno de los errores más frecuentes al formular proyectos consiste en <strong>confundir la capacidad para escribir una oración interrogativa con la capacidad para formular una pregunta de investigación</strong>.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">Provocación central</span>
+          <p>Una pregunta puede sonar científica y, sin embargo, no estar científicamente justificada.</p>
+        </div>
+        <p>Para poder defender una pregunta, debo ser capaz de explicar <strong>por qué vale la pena hacerla</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 7 NIVEL 1: INTERÉS -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Nivel 1: el interés</h2>
+        <p class="pregunta">«Me interesa la salud mental de los universitarios.»</p>
+        <p>Es una <strong>motivación</strong>. Puede surgir de la experiencia, la práctica profesional, la curiosidad, la observación, un debate social, un curso, una noticia, una teoría o una investigación previa.</p>
+        <div class="bloque">
+          <span class="etiqueta">Clave</span>
+          <p>El interés todavía <strong>no determina</strong> qué investigar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 NIVEL 2: TEMA -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Nivel 2: el tema</h2>
+        <p class="pregunta">«Ansiedad en estudiantes universitarios.»</p>
+        <p>Ya hemos delimitado algo, pero muy poco.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">Distinción fundamental</span>
+          <p>Los temas se estudian.<br>Los problemas se investigan.</p>
+        </div>
+        <p>«Ansiedad», «depresión», «burnout», «autoestima», «inteligencia artificial», «violencia» o «adicciones» son <strong>áreas o fenómenos de interés</strong>, no problemas de investigación en sí mismos.</p>
+      </div>
+    </section>
+
+    <!-- 9 LA PRUEBA DEL ¿Y QUÉ? -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>La prueba del «¿y qué?»</h2>
+        <p>Cuando alguien dice:</p>
+        <p class="pregunta">«Quiero investigar el burnout en profesores universitarios.»</p>
+        <p>Podemos preguntar:</p>
+        <p class="pregunta-grande dorada" style="font-size:44px; margin:30px 0;">¿Y qué del burnout?</p>
+        <div class="bloque">
+          <span class="etiqueta">Regla práctica</span>
+          <p>Si todavía necesitamos esa pregunta, probablemente tenemos un <strong>tema</strong> y no un <strong>problema</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 EJEMPLOS DE LA PRUEBA -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Apliquemos la prueba</h2>
+        <div class="tarjetas" id="tarjetas-prueba"></div>
+        <button class="btn-animacion" data-anim="tarjetas-prueba">Mostrar ejemplos ▶</button>
+      </div>
+    </section>
+
+    <!-- 11 NIVEL 3: SITUACIÓN PROBLEMÁTICA -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Nivel 3: la situación problemática</h2>
+        <p>Podríamos observar:</p>
+        <div class="bloque">
+          <span class="etiqueta">Observación</span>
+          <p>En una universidad se reporta una proporción considerable de estudiantes que manifiestan niveles elevados de ansiedad.</p>
+        </div>
+        <p>Eso constituye una <strong>situación problemática</strong>, especialmente si tiene consecuencias individuales, educativas o sociales.</p>
+        <p class="pregunta">¿Que algo sea preocupante significa necesariamente que exista un problema de investigación?</p>
+      </div>
+    </section>
+
+    <!-- 12 PROBLEMA PRÁCTICO VS PROBLEMA DE CONOCIMIENTO -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Problema práctico ≠ problema de conocimiento</h2>
+        <div class="comparativa">
+          <div class="lado visible">
+            <h4>Problema práctico</h4>
+            <p style="font-size:21px; line-height:1.55;">Algo ocurre y quisiéramos <strong>intervenirlo</strong>.</p>
+            <p style="font-size:18px; line-height:1.5; margin-top:12px; color:var(--texto-suave);">Puede existir un problema práctico aunque conozcamos razonablemente bien sus causas y mecanismos.</p>
+          </div>
+          <div class="lado visible">
+            <h4>Problema de conocimiento</h4>
+            <p style="font-size:21px; line-height:1.55;">Hay algo relevante que <strong>todavía no comprendemos suficientemente</strong>.</p>
+            <p style="font-size:18px; line-height:1.5; margin-top:12px; color:var(--texto-suave);">Es el tipo de problema que justifica una investigación científica.</p>
+          </div>
+        </div>
+        <div class="bloque dorado" style="margin-top:24px;">
+          <span class="etiqueta">Clave</span>
+          <p>Ambos pueden conectarse, pero <strong>no son lo mismo</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 TRES ESCENARIOS -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>Tres escenarios posibles</h2>
+        <div class="tarjetas" id="tarjetas-escenarios"></div>
+        <button class="btn-animacion" data-anim="tarjetas-escenarios">Mostrar escenarios ▶</button>
+      </div>
+    </section>
+
+    <!-- 14 EL PROBLEMA INVESTIGATIVO PUEDE APARECER POR... -->
+    <section class="slide" data-seccion="tema-problema">
+      <div class="slide-inner">
+        <h2>¿Por qué aparece un problema investigativo?</h2>
+        <p>El problema investigativo puede aparecer porque:</p>
+        <ul>
+          <li>No sabemos algo.</li>
+          <li>Sabemos cosas incompatibles.</li>
+          <li>La evidencia tiene limitaciones.</li>
+          <li>Un fenómeno ha sido interpretado de maneras diferentes.</li>
+          <li>No sabemos si lo identificado en determinado contexto ocurre bajo otras condiciones.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 15 QUÉ ES REALMENTE UN VACÍO -->
+    <section class="slide" data-seccion="vacio">
+      <div class="slide-inner">
+        <h2>¿Qué significa realmente un «vacío»?</h2>
+        <p>Esta parte merece cuidado, porque «identificar el vacío» fácilmente se convierte en una fórmula.</p>
+        <div class="bloque rojo">
+          <span class="etiqueta">Lo que NO enseñaría</span>
+          <p>Problema de investigación = encontrar algo que nadie haya estudiado.</p>
+        </div>
+        <p>Esa concepción puede conducir a búsquedas artificiales.</p>
+      </div>
+    </section>
+
+    <!-- 16 EL EJEMPLO DEL FALSO VACÍO -->
+    <section class="slide" data-seccion="vacio">
+      <div class="slide-inner">
+        <h2>El ejemplo del falso vacío</h2>
+        <div class="bloque">
+          <span class="etiqueta">Afirmación problemática</span>
+          <p>«No encontré estudios sobre ansiedad académica en estudiantes de tercer semestre de Psicología de la universidad X.»</p>
+        </div>
+        <p>Eso <strong>no demuestra automáticamente</strong> un vacío científicamente importante.</p>
+        <p>Quizás nadie lo estudió porque no existe ninguna razón teórica o empírica para esperar algo diferente en esa población.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">Distinción clave</span>
+          <p>Ausencia de estudios ≠ vacío de conocimiento relevante.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 SEIS TIPOS DE VACÍO: INTRO -->
+    <section class="slide" data-seccion="tipos-vacio">
+      <div class="slide-inner">
+        <h2>Seis maneras en que aparece un problema en la literatura</h2>
+        <p>Esta tipología prepara las clases 2, 3 y 4.</p>
+        <div class="tarjetas" id="tarjetas-tipos-vacio"></div>
+        <button class="btn-animacion" data-anim="tarjetas-tipos-vacio">Mostrar tipología ▶</button>
+      </div>
+    </section>
+
+    <!-- 18 DETALLE TIPOS DE VACÍO -->
+    <section class="slide" data-seccion="tipos-vacio">
+      <div class="slide-inner">
+        <h2>Detalle de cada tipo de vacío</h2>
+        <div class="bloque">
+          <span class="etiqueta">1. Vacío empírico</span>
+          <p>Existe poca evidencia sobre una cuestión determinada. La pregunta es: ¿hay razones para pensar que ese contexto puede ofrecer información nueva?</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">2. Resultados inconsistentes</span>
+          <p>Unos estudios encuentran una asociación y otros no. No falta literatura: falta una respuesta suficientemente estable.</p>
+        </div>
+        <div class="bloque verde">
+          <span class="etiqueta">3. Vacío metodológico</span>
+          <p>Existe literatura, pero ha investigado el fenómeno de una sola forma. Usar otro método no es por sí solo una justificación: debe permitir responder algo que la estrategia anterior no permitía conocer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19 DETALLE TIPOS DE VACÍO (CONT.) -->
+    <section class="slide" data-seccion="tipos-vacio">
+      <div class="slide-inner">
+        <h2>Detalle de cada tipo de vacío (continuación)</h2>
+        <div class="bloque">
+          <span class="etiqueta">4. Vacío poblacional o contextual</span>
+          <p>Una conclusión proviene principalmente de determinados contextos. «Nadie lo ha hecho en Bogotá» no basta automáticamente: ¿existe alguna razón teórica, cultural, institucional, histórica o social por la cual el contexto pueda modificar el fenómeno?</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">5. Vacío teórico</span>
+          <p>Distintas explicaciones compiten para explicar el mismo fenómeno. No preguntamos únicamente «¿qué ocurre?», sino «¿qué explicación interpreta mejor lo que ocurre?».</p>
+        </div>
+        <div class="bloque verde">
+          <span class="etiqueta">6. Vacío de integración</span>
+          <p>Podemos tener muchos estudios pero poco conocimiento integrado. Aquí entran las revisiones narrativas, críticas y sistemáticas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 20 EL EJEMPLO LONGITUDINAL: VERSIONES 0-2 -->
+    <section class="slide" data-seccion="ejemplo-longitudinal">
+      <div class="slide-inner">
+        <h2>El ejemplo longitudinal: primera parte</h2>
+        <p>No cambiaré constantemente de ejemplo. Tomaré uno que <strong>evoluciona</strong>.</p>
+        <div class="version-ejemplo v0 visible">
+          <div class="version-num">Versión 0</div>
+          <div class="version-texto">
+            <h4>Salud mental</h4>
+            <p>Demasiado amplio.</p>
+          </div>
+        </div>
+        <div class="version-ejemplo v1 visible">
+          <div class="version-num">Versión 1</div>
+          <div class="version-texto">
+            <h4>Ansiedad en universitarios</h4>
+            <p>Tema.</p>
+          </div>
+        </div>
+        <div class="version-ejemplo v2 visible">
+          <div class="version-num">Versión 2</div>
+          <div class="version-texto">
+            <h4>Ansiedad y redes sociales en universitarios</h4>
+            <p>Dos fenómenos. Todavía no sabemos qué problema queremos estudiar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21 EJEMPLO LONGITUDINAL: VERSIONES 3-4 -->
+    <section class="slide" data-seccion="ejemplo-longitudinal">
+      <div class="slide-inner">
+        <h2>El ejemplo longitudinal: segunda parte</h2>
+        <div class="version-ejemplo v3 visible">
+          <div class="version-num">Versión 3</div>
+          <div class="version-texto">
+            <h4>Relación entre uso de redes sociales y ansiedad en universitarios</h4>
+            <p>Ya aparece una relación, pero todavía necesitamos justificar por qué preguntarla.</p>
+          </div>
+        </div>
+        <div class="version-ejemplo v4 visible">
+          <div class="version-num">Versión 4</div>
+          <div class="version-texto">
+            <h4>Después de revisar la literatura…</h4>
+            <p>Existe abundante investigación sobre redes sociales y ansiedad, pero los resultados no son completamente consistentes y los estudios utilizan distintas formas de conceptualizar y medir el «uso de redes sociales».</p>
+          </div>
+        </div>
+        <div class="bloque dorado" style="margin-top:24px;">
+          <span class="etiqueta">Descubrimiento fundamental</span>
+          <p>La literatura no solamente responde preguntas. También <strong>mejora las preguntas que somos capaces de formular</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22 PREGUNTAS QUE ABRE LA VERSIÓN 4 -->
+    <section class="slide" data-seccion="ejemplo-longitudinal">
+      <div class="slide-inner">
+        <h2>Las preguntas que abre la Versión 4</h2>
+        <p>¿Estamos hablando de…?</p>
+        <ul>
+          <li>Tiempo de uso.</li>
+          <li>Uso problemático.</li>
+          <li>Uso activo y pasivo.</li>
+          <li>Plataformas específicas.</li>
+          <li>Comparación social.</li>
+          <li>Exposición nocturna.</li>
+        </ul>
+        <div class="bloque">
+          <span class="etiqueta">Lo que el estudiante descubre</span>
+          <p>La pregunta no apareció al principio. Apareció <strong>después de explorar la literatura</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23 EL DETECTIVE DE FALSOS VACÍOS -->
+    <section class="slide" data-seccion="detective">
+      <div class="slide-inner">
+        <h2>El detective de falsos vacíos</h2>
+        <p>Cuatro afirmaciones. ¿Cuáles justifican realmente una investigación?</p>
+        <div class="grid-detectives" id="grid-detectives"></div>
+        <button class="btn-animacion" data-anim="detectives">Mostrar casos ▶</button>
+      </div>
+    </section>
+
+    <!-- 24 ESCALA DE CALIDAD DE LA JUSTIFICACIÓN -->
+    <section class="slide" data-seccion="escala">
+      <div class="slide-inner">
+        <h2>Escala de calidad de la justificación</h2>
+        <p>De la justificación débil a la justificación fuerte:</p>
+        <div class="escala" id="escala-calidad"></div>
+        <button class="btn-animacion" data-anim="escala">Mostrar escala ▶</button>
+      </div>
+    </section>
+
+    <!-- 25 ESTRUCTURA DE RAZONAMIENTO RECURRENTE -->
+    <section class="slide" data-seccion="escala">
+      <div class="slide-inner">
+        <h2>La estructura de razonamiento del curso</h2>
+        <p class="pregunta-grande dorada" style="font-size:38px;">Lo conocido + lo incierto +<br>por qué importa + qué propongo</p>
+        <p style="text-align:center; font-size:24px; margin-top:24px;">No como plantilla mecánica de redacción, sino como <strong>estructura de razonamiento</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 26 PREGUNTA AMPLIA VS PREGUNTA DELIMITADA -->
+    <section class="slide" data-seccion="pregunta">
+      <div class="slide-inner">
+        <h2>De la pregunta amplia a la pregunta delimitada</h2>
+        <p>Una pregunta de investigación <strong>introduce decisiones</strong>.</p>
+        <div class="comparativa">
+          <div class="lado visible">
+            <h4>Pregunta amplia</h4>
+            <p style="font-size:21px; line-height:1.55; font-style:italic;">«¿Cómo afectan las redes sociales a las personas?»</p>
+          </div>
+          <div class="lado visible">
+            <h4>Pregunta delimitada</h4>
+            <p style="font-size:21px; line-height:1.55; font-style:italic;">«¿Qué relación existe entre X e Y en Z?»</p>
+          </div>
+        </div>
+        <p>No hay una única fórmula. Hay <strong>familias de preguntas</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 27 CUATRO FAMILIAS DE PREGUNTAS -->
+    <section class="slide" data-seccion="pregunta">
+      <div class="slide-inner">
+        <h2>Cuatro familias de preguntas</h2>
+        <div class="grid-familias" id="grid-familias"></div>
+        <button class="btn-animacion" data-anim="familias">Mostrar familias ▶</button>
+      </div>
+    </section>
+
+    <!-- 28 CADA FAMILIA PRODUCE UN TIPO DE CONOCIMIENTO -->
+    <section class="slide" data-seccion="pregunta">
+      <div class="slide-inner">
+        <h2>Cada familia produce un tipo de conocimiento</h2>
+        <p class="pregunta">¿Son estas cuatro maneras diferentes de redactar la misma investigación?</p>
+        <p class="pregunta-grande dorada" style="font-size:40px;">No.</p>
+        <p>Son <strong>cuatro formas diferentes de querer conocer</strong>.</p>
+        <div class="bloque dorado" style="margin-top:24px;">
+          <span class="etiqueta">Anticipación de la Clase 5</span>
+          <p>La pregunta que hagamos determinará qué evidencia necesitamos, y la evidencia necesaria condicionará nuestras decisiones metodológicas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 29 LA DELIMITACIÓN COMO RENUNCIA CONSCIENTE -->
+    <section class="slide" data-seccion="delimitacion">
+      <div class="slide-inner">
+        <h2>La delimitación como renuncia consciente</h2>
+        <p>Formular un buen proyecto también significa <strong>decidir qué NO voy a investigar</strong>.</p>
+        <div class="grid-delimitacion" id="grid-delimitacion"></div>
+        <button class="btn-animacion" data-anim="delimitacion">Mostrar dimensiones ▶</button>
+      </div>
+    </section>
+
+    <!-- 30 DELIMITACIÓN: POR QUÉ IMPORTA -->
+    <section class="slide" data-seccion="delimitacion">
+      <div class="slide-inner">
+        <h2>Por qué la delimitación es fundamental</h2>
+        <div class="bloque dorado">
+          <span class="etiqueta">Idea central</span>
+          <p>La delimitación no hace menos interesante un proyecto.</p>
+        </div>
+        <p class="pregunta-grande" style="font-size:38px;">Lo convierte en realizable<br>y epistemológicamente más preciso.</p>
+      </div>
+    </section>
+
+    <!-- 31 EL EJEMPLO FINAL COMPLETO -->
+    <section class="slide" data-seccion="ejemplo-final">
+      <div class="slide-inner">
+        <h2>El ejemplo final completo</h2>
+        <div class="version-ejemplo v0 visible"><div class="version-num">Interés</div><div class="version-texto"><p>Salud mental de estudiantes universitarios.</p></div></div>
+        <div class="version-ejemplo v1 visible"><div class="version-num">Tema</div><div class="version-texto"><p>Ansiedad en universitarios.</p></div></div>
+        <div class="version-ejemplo v2 visible"><div class="version-num">Tema delimitado</div><div class="version-texto"><p>Uso de redes sociales y ansiedad.</p></div></div>
+        <div class="version-ejemplo v3 visible"><div class="version-num">Exploración</div><div class="version-texto"><p>¿Qué se ha investigado realmente?</p></div></div>
+        <div class="version-ejemplo v3 visible"><div class="version-num">Hallazgo</div><div class="version-texto"><p>Investigación abundante, pero los estudios difieren en cómo conceptualizan el uso de redes sociales y en los resultados encontrados.</p></div></div>
+        <div class="version-ejemplo v4 visible"><div class="version-num">Incertidumbre</div><div class="version-texto"><p>¿Qué dimensiones específicas del uso podrían relacionarse de manera diferente con la ansiedad?</p></div></div>
+        <div class="version-ejemplo v4 visible"><div class="version-num">Problema</div><div class="version-texto"><p>La categoría general «uso de redes sociales» puede estar ocultando patrones diferentes de asociación.</p></div></div>
+        <div class="version-ejemplo v4 visible"><div class="version-num">Pregunta</div><div class="version-texto"><p>Ahora podemos construir una pregunta acorde con ese problema.</p></div></div>
+        <div class="bloque dorado" style="margin-top:24px;">
+          <span class="etiqueta">Frase clave de la sesión</span>
+          <p>Observe que <strong>la pregunta apareció al final, no al principio</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 32 CIERRE: VUELTA A LA PREGUNTA INICIAL -->
+    <section class="slide" data-seccion="cierre">
+      <div class="slide-inner">
+        <h2>Cierre: volvamos al inicio</h2>
+        <p class="pregunta-grande" style="font-size:42px;">QUIERO INVESTIGAR<br>LA ANSIEDAD EN UNIVERSITARIOS</p>
+        <p class="pregunta-grande dorada" style="font-size:38px; margin-top:30px;">¿Tengo ya un problema de investigación?</p>
+        <p style="text-align:center; font-size:30px; margin-top:24px; font-weight:700; color:var(--azul-oscuro);">No. Tengo un punto de partida.</p>
+      </div>
+    </section>
+
+    <!-- 33 EL RECORRIDO PARA TENER UN PROBLEMA -->
+    <section class="slide" data-seccion="cierre">
+      <div class="slide-inner">
+        <h2>Para tener un problema necesito avanzar hacia…</h2>
+        <div class="cadena" id="cadena-cierre"></div>
+        <button class="btn-animacion" data-anim="cadena-cierre">Construir recorrido ▶</button>
+      </div>
+    </section>
+
+    <!-- 34 FRASE FINAL -->
+    <section class="slide" data-seccion="cierre">
+      <div class="slide-inner">
+        <p class="pregunta-grande dorada" style="font-size:40px; margin-top:80px;">La calidad de un proyecto<br>no empieza por la sofisticación del método.</p>
+        <p class="pregunta-grande" style="font-size:44px; margin-top:40px;">Empieza por la calidad<br>del problema que hemos construido.</p>
+      </div>
+    </section>
+
+    <!-- 35 PUENTE HACIA LA CLASE 2 -->
+    <section class="slide" data-seccion="puente">
+      <div class="slide-inner">
+        <h2>Puente hacia la Clase 2</h2>
+        <p>Hoy hemos dicho varias veces: debemos saber qué se conoce, qué no se conoce y dónde están las contradicciones.</p>
+        <p>Pero queda un problema:</p>
+        <div class="pregunta">¿Cómo podemos afirmar honestamente que sabemos qué dice la literatura?</div>
+        <div class="pregunta">¿Basta con buscar algunos artículos en Google Scholar?</div>
+        <div class="pregunta">¿Cuántos artículos necesitamos? ¿Cómo los seleccionamos?</div>
+        <div class="pregunta">¿Podemos escoger únicamente aquellos que coinciden con nuestra idea?</div>
+        <div class="bloque dorado" style="margin-top:26px;">
+          <span class="etiqueta">Anticipación</span>
+          <p>Ese es justamente el problema de nuestra siguiente clase: <strong>cómo revisar literatura científicamente</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 36 FICHA DE FORMULACIÓN INICIAL -->
+    <section class="slide" data-seccion="ficha">
+      <div class="slide-inner">
+        <h2>Ficha de formulación inicial</h2>
+        <p>Un único ejercicio posterior, muy breve. No es definitivo.</p>
+        <div class="ficha" id="ficha-formulacion"></div>
+        <div class="ficha-advertencia">
+          <strong>Advertencia:</strong> esta pregunta no es definitiva. Su trabajo durante las próximas clases consistirá, entre otras cosas, en intentar demostrar que su propia pregunta merece existir.
+        </div>
+      </div>
+    </section>
+
+    <!-- 37 SÍNTESIS -->
+    <section class="slide" data-seccion="sintesis">
+      <div class="slide-inner">
+        <h2>Síntesis: conceptos clave</h2>
+        <div class="conclusiones" id="lista-sintesis"></div>
+        <button class="btn-animacion" data-anim="sintesis">Mostrar síntesis ▶</button>
+      </div>
+    </section>
+
+    <!-- 38 CONCLUSIONES -->
+    <section class="slide" data-seccion="conclusiones">
+      <div class="slide-inner">
+        <h2>Conclusiones</h2>
+        <div class="conclusiones" id="lista-conclusiones"></div>
+        <button class="btn-animacion" data-anim="conclusiones">Mostrar conclusiones ▶</button>
+      </div>
+    </section>
+
+    <!-- 39 REFERENCIAS -->
+    <section class="slide" data-seccion="referencias">
+      <div class="slide-inner">
+        <h2>Referencias</h2>
+        <div class="refs" id="lista-referencias"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="nav-inferior">
+    <button class="btn-nav" id="btn-anterior" disabled>← Anterior</button>
+    <div id="indicador-progreso">
+      <span id="num-diapositiva">1 / 40</span>
+      <div id="barra-progreso"><div class="relleno" id="relleno-progreso"></div></div>
+    </div>
+    <button class="btn-nav" id="btn-siguiente">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATOS DE SECCIONES
+   ============================================================ */
+var secciones = [
+  { id: 'portada', nombre: 'Portada', icono: '◆' },
+  { id: 'resultados', nombre: 'Resultado de aprendizaje', icono: '★' },
+  { id: 'indice', nombre: 'Recorrido de la clase', icono: '☰' },
+  { id: 'provocacion', nombre: 'Provocación inicial', icono: '1' },
+  { id: 'tema-problema', nombre: 'Tema ≠ problema', icono: '2' },
+  { id: 'vacio', nombre: '¿Qué es un vacío?', icono: '3' },
+  { id: 'tipos-vacio', nombre: 'Seis tipos de vacío', icono: '4' },
+  { id: 'ejemplo-longitudinal', nombre: 'Ejemplo longitudinal', icono: '5' },
+  { id: 'detective', nombre: 'Detective de falsos vacíos', icono: '6' },
+  { id: 'escala', nombre: 'Escala de justificación', icono: '7' },
+  { id: 'pregunta', nombre: 'De la pregunta alimitada', icono: '8' },
+  { id: 'delimitacion', nombre: 'Delimitación', icono: '9' },
+  { id: 'ejemplo-final', nombre: 'Ejemplo final completo', icono: '10' },
+  { id: 'cierre', nombre: 'Cierre', icono: '11' },
+  { id: 'puente', nombre: 'Puente a la Clase 2', icono: '12' },
+  { id: 'ficha', nombre: 'Ficha de formulación', icono: '13' },
+  { id: 'sintesis', nombre: 'Síntesis', icono: '14' },
+  { id: 'conclusiones', nombre: 'Conclusiones', icono: '✓' },
+  { id: 'referencias', nombre: 'Referencias', icono: '15' }
+];
+
+var indiceActual = 0;
+var slides = [];
+var seccionesMap = {};
+var animaciones = {};
+
+/* ============================================================
+   INICIALIZACIÓN
+   ============================================================ */
+window.addEventListener('load', function() {
+  slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  construirNavegacion();
+  construirIndice();
+  construirResultados();
+  construirTarjetasPrueba();
+  construirTarjetasEscenarios();
+  construirTarjetasTiposVacio();
+  construirDetectives();
+  construirEscalaCalidad();
+  construirFamiliasPreguntas();
+  construirDelimitacion();
+  construirCadenaCierre();
+  construirFicha();
+  construirSintesis();
+  construirConclusiones();
+  construirReferencias();
+  configurarEventos();
+  configurarBotonesAnimacion();
+  actualizarSlide(0, true);
+});
+
+/* ============================================================
+   NAVEGACIÓN LATERAL
+   ============================================================ */
+function construirNavegacion() {
+  var nav = document.getElementById('nav-secciones');
+  secciones.forEach(function(sec) {
+    var a = document.createElement('a');
+    a.href = '#';
+    a.innerHTML = '<span class="num">' + sec.icono + '</span>' + sec.nombre;
+    a.dataset.seccion = sec.id;
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      irASeccion(sec.id);
+    });
+    nav.appendChild(a);
+  });
+
+  secciones.forEach(function(sec) { seccionesMap[sec.id] = []; });
+  slides.forEach(function(slide, i) {
+    var sec = slide.dataset.seccion;
+    if (seccionesMap[sec]) seccionesMap[sec].push(i);
+  });
+}
+
+function irASeccion(secId) {
+  var indices = seccionesMap[secId];
+  if (indices && indices.length > 0) actualizarSlide(indices[0]);
+}
+
+function actualizarNavActiva() {
+  var secActual = slides[indiceActual].dataset.seccion;
+  var enlaces = document.querySelectorAll('#nav-secciones a');
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].classList.toggle('activa', enlaces[i].dataset.seccion === secActual);
+  }
+}
+
+/* ============================================================
+   CONSTRUCCIÓN DE CONTENIDO
+   ============================================================ */
+function construirIndice() {
+  var grid = document.getElementById('grid-indice');
+  var items = [
+    { num: '1', texto: 'Provocación inicial' },
+    { num: '2', texto: 'Tema ≠ problema' },
+    { num: '3', texto: 'Anatomía del problema' },
+    { num: '4', texto: 'El papel de la literatura' },
+    { num: '5', texto: 'El problema de los "vacíos"' },
+    { num: '6', texto: 'Delimitar y preguntar' }
+  ];
+  items.forEach(function(item, i) {
+    var div = document.createElement('div');
+    div.className = 'item-indice';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="num-indice">' + item.num + '</div><span>' + item.texto + '</span>';
+    grid.appendChild(div);
+  });
+}
+
+function construirResultados() {
+  var contenedor = document.getElementById('lista-resultados');
+  var resultados = [
+    { titulo: 'Distinguir los niveles', desc: 'Diferenciar un tema de investigación, una situación problemática, un problema de conocimiento, un vacío en la literatura y una pregunta de investigación.' },
+    { titulo: 'Reconocer la articulación', desc: 'Comprender cómo estos elementos se articulan progresivamente en la formulación de un proyecto psicológico.' }
+  ];
+  resultados.forEach(function(r, i) {
+    var div = document.createElement('div');
+    div.className = 'resultado';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="num-resultado">' + (i + 1) + '</div>' +
+      '<div class="texto-resultado"><h4>' + r.titulo + '</h4><p>' + r.desc + '</p></div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirTarjetasPrueba() {
+  var contenedor = document.getElementById('tarjetas-prueba');
+  var ejemplos = [
+    { tema: 'Discriminación racial y autoestima', pregunta: '¿Y qué relación entre ambas?' },
+    { tema: 'Redes sociales y salud mental', pregunta: '¿En quiénes? ¿Qué aspecto? ¿Qué uso?' },
+    { tema: 'Inteligencia artificial y aprendizaje', pregunta: '¿Aprendizaje de qué? ¿Comparado con qué?' }
+  ];
+  ejemplos.forEach(function(e, i) {
+    var div = document.createElement('div');
+    div.className = 'tarjeta';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + e.tema + '</h4><p style="font-style:italic; color:var(--azul-acento); font-weight:600;">' + e.pregunta + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirTarjetasEscenarios() {
+  var contenedor = document.getElementById('tarjetas-escenarios');
+  var escenarios = [
+    { titulo: 'Escenario A', desc: 'Muchos estudiantes universitarios experimentan ansiedad. Tenemos una situación problemática.' },
+    { titulo: 'Escenario B', desc: 'No sabemos si determinados patrones de uso de redes sociales están asociados con síntomas de ansiedad en determinada población. Tenemos una incertidumbre empírica.' },
+    { titulo: 'Escenario C', desc: 'Los estudios disponibles encuentran resultados contradictorios sobre esa asociación. Tenemos otro tipo de problema de conocimiento.' }
+  ];
+  escenarios.forEach(function(e, i) {
+    var div = document.createElement('div');
+    div.className = 'tarjeta';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + e.titulo + '</h4><p>' + e.desc + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirTarjetasTiposVacio() {
+  var contenedor = document.getElementById('tarjetas-tipos-vacio');
+  var tipos = [
+    'Vacío empírico',
+    'Resultados inconsistentes',
+    'Vacío metodológico',
+    'Vacío poblacional o contextual',
+    'Vacío teórico',
+    'Vacío de integración'
+  ];
+  tipos.forEach(function(t, i) {
+    var div = document.createElement('div');
+    div.className = 'tarjeta';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + (i + 1) + '. ' + t + '</h4>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirDetectives() {
+  var contenedor = document.getElementById('grid-detectives');
+  var casos = [
+    { alerta: 'Alerta máxima', tipo: 'alta', titulo: '«No existen estudios sobre este tema.»', desc: '¿Cómo lo sabemos? ¿Qué bases consultamos? ¿Qué términos? ¿Qué idiomas? ¿Qué periodo?' },
+    { alerta: 'Todavía insuficiente', tipo: 'media', titulo: '«Existe poca investigación en Colombia.»', desc: '¿Por qué debería ser relevante estudiarlo específicamente aquí?' },
+    { alerta: 'Potencialmente interesante', tipo: 'media', titulo: '«Los estudios revisados presentan resultados contradictorios.»', desc: 'Ahora debemos saber si la contradicción es real y qué podría explicarla.' },
+    { alerta: 'Mucho más fuerte', tipo: 'baja', titulo: '«Los estudios disponibles se han concentrado en asociaciones transversales, por lo que sabemos menos sobre la dirección temporal.»', desc: 'Aquí la limitación metodológica conduce a una incertidumbre concreta.' }
+  ];
+  casos.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'caso-detectives alerta-' + c.tipo;
+    div.dataset.animIndex = i;
+    div.innerHTML = '<span class="alerta">' + c.alerta + '</span><h4>' + c.titulo + '</h4><p>' + c.desc + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirEscalaCalidad() {
+  var contenedor = document.getElementById('escala-calidad');
+  var niveles = [
+    { marca: 'Débil', tipo: 'debil', texto: '«Este tema es muy importante actualmente.»' },
+    { marca: 'Débil', tipo: 'debil', texto: '«Existen pocos estudios.»' },
+    { marca: 'Débil', tipo: 'debil', texto: '«No se ha estudiado en nuestra universidad.»' },
+    { marca: 'Medio', tipo: 'medio', texto: '«Los estudios presentan limitaciones metodológicas.»' },
+    { marca: 'Medio', tipo: 'medio', texto: '«La evidencia disponible no permite establecer con claridad X debido a Y.»' },
+    { marca: 'Fuerte', tipo: 'fuerte', texto: '«La literatura disponible permite sostener A, pero todavía no permite resolver B, debido a C. Por ello resulta pertinente investigar D.»' }
+  ];
+  niveles.forEach(function(n, i) {
+    var div = document.createElement('div');
+    div.className = 'nivel-escala ' + n.tipo;
+    div.dataset.animIndex = i;
+    div.innerHTML = '<span class="nivel-marca">' + n.marca + '</span><p>' + n.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirFamiliasPreguntas() {
+  var contenedor = document.getElementById('grid-familias');
+  var familias = [
+    { tipo: 'Descriptiva', pregunta: '«¿Cuáles son las características de X en determinada población?»', produce: 'Produce un determinado tipo de conocimiento.' },
+    { tipo: 'Relacional', pregunta: '«¿Qué relación existe entre X e Y?»', produce: 'Produce otro tipo de conocimiento.' },
+    { tipo: 'Comparativa', pregunta: '«¿Existen diferencias en X entre A y B?»', produce: 'Compara grupos o condiciones.' },
+    { tipo: 'Interpretativa', pregunta: '«¿Cómo experimentan o significan X determinados participantes?»', produce: 'Accede al significado desde la perspectiva de los participantes.' }
+  ];
+  familias.forEach(function(f, i) {
+    var div = document.createElement('div');
+    div.className = 'familia-pregunta';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<span class="tipo">' + f.tipo + '</span>' +
+      '<div class="pregunta-modelo">' + f.pregunta + '</div>' +
+      '<p>' + f.produce + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirDelimitacion() {
+  var contenedor = document.getElementById('grid-delimitacion');
+  var dimensiones = [
+    { titulo: '¿QUÉ?', desc: 'Fenómeno o constructo.' },
+    { titulo: '¿QUIÉNES?', desc: 'Población.' },
+    { titulo: '¿DÓNDE?', desc: 'Contexto.' },
+    { titulo: '¿CUÁNDO?', desc: 'Marco temporal, si es relevante.' },
+    { titulo: '¿DESDE QUÉ ÁNGULO?', desc: 'Relación, experiencia, mecanismo, comparación, significado…' }
+  ];
+  dimensiones.forEach(function(d, i) {
+    var div = document.createElement('div');
+    div.className = 'dimension';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + d.titulo + '</h4><p>' + d.desc + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirCadenaCierre() {
+  var contenedor = document.getElementById('cadena-cierre');
+  var pasos = [
+    '¿Qué ocurre?',
+    '¿Qué sabemos sobre ello?',
+    '¿Cómo llegamos a saberlo?',
+    '¿Qué permanece incierto?',
+    '¿Por qué esa incertidumbre importa?',
+    '¿Qué pregunta permitiría reducirla?'
+  ];
+  pasos.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'eslabon' + (i === pasos.length - 1 ? ' final' : '');
+    div.dataset.animIndex = i;
+    div.textContent = p;
+    contenedor.appendChild(div);
+    if (i < pasos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirFicha() {
+  var contenedor = document.getElementById('ficha-formulacion');
+  var items = [
+    { num: '1', titulo: 'Mi interés', texto: 'Una frase.' },
+    { num: '2', titulo: 'Mi tema', texto: 'Máximo 15 palabras.' },
+    { num: '3', titulo: '¿Qué situación me resulta problemática?', texto: '100 palabras.' },
+    { num: '4', titulo: '¿Qué creo que ya sabemos?', texto: 'Máximo tres afirmaciones.' },
+    { num: '5', titulo: '¿Qué creo que todavía no sabemos?', texto: 'Máximo tres afirmaciones.' },
+    { num: '6', titulo: '¿Qué evidencia tengo para decir que no lo sabemos?', texto: 'Puede responder: «Todavía no tengo evidencia suficiente.» Esa respuesta también es válida.' },
+    { num: '7', titulo: 'Mi problema preliminar', texto: '150 palabras.' },
+    { num: '8', titulo: 'Mi pregunta provisional', texto: 'Una pregunta.' }
+  ];
+  items.forEach(function(item) {
+    var div = document.createElement('div');
+    div.className = 'ficha-item';
+    div.innerHTML = '<div class="ficha-num">' + item.num + '. ' + item.titulo + '</div><div class="ficha-texto">' + item.texto + '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirSintesis() {
+  var contenedor = document.getElementById('lista-sintesis');
+  var sintesis = [
+    { icono: '◆', texto: 'Un <strong>tema</strong> no es todavía un <strong>problema de investigación</strong>.' },
+    { icono: '◆', texto: 'Un problema de investigación no aparece simplemente porque formulemos una pregunta.' },
+    { icono: '◆', texto: 'La distinción clave es entre <strong>problema práctico</strong> y <strong>problema de conocimiento</strong>.' },
+    { icono: '◆', texto: '<strong>Ausencia de estudios</strong> no es lo mismo que <strong>vacío de conocimiento relevante</strong>. El vacío necesita importancia.' },
+    { icono: '◆', texto: 'Hay <strong>seis tipos de vacío</strong>: empírico, de inconsistencia, metodológico, poblacional, teórico y de integración.' },
+    { icono: '◆', texto: 'La <strong>literatura no solo responde preguntas</strong>: también mejora las preguntas que somos capaces de formular.' },
+    { icono: '◆', texto: 'La estructura de razonamiento del curso es: <strong>lo conocido + lo incierto + por qué importa + qué propongo</strong>.' }
+  ];
+  sintesis.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'conclusion';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="icono-conclusion">' + c.icono + '</div><p>' + c.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirConclusiones() {
+  var contenedor = document.getElementById('lista-conclusiones');
+  var conclusiones = [
+    { icono: '◆', texto: 'La <strong>calidad de un proyecto</strong> no empieza por la sofisticación del método, sino por la <strong>calidad del problema</strong> que hemos construido.' },
+    { icono: '◆', texto: 'La <strong>pregunta de investigación aparece al final</strong> del proceso de problematización, no al principio.' },
+    { icono: '◆', texto: 'La <strong>delimitación</strong> es una renuncia consciente: formular un buen proyecto implica decidir qué <strong>no</strong> se va a investigar.' },
+    { icono: '◆', texto: 'La <strong>revisión de literatura</strong> es indispensable para demostrar que existe un problema de conocimiento, pero todavía no hemos aprendido a hacerla.' },
+    { icono: '◆', texto: 'La <strong>Clase 2</strong> responderá a la pregunta: ¿cómo revisar literatura científicamente?' }
+  ];
+  conclusiones.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'conclusion';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="icono-conclusion">' + c.icono + '</div><p>' + c.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirReferencias() {
+  var contenedor = document.getElementById('lista-referencias');
+  var refs = [
+    'American Psychological Association. (2020). Publication manual of the American Psychological Association (7.ª ed.). https://doi.org/10.1037/0000165-000',
+    'Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., & FitzGerald, W. T. (2016). The craft of research (4.ª ed.). University of Chicago Press.',
+    'Creswell, J. W., & Creswell, J. D. (2018). Research design: Qualitative, quantitative, and mixed methods approaches (5.ª ed.). SAGE.',
+    'Grant, M. J., & Booth, A. (2009). A typology of reviews: An analysis of 14 review types and associated methodologies. Health Information & Libraries Journal, 26(2), 91-108.',
+    'Hart, C. (1998). Doing a literature review: Releasing the social science research imagination. SAGE.',
+    'Maxwell, J. A. (2013). Qualitative research design: An interactive approach (3.ª ed.). SAGE.',
+    'Snyder, H. (2019). Literature review as a research methodology: An overview and guidelines. Journal of Business Research, 104, 333-339.'
+  ];
+  refs.forEach(function(r) {
+    var p = document.createElement('p');
+    p.textContent = r;
+    contenedor.appendChild(p);
+  });
+}
+
+/* ============================================================
+   BOTONES DE ANIMACIÓN
+   ============================================================ */
+function configurarBotonesAnimacion() {
+  var botones = document.querySelectorAll('.btn-animacion[data-anim]');
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].addEventListener('click', function() {
+      var tipo = this.dataset.anim;
+      ejecutarAnimacion(tipo, this);
+    });
+  }
+}
+
+function ejecutarAnimacion(tipo, boton) {
+  if (!animaciones[tipo]) animaciones[tipo] = 0;
+  var elementos, maximo;
+
+  switch(tipo) {
+    case 'resultados':
+      elementos = document.querySelectorAll('#lista-resultados .resultado');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Resultado completo ✓';
+      }
+      break;
+
+    case 'indice':
+      elementos = document.querySelectorAll('#grid-indice .item-indice');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Recorrido completo ✓';
+      }
+      break;
+
+    case 'provocacion':
+      var pGrande = document.getElementById('provocacion-texto');
+      pGrande.classList.add('dorada');
+      boton.disabled = true;
+      boton.textContent = 'Continuar ▶';
+      break;
+
+    case 'tarjetas-prueba':
+      elementos = document.querySelectorAll('#tarjetas-prueba .tarjeta');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Ejemplos completos ✓';
+      }
+      break;
+
+    case 'tarjetas-escenarios':
+      elementos = document.querySelectorAll('#tarjetas-escenarios .tarjeta');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Escenarios completos ✓';
+      }
+      break;
+
+    case 'tarjetas-tipos-vacio':
+      elementos = document.querySelectorAll('#tarjetas-tipos-vacio .tarjeta');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Tipología completa ✓';
+      }
+      break;
+
+    case 'detectives':
+      elementos = document.querySelectorAll('#grid-detectives .caso-detectives');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Casos completos ✓';
+      }
+      break;
+
+    case 'escala':
+      elementos = document.querySelectorAll('#escala-calidad .nivel-escala');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Escala completa ✓';
+      }
+      break;
+
+    case 'familias':
+      elementos = document.querySelectorAll('#grid-familias .familia-pregunta');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Familias completas ✓';
+      }
+      break;
+
+    case 'delimitacion':
+      elementos = document.querySelectorAll('#grid-delimitacion .dimension');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Dimensiones completas ✓';
+      }
+      break;
+
+    case 'cadena-cierre':
+      var eslabones = document.querySelectorAll('#cadena-cierre .eslabon');
+      var flechas = document.querySelectorAll('#cadena-cierre .flecha-cadena');
+      maximo = eslabones.length + flechas.length;
+      if (animaciones[tipo] < maximo) {
+        var idx = animaciones[tipo];
+        if (idx < eslabones.length) {
+          eslabones[idx].classList.add('visible');
+        } else {
+          flechas[idx - eslabones.length].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Recorrido completo ✓';
+      }
+      break;
+
+    case 'sintesis':
+      elementos = document.querySelectorAll('#lista-sintesis .conclusion');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Síntesis completa ✓';
+      }
+      break;
+
+    case 'conclusiones':
+      elementos = document.querySelectorAll('#lista-conclusiones .conclusion');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Conclusiones completas ✓';
+      }
+      break;
+  }
+}
+
+/* ============================================================
+   RESETEO DE ANIMACIONES AL CAMBIAR DE DIAPOSITIVA
+   ============================================================ */
+function resetearAnimacionesSlide(slide) {
+  var elementos = slide.querySelectorAll('.resultado, .tarjeta, .item-indice, .caso-detectives, .nivel-escala, .familia-pregunta, .dimension, .eslabon, .flecha-cadena, .conclusion, .version-ejemplo');
+  for (var i = 0; i < elementos.length; i++) {
+    elementos[i].classList.remove('visible');
+  }
+
+  var botones = slide.querySelectorAll('.btn-animacion[data-anim]');
+  for (var j = 0; j < botones.length; j++) {
+    botones[j].disabled = false;
+    var tipo = botones[j].dataset.anim;
+    if (tipo === 'resultados') botones[j].textContent = 'Mostrar resultado ▶';
+    else if (tipo === 'indice') botones[j].textContent = 'Mostrar recorrido ▶';
+    else if (tipo === 'provocacion') botones[j].textContent = 'Ver pregunta ▶';
+    else if (tipo === 'tarjetas-prueba') botones[j].textContent = 'Mostrar ejemplos ▶';
+    else if (tipo === 'tarjetas-escenarios') botones[j].textContent = 'Mostrar escenarios ▶';
+    else if (tipo === 'tarjetas-tipos-vacio') botones[j].textContent = 'Mostrar tipología ▶';
+    else if (tipo === 'detectives') botones[j].textContent = 'Mostrar casos ▶';
+    else if (tipo === 'escala') botones[j].textContent = 'Mostrar escala ▶';
+    else if (tipo === 'familias') botones[j].textContent = 'Mostrar familias ▶';
+    else if (tipo === 'delimitacion') botones[j].textContent = 'Mostrar dimensiones ▶';
+    else if (tipo === 'cadena-cierre') botones[j].textContent = 'Construir recorrido ▶';
+    else if (tipo === 'sintesis') botones[j].textContent = 'Mostrar síntesis ▶';
+    else if (tipo === 'conclusiones') botones[j].textContent = 'Mostrar conclusiones ▶';
+  }
+}
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+function configurarEventos() {
+  document.getElementById('btn-anterior').addEventListener('click', function() {
+    if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+  });
+  document.getElementById('btn-siguiente').addEventListener('click', function() {
+    if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+  });
+  document.getElementById('toggle-sidebar').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('colapsada');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+    }
+  });
+}
+
+/* ============================================================
+   CAMBIO DE DIAPOSITIVA
+   ============================================================ */
+function actualizarSlide(nuevoIndice, forzar) {
+  if (!forzar && nuevoIndice === indiceActual) return;
+  if (nuevoIndice < 0 || nuevoIndice >= slides.length) return;
+
+  if (slides[indiceActual]) {
+    resetearAnimacionesSlide(slides[indiceActual]);
+  }
+
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.remove('activa');
+  }
+  slides[nuevoIndice].classList.add('activa');
+  slides[nuevoIndice].scrollTop = 0;
+  indiceActual = nuevoIndice;
+
+  animaciones = {};
+
+  actualizarNavActiva();
+  document.getElementById('num-diapositiva').textContent = (indiceActual + 1) + ' / ' + slides.length;
+  document.getElementById('relleno-progreso').style.width = ((indiceActual + 1) / slides.length * 100) + '%';
+  document.getElementById('btn-anterior').disabled = indiceActual === 0;
+  document.getElementById('btn-siguiente').disabled = indiceActual === slides.length - 1;
+}
+</script>
+</body>
+</html>
