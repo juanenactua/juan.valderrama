@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cómo sabemos qué sabemos? · Recurso educativo interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿Cómo sabemos qué sabemos? De la búsqueda de artículos a la revisión de literatura">
+<meta name="jc-descripcion" content="Recurso autónomo sobre búsqueda bibliográfica, revisión narrativa y sistemática, PRISMA, criterios de elegibilidad, síntesis de evidencia y trazabilidad, con actividades y autoevaluación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Revisión de literatura, Búsqueda bibliográfica, Revisión narrativa, Revisión sistemática, PRISMA, Criterios de elegibilidad, Síntesis de evidencia, Trazabilidad, Alfabetización científica, Metodología de investigación">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  /* ---- BARRA DE PROGRESO ---- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- NAV LATERAL ---- */
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 245px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1150px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  /* ---- MAIN ---- */
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1150px) {
+    main { margin-left: 265px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  /* ---- TARJETAS Y CALLOUTS ---- */
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  /* ---- ACORDEÓN ---- */
+  .accordion {
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-mid);
+  }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.05rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-main);
+    transition: background 0.2s;
+    font-family: var(--font);
+  }
+  .accordion-header:hover { background: var(--bg-soft); }
+  .accordion-header .icon {
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 1.3rem;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .accordion-content p { padding: 0.9rem 0; margin: 0; color: var(--text-soft); }
+  .accordion-item.active .accordion-content { max-height: 800px; padding: 0.2rem 1.3rem 1.1rem; }
+
+  /* ---- TARJETAS FLIP ---- */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 220px;
+    cursor: pointer;
+    outline: none;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: var(--radius);
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .flip-front {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+    background: var(--bg-mid);
+    box-shadow: var(--shadow);
+  }
+  .flip-front::after {
+    content: '↻ clic para girar';
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    font-weight: 400;
+  }
+  .flip-back {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    transform: rotateY(180deg);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flip-back small { display: block; margin-top: 0.6rem; font-size: 0.76rem; opacity: 0.85; }
+
+  /* ---- JERARQUÍA VISUAL ---- */
+  .hierarchy {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.3rem;
+    margin: 2rem 0;
+  }
+  .hierarchy-step {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1.6rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 200px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .hierarchy-step:hover {
+    border-color: var(--accent);
+    transform: scale(1.03);
+  }
+  .hierarchy-step.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.4);
+  }
+  .hierarchy-arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  /* ---- ESCENARIOS / SITUACIONES ---- */
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .scenario {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .scenario:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .scenario.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(240, 180, 41, 0.35);
+  }
+  .scenario .scenario-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .scenario .scenario-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+  .scenario .scenario-desc {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- COMPARADOR ---- */
+  .comparator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) { .comparator { grid-template-columns: 1fr; } }
+  .comparator-col {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.3s;
+  }
+  .comparator-col:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .comparator-col .col-title {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparator-col ul {
+    margin-left: 1.2rem;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+  }
+  .comparator-col li { margin-bottom: 0.4rem; }
+
+  /* ---- ANATOMÍA PASOS ---- */
+  .anatomy-step {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.8rem;
+    transition: all 0.3s;
+    border-left: 4px solid var(--accent);
+  }
+  .anatomy-step:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(240, 180, 41, 0.15);
+  }
+  .anatomy-step .step-num {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    height: fit-content;
+    flex-shrink: 0;
+    min-width: 40px;
+    text-align: center;
+  }
+  .anatomy-step .step-content { flex: 1; }
+  .anatomy-step .step-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+  }
+  .anatomy-step .step-desc {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- FLUJO DE SELECCIÓN ---- */
+  .flow-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .flow-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.92rem;
+    text-align: center;
+    min-width: 240px;
+  }
+  .flow-box.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .flow-arrow-down {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  /* ---- DESTACADOS ---- */
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  /* ---- DOS ESTUDIANTES ---- */
+  .two-students {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) { .two-students { grid-template-columns: 1fr; } }
+  .student-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.3s;
+  }
+  .student-card.a { border-left: 5px solid var(--error); }
+  .student-card.b { border-left: 5px solid var(--success); }
+  .student-card .student-name {
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+  .student-card .student-quote {
+    font-style: italic;
+    color: var(--text-main);
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+  }
+  .student-card .student-analysis {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- PREGUNTAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  /* ---- REFERENCIAS ---- */
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .scenarios { grid-template-columns: 1fr; }
+    .hierarchy-step { min-width: 100%; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .flip-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ---- ANIMACIONES ---- */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 24px rgba(240, 180, 41, 0.5); }
+  }
+  .pulse { animation: pulse 2s infinite; }
+
+  /* ---- TABLA COMPARATIVA ---- */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.92rem;
+  }
+  .compare-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.9rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .compare-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--bg-soft); }
+  .compare-table td:first-child { font-weight: 600; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">¿Cómo sabemos qué sabemos?</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta de aprendizaje</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#resultado">Resultado de aprendizaje</a></li>
+    <li><a href="#tesis">1. Tesis central</a></li>
+    <li><a href="#provocacion">2. Provocación: "los estudios demuestran"</a></li>
+    <li><a href="#experimento">3. Experimento mental</a></li>
+    <li><a href="#sesgo">4. El sesgo empieza antes</a></li>
+    <li><a href="#jerarquia">5. Buscar ≠ revisar</a></li>
+    <li><a href="#tres-actividades">6. Tres actividades confundidas</a></li>
+    <li><a href="#narrativa-sistematica">7. Narrativa vs. sistemática</a></li>
+    <li><a href="#anatomia">8. Anatomía de una revisión</a></li>
+    <li><a href="#seleccion">9. Flujo de selección</a></li>
+    <li><a href="#dos-estudiantes">10. Dos estudiantes</a></li>
+    <li><a href="#constructo">11. El problema del constructo</a></li>
+    <li><a href="#cierre">12. Cierre: trazabilidad</a></li>
+    <li><a href="#protocolo">Protocolo preliminar</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Recurso educativo interactivo · Revisión de literatura</span>
+    <h1>¿Cómo sabemos qué sabemos? De la búsqueda de artículos a la revisión de literatura</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Encontrar artículos no es lo mismo que revisar la literatura. Una revisión de literatura es una investigación
+      sobre investigaciones. Este recurso explora cómo se construye responsablemente el conocimiento sobre un problema
+      y por qué el procedimiento de búsqueda determina lo que podemos afirmar que sabemos.
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Tipo de recurso:</strong> Artefacto educativo interactivo de estudio autónomo</p>
+      <p><strong>Palabras clave:</strong> revisión de literatura, revisión narrativa, revisión sistemática, búsqueda bibliográfica, PRISMA, criterios de elegibilidad, síntesis de evidencia, trazabilidad</p>
+    </div>
+    <div class="callout">
+      <strong>Idea central:</strong> Encontrar artículos no es lo mismo que revisar la literatura. Y una revisión de
+      literatura es una investigación sobre investigaciones.
+    </div>
+    <div class="callout info">
+      <strong>Cómo recorrer este recurso:</strong> Avanza sección por sección. Encontrarás experimentos mentales,
+      comparadores interactivos, anatomía de una revisión, flujos de selección y preguntas abiertas y cerradas con
+      retroalimentación. Tu progreso se muestra en la barra superior.
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="resultado" class="reveal">
+    <h2>Resultado de aprendizaje</h2>
+    <p>Al finalizar este recurso, el estudiante debería poder:</p>
+    <div class="card">
+      <p><strong>Distinguir</strong> la búsqueda bibliográfica de la revisión de literatura, reconocer las diferencias
+      de propósito y procedimiento entre una revisión narrativa y una revisión sistemática, y comprender cómo una
+      pregunta de investigación puede transformarse en una estrategia razonada de búsqueda, selección y síntesis de evidencia.</p>
+    </div>
+    <div class="callout info">
+      <strong>Nota importante:</strong> Este recurso no pretende que realices autónomamente una revisión sistemática
+      completa. Eso requiere mucha más formación. El objetivo es comprender la lógica epistemológica que está detrás.
+    </div>
+  </section>
+
+  <!-- 1. TESIS -->
+  <section id="tesis" class="reveal">
+    <h2>1. La tesis central</h2>
+    <div class="highlight-box">
+      <p>ENCONTRAR ARTÍCULOS NO ES LO MISMO QUE REVISAR LA LITERATURA</p>
+    </div>
+    <div class="highlight-box" style="border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15);">
+      <p style="color: var(--success);">UNA REVISIÓN DE LITERATURA ES UNA INVESTIGACIÓN SOBRE INVESTIGACIONES</p>
+    </div>
+    <p>Esto enlaza con el problema anterior:</p>
+    <ul>
+      <li>¿Qué se sabe?</li>
+      <li>¿Qué no sabemos?</li>
+      <li>¿Hay resultados contradictorios?</li>
+      <li>¿Existe realmente el vacío que creo haber encontrado?</li>
+    </ul>
+    <p>Ahora aparece un problema nuevo:</p>
+    <div class="callout">
+      <strong>¿Cómo puedo responder esas preguntas sin seleccionar arbitrariamente algunos artículos?</strong>
+    </div>
+  </section>
+
+  <!-- 2. PROVOCACIÓN -->
+  <section id="provocacion" class="reveal">
+    <h2>2. Provocación inicial: "los estudios demuestran que..."</h2>
+
+    <div style="background: #060f1c; border: 2px solid var(--error); border-radius: var(--radius); padding: 2rem; text-align: center; margin: 1.5rem 0; box-shadow: 0 0 30px rgba(248, 113, 113, 0.15);">
+      <p style="font-size: 1.3rem; font-weight: 700; color: var(--error); letter-spacing: 0.02em; margin: 0;">
+        "LOS ESTUDIOS DEMUESTRAN QUE..."
+      </p>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Qué estudios? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>La frase presupone que existe un conjunto identificable de estudios. Pero no se especifica cuáles, cuántos, de qué tipo, en qué poblaciones ni con qué resultados.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Cómo los encontró? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>No se describe la estrategia de búsqueda: bases consultadas, términos usados, idiomas, periodos, filtros. Sin eso, no hay forma de reproducir ni evaluar la selección.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Por qué esos y no otros? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>No se explican los criterios de inclusión y exclusión. La selección puede haber sido arbitraria o sesgada hacia los resultados que confirman una idea previa.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">¿Qué tendría que hacer para afirmar que conoce lo que dice la literatura? <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Esta es la pregunta que guía todo el recurso. La respuesta exige un procedimiento explícito, reproducible y transparente.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. EXPERIMENTO MENTAL -->
+  <section id="experimento" class="reveal">
+    <h2>3. Un pequeño experimento mental</h2>
+    <p>Retomemos el ejemplo de redes sociales y ansiedad en universitarios.</p>
+
+    <div class="card">
+      <p>Supongamos que un estudiante encuentra <strong>cinco artículos</strong>:</p>
+      <ul>
+        <li>Cuatro encuentran asociación.</li>
+        <li>Uno no encuentra asociación.</li>
+      </ul>
+      <p>Entonces concluye:</p>
+      <p style="font-style: italic; color: var(--accent);">"La literatura demuestra que el uso de redes sociales se relaciona con la ansiedad."</p>
+    </div>
+
+    <p>Parece razonable. Pero ahora revelamos que existen <strong>otros 25 estudios</strong> que el estudiante no encontró. De esos:</p>
+
+    <div class="scenarios">
+      <div class="scenario">
+        <div class="scenario-label">Grupo 1</div>
+        <div class="scenario-desc">Algunos encuentran asociación.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Grupo 2</div>
+        <div class="scenario-desc">Otros encuentran asociaciones únicamente bajo determinadas condiciones.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Grupo 3</div>
+        <div class="scenario-desc">Otros no encuentran una relación relevante.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Grupo 4</div>
+        <div class="scenario-desc">Además, no todos definen "uso de redes sociales" de la misma forma.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>¿Cambió la realidad científica o cambió la literatura a la que tuvimos acceso?</strong><br>
+      La realidad no cambió. Cambió nuestra representación de la evidencia.
+    </div>
+
+    <div class="callout success">
+      <strong>Idea fundamental:</strong> La forma en que buscamos literatura afecta las conclusiones que podemos obtener de ella.
+    </div>
+
+    <!-- Pregunta cerrada 1 -->
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">En el experimento mental, ¿qué cambió cuando se revelaron los otros 25 estudios?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c1" value="a"> a) La realidad científica cambió.</label>
+        <label class="q-option"><input type="radio" name="c1" value="b"> b) Cambió nuestra representación de la evidencia disponible.</label>
+        <label class="q-option"><input type="radio" name="c1" value="c"> c) Los cinco estudios iniciales dejaron de ser válidos.</label>
+        <label class="q-option"><input type="radio" name="c1" value="d"> d) La ansiedad dejó de relacionarse con las redes sociales.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+  </section>
+
+  <!-- 4. SESGO -->
+  <section id="sesgo" class="reveal">
+    <h2>4. El sesgo empieza antes de leer el primer artículo</h2>
+
+    <div class="highlight-box" style="border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15);">
+      <p style="color: var(--error); font-size: 1.1rem;">UNA REVISIÓN PUEDE ESTAR SESGADA ANTES DE QUE HAYAMOS LEÍDO EL PRIMER ARTÍCULO</p>
+    </div>
+
+    <p>¿Por qué? Porque hemos tomado decisiones acerca de:</p>
+
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Dónde buscar">
+        <div class="flip-inner">
+          <div class="flip-front">¿Dónde buscar?</div>
+          <div class="flip-back">La elección de bases de datos determina qué literatura queda visible y qué literatura queda fuera. <small>PsycINFO, PubMed, Scopus, SciELO, Google Scholar no cubren lo mismo.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Qué palabras">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué palabras utilizar?</div>
+          <div class="flip-back">Los términos de búsqueda definen qué registros se recuperan. Un sinónimo omitido puede significar literatura relevante perdida.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Qué idiomas">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué idiomas considerar?</div>
+          <div class="flip-back">Limitar a un solo idioma sesga la evidencia hacia la producción de ciertos contextos. La psicología se publica en múltiples lenguas.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Qué años">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué años incluir?</div>
+          <div class="flip-back">Un corte temporal arbitrario puede excluir estudios fundacionales o incluir literatura obsoleta.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Qué tipos de estudios">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué tipos de estudios seleccionar?</div>
+          <div class="flip-back">Incluir solo ciertos diseños (transversales, experimentales, cualitativos) limita el tipo de conclusiones posibles.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Qué resultados">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué resultados nos parecen relevantes?</div>
+          <div class="flip-back">El sesgo de confirmación puede llevar a privilegiar estudios que coinciden con nuestra hipótesis previa.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Qué descartamos">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué descartamos?</div>
+          <div class="flip-back">Cada exclusión debe estar justificada por criterios previos, no por conveniencia posterior.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cuándo dejamos de buscar">
+        <div class="flip-inner">
+          <div class="flip-front">¿Cuándo dejamos de buscar?</div>
+          <div class="flip-back">La saturación es una decisión metodológica. Debe explicitarse cuándo y por qué se detuvo la búsqueda.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>La pregunta no es solamente:</strong> ¿Qué encontré?<br>
+      <strong>También debe ser:</strong> ¿Cómo llegué a encontrarlo?
+    </div>
+  </section>
+
+  <!-- 5. JERARQUÍA -->
+  <section id="jerarquia" class="reveal">
+    <h2>5. Buscar no es revisar</h2>
+    <p>Haz clic en cada paso de la jerarquía para ver su descripción.</p>
+
+    <div class="hierarchy" id="hierarchyInteractive">
+      <div class="hierarchy-step" data-desc="Localizar registros en bases de datos. Es el punto de partida, pero no constituye una revisión.">BUSCAR</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Obtener un conjunto de registros potencialmente relevantes. Aún no hay evaluación de calidad ni síntesis.">ENCONTRAR</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Aplicar criterios de inclusión y exclusión para determinar qué registros pasan a la siguiente fase.">SELECCIONAR</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Leer los estudios incluidos con atención a sus preguntas, métodos, resultados y limitaciones.">LEER</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Valorar la calidad metodológica y la relevancia de cada estudio para la pregunta de revisión.">EVALUAR</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Poner en relación los estudios entre sí: coincidencias, contradicciones, patrones, vacíos.">COMPARAR</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Construir una síntesis organizada que vaya más allá de la suma de resúmenes individuales.">INTEGRAR</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" data-desc="Producir una interpretación fundamentada del estado del conocimiento y sus implicaciones.">INTERPRETAR</div>
+    </div>
+
+    <div id="hierarchyDescription" class="card" style="min-height: 80px;">
+      <p style="color: var(--text-soft); font-style: italic;">Haz clic en un paso para ver su descripción.</p>
+    </div>
+
+    <div class="callout success">
+      <strong>Idea clave:</strong> La búsqueda es solamente una etapa de la revisión. La revisión ocurre realmente
+      cuando podemos transformar múltiples investigaciones en una comprensión organizada de un problema.
+    </div>
+  </section>
+
+  <!-- 6. TRES ACTIVIDADES -->
+  <section id="tres-actividades" class="reveal">
+    <h2>6. Tres actividades que suelen confundirse</h2>
+
+    <div class="scenarios">
+      <div class="scenario">
+        <div class="scenario-label">Situación 1</div>
+        <div class="scenario-title">Búsqueda bibliográfica</div>
+        <div class="scenario-desc">"Necesito artículos recientes sobre ansiedad en universitarios."<br><br><strong>Objetivo:</strong> localizar literatura relevante. No necesariamente estamos realizando una revisión.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Situación 2</div>
+        <div class="scenario-title">Revisión como antecedentes</div>
+        <div class="scenario-desc">"Necesito comprender qué se sabe sobre mi problema para formular mi investigación."<br><br><strong>Objetivo:</strong> construir el estado del conocimiento y justificar el proyecto.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Situación 3</div>
+        <div class="scenario-title">Revisión como investigación</div>
+        <div class="scenario-desc">"Mi pregunta de investigación será respondida mediante el análisis de estudios existentes."<br><br>Aquí la evidencia primaria no proviene de participantes nuevos, sino de investigaciones previas.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>No toda revisión de literatura es una revisión sistemática.</strong> Pero una revisión narrativa
+      rigurosa tampoco significa simplemente escribir libremente sobre algunos artículos que me parecieron interesantes.
+    </div>
+
+    <!-- Pregunta cerrada 2 -->
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estas situaciones corresponde a una revisión como investigación?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c2" value="a"> a) Necesito artículos recientes sobre ansiedad en universitarios.</label>
+        <label class="q-option"><input type="radio" name="c2" value="b"> b) Necesito comprender qué se sabe sobre mi problema para formular mi investigación.</label>
+        <label class="q-option"><input type="radio" name="c2" value="c"> c) Mi pregunta será respondida mediante el análisis de estudios existentes.</label>
+        <label class="q-option"><input type="radio" name="c2" value="d"> d) Necesito localizar literatura relevante para mi marco teórico.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+  </section>
+
+  <!-- 7. NARRATIVA VS SISTEMÁTICA -->
+  <section id="narrativa-sistematica" class="reveal">
+    <h2>7. Revisión narrativa vs. revisión sistemática</h2>
+
+    <h3>Dos preguntas distintas</h3>
+    <div class="comparator">
+      <div class="comparator-col">
+        <div class="col-title">Pregunta A</div>
+        <p style="font-size: 0.95rem;">¿Cómo ha sido comprendido el burnout en la literatura psicológica y qué tensiones existen entre sus principales formas de conceptualización?</p>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.8rem;">Apunta a una síntesis conceptual amplia.</p>
+      </div>
+      <div class="comparator-col">
+        <div class="col-title">Pregunta B</div>
+        <p style="font-size: 0.95rem;">¿Qué evidencia existe sobre la eficacia de determinadas intervenciones psicológicas para reducir el burnout en docentes universitarios?</p>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.8rem;">Apunta a una síntesis de evidencia sobre una pregunta delimitada.</p>
+      </div>
+    </div>
+
+    <p>Ambas requieren literatura. Pero no persiguen exactamente lo mismo.</p>
+
+    <h3>La revisión narrativa</h3>
+    <div class="callout error">
+      <strong>Narrativa NO significa:</strong> improvisada, subjetiva sin criterios, "buscar algunos artículos",
+      simplemente resumir autores, carente de método.
+    </div>
+
+    <p>Una revisión narrativa puede resultar especialmente valiosa cuando buscamos:</p>
+    <ul>
+      <li>Desarrollar una visión amplia de un campo.</li>
+      <li>Integrar tradiciones de investigación diversas.</li>
+      <li>Reconstruir debates conceptuales.</li>
+      <li>Comparar explicaciones teóricas.</li>
+      <li>Mostrar la evolución de un concepto.</li>
+      <li>Identificar tensiones y contradicciones.</li>
+      <li>Proponer interpretaciones.</li>
+      <li>Generar nuevas preguntas.</li>
+    </ul>
+
+    <div class="hierarchy" style="margin: 1.5rem 0;">
+      <div class="hierarchy-step" style="min-width: 240px;">LITERATURA DIVERSA</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" style="min-width: 240px;">ORGANIZACIÓN CONCEPTUAL</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" style="min-width: 240px;">COMPARACIÓN</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" style="min-width: 240px;">INTEGRACIÓN</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" style="min-width: 240px;">INTERPRETACIÓN</div>
+      <div class="hierarchy-arrow">↓</div>
+      <div class="hierarchy-step" style="min-width: 240px;">NUEVO ARGUMENTO</div>
+    </div>
+
+    <h4>El error clásico en una revisión narrativa</h4>
+    <div class="card" style="border-left-color: var(--error);">
+      <p style="color: var(--text-soft); margin: 0;">
+        Pérez (2021) encontró X.<br>
+        Gómez (2022) encontró Y.<br>
+        Rodríguez (2023) encontró Z.<br>
+        López (2024) encontró W.
+      </p>
+    </div>
+
+    <p><strong>¿Dónde está la revisión?</strong> Lo que tenemos es una sucesión de resúmenes. La revisión aparece cuando el autor puede decir:</p>
+
+    <div class="card" style="border-left-color: var(--success);">
+      <p style="color: var(--text-soft); margin: 0;">
+        Los estudios coinciden en...<br>
+        Sin embargo, discrepan respecto de...<br>
+        Esta discrepancia parece relacionarse con...<br>
+        Una limitación común es...<br>
+        En conjunto, la evidencia permite sostener...<br>
+        Pero todavía no permite establecer...
+      </p>
+    </div>
+
+    <p><strong>Esto es síntesis.</strong></p>
+
+    <h3>La revisión sistemática</h3>
+    <p>
+      Una revisión sistemática intenta responder una pregunta mediante un proceso predefinido, explícito y
+      reproducible para identificar, seleccionar, evaluar y sintetizar estudios relevantes.
+    </p>
+
+    <div class="callout info">
+      <strong>PRISMA no es "el método" para realizar una revisión sistemática.</strong> Es principalmente una guía de
+      reporte que ayuda a comunicar transparentemente el proceso y los resultados. Evita el error frecuente:
+      "Hice una revisión sistemática porque usé PRISMA". No necesariamente.
+    </div>
+
+    <h3>La diferencia profunda</h3>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Revisión narrativa</th>
+          <th>Revisión sistemática</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Puede abordar cuestiones conceptuales amplias</td>
+          <td>Parte generalmente de una pregunta explícita y delimitada</td>
+        </tr>
+        <tr>
+          <td>Privilegia integración e interpretación</td>
+          <td>Privilegia procedimientos explícitos y reproducibles</td>
+        </tr>
+        <tr>
+          <td>Puede integrar evidencia metodológicamente heterogénea</td>
+          <td>Define anticipadamente criterios de elegibilidad</td>
+        </tr>
+        <tr>
+          <td>La selección puede ser más flexible</td>
+          <td>La búsqueda y selección deben documentarse rigurosamente</td>
+        </tr>
+        <tr>
+          <td>Es particularmente útil en discusión teórica y conceptual</td>
+          <td>Es especialmente potente para sintetizar evidencia sobre preguntas definidas</td>
+        </tr>
+        <tr>
+          <td>El argumento del autor tiene un papel central</td>
+          <td>La trazabilidad del procedimiento tiene un papel central</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <strong>No existe una jerarquía en la que "sistemática = científica" y "narrativa = inferior".</strong>
+      Son estrategias diferentes para preguntas y propósitos diferentes. La pregunta correcta es:
+      ¿Qué tipo de revisión necesito para el conocimiento que quiero producir?
+    </div>
+
+    <h3>Tres preguntas para distinguirlas</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta 1">
+        <div class="flip-inner">
+          <div class="flip-front">¿Cómo ha evolucionado el concepto de inteligencia emocional en psicología?</div>
+          <div class="flip-back">Probablemente interesa una síntesis narrativa/conceptual. <small>El foco está en la evolución del concepto y sus debates.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta 2">
+        <div class="flip-inner">
+          <div class="flip-front">¿Qué relación reportan los estudios entre inteligencia emocional y burnout en docentes?</div>
+          <div class="flip-back">Esta pregunta podría estructurarse sistemáticamente. <small>El foco está en sintetizar evidencia sobre una relación específica.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Pregunta 3">
+        <div class="flip-inner">
+          <div class="flip-front">¿Las intervenciones dirigidas a fortalecer competencias emocionales reducen síntomas de burnout?</div>
+          <div class="flip-back">Una revisión sistemática puede ser especialmente pertinente, dependiendo de la madurez y disponibilidad de estudios. <small>El foco está en evidencia sobre eficacia.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Preguntas diferentes requieren estrategias de revisión diferentes.</strong>
+    </div>
+
+    <!-- Pregunta cerrada 3 -->
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estas afirmaciones sobre la revisión narrativa es correcta?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c3" value="a"> a) Es inferior a la revisión sistemática porque no usa PRISMA.</label>
+        <label class="q-option"><input type="radio" name="c3" value="b"> b) No requiere criterios ni método; es libre y subjetiva.</label>
+        <label class="q-option"><input type="radio" name="c3" value="c"> c) Puede ser rigurosa y es especialmente útil para integrar debates conceptuales.</label>
+        <label class="q-option"><input type="radio" name="c3" value="d"> d) Solo sirve para resumir autores uno tras otro.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(3, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb3"></div>
+    </div>
+  </section>
+
+  <!-- 8. ANATOMÍA -->
+  <section id="anatomia" class="reveal">
+    <h2>8. Anatomía de una revisión</h2>
+    <p>Veamos cómo se pasa de una pregunta a un conjunto de estudios, usando un ejemplo concreto:</p>
+
+    <div class="highlight-box" style="font-size: 1rem;">
+      <p>¿QUÉ RELACIÓN SE HA INVESTIGADO ENTRE EL USO PROBLEMÁTICO DE REDES SOCIALES Y LA ANSIEDAD EN ESTUDIANTES UNIVERSITARIOS?</p>
+    </div>
+
+    <div class="anatomy-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Convertir la pregunta en conceptos</div>
+        <div class="step-desc">
+          Uso problemático de redes sociales + Ansiedad + Estudiantes universitarios.<br><br>
+          <em>Dificultad:</em> las bases de datos no entienden nuestro problema de investigación. Recuperan registros a partir de palabras, descriptores y relaciones entre términos. Por eso necesitamos traducir conceptos a lenguaje de búsqueda.
+        </div>
+      </div>
+    </div>
+
+    <div class="anatomy-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">De conceptos a términos</div>
+        <div class="step-desc">
+          <strong>Concepto A — Uso de redes sociales:</strong> social media, social networking sites, problematic social media use, etc.<br>
+          <strong>Concepto B — Ansiedad:</strong> anxiety, anxious symptoms, anxiety disorders, etc.<br>
+          <strong>Concepto C — Universitarios:</strong> university students, college students, undergraduate students, etc.<br><br>
+          <em>Advertencia:</em> un sinónimo no siempre es conceptualmente equivalente. Construir una ecuación no es simplemente acumular palabras. Es una decisión conceptual.
+        </div>
+      </div>
+    </div>
+
+    <div class="anatomy-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Operadores booleanos</div>
+        <div class="step-desc">
+          <strong>OR amplía:</strong> "university students" OR "college students" → puede aparecer cualquiera de estas expresiones.<br>
+          <strong>AND intersecta:</strong> anxiety AND "social media" → necesito registros en los que confluyan ambos conceptos.<br><br>
+          <em>Concepto clave:</em> OR trabaja dentro de familias conceptuales; AND conecta familias conceptuales.
+        </div>
+      </div>
+    </div>
+
+    <div class="anatomy-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">¿Dónde buscar?</div>
+        <div class="step-desc">
+          <strong>APA PsycINFO:</strong> especialmente pertinente para literatura psicológica.<br>
+          <strong>PubMed:</strong> útil para psicología vinculada con salud y ciencias biomédicas.<br>
+          <strong>Scopus y Web of Science:</strong> cobertura amplia multidisciplinar.<br>
+          <strong>SciELO:</strong> especialmente útil para producción latinoamericana e iberoamericana.<br><br>
+          <em>Nota:</em> Google Scholar puede resultar útil para exploración y localización, pero una revisión reproducible exige pensar cuidadosamente las fuentes y documentar esas decisiones.
+        </div>
+      </div>
+    </div>
+
+    <div class="anatomy-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Criterios de inclusión y exclusión</div>
+        <div class="step-desc">
+          Antes de observar los resultados tenemos que preguntarnos: ¿qué estudios podrían responder mi pregunta?<br><br>
+          <strong>Podría incluir:</strong> estudiantes universitarios; estudios empíricos; mediciones explícitas de ansiedad; evaluación diferenciada del uso de redes sociales.<br>
+          <strong>Podría excluir:</strong> población exclusivamente adolescente; artículos de opinión; estudios sin medida pertinente; trabajos que usen "uso de internet" sin distinguir redes sociales, si esta distinción es esencial.<br><br>
+          <em>Advertencia:</em> los criterios no deberían inventarse después de conocer qué artículos me convienen.
+        </div>
+      </div>
+    </div>
+
+    <div class="anatomy-step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <div class="step-title">Seleccionar</div>
+        <div class="step-desc">
+          El flujo de selección se documenta paso a paso. <em>El diagrama bonito no hace sistemática a la revisión.
+          Lo importante son las decisiones que representa.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta abierta 1 -->
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Toma tu pregunta provisional de investigación (o formula una ahora). Descompónla en 2-4 conceptos centrales y propone al menos dos términos alternativos para cada uno, incluyendo inglés cuando corresponda.</p>
+      <textarea class="open-textarea" placeholder="Concepto 1: ...&#10;Términos: ...&#10;&#10;Concepto 2: ...&#10;Términos: ..." aria-label="Respuesta a pregunta abierta 1"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(1)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb1">
+        <strong>Respuesta modelo:</strong> Pregunta: ¿Qué relación existe entre el uso problemático de redes sociales y los síntomas de ansiedad en estudiantes universitarios de primer año?<br><br>
+        Concepto 1: Uso problemático de redes sociales. Términos: "problematic social media use", "social media addiction", "compulsive social media use".<br>
+        Concepto 2: Ansiedad. Términos: "anxiety", "anxious symptoms", "generalized anxiety".<br>
+        Concepto 3: Estudiantes universitarios de primer año. Términos: "first-year university students", "college freshmen", "undergraduate students".<br><br>
+        La ecuación preliminar podría ser: ("problematic social media use" OR "social media addiction") AND (anxiety OR "anxious symptoms") AND ("university students" OR "college students").
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. FLUJO DE SELECCIÓN -->
+  <section id="seleccion" class="reveal">
+    <h2>9. Flujo de selección</h2>
+    <p>Este es el recorrido típico de una revisión sistemática, desde los registros identificados hasta los estudios incluidos.</p>
+
+    <div class="flow-diagram">
+      <div class="flow-box highlight">REGISTROS IDENTIFICADOS</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">ELIMINACIÓN DE DUPLICADOS</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">TÍTULO / RESUMEN</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">TEXTO COMPLETO</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">APLICACIÓN DE CRITERIOS</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">ESTUDIOS INCLUIDOS</div>
+    </div>
+
+    <div class="callout info">
+      Los diagramas de flujo de PRISMA 2020 permiten documentar las etapas mediante las cuales los registros fueron
+      identificados, examinados y finalmente incluidos. Pero el diagrama no hace sistemática a la revisión: lo importante
+      son las decisiones que representa.
+    </div>
+
+    <!-- Pregunta cerrada 4 -->
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿En qué momento de la revisión se aplican los criterios de inclusión y exclusión?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c4" value="a"> a) Después de leer todos los artículos y ver cuáles me convienen.</label>
+        <label class="q-option"><input type="radio" name="c4" value="b"> b) Antes de observar los resultados, como decisión previa y justificada.</label>
+        <label class="q-option"><input type="radio" name="c4" value="c"> c) Solo al final, cuando ya tengo la conclusión escrita.</label>
+        <label class="q-option"><input type="radio" name="c4" value="d"> d) No es necesario aplicar criterios si uso PRISMA.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(4, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb4"></div>
+    </div>
+  </section>
+
+  <!-- 10. DOS ESTUDIANTES -->
+  <section id="dos-estudiantes" class="reveal">
+    <h2>10. ¿Qué hacemos con 20 artículos?</h2>
+    <p>Supongamos que ya hicimos todo: tenemos 20 excelentes artículos. ¿Terminamos?</p>
+
+    <div class="callout">
+      <strong>No.</strong> En cierto sentido, aquí empieza realmente la revisión. Porque ahora tenemos que preguntar:
+      ¿qué estudió cada investigación?, ¿cómo definió los conceptos?, ¿con qué población?, ¿qué diseño utilizó?,
+      ¿qué encontró?, ¿con qué limitaciones?, ¿qué estudios coinciden?, ¿cuáles contradicen a otros?, ¿por qué podrían
+      diferir?, ¿qué podemos concluir del conjunto?
+    </div>
+
+    <div class="two-students">
+      <div class="student-card a">
+        <div class="student-name">Estudiante A</div>
+        <div class="student-quote">"Encontré 35 artículos sobre mi tema."</div>
+        <div class="student-analysis">
+          <strong>Pregunta:</strong> ¿Qué sabe ahora que antes no sabía?<br><br>
+          Si no puede responder, todavía no ha revisado. El número de artículos no es indicador de comprensión.
+        </div>
+      </div>
+      <div class="student-card b">
+        <div class="student-name">Estudiante B</div>
+        <div class="student-quote">"Los estudios coinciden en una asociación entre X e Y, pero esa asociación parece variar dependiendo de cómo se operacionaliza X. Además, la mayoría utiliza diseños transversales, por lo que la dirección de la relación permanece incierta."</div>
+        <div class="student-analysis">
+          Este estudiante puede tener 12 artículos. Pero ya está pensando como investigador.<br><br>
+          <strong>El objetivo no es coleccionar PDFs. Es producir una representación rigurosa del estado del conocimiento.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta abierta 2 -->
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Imagina que tienes 15 artículos sobre tu tema. Escribe una frase que demuestre que has revisado (no solo coleccionado) esa literatura. Debe incluir una síntesis, una discrepancia o una limitación común.</p>
+      <textarea class="open-textarea" placeholder="Ej.: Los estudios coinciden en..., sin embargo..., una limitación común es..." aria-label="Respuesta a pregunta abierta 2"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(2)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb2">
+        <strong>Respuesta modelo:</strong> "Los estudios revisados coinciden en señalar una asociación positiva entre el uso problemático de redes sociales y los síntomas de ansiedad en estudiantes universitarios. Sin embargo, la magnitud de esa asociación varía considerablemente según cómo se operacionaliza el 'uso problemático' (tiempo diario vs. escala psicométrica vs. comparación social). Una limitación común es el predominio de diseños transversales, que impide establecer la dirección temporal de la relación. En conjunto, la evidencia permite sostener una asociación robusta, pero todavía no permite establecer si el uso problemático antecede o sucede a la ansiedad."
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. CONSTRUCTO -->
+  <section id="constructo" class="reveal">
+    <h2>11. El problema del constructo</h2>
+    <p>Supongamos que dos estudios aparentemente examinan "redes sociales y ansiedad". Pero:</p>
+
+    <div class="scenarios">
+      <div class="scenario">
+        <div class="scenario-label">Estudio A</div>
+        <div class="scenario-desc">Mide <strong>minutos diarios de utilización</strong>.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Estudio B</div>
+        <div class="scenario-desc">Mide <strong>uso problemático</strong> mediante una escala psicológica.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-label">Estudio C</div>
+        <div class="scenario-desc">Mide <strong>comparación social</strong> durante el uso.</div>
+      </div>
+    </div>
+
+    <div class="callout error">
+      <strong>¿Realmente los tres investigaron la misma cosa?</strong>
+    </div>
+
+    <p>A veces los artículos parecen contradecirse porque:</p>
+    <ul>
+      <li>No estudian el mismo constructo.</li>
+      <li>No utilizan la misma población.</li>
+      <li>No miden de la misma manera.</li>
+      <li>No hacen la misma pregunta.</li>
+      <li>Utilizan diseños diferentes.</li>
+    </ul>
+
+    <div class="callout violet">
+      <strong>Idea clave:</strong> Antes de concluir que hay contradicción, hay que verificar si los estudios
+      realmente están hablando de lo mismo. Esto prepara el siguiente paso: leer un artículo como investigador.
+    </div>
+
+    <!-- Pregunta cerrada 5 -->
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Por qué dos estudios sobre "redes sociales y ansiedad" pueden parecer contradictorios sin serlo realmente?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c5" value="a"> a) Porque uno de los dos siempre está mal hecho.</label>
+        <label class="q-option"><input type="radio" name="c5" value="b"> b) Porque pueden estar midiendo constructos diferentes con el mismo nombre.</label>
+        <label class="q-option"><input type="radio" name="c5" value="c"> c) Porque la ansiedad no existe.</label>
+        <label class="q-option"><input type="radio" name="c5" value="d"> d) Porque las redes sociales cambian cada año.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(5, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb5"></div>
+    </div>
+  </section>
+
+  <!-- 12. CIERRE -->
+  <section id="cierre" class="reveal">
+    <h2>12. Cierre: trazabilidad</h2>
+
+    <p>Volvemos a la frase inicial:</p>
+
+    <div style="background: #060f1c; border: 2px solid var(--error); border-radius: var(--radius); padding: 2rem; text-align: center; margin: 1.5rem 0;">
+      <p style="font-size: 1.3rem; font-weight: 700; color: var(--error); letter-spacing: 0.02em; margin: 0;">
+        "LOS ESTUDIOS DEMUESTRAN QUE..."
+      </p>
+    </div>
+
+    <p>Cuando escribimos una frase así estamos asumiendo una responsabilidad. Tenemos que poder contestar:</p>
+    <ol>
+      <li>¿Qué estudios?</li>
+      <li>¿Cómo los buscamos?</li>
+      <li>¿Cómo los seleccionamos?</li>
+      <li>¿Cómo evaluamos lo que encontraron?</li>
+      <li>¿Cómo llegamos desde esos estudios hasta nuestra conclusión?</li>
+    </ol>
+
+    <h3>La arquitectura de la revisión</h3>
+
+    <div class="flow-diagram">
+      <div class="flow-box">PREGUNTA</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">BÚSQUEDA</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">SELECCIÓN</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">EVALUACIÓN</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">EXTRACCIÓN</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">COMPARACIÓN</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">SÍNTESIS</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">INTERPRETACIÓN</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">CONCLUSIÓN</div>
+    </div>
+
+    <div class="highlight-box">
+      <p>TRAZABILIDAD</p>
+    </div>
+
+    <p>La revisión científica exige que podamos reconstruir el camino entre la pregunta que hicimos y la conclusión a la que llegamos.</p>
+
+    <h3>Tres ideas para llevarte</h3>
+    <div class="card" style="border-left-color: var(--accent);">
+      <p><strong>1.</strong> Buscar literatura y revisar literatura son actividades diferentes.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--accent);">
+      <p><strong>2.</strong> Narrativa y sistemática no significan "menos rigurosa" y "más rigurosa". Responden a propósitos epistemológicos y procedimientos diferentes.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--accent);">
+      <p><strong>3.</strong> La calidad de una revisión no depende del número de artículos encontrados, sino de la calidad de las decisiones mediante las cuales fueron identificados, seleccionados, evaluados e integrados.</p>
+    </div>
+
+    <div class="callout violet">
+      <strong>Próximo paso:</strong> Encontrar un artículo no significa comprenderlo. Dos artículos pueden llegar a
+      conclusiones aparentemente opuestas. ¿Se contradicen realmente? ¿Estudiaron el mismo fenómeno? ¿Lo midieron igual?
+      ¿Trabajaron con poblaciones comparables? ¿Utilizaron diseños equivalentes? Esas preguntas guiarán el siguiente
+      recorrido: leer un artículo como investigador, no como estudiante.
+    </div>
+  </section>
+
+  <!-- PROTOCOLO -->
+  <section id="protocolo" class="reveal">
+    <h2>Protocolo preliminar de exploración de literatura</h2>
+    <p>Este ejercicio te permite aplicar lo aprendido. No es una revisión completa: es un protocolo para pensar tu estrategia antes de buscar.</p>
+
+    <h3>Parte A. El problema</h3>
+    <div class="question-block">
+      <p class="q-text">1. Pregunta provisional de investigación (una pregunta)</p>
+      <textarea class="open-textarea" placeholder="¿...?" aria-label="Pregunta provisional" style="min-height: 60px;"></textarea>
+    </div>
+    <div class="question-block">
+      <p class="q-text">2. ¿Qué necesito saber de la literatura para determinar si esta pregunta merece ser investigada? (máximo 100 palabras)</p>
+      <textarea class="open-textarea" placeholder="Necesito saber si..." aria-label="Qué necesito saber"></textarea>
+    </div>
+
+    <h3>Parte B. Descomposición conceptual</h3>
+    <div class="question-block">
+      <p class="q-text">3. Identifica 2-4 conceptos centrales.</p>
+      <textarea class="open-textarea" placeholder="Concepto 1: ...&#10;Concepto 2: ...&#10;Concepto 3: ..." aria-label="Conceptos centrales"></textarea>
+    </div>
+    <div class="question-block">
+      <p class="q-text">4. Propone términos alternativos para cada concepto, preferentemente también en inglés.</p>
+      <textarea class="open-textarea" placeholder="Concepto 1: término A, término B, ...&#10;Concepto 2: término A, término B, ..." aria-label="Términos alternativos"></textarea>
+    </div>
+
+    <h3>Parte C. Estrategia</h3>
+    <div class="question-block">
+      <p class="q-text">5. Selecciona al menos dos fuentes de búsqueda.</p>
+      <textarea class="open-textarea" placeholder="Ej.: APA PsycINFO, PubMed, SciELO..." aria-label="Fuentes de búsqueda" style="min-height: 60px;"></textarea>
+    </div>
+    <div class="question-block">
+      <p class="q-text">6. Construye una ecuación preliminar.</p>
+      <textarea class="open-textarea" placeholder="(término A OR término B) AND (término C OR término D)..." aria-label="Ecuación preliminar"></textarea>
+      <div class="callout info" style="margin-top: 0.8rem;">
+        <strong>Nota:</strong> Todavía puede contener errores. Ese es el propósito.
+      </div>
+    </div>
+
+    <h3>Parte D. Decisiones de elegibilidad</h3>
+    <div class="question-block">
+      <p class="q-text">7. ¿Qué tendría que tener un estudio para ser relevante para tu problema? (3-5 criterios)</p>
+      <textarea class="open-textarea" placeholder="1. ...&#10;2. ...&#10;3. ..." aria-label="Criterios de inclusión"></textarea>
+    </div>
+    <div class="question-block">
+      <p class="q-text">8. ¿Qué estudios excluirías necesariamente? (2-4 criterios y justifica al menos uno)</p>
+      <textarea class="open-textarea" placeholder="1. ... justificación: ...&#10;2. ...&#10;3. ..." aria-label="Criterios de exclusión"></textarea>
+    </div>
+
+    <h3>Parte E. La decisión más interesante</h3>
+    <div class="question-block">
+      <p class="q-text">9. ¿Qué necesitas en este momento? Elige y justifica.</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="decision" value="a"> a) Una exploración inicial de literatura.</label>
+        <label class="q-option"><input type="radio" name="decision" value="b"> b) Una revisión narrativa.</label>
+        <label class="q-option"><input type="radio" name="decision" value="c"> c) Una revisión sistemática.</label>
+        <label class="q-option"><input type="radio" name="decision" value="d"> d) Todavía no puedo determinarlo.</label>
+      </div>
+      <textarea class="open-textarea" placeholder="Justifica tu elección..." aria-label="Justificación de la decisión"></textarea>
+      <div class="callout" style="margin-top: 0.8rem;">
+        <strong>Nota:</strong> La opción "todavía no puedo determinarlo" es válida y obliga a justificar una decisión,
+        no a adivinar qué respuesta espera el profesor.
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias (APA 7)</h2>
+    <ul class="ref-list">
+      <li>Baumeister, R. F., &amp; Leary, M. R. (1997). Writing narrative literature reviews. <em>Review of General Psychology, 1</em>(3), 311-320.</li>
+      <li>Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I., Hoffmann, T. C., Mulrow, C. D., ... &amp; Moher, D. (2021). The PRISMA 2020 statement: An updated guideline for reporting systematic reviews. <em>BMJ, 372</em>, n71.</li>
+      <li>Hart, C. (2018). <em>Doing a literature review: Releasing the research imagination</em> (2.ª ed.). SAGE.</li>
+      <li>Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. (2016). <em>The craft of research</em> (4.ª ed.). University of Chicago Press.</li>
+      <li>Snyder, H. (2019). Literature review as a research methodology: An overview and guidelines. <em>Journal of Business Research, 104</em>, 333-339.</li>
+      <li>Hernández Sampieri, R., Fernández Collado, C., &amp; Baptista Lucio, P. (2014). <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill.</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="6">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la diferencia entre buscar literatura y revisar literatura?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) Son sinónimos; no hay diferencia.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) Buscar es localizar registros; revisar implica seleccionar, evaluar, comparar, integrar e interpretar.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) Revisar es solo para tesis; buscar es para tareas.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) Buscar requiere PRISMA; revisar no.</label>
+      </div>
+      <div class="feedback-box" id="qFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="7">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">¿Cuál de estas afirmaciones sobre la revisión narrativa es correcta?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) Es inferior a la sistemática porque no usa PRISMA.</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) No requiere criterios ni método; es libre y subjetiva.</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) Puede ser rigurosa y es especialmente útil para integrar debates conceptuales.</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) Solo sirve para resumir autores uno tras otro.</label>
+      </div>
+      <div class="feedback-box" id="qFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="8">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">¿Qué significa que una revisión sea trazable?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) Que tiene muchos artículos.</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) Que se puede reconstruir el camino entre la pregunta y la conclusión.</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) Que usa PRISMA obligatoriamente.</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) Que la hizo un experto.</label>
+      </div>
+      <div class="feedback-box" id="qFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="9">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">¿Cuándo deben definirse los criterios de inclusión y exclusión?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Después de ver qué artículos me convienen.</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) Antes de observar los resultados, como decisión previa y justificada.</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Solo al final, cuando ya tengo la conclusión.</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) No es necesario si uso Google Scholar.</label>
+      </div>
+      <div class="feedback-box" id="qFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="10">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Por qué dos estudios sobre "redes sociales y ansiedad" pueden parecer contradictorios sin serlo realmente?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) Porque uno de los dos siempre está mal hecho.</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) Porque pueden estar midiendo constructos diferentes con el mismo nombre.</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) Porque la ansiedad no existe.</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) Porque las redes sociales cambian cada año.</label>
+      </div>
+      <div class="feedback-box" id="qFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">Explica con tus palabras por qué el sesgo en una revisión puede empezar antes de leer el primer artículo. Da al menos tres decisiones que pueden sesgar la búsqueda.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 3"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(3)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb3">
+        <strong>Respuesta modelo:</strong> El sesgo empieza antes de leer porque las decisiones previas determinan qué literatura queda visible y qué literatura queda fuera. Tres decisiones que pueden sesgar: (1) elegir solo una base de datos (por ejemplo, solo Google Scholar), lo que excluye literatura indexada en otras fuentes; (2) usar términos de búsqueda limitados o mal traducidos, lo que deja fuera estudios relevantes que usan otros descriptores; (3) restringir el idioma (por ejemplo, solo español), lo que sesga la evidencia hacia la producción de ciertos contextos. Otras decisiones: el corte temporal, el tipo de estudio, los criterios de exclusión no justificados. En todos los casos, el sesgo no está en los artículos leídos, sino en el proceso que llevó a seleccionarlos.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Imagina que quieres investigar la relación entre apoyo social percibido y bienestar psicológico en estudiantes universitarios. ¿Qué tipo de revisión necesitarías y por qué? Justifica con al menos dos criterios.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 4"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(4)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb4">
+        <strong>Respuesta modelo:</strong> Depende del objetivo. Si quiero saber qué evidencia existe sobre la asociación entre ambas variables, con qué poblaciones y con qué magnitudes, una revisión sistemática sería pertinente porque permite definir criterios de elegibilidad, buscar de forma reproducible y sintetizar la evidencia. Si, en cambio, quiero comprender cómo se ha conceptualizado el "apoyo social percibido" en distintos marcos teóricos y qué debates existen, una revisión narrativa sería más adecuada. Dos criterios para decidir: (1) el tipo de pregunta (relación empírica vs. debate conceptual); (2) la disponibilidad y homogeneidad de estudios (si hay muchos estudios similares, la sistemática es más útil; si hay tradiciones diversas, la narrativa puede integrarlas mejor).
+      </div>
+    </div>
+
+    <div class="question-block" data-open="5">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué cambió en tu forma de entender la revisión de literatura después de recorrer este recurso? ¿Qué te genera más dudas?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 5"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(5)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb5">
+        <strong>Respuesta modelo:</strong> Antes pensaba que revisar literatura era encontrar artículos y resumirlos. Ahora entiendo que la revisión es un proceso de investigación sobre investigaciones, con decisiones explícitas en cada etapa: dónde buscar, con qué términos, con qué criterios, cómo evaluar y cómo sintetizar. Lo que más me cuesta es aceptar que el número de artículos no es indicador de calidad y que una revisión narrativa puede ser tan rigurosa como una sistemática, si se justifican las decisiones. Me genera dudas cómo saber cuándo detener la búsqueda y cómo manejar la heterogeneidad de estudios cuando los constructos se miden de formas tan distintas.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>¿Cómo sabemos qué sabemos? De la búsqueda de artículos a la revisión de literatura</strong> · Recurso educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============ BARRA DE PROGRESO ============ */
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  /* ============ SCROLL REVEAL ============ */
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============ ACORDEÓN ============ */
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isActive = item.classList.contains('active');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.accordion-item').forEach(sib => {
+        sib.classList.remove('active');
+        const h = sib.querySelector('.accordion-header');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ============ FLIP CARDS ============ */
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  /* ============ JERARQUÍA INTERACTIVA ============ */
+  const hierarchySteps = document.querySelectorAll('#hierarchyInteractive .hierarchy-step');
+  const hierarchyDescription = document.getElementById('hierarchyDescription');
+  hierarchySteps.forEach(step => {
+    step.addEventListener('click', function() {
+      hierarchySteps.forEach(s => s.classList.remove('highlight'));
+      this.classList.add('highlight');
+      hierarchyDescription.innerHTML = `<p style="color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;">${this.textContent}</p><p style="color: var(--text-soft); margin: 0;">${this.dataset.desc}</p>`;
+    });
+  });
+
+  /* ============ PREGUNTAS CERRADAS ============ */
+  const closedAnswers = {
+    1: { correct: 'b', fbCorrect: '¡Correcto! La realidad no cambió; cambió nuestra representación de la evidencia disponible.', fbIncorrect: 'Incorrecto. La opción correcta es la b: cambió nuestra representación de la evidencia.' },
+    2: { correct: 'c', fbCorrect: '¡Bien! La revisión como investigación responde la pregunta mediante el análisis de estudios existentes.', fbIncorrect: 'Incorrecto. La opción correcta es la c: la evidencia primaria proviene de investigaciones previas.' },
+    3: { correct: 'c', fbCorrect: '¡Correcto! La revisión narrativa puede ser rigurosa y es valiosa para integrar debates conceptuales.', fbIncorrect: 'Incorrecto. La narrativa no es inferior ni carente de método; puede ser rigurosa.' },
+    4: { correct: 'b', fbCorrect: 'Exacto. Los criterios deben definirse antes de observar los resultados, como decisión previa y justificada.', fbIncorrect: 'Incorrecto. Los criterios no deberían inventarse después de conocer qué artículos me convienen.' },
+    5: { correct: 'b', fbCorrect: '¡Bien! Pueden estar midiendo constructos diferentes con el mismo nombre, o con poblaciones, diseños o preguntas distintas.', fbIncorrect: 'Incorrecto. La opción correcta es la b: pueden estar midiendo constructos diferentes.' },
+    6: { correct: 'b', fbCorrect: '¡Correcto! Buscar es localizar registros; revisar implica seleccionar, evaluar, comparar, integrar e interpretar.', fbIncorrect: 'Incorrecto. La diferencia es que revisar va mucho más allá de localizar registros.' },
+    7: { correct: 'c', fbCorrect: '¡Bien! La revisión narrativa puede ser rigurosa y es especialmente útil para integrar debates conceptuales.', fbIncorrect: 'Incorrecto. La narrativa no es inferior ni carente de método.' },
+    8: { correct: 'b', fbCorrect: 'Exacto. Trazabilidad significa poder reconstruir el camino entre la pregunta y la conclusión.', fbIncorrect: 'Incorrecto. Trazabilidad no es tener muchos artículos ni usar PRISMA obligatoriamente.' },
+    9: { correct: 'b', fbCorrect: '¡Correcto! Los criterios deben definirse antes de observar los resultados.', fbIncorrect: 'Incorrecto. Los criterios no deberían inventarse después.' },
+    10: { correct: 'b', fbCorrect: '¡Bien! Pueden estar midiendo constructos diferentes con el mismo nombre.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  /* ============ PREGUNTAS ABIERTAS ============ */
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  /* ============ CALIFICAR CERRADAS ============ */
+  const finalQuestions = [
+    { name: 'q1', correct: 'b', id: 6 },
+    { name: 'q2', correct: 'c', id: 7 },
+    { name: 'q3', correct: 'b', id: 8 },
+    { name: 'q4', correct: 'b', id: 9 },
+    { name: 'q5', correct: 'b', id: 10 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`qFb${q.id - 5}`);
+      const options = block.querySelectorAll('.q-option');
+
+      options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Dominas la lógica de la revisión de literatura. Ahora te invitamos a completar el protocolo preliminar.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles. Las preguntas abiertas te ayudarán a consolidar.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las secciones 5 a 9 y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+    hierarchySteps.forEach(s => s.classList.remove('highlight'));
+    hierarchyDescription.innerHTML = '<p style="color: var(--text-soft); font-style: italic;">Haz clic en un paso para ver su descripción.</p>';
+  });
+
+})();
+</script>
+</body>
+</html>
