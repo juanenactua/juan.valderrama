@@ -40,6 +40,52 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Cognición corporeizada: abordaje conceptual introductorio",
+    "descripcion": "Recurso autónomo sobre cognición corporeizada como familia de enfoques, cognición fundamentada, enactivismo, las seis tesis de Wilson, ejemplos, debates y autoevaluación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/cognicion-corporeizada-artefacto.html",
+    "etiquetas": [
+      "Cognición corporeizada",
+      "Cognición fundamentada",
+      "Grounded cognition",
+      "Enactivismo",
+      "Wilson",
+      "Barsalou",
+      "Varela",
+      "Thompson",
+      "Rosch",
+      "Representación modal",
+      "Sistemas sensoriomotores",
+      "Cognición situada",
+      "Cognición extendida"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Cognición corporeizada: presentación",
+    "descripcion": "Presentación interactiva sobre cognición corporeizada, cognición fundamentada y enactivismo, con 42 diapositivas sobre las seis tesis de Wilson, términos clave, ejemplos, debates y limitaciones.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/cognicion-corporeizada-presentacion.html",
+    "etiquetas": [
+      "Cognición corporeizada",
+      "Cognición fundamentada",
+      "Grounded cognition",
+      "Enactivismo",
+      "Wilson",
+      "Barsalou",
+      "Varela",
+      "Thompson",
+      "Rosch",
+      "Cognición situada",
+      "Cognición extendida",
+      "Representación conceptual",
+      "Sistemas sensoriomotores"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Cognición social",
     "descripcion": "Tutoría interactiva sobre atribución, formación de impresiones, esquemas sociales, estereotipos, teoría de la mente, lenguaje, cultura e interpretación social.",
     "tipo": "Tutoría interactiva",
