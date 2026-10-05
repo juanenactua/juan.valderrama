@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sesgos Cognitivos — Casos y conceptos | Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Sesgos cognitivos: casos y conceptos">
+<meta name="jc-descripcion" content="Artefacto de aprendizaje basado en cinco casos para comprender sesgos cognitivos, heurísticas, sus mecanismos y su aplicación en decisiones cotidianas, sociales, clínicas y de investigación.">
+<meta name="jc-tipo" content="Artefacto de aprendizaje">
+<meta name="jc-etiquetas" content="Sesgos cognitivos, Heurísticas, Anclaje, Disponibilidad, Representatividad, Framing, Aversión a la pérdida, Sesgo de confirmación, Costo hundido, Toma de decisiones, Psicología cognitiva">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EA;
+    --gris-texto:#1F2A37;
+    --gris-suave:#E9EEF5;
+    --blanco:#FFFFFF;
+    --verde:#1E7A46;
+    --rojo:#B3261E;
+    --sombra:0 10px 30px rgba(11,37,69,.10);
+    --radio:16px;
+    --transicion:all .3s ease;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--blanco);color:var(--gris-texto);
+    font-size:22px;line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  /* TOPBAR */
+  #topbar{
+    position:sticky;top:0;z-index:100;
+    background:var(--blanco);
+    border-bottom:2px solid var(--gris-suave);
+    padding:14px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:20px;flex-wrap:wrap;
+    box-shadow:0 2px 10px rgba(11,37,69,.04);
+  }
+  #topbar .marca{display:flex;flex-direction:column;}
+  #topbar .marca .titulo{font-size:20px;font-weight:800;color:var(--azul-oscuro);}
+  #topbar .marca .sub{font-size:14px;color:var(--azul-medio);opacity:.8;}
+  #topbar nav ul{list-style:none;display:flex;gap:6px;flex-wrap:wrap;}
+  #topbar nav a{
+    color:var(--azul-medio);text-decoration:none;
+    font-size:15px;font-weight:600;
+    padding:8px 14px;border-radius:8px;
+    transition:var(--transicion);
+  }
+  #topbar nav a:hover{background:var(--gris-calido);color:var(--azul-oscuro);}
+  #topbar nav a.activo{background:var(--azul-oscuro);color:var(--blanco);}
+
+  #progreso{
+    position:fixed;top:0;left:0;height:4px;
+    background:linear-gradient(90deg,var(--azul-acento),var(--dorado));
+    transition:width .3s ease;z-index:101;
+  }
+
+  main{max-width:1100px;margin:0 auto;padding:0 40px 120px 40px;}
+
+  /* HERO */
+  .hero{
+    padding:80px 0 60px;
+    border-bottom:2px solid var(--gris-suave);
+    margin-bottom:50px;
+  }
+  .hero .etiqueta{
+    display:inline-block;background:var(--dorado);
+    color:var(--azul-oscuro);
+    font-size:14px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:8px 18px;border-radius:22px;margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:64px;color:var(--azul-oscuro);font-weight:800;
+    line-height:1.1;margin-bottom:22px;letter-spacing:-1px;
+  }
+  .hero .lead{
+    font-size:26px;color:var(--azul-medio);line-height:1.5;
+    max-width:850px;margin-bottom:32px;
+  }
+  .hero-info{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;margin-top:32px;
+  }
+  .hero-info .caja{background:var(--gris-calido);border-radius:14px;padding:20px 24px;}
+  .hero-info .caja .label{
+    font-size:13px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--azul-acento);margin-bottom:6px;
+  }
+  .hero-info .caja .valor{font-size:19px;font-weight:600;color:var(--azul-oscuro);line-height:1.4;}
+
+  /* SECCIONES */
+  section{padding:60px 0;border-bottom:1px solid var(--gris-suave);}
+  section:last-of-type{border-bottom:none;}
+  section .header-seccion{margin-bottom:34px;}
+  section h2{
+    font-size:44px;color:var(--azul-oscuro);font-weight:800;
+    line-height:1.15;margin-bottom:14px;letter-spacing:-.5px;
+  }
+  section h2 .numero{
+    display:inline-block;background:var(--azul-oscuro);color:var(--dorado);
+    font-size:22px;font-weight:800;padding:6px 16px;border-radius:12px;
+    margin-right:14px;vertical-align:middle;
+  }
+  section .subtitulo{
+    font-size:22px;color:var(--azul-medio);opacity:.85;line-height:1.5;
+    max-width:850px;
+  }
+  section h3{font-size:28px;color:var(--azul-oscuro);font-weight:700;margin:34px 0 14px;}
+  section h4{font-size:22px;color:var(--azul-oscuro);font-weight:700;margin:22px 0 10px;}
+  section p{margin-bottom:16px;font-size:21px;}
+  section ul, section ol{margin-left:26px;margin-bottom:18px;}
+  section li{margin-bottom:10px;font-size:21px;line-height:1.55;}
+
+  /* ÍNDICE ACORDEÓN */
+  .indice{background:var(--gris-calido);border-radius:var(--radio);padding:10px;}
+  .acordeon-item{
+    background:var(--blanco);border-radius:12px;
+    margin-bottom:8px;overflow:hidden;
+    box-shadow:0 2px 8px rgba(11,37,69,.04);
+  }
+  .acordeon-item:last-child{margin-bottom:0;}
+  .acordeon-header{
+    padding:20px 26px;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:18px;
+    transition:var(--transicion);
+    font-size:22px;font-weight:700;color:var(--azul-oscuro);
+  }
+  .acordeon-header:hover{background:var(--gris-calido);}
+  .acordeon-header .flecha{font-size:18px;color:var(--azul-acento);transition:transform .3s ease;}
+  .acordeon-item.abierto .acordeon-header .flecha{transform:rotate(180deg);}
+  .acordeon-body{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease;
+    padding:0 26px;color:var(--azul-medio);
+    font-size:19px;line-height:1.55;
+  }
+  .acordeon-item.abierto .acordeon-body{max-height:700px;padding:0 26px 24px 26px;}
+  .acordeon-body ul{margin-left:22px;margin-top:10px;}
+
+  /* RESULTADOS DE APRENDIZAJE */
+  .ra-lista{display:flex;flex-direction:column;gap:14px;margin-top:20px;}
+  .ra-item{
+    background:var(--blanco);border-radius:14px;
+    padding:20px 24px;box-shadow:0 4px 14px rgba(11,37,69,.06);
+    border-left:6px solid var(--azul-acento);
+    display:flex;gap:18px;align-items:flex-start;
+  }
+  .ra-item .ra-num{
+    background:var(--azul-oscuro);color:var(--dorado);
+    font-weight:800;font-size:18px;
+    width:38px;height:38px;flex-shrink:0;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+  }
+  .ra-item .ra-txt{font-size:20px;line-height:1.5;color:var(--azul-oscuro);}
+  .ra-item .ra-txt strong{color:var(--azul-acento);}
+
+  /* MAPA DE FAMILIAS */
+  .mapa-familias{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;margin:24px 0;
+  }
+  .familia{
+    background:var(--blanco);border-radius:var(--radio);
+    padding:24px 26px;box-shadow:var(--sombra);
+    border-top:6px solid var(--azul-acento);
+  }
+  .familia h4{font-size:24px;color:var(--azul-oscuro);margin-bottom:12px;}
+  .familia .mecanismo-txt{font-size:19px;color:var(--azul-medio);line-height:1.55;margin-bottom:14px;}
+  .familia .miembros{
+    background:var(--gris-calido);border-radius:10px;
+    padding:14px 18px;font-size:18px;color:var(--azul-oscuro);
+    line-height:1.5;
+  }
+  .familia .miembros strong{color:var(--azul-acento);display:block;margin-bottom:6px;}
+  .familia.disp{border-top-color:#13538A;}
+  .familia.rep{border-top-color:#E7C873;}
+  .familia.fram{border-top-color:#1E7A46;}
+  .familia.coh{border-top-color:#B3261E;}
+
+  /* CASOS */
+  .caso{
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:0 8px 30px rgba(11,37,69,.08);
+    overflow:hidden;margin:34px 0;
+    border-top:8px solid var(--azul-acento);
+  }
+  .caso-header{
+    background:linear-gradient(135deg,var(--azul-oscuro) 0%,var(--azul-medio) 100%);
+    color:var(--blanco);padding:28px 36px;
+  }
+  .caso-header .caso-num{
+    display:inline-block;background:var(--dorado);color:var(--azul-oscuro);
+    font-size:14px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;padding:6px 14px;border-radius:16px;margin-bottom:14px;
+  }
+  .caso-header h3{font-size:32px;color:var(--blanco);font-weight:800;line-height:1.2;margin:0 0 10px 0;}
+  .caso-header .tag{font-size:17px;opacity:.85;display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;}
+  .caso-header .tag span{background:rgba(255,255,255,.15);padding:5px 12px;border-radius:14px;}
+  .caso-body{padding:30px 36px 36px;}
+
+  .bloque-caso{
+    background:var(--gris-calido);border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--azul-acento);
+  }
+  .bloque-caso .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--azul-acento);margin-bottom:10px;
+  }
+  .bloque-caso p{font-size:20px;line-height:1.6;margin-bottom:12px;}
+  .bloque-caso p:last-child{margin-bottom:0;}
+
+  .bloque-datos{
+    background:#F0F6FC;border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--azul-medio);
+  }
+  .bloque-datos .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--azul-medio);margin-bottom:12px;
+  }
+  .bloque-datos ul{margin-left:22px;margin-bottom:0;}
+  .bloque-datos ul li{font-size:19px;line-height:1.55;}
+
+  .preguntas{
+    background:#FFF8E7;border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--dorado);
+  }
+  .preguntas .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:#8A6D1A;margin-bottom:12px;
+  }
+  .pregunta-item{border-bottom:1px solid rgba(138,109,26,.15);padding:12px 0;}
+  .pregunta-item:last-child{border-bottom:none;}
+  .pregunta-item .preg{
+    display:flex;justify-content:space-between;align-items:center;
+    cursor:pointer;font-size:20px;font-weight:700;color:var(--azul-oscuro);
+    gap:14px;transition:var(--transicion);
+  }
+  .pregunta-item .preg:hover{color:var(--azul-acento);}
+  .pregunta-item .preg .flecha{font-size:16px;color:#8A6D1A;transition:transform .3s ease;}
+  .pregunta-item.abierta .preg .flecha{transform:rotate(180deg);}
+  .pregunta-item .resp{
+    max-height:0;overflow:hidden;transition:max-height .4s ease;
+    font-size:19px;color:var(--azul-medio);line-height:1.55;padding-left:10px;
+  }
+  .pregunta-item.abierta .resp{max-height:500px;padding-top:12px;}
+
+  .analisis{
+    background:#E3F4E9;border-radius:12px;
+    padding:22px 26px;margin:18px 0;
+    border-left:5px solid var(--verde);
+  }
+  .analisis .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--verde);margin-bottom:12px;
+  }
+  .analisis p{font-size:20px;line-height:1.6;margin-bottom:12px;}
+  .analisis p:last-child{margin-bottom:0;}
+
+  .concepto{
+    background:var(--azul-oscuro);color:var(--blanco);
+    border-radius:12px;padding:26px 30px;margin:22px 0;
+    border-left:7px solid var(--dorado);
+  }
+  .concepto .titulo-bloque{
+    font-size:14px;font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--dorado);margin-bottom:12px;
+  }
+  .concepto h5{font-size:24px;color:var(--blanco);margin-bottom:12px;}
+  .concepto p{font-size:20px;line-height:1.6;margin-bottom:12px;color:rgba(255,255,255,.92);}
+  .concepto .autores{
+    font-size:17px;color:var(--dorado);opacity:.9;
+    border-top:1px solid rgba(231,200,115,.3);
+    padding-top:12px;margin-top:12px;
+  }
+
+  .ra-vinculado{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gris-calido);color:var(--azul-oscuro);
+    padding:10px 18px;border-radius:22px;
+    font-size:16px;font-weight:700;margin-top:14px;
+  }
+  .ra-vinculado::before{content:"🎯";font-size:18px;}
+
+  /* ACTIVIDAD INTEGRADORA */
+  .actividad-integradora{
+    background:linear-gradient(135deg,#FFF8E7 0%,#FDF4DC 100%);
+    border-radius:var(--radio);padding:32px 38px;
+    border:2px dashed var(--dorado);margin:30px 0;
+  }
+  .actividad-integradora h3{font-size:30px;color:var(--azul-oscuro);margin:0 0 16px 0;}
+  .actividad-integradora p{font-size:21px;line-height:1.6;}
+  .actividad-integradora label{
+    display:block;font-size:18px;font-weight:700;color:var(--azul-oscuro);
+    margin-bottom:8px;margin-top:22px;
+  }
+  .actividad-integradora input[type=text],
+  .actividad-integradora textarea,
+  .actividad-integradora select{
+    width:100%;padding:14px 16px;font-size:19px;font-family:inherit;
+    border:2px solid var(--gris-suave);border-radius:10px;
+    background:var(--blanco);color:var(--gris-texto);line-height:1.5;
+    resize:vertical;
+  }
+  .actividad-integradora textarea{min-height:100px;}
+  .actividad-integradora input:focus,
+  .actividad-integradora textarea:focus,
+  .actividad-integradora select:focus{outline:none;border-color:var(--azul-acento);}
+  .btn{
+    display:inline-block;background:var(--azul-acento);color:var(--blanco);
+    border:none;padding:16px 30px;font-size:19px;border-radius:12px;
+    cursor:pointer;font-weight:700;font-family:inherit;
+    transition:var(--transicion);margin-top:20px;margin-right:10px;
+  }
+  .btn:hover{background:var(--azul-oscuro);transform:translateY(-2px);}
+  .btn-sec{background:transparent;color:var(--azul-acento);border:2px solid var(--azul-acento);}
+  .btn-sec:hover{background:var(--azul-acento);color:var(--blanco);}
+  .btn-dorado{background:var(--dorado);color:var(--azul-oscuro);}
+  .btn-dorado:hover{background:var(--azul-oscuro);color:var(--dorado);}
+
+  .salida-actividad{
+    background:var(--blanco);border-radius:12px;
+    padding:22px 26px;margin-top:22px;
+    box-shadow:0 4px 14px rgba(11,37,69,.08);
+    font-size:19px;line-height:1.6;display:none;
+  }
+  .salida-actividad.visible{display:block;}
+  .salida-actividad h4{font-size:22px;color:var(--azul-oscuro);margin-bottom:12px;}
+
+  /* CHECKLIST */
+  .checklist{
+    background:var(--blanco);border-radius:var(--radio);
+    box-shadow:0 8px 30px rgba(11,37,69,.08);
+    padding:34px 38px;margin:30px 0;
+    border-top:6px solid var(--verde);
+  }
+  .checklist h3{font-size:30px;color:var(--azul-oscuro);margin:0 0 12px 0;}
+  .checklist > p{font-size:20px;color:var(--azul-medio);margin-bottom:24px;}
+  .check-item{
+    display:flex;align-items:flex-start;gap:16px;
+    padding:18px 20px;margin-bottom:10px;
+    background:var(--gris-calido);border-radius:12px;
+    cursor:pointer;transition:var(--transicion);
+    border-left:5px solid transparent;
+  }
+  .check-item:hover{background:#EEF2F7;}
+  .check-item.marcado{background:#E3F4E9;border-left-color:var(--verde);}
+  .check-item input[type=checkbox]{
+    width:26px;height:26px;flex-shrink:0;margin-top:4px;
+    accent-color:var(--verde);cursor:pointer;
+  }
+  .check-item .check-txt{
+    font-size:20px;line-height:1.5;color:var(--azul-oscuro);flex:1;
+  }
+  .check-item .check-txt .nivel{
+    display:block;font-size:15px;color:var(--azul-medio);
+    opacity:.75;margin-top:6px;font-weight:600;
+  }
+  .resumen-checklist{
+    background:var(--azul-oscuro);color:var(--blanco);
+    border-radius:14px;padding:26px 30px;margin-top:26px;
+  }
+  .resumen-checklist h4{font-size:22px;color:var(--dorado);margin-bottom:14px;}
+  .resumen-checklist .barra-progreso{
+    background:rgba(255,255,255,.15);height:16px;border-radius:8px;
+    overflow:hidden;margin:14px 0;
+  }
+  .resumen-checklist .barra-progreso .fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,var(--dorado),#F0D89A);
+    transition:width .6s ease;
+  }
+  .resumen-checklist .porcentaje{font-size:34px;font-weight:800;color:var(--dorado);margin-bottom:8px;}
+  .resumen-checklist .mensaje{font-size:19px;line-height:1.55;opacity:.92;}
+
+  /* CIERRE */
+  .cierre{
+    background:linear-gradient(135deg,var(--azul-oscuro) 0%,var(--azul-medio) 100%);
+    color:var(--blanco);border-radius:var(--radio);
+    padding:50px 46px;margin:40px 0;
+  }
+  .cierre h3{font-size:32px;color:var(--blanco);margin-bottom:20px;}
+  .cierre p{font-size:21px;line-height:1.6;color:rgba(255,255,255,.92);margin-bottom:16px;}
+  .cierre p strong{color:var(--dorado);}
+  .cierre .referencias{
+    font-size:15px;line-height:1.6;color:rgba(255,255,255,.75);
+    border-top:1px solid rgba(231,200,115,.3);
+    padding-top:22px;margin-top:22px;
+  }
+  .cierre .referencias strong{display:block;color:var(--dorado);margin-bottom:10px;font-size:17px;}
+
+  @media (max-width:900px){
+    body{font-size:20px;}
+    #topbar{padding:12px 22px;}
+    #topbar nav ul{display:none;}
+    main{padding:0 22px 80px 22px;}
+    .hero{padding:50px 0 40px;}
+    .hero h1{font-size:42px;}
+    .hero .lead{font-size:22px;}
+    section h2{font-size:32px;}
+    section h2 .numero{font-size:18px;padding:5px 12px;}
+    section .subtitulo{font-size:19px;}
+    .caso-header{padding:22px 24px;}
+    .caso-header h3{font-size:24px;}
+    .caso-body{padding:22px 24px 28px;}
+    .bloque-caso,.bloque-datos,.preguntas,.analisis,.concepto{padding:18px 20px;}
+    .actividad-integradora{padding:24px 26px;}
+    .checklist{padding:24px 26px;}
+    .cierre{padding:34px 28px;}
+    .cierre h3{font-size:24px;}
+    .mapa-familias{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progreso"></div>
+
+<!-- TOPBAR -->
+<header id="topbar">
+  <div class="marca">
+    <span class="titulo">Sesgos Cognitivos</span>
+    <span class="sub">Casos y conceptos · Juan Carlos Valderrama Cárdenas</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#indice">Índice</a></li>
+      <li><a href="#ra">Resultados</a></li>
+      <li><a href="#que-es">¿Qué es?</a></li>
+      <li><a href="#familias">Familias</a></li>
+      <li><a href="#caso1">Caso 1</a></li>
+      <li><a href="#caso2">Caso 2</a></li>
+      <li><a href="#caso3">Caso 3</a></li>
+      <li><a href="#caso4">Caso 4</a></li>
+      <li><a href="#caso5">Caso 5</a></li>
+      <li><a href="#actividad">Actividad</a></li>
+      <li><a href="#autoevaluacion">Autoevaluación</a></li>
+      <li><a href="#cierre">Cierre</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <span class="etiqueta">Artefacto de aprendizaje · 45 min</span>
+    <h1>Sesgos cognitivos</h1>
+    <p class="lead">Cinco casos sobre cómo decidimos cuando la información, el tiempo y los recursos son limitados. Un recorrido conceptual por las familias de sesgos, sus mecanismos y las preguntas que nos permiten identificarlos.</p>
+    <div class="hero-info">
+      <div class="caja">
+        <div class="label">Docente</div>
+        <div class="valor">Juan Carlos Valderrama Cárdenas</div>
+      </div>
+      <div class="caja">
+        <div class="label">Área</div>
+        <div class="valor">Psicología Cognitiva · Enfoque Cognitivo</div>
+      </div>
+      <div class="caja">
+        <div class="label">Tiempo estimado</div>
+        <div class="valor">45 minutos de trabajo autónomo</div>
+      </div>
+      <div class="caja">
+        <div class="label">Modalidad</div>
+        <div class="valor">Casos + análisis + autoevaluación</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÍNDICE -->
+  <section id="indice">
+    <div class="header-seccion">
+      <h2><span class="numero">01</span>Índice de contenidos</h2>
+      <p class="subtitulo">Cada caso sigue la misma estructura: contexto → datos observables → preguntas guía → análisis → concepto vinculado → resultado de aprendizaje.</p>
+    </div>
+
+    <div class="indice">
+      <div class="acordeon-item">
+        <div class="acordeon-header" data-acordeon>
+          <span>📖 ¿Cómo leer este artefacto?</span>
+          <span class="flecha">▾</span>
+        </div>
+        <div class="acordeon-body">
+          <p>Este artefacto está diseñado para que <strong>abordes los sesgos desde casos concretos</strong>, no desde listas de nombres. Recorrerás cinco situaciones y en cada una:</p>
+          <ul>
+            <li>Leerás un caso breve.</li>
+            <li>Identificarás los datos observables (qué sabemos y qué no).</li>
+            <li>Responderás preguntas guía antes de ver el análisis.</li>
+            <li>Compararás tu razonamiento con el análisis sugerido.</li>
+            <li>Verás el concepto psicológico vinculado, con autores y referencia.</li>
+            <li>Identificarás qué resultado de aprendizaje estás trabajando.</li>
+          </ul>
+          <p>Al final encontrarás una actividad integradora y una autoevaluación de seis resultados de aprendizaje.</p>
+        </div>
+      </div>
+
+      <div class="acordeon-item">
+        <div class="acordeon-header" data-acordeon>
+          <span>🎯 Sesgos que abordarás</span>
+          <span class="flecha">▾</span>
+        </div>
+        <div class="acordeon-body">
+          <ul>
+            <li><strong>Caso 1 · Anclaje y ajuste:</strong> la influencia del punto de partida.</li>
+            <li><strong>Caso 2 · Disponibilidad:</strong> juzgar por facilidad de recuerdo.</li>
+            <li><strong>Caso 3 · Representatividad y tasa base:</strong> juzgar por parecido al prototipo.</li>
+            <li><strong>Caso 4 · Framing y aversión a la pérdida:</strong> cómo la presentación cambia la decisión.</li>
+            <li><strong>Caso 5 · Confirmación y costo hundido:</strong> proteger la propia hipótesis y defender la inversión previa.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="acordeon-item">
+        <div class="acordeon-header" data-acordeon>
+          <span>📚 Cómo se relaciona con el curso</span>
+          <span class="flecha">▾</span>
+        </div>
+        <div class="acordeon-body">
+          <p>Este artefacto conecta con la Unidad 1 (orígenes de los modelos cognitivos: revolución cognitiva, procesamiento de información) y con los temas de <strong>toma de decisiones</strong> y <strong>razonamiento</strong>.</p>
+          <p>Los sesgos no aparecen solo en las personas que deciden: también pueden afectar la elección de la pregunta, la interpretación de resultados y la comunicación científica. Al final encontrarás referencias metodológicas para distinguir <strong>sesgos cognitivos</strong> de <strong>sesgos metodológicos</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS DE APRENDIZAJE -->
+  <section id="ra">
+    <div class="header-seccion">
+      <h2><span class="numero">02</span>Resultados de aprendizaje</h2>
+      <p class="subtitulo">Al terminar este artefacto deberías poder demostrar estos seis resultados. Los retomarás marcables al final.</p>
+    </div>
+
+    <div class="ra-lista">
+      <div class="ra-item">
+        <div class="ra-num">RA1</div>
+        <div class="ra-txt"><strong>Definir</strong> qué es un sesgo cognitivo y distinguirlo de un simple error o de una decisión distinta de la óptima.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA2</div>
+        <div class="ra-txt"><strong>Diferenciar</strong> heurística de sesgo, y explicar por qué una heurística puede ser eficiente en un contexto y producir sesgo en otro.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA3</div>
+        <div class="ra-txt"><strong>Identificar</strong> sesgos de disponibilidad, representatividad y anclaje en situaciones sociales y de decisión.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA4</div>
+        <div class="ra-txt"><strong>Analizar</strong> cómo el framing y la aversión a la pérdida modifican decisiones aunque la información factual sea la misma.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA5</div>
+        <div class="ra-txt"><strong>Reconocer</strong> el sesgo de confirmación y la falacia del costo hundido, y proponer estrategias para reducirlos.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA6</div>
+        <div class="ra-txt"><strong>Transferir</strong> los conceptos a contextos académicos, clínicos o cotidianos, construyendo análisis razonados.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿QUÉ ES UN SESGO? -->
+  <section id="que-es">
+    <div class="header-seccion">
+      <h2><span class="numero">03</span>¿Qué es un sesgo cognitivo?</h2>
+      <p class="subtitulo">Antes de los casos, necesitamos una definición operativa y un criterio claro de identificación.</p>
+    </div>
+
+    <div class="bloque-caso" style="background:linear-gradient(135deg,#E3F0FA 0%,#D6E9F7 100%);border-left-color:var(--azul-acento);">
+      <div class="titulo-bloque" style="color:var(--azul-acento);">Definición operativa</div>
+      <p>Un <strong>sesgo cognitivo</strong> es una tendencia sistemática a producir determinados juicios o decisiones de manera <strong>desviada</strong> respecto de un criterio o procedimiento de referencia.</p>
+    </div>
+
+    <h3>La pregunta clave: ¿desviada respecto de qué?</h3>
+    <p>Para decir que algo es un sesgo necesitamos definir <strong>contra qué criterio</strong> comparamos la decisión:</p>
+    <ul>
+      <li>Lógica formal o teoría de la probabilidad.</li>
+      <li>Información disponible en el momento.</li>
+      <li>Objetivo explícito de la decisión.</li>
+      <li>Resultado observado posteriormente.</li>
+      <li>Adaptación al contexto real.</li>
+    </ul>
+    <p>Por eso: <strong>no toda decisión diferente de la óptima es un sesgo cognitivo</strong>. Y no todo sesgo detectado implica que la decisión fue equivocada.</p>
+
+    <div class="bloque-datos">
+      <div class="titulo-bloque">Autores clave</div>
+      <ul>
+        <li><strong>Kahneman y Tversky (1974)</strong>: fundan el programa de heurísticas y sesgos con el artículo "Judgment under uncertainty".</li>
+        <li><strong>Nickerson (1998)</strong>: sistematiza el sesgo de confirmación como un fenómeno "ubicuo en muchas formas".</li>
+        <li><strong>Tversky y Kahneman (1981)</strong>: formulan la teoría de las perspectivas y el efecto de encuadre.</li>
+      </ul>
+    </div>
+
+    <div class="bloque-caso" style="background:#E3F4E9;border-left-color:var(--verde);">
+      <div class="titulo-bloque" style="color:var(--verde);">Cómo identificarlo</div>
+      <p>Una desviación que se repite en distintas personas, ante distintas tareas, y en la misma dirección. Si fuera azar, no sería sesgo.</p>
+    </div>
+
+    <div class="bloque-caso" style="background:linear-gradient(135deg,#FFF8E7 0%,#FDF4DC 100%);border-left-color:var(--dorado);">
+      <div class="titulo-bloque" style="color:#8A6D1A;">Ejemplo cotidiano</div>
+      <p>Creer que un vuelo es peligroso porque viste tres noticias de accidentes: no es un error puntual, es una tendencia predecible.</p>
+    </div>
+  </section>
+
+  <!-- HEURÍSTICA ≠ SESGO -->
+  <section id="heuristicas">
+    <div class="header-seccion">
+      <h2><span class="numero">04</span>Heurística ≠ sesgo</h2>
+      <p class="subtitulo">Una distinción conceptual que evita convertir "sesgo" en una etiqueta para cualquier comportamiento.</p>
+    </div>
+
+    <div class="bloque-caso" style="background:linear-gradient(135deg,#E3F0FA 0%,#D6E9F7 100%);border-left-color:var(--azul-acento);">
+      <div class="titulo-bloque" style="color:var(--azul-acento);">Dos conceptos que suelen confundirse</div>
+      <p>Una <strong>heurística</strong> es una estrategia simplificada para emitir un juicio o tomar una decisión. Un <strong>sesgo</strong> es la tendencia sistemática que puede producirse cuando esa heurística opera bajo ciertas condiciones.</p>
+    </div>
+
+    <h3>La relación correcta</h3>
+    <p>Heurística → puede ser <strong>eficiente</strong>.<br>
+    Heurística → bajo determinadas condiciones → puede producir <strong>sesgo</strong>.</p>
+    <p>No son sinónimos. La misma heurística puede acertar en un contexto y fallar en otro. Esta distinción fue desarrollada por Gigerenzer y Gaissmaier (2011) frente a interpretaciones más pesimistas del programa de heurísticas y sesgos.</p>
+
+    <div class="bloque-caso" style="border-left-color:var(--azul-acento);">
+      <div class="titulo-bloque">Racionalidad limitada (Herbert Simon)</div>
+      <p>Las personas no disponen de toda la información, el tiempo ni la capacidad de procesamiento para optimizar completamente. Por eso usan estrategias "suficientemente buenas".</p>
+      <p>En lugar de buscar la mejor alternativa posible, se busca una alternativa <strong>suficientemente buena</strong> (<em>satisficing</em>) que permita seguir adelante. Esto no es un defecto: es una adaptación a restricciones reales.</p>
+    </div>
+
+    <div class="bloque-caso" style="background:#E3F4E9;border-left-color:var(--verde);">
+      <div class="titulo-bloque" style="color:var(--verde);">Cómo identificarlo</div>
+      <p>Si la heurística acierta y es eficiente en su contexto, es una herramienta. Si falla sistemáticamente en otra condición, es un sesgo.</p>
+    </div>
+
+    <div class="bloque-caso" style="background:linear-gradient(135deg,#FFF8E7 0%,#FDF4DC 100%);border-left-color:var(--dorado);">
+      <div class="titulo-bloque" style="color:#8A6D1A;">Ejemplo cotidiano</div>
+      <p>"Elegir lo que recuerdo primero" es una heurística eficiente cuando hay poco tiempo. Se vuelve sesgo si esa facilidad de recuerdo distorsiona sistemáticamente mis decisiones.</p>
+    </div>
+  </section>
+
+  <!-- FAMILIAS -->
+  <section id="familias">
+    <div class="header-seccion">
+      <h2><span class="numero">05</span>El mapa de las familias de sesgos</h2>
+      <p class="subtitulo">No conviene memorizar un catálogo de 20 sesgos. Es más útil entender los mecanismos que los agrupan.</p>
+    </div>
+
+    <div class="mapa-familias">
+      <div class="familia disp">
+        <h4>1. Familia de la disponibilidad</h4>
+        <div class="mecanismo-txt">Se juzga según la <strong>facilidad con la que recordamos</strong> ejemplos. Lo que viene fácilmente a la mente parece más probable, aunque no lo sea.</div>
+        <div class="miembros">
+          <strong>Sesgos típicos</strong>
+          Disponibilidad · Saliencia · Accesibilidad
+        </div>
+      </div>
+      <div class="familia rep">
+        <h4>2. Familia de la representatividad</h4>
+        <div class="mecanismo-txt">Se juzga según el <strong>parecido con un prototipo</strong>, ignorando la frecuencia real (tasa base).</div>
+        <div class="miembros">
+          <strong>Sesgos típicos</strong>
+          Representatividad · Falacia del jugador · Falacia de la conjunción
+        </div>
+      </div>
+      <div class="familia fram">
+        <h4>3. Familia de la evaluación de alternativas</h4>
+        <div class="mecanismo-txt">El juicio cambia según <strong>cómo se presenta la información</strong> o cómo se evalúan pérdidas y ganancias.</div>
+        <div class="miembros">
+          <strong>Sesgos típicos</strong>
+          Framing · Aversión a la pérdida · Costo hundido
+        </div>
+      </div>
+      <div class="familia coh">
+        <h4>4. Familia de la coherencia interna</h4>
+        <div class="mecanismo-txt">Se protege la propia interpretación previa: se busca, interpreta y recuerda lo que confirma las hipótesis iniciales.</div>
+        <div class="miembros">
+          <strong>Sesgos típicos</strong>
+          Confirmación · Hindsight · Atribución
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque-caso" style="background:var(--azul-oscuro);color:var(--blanco);border-left-color:var(--dorado);">
+      <div class="titulo-bloque" style="color:var(--dorado);">Idea clave</div>
+      <p style="color:rgba(255,255,255,.92);">Aprender los <strong style="color:var(--dorado);">mecanismos</strong> permite reconocer sesgos nuevos sin memorizar catálogos. Cada familia tiene una lógica distinta: accesibilidad, parecido, presentación o coherencia interna.</p>
+    </div>
+
+    <div class="bloque-caso" style="background:#E3F4E9;border-left-color:var(--verde);">
+      <div class="titulo-bloque" style="color:var(--verde);">Cómo identificar la familia</div>
+      <p>Pregúntate: ¿el sesgo opera por <strong>accesibilidad</strong>, por <strong>parecido</strong>, por <strong>presentación</strong> o por <strong>coherencia con mi idea previa</strong>?</p>
+    </div>
+  </section>
+
+  <!-- CASO 1: ANCLAJE -->
+  <section id="caso1">
+    <div class="header-seccion">
+      <h2><span class="numero">06</span>Caso 1 · Andrés y la rifa</h2>
+      <p class="subtitulo">Anclaje y ajuste: cuando el punto de partida tira de nuestra estimación</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso cotidiano</span>
+        <h3>Andrés y la rifa del barrio</h3>
+        <div class="tag">
+          <span>Anclaje</span>
+          <span>Estimación</span>
+          <span>Punto de referencia</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Andrés compra una rifa en su barrio. La organización anuncia que hay <strong>500 boletas</strong> y que el premio es un televisor. Sin embargo, al ver la urna, Andrés piensa: "debe haber al menos 2.000 boletas". Cuando le preguntan por qué, responde: "es que el organizador dijo que el premio vale 4 millones, entonces deben haber muchas más".</p>
+          <p>Días después, en otro contexto, ve un anuncio de una rifa similar con <strong>2.000 boletas</strong>. Al estimar de nuevo, ahora responde "deben haber 2.000 o 2.500".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Andrés estimó "al menos 2.000 boletas" cuando la organización dijo "500".</li>
+            <li>Días después, anclado por el número "2.000", estimó "2.000 o 2.500" — mucho más cerca del ancla visible.</li>
+            <li>Sus dos estimaciones no parten del mismo razonamiento, sino de números disponibles en el contexto.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué diferencia hay entre las dos estimaciones de Andrés?</span>
+            </div>
+            <div class="resp">En el primer caso su estimación no parte del número que se le dio (500), sino de su propia intuición. En el segundo caso, la estimación se ancla fuertemente en "2.000".</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Por qué la segunda estimación quedó tan cerca del número visible?</span>
+            </div>
+            <div class="resp">Por el <strong>anclaje</strong>: el número "2.000" funcionó como punto de partida, y el ajuste posterior fue insuficiente. Aunque Andrés sabía que el número era arbitrario, este condicionó su estimación.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Qué evidencia necesitaría Andrés para estimar mejor el número real de boletas?</span>
+            </div>
+            <div class="resp">Información verificable: el padrón de la rifa, la cantidad física de boletas impresas, o la relación entre premio y precio de la boleta. La facilidad del número disponible no es evidencia.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Este caso es un sesgo o simplemente un error de cálculo?</span>
+            </div>
+            <div class="resp">Es un sesgo: la desviación es sistemática, predecible y depende del punto de partida, no de la capacidad de cálculo. La evidencia empírica muestra que incluso expertos caen en anclaje.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>El anclaje ilustra cómo un valor inicial, incluso cuando se reconoce como arbitrario, arrastra la estimación posterior. Andrés no calcula mal: ajusta poco. Su sistema cognitivo toma el número más accesible como punto de partida y se aleja insuficientemente.</p>
+          <p>El experimento clásico de Tversky y Kahneman (1974) mostró que dos grupos con anclas distintas (por ejemplo, la "rueda de la fortuna" que daba 10 o 65) daban estimaciones sistemáticamente diferentes sobre el porcentaje de países africanos en la ONU. El ancla tira incluso cuando se sabe que es aleatoria.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Anclaje y ajuste</h5>
+          <p>Cuando estimamos un valor, tendemos a partir de un punto de referencia inicial (el ancla) y a ajustar insuficientemente desde ahí. El resultado queda desproporcionadamente influido por ese punto de partida, aunque sea arbitrario o irrelevante.</p>
+          <p>Es uno de los sesgos más robustos de la psicología cognitiva: aparece en contextos legales, médicos, financieros y de negociación.</p>
+          <div class="autores">Tversky, A., &amp; Kahneman, D. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA3: identificar sesgos de anclaje en situaciones cotidianas</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO 2: DISPONIBILIDAD -->
+  <section id="caso2">
+    <div class="header-seccion">
+      <h2><span class="numero">07</span>Caso 2 · Diana y las noticias</h2>
+      <p class="subtitulo">Disponibilidad: la facilidad de recuerdo no es evidencia de frecuencia</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso social</span>
+        <h3>Diana ya no sale de noche</h3>
+        <div class="tag">
+          <span>Disponibilidad</span>
+          <span>Frecuencia estimada</span>
+          <span>Medios y saliencia</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Diana sigue varias cuentas de noticias en redes. Cada día ve videos y reportes sobre robos y homicidios en la ciudad, con imágenes fuertes y titulares alarmantes. Su percepción de inseguridad ha crecido tanto que ya no sale de noche, aunque su barrio no ha tenido incidentes graves en años.</p>
+          <p>Cuando su hermana le mostró un informe oficial que indica una caída del 30 % en homicidios en tres años, Diana respondió: "esas cifras deben estar manipuladas".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Exposición diaria a eventos violentos, altamente salientes y emocionales.</li>
+            <li>Aumento de la percepción de inseguridad sin cambio en el entorno inmediato.</li>
+            <li>Descarte inmediato de información que contradice su percepción.</li>
+            <li>Uso de expresiones como "esas cifras deben estar manipuladas" sin sustento.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué sesgo explica mejor el aumento de la percepción de inseguridad?</span>
+            </div>
+            <div class="resp">La <strong>disponibilidad</strong>: los eventos violentos se recuerdan fácilmente porque son llamativos y frecuentes en su feed, y eso hace que parezcan más comunes de lo que son.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Qué sesgo aparece en su respuesta a las estadísticas?</span>
+            </div>
+            <div class="resp">El <strong>sesgo de confirmación</strong>: la información contraria se descarta sin examinarla, mientras se refuerza la creencia previa. Diana podría preguntarse qué evidencia la haría cambiar de opinión.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Por qué la información disponible no equivale a información representativa?</span>
+            </div>
+            <div class="resp">Porque lo que aparece en los medios no es una muestra aleatoria de la realidad: se selecciona justamente por ser llamativo, poco frecuente o emocionalmente impactante.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Cómo distinguir un sesgo de disponibilidad de un juicio razonable sobre el riesgo?</span>
+            </div>
+            <div class="resp">Comparando la estimación con datos verificables: si las estadísticas contradicen la percepción pero la percepción no cambia, estamos frente a un sesgo. Si la percepción se ajusta a la evidencia, es un juicio razonable.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>Diana no está "siendo irracional": su sistema cognitivo opera con información sesgada por la exposición selectiva a eventos salientes. La disponibilidad amplifica la percepción de frecuencia; el framing de las noticias maximiza el impacto emocional; y la confirmación protege la creencia previa de la contraevidencia.</p>
+          <p>Ninguno de estos procesos es un defecto moral: son tendencias sistemáticas que se activan especialmente cuando hay alta carga emocional e información limitada o desequilibrada.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Heurística de disponibilidad</h5>
+          <p>Estimamos la frecuencia o probabilidad de un evento según la <strong>facilidad con la que podemos recordar ejemplos</strong>. Los eventos llamativos, recientes o emocionales se recuerdan mejor y por eso parecen más probables.</p>
+          <p>Confundimos <strong>facilidad de recuerdo</strong> con <strong>frecuencia real</strong>. Esto afecta juicios sobre riesgos, enfermedades, delitos, y decisiones de todo tipo.</p>
+          <div class="autores">Tversky, A., &amp; Kahneman, D. (1973). Availability: A heuristic for judging frequency and probability. <em>Cognitive Psychology, 5</em>(2), 207–232.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA3: identificar sesgo de disponibilidad en situaciones sociales</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO 3: REPRESENTATIVIDAD -->
+  <section id="caso3">
+    <div class="header-seccion">
+      <h2><span class="numero">08</span>Caso 3 · El comité de selección</h2>
+      <p class="subtitulo">Representatividad y tasa base: cuando el parecido al prototipo domina la estimación</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso organizacional</span>
+        <h3>La candidata "perfecta" y el perfil del cargo</h3>
+        <div class="tag">
+          <span>Representatividad</span>
+          <span>Tasa base</span>
+          <span>Estereotipos</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Un comité revisa candidaturas para un puesto de analista de datos. Uno de sus miembros lee el perfil de Marta:</p>
+          <p style="font-style:italic;">"Marta tiene 26 años, lee novelas de misterio, es ordenada, prefiere trabajar sola y cuida mucho los detalles."</p>
+          <p>Inmediatamente dice: "ella encaja perfecto". Otro miembro del comité pregunta: "¿por qué?". El primero responde: "se nota que es analítica".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>El comité evalúa a la candidata por la semejanza con un estereotipo de "analista".</li>
+            <li>No se consultan datos objetivos: experiencia previa, formación, desempeño en pruebas.</li>
+            <li>La expresión "se nota que es analítica" no se apoya en evidencia verificable.</li>
+            <li>Nadie pregunta cuántas candidaturas cumplen realmente el perfil técnico.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué sesgo opera en la decisión del primer miembro del comité?</span>
+            </div>
+            <div class="resp">La <strong>representatividad</strong>: la candidata se parece al estereotipo del analista y por eso se la juzga como "perfecta", sin verificar datos objetivos.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Qué es la tasa base y por qué importa aquí?</span>
+            </div>
+            <div class="resp">La <strong>tasa base</strong> es la frecuencia real con la que ocurre un fenómeno. En este caso, la proporción de candidaturas que realmente cumplen los requisitos del cargo. El comité la ignora por completo.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Cómo puede relacionarse este sesgo con estereotipos?</span>
+            </div>
+            <div class="resp">El "prototipo de analista" suele apoyarse en estereotipos (de género, clase, personalidad) que no tienen relación directa con el desempeño. La representatividad y los estereotipos se refuerzan mutuamente.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Qué cambio en el procedimiento podría reducir este sesgo?</span>
+            </div>
+            <div class="resp">Evaluación ciega, rúbricas basadas en criterios objetivos, revisión por pares, y comparación explícita con la tasa base (cuántas candidaturas cumplen realmente el perfil).</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>El comité no está "eligiendo mal" por falta de formación: está aplicando un juicio de probabilidad basado en la semejanza con un prototipo. Este tipo de estimación es rápido y cómodo, pero ignora la información más relevante (tasa base) y puede reforzar estereotipos.</p>
+          <p>Tversky y Kahneman (1983) mostraron que la representatividad puede llevar a violar la lógica de la probabilidad, especialmente cuando se combina con la falacia de la conjunción. En contextos organizacionales, esto tiene consecuencias concretas: selección sesgada, menos diversidad, peor desempeño agregado.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Representatividad y tasa base</h5>
+          <p>Evaluamos la probabilidad de que algo pertenezca a una categoría según cuánto se parece al <strong>prototipo</strong> de esa categoría, e ignoramos información sobre la <strong>frecuencia real</strong> de los eventos (tasa base).</p>
+          <p>El efecto es especialmente fuerte cuando el estereotipo es culturalmente muy disponible. La representatividad puede dominar el juicio incluso en personas expertas.</p>
+          <div class="autores">Tversky, A., &amp; Kahneman, D. (1983). Extensional versus intuitive reasoning: The conjunction fallacy in probability judgment. <em>Psychological Review, 90</em>(4), 293–315.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA3: identificar sesgo de representatividad y reconocer el papel de la tasa base</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO 4: FRAMING -->
+  <section id="caso4">
+    <div class="header-seccion">
+      <h2><span class="numero">09</span>Caso 4 · Marta y el tratamiento</h2>
+      <p class="subtitulo">Framing y aversión a la pérdida: cómo la presentación cambia la decisión</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso clínico</span>
+        <h3>Dos médicos, dos formas de decir lo mismo</h3>
+        <div class="tag">
+          <span>Framing</span>
+          <span>Aversión a la pérdida</span>
+          <span>Presentación de la información</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Marta tiene 58 años y recibe dos opiniones médicas sobre el mismo tratamiento:</p>
+          <p><strong>Médico A:</strong> "Con este tratamiento, 80 de cada 100 pacientes sobreviven los próximos 5 años."</p>
+          <p><strong>Médico B:</strong> "Con este tratamiento, 20 de cada 100 pacientes fallecen en los próximos 5 años."</p>
+          <p>Marta siente que el mensaje del médico A es alentador y el del médico B es aterrador. Cuando se le pregunta si son la misma información, duda unos segundos y luego responde: "sí, pero no se siente igual".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>La información de ambos médicos es <strong>matemáticamente idéntica</strong>.</li>
+            <li>Las reacciones emocionales y la disposición a aceptar el tratamiento son distintas.</li>
+            <li>La reformulación no cambió los datos, cambió el marco en el que se procesan.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué sesgo opera cuando Marta prefiere una formulación sobre la otra?</span>
+            </div>
+            <div class="resp">El <strong>efecto de encuadre (framing)</strong>: la presentación positiva o negativa de la misma información activa evaluaciones emocionales distintas.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Por qué la formulación negativa pesa más?</span>
+            </div>
+            <div class="resp">Por la <strong>aversión a la pérdida</strong>: las pérdidas pesan psicológicamente más que ganancias equivalentes. "20 % mueren" activa más alarma que "80 % sobreviven".</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Cómo se relaciona este caso con la teoría de las perspectivas?</span>
+            </div>
+            <div class="resp">Las personas no evaluamos resultados en términos absolutos, sino como ganancias o pérdidas respecto a un punto de referencia. Cambiar el marco cambia el punto de referencia y por tanto la decisión.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Qué implicaciones tiene esto para la práctica clínica?</span>
+            </div>
+            <div class="resp">Los profesionales deben presentar información en marcos múltiples: "80 % sobreviven" <strong>y</strong> "20 % fallecen", <strong>y</strong> usar frecuencias naturales (por cada 100 personas) en lugar de porcentajes abstractos. La transparencia en el encuadre es una práctica ética.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>Marta no está "confundida": su sistema cognitivo responde al encuadre tal como responde el sistema de cualquier persona. Los estudios clásicos (Tversky &amp; Kahneman, 1981) mostraron que incluso médicos experimentados cambian sus recomendaciones cuando se cambia la formulación (ganancia vs. pérdida) aunque la información sea equivalente.</p>
+          <p>El framing no es "manipulación" en sí mismo: es una propiedad del lenguaje y de la presentación. Lo que cambia la ética es <strong>qué se hace</strong> con esa propiedad: usarla para ayudar o para manipular.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Framing y aversión a la pérdida</h5>
+          <p><strong>Framing:</strong> la misma información produce decisiones distintas según cómo se presenta. <strong>Aversión a la pérdida:</strong> una pérdida pesa psicológicamente más que una ganancia de igual magnitud.</p>
+          <p>Ambos se apoyan en la <strong>teoría de las perspectivas</strong>: evaluamos resultados como ganancias o pérdidas respecto a un punto de referencia, no en términos absolutos.</p>
+          <div class="autores">Tversky, A., &amp; Kahneman, D. (1981). The framing of decisions and the psychology of choice. <em>Science, 211</em>(4481), 453–458.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA4: analizar cómo el framing modifica decisiones con información equivalente</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO 5: CONFIRMACIÓN Y COSTO HUNDIDO -->
+  <section id="caso5">
+    <div class="header-seccion">
+      <h2><span class="numero">10</span>Caso 5 · El grupo de investigación</h2>
+      <p class="subtitulo">Confirmación y costo hundido: proteger la hipótesis y defender la inversión</p>
+    </div>
+
+    <div class="caso">
+      <div class="caso-header">
+        <span class="caso-num">Caso de investigación</span>
+        <h3>Cuando los datos no confirman... pero la hipótesis no se abandona</h3>
+        <div class="tag">
+          <span>Confirmación</span>
+          <span>Costo hundido</span>
+          <span>Pensamiento científico</span>
+        </div>
+      </div>
+      <div class="caso-body">
+
+        <div class="bloque-caso">
+          <div class="titulo-bloque">Contexto</div>
+          <p>Un grupo de investigación lleva tres años estudiando si una intervención educativa mejora el rendimiento académico. Han publicado dos artículos con resultados favorables. Los últimos datos, sin embargo, no muestran efecto significativo.</p>
+          <p>En la reunión, un investigador dice: "seguramente el instrumento de medición falló", otro sugiere "excluir los casos atípicos para ver si emerge el efecto". Un tercero recuerda que "llevamos tres años trabajando en esto, no podemos abandonar ahora".</p>
+        </div>
+
+        <div class="bloque-datos">
+          <div class="titulo-bloque">Datos observables</div>
+          <ul>
+            <li>Resultados previos favorables, pero últimos datos sin efecto significativo.</li>
+            <li>Tres interpretaciones que minimizan o descartan la contraevidencia.</li>
+            <li>Referencia explícita al tiempo invertido como razón para continuar.</li>
+            <li>Nadie propone revisar la hipótesis inicial a la luz de la nueva evidencia.</li>
+          </ul>
+        </div>
+
+        <div class="preguntas">
+          <div class="titulo-bloque">Preguntas para pensar</div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>1. ¿Qué sesgo cognitivo opera en "el instrumento falló"?</span>
+            </div>
+            <div class="resp">El <strong>sesgo de confirmación</strong>: se interpreta la contraevidencia como un problema del método, protegiendo la hipótesis previa.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>2. ¿Qué sesgo aparece en "llevamos tres años trabajando en esto"?</span>
+            </div>
+            <div class="resp">La <strong>falacia del costo hundido</strong>: se usa la inversión previa (tiempo, dinero, publicaciones) como justificación para continuar, aunque no pueda recuperarse y no justifique seguir.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>3. ¿Qué pregunta clave debería hacerse el grupo?</span>
+            </div>
+            <div class="resp">"¿Qué evidencia nos haría abandonar o reformular la hipótesis?" Si no hay una respuesta clara, la hipótesis está protegida en lugar de examinada.</div>
+          </div>
+          <div class="pregunta-item">
+            <div class="preg" data-preg>
+              <span>4. ¿Cómo se diferencia un sesgo cognitivo de un sesgo metodológico en este caso?</span>
+            </div>
+            <div class="resp">El sesgo cognitivo opera en la interpretación del investigador (confirmación, costo hundido). El sesgo metodológico sería un problema de diseño (falta de preregistro, no cegamiento, análisis oportunistas). Se refuerzan, pero son distintos niveles de análisis.</div>
+          </div>
+        </div>
+
+        <div class="analisis">
+          <div class="titulo-bloque">Análisis sugerido</div>
+          <p>El caso ilustra cómo los sesgos no solo afectan a participantes en un estudio, también a los investigadores. La <strong>confirmación</strong> y el <strong>costo hundido</strong> operan aquí al mismo tiempo: uno protege la interpretación, el otro protege la inversión.</p>
+          <p>El pensamiento científico se caracteriza por permitir que la evidencia cuestione las hipótesis. Una hipótesis científica debe poder ser <strong>examinada, no protegida</strong>. Las estrategias efectivas (preregistro, revisión por pares, búsqueda activa de evidencia contraria) están diseñadas precisamente para contrarrestar estos sesgos.</p>
+        </div>
+
+        <div class="concepto">
+          <div class="titulo-bloque">Concepto vinculado</div>
+          <h5>Confirmación y costo hundido</h5>
+          <p><strong>Confirmación:</strong> buscamos, interpretamos y recordamos información que confirma nuestras hipótesis previas, y descartamos la que las contradice (Nickerson, 1998).</p>
+          <p><strong>Costo hundido:</strong> continuamos invirtiendo porque ya invertimos mucho, aunque esa inversión no pueda recuperarse (Arkes &amp; Blumer, 1985).</p>
+          <p>Ambos operan en la <strong>coherencia interna</strong> del sistema cognitivo: protegen las decisiones previas y las hipótesis iniciales.</p>
+          <div class="autores">Nickerson, R. S. (1998). Confirmation bias: A ubiquitous phenomenon in many guises. <em>Review of General Psychology, 2</em>(2), 175–220.<br>Arkes, H. R., &amp; Blumer, C. (1985). The psychology of sunk cost. <em>Organizational Behavior and Human Decision Processes, 35</em>(1), 124–140.</div>
+        </div>
+
+        <div class="ra-vinculado">Resultado de aprendizaje RA5: reconocer confirmación y costo hundido, y proponer estrategias para reducirlos</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVIDAD INTEGRADORA -->
+  <section id="actividad">
+    <div class="header-seccion">
+      <h2><span class="numero">11</span>Actividad integradora</h2>
+      <p class="subtitulo">Diseña tu propio mini-caso aplicando al menos dos sesgos vistos</p>
+    </div>
+
+    <div class="actividad-integradora">
+      <h3>✏️ Tu caso</h3>
+      <p>Piensa en una situación real (cotidiana, clínica o académica) donde reconozcas la presencia de al menos un sesgo. Descríbela y analízala.</p>
+
+      <label for="act-titulo">1. Título breve del caso</label>
+      <input type="text" id="act-titulo" placeholder="Ej: 'Julián y la compra impulsiva'">
+
+      <label for="act-contexto">2. Contexto (¿qué ocurre? ¿quiénes participan?)</label>
+      <textarea id="act-contexto" placeholder="Describe la situación en 4-6 líneas..."></textarea>
+
+      <label for="act-sesgo1">3. Primer sesgo identificado</label>
+      <select id="act-sesgo1">
+        <option value="">— Selecciona —</option>
+        <option>Anclaje y ajuste</option>
+        <option>Disponibilidad</option>
+        <option>Representatividad / tasa base</option>
+        <option>Framing / aversión a la pérdida</option>
+        <option>Confirmación</option>
+        <option>Costo hundido</option>
+      </select>
+
+      <label for="act-justifica1">4. ¿Por qué ese sesgo? Justifica con el mecanismo</label>
+      <textarea id="act-justifica1" placeholder="Explica qué hace que ese sesgo sea plausible aquí..."></textarea>
+
+      <label for="act-sesgo2">5. Segundo sesgo (opcional)</label>
+      <select id="act-sesgo2">
+        <option value="">— Ninguno —</option>
+        <option>Anclaje y ajuste</option>
+        <option>Disponibilidad</option>
+        <option>Representatividad / tasa base</option>
+        <option>Framing / aversión a la pérdida</option>
+        <option>Confirmación</option>
+        <option>Costo hundido</option>
+      </select>
+
+      <label for="act-justifica2">6. Justificación del segundo sesgo (opcional)</label>
+      <textarea id="act-justifica2" placeholder="Explica con tus palabras..."></textarea>
+
+      <label for="act-pregunta-clave">7. ¿Qué evidencia o información podría reducir la influencia del sesgo?</label>
+      <textarea id="act-pregunta-clave" placeholder="Describe qué información o procedimiento ayudaría..."></textarea>
+
+      <button class="btn btn-dorado" id="btn-exportar-caso">📄 Generar resumen de mi caso</button>
+      <button class="btn btn-sec" id="btn-limpiar-caso">Limpiar</button>
+
+      <div class="salida-actividad" id="salida-actividad">
+        <h4>Resumen de tu mini-caso</h4>
+        <div id="salida-contenido"></div>
+        <p style="font-size:17px;color:var(--azul-medio);margin-top:16px;opacity:.8;">Puedes copiar este texto para entregarlo como evidencia de la actividad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion">
+    <div class="header-seccion">
+      <h2><span class="numero">12</span>Autoevaluación de resultados de aprendizaje</h2>
+      <p class="subtitulo">Marca los resultados que consideras que has alcanzado. No es una calificación: es una fotografía de tu aprendizaje.</p>
+    </div>
+
+    <div class="checklist">
+      <h3>🎯 Resultados de aprendizaje alcanzados</h3>
+      <p>Marca cada resultado solo si puedes <strong>demostrarlo con un ejemplo propio</strong>. Si dudas, deja la casilla sin marcar.</p>
+
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-1">
+        <label class="check-txt" for="ra-check-1">
+          <strong>RA1 · Definir qué es un sesgo cognitivo</strong> y distinguirlo de un simple error o de una decisión distinta de la óptima.
+          <span class="nivel">Se trabajó en la sección "¿Qué es un sesgo cognitivo?"</span>
+        </label>
+      </div>
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-2">
+        <label class="check-txt" for="ra-check-2">
+          <strong>RA2 · Diferenciar heurística de sesgo</strong>, y explicar por qué una heurística puede ser eficiente y producir sesgo según el contexto.
+          <span class="nivel">Se trabajó en la sección "Heurística ≠ sesgo"</span>
+        </label>
+      </div>
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-3">
+        <label class="check-txt" for="ra-check-3">
+          <strong>RA3 · Identificar disponibilidad, representatividad y anclaje</strong> en situaciones sociales y de decisión.
+          <span class="nivel">Se trabajó en los Casos 1, 2 y 3</span>
+        </label>
+      </div>
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-4">
+        <label class="check-txt" for="ra-check-4">
+          <strong>RA4 · Analizar cómo framing y aversión a la pérdida</strong> modifican decisiones con información equivalente.
+          <span class="nivel">Se trabajó en el Caso 4</span>
+        </label>
+      </div>
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-5">
+        <label class="check-txt" for="ra-check-5">
+          <strong>RA5 · Reconocer confirmación y costo hundido</strong>, y proponer estrategias para reducirlos.
+          <span class="nivel">Se trabajó en el Caso 5</span>
+        </label>
+      </div>
+      <div class="check-item" data-check>
+        <input type="checkbox" id="ra-check-6">
+        <label class="check-txt" for="ra-check-6">
+          <strong>RA6 · Transferir los conceptos</strong> a contextos académicos, clínicos o cotidianos, construyendo análisis razonados.
+          <span class="nivel">Se trabajó en la actividad integradora</span>
+        </label>
+      </div>
+
+      <div class="resumen-checklist">
+        <h4>Tu cobertura de resultados</h4>
+        <div class="porcentaje" id="porcentaje-ra">0 %</div>
+        <div class="barra-progreso"><div class="fill" id="fill-ra"></div></div>
+        <div class="mensaje" id="mensaje-ra">Marca tus resultados para ver tu cobertura.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre">
+    <div class="cierre">
+      <h3>Lo que debería quedar</h3>
+      <p>Las personas no deciden porque sean racionales o irracionales: deciden con recursos cognitivos, experiencias, emociones y estrategias, en contextos limitados de información, tiempo y recursos. Las heurísticas facilitan decisiones eficientes; ciertas condiciones favorecen sesgos sistemáticos.</p>
+      <p><strong>Reconocer un sesgo no significa demostrar que una decisión fue equivocada.</strong> Significa identificar un mecanismo que podría haber influido y evaluar si realmente lo explica.</p>
+
+      <div class="referencias">
+        <strong>Referencias fundamentales (APA 7)</strong>
+        Arkes, H. R., &amp; Blumer, C. (1985). The psychology of sunk cost. <em>Organizational Behavior and Human Decision Processes, 35</em>(1), 124–140.<br>
+        Gigerenzer, G., &amp; Gaissmaier, W. (2011). Heuristic decision making. <em>Annual Review of Psychology, 62</em>, 451–482.<br>
+        Kahneman, D., &amp; Tversky, A. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131.<br>
+        Nickerson, R. S. (1998). Confirmation bias: A ubiquitous phenomenon in many guises. <em>Review of General Psychology, 2</em>(2), 175–220.<br>
+        Simon, H. A. (1955). A behavioral model of rational choice. <em>The Quarterly Journal of Economics, 69</em>(1), 99–118.<br>
+        Tversky, A., &amp; Kahneman, D. (1973). Availability: A heuristic for judging frequency and probability. <em>Cognitive Psychology, 5</em>(2), 207–232.<br>
+        Tversky, A., &amp; Kahneman, D. (1981). The framing of decisions and the psychology of choice. <em>Science, 211</em>(4481), 453–458.<br>
+        Tversky, A., &amp; Kahneman, D. (1983). Extensional versus intuitive reasoning: The conjunction fallacy in probability judgment. <em>Psychological Review, 90</em>(4), 293–315.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ============================================================
+   1. BARRA DE PROGRESO
+   ============================================================ */
+const progreso = document.getElementById('progreso');
+window.addEventListener('scroll', () => {
+  const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+  const avance = (window.scrollY / alturaTotal) * 100;
+  progreso.style.width = Math.max(0, Math.min(100, avance)) + '%';
+});
+
+/* ============================================================
+   2. ACORDEÓN DEL ÍNDICE
+   ============================================================ */
+document.querySelectorAll('[data-acordeon]').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('abierto');
+  });
+});
+
+/* ============================================================
+   3. PREGUNTAS DESPLEGABLES
+   ============================================================ */
+document.querySelectorAll('[data-preg]').forEach(preg => {
+  preg.addEventListener('click', () => {
+    preg.parentElement.classList.toggle('abierta');
+  });
+});
+
+/* ============================================================
+   4. ACTIVIDAD INTEGRADORA
+   ============================================================ */
+document.getElementById('btn-exportar-caso').addEventListener('click', () => {
+  const titulo = document.getElementById('act-titulo').value.trim() || '(sin título)';
+  const contexto = document.getElementById('act-contexto').value.trim() || '(sin contexto)';
+  const s1 = document.getElementById('act-sesgo1').value || '(sin sesgo 1)';
+  const j1 = document.getElementById('act-justifica1').value.trim() || '(sin justificación)';
+  const s2 = document.getElementById('act-sesgo2').value || '';
+  const j2 = document.getElementById('act-justifica2').value.trim() || '';
+  const clave = document.getElementById('act-pregunta-clave').value.trim() || '(sin propuesta)';
+
+  let html = `
+    <p><strong>Mini-caso:</strong> ${titulo}</p>
+    <p><strong>Contexto:</strong> ${contexto}</p>
+    <p><strong>Primer sesgo identificado:</strong> ${s1}</p>
+    <p><strong>Justificación:</strong> ${j1}</p>
+  `;
+  if(s2){
+    html += `<p><strong>Segundo sesgo:</strong> ${s2}</p>`;
+    html += `<p><strong>Justificación:</strong> ${j2}</p>`;
+  }
+  html += `<p><strong>Información o procedimiento para reducir el sesgo:</strong> ${clave}</p>`;
+
+  document.getElementById('salida-contenido').innerHTML = html;
+  document.getElementById('salida-actividad').classList.add('visible');
+});
+
+document.getElementById('btn-limpiar-caso').addEventListener('click', () => {
+  ['act-titulo','act-contexto','act-justifica1','act-justifica2','act-pregunta-clave'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  ['act-sesgo1','act-sesgo2'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('salida-actividad').classList.remove('visible');
+});
+
+/* ============================================================
+   5. AUTOEVALUACIÓN CHECKLIST
+   ============================================================ */
+const checks = document.querySelectorAll('.check-item input[type=checkbox]');
+const porcentajeRA = document.getElementById('porcentaje-ra');
+const fillRA = document.getElementById('fill-ra');
+const mensajeRA = document.getElementById('mensaje-ra');
+
+function actualizarChecklist(){
+  let marcados = 0;
+  checks.forEach(c => {
+    if(c.checked){
+      marcados++;
+      c.closest('.check-item').classList.add('marcado');
+    } else {
+      c.closest('.check-item').classList.remove('marcado');
+    }
+  });
+  const total = checks.length;
+  const porcentaje = Math.round((marcados/total)*100);
+  porcentajeRA.textContent = porcentaje + ' %';
+  fillRA.style.width = porcentaje + '%';
+
+  let mensaje = '';
+  if(marcados === 0){
+    mensaje = 'Marca tus resultados para ver tu cobertura.';
+  } else if(marcados === total){
+    mensaje = '🌟 Has cubierto los seis resultados de aprendizaje. Considera aplicar estos conceptos a un caso nuevo de tu práctica profesional para consolidar la transferencia.';
+  } else if(marcados >= 4){
+    mensaje = '🟢 Buena cobertura. Revisa los resultados no marcados: puede ser útil volver al caso correspondiente y releerlo con más calma.';
+  } else if(marcados >= 2){
+    mensaje = '🟡 Cobertura parcial. Los casos donde no marcaste resultado son los que conviene reforzar: anota qué duda específica tienes sobre ese sesgo.';
+  } else {
+    mensaje = '🟠 Cobertura baja. Sugerimos recorrer los casos con más tiempo, deteniéndote en las preguntas guía antes de ver el análisis.';
+  }
+  mensajeRA.textContent = mensaje;
+}
+checks.forEach(c => c.addEventListener('change', actualizarChecklist));
+actualizarChecklist();
+
+/* ============================================================
+   6. RESALTAR ENLACE ACTIVO
+   ============================================================ */
+const secciones = document.querySelectorAll('main > section');
+const enlacesTop = document.querySelectorAll('#topbar nav a');
+
+window.addEventListener('scroll', () => {
+  let actual = '';
+  secciones.forEach(sec => {
+    const top = sec.offsetTop - 100;
+    if(window.scrollY >= top){
+      actual = sec.id;
+    }
+  });
+  enlacesTop.forEach(a => {
+    a.classList.toggle('activo', a.getAttribute('href') === '#' + actual);
+  });
+});
+</script>
+</body>
+</html>
