@@ -29,12 +29,18 @@ jobs:
           materiales = []
 
           def obtener_meta(contenido, nombre):
-              patron = rf'<meta\s+name=.*?["\']\s*/?>'
+              patron = (
+                  r'<meta\s+[^>]*name=["\']'
+                  + re.escape(nombre)
+                  + r'[^"\']*["\'][^>]*>'
+              )
+
               resultado = re.search(
                   patron,
                   contenido,
-                  re.IGNORECASE | re.DOTALL
+                  re.IGNORECASE
               )
+
               return resultado.group(1).strip() if resultado else ""
 
           for archivo in sorted(carpeta.glob("*.html")):
@@ -44,7 +50,10 @@ jobs:
                   errors="ignore"
               )
 
-              titulo = obtener_meta(contenido, "jc-titulo")
+              titulo = obtener_meta(
+                  contenido,
+                  "jc-titulo"
+              )
 
               if not titulo:
                   print(
