@@ -128,6 +128,48 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Cuerpo, emoción e interocepción",
+    "descripcion": "Recurso autónomo sobre interocepción, emoción, homeostasis, alostasis, marcador somático, Iowa Gambling Task, procesamiento predictivo y corporeización interoceptiva, con actividades y autoevaluación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/cuerpo-emocion-interocepcion-artefacto.html",
+    "etiquetas": [
+      "Interocepción",
+      "Emoción",
+      "Cognición corporeizada",
+      "Homeostasis",
+      "Alostasis",
+      "Marcador somático",
+      "Damasio",
+      "Iowa Gambling Task",
+      "Procesamiento predictivo",
+      "Corporeización interoceptiva",
+      "Salud mental"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Cuerpo, emoción e interocepción: presentación",
+    "descripcion": "Presentación interactiva de 45 diapositivas sobre interocepción, emoción, regulación corporal, homeostasis, alostasis, marcador somático, Iowa Gambling Task, procesamiento predictivo y cognición corporeizada.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/cuerpo-emocion-interocepcion-presentacion.html",
+    "etiquetas": [
+      "Interocepción",
+      "Emoción",
+      "Cognición corporeizada",
+      "Homeostasis",
+      "Alostasis",
+      "Marcador somático",
+      "Damasio",
+      "Iowa Gambling Task",
+      "Procesamiento predictivo",
+      "Corporeización interoceptiva",
+      "Regulación corporal"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Del tema al problema de investigación",
     "descripcion": "Recurso autónomo para distinguir tema, situación problemática, problema de conocimiento, vacíos de literatura, delimitación y pregunta de investigación, con actividades y autoevaluación.",
     "tipo": "Artefacto educativo interactivo",
