@@ -447,5 +447,45 @@
     ],
     "curso": "Semillero SOM4TICA",
     "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "¿Cómo sabemos qué sabemos? De la búsqueda de artículos a la revisión de literatura",
+    "descripcion": "Recurso autónomo sobre búsqueda bibliográfica, revisión narrativa y sistemática, PRISMA, criterios de elegibilidad, síntesis de evidencia y trazabilidad, con actividades y autoevaluación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/como-sabemos-que-sabemos-artefacto.html",
+    "etiquetas": [
+      "Revisión de literatura",
+      "Búsqueda bibliográfica",
+      "Revisión narrativa",
+      "Revisión sistemática",
+      "PRISMA",
+      "Criterios de elegibilidad",
+      "Síntesis de evidencia",
+      "Trazabilidad",
+      "Alfabetización científica",
+      "Metodología de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "¿Cómo sabemos qué sabemos? Revisión de literatura",
+    "descripcion": "Presentación de clase sobre cómo pasar de buscar artículos a revisar literatura, con revisión narrativa y sistemática, sesgos de búsqueda, PRISMA, estrategia de búsqueda, selección y síntesis.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/como-sabemos-que-sabemos-presentacion.html",
+    "etiquetas": [
+      "Revisión de literatura",
+      "Búsqueda bibliográfica",
+      "Revisión narrativa",
+      "Revisión sistemática",
+      "PRISMA",
+      "Estrategia de búsqueda",
+      "Operadores booleanos",
+      "Síntesis",
+      "Trazabilidad",
+      "Metodología de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
   }
 ]
