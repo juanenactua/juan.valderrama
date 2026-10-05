@@ -13,5 +13,23 @@
     ],
     "curso": "Introducción a la Investigación",
     "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Sesgos cognitivos: 7 errores que sabotean tus decisiones",
+    "descripcion": "Taller interactivo de lectura, análisis y diseño de casos sobre sesgos cognitivos, heurísticas, sistema 1 y sistema 2 y toma de decisiones.",
+    "tipo": "Taller interactivo",
+    "archivo": "materiales/taller-sesgos-cognitivos-y-decisiones.html",
+    "etiquetas": [
+      "Sesgos cognitivos",
+      "Heurísticas",
+      "Toma de decisiones",
+      "Sistema 1",
+      "Sistema 2",
+      "Kahneman",
+      "Tversky",
+      "Cognición"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
   }
 ]
