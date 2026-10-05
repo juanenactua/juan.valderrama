@@ -18,6 +18,26 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Correlación y causalidad",
+    "descripcion": "Tutoría interactiva sobre correlación, causalidad, direccionalidad, variables de confusión e inferencia causal, con laboratorio de correlaciones, actividades y semáforo causal.",
+    "tipo": "Tutoría interactiva",
+    "archivo": "materiales/correlacion-y-causalidad.html",
+    "etiquetas": [
+      "Correlación",
+      "Causalidad",
+      "Inferencia causal",
+      "Direccionalidad",
+      "Variables de confusión",
+      "Tercera variable",
+      "Diseño experimental",
+      "Alfabetización científica",
+      "Razonamiento causal",
+      "Psicología"
+    ],
+    "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Diseño metodológico",
     "descripcion": "Recurso interactivo para comprender el diseño metodológico como arquitectura de una investigación y diferenciar diseños cuantitativos y cualitativos.",
     "tipo": "Artefacto interactivo",
@@ -85,6 +105,27 @@
       "Metacognición"
     ],
     "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Leer un artículo científico en Psicología",
+    "descripcion": "Presentación interactiva para aprender a buscar, escanear, reconstruir y evaluar artículos científicos en Psicología, con actividades sobre bases de datos, método, resultados, evidencia e inferencias.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/leer-un-articulo-cientifico.html",
+    "etiquetas": [
+      "Lectura científica",
+      "Artículo científico",
+      "Psicología",
+      "Alfabetización científica",
+      "Google Académico",
+      "Consensus",
+      "Scopus",
+      "Método",
+      "Resultados",
+      "Evidencia",
+      "Lectura crítica"
+    ],
+    "curso": "Introducción a la Investigación",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
