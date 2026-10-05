@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mente extendida · Artefacto educativo interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="La hipótesis de la mente extendida">
+<meta name="jc-descripcion" content="Artefacto educativo interactivo sobre la hipótesis de la mente extendida, sus fundamentos, condiciones, ejemplos, objeciones, aplicaciones éticas y autoevaluación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Mente extendida, Cognición extendida, Cognición 4E, Clark, Chalmers, Externismo activo, Principio de paridad, Acoplamiento, Constitución cognitiva, Otto e Inga, Filosofía de la mente, Ciencias cognitivas">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  /* ============================================================
+     PALETA: base azul oscuro + acento ámbar + neutro claro
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;       /* azul oscuro principal */
+    --bg-mid: #12233d;        /* azul medio para tarjetas */
+    --bg-soft: #1b2f4d;       /* azul suave para hover */
+    --accent: #f0b429;        /* ámbar/dorado de acento */
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;     /* texto claro principal */
+    --text-soft: #a8b8cc;     /* texto secundario */
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  /* ---- BARRA DE PROGRESO ---- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before {
+    content: '◈';
+    font-size: 1.3rem;
+  }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- NAV LATERAL ---- */
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 225px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+  }
+  @media (min-width: 1150px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.88rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  /* ---- MAIN ---- */
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1150px) {
+    main { margin-left: 245px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  /* ---- TARJETAS Y CALLOUTS ---- */
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  /* ---- ACORDEÓN ---- */
+  .accordion {
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-mid);
+  }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.05rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-main);
+    transition: background 0.2s;
+    font-family: var(--font);
+  }
+  .accordion-header:hover { background: var(--bg-soft); }
+  .accordion-header .icon {
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 1.3rem;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .accordion-content p { padding: 0.9rem 0; margin: 0; color: var(--text-soft); }
+  .accordion-item.active .accordion-content { max-height: 500px; padding: 0.2rem 1.3rem 1.1rem; }
+
+  /* ---- TARJETAS FLIP ---- */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 190px;
+    cursor: pointer;
+    outline: none;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: var(--radius);
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .flip-front {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+    background: var(--bg-mid);
+    box-shadow: var(--shadow);
+  }
+  .flip-front::after {
+    content: '↻ clic para girar';
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    font-weight: 400;
+  }
+  .flip-back {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    transform: rotateY(180deg);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flip-back small { display: block; margin-top: 0.6rem; font-size: 0.78rem; opacity: 0.85; }
+
+  /* ---- SIMULACIÓN ---- */
+  .sim-container {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem 1.5rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+  }
+  .sim-stage {
+    background: #060f1c;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    margin: 1.2rem 0;
+    min-height: 340px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(240, 180, 41, 0.15);
+  }
+  .sim-scene {
+    display: none;
+    animation: fadeIn 0.6s ease;
+  }
+  .sim-scene.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+
+  .sim-controls {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-step {
+    flex: 1; min-width: 140px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .sim-step:hover { background: var(--bg-mid); color: var(--text-main); }
+  .sim-step.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(240, 180, 41, 0.4);
+  }
+
+  /* Escena de Otto/Inga */
+  .scene-row {
+    display: flex; flex-wrap: wrap;
+    gap: 1.5rem; justify-content: center;
+    align-items: flex-start;
+  }
+  .persona {
+    background: rgba(240, 180, 41, 0.08);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    width: 240px;
+    text-align: center;
+    position: relative;
+    transition: all 0.4s;
+  }
+  .persona.highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(240, 180, 41, 0.5);
+    transform: translateY(-6px);
+  }
+  .persona-avatar {
+    font-size: 2.6rem;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .persona-name { font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; }
+  .persona-desc { font-size: 0.85rem; color: var(--text-soft); }
+
+  .resource-box {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: #060f1c;
+    border-radius: 8px;
+    border: 1px dashed var(--border);
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    min-height: 60px;
+    transition: all 0.4s;
+  }
+  .resource-box.active {
+    border-color: var(--accent);
+    border-style: solid;
+    color: var(--text-main);
+    background: rgba(240, 180, 41, 0.06);
+  }
+
+  .sim-explanation {
+    background: rgba(240, 180, 41, 0.08);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    min-height: 80px;
+  }
+  .sim-explanation strong { color: var(--accent); }
+
+  /* Animación de la libreta */
+  .notebook {
+    display: inline-block;
+    font-size: 3rem;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+
+  /* ---- PREGUNTAS ABIERTAS Y CERRADAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  /* ---- BTN GRANDE ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  /* ---- REFERENCIAS ---- */
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 700px) {
+    h1 { font-size: 1.7rem; }
+    h2 { font-size: 1.35rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .scene-row { flex-direction: column; align-items: center; }
+    .persona { width: 100%; max-width: 300px; }
+    .sim-step { min-width: 100%; }
+  }
+
+  /* ---- ACCESIBILIDAD ---- */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .flip-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ---- ANIMACIONES UTILITARIAS ---- */
+  .fade-slide {
+    animation: fadeSlide 0.5s ease both;
+  }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .highlight-pulse {
+    animation: highlightPulse 1.2s ease;
+  }
+  @keyframes highlightPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 30px rgba(240, 180, 41, 0.6); }
+  }
+
+  /* ---- FLECHAS DE FLUJO ---- */
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 1.4rem;
+    display: inline-block;
+    animation: arrowPulse 1.5s infinite;
+  }
+  @keyframes arrowPulse {
+    0%, 100% { opacity: 0.5; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(4px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">La hipótesis de la mente extendida</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta de aprendizaje</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#resultados">Resultados de aprendizaje</a></li>
+    <li><a href="#delimitacion">1. Delimitación</a></li>
+    <li><a href="#definiciones">2. Definiciones</a></li>
+    <li><a href="#simulacion">3. Simulación: Otto e Inga</a></li>
+    <li><a href="#componentes">4. Componentes y condiciones</a></li>
+    <li><a href="#ejemplos">5. Ejemplos y aplicaciones</a></li>
+    <li><a href="#debates">6. Debates y límites</a></li>
+    <li><a href="#sintesis">7. Síntesis</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Filosofía de la mente · Ciencias cognitivas</span>
+    <h1>La hipótesis de la mente extendida</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 750px; margin-top: 0.8rem;">
+      ¿Puede la mente rebasar los límites del cráneo? Esta idea, formulada por Andy Clark y David Chalmers en 1998,
+      sostiene que ciertos procesos cognitivos se constituyen, en parte, por recursos externos al cuerpo.
+      En este recorrido interactivo explorarás sus fundamentos, simulaciones, ejemplos y objeciones.
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado (nivel intermedio)</p>
+      <p><strong>Duración estimada:</strong> 60–75 minutos</p>
+      <p><strong>Palabras clave:</strong> mente extendida, cognición extendida, acoplamiento, paridad funcional, externismo activo, constitución cognitiva, cognición embebida</p>
+    </div>
+    <div class="callout">
+      <strong>¿Cómo recorrer este artefacto?</strong> Avanza sección por sección. Encontrarás simulaciones interactivas,
+      tarjetas giratorias, acordeones y preguntas abiertas y cerradas con retroalimentación. Tu progreso se muestra
+      en la barra superior.
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section id="resultados" class="reveal">
+    <h2>Resultados de aprendizaje</h2>
+    <p>Al finalizar este artefacto, el estudiante será capaz de:</p>
+    <ul>
+      <li><strong>Analizar</strong> la tesis de la mente extendida distinguiéndola de la cognición embebida, incorporada y distribuida.</li>
+      <li><strong>Evaluar</strong> las condiciones de Clark y Chalmers (constancia, accesibilidad, respaldo automático y previo) aplicándolas a casos concretos.</li>
+      <li><strong>Argumentar</strong> a favor o en contra de la hipótesis, reconociendo las objeciones del acoplamiento-constitución y la crítica de Rupert.</li>
+      <li><strong>Relacionar</strong> la discusión teórica con implicaciones éticas en el diseño de ayudas cognitivas y neuroética.</li>
+      <li><strong>Justificar</strong> por escrito, con lenguaje propio, si un recurso externo forma parte o no de un proceso cognitivo.</li>
+    </ul>
+  </section>
+
+  <!-- 1. DELIMITACIÓN -->
+  <section id="delimitacion" class="reveal">
+    <h2>1. Delimitación del tema</h2>
+    <p>
+      La hipótesis de la mente extendida sostiene que algunos estados mentales y procesos cognitivos de un individuo
+      están constituidos, en parte, por objetos o sistemas que se encuentran fuera de su cuerpo. No se limita a decir
+      que el entorno influye en el pensamiento —algo que nadie discute—, sino que da un paso más: afirma que ciertos
+      recursos externos <em>forman parte</em> del proceso cognitivo mismo.
+    </p>
+    <div class="callout">
+      <strong>Idea clave:</strong> No es lo mismo decir que una libreta <em>influye</em> en la memoria que decir que
+      la libreta <em>es parte</em> de la memoria. La mente extendida defiende esto último bajo ciertas condiciones.
+    </div>
+    <p>
+      Quedan fuera de su alcance las tesis sobre el significado de las palabras (externismo de contenido) y las
+      explicaciones sobre la conciencia fenoménica. Tampoco debe confundirse con la simple dependencia causal del entorno.
+    </p>
+
+    <!-- Comparador interactivo -->
+    <h3>Comparador: ¿qué se parece y qué no?</h3>
+    <p>Haz clic en cada tarjeta para ver su definición y su relación con la mente extendida.</p>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cognición embebida">
+        <div class="flip-inner">
+          <div class="flip-front">Cognición embebida</div>
+          <div class="flip-back">El pensamiento depende causalmente del entorno, pero este no forma parte del proceso. <small>Tesis más débil, aceptada incluso por críticos.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cognición incorporada">
+        <div class="flip-inner">
+          <div class="flip-front">Cognición incorporada</div>
+          <div class="flip-back">El cuerpo desempeña una función en la cognición. <small>El cuerpo ya pertenece al organismo, no hay extensión más allá de él.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Cognición distribuida">
+        <div class="flip-inner">
+          <div class="flip-front">Cognición distribuida</div>
+          <div class="flip-back">El sistema de análisis es un grupo con artefactos, no un individuo. <small>Hutchins (1995): la mente extendida atribuye estados a un individuo.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Externismo de contenido">
+        <div class="flip-inner">
+          <div class="flip-front">Externismo de contenido</div>
+          <div class="flip-back">El contenido de un estado mental depende del entorno. <small>La mente extendida afirma que el vehículo incluye elementos externos.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta abierta 1 -->
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Con tus palabras: ¿cuál es la diferencia entre "el entorno influye en la mente" y "el entorno es parte de la mente"? Da un ejemplo breve.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 1"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(1)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb1">
+        <strong>Respuesta modelo:</strong> "Influye" describe una relación causal: sin el entorno, el proceso no ocurriría igual, pero el proceso sigue siendo interno. "Es parte" describe una relación constitutiva: el recurso externo es un componente del propio proceso cognitivo. Ejemplo: una calculadora influye en que yo haga una operación; pero si la operación solo es posible porque la calculadora ejecuta los pasos, entonces la calculadora es parte del proceso de cálculo. La diferencia es entre causa y constitución.
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. DEFINICIONES -->
+  <section id="definiciones" class="reveal">
+    <h2>2. Definiciones clave</h2>
+    <p>
+      Para entender la propuesta, conviene manejar con precisión algunos términos. Clark y Chalmers (1998) llamaron
+      a su postura <strong>externismo activo</strong>: cuando un elemento del entorno cumple una función que, si ocurriera
+      dentro del cerebro, reconoceríamos sin dudar como cognitiva, ese elemento es parte del proceso.
+    </p>
+    <p>
+      Con el tiempo, la bibliografía la ha denominado <strong>hipótesis de la mente extendida</strong>. Veamos las
+      variantes más importantes según sus autores.
+    </p>
+
+    <div class="accordion" id="acordeonVariantes">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Clark y Chalmers (1998) <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Formulación basada en la <strong>paridad funcional</strong> y centrada en creencias disposicionales. Si la función es equivalente, la ubicación no importa.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Clark (2008) <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Extiende la tesis a procesos cognitivos y subraya la integración dinámica entre organismo y recurso. Se usa más el término <em>cognición extendida</em>.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Menary (2007) <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Propone la <strong>integración cognitiva</strong>. Los procesos cognitivos son híbridos y se identifican por cómo se manipulan los recursos externos, no por su parecido con procesos internos.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Rowlands (2010) <span class="icon">+</span></button>
+        <div class="accordion-content"><p>Defiende la mente extendida dentro de una familia de tesis (incorporada, embebida, enactiva y extendida) con argumentos propios.</p></div>
+      </div>
+    </div>
+
+    <h3>Términos en orden de dependencia</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Estado mental disposicional">
+        <div class="flip-inner">
+          <div class="flip-front">Estado mental disposicional</div>
+          <div class="flip-back">Estado que el sujeto mantiene sin estar pensando en él actualmente. <small>Ej.: creer que el Louvre está en París mientras duermes.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Proceso cognitivo">
+        <div class="flip-inner">
+          <div class="flip-front">Proceso cognitivo</div>
+          <div class="flip-back">Secuencia de operaciones sobre información que contribuye a resolver una tarea. <small>Recordar, calcular, orientarse.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Constitución">
+        <div class="flip-inner">
+          <div class="flip-front">Constitución</div>
+          <div class="flip-back">Relación por la cual un elemento es parte del estado o proceso, y no solo su causa.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Acoplamiento">
+        <div class="flip-inner">
+          <div class="flip-front">Acoplamiento</div>
+          <div class="flip-back">Interacción causal bidireccional y continua entre el organismo y un recurso externo.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Principio de paridad">
+        <div class="flip-inner">
+          <div class="flip-front">Principio de paridad</div>
+          <div class="flip-back">La ubicación (dentro o fuera del cráneo) no determina por sí sola si algo es cognitivo; lo determina la función.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Sistema cognitivo extendido">
+        <div class="flip-inner">
+          <div class="flip-front">Sistema cognitivo extendido</div>
+          <div class="flip-back">Sistema formado por el organismo, el recurso externo y su acoplamiento.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>No confundir:</strong> la <em>cognición embebida</em> afirma dependencia causal; la <em>incorporada</em> destaca el cuerpo; la <em>distribuida</em> analiza grupos; y el <em>externismo de contenido</em> se ocupa del significado, no de la constitución material.
+    </div>
+
+    <!-- Pregunta cerrada 1 -->
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de estas tesis afirma que un recurso externo es parte constitutiva del proceso cognitivo?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c1" value="a"> a) Cognición embebida</label>
+        <label class="q-option"><input type="radio" name="c1" value="b"> b) Cognición incorporada</label>
+        <label class="q-option"><input type="radio" name="c1" value="c"> c) Mente extendida</label>
+        <label class="q-option"><input type="radio" name="c1" value="d"> d) Externismo de contenido</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+  </section>
+
+  <!-- 3. SIMULACIÓN: OTTO E INGA -->
+  <section id="simulacion" class="reveal">
+    <h2>3. Simulación interactiva: Otto e Inga</h2>
+    <p>
+      El experimento mental más famoso de Clark y Chalmers (1998) es el de Otto y Inga. Vamos a recorrerlo paso a paso
+      con una simulación. Pulsa cada botón para avanzar y observa qué ocurre con cada personaje.
+    </p>
+
+    <div class="sim-container">
+      <div class="sim-controls">
+        <button class="sim-step active" data-scene="0">① Presentación</button>
+        <button class="sim-step" data-scene="1">② El dato</button>
+        <button class="sim-step" data-scene="2">③ La consulta</button>
+        <button class="sim-step" data-scene="3">④ Condiciones</button>
+        <button class="sim-step" data-scene="4">⑤ Conclusión</button>
+      </div>
+
+      <div class="sim-stage" id="simStage">
+        <!-- Escena 0 -->
+        <div class="sim-scene active" data-scene="0">
+          <div class="scene-row">
+            <div class="persona">
+              <span class="persona-avatar">👩</span>
+              <div class="persona-name">Inga</div>
+              <div class="persona-desc">Memoria biológica intacta. Recuerda de memoria que el MoMA está en la calle 53.</div>
+              <div class="resource-box">🧠 Memoria interna</div>
+            </div>
+            <div class="persona">
+              <span class="persona-avatar">👨</span>
+              <div class="persona-name">Otto</div>
+              <div class="persona-desc">Tiene Alzheimer. Lleva siempre un cuaderno donde anota todo lo importante.</div>
+              <div class="resource-box">📓 Cuaderno externo</div>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Contexto:</strong> Ambos quieren ir al Museo de Arte Moderno (MoMA). Inga lo recuerda; Otto no. Otto consulta su cuaderno para saber dónde está.
+          </div>
+        </div>
+
+        <!-- Escena 1 -->
+        <div class="sim-scene" data-scene="1">
+          <div class="scene-row">
+            <div class="persona highlight">
+              <span class="persona-avatar">👩</span>
+              <div class="persona-name">Inga</div>
+              <div class="persona-desc">Escucha que el MoMA está en la calle 53 y lo memoriza.</div>
+              <div class="resource-box active">🧠 Dato almacenado en el cerebro</div>
+            </div>
+            <div class="persona highlight">
+              <span class="persona-avatar">👨</span>
+              <div class="persona-name">Otto</div>
+              <div class="persona-desc">Anota en su cuaderno: "MoMA → calle 53".</div>
+              <div class="resource-box active">📓 Dato almacenado en el cuaderno</div>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 1 — Almacenamiento:</strong> Inga guarda la información en su memoria biológica. Otto la guarda en su cuaderno. En ambos casos hay un soporte físico que conserva el dato.
+          </div>
+        </div>
+
+        <!-- Escena 2 -->
+        <div class="sim-scene" data-scene="2">
+          <div class="scene-row">
+            <div class="persona">
+              <span class="persona-avatar">👩</span>
+              <div class="persona-name">Inga</div>
+              <div class="persona-desc">Recuerda directamente: "El MoMA está en la calle 53". Se dirige allí.</div>
+              <div class="resource-box active">🧠 Acceso directo</div>
+            </div>
+            <div class="persona">
+              <span class="persona-avatar">👨</span>
+              <div class="persona-name">Otto</div>
+              <div class="persona-desc">Consulta el cuaderno: "MoMA → calle 53". Se dirige allí.</div>
+              <div class="resource-box active">📓 Consulta directa</div>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 2 — Recuperación:</strong> Inga accede a su memoria interna sin intermediarios. Otto accede a su cuaderno sin intermediarios. Ambos obtienen el mismo dato: "calle 53". La función es idéntica.
+          </div>
+        </div>
+
+        <!-- Escena 3 -->
+        <div class="sim-scene" data-scene="3">
+          <h4 style="text-align: center; color: var(--accent); margin-bottom: 1rem;">Verificación de las 4 condiciones de Clark y Chalmers</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem;">
+            <div class="resource-box active" style="text-align: center;">
+              <strong style="color: var(--accent);">1. Constancia</strong><br>
+              <span style="font-size: 0.85rem;">Otto lleva siempre el cuaderno. ✔</span>
+            </div>
+            <div class="resource-box active" style="text-align: center;">
+              <strong style="color: var(--accent);">2. Accesibilidad</strong><br>
+              <span style="font-size: 0.85rem;">Lo consulta directamente cuando lo necesita. ✔</span>
+            </div>
+            <div class="resource-box active" style="text-align: center;">
+              <strong style="color: var(--accent);">3. Respaldo automático</strong><br>
+              <span style="font-size: 0.85rem;">Acepta lo que dice el cuaderno sin dudar. ✔</span>
+            </div>
+            <div class="resource-box active" style="text-align: center;">
+              <strong style="color: var(--accent);">4. Respaldo previo</strong><br>
+              <span style="font-size: 0.85rem;">La información fue anotada conscientemente. ✔</span>
+            </div>
+          </div>
+          <div class="sim-explanation">
+            <strong>Paso 3 — Evaluación:</strong> El cuaderno de Otto cumple las cuatro condiciones. Por eso, según Clark y Chalmers, el cuaderno no es solo una ayuda: es parte del sistema cognitivo que sostiene su creencia sobre la ubicación del MoMA.
+          </div>
+        </div>
+
+        <!-- Escena 4 -->
+        <div class="sim-scene" data-scene="4">
+          <div style="text-align: center; padding: 1rem;">
+            <div class="notebook">📓</div>
+            <span class="flow-arrow">+</span>
+            <span style="font-size: 3rem;">🧠</span>
+            <span class="flow-arrow">=</span>
+            <span style="font-size: 3rem;">💭</span>
+          </div>
+          <div class="sim-explanation" style="text-align: center; font-size: 1.05rem;">
+            <strong>Conclusión:</strong> Según Clark y Chalmers, Otto <em>creía</em> desde antes de consultar el cuaderno que el MoMA estaba en la calle 53. La mente de Otto se extiende hasta incluir el cuaderno. La función del cuaderno es equivalente a la memoria biológica de Inga.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pregunta abierta 2 -->
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Si el cuaderno de Otto se moja y se vuelve ilegible, ¿qué implicaciones tendría para su "creencia" sobre el MoMA desde la perspectiva de la mente extendida? Justifica.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 2"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(2)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb2">
+        <strong>Respuesta modelo:</strong> Desde la mente extendida, si el cuaderno es parte del sistema cognitivo, destruirlo equivale a una pérdida de memoria: Otto perdería la creencia disposicional sobre la ubicación del MoMA. La integridad cognitiva de Otto estaría comprometida. Esto es lo que lleva a Levy (2007) a hablar de "paridad ética": si tratamos la memoria externa como parte de la mente, merece la misma protección que la interna.
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. COMPONENTES Y CONDICIONES -->
+  <section id="componentes" class="reveal">
+    <h2>4. Componentes y condiciones</h2>
+    <p>
+      Para que la mente se extienda, no basta con usar una herramienta. Clark y Chalmers (1998) propusieron cuatro
+      condiciones que la información externa debe cumplir para contar como creencia:
+    </p>
+    <ol>
+      <li><strong>Constancia:</strong> el recurso está presente de forma fiable.</li>
+      <li><strong>Accesibilidad:</strong> el sujeto lo consulta directamente cuando lo necesita.</li>
+      <li><strong>Respaldo automático:</strong> el sujeto acepta la información sin cuestionarla.</li>
+      <li><strong>Respaldo previo:</strong> la información fue aceptada conscientemente en el pasado y por eso está en el recurso.</li>
+    </ol>
+    <p>
+      Los propios autores tratan la cuarta condición como menos esencial, pero sirve para distinguir el caso de Otto
+      de una consulta ocasional. Además, los recursos pueden ser artefactos físicos, sistemas simbólicos (lenguaje,
+      notación numérica) e incluso otras personas.
+    </p>
+
+    <!-- Ejemplo resuelto paso a paso -->
+    <h3>Ejemplo resuelto paso a paso: teléfono inteligente</h3>
+    <div class="card">
+      <p><strong>Situación:</strong> María usa su teléfono para anotar todas sus citas médicas. Lo consulta varias veces al día. No recuerda las citas por sí misma.</p>
+      <p><strong>Paso 1.</strong> Recurso externo: la aplicación de calendario del teléfono.</p>
+      <p><strong>Paso 2.</strong> Constancia: el teléfono está siempre con ella, pero puede quedarse sin batería. <span style="color: var(--accent);">Parcialmente ✔</span></p>
+      <p><strong>Paso 3.</strong> Accesibilidad: lo consulta directamente. ✔</p>
+      <p><strong>Paso 4.</strong> Respaldo automático: acepta las citas del calendario sin dudar. ✔</p>
+      <p><strong>Paso 5.</strong> Respaldo previo: ella misma anotó las citas. ✔</p>
+      <p><strong>Conclusión:</strong> Clark ha defendido que dispositivos así pueden cumplir las condiciones, aunque la fiabilidad variable y el respaldo automático hacen el caso más discutible que el de Otto. La evidencia empírica (Sparrow et al., 2011) muestra dependencia funcional, pero su interpretación como constitución sigue en disputa.</p>
+    </div>
+
+    <!-- Pregunta cerrada 2 -->
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál de las siguientes NO es una de las condiciones de Clark y Chalmers para que la información externa cuente como creencia?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c2" value="a"> a) Constancia</label>
+        <label class="q-option"><input type="radio" name="c2" value="b"> b) Accesibilidad directa</label>
+        <label class="q-option"><input type="radio" name="c2" value="c"> c) Que el recurso sea digital</label>
+        <label class="q-option"><input type="radio" name="c2" value="d"> d) Respaldo automático</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'c')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+
+    <!-- Pregunta abierta 3 -->
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Piensa en un recurso externo que uses a diario (una app, un cuaderno, una persona). Evalúa si cumple las cuatro condiciones de Clark y Chalmers. ¿Dirías que forma parte de tu mente? ¿Por qué?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 3"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(3)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb3">
+        <strong>Respuesta modelo:</strong> Un ejemplo típico es la agenda del teléfono. Cumple constancia (la llevo siempre), accesibilidad (la consulto directamente), respaldo automático (confío en ella) y respaldo previo (yo mismo anoté las citas). Desde la mente extendida, la agenda sería parte de mi sistema cognitivo para recordar compromisos. Sin embargo, si falla la batería o la sincronización, la fiabilidad se rompe y el caso se vuelve más discutible. La respuesta depende de cuán estrictos seamos con las condiciones.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. EJEMPLOS Y APLICACIONES -->
+  <section id="ejemplos" class="reveal">
+    <h2>5. Ejemplos y aplicaciones</h2>
+
+    <h3>Tetris: acción epistémica</h3>
+    <p>
+      Kirsh y Maglio (1994) observaron que los jugadores de Tetris rotan físicamente las piezas en la pantalla para
+      ver su encaje, en lugar de rotarlas mentalmente. Esa rotación física es más rápida y modifica el entorno para
+      facilitar el cálculo. Los autores la llaman <em>acción epistémica</em>: no avanza directamente el juego, pero
+      ayuda a decidir.
+    </p>
+    <div class="callout">
+      <strong>Idea clave:</strong> Aquí el proceso cognitivo (determinar el encaje) incluye una acción sobre el entorno.
+      El entorno no solo influye: es parte del proceso de decisión.
+    </div>
+
+    <h3>Teléfono inteligente: ¿mente extendida o simple dependencia?</h3>
+    <p>
+      Una persona consulta varias veces al día el calendario de su teléfono y no recuerda las citas por sí misma.
+      Cumple constancia y accesibilidad, pero la fiabilidad (fallos de batería o conexión) y el respaldo automático
+      varían según la aplicación y el uso. Sparrow, Liu y Wegner (2011) mostraron que, si esperamos tener acceso
+      futuro a la información, recordamos mejor dónde está que la información misma. Eso evidencia dependencia,
+      pero no constitución.
+    </p>
+
+    <h3>Ayudas de memoria en demencia temprana</h3>
+    <p>
+      Una persona con deterioro cognitivo leve usa un cuaderno de rutinas o una aplicación de recordatorios. Si el
+      recurso forma parte del sistema cognitivo, retirarlo o alterarlo sin consentimiento afectaría su integridad
+      cognitiva. Levy (2007) lo plantea como <em>paridad ética</em>: si tratamos la memoria externa como parte de la
+      mente, merece la misma protección que la interna.
+    </p>
+
+    <div class="callout">
+      <strong>Contraejemplo útil:</strong> consultar una enciclopedia en la biblioteca no es mente extendida. La
+      información no está disponible de forma constante, no fue aceptada antes por el sujeto y se evalúa tras la
+      consulta. Hay dependencia causal (cognición embebida), pero no constitución.
+    </div>
+
+    <!-- Pregunta cerrada 3 -->
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">En el caso de Tetris, la rotación física de las piezas es un ejemplo de:</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c3" value="a"> a) Acción pragmática</label>
+        <label class="q-option"><input type="radio" name="c3" value="b"> b) Acción epistémica</label>
+        <label class="q-option"><input type="radio" name="c3" value="c"> c) Cognición distribuida</label>
+        <label class="q-option"><input type="radio" name="c3" value="d"> d) Externismo de contenido</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(3, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb3"></div>
+    </div>
+  </section>
+
+  <!-- 6. DEBATES -->
+  <section id="debates" class="reveal">
+    <h2>6. Debates, límites y malentendidos</h2>
+    <p>
+      La hipótesis no está exenta de críticas. La objeción más citada es la del <strong>acoplamiento-constitución</strong>:
+      Adams y Aizawa (2001, 2008) sostienen que de "X está acoplado causalmente a un proceso cognitivo" no se sigue
+      "X es parte del proceso". También exigen un criterio de lo cognitivo basado en el <em>contenido no derivado</em>:
+      el cuaderno de Otto tiene contenido derivado de convenciones lingüísticas y no tendría contenido propio.
+    </p>
+    <p>
+      Rupert (2004, 2009) añade que la cognición embebida explica los mismos datos con menos compromisos, y que la
+      memoria interna y la externa difieren en propiedades relevantes para la ciencia cognitiva, por lo que no forman
+      una clase natural común. Sprevak (2009) advierte que el funcionalismo subyacente podría llevar a una expansión
+      excesiva de lo mental.
+    </p>
+
+    <h3>Malentendidos frecuentes</h3>
+    <ul>
+      <li><strong>"Toda herramienta es parte de la mente."</strong> Falso; solo los recursos que cumplen las condiciones.</li>
+      <li><strong>"Es lo mismo que el externismo de contenido."</strong> Son tesis independientes.</li>
+      <li><strong>"La conciencia se extiende."</strong> Clark (2009) sostiene que probablemente los mecanismos de la conciencia siguen siendo internos.</li>
+      <li><strong>"Equivale a cognición distribuida."</strong> La distribuida analiza grupos; la extendida, un individuo.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Distinción importante:</strong> hay consenso en que la cognición depende causalmente del entorno.
+      La constitución es una postura defendida por Clark, Chalmers, Menary y Rowlands, y rechazada por Adams, Aizawa y Rupert.
+    </div>
+
+    <!-- Pregunta abierta 4 -->
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">La objeción del acoplamiento-constitución dice: "del acoplamiento causal no se sigue la constitución". Explica con tus palabras qué significa y por qué es una crítica fuerte a la mente extendida.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 4"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(4)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb4">
+        <strong>Respuesta modelo:</strong> Significa que el hecho de que dos cosas interactúen causalmente no implica que una sea parte de la otra. Ejemplo: mi mano y el martillo están acoplados causalmente cuando clavo un clavo, pero el martillo no es parte de mi mano. Adams y Aizawa exigen un criterio adicional para decir cuándo algo es "cognitivo": el contenido no derivado. El cuaderno de Otto tiene contenido derivado (el significado de las palabras viene de convenciones), no propio. Sin ese criterio, la mente extendida se expandiría demasiado.
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SÍNTESIS -->
+  <section id="sintesis" class="reveal">
+    <h2>7. Síntesis</h2>
+    <ol>
+      <li>La hipótesis afirma que ciertos estados y procesos cognitivos están constituidos en parte por elementos externos al cuerpo.</li>
+      <li>Se justifica con el principio de paridad: lo que importa es la función, no la ubicación.</li>
+      <li>Para estados disposicionales, Clark y Chalmers exigen constancia, accesibilidad, respaldo automático y respaldo previo.</li>
+      <li>Es más fuerte que la cognición embebida, que solo afirma dependencia causal, y distinta de la cognición distribuida y del externismo de contenido.</li>
+      <li>Sus críticos sostienen que se confunde acoplamiento con constitución y que el criterio de lo cognitivo no se cumple.</li>
+      <li>La evidencia empírica (Tetris, uso de dispositivos digitales) muestra dependencia funcional, pero su interpretación como constitución sigue en disputa.</li>
+    </ol>
+    <div class="callout">
+      <strong>Para llevarte:</strong> La mente extendida no dice que "todo vale". Dice que, bajo condiciones estrictas,
+      un recurso externo puede ser parte de tu cognición. La discusión sigue abierta y toca la ética, el diseño de
+      tecnologías y nuestra idea misma de lo que somos.
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias (APA 7)</h2>
+    <ul class="ref-list">
+      <li>Adams, F., y Aizawa, K. (2001). The bounds of cognition. <em>Philosophical Psychology, 14</em>(1), 43-64.</li>
+      <li>Adams, F., y Aizawa, K. (2008). <em>The bounds of cognition</em>. Blackwell.</li>
+      <li>Burge, T. (1979). Individualism and the mental. <em>Midwest Studies in Philosophy, 4</em>, 73-121.</li>
+      <li>Clark, A. (2008). <em>Supersizing the mind: Embodiment, action, and cognitive extension</em>. Oxford University Press.</li>
+      <li>Clark, A. (2009). Spreading the joy? Why the machinery of consciousness is (probably) still in the head. <em>Mind, 118</em>(472), 963-993.</li>
+      <li>Clark, A., y Chalmers, D. (1998). The extended mind. <em>Analysis, 58</em>(1), 7-19.</li>
+      <li>Hutchins, E. (1995). <em>Cognition in the wild</em>. MIT Press.</li>
+      <li>Kirsh, D., y Maglio, P. (1994). On distinguishing epistemic from pragmatic action. <em>Cognitive Science, 18</em>(4), 513-549.</li>
+      <li>Levy, N. (2007). Rethinking neuroethics in the light of the extended mind thesis. <em>American Journal of Bioethics, 7</em>(9), 3-11.</li>
+      <li>Menary, R. (2007). <em>Cognitive integration: Mind and cognition unbound</em>. Palgrave Macmillan.</li>
+      <li>Menary, R. (Ed.). (2010). <em>The extended mind</em>. MIT Press.</li>
+      <li>Putnam, H. (1975). The meaning of "meaning". En K. Gunderson (Ed.), <em>Language, mind, and knowledge</em> (pp. 131-193). University of Minnesota Press.</li>
+      <li>Rowlands, M. (2010). <em>The new science of the mind</em>. MIT Press.</li>
+      <li>Rupert, R. (2004). Challenges to the hypothesis of extended cognition. <em>Journal of Philosophy, 101</em>(8), 389-428.</li>
+      <li>Rupert, R. (2009). <em>Cognitive systems and the extended mind</em>. Oxford University Press.</li>
+      <li>Sparrow, B., Liu, J., y Wegner, D. (2011). Google effects on memory. <em>Science, 333</em>(6043), 776-778.</li>
+      <li>Sprevak, M. (2009). Extended cognition and functionalism. <em>Journal of Philosophy, 106</em>(9), 503-527.</li>
+      <li>Wilson, R., y Foglia, L. (2017). Embodied cognition. En E. Zalta (Ed.), <em>Stanford Encyclopedia of Philosophy</em>.</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <!-- CERRADAS -->
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la tesis central de la mente extendida?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) El entorno influye causalmente en el pensamiento.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) El cuerpo desempeña un papel en la cognición.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) Ciertos procesos cognitivos están constituidos, en parte, por recursos externos.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) El significado de las palabras depende del entorno.</label>
+      </div>
+      <div class="feedback-box" id="qFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">¿Qué diferencia a la mente extendida de la cognición embebida?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) La primera afirma constitución; la segunda, solo dependencia causal.</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) La primera se aplica a grupos; la segunda, a individuos.</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) La primera niega el papel del cuerpo; la segunda lo afirma.</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) No hay diferencia, son sinónimos.</label>
+      </div>
+      <div class="feedback-box" id="qFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="6">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">La objeción del acoplamiento-constitución sostiene que:</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) El acoplamiento es suficiente para la constitución.</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) Del acoplamiento causal no se sigue la constitución.</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) La mente no puede extenderse nunca.</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) El cuaderno de Otto no existe.</label>
+      </div>
+      <div class="feedback-box" id="qFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="7">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">En el caso de Otto, ¿por qué se dice que el cuaderno forma parte de su mente?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Porque es un objeto físico.</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) Porque lo usa todos los días.</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Porque cumple las condiciones de constancia, accesibilidad y respaldo automático.</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) Porque Inga también lo usa.</label>
+      </div>
+      <div class="feedback-box" id="qFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="8">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Cuál de estos autores es un crítico de la mente extendida?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) Andy Clark</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) David Chalmers</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) Frederick Adams</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) Richard Menary</label>
+      </div>
+      <div class="feedback-box" id="qFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <!-- ABIERTAS -->
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="5">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">¿Crees que tu teléfono inteligente forma parte de tu mente? Argumenta usando al menos dos de las cuatro condiciones de Clark y Chalmers.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 5"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(5)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb5">
+        <strong>Respuesta modelo:</strong> Depende de cómo se cumplan las condiciones. Si lo llevo siempre conmigo (constancia) y lo consulto directamente cuando necesito un dato (accesibilidad), se acerca al caso de Otto. Pero si falla la batería o la conexión, la constancia se rompe. Además, el respaldo automático es variable: a veces dudo de una app o de un resultado de búsqueda. Por eso, aunque hay una fuerte dependencia funcional, no siempre se cumple el criterio de constitución. Mi postura: es un caso límite, más cercano a la cognición embebida que a la mente extendida en sentido estricto.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="6">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Imagina que eres diseñador de una app para personas con deterioro cognitivo leve. ¿Qué decisiones tomarías si aceptas la hipótesis de la mente extendida? Menciona al menos dos implicaciones éticas.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 6"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(6)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb6">
+        <strong>Respuesta modelo:</strong> Si acepto la mente extendida, la app no es solo una herramienta: es parte del sistema cognitivo del usuario. Implicaciones: (1) la app debe ser extremadamente fiable, porque su fallo equivale a una pérdida de memoria; (2) el usuario debe poder decidir qué información se guarda y cómo se usa, porque afecta su integridad cognitiva; (3) retirar o modificar la app sin consentimiento sería una intervención éticamente comparable a alterar la memoria biológica. Levy (2007) habla de "paridad ética" entre memoria interna y externa.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="7">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué te parece más convincente de la mente extendida y qué te genera más dudas? Justifica con al menos un argumento de un autor visto.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 7"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(7)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb7">
+        <strong>Respuesta modelo:</strong> Lo más convincente es el principio de paridad: si la función es la misma, ¿por qué la ubicación debería importar? El caso de Otto es intuitivamente poderoso. Lo que genera más dudas es la objeción de Adams y Aizawa: del acoplamiento causal no se sigue la constitución. El cuaderno de Otto tiene contenido derivado, no propio. Rupert añade que la memoria interna y externa difieren en propiedades relevantes. Mi postura provisional: la mente extendida ilumina la dependencia funcional, pero exagera al llamarla constitución sin un criterio más fino de lo cognitivo.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>La hipótesis de la mente extendida</strong> · Artefacto educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============ BARRA DE PROGRESO ============ */
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  /* ============ SCROLL REVEAL ============ */
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============ ACORDEÓN ============ */
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isActive = item.classList.contains('active');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.accordion-item').forEach(sib => {
+        sib.classList.remove('active');
+        const h = sib.querySelector('.accordion-header');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ============ FLIP CARDS ============ */
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  /* ============ SIMULACIÓN ============ */
+  const simSteps = document.querySelectorAll('.sim-step');
+  const simScenes = document.querySelectorAll('.sim-scene');
+
+  simSteps.forEach(step => {
+    step.addEventListener('click', function() {
+      const sceneIndex = this.dataset.scene;
+      simSteps.forEach(s => s.classList.remove('active'));
+      this.classList.add('active');
+      simScenes.forEach(scene => {
+        scene.classList.remove('active');
+        if (scene.dataset.scene === sceneIndex) {
+          // Forzar reflow para reiniciar animación
+          void scene.offsetWidth;
+          scene.classList.add('active');
+        }
+      });
+    });
+  });
+
+  /* ============ PREGUNTAS CERRADAS ============ */
+  const closedAnswers = {
+    1: { correct: 'c', fbCorrect: '¡Correcto! La mente extendida afirma constitución, no solo influencia causal.', fbIncorrect: 'Incorrecto. La respuesta correcta es la c. Las otras describen cognición embebida (a), incorporada (b) o externismo de contenido (d).' },
+    2: { correct: 'c', fbCorrect: '¡Bien! No se exige que el recurso sea digital. Las condiciones son constancia, accesibilidad, respaldo automático y previo.', fbIncorrect: 'Incorrecto. La condición no esencial es que sea digital.' },
+    3: { correct: 'b', fbCorrect: 'Exacto. La rotación física es una acción epistémica: modifica el entorno para facilitar el cálculo.', fbIncorrect: 'Incorrecto. Es una acción epistémica, no pragmática (que avanza directamente el juego).' },
+    4: { correct: 'c', fbCorrect: '¡Correcto! La mente extendida sostiene que ciertos procesos están constituidos por recursos externos.', fbIncorrect: 'Incorrecto. La opción correcta es la c.' },
+    5: { correct: 'a', fbCorrect: 'Muy bien. La mente extendida afirma constitución; la embebida solo dependencia causal.', fbIncorrect: 'Incorrecto. La diferencia clave es constitución vs. dependencia causal.' },
+    6: { correct: 'b', fbCorrect: 'Exacto. Adams y Aizawa sostienen que del acoplamiento causal no se sigue la constitución.', fbIncorrect: 'Incorrecto. La objeción señala que no se puede inferir constitución a partir del acoplamiento.' },
+    7: { correct: 'c', fbCorrect: '¡Correcto! El cuaderno cumple las condiciones, por eso se considera parte del sistema cognitivo.', fbIncorrect: 'Incorrecto. No basta con ser objeto físico ni con usarlo a diario; deben cumplirse las condiciones.' },
+    8: { correct: 'c', fbCorrect: '¡Bien! Frederick Adams es coautor de la objeción del acoplamiento-constitución.', fbIncorrect: 'Incorrecto. Frederick Adams es crítico; Clark, Chalmers y Menary defienden la tesis.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  /* ============ PREGUNTAS ABIERTAS ============ */
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  /* ============ CALIFICAR CERRADAS (autoevaluación final) ============ */
+  const finalQuestions = [
+    { name: 'q1', correct: 'c', id: 1 },
+    { name: 'q2', correct: 'a', id: 2 },
+    { name: 'q3', correct: 'b', id: 3 },
+    { name: 'q4', correct: 'c', id: 4 },
+    { name: 'q5', correct: 'c', id: 5 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id + 3}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`qFb${q.id}`);
+      const options = block.querySelectorAll('.q-option');
+
+      options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id + 3];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Dominas la hipótesis de la mente extendida y sus matices. Ahora te invitamos a profundizar en las preguntas abiertas.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles. Las preguntas abiertas te ayudarán a consolidar.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las secciones 2 a 5 y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    // Reiniciar radios
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    // Reiniciar feedbacks cerrados
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    // Reiniciar textareas
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    // Reiniciar mensaje
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+    // Reiniciar simulación
+    document.querySelectorAll('.sim-step').forEach((s, i) => {
+      s.classList.toggle('active', i === 0);
+    });
+    document.querySelectorAll('.sim-scene').forEach((s, i) => {
+      s.classList.toggle('active', i === 0);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
