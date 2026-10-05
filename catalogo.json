@@ -1,5 +1,27 @@
 [
   {
+    "titulo": "Aaron Beck y Albert Ellis: fundamentos conceptuales",
+    "descripcion": "Presentación interactiva sobre las bases conceptuales de Aaron Beck y Albert Ellis, sus conceptos centrales, diferencias, modelo ABC, ejemplos, debates, limitaciones y malentendidos frecuentes.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/beck-ellis-fundamentos-conceptuales.html",
+    "etiquetas": [
+      "Aaron Beck",
+      "Albert Ellis",
+      "Terapias cognitivas",
+      "Terapia cognitiva",
+      "REBT",
+      "TREC",
+      "Pensamientos automáticos",
+      "Esquemas cognitivos",
+      "Distorsiones cognitivas",
+      "Creencias irracionales",
+      "Modelo ABC",
+      "Psicología clínica"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Casos de Psicología Cognitiva",
     "descripcion": "Cinco casos clínicos, educativos y cotidianos para aplicar memoria de trabajo, procesamiento de información, sesgos cognitivos, funciones ejecutivas y cognición-emoción.",
     "tipo": "Artefacto de aprendizaje",
@@ -127,6 +149,28 @@
       "Control ejecutivo",
       "Metacognición",
       "Psicología cognitiva"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Fundamentos de las terapias cognitivas: Beck y Ellis",
+    "descripcion": "Artefacto interactivo sobre los fundamentos conceptuales de las terapias cognitivas de Aaron Beck y Albert Ellis, con comparaciones, simulaciones, casos, debates y autoevaluación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/fundamentos-terapias-cognitivas.html",
+    "etiquetas": [
+      "Terapias cognitivas",
+      "Aaron Beck",
+      "Albert Ellis",
+      "Terapia cognitiva",
+      "REBT",
+      "TREC",
+      "Pensamientos automáticos",
+      "Distorsiones cognitivas",
+      "Esquemas cognitivos",
+      "Creencias irracionales",
+      "Modelo ABC",
+      "Reestructuración cognitiva"
     ],
     "curso": "Enfoque Cognitivo",
     "autor": "Juan Carlos Valderrama Cárdenas"
