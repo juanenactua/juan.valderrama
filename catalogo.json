@@ -31,5 +31,26 @@
     ],
     "curso": "Enfoque Cognitivo",
     "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Sesgos cognitivos: casos y conceptos",
+    "descripcion": "Artefacto de aprendizaje basado en cinco casos para comprender sesgos cognitivos, heurísticas, sus mecanismos y su aplicación en decisiones cotidianas, sociales, clínicas y de investigación.",
+    "tipo": "Artefacto de aprendizaje",
+    "archivo": "materiales/sesgos-cognitivos-casos-biblioteca.html",
+    "etiquetas": [
+      "Sesgos cognitivos",
+      "Heurísticas",
+      "Anclaje",
+      "Disponibilidad",
+      "Representatividad",
+      "Framing",
+      "Aversión a la pérdida",
+      "Sesgo de confirmación",
+      "Costo hundido",
+      "Toma de decisiones",
+      "Psicología cognitiva"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
   }
 ]
