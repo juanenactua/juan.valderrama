@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🧠 Test de Stroop · SOM4TICA</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Test de Stroop">
+<meta name="jc-descripcion" content="Instrumento interactivo para explorar interferencia cognitiva y control inhibitorio mediante condiciones congruentes e incongruentes, con tiempos de reacción, precisión y descarga de resultados.">
+<meta name="jc-tipo" content="Instrumento interactivo">
+<meta name="jc-etiquetas" content="Stroop, Interferencia cognitiva, Control inhibitorio, Funciones ejecutivas, Atención, Tiempo de reacción, Cognición, SOM4TICA">
+<meta name="jc-curso" content="Semillero SOM4TICA">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .app {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .start-icon { font-size: 5rem; text-align: center; color: #60a5fa; margin-bottom: 1rem; }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            color: #f1f5f9;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* ===== CRÉDITOS ===== */
+        .credits {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            padding: 1.2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 20px;
+        }
+
+        .credits .author {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.3rem;
+        }
+
+        .credits .author i {
+            color: #60a5fa;
+            margin-right: 8px;
+        }
+
+        .credits .semillero {
+            font-size: 1rem;
+            color: #a78bfa;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .credits .semillero i {
+            margin-right: 6px;
+        }
+
+        /* ===== AVISO DE PRIVACIDAD ===== */
+        .privacy-notice {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            color: #86efac;
+            line-height: 1.5;
+        }
+
+        .privacy-notice i {
+            font-size: 1.6rem;
+            color: #22c55e;
+            flex-shrink: 0;
+        }
+
+        .privacy-notice strong {
+            color: #bbf7d0;
+        }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+
+        .info-card {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.2rem 1.4rem;
+            border-radius: 20px;
+            border-left: 5px solid #3b82f6;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+
+        .info-card i { color: #60a5fa; margin-right: 8px; }
+        .info-card strong { color: #f1f5f9; }
+
+        .form-group { margin-bottom: 1.4rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(100, 116, 139, 0.3);
+            border-radius: 14px;
+            color: #f1f5f9;
+            font-size: 1.05rem;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #3b82f6; }
+
+        .config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .btn-main {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+            margin-top: 1rem;
+        }
+
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59, 130, 246, 0.45); }
+        .btn-main:active { transform: translateY(0); }
+
+        .instruction-step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            background: #3b82f6;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-text { font-size: 1.05rem; line-height: 1.5; color: #cbd5e1; }
+        .step-text strong { color: #f1f5f9; }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .progress-bar-container {
+            flex: 1;
+            height: 10px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 20px;
+            margin: 0 1.5rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .trial-counter { font-size: 1rem; font-weight: 600; color: #94a3b8; white-space: nowrap; }
+
+        .stimulus-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            margin: 1rem 0;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 28px;
+            border: 2px dashed rgba(100, 116, 139, 0.2);
+            padding: 2rem;
+        }
+
+        .word-display {
+            font-size: 6.5rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transition: all 0.1s;
+            user-select: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .response-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .color-btn {
+            padding: 1.4rem 1rem;
+            border: none;
+            border-radius: 18px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .color-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.35); }
+        .color-btn:active { transform: translateY(0) scale(0.97); }
+        .color-btn:disabled { opacity: 0.4; pointer-events: none; }
+
+        .btn-red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .btn-blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .btn-green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .btn-yellow { background: linear-gradient(135deg, #eab308, #ca8a04); color: #1e293b; text-shadow: none; }
+
+        .feedback {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            height: 2rem;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .feedback.correct { color: #22c55e; }
+        .feedback.incorrect { color: #ef4444; }
+
+        .results-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+
+        .results-sub { text-align: center; color: #94a3b8; margin-bottom: 2rem; font-size: 1.05rem; }
+
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+
+        .metric-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            padding: 1.4rem;
+            text-align: center;
+            border: 1px solid rgba(100, 116, 139, 0.15);
+        }
+
+        .metric-value { font-size: 2.2rem; font-weight: 800; color: #60a5fa; margin-bottom: 0.3rem; }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stroop-effect {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            border: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: 24px;
+            padding: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stroop-effect .label {
+            font-size: 1rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stroop-effect .value { font-size: 3rem; font-weight: 800; color: #a78bfa; }
+
+        .stroop-effect .interpretation {
+            font-size: 1rem;
+            color: #cbd5e1;
+            margin-top: 0.6rem;
+            line-height: 1.5;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-table th, .results-table td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+
+        .results-table th {
+            background: rgba(30, 41, 59, 0.8);
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .results-table td { color: #e2e8f0; }
+        .results-table tr:last-child td { border-bottom: none; }
+
+        .button-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            background: rgba(59, 130, 246, 0.15);
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            border-radius: 14px;
+            color: #93c5fd;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-secondary:hover { background: rgba(59, 130, 246, 0.25); border-color: #3b82f6; }
+        .btn-secondary i { margin-right: 6px; }
+
+        @media (max-width: 700px) {
+            .app { padding: 1.5rem; border-radius: 28px; }
+            h1 { font-size: 1.7rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .config-row { grid-template-columns: 1fr; }
+            .word-display { font-size: 4rem; }
+            .response-buttons { grid-template-columns: 1fr 1fr; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .color-btn { font-size: 1.1rem; padding: 1rem 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <!-- ================= PANTALLA 1: INICIO ================= -->
+    <div class="screen active" id="screenStart">
+        <div class="start-icon">
+            <i class="fas fa-brain"></i>
+        </div>
+        <h1>Test de Stroop</h1>
+        <p class="subtitle">
+            Instrumento de evaluación de la interferencia cognitiva<br>
+            Mide tu capacidad de inhibir respuestas automáticas
+        </p>
+
+        <!-- CRÉDITOS -->
+        <div class="credits">
+            <div class="author">
+                <i class="fas fa-user-graduate"></i> Juan Carlos Valderrama Cárdenas
+            </div>
+            <div class="semillero">
+                <i class="fas fa-flask"></i> Producto del Semillero de Investigación SOM4TICA
+            </div>
+        </div>
+
+        <!-- AVISO DE PRIVACIDAD -->
+        <div class="privacy-notice">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+                <strong>Este instrumento no recopila información personal.</strong><br>
+                Los datos ingresados se procesan únicamente en tu navegador y no se almacenan ni se envían a ningún servidor.
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <i class="fas fa-eye"></i> <strong>¿Qué verás?</strong><br>
+                Nombres de colores escritos en tinta de color diferente.
+            </div>
+            <div class="info-card">
+                <i class="fas fa-hand-pointer"></i> <strong>¿Qué harás?</strong><br>
+                Indicar el <strong>color de la tinta</strong>, no la palabra escrita.
+            </div>
+            <div class="info-card">
+                <i class="fas fa-clock"></i> <strong>Duración</strong><br>
+                Aproximadamente 3-4 minutos.
+            </div>
+            <div class="info-card">
+                <i class="fas fa-chart-line"></i> <strong>Se medirá</strong><br>
+                Tiempo de reacción, precisión y efecto Stroop.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="participantName"><i class="fas fa-user"></i> Nombre del participante (opcional)</label>
+            <input type="text" id="participantName" placeholder="Puedes dejarlo en blanco si prefieres el anonimato" autocomplete="off" />
+        </div>
+
+        <div class="config-row">
+            <div class="form-group">
+                <label for="trialCount"><i class="fas fa-list-ol"></i> Número de ensayos</label>
+                <select id="trialCount">
+                    <option value="24">24 ensayos (corto)</option>
+                    <option value="48" selected>48 ensayos (estándar)</option>
+                    <option value="72">72 ensayos (extendido)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="conditionMode"><i class="fas fa-flask"></i> Condición</label>
+                <select id="conditionMode">
+                    <option value="mixed" selected>Mixta (congruente + incongruente)</option>
+                    <option value="congruent">Solo congruente</option>
+                    <option value="incongruent">Solo incongruente</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn-main" id="btnStart">
+            <i class="fas fa-play"></i> Comenzar test
+        </button>
+    </div>
+
+    <!-- ================= PANTALLA 2: INSTRUCCIONES ================= -->
+    <div class="screen" id="screenInstructions">
+        <h1 style="font-size:2rem; margin-bottom:1.5rem;">
+            <i class="fas fa-info-circle" style="color:#60a5fa;"></i> Instrucciones
+        </h1>
+
+        <div class="instruction-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+                En el centro de la pantalla aparecerá una <strong>palabra</strong> (un nombre de color).
+            </div>
+        </div>
+
+        <div class="instruction-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+                Tu tarea es indicar el <strong>COLOR DE LA TINTA</strong> con la que está escrita la palabra, 
+                <strong>no lo que la palabra dice</strong>.
+            </div>
+        </div>
+
+        <div class="instruction-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+                Por ejemplo, si ves la palabra <span style="color:#ef4444; font-weight:800;">AZUL</span> escrita en rojo, 
+                debes presionar el botón <strong style="color:#ef4444;">ROJO</strong>.
+            </div>
+        </div>
+
+        <div class="instruction-step">
+            <div class="step-num">4</div>
+            <div class="step-text">
+                Responde lo <strong>más rápido y preciso posible</strong>. Se registrará tu tiempo de reacción.
+            </div>
+        </div>
+
+        <div class="instruction-step">
+            <div class="step-num">5</div>
+            <div class="step-text">
+                Usa los botones en pantalla o las teclas <strong>R</strong> (rojo), <strong>A</strong> (azul), 
+                <strong>V</strong> (verde), <strong>M</strong> (amarillo).
+            </div>
+        </div>
+
+        <button class="btn-main" id="btnBeginTest" style="margin-top:1.5rem;">
+            <i class="fas fa-arrow-right"></i> Entendido, comenzar
+        </button>
+    </div>
+
+    <!-- ================= PANTALLA 3: TEST ================= -->
+    <div class="screen" id="screenTest">
+        <div class="test-header">
+            <div class="trial-counter" id="trialCounter">Ensayo 1 / 48</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="trial-counter" id="conditionLabel">—</div>
+        </div>
+
+        <div class="stimulus-area">
+            <div class="word-display" id="wordDisplay">LISTO</div>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="response-buttons">
+            <button class="color-btn btn-red" data-color="rojo" data-key="r">ROJO</button>
+            <button class="color-btn btn-blue" data-color="azul" data-key="a">AZUL</button>
+            <button class="color-btn btn-green" data-color="verde" data-key="v">VERDE</button>
+            <button class="color-btn btn-yellow" data-color="amarillo" data-key="m">AMARILLO</button>
+        </div>
+    </div>
+
+    <!-- ================= PANTALLA 4: RESULTADOS ================= -->
+    <div class="screen" id="screenResults">
+        <h2 class="results-title"><i class="fas fa-chart-bar" style="color:#60a5fa;"></i> Resultados</h2>
+        <p class="results-sub" id="resultsSub">Participante: —</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="metricAccuracy">—</div>
+                <div class="metric-label">Precisión</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metricAvgRT">—</div>
+                <div class="metric-label">TR promedio (ms)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metricErrors">—</div>
+                <div class="metric-label">Errores</div>
+            </div>
+        </div>
+
+        <div class="stroop-effect">
+            <div class="label"><i class="fas fa-bolt"></i> Efecto Stroop (interferencia)</div>
+            <div class="value" id="stroopValue">—</div>
+            <div class="interpretation" id="stroopInterp">—</div>
+        </div>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Condición</th>
+                    <th>Ensayos</th>
+                    <th>TR promedio</th>
+                    <th>Aciertos</th>
+                    <th>Errores</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTableBody"></tbody>
+        </table>
+
+        <div class="button-row">
+            <button class="btn-secondary" id="btnDownload">
+                <i class="fas fa-download"></i> Descargar CSV
+            </button>
+            <button class="btn-secondary" id="btnRestart">
+                <i class="fas fa-redo"></i> Nuevo test
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ==================== CONFIGURACIÓN ====================
+    const COLORS = {
+        rojo:    { hex: '#ef4444', key: 'r' },
+        azul:    { hex: '#3b82f6', key: 'a' },
+        verde:   { hex: '#22c55e', key: 'v' },
+        amarillo:{ hex: '#eab308', key: 'm' }
+    };
+    const COLOR_NAMES = Object.keys(COLORS);
+
+    // ==================== ESTADO ====================
+    let state = {
+        participant: '',
+        totalTrials: 48,
+        conditionMode: 'mixed',
+        trials: [],
+        currentIndex: 0,
+        responses: [],
+        stimulusOnset: 0,
+        awaitingResponse: false,
+        testActive: false
+    };
+
+    // ==================== UTILIDADES ====================
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function generateTrials(total, mode) {
+        const trials = [];
+        for (let i = 0; i < total; i++) {
+            let condition, word, inkColor;
+
+            if (mode === 'congruent') {
+                condition = 'congruente';
+                const color = COLOR_NAMES[Math.floor(Math.random() * 4)];
+                word = color;
+                inkColor = color;
+            } else if (mode === 'incongruent') {
+                condition = 'incongruente';
+                const wordIdx = Math.floor(Math.random() * 4);
+                let inkIdx;
+                do { inkIdx = Math.floor(Math.random() * 4); } while (inkIdx === wordIdx);
+                word = COLOR_NAMES[wordIdx];
+                inkColor = COLOR_NAMES[inkIdx];
+            } else {
+                const isCongruent = i % 2 === 0;
+                if (isCongruent) {
+                    condition = 'congruente';
+                    const color = COLOR_NAMES[Math.floor(Math.random() * 4)];
+                    word = color;
+                    inkColor = color;
+                } else {
+                    condition = 'incongruente';
+                    const wordIdx = Math.floor(Math.random() * 4);
+                    let inkIdx;
+                    do { inkIdx = Math.floor(Math.random() * 4); } while (inkIdx === wordIdx);
+                    word = COLOR_NAMES[wordIdx];
+                    inkColor = COLOR_NAMES[inkIdx];
+                }
+            }
+
+            trials.push({
+                word: word,
+                inkColor: inkColor,
+                condition: condition,
+                correctResponse: inkColor
+            });
+        }
+        return shuffle(trials);
+    }
+
+    // ==================== NAVEGACIÓN ====================
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    // ==================== EVENTOS ====================
+    document.getElementById('btnStart').addEventListener('click', function() {
+        const name = document.getElementById('participantName').value.trim() || 'Anónimo';
+        state.participant = name;
+        state.totalTrials = parseInt(document.getElementById('trialCount').value);
+        state.conditionMode = document.getElementById('conditionMode').value;
+        showScreen('screenInstructions');
+    });
+
+    document.getElementById('btnBeginTest').addEventListener('click', function() {
+        state.trials = generateTrials(state.totalTrials, state.conditionMode);
+        state.responses = [];
+        state.currentIndex = 0;
+        state.testActive = true;
+        state.awaitingResponse = false;
+        
+        showScreen('screenTest');
+        updateCounter();
+        
+        setTimeout(function() {
+            nextTrial();
+        }, 800);
+    });
+
+    document.querySelectorAll('.color-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            handleResponse(this.dataset.color);
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (!state.awaitingResponse || !state.testActive) return;
+        const key = e.key.toLowerCase();
+        const colorMap = { 'r': 'rojo', 'a': 'azul', 'v': 'verde', 'm': 'amarillo' };
+        if (colorMap[key]) {
+            e.preventDefault();
+            handleResponse(colorMap[key]);
+        }
+    });
+
+    // ==================== LÓGICA ====================
+    function updateCounter() {
+        document.getElementById('trialCounter').textContent =
+            'Ensayo ' + (state.currentIndex + 1) + ' / ' + state.totalTrials;
+        const pct = (state.currentIndex / state.totalTrials) * 100;
+        document.getElementById('progressBar').style.width = pct + '%';
+
+        const currentTrial = state.trials[state.currentIndex];
+        if (currentTrial) {
+            document.getElementById('conditionLabel').textContent =
+                currentTrial.condition === 'congruente' ? '🟢 Congruente' : '🔴 Incongruente';
+        }
+    }
+
+    function nextTrial() {
+        if (state.currentIndex >= state.totalTrials) {
+            finishTest();
+            return;
+        }
+
+        const trial = state.trials[state.currentIndex];
+        const wordEl = document.getElementById('wordDisplay');
+        wordEl.textContent = trial.word.toUpperCase();
+        wordEl.style.color = COLORS[trial.inkColor].hex;
+        wordEl.style.transform = 'scale(1)';
+        wordEl.style.opacity = '1';
+
+        document.getElementById('feedback').textContent = '';
+        document.getElementById('feedback').className = 'feedback';
+
+        document.querySelectorAll('.color-btn').forEach(function(b) { b.disabled = false; });
+
+        state.stimulusOnset = performance.now();
+        state.awaitingResponse = true;
+    }
+
+    function handleResponse(colorName) {
+        if (!state.awaitingResponse || !state.testActive) return;
+
+        const rt = performance.now() - state.stimulusOnset;
+        const trial = state.trials[state.currentIndex];
+        const isCorrect = colorName === trial.correctResponse;
+
+        state.responses.push({
+            trial: state.currentIndex + 1,
+            word: trial.word,
+            inkColor: trial.inkColor,
+            condition: trial.condition,
+            response: colorName,
+            correct: isCorrect,
+            rt: rt
+        });
+
+        state.awaitingResponse = false;
+        document.querySelectorAll('.color-btn').forEach(function(b) { b.disabled = true; });
+
+        const fb = document.getElementById('feedback');
+        if (isCorrect) {
+            fb.textContent = '✓ Correcto';
+            fb.className = 'feedback correct';
+        } else {
+            fb.textContent = '✗ Incorrecto (era ' + trial.correctResponse.toUpperCase() + ')';
+            fb.className = 'feedback incorrect';
+        }
+
+        const wordEl = document.getElementById('wordDisplay');
+        wordEl.style.transform = 'scale(0.92)';
+
+        setTimeout(function() {
+            wordEl.style.transform = 'scale(1)';
+            state.currentIndex++;
+            if (state.currentIndex < state.totalTrials) {
+                updateCounter();
+                setTimeout(nextTrial, 400);
+            } else {
+                finishTest();
+            }
+        }, 700);
+    }
+
+    function finishTest() {
+        state.testActive = false;
+        document.getElementById('progressBar').style.width = '100%';
+        showResults();
+    }
+
+    function showResults() {
+        showScreen('screenResults');
+
+        const responses = state.responses;
+        const total = responses.length;
+        const correct = responses.filter(function(r) { return r.correct; }).length;
+        const errors = total - correct;
+        const accuracy = total > 0 ? (correct / total * 100).toFixed(1) : 0;
+
+        const correctResponses = responses.filter(function(r) { return r.correct; });
+        const avgRT = correctResponses.length > 0
+            ? (correctResponses.reduce(function(s, r) { return s + r.rt; }, 0) / correctResponses.length).toFixed(0)
+            : '—';
+
+        document.getElementById('resultsSub').textContent =
+            'Participante: ' + state.participant + ' · ' + total + ' ensayos · Condición: ' + state.conditionMode;
+        document.getElementById('metricAccuracy').textContent = accuracy + '%';
+        document.getElementById('metricAvgRT').textContent = avgRT;
+        document.getElementById('metricErrors').textContent = errors;
+
+        // Efecto Stroop
+        const cong = correctResponses.filter(function(r) { return r.condition === 'congruente'; });
+        const incong = correctResponses.filter(function(r) { return r.condition === 'incongruente'; });
+
+        const avgCong = cong.length > 0 ? cong.reduce(function(s, r) { return s + r.rt; }, 0) / cong.length : 0;
+        const avgIncong = incong.length > 0 ? incong.reduce(function(s, r) { return s + r.rt; }, 0) / incong.length : 0;
+        const stroopEffect = avgIncong - avgCong;
+
+        const stroopEl = document.getElementById('stroopValue');
+        const interpEl = document.getElementById('stroopInterp');
+
+        if (cong.length > 0 && incong.length > 0) {
+            stroopEl.textContent = (stroopEffect > 0 ? '+' : '') + stroopEffect.toFixed(0) + ' ms';
+            if (stroopEffect > 100) {
+                interpEl.textContent = '⚡ Interferencia alta. La condición incongruente generó una demora considerable.';
+                stroopEl.style.color = '#f87171';
+            } else if (stroopEffect > 40) {
+                interpEl.textContent = '📊 Interferencia moderada. Se observa el efecto Stroop esperado.';
+                stroopEl.style.color = '#fbbf24';
+            } else if (stroopEffect > 0) {
+                interpEl.textContent = '✅ Interferencia baja. Buen control inhibitorio.';
+                stroopEl.style.color = '#4ade80';
+            } else {
+                interpEl.textContent = '🔍 Sin interferencia (o efecto inverso). Revisar datos.';
+                stroopEl.style.color = '#94a3b8';
+            }
+        } else {
+            stroopEl.textContent = '—';
+            interpEl.textContent = 'Se necesitan ambas condiciones para calcular el efecto Stroop.';
+        }
+
+        // Tabla
+        const tbody = document.getElementById('resultsTableBody');
+        tbody.innerHTML = '';
+
+        const conditions = [
+            { name: 'Congruente', filter: 'congruente' },
+            { name: 'Incongruente', filter: 'incongruente' }
+        ];
+
+        conditions.forEach(function(cond) {
+            const condResp = responses.filter(function(r) { return r.condition === cond.filter; });
+            if (condResp.length === 0) return;
+
+            const condCorrect = condResp.filter(function(r) { return r.correct; });
+            const condAvg = condCorrect.length > 0
+                ? (condCorrect.reduce(function(s, r) { return s + r.rt; }, 0) / condCorrect.length).toFixed(0) + ' ms'
+                : '—';
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = 
+                '<td><strong>' + cond.name + '</strong></td>' +
+                '<td>' + condResp.length + '</td>' +
+                '<td>' + condAvg + '</td>' +
+                '<td>' + condCorrect.length + '</td>' +
+                '<td>' + (condResp.length - condCorrect.length) + '</td>';
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ==================== DESCARGAR CSV ====================
+    document.getElementById('btnDownload').addEventListener('click', function() {
+        const rows = state.responses.map(function(r) {
+            return [
+                r.trial,
+                r.word,
+                r.inkColor,
+                r.condition,
+                r.response,
+                r.correct ? '1' : '0',
+                r.rt.toFixed(1)
+            ].join(',');
+        });
+
+        const header = 'ensayo,palabra,tinta,condicion,respuesta,correcto,tr_ms';
+        const csv = [header].concat(rows).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'stroop_' + state.participant.replace(/\s+/g, '_') + '.csv';
+        link.click();
+    });
+
+    // ==================== REINICIAR ====================
+    document.getElementById('btnRestart').addEventListener('click', function() {
+        state = {
+            participant: '',
+            totalTrials: 48,
+            conditionMode: 'mixed',
+            trials: [],
+            currentIndex: 0,
+            responses: [],
+            stimulusOnset: 0,
+            awaitingResponse: false,
+            testActive: false
+        };
+        document.getElementById('participantName').value = '';
+        showScreen('screenStart');
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memoria de trabajo: de guardar a manipular información</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Memoria de trabajo: de guardar a manipular información">
+<meta name="jc-descripcion" content="Recurso interactivo sobre memoria de trabajo, capacidad limitada, chunking y el modelo de Baddeley y Hitch, con simulaciones, actividades y casos aplicados.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Memoria de trabajo, Baddeley, Hitch, Bucle fonológico, Agenda visoespacial, Ejecutivo central, Chunking, Atención, Psicología cognitiva">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+  <style>
+    /* ============================================================
+       VARIABLES Y RESET
+       ============================================================ */
+    :root {
+      --azul-oscuro: #0B2545;
+      --azul-medio: #13315C;
+      --azul-acento: #13538A;
+      --dorado-suave: #E7C873;
+      --gris-calido: #F5F3EF;
+      --gris-texto: #2E2E2E;
+      --blanco: #FFFFFF;
+      --sombra: 0 4px 18px rgba(11, 37, 69, 0.10);
+      --radio: 14px;
+      --transicion: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --fuente: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: var(--fuente);
+      background: var(--blanco);
+      color: var(--gris-texto);
+      overflow: hidden;
+    }
+
+    /* ============================================================
+       LAYOUT PRINCIPAL
+       ============================================================ */
+    .app {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+
+    /* ---------- Barra lateral ---------- */
+    .sidebar {
+      width: 280px;
+      background: var(--azul-oscuro);
+      color: var(--blanco);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 18px;
+      transition: var(--transicion);
+      position: relative;
+      z-index: 50;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .sidebar.colapsada {
+      width: 0;
+      padding: 28px 0;
+    }
+
+    .sidebar h2 {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+      color: var(--dorado-suave);
+      white-space: nowrap;
+    }
+
+    .sidebar .subtitulo-sidebar {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-bottom: 22px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow-y: auto;
+      flex: 1;
+      padding-right: 4px;
+    }
+
+    .sidebar nav button {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.80);
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-family: var(--fuente);
+      cursor: pointer;
+      transition: var(--transicion);
+      line-height: 1.35;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .sidebar nav button:hover {
+      background: rgba(255, 255, 255, 0.10);
+      color: var(--blanco);
+    }
+
+    .sidebar nav button.activo {
+      background: var(--azul-acento);
+      color: var(--blanco);
+      font-weight: 600;
+    }
+
+    .sidebar nav button .num {
+      font-size: 11px;
+      opacity: 0.65;
+      min-width: 18px;
+      text-align: right;
+    }
+
+    /* ---------- Botón colapsar ---------- */
+    .toggle-sidebar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 100;
+      background: var(--azul-oscuro);
+      color: var(--blanco);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 9px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: var(--sombra);
+      transition: var(--transicion);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toggle-sidebar:hover { background: var(--azul-acento); }
+
+    /* ---------- Contenido ---------- */
+    .contenido {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: var(--blanco);
+      min-width: 0; /* evita desbordamiento en flex */
+    }
+
+    .slides-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      /* padding-bottom amplio para que los botones de navegación no tapen contenido */
+      padding: 64px 68px 110px 68px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(30px);
+      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+      overflow-y: auto;
+      display: block; /* block en vez de flex para evitar problemas de altura */
+    }
+
+    .slide.activa {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .slide.saliente-izq { transform: translateX(-30px); }
+
+    /* ============================================================
+       TIPOGRAFÍA
+       ============================================================ */
+    .slide h1 {
+      font-size: 42px;
+      color: var(--azul-oscuro);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .slide h2 {
+      font-size: 34px;
+      color: var(--azul-oscuro);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .slide h3 {
+      font-size: 23px;
+      color: var(--azul-medio);
+      font-weight: 600;
+      margin-bottom: 12px;
+      margin-top: 4px;
+    }
+
+    .slide p {
+      font-size: 21px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: var(--gris-texto);
+    }
+
+    .slide ul, .slide ol {
+      font-size: 21px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+      padding-left: 26px;
+    }
+
+    .slide li { margin-bottom: 7px; }
+
+    .destacado {
+      background: var(--gris-calido);
+      border-left: 6px solid var(--dorado-suave);
+      padding: 20px 26px;
+      border-radius: 0 var(--radio) var(--radio) 0;
+      margin: 20px 0;
+      font-size: 21px;
+      line-height: 1.55;
+      color: var(--azul-oscuro);
+      font-weight: 500;
+    }
+
+    .tarjeta {
+      background: var(--blanco);
+      border: 1.5px solid #E2E6EC;
+      border-radius: var(--radio);
+      padding: 22px 26px;
+      box-shadow: var(--sombra);
+      margin-bottom: 16px;
+    }
+
+    .tarjeta h3 { margin-top: 0; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 16px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    /* Tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 19px;
+    }
+
+    th {
+      background: var(--azul-oscuro);
+      color: var(--blanco);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 19px;
+    }
+
+    td {
+      padding: 11px 16px;
+      border-bottom: 1.5px solid #E2E6EC;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:nth-child(even) td { background: #F8F9FB; }
+
+    /* Botones */
+    .btn {
+      background: var(--azul-acento);
+      color: var(--blanco);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 9px;
+      font-size: 18px;
+      font-family: var(--fuente);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transicion);
+      margin: 6px 8px 6px 0;
+    }
+
+    .btn:hover {
+      background: var(--azul-medio);
+      transform: translateY(-1px);
+    }
+
+    .btn.secundario {
+      background: var(--blanco);
+      color: var(--azul-acento);
+      border: 2px solid var(--azul-acento);
+    }
+
+    .btn.secundario:hover { background: #EAF0F8; }
+
+    .btn.pequeno {
+      padding: 9px 16px;
+      font-size: 16px;
+    }
+
+    /* Feedback */
+    .feedback {
+      margin-top: 12px;
+      padding: 14px 20px;
+      border-radius: 9px;
+      font-size: 18px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .feedback.correcto {
+      background: #E8F5E9;
+      border-left: 5px solid #2E7D32;
+      color: #1B5E20;
+      display: block;
+    }
+
+    .feedback.incorrecto {
+      background: #FFF3E0;
+      border-left: 5px solid #E65100;
+      color: #BF360C;
+      display: block;
+    }
+
+    .feedback.info {
+      background: #E3F2FD;
+      border-left: 5px solid var(--azul-acento);
+      color: var(--azul-oscuro);
+      display: block;
+    }
+
+    /* Inputs */
+    input[type="text"], select {
+      font-size: 18px;
+      padding: 10px 16px;
+      border: 2px solid #C9D3E0;
+      border-radius: 9px;
+      font-family: var(--fuente);
+      width: 100%;
+      max-width: 400px;
+      transition: var(--transicion);
+    }
+
+    input[type="text"]:focus, select:focus {
+      outline: none;
+      border-color: var(--azul-acento);
+      box-shadow: 0 0 0 3px rgba(19, 83, 138, 0.15);
+    }
+
+    /* Opciones de quiz: ancho completo, bloque, separación */
+    .opcion {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: var(--blanco);
+      border: 2px solid #D5DDE8;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 19px;
+      font-family: var(--fuente);
+      cursor: pointer;
+      transition: var(--transicion);
+      margin-bottom: 8px;
+      color: var(--gris-texto);
+    }
+
+    .opcion:last-child { margin-bottom: 0; }
+
+    .opcion:hover {
+      border-color: var(--azul-acento);
+      background: #F4F8FD;
+    }
+
+    .opcion.correcta {
+      border-color: #2E7D32;
+      background: #E8F5E9;
+      color: #1B5E20;
+      font-weight: 600;
+    }
+
+    .opcion.incorrecta {
+      border-color: #E65100;
+      background: #FFF3E0;
+      color: #BF360C;
+    }
+
+    .opcion:disabled { cursor: default; }
+
+    /* ============================================================
+       PROGRESO Y NAVEGACIÓN
+       ============================================================ */
+    .progreso-barra {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--azul-acento);
+      transition: width 0.4s ease;
+      z-index: 200;
+    }
+
+    .indicador-numero {
+      position: fixed;
+      bottom: 16px;
+      right: 20px;
+      font-size: 15px;
+      color: var(--azul-medio);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 5px 14px;
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      z-index: 100;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+
+    .nav-botones {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-botones button {
+      background: var(--blanco);
+      border: 1.5px solid #D5DDE8;
+      color: var(--azul-medio);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      transition: var(--transicion);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--sombra);
+    }
+
+    .nav-botones button:hover {
+      background: var(--azul-oscuro);
+      color: var(--blanco);
+      border-color: var(--azul-oscuro);
+    }
+
+    .nav-botones button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* ============================================================
+       SIMULACIÓN
+       ============================================================ */
+    .simulacion-contenedor {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) minmax(300px, 1.2fr);
+      gap: 24px;
+      align-items: start;
+      margin-top: 8px;
+    }
+
+    .controles-sim {
+      background: var(--gris-calido);
+      border-radius: var(--radio);
+      padding: 22px;
+    }
+
+    .controles-sim label {
+      display: block;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--azul-oscuro);
+      margin-bottom: 4px;
+      margin-top: 16px;
+    }
+
+    .controles-sim label:first-child { margin-top: 0; }
+
+    .controles-sim input[type="range"] {
+      width: 100%;
+      accent-color: var(--azul-acento);
+      height: 8px;
+      cursor: pointer;
+    }
+
+    .controles-sim .valor-control {
+      font-size: 16px;
+      color: var(--azul-acento);
+      font-weight: 700;
+      float: right;
+    }
+
+    .resultado-sim {
+      background: var(--blanco);
+      border: 1.5px solid #E2E6EC;
+      border-radius: var(--radio);
+      padding: 18px;
+      box-shadow: var(--sombra);
+      text-align: center;
+    }
+
+    .resultado-sim .puntaje {
+      font-size: 46px;
+      font-weight: 700;
+      color: var(--azul-oscuro);
+      line-height: 1;
+    }
+
+    .resultado-sim .etiqueta {
+      font-size: 16px;
+      color: #6B7A8F;
+      margin-top: 4px;
+    }
+
+    .estado-rendimiento {
+      margin-top: 12px;
+      font-size: 17px;
+      padding: 9px 14px;
+      border-radius: 9px;
+      font-weight: 600;
+    }
+
+    .estado-optimo { background: #E8F5E9; color: #1B5E20; }
+    .estado-aceptable { background: #FFF8E1; color: #F57F17; }
+    .estado-sobrecarga { background: #FFF3E0; color: #BF360C; }
+
+    /* Canvas con altura fija y responsive */
+    .canvas-wrapper {
+      width: 100%;
+      height: 200px;
+      margin-top: 14px;
+      position: relative;
+    }
+
+    canvas#graficoSim {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 9px;
+      background: var(--blanco);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1000px) {
+      .slide { padding: 60px 36px 110px 36px; }
+      .slide h1 { font-size: 34px; }
+      .slide h2 { font-size: 28px; }
+      .slide p, .slide ul, .slide ol { font-size: 19px; }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0;
+        height: 100vh;
+        width: 0;
+        padding: 28px 0;
+        z-index: 90;
+      }
+
+      .sidebar.abierta {
+        width: 250px;
+        padding: 28px 16px;
+        box-shadow: 6px 0 24px rgba(0,0,0,0.25);
+      }
+
+      .slide { padding: 60px 22px 110px 22px; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .simulacion-contenedor { grid-template-columns: 1fr; }
+      .destacado { font-size: 18px; padding: 16px 18px; }
+      table { font-size: 16px; }
+      th, td { padding: 9px 11px; }
+      .slide h1 { font-size: 28px; }
+      .slide h2 { font-size: 24px; }
+    }
+
+    @media (max-width: 500px) {
+      .slide h1 { font-size: 24px; }
+      .slide h2 { font-size: 21px; }
+      .slide p, .slide ul, .slide ol { font-size: 17px; }
+      .btn { font-size: 16px; padding: 10px 18px; }
+      .opcion { font-size: 17px; padding: 10px 14px; }
+      .resultado-sim .puntaje { font-size: 38px; }
+    }
+
+    /* Utilidades */
+    .mt-20 { margin-top: 20px; }
+    .mb-10 { margin-bottom: 10px; }
+    .texto-centro { text-align: center; }
+    .oculto { display: none !important; }
+    .portada-flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: calc(100% - 20px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <!-- ============================================================
+         BARRA LATERAL
+         ============================================================ -->
+    <aside class="sidebar" id="sidebar">
+      <h2>Memoria de trabajo</h2>
+      <p class="subtitulo-sidebar">Unidad 1 · Modelos cognitivos</p>
+      <nav id="navSidebar"></nav>
+    </aside>
+
+    <button class="toggle-sidebar" id="toggleSidebar" title="Mostrar/ocultar menú">☰</button>
+
+    <!-- ============================================================
+         CONTENIDO
+         ============================================================ -->
+    <main class="contenido">
+      <div class="slides-wrapper" id="slidesWrapper">
+
+        <!-- ========== 1. PORTADA ========== -->
+        <section class="slide activa" data-titulo="Portada">
+          <div class="portada-flex">
+            <p style="font-size:18px; color:var(--azul-acento); font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">
+              Psicología cognitiva · Unidad 1
+            </p>
+            <h1 style="font-size:48px; max-width:900px;">
+              Memoria de trabajo: de guardar información a manipular información mientras pensamos
+            </h1>
+            <p style="font-size:22px; color:var(--azul-medio); max-width:800px; margin-top:14px; line-height:1.5;">
+              Un recorrido por el sistema cognitivo que nos permite mantener información activa mientras comprendemos, razonamos, aprendemos y resolvemos problemas.
+            </p>
+            <div class="destacado" style="max-width:800px; margin-top:24px;">
+              <strong>Pregunta guía:</strong> ¿Recordar información es lo mismo que pensar con información?
+            </div>
+            <p style="font-size:17px; color:#6B7A8F; margin-top:20px;">
+              Duración sugerida: 90 minutos · Nivel: pregrado en psicología
+            </p>
+          </div>
+        </section>
+
+        <!-- ========== 2. AGENDA ========== -->
+        <section class="slide" data-titulo="Agenda">
+          <h2>¿Qué aprenderás hoy?</h2>
+          <div class="grid-2">
+            <div class="tarjeta">
+              <h3>1. El problema cognitivo</h3>
+              <p style="font-size:19px;">¿Cómo pensamos con información que no está presente en el ambiente?</p>
+            </div>
+            <div class="tarjeta">
+              <h3>2. De la MCP a la MT</h3>
+              <p style="font-size:19px;">Mantener no es lo mismo que mantener y manipular.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>3. Capacidad limitada</h3>
+              <p style="font-size:19px;">Miller, el 7 ± 2 y el papel del chunking.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>4. Modelo de Baddeley y Hitch</h3>
+              <p style="font-size:19px;">Bucle fonológico, agenda visoespacial y ejecutivo central.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>5. Simulación interactiva</h3>
+              <p style="font-size:19px;">Explora qué pasa cuando la tarea supera los recursos.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>6. Actividades y cierre</h3>
+              <p style="font-size:19px;">Experimentos, caso Laura y verdaderos/falsos.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 3. PROBLEMA COGNITIVO ========== -->
+        <section class="slide" data-titulo="El problema cognitivo">
+          <h2>¿Por qué necesitamos una memoria de trabajo?</h2>
+          <p>Imagina que alguien te dice:</p>
+          <div class="destacado">
+            “Calle 72 con carrera 11. Cuando llegues a la esquina, giras a la derecha, caminas dos cuadras y buscas el edificio 34.”
+          </div>
+          <p>¿Qué está haciendo tu memoria mientras escuchas estas instrucciones?</p>
+          <div class="grid-2 mt-20">
+            <div class="tarjeta">
+              <h3>No basta con recordar</h3>
+              <ul style="font-size:19px;">
+                <li>Mantener la información temporalmente.</li>
+                <li>Seleccionar lo relevante.</li>
+                <li>Actualizar datos.</li>
+                <li>Relacionar información nueva con anterior.</li>
+                <li>Seguir una secuencia.</li>
+                <li>Ignorar lo irrelevante.</li>
+              </ul>
+            </div>
+            <div class="tarjeta">
+              <h3>El problema de fondo</h3>
+              <p style="font-size:20px;">¿Cómo podemos <strong>pensar</strong> con información que no está directamente presente en el ambiente?</p>
+              <p style="font-size:20px; margin-top:10px;">La memoria de trabajo ofrece una respuesta desde el enfoque cognitivo.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 4. DE MCP A MT ========== -->
+        <section class="slide" data-titulo="De la MCP a la MT">
+          <h2>De la memoria a corto plazo a la memoria de trabajo</h2>
+          <p>Resuelve mentalmente: <strong style="font-size:26px; color:var(--azul-oscuro);">27 + 18</strong></p>
+          <p>No solo necesitas recordar los números. Tienes que:</p>
+          <ol style="font-size:21px;">
+            <li>Mantener el 27.</li>
+            <li>Mantener el 18.</li>
+            <li>Realizar la operación.</li>
+            <li>Conservar parcialmente el resultado.</li>
+            <li>Continuar con la operación.</li>
+            <li>Producir la respuesta.</li>
+          </ol>
+          <div class="destacado">
+            <strong>Mantener + manipular = memoria de trabajo</strong>
+          </div>
+          <p>Baddeley y Hitch (1974) propusieron este modelo para explicar cómo organizamos y manipulamos información en tiempo real.</p>
+        </section>
+
+        <!-- ========== 5. CAPACIDAD + ACTIVIDAD ========== -->
+        <section class="slide" data-titulo="Capacidad y chunking">
+          <h2>La capacidad limitada y el poder del chunking</h2>
+          <p>La memoria de trabajo <strong>no tiene recursos infinitos</strong>. Miller (1956) habló de unos siete elementos, pero la capacidad depende también de cómo organizamos la información.</p>
+
+          <div class="tarjeta">
+            <h3>Actividad: Experimento rápido</h3>
+            <p style="font-size:19px;">Intenta recordar estas secuencias. ¿En qué momento se vuelve difícil?</p>
+            <p style="font-size:24px; letter-spacing:4px; color:var(--azul-oscuro); font-weight:700;">8 – 4 – 9 – 2 – 7 – 1</p>
+            <p style="font-size:24px; letter-spacing:4px; color:var(--azul-oscuro); font-weight:700;">3 – 8 – 1 – 9 – 4 – 7 – 2 – 6 – 5</p>
+            <p style="font-size:24px; letter-spacing:4px; color:var(--azul-oscuro); font-weight:700;">8 – 2 – 4 – 9 – 1 – 7 – 3 – 6 – 5 – 2 – 8</p>
+            <div style="margin-top:12px;">
+              <button class="btn pequeno" onclick="mostrarFeedback('fbChunking', '¿Repetiste mentalmente? ¿Agrupaste? ¿Visualizaste? La capacidad no depende solo de cuántos elementos hay, sino de cómo se organizan.', 'info')">Ver reflexión</button>
+            </div>
+            <div class="feedback" id="fbChunking"></div>
+          </div>
+
+          <div class="destacado">
+            <strong>Chunking:</strong> 1 – 9 – 4 – 8 – 2 – 0 – 2 – 6 puede reorganizarse como <strong>1948 – 2026</strong>. Pasamos de 8 elementos a 2 unidades significativas.
+          </div>
+        </section>
+
+        <!-- ========== 6. BUCLE FONOLÓGICO ========== -->
+        <section class="slide" data-titulo="Bucle fonológico">
+          <h2>Bucle fonológico: mantener lo verbal y auditivo</h2>
+          <p><strong>Pregunta guía:</strong> ¿Cómo mantenemos temporalmente información verbal o auditiva?</p>
+          <div class="grid-2">
+            <div class="tarjeta">
+              <h3>Ejemplos cotidianos</h3>
+              <ul style="font-size:19px;">
+                <li>Repetir mentalmente un número telefónico.</li>
+                <li>Recordar una palabra que acabamos de escuchar.</li>
+                <li>Repetir una instrucción.</li>
+                <li>Mantener una frase mientras la comprendemos.</li>
+                <li>Repetir mentalmente una contraseña.</li>
+              </ul>
+            </div>
+            <div class="tarjeta">
+              <h3>Experiencia</h3>
+              <p style="font-size:19px;">Repite mentalmente: <strong>8 – 4 – 7 – 2 – 9</strong>.</p>
+              <p style="font-size:19px;">Ahora intenta repetir la secuencia <strong>mientras cuentas hacia atrás desde 30</strong>.</p>
+              <button class="btn pequeno" onclick="mostrarFeedback('fbBucle', 'Cuando una actividad adicional interfiere con el mantenimiento verbal, estamos viendo al bucle fonológico en acción: su capacidad es limitada y sensible a la interferencia.', 'info')">¿Qué ocurrió?</button>
+              <div class="feedback" id="fbBucle"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 7. AGENDA VISOESPACIAL ========== -->
+        <section class="slide" data-titulo="Agenda visoespacial">
+          <h2>Agenda visoespacial: mantener y manipular lo visual y espacial</h2>
+          <p><strong>Pregunta guía:</strong> ¿Cómo trabajamos con ubicación, orientación, forma y trayectorias?</p>
+          <div class="grid-2">
+            <div class="tarjeta">
+              <h3>Ejemplos</h3>
+              <ul style="font-size:19px;">
+                <li>Recordar dónde está la cocina respecto a la puerta de tu casa.</li>
+                <li>Imaginar un cuadrado y girarlo 90 grados.</li>
+                <li>Seguir una ruta en un mapa mental.</li>
+                <li>Visualizar una figura antes de dibujarla.</li>
+              </ul>
+            </div>
+            <div class="tarjeta">
+              <h3>Actividad de rotación mental</h3>
+              <p style="font-size:19px;">Imagina un cuadrado. Coloca mentalmente un punto en la esquina superior derecha. Ahora gira el cuadrado 90 grados.</p>
+              <p style="font-size:19px;">¿Dónde queda el punto?</p>
+              <button class="btn pequeno" onclick="mostrarFeedback('fbViso', 'Al girar 90° en sentido horario, el punto que estaba arriba a la derecha pasa a estar abajo a la derecha. Estás manipulando una representación espacial sin tener el cuadrado delante.', 'info')">Ver respuesta</button>
+              <div class="feedback" id="fbViso"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 8. EJECUTIVO CENTRAL ========== -->
+        <section class="slide" data-titulo="Ejecutivo central">
+          <h2>Ejecutivo central: el sistema de control</h2>
+          <div class="destacado">
+            Un sistema de control que coordina recursos atencionales y permite seleccionar, mantener, cambiar y manipular información según las demandas de la tarea.
+          </div>
+          <p>No es simplemente “el jefe” del sistema. Es el componente que <strong>coordina la atención</strong> y gestiona los recursos entre el bucle fonológico y la agenda visoespacial.</p>
+          <div class="tarjeta">
+            <h3>Ejemplo: leer un artículo científico</h3>
+            <p style="font-size:19px;">Mientras lees necesitas:</p>
+            <ul style="font-size:19px;">
+              <li>Mantener el objetivo de lectura.</li>
+              <li>Recordar una definición.</li>
+              <li>Relacionarla con el párrafo actual.</li>
+              <li>Ignorar una notificación del celular.</li>
+              <li>Identificar la idea principal.</li>
+              <li>Decidir si la información es relevante.</li>
+            </ul>
+          </div>
+          <p>La memoria de trabajo está vinculada con <strong>atención, control cognitivo, comprensión y razonamiento</strong>.</p>
+        </section>
+
+        <!-- ========== 9. MT EN ACCIÓN ========== -->
+        <section class="slide" data-titulo="MT en acción">
+          <h2>Memoria de trabajo en acción</h2>
+          <div class="grid-2">
+            <div class="tarjeta">
+              <h3>A. Comprensión lectora</h3>
+              <p style="font-size:19px;">“María llegó tarde porque perdió el autobús. Cuando finalmente llegó a la universidad…”</p>
+              <p style="font-size:19px;">Necesitas mantener el antecedente para comprender la siguiente oración.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>B. Resolución de problemas</h3>
+              <p style="font-size:19px;">Juan tiene $50. Compra un libro de $18 y recibe $20 de su madre. ¿Cuánto tiene ahora?</p>
+              <p style="font-size:19px;">Debes mantener cantidad inicial, gasto, ingreso y operación.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>C. Razonamiento</h3>
+              <p style="font-size:19px;">Todos los que realizan la actividad entregan un informe. Ana realizó la actividad. ¿Qué concluimos?</p>
+              <p style="font-size:19px;">Mantienes premisas mientras evalúas su relación.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>D. Seguimiento de instrucciones</h3>
+              <p style="font-size:19px;">“Abra el documento, revise la tabla 2, identifique la variable dependiente y escriba una interpretación de tres líneas.”</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 10. SIMULACIÓN ========== -->
+        <section class="slide" data-titulo="Simulación: sobrecarga">
+          <h2>Simulación: ¿qué ocurre cuando la tarea supera los recursos?</h2>
+          <p style="font-size:19px; margin-bottom:8px;">Ajusta los controles y observa cómo cambia el rendimiento estimado.</p>
+
+          <div class="simulacion-contenedor">
+            <div class="controles-sim">
+              <label>Demanda de la tarea <span class="valor-control" id="valDemanda">5</span></label>
+              <input type="range" id="demanda" min="1" max="10" value="5" step="1" />
+
+              <label>Interferencia externa <span class="valor-control" id="valInterferencia">3</span></label>
+              <input type="range" id="interferencia" min="0" max="10" value="3" step="1" />
+
+              <label>Uso de estrategias (chunking) <span class="valor-control" id="valEstrategia">2</span></label>
+              <input type="range" id="estrategia" min="0" max="10" value="2" step="1" />
+            </div>
+
+            <div class="resultado-sim">
+              <div class="puntaje" id="puntajeSim">72%</div>
+              <div class="etiqueta">Rendimiento estimado</div>
+              <div class="estado-rendimiento estado-aceptable" id="estadoSim">Rendimiento aceptable</div>
+              <div class="canvas-wrapper">
+                <canvas id="graficoSim"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="destacado" style="margin-top:16px; font-size:18px;">
+            <strong>Interpretación:</strong> cuando la demanda y la interferencia superan los recursos disponibles, el rendimiento cae. Las estrategias de organización (chunking) ayudan a recuperar capacidad.
+          </div>
+        </section>
+
+        <!-- ========== 11. ACTIVIDAD EXPERIENCIAL ========== -->
+        <section class="slide" data-titulo="Actividad: memoria mientras piensa">
+          <h2>Actividad: “La memoria mientras piensa”</h2>
+          <p style="font-size:19px;">Esta actividad hace observable la diferencia entre <strong>mantener</strong> y <strong>manipular</strong> información.</p>
+
+          <div class="grid-3">
+            <div class="tarjeta">
+              <h3>Fase 1: recordar</h3>
+              <p style="font-size:20px; letter-spacing:4px; color:var(--azul-oscuro); font-weight:700;">7 – 2 – 9 – 4 – 1 – 8</p>
+              <p style="font-size:18px;">Solo mantener la secuencia.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Fase 2: transformar</h3>
+              <p style="font-size:20px; letter-spacing:4px; color:var(--azul-oscuro); font-weight:700;">7 – 2 – 9 – 4 – 1 – 8</p>
+              <p style="font-size:18px;">Ordena los números de menor a mayor.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Fase 3: doble tarea</h3>
+              <p style="font-size:20px; letter-spacing:4px; color:var(--azul-oscuro); font-weight:700;">7 – 2 – 9 – 4 – 1 – 8</p>
+              <p style="font-size:18px;">Mientras mantienes, responde: ¿cuánto es 7 × 3?</p>
+            </div>
+          </div>
+
+          <div class="tarjeta mt-20">
+            <h3>Discusión</h3>
+            <p style="font-size:19px;">¿Qué tarea resultó más difícil? ¿Qué información se perdió? ¿Qué estrategias usaron? ¿Qué componente de la memoria de trabajo estaría implicado? ¿Qué papel tiene la atención?</p>
+            <button class="btn pequeno" onclick="mostrarFeedback('fbActividad', 'La actividad no mide capacidad individual de forma científica. Su función es hacer evidente, en la experiencia, que mantener y manipular compiten por recursos limitados.', 'info')">Ver cierre de la actividad</button>
+            <div class="feedback" id="fbActividad"></div>
+          </div>
+        </section>
+
+        <!-- ========== 12. CASO LAURA ========== -->
+        <section class="slide" data-titulo="Caso Laura">
+          <h2>Caso psicológico: Laura y la notificación</h2>
+          <div class="destacado">
+            Laura está estudiando para un examen. Lee una pregunta y comienza a construir mentalmente la respuesta. Mientras lo hace, recibe una notificación del celular. Mira el mensaje, responde rápidamente y vuelve al examen. Cuando regresa a la pregunta, recuerda parcialmente lo que estaba pensando, pero debe volver a leerla.
+          </div>
+
+          <div class="tarjeta">
+            <h3>Preguntas de análisis</h3>
+            <p style="font-size:19px;">
+              1. ¿Qué información necesitaba mantener activa Laura?<br>
+              2. ¿Qué información estaba manipulando?<br>
+              3. ¿Qué papel pudo desempeñar la atención?<br>
+              4. ¿Por qué volver a leer la pregunta puede facilitar la tarea?<br>
+              5. ¿Podemos concluir que Laura tiene “mala memoria”?
+            </p>
+            <button class="btn pequeno" onclick="mostrarFeedback('fbLaura', 'No necesariamente. El caso permite distinguir entre capacidad de memoria, atención, interferencia, demanda de la tarea y estrategias de procesamiento. El desempeño depende de muchos factores, no solo de la memoria.', 'correcto')">Ver orientación de respuesta</button>
+            <div class="feedback" id="fbLaura"></div>
+          </div>
+        </section>
+
+        <!-- ========== 13. CIERRE V/F ========== -->
+        <section class="slide" data-titulo="Cierre: verdadero o falso">
+          <h2>Cierre: pon a prueba lo aprendido</h2>
+          <div id="quizVF">
+            <div class="tarjeta" data-correcta="falso">
+              <p style="font-size:20px; font-weight:600;">1. La memoria de trabajo solamente almacena información.</p>
+              <button class="opcion" onclick="responderVF(this, 'falso')">Verdadero</button>
+              <button class="opcion" onclick="responderVF(this, 'falso')">Falso</button>
+              <div class="feedback"></div>
+            </div>
+            <div class="tarjeta" data-correcta="verdadero">
+              <p style="font-size:20px; font-weight:600;">2. La memoria de trabajo tiene recursos limitados.</p>
+              <button class="opcion" onclick="responderVF(this, 'verdadero')">Verdadero</button>
+              <button class="opcion" onclick="responderVF(this, 'verdadero')">Falso</button>
+              <div class="feedback"></div>
+            </div>
+            <div class="tarjeta" data-correcta="verdadero">
+              <p style="font-size:20px; font-weight:600;">3. La memoria de trabajo participa en comprensión, razonamiento y resolución de problemas.</p>
+              <button class="opcion" onclick="responderVF(this, 'verdadero')">Verdadero</button>
+              <button class="opcion" onclick="responderVF(this, 'verdadero')">Falso</button>
+              <div class="feedback"></div>
+            </div>
+            <div class="tarjeta" data-correcta="falso">
+              <p style="font-size:20px; font-weight:600;">4. Memoria de trabajo y memoria a corto plazo son exactamente lo mismo.</p>
+              <button class="opcion" onclick="responderVF(this, 'falso')">Verdadero</button>
+              <button class="opcion" onclick="responderVF(this, 'falso')">Falso</button>
+              <div class="feedback"></div>
+            </div>
+            <div class="tarjeta" data-correcta="falso">
+              <p style="font-size:20px; font-weight:600;">5. Si alguien falla en una tarea de memoria de trabajo, necesariamente tiene un problema de memoria.</p>
+              <button class="opcion" onclick="responderVF(this, 'falso')">Verdadero</button>
+              <button class="opcion" onclick="responderVF(this, 'falso')">Falso</button>
+              <div class="feedback"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 14. CONCLUSIONES ========== -->
+        <section class="slide" data-titulo="Conclusiones y referencias">
+          <h2>La idea fuerza de la clase</h2>
+          <div class="destacado" style="font-size:24px; text-align:center; padding:26px;">
+            ¿Recordar información es lo mismo que pensar con información?
+          </div>
+          <div class="destacado" style="font-size:22px; text-align:center; background:var(--azul-oscuro); color:var(--blanco); border-left-color:var(--dorado-suave); padding:24px;">
+            Memoria de trabajo = mantener información activa + operar con ella para realizar una tarea.
+          </div>
+
+          <h3 style="margin-top:24px;">Referencias fundamentales</h3>
+          <ul style="font-size:18px; line-height:1.7;">
+            <li>Baddeley, A. D., & Hitch, G. (1974). Working memory. En G. H. Bower (Ed.), <em>The psychology of learning and motivation</em> (Vol. 8, pp. 47–89). Academic Press.</li>
+            <li>Miller, G. A. (1956). The magical number seven, plus or minus two: Some limits on our capacity for processing information. <em>Psychological Review, 63</em>(2), 81–97. https://doi.org/10.1037/h0043158</li>
+          </ul>
+
+          <div class="tarjeta mt-20" style="border-left:5px solid var(--dorado-suave);">
+            <h3>Recomendaciones para el estudio</h3>
+            <ul style="font-size:18px;">
+              <li>Organiza la información en bloques significativos.</li>
+              <li>Distribuye la práctica en varias sesiones.</li>
+              <li>Usa el repaso activo en lugar de la relectura pasiva.</li>
+              <li>Reduce las interferencias mientras estudias.</li>
+            </ul>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Progreso -->
+      <div class="progreso-barra" id="progresoBarra" style="width: 7.14%;"></div>
+      <div class="indicador-numero" id="indicadorNumero">1 / 14</div>
+
+      <!-- Navegación -->
+      <div class="nav-botones">
+        <button id="btnAnterior" title="Anterior (←)">‹</button>
+        <button id="btnSiguiente" title="Siguiente (→)">›</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /* ============================================================
+       NAVEGACIÓN
+       ============================================================ */
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let slideActual = 0;
+
+    const navSidebar = document.getElementById('navSidebar');
+    const progresoBarra = document.getElementById('progresoBarra');
+    const indicadorNumero = document.getElementById('indicadorNumero');
+    const btnAnterior = document.getElementById('btnAnterior');
+    const btnSiguiente = document.getElementById('btnSiguiente');
+
+    // Botones laterales
+    slides.forEach((slide, i) => {
+      const btn = document.createElement('button');
+      btn.innerHTML = `<span class="num">${i + 1}</span> ${slide.dataset.titulo || 'Diapositiva ' + (i+1)}`;
+      btn.addEventListener('click', () => irASlide(i));
+      navSidebar.appendChild(btn);
+    });
+
+    const botonesNav = navSidebar.querySelectorAll('button');
+
+    function irASlide(indice) {
+      if (indice < 0 || indice >= totalSlides || indice === slideActual) return;
+
+      const slideViejo = slides[slideActual];
+      const slideNuevo = slides[indice];
+
+      if (indice > slideActual) {
+        slideViejo.classList.add('saliente-izq');
+      }
+
+      slideViejo.classList.remove('activa');
+      setTimeout(() => slideViejo.classList.remove('saliente-izq'), 400);
+
+      slideNuevo.classList.add('activa');
+      slideActual = indice;
+
+      // Scroll al inicio de la nueva diapositiva
+      slideNuevo.scrollTop = 0;
+
+      actualizarUI();
+    }
+
+    function actualizarUI() {
+      botonesNav.forEach((btn, i) => {
+        btn.classList.toggle('activo', i === slideActual);
+      });
+      indicadorNumero.textContent = `${slideActual + 1} / ${totalSlides}`;
+      progresoBarra.style.width = `${((slideActual + 1) / totalSlides) * 100}%`;
+      btnAnterior.disabled = slideActual === 0;
+      btnSiguiente.disabled = slideActual === totalSlides - 1;
+    }
+
+    btnAnterior.addEventListener('click', () => irASlide(slideActual - 1));
+    btnSiguiente.addEventListener('click', () => irASlide(slideActual + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        irASlide(slideActual + 1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        irASlide(slideActual - 1);
+      }
+    });
+
+    actualizarUI();
+
+    /* ============================================================
+       SIDEBAR
+       ============================================================ */
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebar = document.getElementById('toggleSidebar');
+
+    toggleSidebar.addEventListener('click', () => {
+      if (window.innerWidth <= 820) {
+        sidebar.classList.toggle('abierta');
+      } else {
+        sidebar.classList.toggle('colapsada');
+      }
+    });
+
+    /* ============================================================
+       ACTIVIDADES
+       ============================================================ */
+    function mostrarFeedback(id, texto, tipo) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = texto;
+      el.className = 'feedback ' + (tipo || 'info');
+    }
+
+    function responderVF(btn, correcta) {
+      const tarjeta = btn.closest('.tarjeta');
+      const feedback = tarjeta.querySelector('.feedback');
+      const opciones = tarjeta.querySelectorAll('.opcion');
+      const esCorrecta = btn.textContent.trim().toLowerCase() === correcta;
+
+      opciones.forEach(o => o.disabled = true);
+
+      if (esCorrecta) {
+        btn.classList.add('correcta');
+        feedback.textContent = '¡Correcto! ' + obtenerExplicacionVF(tarjeta);
+        feedback.className = 'feedback correcto';
+      } else {
+        btn.classList.add('incorrecta');
+        const correctaBtn = Array.from(opciones).find(o => o.textContent.trim().toLowerCase() === correcta);
+        if (correctaBtn) correctaBtn.classList.add('correcta');
+        feedback.textContent = 'No exactamente. ' + obtenerExplicacionVF(tarjeta);
+        feedback.className = 'feedback incorrecto';
+      }
+    }
+
+    function obtenerExplicacionVF(tarjeta) {
+      const texto = tarjeta.querySelector('p').textContent;
+      if (texto.includes('solamente almacena')) return 'La memoria de trabajo también manipula y utiliza información durante una tarea.';
+      if (texto.includes('recursos limitados')) return 'Su capacidad es limitada y esa limitación tiene consecuencias sobre el comportamiento.';
+      if (texto.includes('comprensión, razonamiento')) return 'Participa en comprensión, razonamiento, resolución de problemas y seguimiento de instrucciones.';
+      if (texto.includes('exactamente lo mismo')) return 'La memoria de trabajo amplía la concepción de almacenamiento temporal hacia el procesamiento activo.';
+      if (texto.includes('problema de memoria')) return 'El desempeño depende también de atención, interferencia, estrategias, conocimiento previo y demandas de la tarea.';
+      return '';
+    }
+
+    /* ============================================================
+       SIMULACIÓN (CORREGIDA)
+       ============================================================ */
+    const demandaInput = document.getElementById('demanda');
+    const interferenciaInput = document.getElementById('interferencia');
+    const estrategiaInput = document.getElementById('estrategia');
+    const valDemanda = document.getElementById('valDemanda');
+    const valInterferencia = document.getElementById('valInterferencia');
+    const valEstrategia = document.getElementById('valEstrategia');
+    const puntajeSim = document.getElementById('puntajeSim');
+    const estadoSim = document.getElementById('estadoSim');
+    const canvas = document.getElementById('graficoSim');
+    const ctx = canvas.getContext('2d');
+
+    function calcularRendimiento(demanda, interferencia, estrategia) {
+      const base = 100;
+      const efectoDemanda = demanda * 6.5;
+      const efectoInterferencia = interferencia * 4.5;
+      const efectoEstrategia = estrategia * 3.5;
+      let rendimiento = base - efectoDemanda - efectoInterferencia + efectoEstrategia;
+      return Math.max(5, Math.min(100, Math.round(rendimiento)));
+    }
+
+    function actualizarSimulacion() {
+      const d = parseInt(demandaInput.value);
+      const i = parseInt(interferenciaInput.value);
+      const e = parseInt(estrategiaInput.value);
+
+      valDemanda.textContent = d;
+      valInterferencia.textContent = i;
+      valEstrategia.textContent = e;
+
+      const rendimiento = calcularRendimiento(d, i, e);
+      puntajeSim.textContent = rendimiento + '%';
+
+      estadoSim.className = 'estado-rendimiento';
+      if (rendimiento >= 75) {
+        estadoSim.textContent = 'Rendimiento óptimo';
+        estadoSim.classList.add('estado-optimo');
+      } else if (rendimiento >= 45) {
+        estadoSim.textContent = 'Rendimiento aceptable';
+        estadoSim.classList.add('estado-aceptable');
+      } else {
+        estadoSim.textContent = 'Sobrecarga cognitiva';
+        estadoSim.classList.add('estado-sobrecarga');
+      }
+
+      dibujarGrafico(d, i, e, rendimiento);
+    }
+
+    function dibujarGrafico(d, i, e, rendimiento) {
+      // Usamos las dimensiones reales del canvas (CSS px) sin acumular scale
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = rect.width;
+      const h = rect.height;
+
+      // Redimensionar solo si cambió
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+      }
+
+      // Resetear transformación y escalar UNA sola vez
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      // Fondo
+      ctx.fillStyle = '#F8F9FB';
+      ctx.fillRect(0, 0, w, h);
+
+      // Márgenes
+      const margenIzq = 44;
+      const margenDer = 12;
+      const margenSup = 10;
+      const margenInf = 26;
+      const anchoUtil = w - margenIzq - margenDer;
+      const altoUtil = h - margenSup - margenInf;
+
+      // Ejes
+      ctx.strokeStyle = '#D5DDE8';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(margenIzq, margenSup);
+      ctx.lineTo(margenIzq, margenSup + altoUtil);
+      ctx.lineTo(margenIzq + anchoUtil, margenSup + altoUtil);
+      ctx.stroke();
+
+      // Etiquetas
+      ctx.fillStyle = '#6B7A8F';
+      ctx.font = '11px Segoe UI, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Demanda de la tarea', margenIzq + anchoUtil / 2, h - 6);
+
+      ctx.save();
+      ctx.translate(12, margenSup + altoUtil / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText('Rendimiento', 0, 0);
+      ctx.restore();
+
+      // Puntos de la curva
+      const puntos = [];
+      for (let demanda = 1; demanda <= 10; demanda++) {
+        const r = calcularRendimiento(demanda, i, e);
+        const x = margenIzq + ((demanda - 1) / 9) * anchoUtil;
+        const y = margenSup + altoUtil - (r / 100) * altoUtil;
+        puntos.push({ x, y, r, demanda });
+      }
+
+      // Área
+      ctx.beginPath();
+      ctx.moveTo(puntos[0].x, margenSup + altoUtil);
+      puntos.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(puntos[puntos.length - 1].x, margenSup + altoUtil);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(19, 83, 138, 0.08)';
+      ctx.fill();
+
+      // Línea
+      ctx.beginPath();
+      puntos.forEach((p, idx) => {
+        if (idx === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      });
+      ctx.strokeStyle = '#13538A';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Punto actual
+      const puntoActual = puntos.find(p => p.demanda === d);
+      if (puntoActual) {
+        ctx.beginPath();
+        ctx.arc(puntoActual.x, puntoActual.y, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#E7C873';
+        ctx.fill();
+        ctx.strokeStyle = '#0B2545';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.fillStyle = '#0B2545';
+        ctx.font = 'bold 13px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(rendimiento + '%', puntoActual.x, puntoActual.y - 12);
+      }
+    }
+
+    [demandaInput, interferenciaInput, estrategiaInput].forEach(input => {
+      input.addEventListener('input', actualizarSimulacion);
+    });
+
+    // Redibujar cuando la ventana cambia de tamaño
+    window.addEventListener('resize', () => {
+      clearTimeout(window._resizeTimer);
+      window._resizeTimer = setTimeout(actualizarSimulacion, 150);
+    });
+
+    // Redibujar cuando la diapositiva de simulación se activa
+    const observer = new MutationObserver(() => {
+      if (slides[9] && slides[9].classList.contains('activa')) {
+        setTimeout(actualizarSimulacion, 80);
+      }
+    });
+    slides.forEach(s => observer.observe(s, { attributes: true, attributeFilter: ['class'] }));
+
+    // Inicializar
+    actualizarSimulacion();
+  </script>
+</body>
+</html>
