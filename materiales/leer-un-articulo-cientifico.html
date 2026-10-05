@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leer un artículo científico en Psicología — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Leer un artículo científico en Psicología">
+<meta name="jc-descripcion" content="Presentación interactiva para aprender a buscar, escanear, reconstruir y evaluar artículos científicos en Psicología, con actividades sobre bases de datos, método, resultados, evidencia e inferencias.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Lectura científica, Artículo científico, Psicología, Alfabetización científica, Google Académico, Consensus, Scopus, Método, Resultados, Evidencia, Lectura crítica">
+<meta name="jc-curso" content="Introducción a la Investigación">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     ESTILOS
+     Paleta: blanco, azul oscuro #0B2545, acentos #13315C y #13538A,
+     dorado #E7C873 con moderación. Tipografía grande para TV.
+     ============================================================ -->
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EC;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --sombra:0 10px 26px rgba(11,37,69,.10);
+    --radio:14px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background:var(--blanco);
+    color:var(--texto);
+    font-size:28px;
+    line-height:1.45;
+    overflow:hidden;
+  }
+
+  /* ---------- Barra lateral ---------- */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:300px;
+    background:var(--azul-oscuro); color:var(--blanco);
+    padding:26px 18px;
+    transform:translateX(0);
+    transition:transform .3s ease;
+    z-index:60; display:flex; flex-direction:column;
+    overflow-y:auto;
+  }
+  body:not(.sidebar-open) .sidebar{transform:translateX(-100%);}
+  .sidebar h2{font-size:20px; margin:0 0 16px; color:var(--dorado); font-weight:600; letter-spacing:.5px;}
+  .sidebar ol{list-style:none; margin:0; padding:0;}
+  .sidebar li{
+    font-size:17px; padding:9px 10px; border-radius:8px;
+    cursor:pointer; margin-bottom:3px; color:#C9D6E8; line-height:1.3;
+    transition:background .2s, color .2s;
+  }
+  .sidebar li:hover{background:rgba(231,200,115,.14); color:var(--blanco);}
+  .sidebar li.active{background:var(--azul-acento); color:var(--blanco); font-weight:600;}
+
+  /* ---------- Botón flotante "Índice" (esquina inferior izquierda) ---------- */
+  .toggle-sidebar{
+    position:fixed; bottom:22px; left:22px; z-index:65;
+    background:var(--azul-oscuro); color:var(--blanco);
+    border:none; border-radius:30px; padding:12px 20px;
+    font-size:18px; cursor:pointer; box-shadow:var(--sombra);
+    transition:background .2s, transform .15s;
+    display:flex; align-items:center; gap:8px;
+  }
+  .toggle-sidebar:hover{background:var(--azul-acento); transform:scale(1.04);}
+
+  /* ---------- Contador (arriba del botón, esquina inferior izquierda) ---------- */
+  .counter{
+    position:fixed; bottom:80px; left:22px; z-index:65;
+    font-size:18px; color:var(--texto-suave); font-weight:700;
+    background:rgba(255,255,255,.9); padding:6px 14px; border-radius:20px;
+    box-shadow:0 4px 12px rgba(11,37,69,.08);
+  }
+
+  /* ---------- Área de diapositivas ---------- */
+  .stage{
+    position:absolute; inset:0;
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:40px 60px 110px 60px;
+    transition:padding-left .3s ease;
+    overflow-y:auto;
+  }
+  body.sidebar-open .stage{padding-left:340px;}
+
+  .slide{
+    max-width:1300px; width:100%;
+    opacity:0; visibility:hidden;
+    position:absolute; left:60px; right:60px; top:40px;
+    transition:opacity .4s ease, transform .4s ease, visibility .4s;
+    transform:translateY(16px);
+  }
+  body.sidebar-open .slide{left:340px; right:60px;}
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  h1{font-size:58px; color:var(--azul-oscuro); margin:0 0 14px; line-height:1.12;}
+  h2{font-size:44px; color:var(--azul-oscuro); margin:0 0 22px; line-height:1.18;}
+  h3{font-size:28px; color:var(--azul-medio); margin:0 0 10px;}
+  p, li{font-size:26px; color:var(--texto);}
+  .lead{font-size:28px; color:var(--texto-suave);}
+  .subtitulo{font-size:30px; color:var(--azul-acento); font-weight:600; margin-bottom:8px;}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{padding-left:36px; position:relative; margin-bottom:10px;}
+  ul.clean li::before{
+    content:"›"; position:absolute; left:8px; top:-4px;
+    color:var(--dorado); font-size:34px; font-weight:700;
+  }
+
+  .card{
+    background:var(--gris-calido); border-left:6px solid var(--azul-acento);
+    border-radius:var(--radio); padding:20px 24px; margin:14px 0;
+    box-shadow:var(--sombra);
+  }
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB;}
+  .card.azul{background:#EAF1F8; border-left-color:var(--azul-medio);}
+  .card.verde{background:#E4F3E6; border-left-color:var(--verde);}
+  .card.rojo{background:#FBE9E7; border-left-color:var(--rojo);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+
+  .pill{
+    display:inline-block; background:var(--azul-oscuro); color:var(--blanco);
+    border-radius:30px; padding:7px 20px; font-size:18px; font-weight:600;
+    letter-spacing:.4px; margin-bottom:14px;
+  }
+  .pill.dorado{background:var(--dorado); color:var(--azul-oscuro);}
+  .pill.verde{background:var(--verde); color:var(--blanco);}
+  .pill.rojo{background:var(--rojo); color:var(--blanco);}
+
+  .portada{text-align:center; padding-top:60px;}
+  .portada h1{font-size:64px; margin-bottom:18px;}
+  .portada .linea{
+    width:120px; height:5px; background:var(--dorado);
+    margin:24px auto; border-radius:3px;
+  }
+  .portada .autor{font-size:34px; color:var(--azul-oscuro); font-weight:700; margin-top:12px;}
+  .portada .contexto{font-size:24px; color:var(--texto-suave); margin-top:6px;}
+
+  .opcion{
+    display:block; width:100%; text-align:left;
+    background:var(--blanco); border:3px solid var(--azul-medio);
+    border-radius:var(--radio); padding:16px 22px; margin:10px 0;
+    font-size:24px; color:var(--texto); cursor:pointer; line-height:1.35;
+    transition:background .2s, transform .15s;
+  }
+  .opcion:hover{background:#EAF1F8; transform:translateX(5px);}
+  .opcion.correcta{background:#E4F3E6; border-color:var(--verde);}
+  .opcion.incorrecta{background:#FBE9E7; border-color:var(--rojo);}
+  .feedback{
+    margin-top:14px; padding:16px 20px; border-radius:var(--radio);
+    font-size:23px; display:none; line-height:1.4;
+  }
+  .feedback.ok{background:#E4F3E6; color:#1F5A2A;}
+  .feedback.no{background:#FBE9E7; color:#7A2E1C;}
+
+  /* ---------- Arrastrar y soltar ---------- */
+  .dnd-zona{display:grid; grid-template-columns:1.1fr 1fr; gap:24px; margin-top:10px;}
+  .dnd-items, .dnd-targets{display:flex; flex-direction:column; gap:12px;}
+  .chip{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:14px 18px; border-radius:12px; font-size:21px;
+    cursor:grab; user-select:none; text-align:center; line-height:1.3;
+  }
+  .chip:active{cursor:grabbing; transform:scale(.97);}
+  .target{
+    background:var(--gris-calido); border:3px dashed var(--azul-acento);
+    border-radius:12px; padding:14px 18px; min-height:70px;
+    display:flex; align-items:center; gap:12px; font-size:21px;
+    color:var(--texto-suave); line-height:1.3;
+  }
+  .target.over{background:#DCE8F5;}
+  .target.filled{border-style:solid; background:#EAF1F8; color:var(--texto); font-weight:600;}
+  .target .label{font-weight:700; color:var(--azul-medio); min-width:150px;}
+
+  /* ---------- Flashcards ---------- */
+  .flashcard{perspective:1200px; width:100%; height:340px; cursor:pointer;}
+  .flashcard-inner{
+    position:relative; width:100%; height:100%;
+    transition:transform .6s; transform-style:preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+  .fc-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:var(--radio); display:flex; align-items:center;
+    justify-content:center; text-align:center; padding:24px;
+    box-shadow:var(--sombra);
+  }
+  .fc-front{background:var(--azul-oscuro); color:var(--blanco); font-size:26px; font-weight:600; line-height:1.25;}
+  .fc-back{background:var(--gris-calido); color:var(--texto); transform:rotateY(180deg); font-size:20px; line-height:1.4;}
+
+  /* ---------- Simulación 1 (embudo de evidencia) ---------- */
+  .sim-layout{display:grid; grid-template-columns:340px 1fr; gap:24px; align-items:start;}
+  .sim-controls{background:var(--gris-calido); border-radius:var(--radio); padding:20px; box-shadow:var(--sombra);}
+  .sim-controls label{display:block; font-size:20px; font-weight:600; color:var(--azul-medio); margin:12px 0 6px;}
+  .sim-controls input[type=range]{width:100%; accent-color:var(--azul-acento); height:28px;}
+  .sim-controls select{
+    width:100%; padding:10px; font-size:20px; border-radius:8px;
+    border:2px solid var(--azul-medio); background:var(--blanco); color:var(--texto);
+  }
+  .valor{font-weight:700; color:var(--azul-oscuro); float:right;}
+  .sim-canvas-wrap{background:var(--blanco); border-radius:var(--radio); box-shadow:var(--sombra); padding:14px;}
+  canvas{width:100%; height:auto; display:block; border-radius:8px;}
+  .veredicto{
+    margin-top:14px; padding:16px 20px; border-radius:var(--radio);
+    font-size:20px; font-weight:600; text-align:center; line-height:1.35;
+  }
+  .v-nada{background:#FBE9E7; color:#7A2E1C;}
+  .v-asoc{background:#FFF4D6; color:#7A5A0A;}
+  .v-pred{background:#E6F1FB; color:#0B3A6B;}
+  .v-caus{background:#E4F3E6; color:#1F5A2A;}
+
+  /* ---------- Simulación 2: mesa de búsqueda ---------- */
+  .bd-sim-layout{display:grid; grid-template-columns:380px 1fr; gap:24px; align-items:start;}
+  .bd-sim-controls{background:var(--gris-calido); border-radius:var(--radio); padding:22px; box-shadow:var(--sombra);}
+  .bd-sim-controls label{display:block; font-size:20px; font-weight:600; color:var(--azul-medio); margin:14px 0 6px;}
+  .bd-sim-controls input[type=text]{
+    width:100%; padding:12px 14px; font-size:20px; border-radius:10px;
+    border:2px solid var(--azul-medio); background:var(--blanco); color:var(--texto);
+  }
+  .bd-base-btns{display:flex; flex-direction:column; gap:10px; margin-top:8px;}
+  .bd-base-btn{
+    background:var(--blanco); border:3px solid var(--azul-medio);
+    border-radius:12px; padding:12px 16px; font-size:20px;
+    text-align:left; cursor:pointer; color:var(--texto); line-height:1.3;
+    transition:background .2s, transform .15s;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .bd-base-btn:hover{background:#EAF1F8; transform:translateX(4px);}
+  .bd-base-btn.selected{background:var(--azul-medio); color:var(--blanco); border-color:var(--azul-medio);}
+  .bd-base-btn.consensus.selected{background:var(--verde); border-color:var(--verde);}
+  .bd-base-btn.scopus.selected{background:var(--dorado); color:var(--azul-oscuro); border-color:var(--dorado);}
+  .bd-base-btn .count{
+    font-size:16px; font-weight:700; padding:3px 12px; border-radius:20px;
+    background:rgba(255,255,255,.25);
+  }
+  .bd-base-btn.selected .count{background:rgba(255,255,255,.35);}
+  .bd-base-btn:not(.selected) .count{background:#EAF1F8; color:var(--azul-oscuro);}
+
+  .bd-sim-resultados{
+    background:var(--blanco); border-radius:var(--radio);
+    box-shadow:var(--sombra); padding:20px 22px; min-height:520px;
+  }
+  .bd-resultado-header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-bottom:14px; margin-bottom:14px;
+    border-bottom:2px solid #E4E9F0;
+  }
+  .bd-resultado-header h3{font-size:26px; margin:0;}
+  .bd-resultado-header .badge-base{
+    font-size:16px; font-weight:700; padding:5px 16px; border-radius:20px;
+    background:var(--azul-medio); color:var(--blanco);
+  }
+  .bd-resultado-header .badge-base.consensus{background:var(--verde);}
+  .bd-resultado-header .badge-base.scopus{background:var(--dorado); color:var(--azul-oscuro);}
+  .bd-filtros{
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;
+  }
+  .bd-filtro{
+    font-size:15px; padding:5px 14px; border-radius:20px;
+    background:#EAF1F8; color:var(--azul-medio); font-weight:600;
+  }
+  .bd-filtro.off{background:#F4F1EC; color:#9AA6B8; text-decoration:line-through;}
+  .bd-item{
+    display:grid; grid-template-columns:1fr auto; gap:12px;
+    padding:12px 14px; border-radius:10px; margin-bottom:8px;
+    background:#FAFBFD; border-left:5px solid var(--azul-acento);
+    font-size:18px; line-height:1.35;
+  }
+  .bd-item .meta{
+    font-size:15px; color:var(--texto-suave); margin-top:4px;
+  }
+  .bd-item .tag{
+    font-size:14px; font-weight:700; padding:3px 10px; border-radius:20px;
+    background:#E6F1FB; color:#0B3A6B; align-self:start;
+  }
+  .bd-item .tag.open{background:#E4F3E6; color:#1F5A2A;}
+  .bd-item .tag.pay{background:#FBE9E7; color:#7A2E1C;}
+  .bd-ia-resumen{
+    background:#E4F3E6; border-left:5px solid var(--verde);
+    border-radius:10px; padding:14px 18px; font-size:18px;
+    margin-bottom:14px; line-height:1.4;
+  }
+  .bd-ia-resumen strong{color:#1F5A2A;}
+  .bd-vacio{
+    font-size:20px; color:var(--texto-suave); text-align:center;
+    padding:60px 20px; line-height:1.5;
+  }
+
+  /* ---------- Navegación inferior derecha ---------- */
+  .nav-bottom{
+    position:fixed; bottom:22px; right:22px; z-index:65;
+    display:flex; align-items:center; gap:10px;
+  }
+  .nav-btn{
+    background:var(--azul-oscuro); color:var(--blanco); border:none;
+    border-radius:50%; width:52px; height:52px; font-size:26px;
+    cursor:pointer; box-shadow:var(--sombra);
+    transition:background .2s, transform .15s;
+  }
+  .nav-btn:hover{background:var(--azul-acento); transform:scale(1.06);}
+  .nav-btn:disabled{opacity:.35; cursor:default; transform:none;}
+  .progress{
+    position:fixed; bottom:0; left:0; height:4px;
+    background:var(--dorado); width:0%; transition:width .3s ease; z-index:70;
+  }
+
+  @media (max-width:1100px){
+    body{font-size:20px;}
+    h1{font-size:34px;} h2{font-size:28px;} h3{font-size:22px;}
+    p, li{font-size:19px;} .lead{font-size:20px;}
+    .portada h1{font-size:36px;}
+    .portada .autor{font-size:22px;}
+    .portada .contexto{font-size:17px;}
+    .pill{font-size:15px; padding:5px 14px;}
+    .grid-2, .grid-3, .dnd-zona, .sim-layout, .bd-sim-layout{grid-template-columns:1fr;}
+    .stage{padding:30px 20px 100px 20px;}
+    body.sidebar-open .stage{padding-left:20px;}
+    .slide{left:20px; right:20px; top:30px;}
+    body.sidebar-open .slide{left:20px; right:20px;}
+    .sidebar{width:260px;}
+    .opcion{font-size:18px; padding:12px 16px;}
+    .chip, .target{font-size:17px;}
+    .flashcard{height:300px;}
+    .fc-front{font-size:20px;}
+    .fc-back{font-size:16px;}
+    .veredicto{font-size:17px;}
+    .bd-item{font-size:16px;}
+    .bd-base-btn{font-size:17px;}
+    .toggle-sidebar{font-size:15px; padding:10px 16px;}
+    .counter{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Botón flotante del índice (esquina inferior izquierda) -->
+<button class="toggle-sidebar" id="toggleSidebar" aria-label="Mostrar u ocultar índice">☰ Índice</button>
+
+<!-- Contador de progreso -->
+<div class="counter" id="counter">1 / 21</div>
+
+<!-- Barra lateral (oculta por defecto) -->
+<nav class="sidebar" id="sidebar">
+  <h2>CONTENIDO</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada" data-title="Portada">
+    <span class="pill dorado">Introducción a la Investigación · Psicología</span>
+    <h1>Leer un artículo científico en Psicología</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">Reconstruir el razonamiento científico, no memorizar el texto</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">Sesión para estudiantes de primer semestre</p>
+  </section>
+
+  <!-- ===== 2. AGENDA ===== -->
+  <section class="slide" data-title="Agenda">
+    <span class="pill">Agenda</span>
+    <h2>¿Qué aprenderás hoy?</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Por qué leer un artículo no es leer un libro</li>
+        <li>Dónde buscar: Google Académico, Consensus y Scopus</li>
+        <li>Las 5 (+1) preguntas maestras del lector científico</li>
+        <li>La primera pasada: escanear antes de leer</li>
+      </ul>
+      <ul class="clean">
+        <li>La introducción como argumento</li>
+        <li>El Método: quién, qué, cómo y con qué</li>
+        <li>Resultados, interpretación y lectura crítica</li>
+        <li>El modelo mental que te acompañará toda la carrera</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      <strong>Cuatro actividades y dos simulaciones</strong> te acompañarán durante la sesión.
+    </div>
+  </section>
+
+  <!-- ===== 3. PUNTO DE PARTIDA ===== -->
+  <section class="slide" data-title="Punto de partida">
+    <span class="pill">Punto de partida</span>
+    <h2>El problema no es el vocabulario: es la estrategia</h2>
+    <p class="lead">Un estudiante que recibe por primera vez un artículo suele hacer algo así:</p>
+    <div class="card">
+      PDF → empieza en la primera línea → encuentra términos desconocidos → subraya → busca definiciones → se pierde → llega a Método → abandona.
+    </div>
+    <p>El problema es que aplica una <strong>lectura lineal</strong>, propia de un libro de texto, a un texto que funciona con otra lógica.</p>
+  </section>
+
+  <!-- ===== 4. LIBRO VS ARTÍCULO ===== -->
+  <section class="slide" data-title="Libro vs. artículo">
+    <span class="pill">Dos lógicas distintas</span>
+    <h2>Libro y artículo no se leen igual</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Libro de texto</h3>
+        <p>“Te voy a explicar algo que ya fue organizado para que lo aprendas.”</p>
+      </div>
+      <div class="card azul">
+        <h3>Artículo científico</h3>
+        <p>“Te voy a mostrar una pregunta, el razonamiento que llevó a investigarla, cómo obtuvimos evidencia y qué creemos que significa.”</p>
+      </div>
+    </div>
+    <p class="lead">Los novatos tienen dificultades particulares con <strong>métodos, resultados e interpretación</strong>; los expertos leen de forma más estratégica (Hubbard &amp; Dunbar, 2017; Nelms &amp; Segura-Totten, 2019).</p>
+  </section>
+
+  <!-- ===== 5. DÓNDE BUSCAR ===== -->
+  <section class="slide" data-title="Dónde buscar">
+    <span class="pill dorado">Antes de leer: encontrar</span>
+    <h2>¿Dónde buscar artículos científicos?</h2>
+    <p class="lead">No todas las fuentes sirven para lo mismo.</p>
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Google Académico</h3>
+        <p><strong>Buscador abierto.</strong> Indexa artículos, tesis, libros y ponencias de múltiples fuentes.</p>
+        <p class="lead">Útil para empezar y explorar.</p>
+      </div>
+      <div class="card verde">
+        <h3>Consensus</h3>
+        <p><strong>Buscador con IA.</strong> Responde preguntas en lenguaje natural y sintetiza hallazgos de estudios.</p>
+        <p class="lead">Útil para explorar rápido un tema.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Scopus</h3>
+        <p><strong>Base de datos académica.</strong> Filtros avanzados por revista, año, área, tipo de documento y métricas de citación.</p>
+        <p class="lead">Útil para revisiones rigurosas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. SIMULACIÓN: MESA DE BÚSQUEDA ===== -->
+  <section class="slide" data-title="Mesa de búsqueda">
+    <span class="pill dorado">Simulación</span>
+    <h2>La mesa de búsqueda comparada</h2>
+    <p class="lead">Elige una base de datos y observa qué tipo de resultados devuelve cada una para el mismo tema.</p>
+
+    <div class="bd-sim-layout">
+      <!-- Panel de control -->
+      <div class="bd-sim-controls">
+        <label for="bdTema">Tema de búsqueda</label>
+        <input type="text" id="bdTema" value="estrés académico y sueño" />
+
+        <label>Base de datos</label>
+        <div class="bd-base-btns" id="bdBaseBtns">
+          <button class="bd-base-btn selected" data-base="google">
+            <span>Google Académico</span>
+            <span class="count" id="countGoogle">—</span>
+          </button>
+          <button class="bd-base-btn consensus" data-base="consensus">
+            <span>Consensus</span>
+            <span class="count" id="countConsensus">—</span>
+          </button>
+          <button class="bd-base-btn scopus" data-base="scopus">
+            <span>Scopus</span>
+            <span class="count" id="countScopus">—</span>
+          </button>
+        </div>
+
+        <div class="card azul" style="margin-top:20px; font-size:16px;">
+          <strong>Observa:</strong> cambia la base y compara cuántos resultados aparecen, qué tipo de fuentes incluye, si hay filtros disponibles y cómo se presenta la información.
+        </div>
+      </div>
+
+      <!-- Panel de resultados -->
+      <div class="bd-sim-resultados" id="bdResultados">
+        <!-- Se llena con JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 7. CÓMO BUSCAR BIEN ===== -->
+  <section class="slide" data-title="Cómo buscar bien">
+    <span class="pill">Estrategia de búsqueda</span>
+    <h2>Cómo buscar bien en estas bases</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>1. Define palabras clave</h3>
+        <p>Usa términos del tema y sus sinónimos. En inglés cuando la base lo requiera.</p>
+      </div>
+      <div class="card azul">
+        <h3>2. Usa operadores booleanos</h3>
+        <p><strong>AND</strong> suma condiciones, <strong>OR</strong> amplía con sinónimos, <strong>NOT</strong> excluye.</p>
+      </div>
+      <div class="card azul">
+        <h3>3. Filtra por criterios</h3>
+        <p>Año, tipo de documento, área temática, idioma, revista revisada por pares.</p>
+      </div>
+      <div class="card dorado">
+        <h3>4. Evalúa lo que encuentras</h3>
+        <p>No todo lo que aparece en la lista es igual de confiable. Revisa autores, revista, año, metodología.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. ACTIVIDAD 1: ¿QUÉ BASE USAR? ===== -->
+  <section class="slide" data-title="Actividad 1">
+    <span class="pill">Actividad 1</span>
+    <h2>¿Qué base de datos conviene usar?</h2>
+    <p class="lead">Quieres hacer una revisión sistemática sobre ansiedad social en adolescentes y necesitas filtrar por revista revisada por pares, año de publicación y métricas de citación. ¿Qué base es más apropiada?</p>
+    <div id="quiz0">
+      <button class="opcion" data-correct="false">Google Académico, porque tiene más resultados.</button>
+      <button class="opcion" data-correct="false">Consensus, porque resume todo automáticamente.</button>
+      <button class="opcion" data-correct="true">Scopus, porque ofrece filtros avanzados y métricas de citación propios de una revisión sistemática.</button>
+    </div>
+    <div class="feedback" id="fb0"></div>
+  </section>
+
+  <!-- ===== 9. LAS 5 PREGUNTAS MAESTRAS ===== -->
+  <section class="slide" data-title="5 preguntas maestras">
+    <span class="pill">Modelo central</span>
+    <h2>Las 5 (+1) preguntas maestras del lector científico</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li><strong>1.</strong> ¿Qué problema investigan?</li>
+        <li><strong>2.</strong> ¿Qué saben antes de este estudio?</li>
+        <li><strong>3.</strong> ¿Qué hicieron para obtener evidencia?</li>
+        <li><strong>4.</strong> ¿Qué encontraron?</li>
+        <li><strong>5.</strong> ¿Qué permiten concluir realmente esos resultados?</li>
+      </ul>
+      <div class="card dorado">
+        <h3>La pregunta extra</h3>
+        <p><strong>¿Qué NO podemos concluir?</strong></p>
+        <p>Esta es la pregunta que convierte a un lector pasivo en un lector científico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10. ACTIVIDAD 2 ===== -->
+  <section class="slide" data-title="Actividad 2">
+    <span class="pill">Actividad 2</span>
+    <h2>¿Qué tipo de artículo estoy leyendo?</h2>
+    <p class="lead">Imagina que abres un artículo titulado <em>“Revisión sistemática sobre el efecto del estrés académico en la memoria de trabajo”</em>. ¿Qué esperarías encontrar?</p>
+
+    <div id="quiz1">
+      <button class="opcion" data-correct="false">Participantes, variables y análisis estadísticos detallados.</button>
+      <button class="opcion" data-correct="true">Una síntesis organizada de estudios previos, con criterios de búsqueda y conclusiones integradas.</button>
+      <button class="opcion" data-correct="false">Una teoría nueva sobre el estrés académico sin referencia a estudios anteriores.</button>
+    </div>
+    <div class="feedback" id="fb1"></div>
+  </section>
+
+  <!-- ===== 11. PRIMERA PASADA ===== -->
+  <section class="slide" data-title="Primera pasada">
+    <span class="pill">Habilidad 1</span>
+    <h2>Escanear antes de leer: la primera pasada</h2>
+    <p class="lead">Una primera pasada de pocos minutos te dice si vale la pena profundizar.</p>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Título, autores, año y revista</li>
+        <li>Resumen y palabras clave</li>
+        <li>Subtítulos</li>
+      </ul>
+      <ul class="clean">
+        <li>Tablas y figuras</li>
+        <li>Conclusión / discusión</li>
+        <li>¿Es pertinente para mi objetivo?</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      La finalidad <strong>no es comprender todo</strong>, sino responder: “¿de qué trata este artículo y me sirve para lo que necesito?”
+    </div>
+  </section>
+
+  <!-- ===== 12. LA INTRODUCCIÓN COMO ARGUMENTO ===== -->
+  <section class="slide" data-title="La introducción">
+    <span class="pill">Habilidad 2</span>
+    <h2>La introducción no informa: argumenta</h2>
+    <div class="card">
+      <p><strong>Sabemos A</strong> ↓ <strong>Sabemos B</strong> ↓ <strong>Pero existe un vacío C</strong> ↓ <strong>Por eso investigamos D</strong> ↓ <strong>Este estudio hace E</strong></p>
+    </div>
+    <h3>Mapa de la introducción</h3>
+    <ul class="clean">
+      <li><strong>Contexto:</strong> ¿cuál es el fenómeno?</li>
+      <li><strong>Evidencia previa:</strong> ¿qué investigaciones se presentan?</li>
+      <li><strong>Problema:</strong> ¿qué no está resuelto?</li>
+      <li><strong>Objetivo:</strong> ¿qué quiere responder el estudio?</li>
+      <li><strong>Hipótesis:</strong> ¿qué esperan encontrar?</li>
+    </ul>
+  </section>
+
+  <!-- ===== 13. ACTIVIDAD 3: ARRASTRAR Y SOLTAR ===== -->
+  <section class="slide" data-title="Actividad 3">
+    <span class="pill">Actividad 3</span>
+    <h2>Reconstruye el mapa de la introducción</h2>
+    <p class="lead">Arrastra cada fragmento al lugar que le corresponde.</p>
+    <div class="dnd-zona">
+      <div class="dnd-items" id="dndItems">
+        <div class="chip" draggable="true" data-match="contexto">El estrés académico es frecuente en universitarios.</div>
+        <div class="chip" draggable="true" data-match="evidencia">Estudios previos muestran efectos mixtos sobre la memoria de trabajo.</div>
+        <div class="chip" draggable="true" data-match="problema">No está claro si la calidad del sueño modula esa relación.</div>
+        <div class="chip" draggable="true" data-match="objetivo">Analizar el rol moderador del sueño en esa asociación.</div>
+      </div>
+      <div class="dnd-targets" id="dndTargets">
+        <div class="target" data-slot="contexto"><span class="label">Contexto</span> <span class="slot"></span></div>
+        <div class="target" data-slot="evidencia"><span class="label">Evidencia previa</span> <span class="slot"></span></div>
+        <div class="target" data-slot="problema"><span class="label">Problema / vacío</span> <span class="slot"></span></div>
+        <div class="target" data-slot="objetivo"><span class="label">Objetivo</span> <span class="slot"></span></div>
+      </div>
+    </div>
+    <div class="feedback" id="fb2"></div>
+  </section>
+
+  <!-- ===== 14. EL MÉTODO ===== -->
+  <section class="slide" data-title="El Método">
+    <span class="pill">Habilidad 3</span>
+    <h2>El Método responde: ¿cómo obtuvieron la evidencia?</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li><strong>¿Quién?</strong> Participantes: cuántos, características, cómo fueron seleccionados.</li>
+        <li><strong>¿Qué?</strong> Variables: qué se midió, manipuló u observó.</li>
+      </ul>
+      <ul class="clean">
+        <li><strong>¿Cómo?</strong> Procedimiento: qué hicieron, en qué orden, en qué condiciones.</li>
+        <li><strong>¿Con qué?</strong> Instrumentos: escalas, tareas, entrevistas, registros.</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      <h3>No confundas…</h3>
+      <p><strong>Constructo</strong> (ansiedad) ≠ <strong>Variable</strong> (nivel de ansiedad) ≠ <strong>Medida</strong> (puntaje en una escala).</p>
+    </div>
+  </section>
+
+  <!-- ===== 15. SIMULACIÓN 2: EMBUDO DE LA EVIDENCIA ===== -->
+  <section class="slide" data-title="Embudo de la evidencia">
+    <span class="pill dorado">Simulación</span>
+    <h2>El embudo de la evidencia</h2>
+    <p class="lead">Manipula N, el tamaño del efecto y el diseño. Observa cómo cambia lo que podemos concluir.</p>
+
+    <div class="sim-layout">
+      <div class="sim-controls">
+        <label>Tamaño de muestra (N): <span class="valor" id="valN">120</span></label>
+        <input type="range" id="simN" min="10" max="1000" value="120" step="10" />
+
+        <label>Tamaño del efecto (d): <span class="valor" id="valD">0.35</span></label>
+        <input type="range" id="simD" min="0" max="1" value="0.35" step="0.05" />
+
+        <label>Diseño del estudio</label>
+        <select id="simDiseno">
+          <option value="corr">Correlacional (observacional)</option>
+          <option value="cuasi">Cuasi-experimental</option>
+          <option value="exp">Experimental aleatorizado</option>
+        </select>
+
+        <div class="veredicto v-asoc" id="veredicto">Conclusión justificada: “X se asocia con Y”.</div>
+      </div>
+
+      <div class="sim-canvas-wrap">
+        <canvas id="simCanvas" width="600" height="340"></canvas>
+        <p id="simTexto" style="font-size:16px; color:var(--texto-suave); margin:10px 4px 0;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 16. RESULTADOS VS INTERPRETACIÓN ===== -->
+  <section class="slide" data-title="Resultados vs interpretación">
+    <span class="pill">Habilidad 4</span>
+    <h2>Resultado no es lo mismo que interpretación</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Resultado</h3>
+        <p>“El grupo experimental obtuvo una media de X y el grupo control una media de Y.”</p>
+        <p class="lead">Pertenece a la evidencia obtenida.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Interpretación</h3>
+        <p>“Esto sugiere que la intervención podría haber producido una mejora.”</p>
+        <p class="lead">Es una inferencia sobre la evidencia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 17. CÓMO LEER UNA TABLA ===== -->
+  <section class="slide" data-title="Cómo leer una tabla">
+    <span class="pill">Habilidad 4 · continuación</span>
+    <h2>Cómo leer una tabla sin perderte</h2>
+    <ul class="clean">
+      <li>¿Qué compara la tabla? ¿Qué representan filas y columnas?</li>
+      <li>¿Cuál es el resultado principal? ¿Hay diferencias entre grupos?</li>
+      <li>¿Son diferencias estadísticamente significativas?</li>
+      <li>¿Se reporta el tamaño del efecto?</li>
+      <li><strong>¿Qué NO demuestra esa tabla?</strong></li>
+    </ul>
+  </section>
+
+  <!-- ===== 18. LECTURA CRÍTICA ===== -->
+  <section class="slide" data-title="Lectura crítica">
+    <span class="pill">Habilidad 5</span>
+    <h2>¿Está justificada la conclusión?</h2>
+    <div class="card">
+      <p><strong>Afirmación</strong> → ¿qué evidencia la respalda? → ¿cómo fue obtenida? → ¿el diseño permite esa conclusión? → ¿hay explicaciones alternativas? → ¿qué grado de certeza tenemos?</p>
+    </div>
+    <div class="card dorado">
+      <strong>Una asociación no demuestra causalidad.</strong> Puede haber causalidad inversa, variables de confusión, relación bidireccional o error de medición.
+    </div>
+  </section>
+
+  <!-- ===== 19. ACTIVIDAD 4: FLASHCARDS ===== -->
+  <section class="slide" data-title="Actividad 4">
+    <span class="pill">Actividad 4</span>
+    <h2>Tarjetas de memoria: fija los conceptos clave</h2>
+    <p class="lead">Haz clic en cada tarjeta para girarla. <span id="fcContador" style="font-weight:700; color:var(--azul-acento);"></span></p>
+
+    <div class="grid-3" id="flashcards">
+      <div class="flashcard"><div class="flashcard-inner">
+        <div class="fc-face fc-front">¿Qué es la primera pasada?</div>
+        <div class="fc-face fc-back">Una lectura breve de título, resumen, figuras y discusión para decidir si vale la pena profundizar.</div>
+      </div></div>
+      <div class="flashcard"><div class="flashcard-inner">
+        <div class="fc-face fc-front">Constructo ≠ variable ≠ medida</div>
+        <div class="fc-face fc-back">El constructo es el concepto (ansiedad); la variable es su nivel medible; la medida es el puntaje obtenido.</div>
+      </div></div>
+      <div class="flashcard"><div class="flashcard-inner">
+        <div class="fc-face fc-front">¿Qué pregunta hace el Método?</div>
+        <div class="fc-face fc-back">¿Quién? ¿Qué? ¿Cómo? ¿Con qué? — es decir, cómo obtuvieron la evidencia.</div>
+      </div></div>
+      <div class="flashcard"><div class="flashcard-inner">
+        <div class="fc-face fc-front">Google Académico</div>
+        <div class="fc-face fc-back">Buscador abierto y amplio. Útil para empezar a explorar, pero no filtra por calidad.</div>
+      </div></div>
+      <div class="flashcard"><div class="flashcard-inner">
+        <div class="fc-face fc-front">Consensus</div>
+        <div class="fc-face fc-back">Buscador con IA que sintetiza hallazgos. Útil para explorar rápido, pero hay que verificar en los artículos originales.</div>
+      </div></div>
+      <div class="flashcard"><div class="flashcard-inner">
+        <div class="fc-face fc-front">Scopus</div>
+        <div class="fc-face fc-back">Base de datos académica con filtros avanzados y métricas de citación. Útil para revisiones rigurosas.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ===== 20. MODELO MENTAL ===== -->
+  <section class="slide" data-title="Modelo mental">
+    <span class="pill">Cierre · parte 1</span>
+    <h2>El modelo mental que te llevas</h2>
+    <div class="card dorado" style="text-align:center; font-size:30px; line-height:1.4;">
+      <strong>Pregunta → Método → Evidencia → Inferencia → Evaluación</strong>
+    </div>
+    <p class="lead">Un artículo científico no es un texto que tienes que memorizar: es una investigación que tienes que reconstruir.</p>
+    <ul class="clean">
+      <li>Primero identifica la pregunta.</li>
+      <li>Luego reconstruye el método.</li>
+      <li>Después examina la evidencia.</li>
+      <li>Finalmente evalúa la conclusión.</li>
+    </ul>
+  </section>
+
+  <!-- ===== 21. REFERENCIAS ===== -->
+  <section class="slide" data-title="Referencias">
+    <span class="pill">Cierre · parte 2</span>
+    <h2>Referencias y recomendaciones</h2>
+    <div class="card azul">
+      <h3>Referencias fundamentales (APA 7)</h3>
+      <p style="font-size:19px; line-height:1.5;">
+        Durbin, C. G., Jr. (2009). How to read a scientific research paper. <em>Respiratory Care, 54</em>(10), 1366–1371.<br><br>
+        Hubbard, K. E., &amp; Dunbar, S. D. (2017). Perceptions of scientific research literature and strategies for reading papers depend on academic career stage. <em>PLoS ONE, 12</em>(12), e0189753.<br><br>
+        Keshavarz, M. H., et al. (2013). Art of reading a journal article: Methodically and effectively. <em>Journal of Medical Sciences, 3</em>, 1–5.<br><br>
+        Lee, V., et al. (2022). From novice to expert: An assessment to measure strategies students implement while learning to read primary scientific literature. <em>CBE—Life Sciences Education</em>.<br><br>
+        Nelms, A. A., &amp; Segura-Totten, M. (2019). Expert-novice comparison reveals pedagogical implications for students' analysis of primary literature. <em>CBE—Life Sciences Education, 18</em>(4), ar56.
+      </p>
+    </div>
+    <div class="card dorado">
+      <strong>Recomendación:</strong> la lectura científica es una competencia progresiva que se construye a lo largo de la carrera.
+    </div>
+  </section>
+
+</main>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+<div class="progress" id="progress"></div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const counter = document.getElementById('counter');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let current = 0;
+
+// Barra lateral se construye una vez
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  li.addEventListener('click', () => {
+    goTo(i);
+    // En móviles cierra la barra al elegir
+    if (window.innerWidth < 1100 && document.body.classList.contains('sidebar-open')) {
+      document.body.classList.remove('sidebar-open');
+    }
+  });
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+  // Reset scroll del stage
+  document.getElementById('stage').scrollTop = 0;
+  updateUI();
+}
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  counter.textContent = (current + 1) + ' / ' + slides.length;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+/* ============================================================
+   2. TOGGLE DE LA BARRA LATERAL
+   ============================================================ */
+document.getElementById('toggleSidebar').addEventListener('click', () => {
+  document.body.classList.toggle('sidebar-open');
+});
+
+/* ============================================================
+   3. ACTIVIDADES DE OPCIÓN MÚLTIPLE
+   ============================================================ */
+function setupQuiz(quizId, feedbackId, okMsg, noMsg){
+  const quiz = document.getElementById(quizId);
+  const fb = document.getElementById(feedbackId);
+  quiz.querySelectorAll('.opcion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (quiz.dataset.answered === 'true') return;
+      quiz.dataset.answered = 'true';
+      const correct = btn.dataset.correct === 'true';
+      btn.classList.add(correct ? 'correcta' : 'incorrecta');
+      quiz.querySelectorAll('.opcion').forEach(b => {
+        if (b.dataset.correct === 'true') b.classList.add('correcta');
+      });
+      fb.style.display = 'block';
+      fb.className = 'feedback ' + (correct ? 'ok' : 'no');
+      fb.innerHTML = correct ? okMsg : noMsg;
+    });
+  });
+}
+setupQuiz('quiz0', 'fb0',
+  '✔ Correcto. Scopus ofrece filtros avanzados (revista, año, tipo de documento, área) y métricas de citación, esenciales en una revisión sistemática.',
+  '✘ Piensa en lo que exige una revisión sistemática: filtros precisos por revista revisada por pares, año y métricas de citación. ¿Cuál de las tres ofrece eso con mayor rigor?'
+);
+setupQuiz('quiz1', 'fb1',
+  '✔ Correcto. En una revisión sistemática esperas criterios de búsqueda, estudios incluidos y síntesis integrada, no participantes ni análisis nuevos.',
+  '✘ Casi. Piensa en la palabra “revisión”: no produce datos nuevos, sino que integra estudios previos bajo criterios explícitos.'
+);
+
+/* ============================================================
+   4. ARRASTRAR Y SOLTAR (Actividad 3)
+   ============================================================ */
+const chips = document.querySelectorAll('#dndItems .chip');
+const targets = document.querySelectorAll('#dndTargets .target');
+const fb2 = document.getElementById('fb2');
+
+chips.forEach(chip => {
+  chip.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', chip.dataset.match);
+  });
+});
+targets.forEach(target => {
+  target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('over'); });
+  target.addEventListener('dragleave', () => target.classList.remove('over'));
+  target.addEventListener('drop', e => {
+    e.preventDefault();
+    target.classList.remove('over');
+    const match = e.dataTransfer.getData('text/plain');
+    const chip = document.querySelector(`#dndItems .chip[data-match="${match}"]`);
+    if (!chip) return;
+    if (target.dataset.slot === match) {
+      target.querySelector('.slot').textContent = chip.textContent;
+      chip.remove();
+      target.classList.add('filled');
+      checkDndComplete();
+    } else {
+      fb2.style.display = 'block';
+      fb2.className = 'feedback no';
+      fb2.textContent = '✘ Ese fragmento no encaja en esa categoría. Revisa el orden: contexto → evidencia → vacío → objetivo.';
+    }
+  });
+});
+function checkDndComplete(){
+  const restantes = document.querySelectorAll('#dndItems .chip').length;
+  if (restantes === 0){
+    fb2.style.display = 'block';
+    fb2.className = 'feedback ok';
+    fb2.textContent = '✔ ¡Muy bien! Reconstruiste el argumento de una introducción científica.';
+  }
+}
+
+/* ============================================================
+   5. FLASHCARDS (Actividad 4)
+   ============================================================ */
+const flashcards = document.querySelectorAll('.flashcard');
+const fcContador = document.getElementById('fcContador');
+let flippedCount = 0;
+flashcards.forEach(fc => {
+  fc.addEventListener('click', () => {
+    if (!fc.classList.contains('flipped')) flippedCount++;
+    fc.classList.toggle('flipped');
+    fcContador.textContent = `Has explorado ${flippedCount} de ${flashcards.length}.`;
+  });
+});
+
+/* ============================================================
+   6. SIMULACIÓN 2: EMBUDO DE LA EVIDENCIA
+   ============================================================ */
+const simN = document.getElementById('simN');
+const simD = document.getElementById('simD');
+const simDiseno = document.getElementById('simDiseno');
+const valN = document.getElementById('valN');
+const valD = document.getElementById('valD');
+const veredicto = document.getElementById('veredicto');
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+const simTexto = document.getElementById('simTexto');
+
+function drawSim(){
+  const N = parseInt(simN.value, 10);
+  const d = parseFloat(simD.value);
+  const diseno = simDiseno.value;
+  valN.textContent = N;
+  valD.textContent = d.toFixed(2);
+
+  const puntos = [];
+  for (let i = 0; i < Math.min(N, 300); i++){
+    const x = Math.random();
+    const ruido = (Math.random() - 0.5) * 1.6;
+    const y = d * x + ruido * (1 - d * 0.4);
+    puntos.push({x, y});
+  }
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.strokeStyle = '#0B2545';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(50, 20); ctx.lineTo(50, 300); ctx.lineTo(580, 300);
+  ctx.stroke();
+
+  ctx.fillStyle = '#4A5A72';
+  ctx.font = '14px Segoe UI';
+  ctx.fillText('Variable X', 520, 328);
+  ctx.save();
+  ctx.translate(20, 180); ctx.rotate(-Math.PI/2);
+  ctx.fillText('Variable Y', 0, 0);
+  ctx.restore();
+
+  ctx.fillStyle = diseno === 'corr' ? 'rgba(19,83,138,.55)' :
+                  diseno === 'cuasi' ? 'rgba(231,200,115,.9)' :
+                  'rgba(60,140,74,.75)';
+  puntos.forEach(p => {
+    const px = 50 + p.x * 530;
+    const py = 300 - Math.max(0, Math.min(1, (p.y + 0.8) / 1.8)) * 280;
+    ctx.beginPath();
+    ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  ctx.strokeStyle = '#0B2545';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  const y0 = 300 - ((0 + 0.8) / 1.8) * 280;
+  const y1 = 300 - ((d + 0.8) / 1.8) * 280;
+  ctx.moveTo(50, y0); ctx.lineTo(580, y1);
+  ctx.stroke();
+
+  const potencia = N * d * d;
+  let clase, texto;
+  if (d < 0.1 || potencia < 5){
+    clase = 'v-nada';
+    texto = 'Conclusión justificada: no hay evidencia suficiente para afirmar una relación.';
+  } else if (diseno === 'corr'){
+    clase = 'v-asoc';
+    texto = 'Conclusión justificada: “X se asocia con Y”. Nada más.';
+  } else if (diseno === 'cuasi'){
+    clase = 'v-pred';
+    texto = 'Conclusión justificada: “X predice Y, aunque no podemos descartar variables de confusión”.';
+  } else {
+    clase = 'v-caus';
+    texto = 'Conclusión justificada: “X causa Y”, si el diseño está bien implementado.';
+  }
+  if (clase !== 'v-nada' && potencia < 12){
+    texto += ' La evidencia aún es débil.';
+  }
+  veredicto.className = 'veredicto ' + clase;
+  veredicto.textContent = texto;
+
+  simTexto.textContent = `N = ${N} · d = ${d.toFixed(2)} · ${diseno === 'corr' ? 'Correlacional' : diseno === 'cuasi' ? 'Cuasi-experimental' : 'Experimental'}. Datos simulados con fines didácticos.`;
+}
+simN.addEventListener('input', drawSim);
+simD.addEventListener('input', drawSim);
+simDiseno.addEventListener('change', drawSim);
+drawSim();
+
+/* ============================================================
+   7. SIMULACIÓN 1: MESA DE BÚSQUEDA COMPARADA
+   Simula los resultados que devolvería cada base para el mismo tema.
+   Los números son ficticios pero ilustrativos.
+   ============================================================ */
+const bdTema = document.getElementById('bdTema');
+const bdBaseBtns = document.querySelectorAll('.bd-base-btn');
+const bdResultados = document.getElementById('bdResultados');
+const countGoogle = document.getElementById('countGoogle');
+const countConsensus = document.getElementById('countConsensus');
+const countScopus = document.getElementById('countScopus');
+
+let baseActual = 'google';
+
+// Datos base para cada una de las 3 bases
+const basesDatos = {
+  google: {
+    nombre: 'Google Académico',
+    colorClase: '',
+    countFijo: 243000,
+    filtros: [
+      {texto: 'Año', activo: true},
+      {texto: 'Idioma', activo: true},
+      {texto: 'Tipo de documento', activo: false},
+      {texto: 'Revista revisada por pares', activo: false},
+      {texto: 'Área temática', activo: false},
+      {texto: 'Métricas de citación', activo: false}
+    ],
+    nota: 'Cobertura amplia y acceso rápido. Incluye artículos, tesis, libros, ponencias y blogs. <strong>No todos son revisados por pares</strong>.',
+    items: [
+      {titulo: 'Estrés académico y calidad del sueño en estudiantes universitarios: una revisión', meta: 'Revista Iberoamericana de Psicología · 2021 · 47 citas', tipo: 'PDF abierto', clase: 'open'},
+      {titulo: 'Academic stress and sleep quality among college students: a meta-analysis', meta: 'Journal of American College Health · 2020 · 312 citas', tipo: 'Acceso pago', clase: 'pay'},
+      {titulo: 'Tesis: relación entre estrés percibido y hábitos de sueño en universitarios', meta: 'Repositorio institucional · 2019 · 8 citas', tipo: 'PDF abierto', clase: 'open'},
+      {titulo: 'Blog: cómo afecta el estrés académico a tu sueño', meta: 'Sitio web divulgativo · 2023 · sin revisión por pares', tipo: 'Divulgación', clase: 'pay'},
+      {titulo: 'Efectos del estrés académico sobre la arquitectura del sueño: estudio piloto', meta: 'Revista Latinoamericana de Psicología · 2022 · 15 citas', tipo: 'PDF abierto', clase: 'open'}
+    ]
+  },
+  consensus: {
+    nombre: 'Consensus',
+    colorClase: 'consensus',
+    countFijo: 187,
+    filtros: [
+      {texto: 'Año', activo: true},
+      {texto: 'Revista revisada por pares', activo: true},
+      {texto: 'Área temática', activo: true},
+      {texto: 'Tipo de estudio (RCT, meta-análisis)', activo: true},
+      {texto: 'Idioma', activo: true},
+      {texto: 'Métricas de citación', activo: false}
+    ],
+    nota: 'La IA sintetiza los hallazgos. <strong>Debes verificar siempre en los artículos originales</strong> antes de citar.',
+    iaResumen: '<strong>Síntesis de la evidencia:</strong> la mayoría de los estudios revisados coinciden en que existe una asociación entre mayor estrés académico y peor calidad del sueño. Los efectos son consistentes pero moderados; se recomienda consultar los artículos originales para conocer tamaños del efecto y contextos específicos.',
+    items: [
+      {titulo: 'The relationship between academic stress and sleep quality: a systematic review', meta: 'Sleep Medicine Reviews · 2022 · 89 citas', tipo: 'Revisión sistemática', clase: 'open'},
+      {titulo: 'Academic stress and sleep in university students: a meta-analysis', meta: 'Journal of Sleep Research · 2021 · 145 citas', tipo: 'Meta-análisis', clase: 'open'},
+      {titulo: 'Sleep quality as a mediator between academic stress and well-being', meta: 'Health Psychology · 2020 · 63 citas', tipo: 'Estudio empírico', clase: 'open'},
+      {titulo: 'Effects of a mindfulness intervention on academic stress and sleep', meta: 'Mindfulness · 2023 · 27 citas', tipo: 'Ensayo controlado', clase: 'pay'}
+    ]
+  },
+  scopus: {
+    nombre: 'Scopus',
+    colorClase: 'scopus',
+    countFijo: 412,
+    filtros: [
+      {texto: 'Año', activo: true},
+      {texto: 'Revista revisada por pares', activo: true},
+      {texto: 'Área temática', activo: true},
+      {texto: 'Tipo de documento', activo: true},
+      {texto: 'Autor', activo: true},
+      {texto: 'Métricas de citación (CiteScore, SJR)', activo: true}
+    ],
+    nota: 'Base de datos multidisciplinaria con <strong>filtros avanzados y métricas de citación</strong>. Requiere acceso institucional en muchos casos.',
+    items: [
+      {titulo: 'Academic stress and sleep quality: a cross-sectional study in 8 countries', meta: 'Journal of Adolescent Health · 2022 · CiteScore 6.8 · 210 citas', tipo: 'Q1 · Acceso pago', clase: 'pay'},
+      {titulo: 'Sleep architecture and academic stress: a polysomnographic study', meta: 'Sleep · 2021 · CiteScore 9.1 · 178 citas', tipo: 'Q1 · Acceso pago', clase: 'pay'},
+      {titulo: 'Systematic review of interventions for academic stress and sleep', meta: 'Clinical Psychology Review · 2023 · CiteScore 12.4 · 92 citas', tipo: 'Q1 · Revisión', clase: 'pay'},
+      {titulo: 'Academic stress and sleep: a longitudinal cohort study', meta: 'Psychosomatic Medicine · 2022 · CiteScore 5.2 · 54 citas', tipo: 'Q1 · Acceso pago', clase: 'pay'}
+    ]
+  }
+};
+
+function formatearNumero(n){
+  return n.toLocaleString('es-CO');
+}
+
+function renderResultados(){
+  const datos = basesDatos[baseActual];
+  const tema = bdTema.value.trim() || 'estrés académico y sueño';
+
+  let html = `
+    <div class="bd-resultado-header">
+      <h3>Resultados para: <em>${tema}</em></h3>
+      <span class="badge-base ${datos.colorClase}">${datos.nombre}</span>
+    </div>
+    <div class="bd-filtros">
+      ${datos.filtros.map(f => `<span class="bd-filtro ${f.activo ? '' : 'off'}">${f.texto}</span>`).join('')}
+    </div>
+    <div class="card azul" style="margin:0 0 14px 0; font-size:18px; padding:12px 16px;">
+      ${datos.nota}
+    </div>
+  `;
+
+  if (datos.iaResumen){
+    html += `<div class="bd-ia-resumen">${datos.iaResumen}</div>`;
+  }
+
+  html += datos.items.map(it => `
+    <div class="bd-item">
+      <div>
+        <div>${it.titulo}</div>
+        <div class="meta">${it.meta}</div>
+      </div>
+      <span class="tag ${it.clase}">${it.tipo}</span>
+    </div>
+  `).join('');
+
+  bdResultados.innerHTML = html;
+}
+
+function actualizarContadores(){
+  // Actualizamos los tres contadores
+  countGoogle.textContent = formatearNumero(basesDatos.google.countFijo);
+  countConsensus.textContent = formatearNumero(basesDatos.consensus.countFijo);
+  countScopus.textContent = formatearNumero(basesDatos.scopus.countFijo);
+}
+
+bdBaseBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    bdBaseBtns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    baseActual = btn.dataset.base;
+    renderResultados();
+  });
+});
+
+bdTema.addEventListener('input', renderResultados);
+
+actualizarContadores();
+renderResultados();
+</script>
+</body>
+</html>

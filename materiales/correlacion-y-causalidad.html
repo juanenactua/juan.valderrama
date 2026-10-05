@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Correlación ≠ causalidad — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Correlación y causalidad">
+<meta name="jc-descripcion" content="Tutoría interactiva sobre correlación, causalidad, direccionalidad, variables de confusión e inferencia causal, con laboratorio de correlaciones, actividades y semáforo causal.">
+<meta name="jc-tipo" content="Tutoría interactiva">
+<meta name="jc-etiquetas" content="Correlación, Causalidad, Inferencia causal, Direccionalidad, Variables de confusión, Tercera variable, Diseño experimental, Alfabetización científica, Razonamiento causal, Psicología">
+<meta name="jc-curso" content="Introducción a la Investigación">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     ESTILOS
+     Paleta: blanco de fondo, azul oscuro #0B2545, acentos #13315C y #13538A,
+     dorado suave #E7C873 usado con moderación.
+     TIPOGRAFÍA GRANDE pensada para proyección en TV.
+     ============================================================ -->
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EC;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --sombra:0 12px 34px rgba(11,37,69,.10);
+    --radio:16px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background:var(--blanco);
+    color:var(--texto);
+    font-size:30px;
+    line-height:1.5;
+    overflow:hidden;
+  }
+
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:320px;
+    background:var(--azul-oscuro);
+    color:var(--blanco);
+    padding:30px 22px;
+    transform:translateX(0);
+    transition:transform .35s ease;
+    z-index:40;
+    display:flex; flex-direction:column;
+  }
+  .sidebar.collapsed{transform:translateX(-100%);}
+  .sidebar h2{
+    font-size:24px; margin:0 0 20px; letter-spacing:.5px;
+    color:var(--dorado); font-weight:600;
+  }
+  .sidebar ol{
+    list-style:none; margin:0; padding:0; overflow-y:auto; flex:1;
+  }
+  .sidebar li{
+    font-size:20px; padding:11px 12px; border-radius:10px;
+    cursor:pointer; margin-bottom:5px; color:#C9D6E8;
+    transition:background .2s, color .2s; line-height:1.3;
+  }
+  .sidebar li:hover{background:rgba(231,200,115,.14); color:var(--blanco);}
+  .sidebar li.active{background:var(--azul-acento); color:var(--blanco); font-weight:600;}
+
+  .toggle-sidebar{
+    position:fixed; top:18px; left:18px; z-index:50;
+    background:var(--azul-oscuro); color:var(--blanco);
+    border:none; border-radius:12px; padding:14px 18px;
+    font-size:20px; cursor:pointer; box-shadow:var(--sombra);
+    transition:left .35s ease, background .2s;
+  }
+  .toggle-sidebar:hover{background:var(--azul-acento);}
+  body.sidebar-open .toggle-sidebar{left:344px;}
+
+  .stage{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    padding:70px 80px;
+    transition:padding .35s ease;
+    overflow-y:auto;
+  }
+  body.sidebar-open .stage{padding-left:400px;}
+
+  .slide{
+    position:absolute;
+    max-width:1400px; width:100%;
+    opacity:0; visibility:hidden;
+    transform:translateY(20px);
+    transition:opacity .45s ease, transform .45s ease, visibility .45s;
+  }
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  h1{font-size:70px; color:var(--azul-oscuro); margin:0 0 18px; line-height:1.12;}
+  h2{font-size:52px; color:var(--azul-oscuro); margin:0 0 28px; line-height:1.18;}
+  h3{font-size:36px; color:var(--azul-medio); margin:0 0 12px;}
+  p, li{font-size:30px; color:var(--texto);}
+  .lead{font-size:32px; color:var(--texto-suave);}
+  .subtitulo{font-size:34px; color:var(--azul-acento); font-weight:600; margin-bottom:10px;}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{
+    padding-left:42px; position:relative; margin-bottom:16px;
+  }
+  ul.clean li::before{
+    content:"›"; position:absolute; left:10px; top:-4px;
+    color:var(--dorado); font-size:42px; font-weight:700;
+  }
+
+  .card{
+    background:var(--gris-calido);
+    border-left:8px solid var(--azul-acento);
+    border-radius:var(--radio);
+    padding:28px 32px;
+    margin:20px 0;
+    box-shadow:var(--sombra);
+  }
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB;}
+  .card.azul{background:#EAF1F8; border-left-color:var(--azul-medio);}
+  .card.verde{background:#E4F3E6; border-left-color:var(--verde);}
+  .card.rojo{background:#FBE9E7; border-left-color:var(--rojo);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:30px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+
+  .pill{
+    display:inline-block; background:var(--azul-oscuro); color:var(--blanco);
+    border-radius:40px; padding:9px 24px; font-size:22px; font-weight:600;
+    letter-spacing:.4px; margin-bottom:20px;
+  }
+  .pill.dorado{background:var(--dorado); color:var(--azul-oscuro);}
+  .pill.verde{background:var(--verde); color:var(--blanco);}
+  .pill.rojo{background:var(--rojo); color:var(--blanco);}
+
+  .portada{text-align:center;}
+  .portada h1{font-size:82px; margin-bottom:22px;}
+  .portada .linea{
+    width:150px; height:6px; background:var(--dorado);
+    margin:32px auto; border-radius:3px;
+  }
+  .portada .autor{
+    font-size:40px; color:var(--azul-oscuro); font-weight:700; margin-top:14px;
+  }
+  .portada .contexto{
+    font-size:28px; color:var(--texto-suave); margin-top:8px;
+  }
+
+  .opcion{
+    display:block; width:100%; text-align:left;
+    background:var(--blanco); border:3px solid var(--azul-medio);
+    border-radius:var(--radio); padding:22px 28px; margin:14px 0;
+    font-size:28px; color:var(--texto); cursor:pointer;
+    transition:background .2s, transform .15s; line-height:1.35;
+  }
+  .opcion:hover{background:#EAF1F8; transform:translateX(6px);}
+  .opcion.correcta{background:#E4F3E6; border-color:var(--verde);}
+  .opcion.incorrecta{background:#FBE9E7; border-color:var(--rojo);}
+  .feedback{
+    margin-top:18px; padding:22px 26px; border-radius:var(--radio);
+    font-size:27px; display:none; line-height:1.4;
+  }
+  .feedback.ok{background:#E4F3E6; color:#1F5A2A;}
+  .feedback.no{background:#FBE9E7; color:#7A2E1C;}
+
+  /* Mini botones dentro de las tarjetas de la Actividad 3 */
+  .opcion-mini{
+    display:block; width:100%; text-align:left;
+    background:var(--blanco); border:2px solid var(--azul-medio);
+    border-radius:10px; padding:14px 18px; margin:10px 0 0;
+    font-size:22px; color:var(--texto); cursor:pointer;
+    transition:background .2s, border-color .2s;
+  }
+  .opcion-mini:hover{background:#EAF1F8;}
+  .opcion-mini.correcta{background:#E4F3E6; border-color:var(--verde);}
+  .opcion-mini.incorrecta{background:#FBE9E7; border-color:var(--rojo);}
+
+  .dnd-zona{
+    display:grid; grid-template-columns:1.1fr 1fr; gap:34px; margin-top:14px;
+  }
+  .dnd-items, .dnd-targets{display:flex; flex-direction:column; gap:16px;}
+  .chip{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:20px 24px; border-radius:14px; font-size:26px;
+    cursor:grab; user-select:none; text-align:center;
+    transition:transform .15s, opacity .2s; line-height:1.3;
+  }
+  .chip:active{cursor:grabbing; transform:scale(.97);}
+  .target{
+    background:var(--gris-calido); border:3px dashed var(--azul-acento);
+    border-radius:14px; padding:18px 22px; min-height:88px;
+    display:flex; align-items:center; gap:14px; font-size:24px;
+    color:var(--texto-suave); line-height:1.3;
+  }
+  .target.over{background:#DCE8F5;}
+  .target.filled{border-style:solid; background:#EAF1F8; color:var(--texto); font-weight:600;}
+  .target .label{font-weight:700; color:var(--azul-medio); min-width:200px;}
+
+  /* ---------- Laboratorio de correlaciones ---------- */
+  .lab-layout{display:grid; grid-template-columns:1fr 1.15fr; gap:36px; align-items:start;}
+  .lab-panel{background:var(--gris-calido); border-radius:var(--radio); padding:26px; box-shadow:var(--sombra);}
+  .lab-panel h3{font-size:30px; margin:0 0 12px;}
+  .lab-escenarios{display:flex; flex-direction:column; gap:14px; margin-bottom:22px;}
+  .escenario-btn{
+    background:var(--blanco); border:3px solid var(--azul-medio);
+    border-radius:14px; padding:16px 20px; font-size:24px;
+    text-align:left; cursor:pointer; color:var(--texto);
+    transition:background .2s, transform .15s, border-color .2s;
+    line-height:1.3;
+  }
+  .escenario-btn:hover{background:#EAF1F8; transform:translateX(4px);}
+  .escenario-btn.active{background:var(--azul-medio); color:var(--blanco); border-color:var(--azul-medio);}
+  .escenario-btn .tag{
+    display:inline-block; font-size:18px; font-weight:700;
+    padding:3px 12px; border-radius:20px; margin-right:12px;
+    background:var(--dorado); color:var(--azul-oscuro);
+  }
+  .lab-control{margin-top:22px;}
+  .lab-control label{
+    display:block; font-size:22px; font-weight:700;
+    color:var(--azul-medio); margin-bottom:8px;
+  }
+  .lab-control input[type=range]{
+    width:100%; accent-color:var(--azul-acento); height:36px;
+  }
+  .lab-valor{
+    font-size:26px; font-weight:700; color:var(--azul-oscuro);
+    text-align:right; margin-top:4px;
+  }
+  .lab-info{
+    background:var(--blanco); border-radius:12px;
+    padding:18px 22px; margin-top:20px; font-size:22px;
+    color:var(--texto-suave); line-height:1.45;
+    border-left:6px solid var(--azul-acento);
+  }
+  .lab-info strong{color:var(--azul-oscuro);}
+  .lab-canvas-wrap{background:var(--blanco); border-radius:var(--radio); box-shadow:var(--sombra); padding:20px;}
+  .lab-veredicto{
+    margin-top:16px; padding:20px 24px; border-radius:var(--radio);
+    font-size:26px; font-weight:700; text-align:center;
+    transition:background .3s, color .3s; line-height:1.35;
+  }
+  .lab-veredicto.pos{background:#E6F1FB; color:#0B3A6B;}
+  .lab-veredicto.neg{background:#FFF4D6; color:#7A5A0A;}
+  .lab-veredicto.cero{background:#FBE9E7; color:#7A2E1C;}
+  canvas{width:100%; height:auto; display:block; border-radius:10px;}
+
+  /* ---------- Semáforo causal ---------- */
+  .sim-layout{display:grid; grid-template-columns:460px 1fr; gap:34px; align-items:start;}
+  .sim-controls{background:var(--gris-calido); border-radius:var(--radio); padding:26px; box-shadow:var(--sombra);}
+  .sim-controls label{display:block; font-size:24px; font-weight:600; color:var(--azul-medio); margin:18px 0 8px;}
+  .sim-controls select{
+    width:100%; padding:14px; font-size:24px; border-radius:10px;
+    border:3px solid var(--azul-medio); background:var(--blanco); color:var(--texto);
+  }
+  .semaforo-wrap{
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    background:var(--blanco); border-radius:var(--radio);
+    box-shadow:var(--sombra); padding:24px;
+  }
+  .semaforo{
+    display:flex; flex-direction:column; gap:14px;
+    background:var(--azul-oscuro); border-radius:20px; padding:18px;
+  }
+  .luz{
+    width:120px; height:120px; border-radius:50%;
+    background:rgba(255,255,255,.12);
+    transition:background .4s, box-shadow .4s;
+  }
+  .luz.rojo.on{background:var(--rojo); box-shadow:0 0 40px var(--rojo);}
+  .luz.amarillo.on{background:var(--amarillo); box-shadow:0 0 40px var(--amarillo);}
+  .luz.verde.on{background:var(--verde); box-shadow:0 0 40px var(--verde);}
+  .sim-veredicto{
+    font-size:26px; font-weight:700; text-align:center; line-height:1.35;
+    padding:18px 22px; border-radius:var(--radio);
+    transition:background .3s, color .3s;
+  }
+  .sim-veredicto.rojo{background:#FBE9E7; color:#7A2E1C;}
+  .sim-veredicto.amarillo{background:#FFF4D6; color:#7A5A0A;}
+  .sim-veredicto.verde{background:#E4F3E6; color:#1F5A2A;}
+  .sim-explica{
+    font-size:22px; color:var(--texto-suave); line-height:1.45;
+    margin-top:14px; padding:16px 18px; background:var(--gris-calido);
+    border-radius:12px;
+  }
+
+  .nav-bottom{
+    position:fixed; bottom:22px; right:26px; z-index:50;
+    display:flex; align-items:center; gap:12px;
+  }
+  .nav-btn{
+    background:var(--azul-oscuro); color:var(--blanco); border:none;
+    border-radius:50%; width:58px; height:58px; font-size:28px;
+    cursor:pointer; transition:background .2s, transform .15s;
+    box-shadow:var(--sombra);
+  }
+  .nav-btn:hover{background:var(--azul-acento); transform:scale(1.06);}
+  .nav-btn:disabled{opacity:.35; cursor:default; transform:none;}
+  .progress{
+    position:fixed; bottom:0; left:0; height:6px;
+    background:var(--dorado); width:0%;
+    transition:width .35s ease; z-index:60;
+  }
+  .counter{
+    position:fixed; bottom:32px; left:26px; z-index:50;
+    font-size:22px; color:var(--texto-suave); font-weight:700;
+    transition:left .35s ease;
+  }
+  body.sidebar-open .counter{left:344px;}
+
+  @media (max-width:1100px){
+    body{font-size:22px;}
+    h1{font-size:40px;} h2{font-size:34px;} h3{font-size:26px;}
+    p, li{font-size:22px;} .lead{font-size:23px;}
+    .portada h1{font-size:46px;}
+    .portada .autor{font-size:28px;}
+    .portada .contexto{font-size:20px;}
+    .pill{font-size:18px; padding:7px 18px;}
+    .grid-2, .grid-3, .dnd-zona, .sim-layout, .lab-layout{grid-template-columns:1fr;}
+    .stage{padding:90px 24px 110px;}
+    body.sidebar-open .stage{padding-left:24px;}
+    body.sidebar-open .toggle-sidebar{left:18px;}
+    body.sidebar-open .counter{left:26px;}
+    .sidebar{width:270px;}
+    .opcion{font-size:22px;}
+    .opcion-mini{font-size:18px;}
+    .chip, .target{font-size:20px;}
+    .nav-btn{width:48px; height:48px; font-size:22px;}
+    .luz{width:80px; height:80px;}
+    .sim-veredicto, .lab-veredicto{font-size:20px;}
+    .sim-explica, .lab-info{font-size:18px;}
+    .escenario-btn{font-size:20px;}
+  }
+</style>
+</head>
+<body class="sidebar-open">
+
+<button class="toggle-sidebar" id="toggleSidebar" aria-label="Mostrar u ocultar índice">☰ Índice</button>
+
+<nav class="sidebar" id="sidebar">
+  <h2>CONTENIDO</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada" data-title="Portada">
+    <span class="pill dorado">Tutoría 5 · Introducción a la Investigación</span>
+    <h1>Correlación ≠ causalidad</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">Detectar cuándo una afirmación causal excede la evidencia</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">Alfabetización científica y razonamiento causal</p>
+  </section>
+
+  <!-- ===== 2. AGENDA ===== -->
+  <section class="slide" data-title="Agenda">
+    <span class="pill">Agenda</span>
+    <h2>¿Qué aprenderás hoy?</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Qué es una correlación y qué no es</li>
+        <li>Los tres tipos de correlación con ejemplos</li>
+        <li>Un laboratorio para ver cómo cambia la relación</li>
+        <li>Las cuatro hipótesis alternativas</li>
+      </ul>
+      <ul class="clean">
+        <li>El problema de la tercera variable</li>
+        <li>El problema de la direccionalidad</li>
+        <li>Qué necesitamos para hablar de causalidad</li>
+        <li>El semáforo causal</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      <strong>Cuatro actividades y dos simulaciones</strong> te acompañarán durante la sesión.
+    </div>
+  </section>
+
+  <!-- ===== 3. PUNTO DE PARTIDA ===== -->
+  <section class="slide" data-title="Punto de partida">
+    <span class="pill">Punto de partida</span>
+    <h2>Una correlación es una relación, no una explicación</h2>
+    <div class="card azul">
+      <p>Un estudio encuentra que los estudiantes con <strong>mayor estrés académico</strong> también presentan <strong>más dificultades de sueño</strong>.</p>
+    </div>
+    <p class="lead">Pregunta para el grupo: <strong>¿qué podemos concluir?</strong></p>
+    <p>Muchos responderán: <em>“El estrés provoca problemas de sueño.”</em> Ahí aparece el problema.</p>
+    <p>Lo único que podemos afirmar inicialmente es que <strong>estrés y dificultades de sueño están asociados en esa muestra</strong>. Nada más.</p>
+  </section>
+
+  <!-- ===== 4. ¿QUÉ ES UNA CORRELACIÓN? DEFINICIONES Y EJEMPLOS ===== -->
+  <section class="slide" data-title="¿Qué es una correlación?">
+    <span class="pill">Definiciones y ejemplos</span>
+    <h2>¿Qué es una correlación?</h2>
+    <p class="lead">Una correlación describe <strong>cómo varían conjuntamente dos variables</strong> en una muestra. No dice nada, por sí sola, sobre causas.</p>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Correlación positiva</h3>
+        <p>Cuando una variable tiende a aumentar, la otra también tiende a aumentar.</p>
+        <p class="lead"><strong>Ejemplo:</strong> más horas de sueño ↔ mayor rendimiento en atención sostenida.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Correlación negativa</h3>
+        <p>Cuando una variable tiende a aumentar, la otra tiende a disminuir.</p>
+        <p class="lead"><strong>Ejemplo:</strong> más ansiedad ante exámenes ↔ menor puntaje obtenido.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Correlación cercana a cero</h3>
+        <p>No se observa una relación lineal clara entre ambas variables.</p>
+        <p class="lead"><strong>Ejemplo:</strong> número de hermanos ↔ nivel de extroversión.</p>
+      </div>
+    </div>
+
+    <p class="lead">La correlación se mide con un coeficiente que va de <strong>−1 a +1</strong>. Su <strong>signo</strong> indica la dirección y su <strong>valor absoluto</strong>, la fuerza.</p>
+  </section>
+
+  <!-- ===== 5. LABORATORIO DE CORRELACIONES ===== -->
+  <section class="slide" data-title="Laboratorio de correlaciones">
+    <span class="pill dorado">Simulación 1</span>
+    <h2>Laboratorio de correlaciones psicológicas</h2>
+    <p class="lead">Elige un escenario, mueve el deslizador y observa cómo cambia la nube de puntos. Cada escenario corresponde a un tipo de correlación distinto.</p>
+
+    <div class="lab-layout">
+      <div class="lab-panel">
+        <h3>1. Elige el escenario psicológico</h3>
+        <div class="lab-escenarios" id="labEscenarios">
+          <button class="escenario-btn active" data-esc="positiva" data-r="0.75">
+            <span class="tag">POSITIVA</span>
+            Horas de sueño y atención sostenida
+          </button>
+          <button class="escenario-btn" data-esc="negativa" data-r="-0.65">
+            <span class="tag">NEGATIVA</span>
+            Ansiedad ante exámenes y puntaje
+          </button>
+          <button class="escenario-btn" data-esc="cero" data-r="0.05">
+            <span class="tag">CERCANA A CERO</span>
+            Número de hermanos y extroversión
+          </button>
+        </div>
+
+        <div class="lab-control">
+          <label>2. Fuerza y dirección (r):</label>
+          <input type="range" id="labR" min="-1" max="1" value="0.75" step="0.01" />
+          <div class="lab-valor" id="labValor">r = 0.75</div>
+        </div>
+
+        <div class="lab-info" id="labInfo"></div>
+      </div>
+
+      <div class="lab-canvas-wrap">
+        <canvas id="labCanvas" width="640" height="440"></canvas>
+        <div class="lab-veredicto pos" id="labVeredicto">Correlación positiva fuerte.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. ACTIVIDAD 1 ===== -->
+  <section class="slide" data-title="Actividad 1">
+    <span class="pill">Actividad 1</span>
+    <h2>¿Positiva, negativa o cercana a cero?</h2>
+    <p class="lead">Un estudio encuentra que, a mayor cantidad de horas de actividad física semanal, menores puntajes de sedentarismo autorreportado. ¿Qué tipo de correlación es?</p>
+
+    <div id="quiz1">
+      <button class="opcion" data-correct="false">Correlación positiva.</button>
+      <button class="opcion" data-correct="true">Correlación negativa.</button>
+      <button class="opcion" data-correct="false">Correlación cercana a cero.</button>
+    </div>
+    <div class="feedback" id="fb1"></div>
+  </section>
+
+  <!-- ===== 7. LAS CUATRO HIPÓTESIS ===== -->
+  <section class="slide" data-title="Cuatro hipótesis">
+    <span class="pill">Lo que una correlación admite</span>
+    <h2>Cuatro hipótesis compatibles con el mismo dato</h2>
+    <div class="grid-2">
+      <div class="card"><h3>A. Causalidad directa</h3><p>Estrés → problemas de sueño</p></div>
+      <div class="card"><h3>B. Causalidad inversa</h3><p>Problemas de sueño → estrés</p></div>
+      <div class="card"><h3>C. Tercera variable</h3><p>Carga académica → estrés <em>y</em> → problemas de sueño</p></div>
+      <div class="card"><h3>D. Relación bidireccional</h3><p>Estrés ↔ problemas de sueño</p></div>
+    </div>
+    <p class="lead">La correlación es <strong>compatible con todas ellas</strong>. Por eso no basta con observar que X y Y aparecen juntas.</p>
+  </section>
+
+  <!-- ===== 8. DIRECCIÓN DE LA CORRELACIÓN ===== -->
+  <section class="slide" data-title="Dirección ≠ causalidad">
+    <span class="pill">Distinción clave</span>
+    <h2>“Positiva” describe la dirección de la asociación, no la causal</h2>
+    <div class="card dorado">
+      <p><strong>X ↑ → Y ↑</strong> describe una relación positiva.</p>
+      <p>Pero eso no significa automáticamente que <strong>X cause Y</strong>.</p>
+    </div>
+    <p class="lead">Es fundamental no confundir dos cosas que suenan parecido pero son muy distintas:</p>
+    <div class="grid-2">
+      <div class="card azul"><h3>Dirección de la correlación</h3><p>Positiva, negativa o cercana a cero.</p></div>
+      <div class="card azul"><h3>Dirección de la causalidad</h3><p>¿X → Y, Y → X, o ambas?</p></div>
+    </div>
+  </section>
+
+  <!-- ===== 9. LAS TRES FLECHAS ===== -->
+  <section class="slide" data-title="Las tres flechas">
+    <span class="pill">Herramienta didáctica</span>
+    <h2>Ante cualquier correlación, dibuja tres flechas</h2>
+    <div class="grid-3">
+      <div class="card"><h3>X → Y</h3><p>X influye sobre Y.</p></div>
+      <div class="card"><h3>Y → X</h3><p>Y influye sobre X.</p></div>
+      <div class="card"><h3>X ← Z → Y</h3><p>Una tercera variable explica ambas.</p></div>
+    </div>
+    <div class="card dorado">
+      <p>Añade una cuarta posibilidad:</p>
+      <p><strong>X ↔ Y</strong> — relación bidireccional.</p>
+    </div>
+    <p class="lead">La pregunta deja de ser <em>“¿cuál es la causa?”</em> y pasa a ser: <strong>“¿qué explicaciones alternativas son compatibles con estos datos?”</strong></p>
+  </section>
+
+  <!-- ===== 10. TERCERA VARIABLE ===== -->
+  <section class="slide" data-title="Tercera variable">
+    <span class="pill">Problema clásico 1</span>
+    <h2>El problema de la tercera variable (confound)</h2>
+    <div class="card azul">
+      <p>Supongamos que observamos: <strong>uso de redes sociales ↔ ansiedad</strong>.</p>
+      <p>Podríamos pensar: <em>redes sociales → ansiedad</em>.</p>
+    </div>
+    <p>Pero imaginemos que existe una tercera variable: <strong>aislamiento social</strong>.</p>
+    <div class="card">
+      <p>Aislamiento social → mayor uso de redes sociales</p>
+      <p>Aislamiento social → mayor ansiedad</p>
+    </div>
+    <p class="lead">Aparece la correlación entre redes sociales y ansiedad aunque la relación causal imaginada inicialmente no sea la correcta. La APA llama <strong>confound</strong> a esa variable mezclada que dificulta separar los efectos.</p>
+  </section>
+
+  <!-- ===== 11. DIRECCIONALIDAD ===== -->
+  <section class="slide" data-title="Direccionalidad">
+    <span class="pill">Problema clásico 2</span>
+    <h2>El problema de la direccionalidad</h2>
+    <div class="card azul">
+      <p>Observamos: <strong>depresión ↔ aislamiento social</strong>.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card"><h3>Modelo 1</h3><p>Depresión → aislamiento</p></div>
+      <div class="card"><h3>Modelo 2</h3><p>Aislamiento → depresión</p></div>
+      <div class="card"><h3>Modelo 3</h3><p>Depresión ↔ aislamiento</p></div>
+    </div>
+    <p class="lead">La correlación <strong>por sí misma</strong> no permite decidir cuál de las tres explicaciones es correcta. La APA define el <em>directionality problem</em> exactamente así: sabemos que dos variables están relacionadas, pero no cuál sería la causa y cuál el efecto.</p>
+  </section>
+
+  <!-- ===== 12. ACTIVIDAD 2: ARRASTRAR Y SOLTAR ===== -->
+  <section class="slide" data-title="Actividad 2">
+    <span class="pill">Actividad 2</span>
+    <h2>Clasifica cada hipótesis alternativa</h2>
+    <p class="lead">Se ha observado que <strong>las personas que hacen más ejercicio presentan menor depresión</strong>. Arrastra cada hipótesis al tipo que le corresponde.</p>
+    <div class="dnd-zona">
+      <div class="dnd-items" id="dndItems">
+        <div class="chip" draggable="true" data-match="directa">Ejercicio → menor depresión.</div>
+        <div class="chip" draggable="true" data-match="inversa">Menor depresión → más ejercicio.</div>
+        <div class="chip" draggable="true" data-match="tercera">Salud física → más ejercicio + menor depresión.</div>
+        <div class="chip" draggable="true" data-match="bidireccional">Ejercicio ↔ menor depresión (se influyen mutuamente).</div>
+      </div>
+      <div class="dnd-targets" id="dndTargets">
+        <div class="target" data-slot="directa"><span class="label">Causalidad directa</span> <span class="slot"></span></div>
+        <div class="target" data-slot="inversa"><span class="label">Causalidad inversa</span> <span class="slot"></span></div>
+        <div class="target" data-slot="tercera"><span class="label">Tercera variable</span> <span class="slot"></span></div>
+        <div class="target" data-slot="bidireccional"><span class="label">Bidireccional</span> <span class="slot"></span></div>
+      </div>
+    </div>
+    <div class="feedback" id="fb2"></div>
+  </section>
+
+  <!-- ===== 13. ACTIVIDAD 3: TRES CASOS ===== -->
+  <section class="slide" data-title="Actividad 3">
+    <span class="pill">Actividad 3</span>
+    <h2>Tres casos psicológicos: ¿qué tipo de correlación es?</h2>
+    <p class="lead">Se presentan tres hallazgos. Identifica en cada caso el tipo de correlación.</p>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Caso A</h3>
+        <p>Más horas de sueño se asocian con mayor rendimiento en tareas de atención sostenida.</p>
+        <button class="opcion-mini" data-caso="A" data-correct="true">Positiva</button>
+        <button class="opcion-mini" data-caso="A" data-correct="false">Negativa</button>
+        <button class="opcion-mini" data-caso="A" data-correct="false">Cercana a cero</button>
+      </div>
+      <div class="card azul">
+        <h3>Caso B</h3>
+        <p>A mayor ansiedad antes de un examen, menor puntaje obtenido en la prueba.</p>
+        <button class="opcion-mini" data-caso="B" data-correct="false">Positiva</button>
+        <button class="opcion-mini" data-caso="B" data-correct="true">Negativa</button>
+        <button class="opcion-mini" data-caso="B" data-correct="false">Cercana a cero</button>
+      </div>
+      <div class="card azul">
+        <h3>Caso C</h3>
+        <p>El número de hermanos no muestra relación lineal con el nivel de extroversión en una muestra de universitarios.</p>
+        <button class="opcion-mini" data-caso="C" data-correct="false">Positiva</button>
+        <button class="opcion-mini" data-caso="C" data-correct="false">Negativa</button>
+        <button class="opcion-mini" data-caso="C" data-correct="true">Cercana a cero</button>
+      </div>
+    </div>
+    <div class="feedback" id="fb3"></div>
+  </section>
+
+  <!-- ===== 14. PREDICCIÓN ≠ CAUSALIDAD ===== -->
+  <section class="slide" data-title="Predicción ≠ causalidad">
+    <span class="pill">Otra confusión frecuente</span>
+    <h2>Predecir no es causar</h2>
+    <div class="card azul">
+      <p>Las horas de estudio pueden ayudar a <strong>predecir</strong> el rendimiento académico.</p>
+      <p>Eso no demuestra automáticamente que estudiar más <strong>cause</strong> mayor rendimiento.</p>
+    </div>
+    <p class="lead">Podrían estar operando variables adicionales como:</p>
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Conocimientos previos</li>
+        <li>Calidad del estudio</li>
+        <li>Motivación</li>
+      </ul>
+      <ul class="clean">
+        <li>Asistencia</li>
+        <li>Condiciones socioeconómicas</li>
+        <li>Sueño</li>
+      </ul>
+      <ul class="clean">
+        <li>Dificultades de aprendizaje</li>
+        <li>Apoyo familiar</li>
+      </ul>
+    </div>
+    <p class="lead">Un diseño correlacional puede servir para <strong>predecir</strong>, pero no establece por sí mismo una relación causa–efecto.</p>
+  </section>
+
+  <!-- ===== 15. ¿QUÉ NECESITAMOS PARA HABLAR DE CAUSALIDAD? ===== -->
+  <section class="slide" data-title="Qué necesitamos">
+    <span class="pill">Corazón de la tutoría</span>
+    <h2>¿Qué necesitamos para hablar de causalidad?</h2>
+    <p class="lead">Para defender “X causa Y” necesitamos algo más que observar que X y Y aparecen juntas.</p>
+    <div class="grid-3">
+      <div class="card azul"><h3>Manipulación</h3><p>El investigador modifica deliberadamente la variable de interés.</p></div>
+      <div class="card azul"><h3>Comparación</h3><p>Existen condiciones que permiten contrastar qué ocurre cuando cambia la variable.</p></div>
+      <div class="card azul"><h3>Aleatorización</h3><p>Cuando es posible, los participantes se asignan al azar a las condiciones.</p></div>
+    </div>
+    <p class="lead">La APA destaca precisamente la manipulación sistemática y la asignación aleatoria como componentes orientados a obtener inferencias causales.</p>
+  </section>
+
+  <!-- ===== 16. EJEMPLO PSICOLÓGICO ===== -->
+  <section class="slide" data-title="Ejemplo psicológico">
+    <span class="pill">Aplicación</span>
+    <h2>¿Una intervención breve de mindfulness reduce el estrés académico?</h2>
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Estudio correlacional</h3>
+        <p>Se mide cuánto mindfulness practica cada estudiante y cuánto estrés presenta.</p>
+        <p>Resultado: <strong>más mindfulness ↔ menos estrés</strong>.</p>
+        <p class="lead">Asociación negativa. Pero: ¿las personas con menos estrés tienen más tiempo para practicar? ¿Diferencias de personalidad? ¿Carga académica?</p>
+      </div>
+      <div class="card verde">
+        <h3>Experimento</h3>
+        <p>Asignación aleatoria a:</p>
+        <p><strong>Grupo A:</strong> intervención de mindfulness.</p>
+        <p><strong>Grupo B:</strong> condición de comparación.</p>
+        <p>Después se mide el estrés.</p>
+        <p class="lead">Si aparece una diferencia compatible con la hipótesis, el diseño proporciona una base mucho más fuerte para una inferencia causal.</p>
+      </div>
+    </div>
+    <p class="lead">Ningún experimento es perfecto: también hay amenazas a la validez interna que deben examinarse.</p>
+  </section>
+
+  <!-- ===== 17. EL GRAN ERROR ===== -->
+  <section class="slide" data-title="p &lt; .05">
+    <span class="pill rojo">Error frecuente</span>
+    <h2>“p &lt; .05, entonces es causal”</h2>
+    <div class="card rojo">
+      <p>La significación estadística <strong>no convierte</strong> una asociación en causalidad.</p>
+    </div>
+    <p class="lead">Un resultado puede ser estadísticamente significativo y aun así proceder de:</p>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Un estudio observacional</li>
+        <li>Una relación espuria</li>
+      </ul>
+      <ul class="clean">
+        <li>Una variable de confusión</li>
+        <li>Causalidad inversa</li>
+      </ul>
+    </div>
+    <p class="lead">La inferencia causal depende de la <strong>lógica del diseño</strong>, no simplemente de obtener un resultado significativo.</p>
+  </section>
+
+  <!-- ===== 18. ACTIVIDAD 4: DETECTIVE CAUSAL ===== -->
+  <section class="slide" data-title="Actividad 4">
+    <span class="pill">Actividad 4</span>
+    <h2>El detective causal</h2>
+    <div class="card azul">
+      <p>“Después de implementar una tutoría de técnicas de estudio, las calificaciones del grupo aumentaron.”</p>
+    </div>
+    <p class="lead">¿Podemos concluir que la tutoría <strong>causó</strong> el aumento? Elige la opción más rigurosa:</p>
+
+    <div id="quiz4">
+      <button class="opcion" data-correct="false">Sí, porque las calificaciones aumentaron después de la tutoría.</button>
+      <button class="opcion" data-correct="true">No necesariamente: sin grupo de comparación, sin medición pretest y sin aleatorización, otras explicaciones siguen siendo posibles.</button>
+      <button class="opcion" data-correct="false">Sí, siempre que el aumento sea estadísticamente significativo.</button>
+    </div>
+    <div class="feedback" id="fb4"></div>
+  </section>
+
+  <!-- ===== 19. SEMÁFORO CAUSAL ===== -->
+  <section class="slide" data-title="Semáforo causal">
+    <span class="pill dorado">Simulación 2</span>
+    <h2>El semáforo causal</h2>
+    <p class="lead">Ajusta las cuatro dimensiones del diseño. Observa qué inferencia está justificada y por qué.</p>
+
+    <div class="sim-layout">
+      <div class="sim-controls">
+        <label>Tipo de diseño</label>
+        <select id="simDiseno">
+          <option value="transversal">Transversal (una sola medición)</option>
+          <option value="longitudinal">Longitudinal (varias mediciones)</option>
+          <option value="cuasi">Cuasi-experimental (sin aleatorización)</option>
+          <option value="exp">Experimental aleatorizado</option>
+        </select>
+
+        <label>¿Se manipuló la variable independiente?</label>
+        <select id="simManip">
+          <option value="no">No</option>
+          <option value="si">Sí</option>
+        </select>
+
+        <label>¿Hay grupo de comparación?</label>
+        <select id="simComp">
+          <option value="no">No</option>
+          <option value="si">Sí</option>
+        </select>
+
+        <label>Control de variables de confusión</label>
+        <select id="simConf">
+          <option value="ninguno">Ninguno</option>
+          <option value="parcial">Parcial</option>
+          <option value="riguroso">Riguroso</option>
+        </select>
+      </div>
+
+      <div class="semaforo-wrap">
+        <div class="semaforo">
+          <div class="luz rojo" id="luzRojo"></div>
+          <div class="luz amarillo" id="luzAmarillo"></div>
+          <div class="luz verde" id="luzVerde"></div>
+        </div>
+        <div class="sim-veredicto rojo" id="simVeredicto">Inferencia justificada: no se puede afirmar relación.</div>
+        <div class="sim-explica" id="simExplica"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 20. CIERRE ===== -->
+  <section class="slide" data-title="Cierre">
+    <span class="pill">Cierre</span>
+    <h2>Del dato a la inferencia</h2>
+    <div class="card dorado" style="text-align:center; font-size:34px; line-height:1.5;">
+      <strong>Dato → Relación → Hipótesis → Explicaciones alternativas → Diseño → Inferencia</strong>
+    </div>
+    <p class="lead">El objetivo no es memorizar “correlación no implica causalidad”. El objetivo es que, frente a cualquier artículo, noticia o publicación en redes, puedan preguntar:</p>
+    <div class="card azul" style="text-align:center; font-size:32px;">
+      <strong>“¿Qué evidencia tenemos y qué inferencia permite realmente esa evidencia?”</strong>
+    </div>
+    <div class="card">
+      <h3>Referencias básicas (APA 7)</h3>
+      <p style="font-size:22px; line-height:1.5;">
+        American Psychological Association. (2017). <em>Teaching, learning, &amp; assessing: A developmental, coherent curriculum for psychology</em>.<br><br>
+        American Psychological Association. (2018). <em>Directionality problem</em>. APA Dictionary of Psychology.<br><br>
+        American Psychological Association. (2018). <em>Experimental research</em>. APA Dictionary of Psychology.<br><br>
+        American Psychological Association. (2023). <em>Confound</em>. APA Dictionary of Psychology.<br><br>
+        American Psychological Association. (2023). <em>Data analysis for the behavioral sciences</em>. APA PsycLearn.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="counter" id="counter">1 / 20</div>
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+<div class="progress" id="progress"></div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides   = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const counter  = document.getElementById('counter');
+const prevBtn  = document.getElementById('prevBtn');
+const nextBtn  = document.getElementById('nextBtn');
+let current = 0;
+
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  li.addEventListener('click', () => goTo(i));
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+  updateUI();
+}
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  counter.textContent = (current + 1) + ' / ' + slides.length;
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End')  goTo(slides.length - 1);
+});
+
+const toggleSidebar = document.getElementById('toggleSidebar');
+toggleSidebar.addEventListener('click', () => {
+  document.body.classList.toggle('sidebar-open');
+});
+
+/* ============================================================
+   2. ACTIVIDADES DE OPCIÓN MÚLTIPLE
+   ============================================================ */
+function setupQuiz(quizId, feedbackId, okMsg, noMsg){
+  const quiz = document.getElementById(quizId);
+  const fb   = document.getElementById(feedbackId);
+  quiz.querySelectorAll('.opcion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (quiz.dataset.answered === 'true') return;
+      quiz.dataset.answered = 'true';
+      const correct = btn.dataset.correct === 'true';
+      btn.classList.add(correct ? 'correcta' : 'incorrecta');
+      quiz.querySelectorAll('.opcion').forEach(b => {
+        if (b.dataset.correct === 'true') b.classList.add('correcta');
+      });
+      fb.style.display = 'block';
+      fb.className = 'feedback ' + (correct ? 'ok' : 'no');
+      fb.innerHTML = correct ? okMsg : noMsg;
+    });
+  });
+}
+
+setupQuiz('quiz1', 'fb1',
+  '✔ Correcto. A mayor actividad física, menor sedentarismo: cuando una variable aumenta, la otra disminuye. Esa es una correlación negativa.',
+  '✘ Casi. Recuerda: la correlación es <em>positiva</em> cuando ambas variables tienden a aumentar juntas, y <em>negativa</em> cuando una aumenta mientras la otra disminuye. Aquí ocurre lo segundo.'
+);
+
+setupQuiz('quiz4', 'fb4',
+  '✔ Exacto. Sin grupo de comparación, sin pretest y sin aleatorización, no podemos descartar explicaciones alternativas (maduración, cambios del semestre, mejoras generales, etc.).',
+  '✘ Cuidado. Un aumento posterior a la tutoría no basta para atribuirle causalidad. La pregunta clave es: ¿qué explicaciones alternativas siguen siendo compatibles con lo observado?'
+);
+
+/* ============================================================
+   3. ACTIVIDAD 3: TRES CASOS
+   ============================================================ */
+const casosRespondidos = {A:false, B:false, C:false};
+document.querySelectorAll('.opcion-mini').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const caso = btn.dataset.caso;
+    if (casosRespondidos[caso]) return;
+    casosRespondidos[caso] = true;
+
+    const todos = document.querySelectorAll(`.opcion-mini[data-caso="${caso}"]`);
+    const correcta = btn.dataset.correct === 'true';
+    todos.forEach(b => {
+      if (b.dataset.correct === 'true') b.classList.add('correcta');
+      if (b === btn && !correcta) b.classList.add('incorrecta');
+    });
+
+    const fb = document.getElementById('fb3');
+    const mensajes = {
+      A: 'Caso A → correlación positiva: más sueño, mejor atención.',
+      B: 'Caso B → correlación negativa: más ansiedad, menor puntaje.',
+      C: 'Caso C → correlación cercana a cero: no hay relación lineal clara.'
+    };
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (correcta ? 'ok' : 'no');
+    fb.innerHTML = (correcta ? '✔ ' : '✘ ') + mensajes[caso] +
+      (correcta ? ' ¡Bien identificado!' : ' Revisa la dirección de la relación.');
+
+    if (casosRespondidos.A && casosRespondidos.B && casosRespondidos.C){
+      fb.className = 'feedback ok';
+      fb.innerHTML = '✔ Has identificado los tres tipos de correlación en contextos psicológicos reales. Recuerda que en todos los casos hablamos de asociación, no de causalidad.';
+    }
+  });
+});
+
+/* ============================================================
+   4. ARRASTRAR Y SOLTAR
+   ============================================================ */
+const chips = document.querySelectorAll('#dndItems .chip');
+const targets = document.querySelectorAll('#dndTargets .target');
+const fb2 = document.getElementById('fb2');
+
+chips.forEach(chip => {
+  chip.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', chip.dataset.match);
+  });
+});
+targets.forEach(target => {
+  target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('over'); });
+  target.addEventListener('dragleave', () => target.classList.remove('over'));
+  target.addEventListener('drop', e => {
+    e.preventDefault();
+    target.classList.remove('over');
+    const match = e.dataTransfer.getData('text/plain');
+    const chip  = document.querySelector(`#dndItems .chip[data-match="${match}"]`);
+    if (!chip) return;
+    if (target.dataset.slot === match) {
+      const slot = target.querySelector('.slot');
+      slot.textContent = chip.textContent;
+      chip.remove();
+      target.classList.add('filled');
+      checkDndComplete();
+    } else {
+      fb2.style.display = 'block';
+      fb2.className = 'feedback no';
+      fb2.textContent = '✘ Esa hipótesis no encaja en esa categoría. Revisa las flechas: ¿quién influye sobre quién?';
+    }
+  });
+});
+function checkDndComplete(){
+  const restantes = document.querySelectorAll('#dndItems .chip').length;
+  if (restantes === 0){
+    fb2.style.display = 'block';
+    fb2.className = 'feedback ok';
+    fb2.textContent = '✔ ¡Muy bien! Reconociste las cuatro hipótesis alternativas que una simple correlación admite.';
+  }
+}
+
+/* ============================================================
+   5. LABORATORIO DE CORRELACIONES — VERSIÓN CORREGIDA
+   Se generan pares (x, y) con distribución normal bivariada
+   y correlación r usando la descomposición de Cholesky:
+       y = r·x + sqrt(1 - r²)·e
+   Así la nube muestra el patrón real esperado para cada r.
+   ============================================================ */
+const labCanvas = document.getElementById('labCanvas');
+const labCtx = labCanvas.getContext('2d');
+const labR = document.getElementById('labR');
+const labValor = document.getElementById('labValor');
+const labInfo = document.getElementById('labInfo');
+const labVeredicto = document.getElementById('labVeredicto');
+const botonesEscenario = document.querySelectorAll('.escenario-btn');
+
+const escenarios = {
+  positiva: {
+    titulo: 'Correlación positiva',
+    descripcion: '<strong>Más horas de sueño</strong> se asocian con <strong>mayor rendimiento</strong> en tareas de atención sostenida.',
+    ejemplo: 'Un estudiante que duerme más tiende a rendir mejor en tareas que exigen concentración prolongada.',
+    color: 'rgba(19,83,138,.65)',
+    xLabel: 'Horas de sueño',
+    yLabel: 'Atención sostenida'
+  },
+  negativa: {
+    titulo: 'Correlación negativa',
+    descripcion: '<strong>Más ansiedad ante exámenes</strong> se asocia con <strong>menor puntaje</strong> obtenido en la prueba.',
+    ejemplo: 'Un estudiante con mayor ansiedad anticipatoria tiende a obtener puntajes más bajos.',
+    color: 'rgba(217,164,0,.8)',
+    xLabel: 'Ansiedad ante exámenes',
+    yLabel: 'Puntaje obtenido'
+  },
+  cero: {
+    titulo: 'Correlación cercana a cero',
+    descripcion: 'El <strong>número de hermanos</strong> no muestra relación lineal con el <strong>nivel de extroversión</strong>.',
+    ejemplo: 'Saber cuántos hermanos tiene una persona no nos dice prácticamente nada sobre cuán extrovertida es.',
+    color: 'rgba(193,84,63,.75)',
+    xLabel: 'Número de hermanos',
+    yLabel: 'Extroversión'
+  }
+};
+
+let escenarioActual = 'positiva';
+
+// Generar puntos fijos con normales estándar (u1, u2) que serán transformados
+// según r. Se regeneran solo al recargar la página para que sean estables.
+const puntosBase = [];
+for (let i = 0; i < 160; i++){
+  const u1 = Math.random();
+  const u2 = Math.random();
+  const z1 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+  const z2 = Math.sqrt(-2 * Math.log(u1)) * Math.sin(2 * Math.PI * u2);
+  puntosBase.push({z1, z2});
+}
+
+function dibujarLab(){
+  const r = parseFloat(labR.value);
+  const esc = escenarios[escenarioActual];
+  labValor.textContent = 'r = ' + r.toFixed(2);
+
+  // Limpiar y fondo
+  labCtx.clearRect(0, 0, labCanvas.width, labCanvas.height);
+  labCtx.fillStyle = '#FFFFFF';
+  labCtx.fillRect(0, 0, labCanvas.width, labCanvas.height);
+
+  // Área del gráfico
+  const margenIzq = 90, margenDer = 40, margenSup = 30, margenInf = 80;
+  const ancho = labCanvas.width - margenIzq - margenDer;
+  const alto  = labCanvas.height - margenSup - margenInf;
+  const cx = margenIzq + ancho / 2;
+  const cy = margenSup + alto / 2;
+
+  // Marco
+  labCtx.strokeStyle = '#E4E9F0';
+  labCtx.lineWidth = 2;
+  labCtx.strokeRect(margenIzq, margenSup, ancho, alto);
+
+  // Línea vertical/horizontal de referencia (origen centrado)
+  labCtx.strokeStyle = '#C6CFDC';
+  labCtx.lineWidth = 1.5;
+  labCtx.beginPath();
+  labCtx.moveTo(cx, margenSup); labCtx.lineTo(cx, margenSup + alto);
+  labCtx.moveTo(margenIzq, cy);  labCtx.lineTo(margenIzq + ancho, cy);
+  labCtx.stroke();
+
+  // Ejes
+  labCtx.strokeStyle = '#0B2545';
+  labCtx.lineWidth = 3;
+  labCtx.beginPath();
+  labCtx.moveTo(margenIzq, margenSup + alto);
+  labCtx.lineTo(margenIzq + ancho, margenSup + alto);
+  labCtx.moveTo(margenIzq, margenSup + alto);
+  labCtx.lineTo(margenIzq, margenSup);
+  labCtx.stroke();
+
+  // Etiquetas de ejes
+  labCtx.fillStyle = '#3E4E68';
+  labCtx.font = '22px Segoe UI';
+  labCtx.textAlign = 'center';
+  labCtx.fillText(esc.xLabel, cx, labCanvas.height - 26);
+  labCtx.save();
+  labCtx.translate(34, cy);
+  labCtx.rotate(-Math.PI / 2);
+  labCtx.fillText(esc.yLabel, 0, 0);
+  labCtx.restore();
+  labCtx.textAlign = 'left';
+
+  // Escala: cada punto z va de aprox -3 a 3 desviaciones típicas
+  const escalaX = (ancho / 2) / 3.2;
+  const escalaY = (alto  / 2) / 3.2;
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  // Generar puntos bivariados con la transformación correcta:
+  //   x = z1
+  //   y = r·z1 + sqrt(1 - r²)·z2
+  labCtx.fillStyle = esc.color;
+  puntosBase.forEach(p => {
+    const x = p.z1;
+    const y = r * p.z1 + Math.sqrt(Math.max(0, 1 - r * r)) * p.z2;
+    const px = cx + clamp(x, -3.2, 3.2) * escalaX;
+    const py = cy - clamp(y, -3.2, 3.2) * escalaY;
+    labCtx.beginPath();
+    labCtx.arc(px, py, 5, 0, Math.PI * 2);
+    labCtx.fill();
+  });
+
+  // Línea de tendencia cuando |r| >= 0.15
+  if (Math.abs(r) >= 0.15){
+    labCtx.strokeStyle = '#0B2545';
+    labCtx.lineWidth = 4;
+    labCtx.beginPath();
+    const xMin = -3, xMax = 3;
+    const yMin = r * xMin;
+    const yMax = r * xMax;
+    const pxMin = cx + clamp(xMin, -3.2, 3.2) * escalaX;
+    const pyMin = cy - clamp(yMin, -3.2, 3.2) * escalaY;
+    const pxMax = cx + clamp(xMax, -3.2, 3.2) * escalaX;
+    const pyMax = cy - clamp(yMax, -3.2, 3.2) * escalaY;
+    labCtx.moveTo(pxMin, pyMin);
+    labCtx.lineTo(pxMax, pyMax);
+    labCtx.stroke();
+  }
+
+  // Veredicto
+  let tipo, clase;
+  if (Math.abs(r) < 0.15){ tipo = 'cercana a cero'; clase = 'cero'; }
+  else if (r > 0){ tipo = 'positiva'; clase = 'pos'; }
+  else { tipo = 'negativa'; clase = 'neg'; }
+
+  let intensidad;
+  if (Math.abs(r) < 0.15) intensidad = 'muy débil o nula';
+  else if (Math.abs(r) < 0.3) intensidad = 'débil';
+  else if (Math.abs(r) < 0.6) intensidad = 'moderada';
+  else intensidad = 'fuerte';
+
+  labVeredicto.className = 'lab-veredicto ' + clase;
+  labVeredicto.textContent = 'Correlación ' + tipo + ' ' + intensidad + '.';
+
+  labInfo.innerHTML = '<strong>' + esc.titulo + ':</strong> ' + esc.descripcion +
+                      '<br><br><em>' + esc.ejemplo + '</em>';
+}
+
+botonesEscenario.forEach(btn => {
+  btn.addEventListener('click', () => {
+    botonesEscenario.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    escenarioActual = btn.dataset.esc;
+    labR.value = btn.dataset.r;
+    dibujarLab();
+  });
+});
+
+labR.addEventListener('input', dibujarLab);
+dibujarLab();
+
+/* ============================================================
+   6. SEMÁFORO CAUSAL
+   ============================================================ */
+const simDiseno = document.getElementById('simDiseno');
+const simManip  = document.getElementById('simManip');
+const simComp   = document.getElementById('simComp');
+const simConf   = document.getElementById('simConf');
+const luzRojo   = document.getElementById('luzRojo');
+const luzAmar   = document.getElementById('luzAmarillo');
+const luzVerde  = document.getElementById('luzVerde');
+const simVeredicto = document.getElementById('simVeredicto');
+const simExplica   = document.getElementById('simExplica');
+
+function evaluar(){
+  const diseno = simDiseno.value;
+  const manip  = simManip.value === 'si';
+  const comp   = simComp.value === 'si';
+  const conf   = simConf.value;
+
+  let puntos = 0;
+  if (manip) puntos += 3;
+  if (comp) puntos += 2;
+  if (diseno === 'exp') puntos += 3;
+  else if (diseno === 'cuasi') puntos += 1;
+  else if (diseno === 'longitudinal') puntos += 1;
+  if (conf === 'riguroso') puntos += 2;
+  else if (conf === 'parcial') puntos += 1;
+  if (diseno === 'transversal' && manip) puntos -= 2;
+
+  return { puntos, diseno, manip, comp };
+}
+
+function actualizarSemaforo(){
+  const { puntos, diseno, manip, comp } = evaluar();
+
+  luzRojo.classList.remove('on');
+  luzAmar.classList.remove('on');
+  luzVerde.classList.remove('on');
+
+  let nivel, veredicto, explicacion;
+  if (puntos >= 8){
+    nivel = 'verde';
+    veredicto = 'Inferencia justificada: “X probablemente causa Y”.';
+    explicacion = 'El diseño combina manipulación, comparación y (según el caso) aleatorización con control de confusión. Es el escenario que más reduce las explicaciones alternativas.';
+  } else if (puntos >= 4){
+    nivel = 'amarillo';
+    veredicto = 'Inferencia justificada: “X predice Y” y la causalidad es plausible, pero quedan explicaciones alternativas.';
+    explicacion = 'Hay algún elemento que fortalece la inferencia (manipulación, comparación o control parcial), pero el diseño todavía no descarta todas las explicaciones rivales.';
+  } else {
+    nivel = 'rojo';
+    veredicto = 'Inferencia justificada: “X se asocia con Y”. No es posible afirmar causalidad.';
+    explicacion = 'Sin manipulación, sin comparación sólida y sin control de confusión, la correlación observada es compatible con causalidad directa, inversa, tercera variable o relación bidireccional.';
+  }
+
+  if (nivel === 'verde') luzVerde.classList.add('on');
+  if (nivel === 'amarillo') luzAmar.classList.add('on');
+  if (nivel === 'rojo') luzRojo.classList.add('on');
+
+  simVeredicto.className = 'sim-veredicto ' + nivel;
+  simVeredicto.textContent = veredicto;
+
+  let ctxMsg = '';
+  if (diseno === 'transversal' && manip){
+    ctxMsg = ' Atención: declaraste manipulación en un diseño transversal, lo cual es incoherente.';
+  }
+  if (diseno === 'exp' && (!manip || !comp)){
+    ctxMsg = ' Un experimento aleatorizado exige manipulación y grupo de comparación.';
+  }
+  if (diseno === 'cuasi' && !manip){
+    ctxMsg = ' Sin manipulación, un cuasi-experimento se acerca más a un estudio correlacional.';
+  }
+
+  simExplica.textContent = explicacion + ctxMsg;
+}
+
+simDiseno.addEventListener('change', actualizarSemaforo);
+simManip.addEventListener('change', actualizarSemaforo);
+simComp.addEventListener('change', actualizarSemaforo);
+simConf.addEventListener('change', actualizarSemaforo);
+actualizarSemaforo();
+</script>
+</body>
+</html>
