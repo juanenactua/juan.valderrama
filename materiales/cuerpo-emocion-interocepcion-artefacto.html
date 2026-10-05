@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuerpo, emoción e interocepción · Recurso educativo interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Cuerpo, emoción e interocepción">
+<meta name="jc-descripcion" content="Recurso autónomo sobre interocepción, emoción, homeostasis, alostasis, marcador somático, Iowa Gambling Task, procesamiento predictivo y corporeización interoceptiva, con actividades y autoevaluación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Interocepción, Emoción, Cognición corporeizada, Homeostasis, Alostasis, Marcador somático, Damasio, Iowa Gambling Task, Procesamiento predictivo, Corporeización interoceptiva, Salud mental">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 245px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1150px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1150px) {
+    main { margin-left: 265px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .accordion {
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-mid);
+  }
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.05rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-main);
+    transition: background 0.2s;
+    font-family: var(--font);
+  }
+  .accordion-header:hover { background: var(--bg-soft); }
+  .accordion-header .icon {
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.3s;
+  }
+  .accordion-item.active .accordion-header .icon { transform: rotate(45deg); }
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 1.3rem;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .accordion-content p { padding: 0.9rem 0; margin: 0; color: var(--text-soft); }
+  .accordion-item.active .accordion-content { max-height: 900px; padding: 0.2rem 1.3rem 1.1rem; }
+
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .flip-card {
+    background: transparent;
+    perspective: 1000px;
+    height: 220px;
+    cursor: pointer;
+    outline: none;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: var(--radius);
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .flip-front {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1rem;
+    background: var(--bg-mid);
+    box-shadow: var(--shadow);
+  }
+  .flip-front::after {
+    content: '↻ clic para girar';
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    font-weight: 400;
+  }
+  .flip-back {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    transform: rotateY(180deg);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .flip-back small { display: block; margin-top: 0.6rem; font-size: 0.76rem; opacity: 0.85; }
+
+  /* ---- TRES TIPOS DE PERCEPCIÓN ---- */
+  .perception-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+  }
+  .perception-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .perception-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(240, 180, 41, 0.2);
+  }
+  .perception-card.extero { border-top: 5px solid var(--info); }
+  .perception-card.proprio { border-top: 5px solid var(--success); }
+  .perception-card.intero { border-top: 5px solid var(--rose); }
+  .perception-card .perc-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .perception-card .perc-name {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+  .perception-card.extero .perc-name { color: var(--info); }
+  .perception-card.proprio .perc-name { color: var(--success); }
+  .perception-card.intero .perc-name { color: var(--rose); }
+  .perception-card .perc-desc {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- FLUJO ---- */
+  .flow-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .flow-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.92rem;
+    text-align: center;
+    min-width: 260px;
+  }
+  .flow-box.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .flow-arrow-down {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  .flow-arrow-up {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  .flow-bidir {
+    color: var(--accent);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ---- CUATRO NIVELES ---- */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.8rem 0;
+  }
+  .level-card {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    border-left: 5px solid var(--accent);
+    transition: all 0.3s;
+  }
+  .level-card:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(240, 180, 41, 0.15);
+  }
+  .level-card .level-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .level-card .level-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  .level-card .level-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- CUATRO TESIS ---- */
+  .theses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.8rem 0;
+  }
+  .thesis-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .thesis-card:hover {
+    transform: translateY(-4px);
+  }
+  .thesis-card.t1 { border-top: 5px solid var(--success); }
+  .thesis-card.t2 { border-top: 5px solid var(--info); }
+  .thesis-card.t3 { border-top: 5px solid var(--violet); }
+  .thesis-card.t4 { border-top: 5px solid var(--error); }
+  .thesis-card .th-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .thesis-card.t1 .th-num { color: var(--success); }
+  .thesis-card.t2 .th-num { color: var(--info); }
+  .thesis-card.t3 .th-num { color: var(--violet); }
+  .thesis-card.t4 .th-num { color: var(--error); }
+  .thesis-card .th-name {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .thesis-card .th-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- HIGHLIGHT BOX ---- */
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success {
+    border-color: var(--success);
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.15);
+  }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error {
+    border-color: var(--error);
+    box-shadow: 0 0 30px rgba(248, 113, 113, 0.15);
+  }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info {
+    border-color: var(--info);
+    box-shadow: 0 0 30px rgba(96, 165, 250, 0.15);
+  }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet {
+    border-color: var(--violet);
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.15);
+  }
+  .highlight-box.violet p { color: var(--violet); }
+
+  /* ---- PREGUNTAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .perception-grid { grid-template-columns: 1fr; }
+    .levels-grid { grid-template-columns: 1fr; }
+    .theses-grid { grid-template-columns: 1fr; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .flip-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 24px rgba(240, 180, 41, 0.5); }
+  }
+  .pulse { animation: pulse 2s infinite; }
+
+  /* ---- CIRCUITO RECURSIVO ---- */
+  .circuit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 1.8rem 0;
+    padding: 1.8rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .circuit-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    text-align: center;
+    min-width: 240px;
+  }
+  .circuit-box.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .circuit-arrow {
+    color: var(--accent);
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+  .circuit-arrow.bidir {
+    font-size: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Cuerpo, emoción e interocepción</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta de aprendizaje</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#resultado">Resultado de aprendizaje</a></li>
+    <li><a href="#idea">1. Idea central</a></li>
+    <li><a href="#punto-partida">2. El cuerpo tiene estados internos</a></li>
+    <li><a href="#que-es">3. ¿Qué es la interocepción?</a></li>
+    <li><a href="#no-proprio">4. Interocepción ≠ propiocepción</a></li>
+    <li><a href="#emocion">5. De la interocepción a la emoción</a></li>
+    <li><a href="#niveles">6. Cuatro niveles</a></li>
+    <li><a href="#homeostasis">7. Homeostasis y alostasis</a></li>
+    <li><a href="#corporeizacion">8. Corporeización interoceptiva</a></li>
+    <li><a href="#marcador">9. Hipótesis del marcador somático</a></li>
+    <li><a href="#igt">10. Iowa Gambling Task</a></li>
+    <li><a href="#predictivo">11. Procesamiento predictivo</a></li>
+    <li><a href="#dimensiones">12. Dimensiones de la interocepción</a></li>
+    <li><a href="#circuito">13. Circuito completo</a></li>
+    <li><a href="#cuatro-tesis">14. Influencia, participación, necesidad, constitución</a></li>
+    <li><a href="#salud">15. Interocepción y salud mental</a></li>
+    <li><a href="#cinco-piezas">16. Las cinco piezas</a></li>
+    <li><a href="#debate">17. Dónde está el debate</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Recurso educativo interactivo · Ciencias cognitivas</span>
+    <h1>Cuerpo, emoción e interocepción: el organismo como fuente de información para la cognición</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Dentro de la cognición corporeizada, el estudio de la interocepción permite formular una pregunta especialmente
+      importante: ¿qué ocurre cuando la información relevante para la cognición no procede principalmente del ambiente,
+      sino del propio organismo?
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología y Ciencias Cognitivas</p>
+      <p><strong>Tipo de recurso:</strong> Artefacto educativo interactivo de estudio autónomo</p>
+      <p><strong>Palabras clave:</strong> interocepción, emoción, homeostasis, alostasis, marcador somático, Iowa Gambling Task, procesamiento predictivo, corporeización interoceptiva</p>
+    </div>
+    <div class="callout">
+      <strong>Idea central:</strong> El organismo mantiene y regula continuamente variables internas. Parte de esa
+      actividad genera señales que son procesadas por el sistema nervioso. La interocepción participa en ese
+      procesamiento y puede contribuir a la experiencia afectiva, a la regulación corporal y a determinados procesos
+      cognitivos, incluida la toma de decisiones.
+    </div>
+    <div class="callout error">
+      <strong>Precaución importante:</strong> No significa que toda cognición se reduzca a estados corporales ni que
+      cada cambio fisiológico produzca directamente una emoción determinada.
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="resultado" class="reveal">
+    <h2>Resultado de aprendizaje</h2>
+    <p>Al finalizar este recurso, el estudiante debería poder:</p>
+    <div class="card">
+      <p><strong>Distinguir</strong> los conceptos de estado corporal, interocepción, representación corporal,
+      experiencia emocional, regulación y decisión, reconociendo que no son equivalentes.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--info);">
+      <p><strong>Diferenciar</strong> exterocepción, propiocepción e interocepción, y explicar por qué no son sinónimos.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--success);">
+      <p><strong>Analizar</strong> críticamente la hipótesis del marcador somático y la Iowa Gambling Task,
+      comprendiendo que la evidencia no resolvió definitivamente el debate.</p>
+    </div>
+    <div class="card" style="border-left-color: var(--violet);">
+      <p><strong>Evaluar</strong> las cuatro tesis (influencia, participación, necesidad, constitución) y reconocer
+      que las afirmaciones se vuelven progresivamente más fuertes.</p>
+    </div>
+  </section>
+
+  <!-- 1. IDEA CENTRAL -->
+  <section id="idea" class="reveal">
+    <h2>1. La idea central</h2>
+    <div class="highlight-box">
+      <p>EL ORGANISMO MANTIENE Y REGULA CONTINUAMENTE VARIABLES INTERNAS</p>
+    </div>
+    <p>Parte de esa actividad genera señales que son procesadas por el sistema nervioso. La interocepción participa
+    en ese procesamiento y puede contribuir a:</p>
+    <ul>
+      <li>La experiencia afectiva.</li>
+      <li>La regulación corporal.</li>
+      <li>Determinados procesos cognitivos, incluida la toma de decisiones.</li>
+    </ul>
+    <div class="callout error">
+      <strong>No significa</strong> que toda cognición se reduzca a estados corporales, ni que cada cambio fisiológico
+      produzca directamente una emoción determinada.
+    </div>
+  </section>
+
+  <!-- 2. PUNTO DE PARTIDA -->
+  <section id="punto-partida" class="reveal">
+    <h2>2. El punto de partida: el cuerpo tiene estados internos</h2>
+    <p>Hasta ahora hemos utilizado <em>embodied cognition</em> principalmente para analizar la relación:</p>
+
+    <div class="flow-diagram">
+      <div class="flow-box highlight">CUERPO → ACCIÓN → AMBIENTE</div>
+    </div>
+
+    <p>Por ejemplo: mover una mano, manipular un objeto, orientar la cabeza hacia un estímulo, desplazarse, ejecutar una acción.</p>
+
+    <p>Sin embargo, existe otra dimensión corporal. El organismo también posee un <strong>estado fisiológico interno</strong> que cambia continuamente.</p>
+
+    <h3>Variables relevantes</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Actividad cardiovascular">
+        <div class="flip-inner">
+          <div class="flip-front">Actividad cardiovascular</div>
+          <div class="flip-back">Frecuencia cardíaca, presión arterial, variabilidad cardíaca. <small>Cambia continuamente según demandas internas y externas.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Actividad respiratoria">
+        <div class="flip-inner">
+          <div class="flip-front">Actividad respiratoria</div>
+          <div class="flip-back">Frecuencia y profundidad respiratoria, intercambio gaseoso. <small>Regulada automáticamente y modulada por la actividad.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Actividad gastrointestinal">
+        <div class="flip-inner">
+          <div class="flip-front">Actividad gastrointestinal</div>
+          <div class="flip-back">Digestión, motilidad intestinal, señales de saciedad. <small>Fuente importante de señalización interoceptiva.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Temperatura corporal">
+        <div class="flip-inner">
+          <div class="flip-front">Temperatura corporal</div>
+          <div class="flip-back">Regulación térmica, fiebre, cambios por actividad. <small>Variable regulada homeostáticamente.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Disponibilidad energética">
+        <div class="flip-inner">
+          <div class="flip-front">Disponibilidad energética</div>
+          <div class="flip-back">Niveles de glucosa, reservas metabólicas. <small>Influye en motivación, atención y conducta.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Actividad autonómica">
+        <div class="flip-inner">
+          <div class="flip-front">Actividad autonómica</div>
+          <div class="flip-back">Sistema simpático y parasimpático. <small>Regula respuestas de activación y relajación.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      La cuestión cognitiva aparece porque el sistema nervioso <strong>no solamente regula</strong> estas variables,
+      sino que también <strong>recibe, procesa e integra</strong> información procedente del interior del cuerpo.
+    </div>
+  </section>
+
+  <!-- 3. QUÉ ES -->
+  <section id="que-es" class="reveal">
+    <h2>3. ¿Qué es exactamente la interocepción?</h2>
+
+    <div class="highlight-box info">
+      <p>LA INTEROCEPCIÓN ES EL PROCESO MEDIANTE EL CUAL EL SISTEMA NERVIOSO DETECTA, INTERPRETA E INTEGRA SEÑALES ORIGINADAS DENTRO DEL ORGANISMO</p>
+    </div>
+
+    <p>Esta definición procede del consenso desarrollado a partir del <em>Interoception Summit</em> (Khalsa et al., 2018). Contiene varios componentes que conviene separar:</p>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">2.1. Detección <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>En primer lugar existen modificaciones fisiológicas que pueden generar señalización dentro del organismo. Por ejemplo, una persona comienza una actividad física y se producen modificaciones en frecuencia cardíaca, respiración, actividad autonómica y necesidades metabólicas. El sistema nervioso recibe información relacionada con esas modificaciones. <em>Todavía no es necesario que la persona sea consciente de ellas.</em></p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">2.2. Transmisión y procesamiento <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>La información corporal debe ser integrada por el sistema nervioso. Por esto, sería incorrecto definir interocepción únicamente como "ser consciente de los cambios del cuerpo". Interocepción también comprende procesamiento que no alcanza una representación consciente. El consenso recogido por Khalsa y colaboradores incluye expresamente niveles conscientes y no conscientes.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">2.3. Representación <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>El sistema nervioso necesita integrar información acerca del estado actual del organismo. Este proceso permite mantener una representación funcional de variables relevantes: ¿cuál es el estado actual de mi organismo? Determinadas señales pueden contribuir a experiencias conscientes asociadas a hambre, sed, saciedad, temperatura, respiración, activación cardiovascular. La interocepción participa, además, en procesos como reflejos, impulsos, sentimientos, respuestas adaptativas y experiencias cognitivas y emocionales.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Flujo del procesamiento interoceptivo</h3>
+    <div class="flow-diagram">
+      <div class="flow-box">Estado interno del organismo</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Señalización corporal</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Procesamiento nervioso</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Integración de información</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Representación del estado corporal</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">Posible experiencia consciente</div>
+    </div>
+
+    <div class="callout info">
+      <strong>La última etapa no necesariamente tiene que ocurrir.</strong> La interocepción incluye procesamiento
+      que no alcanza representación consciente.
+    </div>
+  </section>
+
+  <!-- 4. NO PROPRIOCEPCIÓN -->
+  <section id="no-proprio" class="reveal">
+    <h2>4. Una distinción importante: interocepción ≠ propiocepción</h2>
+    <p>Son conceptos que suelen confundirse. Esta es la diferencia:</p>
+
+    <div class="perception-grid">
+      <div class="perception-card extero">
+        <span class="perc-icon">👁️</span>
+        <div class="perc-name">Exterocepción</div>
+        <div class="perc-desc">Procesamiento de información procedente principalmente del <strong>entorno</strong>.<br><br><em>Ej.: una luz, un sonido, la superficie de un objeto.</em></div>
+      </div>
+      <div class="perception-card proprio">
+        <span class="perc-icon">🦾</span>
+        <div class="perc-name">Propiocepción</div>
+        <div class="perc-desc">Información sobre la <strong>posición y el movimiento corporal</strong>.<br><br><em>Ej.: saber dónde está mi brazo con los ojos cerrados.</em></div>
+      </div>
+      <div class="perception-card intero">
+        <span class="perc-icon">💓</span>
+        <div class="perc-name">Interocepción</div>
+        <div class="perc-desc">Procesamiento de señales relacionadas con el <strong>medio interno y estado fisiológico</strong> del organismo.<br><br><em>Ej.: información cardiovascular o respiratoria.</em></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      En situaciones reales estos sistemas <strong>interactúan</strong>. La distinción es funcional y conceptual,
+      no implica que operen aisladamente.
+    </div>
+
+    <!-- Pregunta cerrada 1 -->
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál es la diferencia entre interocepción y propiocepción?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c1" value="a"> a) Son sinónimos; ambas se refieren al cuerpo.</label>
+        <label class="q-option"><input type="radio" name="c1" value="b"> b) La propiocepción informa sobre posición y movimiento corporal; la interocepción procesa señales del medio interno y estado fisiológico.</label>
+        <label class="q-option"><input type="radio" name="c1" value="c"> c) La interocepción solo se refiere a emociones; la propiocepción a movimientos.</label>
+        <label class="q-option"><input type="radio" name="c1" value="d"> d) La propiocepción es consciente; la interocepción siempre inconsciente.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+  </section>
+
+  <!-- 5. DE LA INTEROCEPCIÓN A LA EMOCIÓN -->
+  <section id="emocion" class="reveal">
+    <h2>5. ¿Cómo llegamos de la interocepción a la emoción?</h2>
+
+    <p>Diversas teorías de la emoción han sostenido que la experiencia emocional mantiene una relación fundamental con modificaciones fisiológicas del organismo. La investigación contemporánea sobre interocepción replantea esta cuestión utilizando herramientas de psicología experimental y neurociencia.</p>
+
+    <div class="callout error">
+      <strong>Evitemos la simplificación:</strong> NO es correcto formularlo como "cambio corporal → emoción específica".
+    </div>
+
+    <h3>Una descripción más cuidadosa</h3>
+    <div class="flow-diagram">
+      <div class="flow-box">Situación</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Procesamiento del acontecimiento</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Modificaciones corporales</div>
+      <div class="flow-arrow-down">↕</div>
+      <div class="flow-box">Procesamiento interoceptivo</div>
+      <div class="flow-arrow-down">↕</div>
+      <div class="flow-box">Memoria, expectativas y contexto</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">Experiencia afectiva</div>
+    </div>
+
+    <div class="callout info">
+      <strong>Las flechas bidireccionales son importantes</strong> porque el organismo no espera pasivamente la llegada
+      de información corporal. La regulación y las expectativas también pueden modificar la actividad corporal.
+    </div>
+  </section>
+
+  <!-- 6. CUATRO NIVELES -->
+  <section id="niveles" class="reveal">
+    <h2>6. Estado corporal, emoción y sentimiento no son exactamente lo mismo</h2>
+    <p>Imaginemos una estudiante antes de realizar una exposición oral. Podemos distinguir varios niveles:</p>
+
+    <div class="levels-grid">
+      <div class="level-card">
+        <div class="level-num">Nivel 1</div>
+        <div class="level-title">Estado fisiológico</div>
+        <div class="level-desc">Incremento de frecuencia cardíaca, cambios respiratorios, sudoración, tensión muscular. <em>Son cambios fisiológicos.</em></div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Nivel 2</div>
+        <div class="level-title">Procesamiento interoceptivo</div>
+        <div class="level-desc">El sistema nervioso recibe y procesa información relacionada con esos cambios. <em>Puede o no alcanzar consciencia.</em></div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Nivel 3</div>
+        <div class="level-title">Experiencia consciente</div>
+        <div class="level-desc">La estudiante puede percibir conscientemente: "Mi corazón está latiendo con mayor intensidad". <em>Experiencia interoceptiva consciente.</em></div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Nivel 4</div>
+        <div class="level-title">Experiencia emocional</div>
+        <div class="level-desc">Puede interpretar su estado dentro de la situación: "Estoy ansiosa por la presentación". <em>Experiencia emocional situada.</em></div>
+      </div>
+    </div>
+
+    <div class="callout error">
+      <strong>No debemos asumir</strong> que el nivel 1 determina automáticamente el nivel 4. La experiencia emocional
+      incorpora procesamiento del estado corporal junto con información contextual, expectativas, experiencias
+      anteriores y otros procesos psicológicos.
+    </div>
+
+    <div class="callout info">
+      Critchley y Garfinkel destacan precisamente que <strong>respuestas interoceptivas similares pueden categorizarse
+      emocionalmente de maneras diferentes.</strong>
+    </div>
+  </section>
+
+  <!-- 7. HOMEOSTASIS Y ALOSTASIS -->
+  <section id="homeostasis" class="reveal">
+    <h2>7. Regulación corporal: homeostasis y alostasis</h2>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Homeostasis <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Se refiere a procesos mediante los cuales el organismo mantiene variables fisiológicas dentro de condiciones compatibles con su funcionamiento. La interocepción proporciona información relevante para esa regulación.</p>
+          <p><strong>Ejemplo:</strong> una persona pasa varias horas sin ingerir alimento. Ocurren cambios fisiológicos y metabólicos. Algunos contribuyen a generar señales internas. Dichas señales son integradas por el sistema nervioso y pueden participar en: motivación para buscar alimento, experiencia consciente de hambre, modificación de prioridades conductuales.</p>
+          <p><strong>Esto muestra algo importante:</strong> la señal corporal no solamente proporciona una descripción del estado del organismo. Puede contribuir a organizar la conducta.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Alostasis <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>La regulación no consiste exclusivamente en corregir un cambio después de que ocurra. El organismo también puede anticipar demandas futuras y ajustar su funcionamiento. La alostasis hace referencia precisamente a procesos regulatorios en los cuales el organismo ajusta su actividad en función de demandas previstas o cambiantes.</p>
+          <p>Esto resulta extraordinariamente relevante para una perspectiva corporeizada porque permite integrar: experiencia anterior → predicción → regulación corporal → acción.</p>
+          <p>Ya no tenemos solamente un cerebro respondiendo a señales fisiológicas, sino sistemas que regulan activamente el organismo en función de las condiciones presentes y esperadas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-diagram">
+      <div class="flow-box">Experiencia anterior</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Predicción</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Regulación corporal</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">Acción</div>
+    </div>
+  </section>
+
+  <!-- 8. CORPOREIZACIÓN INTEROCEPTIVA -->
+  <section id="corporeizacion" class="reveal">
+    <h2>8. Interocepción y representación del estado corporal</h2>
+
+    <p>La cognición corporeizada sostiene, en diferentes grados, que las características corporales participan en determinados procesos cognitivos. La interocepción permite añadir una dimensión: <strong>la cognición puede utilizar información acerca del estado interno del propio organismo</strong>.</p>
+
+    <div class="theses-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="thesis-card t2">
+        <div class="th-num">Corporeización sensoriomotora</div>
+        <div class="th-name">Cuerpo que actúa</div>
+        <div class="th-desc">Se refiere fundamentalmente a relaciones entre percepción, movimiento, acción y posibilidades corporales.</div>
+      </div>
+      <div class="thesis-card t4" style="border-top-color: var(--rose);">
+        <div class="th-num" style="color: var(--rose);">Corporeización interoceptiva</div>
+        <div class="th-name">Cuerpo que siente</div>
+        <div class="th-desc">Se refiere a la contribución de estados internos, señales fisiológicas, regulación corporal y representaciones internas del cuerpo.</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>Ambas pueden coexistir.</strong> Una persona que huye de una situación amenazante está simultáneamente:
+      percibiendo el ambiente, realizando acciones motoras, experimentando modificaciones cardiovasculares y
+      respiratorias, recibiendo información interoceptiva, regulando recursos fisiológicos y evaluando cognitivamente
+      la situación.
+    </div>
+  </section>
+
+  <!-- 9. MARCADOR SOMÁTICO -->
+  <section id="marcador" class="reveal">
+    <h2>9. De la emoción a la toma de decisiones: el marcador somático</h2>
+
+    <div class="highlight-box violet">
+      <p>HIPÓTESIS DEL MARCADOR SOMÁTICO — ANTONIO R. DAMASIO</p>
+    </div>
+
+    <p>La propuesta se desarrolló a partir de observaciones de pacientes con lesiones cerebrales que mostraban dificultades importantes para tomar decisiones ventajosas pese a conservar diversas capacidades intelectuales. La hipótesis fue desarrollada por Damasio durante los años noventa y expuesta ampliamente en <em>Descartes' Error</em> (1994).</p>
+
+    <h3>La idea central</h3>
+    <div class="card">
+      <p>Las consecuencias de experiencias anteriores pueden quedar asociadas con estados corporales y emocionales.</p>
+      <p>Frente a una decisión posterior, señales relacionadas con esos estados pueden contribuir a:</p>
+      <ul>
+        <li>Favorecer determinadas opciones.</li>
+        <li>Desalentar otras.</li>
+        <li>Priorizar alternativas.</li>
+        <li>Orientar el procesamiento de posibles consecuencias.</li>
+      </ul>
+      <p style="margin: 0;">Damasio propuso que estas señales pueden influir en la selección de respuestas tanto consciente como no conscientemente.</p>
+    </div>
+  </section>
+
+  <!-- 10. IOWA GAMBLING TASK -->
+  <section id="igt" class="reveal">
+    <h2>10. Un caso experimental: Iowa Gambling Task</h2>
+
+    <p>La Iowa Gambling Task (IGT) adquirió importancia considerable en esta discusión. Los participantes toman repetidamente decisiones entre diferentes mazos cuyos patrones de ganancias y pérdidas son distintos.</p>
+
+    <div class="callout">
+      <strong>La pregunta fundamental es:</strong> ¿cómo aprende una persona a evitar las elecciones desfavorables?
+    </div>
+
+    <p>La hipótesis del marcador somático sostiene que las respuestas corporales relacionadas con experiencias anteriores pueden contribuir a orientar decisiones posteriores. Bechara, Damasio, Tranel y Damasio (2005) utilizaron este paradigma para investigar la relación entre señales afectivas y decisiones.</p>
+
+    <h3>Pero aquí debemos ser especialmente rigurosos</h3>
+
+    <div class="callout error">
+      <strong>La evidencia no resolvió definitivamente el debate.</strong>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Críticas a la interpretación original <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Interpretaciones originales de la IGT fueron cuestionadas porque los participantes podían poseer más conocimiento explícito de las contingencias de la tarea de lo que inicialmente se había supuesto.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Respuesta de Bechara y colaboradores <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Respondieron que la hipótesis del marcador somático no requiere ausencia de conocimiento consciente, sino que plantea que señales relacionadas con emociones pueden contribuir a los procesos cognitivos incluso cuando no son conscientes.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false">Revisiones posteriores <span class="icon">+</span></button>
+        <div class="accordion-content">
+          <p>Han señalado resultados mixtos y dificultades para interpretar la IGT como confirmación exclusiva de la hipótesis del marcador somático.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box error">
+      <p>✗ "LA IOWA GAMBLING TASK DEMOSTRÓ LA TEORÍA DE DAMASIO"</p>
+    </div>
+
+    <div class="highlight-box success">
+      <p>✓ "LA IGT PROPORCIONÓ UN PARADIGMA EXPERIMENTAL IMPORTANTE, PERO SU INTERPRETACIÓN RESPECTO DE LA HIPÓTESIS DEL MARCADOR SOMÁTICO CONTINÚA SIENDO DISCUTIDA"</p>
+    </div>
+
+    <!-- Pregunta cerrada 2 -->
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Pregunta cerrada</span>
+      <p class="q-text">¿Cuál es la formulación adecuada sobre la relación entre la Iowa Gambling Task y la hipótesis del marcador somático?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="c2" value="a"> a) La IGT demostró definitivamente la teoría de Damasio.</label>
+        <label class="q-option"><input type="radio" name="c2" value="b"> b) La IGT proporcionó un paradigma importante, pero su interpretación respecto de la hipótesis continúa siendo discutida.</label>
+        <label class="q-option"><input type="radio" name="c2" value="c"> c) La IGT refutó completamente la hipótesis del marcador somático.</label>
+        <label class="q-option"><input type="radio" name="c2" value="d"> d) La IGT no tiene ninguna relación con la hipótesis.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+  </section>
+
+  <!-- 11. PREDICTIVO -->
+  <section id="predictivo" class="reveal">
+    <h2>11. Una perspectiva contemporánea: el cerebro no solo recibe, también predice</h2>
+
+    <p>Los enfoques recientes sobre interocepción incorporan modelos de <strong>procesamiento predictivo interoceptivo</strong>. Critchley y Garfinkel señalan este desarrollo como una línea contemporánea para explicar emociones y aspectos relacionados con el sentido de sí mismo.</p>
+
+    <div class="flow-diagram">
+      <div class="flow-box">Estado corporal esperado</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">Comparación</div>
+      <div class="flow-arrow-down">↑</div>
+      <div class="flow-box">Señales corporales actuales</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Diferencia entre predicción y señal</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">Actualización y/o regulación</div>
+    </div>
+
+    <div class="callout info">
+      <strong>Esto cambia la pregunta clásica.</strong> Ya no preguntamos únicamente: ¿cómo percibimos una señal
+      producida por el cuerpo? También preguntamos: ¿cómo genera el sistema nervioso expectativas acerca del estado
+      corporal y regula el organismo en función de ellas?
+    </div>
+  </section>
+
+  <!-- 12. DIMENSIONES -->
+  <section id="dimensiones" class="reveal">
+    <h2>12. No todas las personas perciben sus señales internas de la misma manera</h2>
+
+    <p>La interocepción no puede tratarse simplemente como una capacidad única de la cual una persona posee "mucha" o "poca". La literatura contemporánea reconoce dimensiones psicológicas diferenciables:</p>
+
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Rendimiento interoceptivo">
+        <div class="flip-inner">
+          <div class="flip-front">Rendimiento interoceptivo</div>
+          <div class="flip-back">Qué tan adecuadamente una persona realiza determinada tarea experimental relacionada con información corporal. <small>Es una medida objetiva.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Experiencia subjetiva">
+        <div class="flip-inner">
+          <div class="flip-front">Experiencia subjetiva</div>
+          <div class="flip-back">Cómo informa la persona acerca de su percepción y atención hacia señales corporales. <small>Es una medida autoinformada.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Metacognición interoceptiva">
+        <div class="flip-inner">
+          <div class="flip-front">Metacognición interoceptiva</div>
+          <div class="flip-back">Hasta qué punto la confianza que la persona tiene sobre su propio desempeño corresponde con su rendimiento. <small>Es la correspondencia entre confianza y precisión.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      Esto explica por qué dos personas pueden decir "soy muy consciente de mi cuerpo" y presentar desempeños
+      diferentes en tareas experimentales.
+    </div>
+
+    <div class="callout error">
+      <strong>Advertencia metodológica:</strong> revisiones actuales advierten que la definición y medición del
+      constructo no han sido uniformes y que existen limitaciones que deben considerarse al interpretar los resultados.
+    </div>
+  </section>
+
+  <!-- 13. CIRCUITO COMPLETO -->
+  <section id="circuito" class="reveal">
+    <h2>13. El ejemplo completo: estudiante antes de un examen</h2>
+
+    <p>Veamos todo el sistema en una situación concreta. Una estudiante llega al aula donde realizará un examen final.</p>
+
+    <div class="circuit">
+      <div class="circuit-box highlight">CUERPO</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box">SEÑALES INTERNAS</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box">INTEROCEPCIÓN</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box">REPRESENTACIÓN CORPORAL</div>
+      <div class="circuit-arrow">↕</div>
+      <div class="circuit-box">CONTEXTO + EXPECTATIVAS + MEMORIA</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box">EXPERIENCIA EMOCIONAL</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box">COGNICIÓN Y ACCIÓN</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box">REGULACIÓN CORPORAL</div>
+      <div class="circuit-arrow">↓</div>
+      <div class="circuit-box highlight">NUEVO ESTADO CORPORAL</div>
+    </div>
+
+    <div class="callout success">
+      <strong>Este circuito es recursivo.</strong> La acción deliberada modifica nuevamente el estado corporal.
+      Permite entender por qué la interocepción tiene tanto interés para una teoría de la cognición corporeizada.
+    </div>
+  </section>
+
+  <!-- 14. CUATRO TESIS -->
+  <section id="cuatro-tesis" class="reveal">
+    <h2>14. Influencia, participación, necesidad, constitución</h2>
+    <p>Las afirmaciones se vuelven progresivamente más fuertes. La evidencia de influencia o participación no demuestra automáticamente necesidad o constitución.</p>
+
+    <div class="theses-grid">
+      <div class="thesis-card t1">
+        <div class="th-num">Tesis 1</div>
+        <div class="th-name">Influencia</div>
+        <div class="th-desc">Los estados corporales <strong>pueden modificar</strong> procesos emocionales y cognitivos.</div>
+      </div>
+      <div class="thesis-card t2">
+        <div class="th-num">Tesis 2</div>
+        <div class="th-name">Participación</div>
+        <div class="th-desc">El procesamiento de señales corporales <strong>participa sistemáticamente</strong> en determinados procesos emocionales.</div>
+      </div>
+      <div class="thesis-card t3">
+        <div class="th-num">Tesis 3</div>
+        <div class="th-name">Necesidad</div>
+        <div class="th-desc">Determinados procesos interoceptivos <strong>serían necesarios</strong> para una experiencia emocional específica.</div>
+      </div>
+      <div class="thesis-card t4">
+        <div class="th-num">Tesis 4</div>
+        <div class="th-name">Constitución</div>
+        <div class="th-desc">Componentes interoceptivos <strong>formarían parte constitutiva</strong> de la emoción correspondiente.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box error">
+      <p>INFLUENCIA O PARTICIPACIÓN ≠ NECESIDAD O CONSTITUCIÓN</p>
+    </div>
+  </section>
+
+  <!-- 15. SALUD MENTAL -->
+  <section id="salud" class="reveal">
+    <h2>15. Interocepción y salud mental</h2>
+
+    <p>La interocepción también se ha convertido en un área importante de investigación clínica. El consenso del <em>Interoception Summit</em> identifica alteraciones interoceptivas como componentes potencialmente relevantes en diferentes condiciones:</p>
+
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Ansiedad">
+        <div class="flip-inner">
+          <div class="flip-front">Ansiedad</div>
+          <div class="flip-back">Alteraciones en la percepción de señales corporales pueden relacionarse con síntomas ansiosos. <small>Pero asociación no implica causalidad.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Trastornos del estado de ánimo">
+        <div class="flip-inner">
+          <div class="flip-front">Trastornos del estado de ánimo</div>
+          <div class="flip-back">La depresión se ha asociado con alteraciones en la interocepción. <small>Se requiere distinguir correlación de mecanismo.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Trastornos alimentarios">
+        <div class="flip-inner">
+          <div class="flip-front">Trastornos alimentarios</div>
+          <div class="flip-back">La percepción de señales de hambre y saciedad puede estar alterada. <small>Factor de mantenimiento o consecuencia, no necesariamente causa.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Adicciones">
+        <div class="flip-inner">
+          <div class="flip-front">Adicciones</div>
+          <div class="flip-back">La interocepción puede relacionarse con la regulación afectiva y la toma de decisiones. <small>Relación compleja y multidireccional.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Síntomas somáticos">
+        <div class="flip-inner">
+          <div class="flip-front">Síntomas somáticos</div>
+          <div class="flip-back">La interpretación de señales corporales puede amplificar o mantener síntomas. <small>Relevante para la comprensión de trastornos somáticos.</small></div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Alexitimia">
+        <div class="flip-inner">
+          <div class="flip-front">Alexitimia</div>
+          <div class="flip-back">Dificultad para identificar y describir emociones, posiblemente relacionada con procesamiento interoceptivo atípico. <small>Revisión en español (2023) informa asociaciones.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout error">
+      <strong>Precaución importante:</strong> encontrar una asociación entre interocepción y un trastorno no significa
+      que una alteración interoceptiva sea necesariamente su causa. Debe distinguirse entre correlación, mecanismo
+      causal, factor de mantenimiento y consecuencia.
+    </div>
+  </section>
+
+  <!-- 16. CINCO PIEZAS -->
+  <section id="cinco-piezas" class="reveal">
+    <h2>16. Las cinco piezas que el estudiante debería poder distinguir</h2>
+
+    <div class="levels-grid">
+      <div class="level-card">
+        <div class="level-num">Pieza 1</div>
+        <div class="level-title">Estado corporal</div>
+        <div class="level-desc">Condición fisiológica real del organismo.</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Pieza 2</div>
+        <div class="level-title">Interocepción</div>
+        <div class="level-desc">Procesamiento de señales originadas en el interior del organismo.</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Pieza 3</div>
+        <div class="level-title">Representación corporal</div>
+        <div class="level-desc">Información integrada acerca del estado interno del organismo.</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Pieza 4</div>
+        <div class="level-title">Experiencia emocional</div>
+        <div class="level-desc">Estado afectivo en cuya generación y regulación puede participar la información corporal, junto con otros procesos.</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">Pieza 5</div>
+        <div class="level-title">Regulación y decisión</div>
+        <div class="level-desc">Procesos mediante los cuales información corporal, cognitiva, afectiva y contextual puede contribuir a seleccionar y modificar acciones.</div>
+      </div>
+    </div>
+
+    <h3>Y simultáneamente necesitamos distinguir</h3>
+    <div class="flip-grid">
+      <div class="flip-card" tabindex="0" role="button" aria-label="Homeostasis">
+        <div class="flip-inner">
+          <div class="flip-front">Homeostasis</div>
+          <div class="flip-back">Regulación de condiciones fisiológicas para mantenerlas dentro de rangos compatibles con la vida.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Alostasis">
+        <div class="flip-inner">
+          <div class="flip-front">Alostasis</div>
+          <div class="flip-back">Regulación ajustada a necesidades y demandas anticipadas. El organismo no solo corrige, también anticipa.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Marcador somático">
+        <div class="flip-inner">
+          <div class="flip-front">Marcador somático</div>
+          <div class="flip-back">Hipótesis específica de Damasio acerca de cómo determinadas señales asociadas con estados corporales y emocionales contribuyen a orientar decisiones.</div>
+        </div>
+      </div>
+      <div class="flip-card" tabindex="0" role="button" aria-label="Procesamiento predictivo">
+        <div class="flip-inner">
+          <div class="flip-front">Procesamiento interoceptivo predictivo</div>
+          <div class="flip-back">Familia de modelos que estudia cómo predicciones acerca del estado corporal interactúan con señales interoceptivas para contribuir a percepción corporal, regulación y experiencia afectiva.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17. DEBATE -->
+  <section id="debate" class="reveal">
+    <h2>17. Dónde está realmente el debate teórico</h2>
+    <p>Hay una progresión histórica muy productiva para comprender el campo:</p>
+
+    <div class="flow-diagram">
+      <div class="flow-box">¿Los cambios corporales participan en las emociones?</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">¿Cómo detecta y representa el sistema nervioso el estado interno del organismo?</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">¿Cómo contribuyen esas representaciones corporales a sentimientos y emociones?</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box">¿Cómo intervienen estados emocionales e interoceptivos en procesos cognitivos como la toma de decisiones?</div>
+      <div class="flow-arrow-down">↓</div>
+      <div class="flow-box highlight">¿El sistema nervioso solamente representa el estado corporal actual o también predice y regula activamente estados corporales?</div>
+    </div>
+
+    <div class="callout success">
+      Este recorrido permite conectar de manera coherente <strong>interocepción → emoción → regulación → cognición →
+      decisión</strong> sin reducir ninguno de estos conceptos a los demás.
+    </div>
+
+    <h3>Una formulación final</h3>
+    <div class="highlight-box violet">
+      <p>UNA PERSPECTIVA CORPOREIZADA DE LA EMOCIÓN NO SOSTIENE SIMPLEMENTE QUE UNA EMOCIÓN PRODUCE CAMBIOS CORPORALES</p>
+    </div>
+    <p>Investiga si la regulación y representación del estado corporal participan causal o constitutivamente en la producción de experiencias afectivas, decisiones y conductas.</p>
+
+    <div class="callout">
+      <strong>Esta diferencia</strong> entre que el cuerpo cambie durante una emoción y que la información corporal
+      participe en la constitución y regulación del proceso emocional es precisamente uno de los puntos más importantes
+      para comprender la dimensión interoceptiva de la cognición corporeizada.
+    </div>
+
+    <!-- Pregunta abierta 1 -->
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Pregunta abierta</span>
+      <p class="q-text">Explica con tus palabras la diferencia entre las cuatro tesis (influencia, participación, necesidad, constitución). ¿Por qué la evidencia de influencia no demuestra automáticamente constitución?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 1"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(1)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb1">
+        <strong>Respuesta modelo:</strong> La influencia sostiene que los estados corporales pueden modificar procesos emocionales o cognitivos, pero no dice nada sobre su necesidad. La participación afirma que el procesamiento de señales corporales interviene sistemáticamente en esos procesos. La necesidad sostiene que determinados procesos interoceptivos serían imprescindibles para una experiencia emocional específica. La constitución afirma que componentes interoceptivos formarían parte constitutiva de la emoción. La evidencia de influencia no demuestra constitución porque mostrar que una variable modifica un proceso no implica que sea un componente del proceso. Por ejemplo, el ruido puede modificar mi atención, pero el ruido no es parte de mi proceso atencional. Se necesitan diseños que manipulen la variable y observen si el proceso desaparece o se altera cualitativamente sin ella.
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias (APA 7)</h2>
+    <ul class="ref-list">
+      <li>Critchley, H. D., &amp; Garfinkel, S. N. (2017). Interoception and emotion. <em>Current Opinion in Psychology, 17</em>, 7-14.</li>
+      <li>Khalsa, S. S., Adolphs, R., Cameron, O. G., Critchley, H. D., Davenport, P. W., Feinstein, J. S., ... &amp; Zucker, N. (2018). Interoception and mental health: A roadmap. <em>Biological Psychiatry: Cognitive Neuroscience and Neuroimaging, 3</em>(6), 501-513.</li>
+      <li>Damasio, A. R. (1994). <em>Descartes' error: Emotion, reason, and the human brain</em>. Putnam.</li>
+      <li>Bechara, A., Damasio, H., Tranel, D., &amp; Damasio, A. R. (2005). The Iowa Gambling Task and the somatic marker hypothesis: Some questions and answers. <em>Trends in Cognitive Sciences, 9</em>(4), 159-162.</li>
+      <li>Pizarro, C., &amp; Ceric, F. (2023). La interocepción en el procesamiento emocional: de la sensación a la psicopatología. <em>Papeles del Psicólogo, 44</em>(2).</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la diferencia entre interocepción y propiocepción?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) Son sinónimos; ambas se refieren al cuerpo.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) La propiocepción informa sobre posición y movimiento corporal; la interocepción procesa señales del medio interno y estado fisiológico.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) La interocepción solo se refiere a emociones; la propiocepción a movimientos.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) La propiocepción es consciente; la interocepción siempre inconsciente.</label>
+      </div>
+      <div class="feedback-box" id="qFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">¿Cuál es la formulación adecuada sobre la relación entre la Iowa Gambling Task y la hipótesis del marcador somático?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) La IGT demostró definitivamente la teoría de Damasio.</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) La IGT proporcionó un paradigma importante, pero su interpretación respecto de la hipótesis continúa siendo discutida.</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) La IGT refutó completamente la hipótesis del marcador somático.</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) La IGT no tiene ninguna relación con la hipótesis.</label>
+      </div>
+      <div class="feedback-box" id="qFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">¿Cuál es la diferencia entre homeostasis y alostasis?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) Son sinónimos.</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) La homeostasis mantiene variables dentro de rangos; la alostasis ajusta el funcionamiento en función de demandas previstas o cambiantes.</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) La alostasis es inconsciente; la homeostasis consciente.</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) La homeostasis solo se refiere a la temperatura.</label>
+      </div>
+      <div class="feedback-box" id="qFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="6">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">¿Qué significa que coactivación no equivale a constitución necesaria en el contexto de la interocepción y la emoción?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Que la activación corporal nunca es relevante.</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) Que la activación de señales corporales durante una emoción no demuestra por sí sola que esas señales constituyan necesariamente el proceso emocional.</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Que las emociones no existen.</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) Que el cerebro no participa en las emociones.</label>
+      </div>
+      <div class="feedback-box" id="qFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="7">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Qué dimensiones de la interocepción se distinguen en la literatura contemporánea?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) Solo una: la capacidad general de sentir el cuerpo.</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) Rendimiento interoceptivo, experiencia subjetiva interoceptiva y conciencia o metacognición interoceptiva.</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) Solo dos: consciente e inconsciente.</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) Solo tres: cardíaca, respiratoria y gastrointestinal.</label>
+      </div>
+      <div class="feedback-box" id="qFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">Explica con tus palabras la diferencia entre las cuatro tesis (influencia, participación, necesidad, constitución). ¿Por qué la evidencia de influencia no demuestra automáticamente constitución?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 2"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(2)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb2">
+        <strong>Respuesta modelo:</strong> La influencia sostiene que los estados corporales pueden modificar procesos emocionales o cognitivos, pero no dice nada sobre su necesidad. La participación afirma que el procesamiento de señales corporales interviene sistemáticamente en esos procesos. La necesidad sostiene que determinados procesos interoceptivos serían imprescindibles para una experiencia emocional específica. La constitución afirma que componentes interoceptivos formarían parte constitutiva de la emoción. La evidencia de influencia no demuestra constitución porque mostrar que una variable modifica un proceso no implica que sea un componente del proceso. Por ejemplo, el ruido puede modificar mi atención, pero el ruido no es parte de mi proceso atencional. Se necesitan diseños que manipulen la variable y observen si el proceso desaparece o se altera cualitativamente sin ella.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Explica por qué el circuito cuerpo → señales internas → interocepción → representación corporal → contexto → experiencia emocional → cognición → regulación → nuevo estado corporal es recursivo. Da un ejemplo concreto.</p>
+      <textarea class="open-textarea" placeholder="Escribe tu respuesta aquí..." aria-label="Respuesta a pregunta abierta 3"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(3)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb3">
+        <strong>Respuesta modelo:</strong> El circuito es recursivo porque la regulación corporal modifica el estado corporal, que a su vez genera nuevas señales internas que serán procesadas interoceptivamente, afectando la experiencia emocional y la cognición subsiguiente. Ejemplo: una estudiante siente ansiedad antes de un examen (experiencia emocional). Decide respirar profundamente (regulación). Esto modifica su frecuencia cardíaca y respiratoria (nuevo estado corporal). Esas nuevas señales internas son procesadas (interocepción) y pueden reducir la ansiedad percibida. La cognición y la acción modifican el cuerpo, y el cuerpo modificado modifica la cognición y la emoción. No es una secuencia lineal de una sola dirección.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué cambió en tu forma de entender la relación entre cuerpo, emoción y cognición después de recorrer este recurso? ¿Qué te genera más dudas?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 4"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(4)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb4">
+        <strong>Respuesta modelo:</strong> Antes pensaba que la emoción era principalmente una interpretación cognitiva de un acontecimiento, y que el cuerpo solo acompañaba con cambios fisiológicos. Ahora entiendo que las señales corporales internas son procesadas activamente y pueden contribuir a la experiencia emocional, la regulación y la toma de decisiones. Lo que más me cuesta es no caer en el reduccionismo de pensar que "toda emoción es corporal". La distinción entre influencia, participación, necesidad y constitución me ayuda a mantener la precisión. Me genera dudas cómo se puede medir la interocepción de manera válida, y cómo distinguir experimentalmente entre las distintas tesis.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Cuerpo, emoción e interocepción: el organismo como fuente de información para la cognición</strong> · Recurso educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.parentElement;
+      const isActive = item.classList.contains('active');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.accordion-item').forEach(sib => {
+        sib.classList.remove('active');
+        const h = sib.querySelector('.accordion-header');
+        if (h) h.setAttribute('aria-expanded', 'false');
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
+  const closedAnswers = {
+    1: { correct: 'b', fbCorrect: '¡Correcto! La propiocepción informa sobre posición y movimiento; la interocepción procesa señales del medio interno.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    2: { correct: 'b', fbCorrect: '¡Bien! La IGT proporcionó un paradigma importante, pero su interpretación continúa siendo discutida.', fbIncorrect: 'Incorrecto. La formulación adecuada es que la IGT es importante pero su interpretación sigue discutida.' },
+    3: { correct: 'b', fbCorrect: '¡Correcto! La propiocepción informa sobre posición y movimiento; la interocepción procesa señales del medio interno.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    4: { correct: 'b', fbCorrect: '¡Bien! La IGT proporcionó un paradigma importante, pero su interpretación continúa siendo discutida.', fbIncorrect: 'Incorrecto. La formulación adecuada es que la IGT es importante pero su interpretación sigue discutida.' },
+    5: { correct: 'b', fbCorrect: 'Exacto. La homeostasis mantiene rangos; la alostasis ajusta según demandas previstas o cambiantes.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    6: { correct: 'b', fbCorrect: '¡Correcto! La activación de señales corporales no demuestra por sí sola constitución necesaria.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    7: { correct: 'b', fbCorrect: '¡Bien! Se distinguen rendimiento, experiencia subjetiva y metacognición interoceptiva.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  const finalQuestions = [
+    { name: 'q1', correct: 'b', id: 3 },
+    { name: 'q2', correct: 'b', id: 4 },
+    { name: 'q3', correct: 'b', id: 5 },
+    { name: 'q4', correct: 'b', id: 6 },
+    { name: 'q5', correct: 'b', id: 7 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`qFb${q.id - 2}`);
+      const options = block.querySelectorAll('.q-option');
+
+      options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Comprendes la dimensión interoceptiva de la cognición corporeizada y sus precisiones conceptuales.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles. Las preguntas abiertas te ayudarán a consolidar.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las secciones 3 a 14 y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+  });
+
+})();
+</script>
+</body>
+</html>

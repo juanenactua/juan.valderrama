@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuerpo, emoción e interocepción — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Cuerpo, emoción e interocepción: presentación">
+<meta name="jc-descripcion" content="Presentación interactiva de 45 diapositivas sobre interocepción, emoción, regulación corporal, homeostasis, alostasis, marcador somático, Iowa Gambling Task, procesamiento predictivo y cognición corporeizada.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Interocepción, Emoción, Cognición corporeizada, Homeostasis, Alostasis, Marcador somático, Damasio, Iowa Gambling Task, Procesamiento predictivo, Corporeización interoceptiva, Regulación corporal">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root {
+    --azul-oscuro: #0B2545;
+    --azul-medio: #13315C;
+    --azul-acento: #13538A;
+    --dorado: #E7C873;
+    --gris-calido: #F5F3EF;
+    --blanco: #FFFFFF;
+    --texto: #1A1A2E;
+    --texto-suave: #3D3D4E;
+    --sombra: 0 4px 20px rgba(11, 37, 69, 0.08);
+    --radio: 14px;
+    --verde: #2E7D4F;
+    --rojo: #C0392B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+  }
+
+  body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 290px;
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    transition: width 0.35s ease;
+  }
+
+  #sidebar.colapsada { width: 0; overflow: hidden; }
+
+  #sidebar-header {
+    padding: 26px 22px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  #sidebar-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dorado);
+    margin-bottom: 5px;
+  }
+
+  #sidebar-header p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  #sidebar nav { padding: 14px 0; }
+
+  #sidebar nav a {
+    display: block;
+    padding: 10px 22px;
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.4;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+
+  #sidebar nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+  #sidebar nav a.activa {
+    background: rgba(231, 200, 115, 0.14);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+    font-weight: 600;
+  }
+
+  #sidebar nav a .num {
+    display: inline-block;
+    width: 24px;
+    font-size: 13px;
+    opacity: 0.55;
+  }
+
+  #toggle-sidebar {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+
+  #toggle-sidebar:hover { opacity: 1; }
+
+  /* LAYOUT */
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--blanco);
+  }
+
+  #slides-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* DIAPOSITIVAS */
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 55px 75px 70px;
+    overflow-y: auto;
+    background: var(--blanco);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    display: block;
+  }
+
+  .slide.activa {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+  }
+
+  .slide-inner {
+    max-width: 1150px;
+    margin: 0 auto;
+  }
+
+  .slide.portada {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 100%);
+    color: #fff;
+    padding: 40px 60px;
+  }
+
+  .slide.portada .slide-inner { max-width: 1000px; }
+
+  .slide.portada h1 {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 24px;
+    color: #fff;
+  }
+
+  .slide.portada .subtitulo {
+    font-size: 24px;
+    color: var(--dorado);
+    margin-bottom: 20px;
+  }
+
+  .slide.portada .curso {
+    font-size: 20px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+  }
+
+  .slide.portada .autor {
+    font-size: 22px;
+    color: rgba(255,255,255,0.88);
+    border-top: 1px solid rgba(255,255,255,0.22);
+    padding-top: 22px;
+    display: inline-block;
+  }
+
+  /* TIPOGRAFÍA */
+  .slide h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+    margin-bottom: 26px;
+  }
+
+  .slide h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--azul-medio);
+    margin-bottom: 14px;
+  }
+
+  .slide p {
+    font-size: 25px;
+    line-height: 1.6;
+    color: var(--texto-suave);
+    margin-bottom: 18px;
+  }
+
+  .slide ul { list-style: none; }
+
+  .slide ul li {
+    font-size: 24px;
+    line-height: 1.6;
+    color: var(--texto-suave);
+    margin-bottom: 14px;
+    padding-left: 36px;
+    position: relative;
+  }
+
+  .slide ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--azul-acento);
+  }
+
+  /* PREGUNTA GIGANTE */
+  .pregunta-grande {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+    text-align: center;
+    margin: 40px 0;
+    padding: 30px;
+  }
+
+  .pregunta-grande.dorada {
+    color: var(--dorado);
+    background: var(--azul-oscuro);
+    border-radius: var(--radio);
+  }
+
+  .pregunta {
+    font-size: 27px;
+    font-weight: 600;
+    color: var(--azul-acento);
+    font-style: italic;
+    margin: 22px 0;
+    padding-left: 24px;
+    border-left: 4px solid var(--dorado);
+  }
+
+  /* BLOQUES */
+  .bloque {
+    background: var(--gris-calido);
+    border-left: 6px solid var(--azul-acento);
+    padding: 24px 28px;
+    border-radius: 0 var(--radio) var(--radio) 0;
+    margin: 22px 0;
+  }
+
+  .bloque.dorado {
+    border-left-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  .bloque.verde {
+    border-left-color: var(--verde);
+    background: #EBF7EE;
+  }
+
+  .bloque.rojo {
+    border-left-color: var(--rojo);
+    background: #FDF0F0;
+  }
+
+  .bloque p { margin-bottom: 0; font-size: 24px; }
+
+  .bloque .etiqueta {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--azul-acento);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .bloque.dorado .etiqueta { color: #B8942E; }
+  .bloque.verde .etiqueta { color: var(--verde); }
+  .bloque.rojo .etiqueta { color: #A04040; }
+
+  /* TARJETAS */
+  .tarjetas {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .tarjeta {
+    flex: 1;
+    min-width: 220px;
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-radius: var(--radio);
+    padding: 22px 24px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .tarjeta.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tarjeta h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 10px;
+  }
+
+  .tarjeta p {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .tarjeta.destacada {
+    border-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  /* CADENA */
+  .cadena {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 24px 0;
+  }
+
+  .eslabon {
+    padding: 14px 22px;
+    border-radius: 10px;
+    background: #EBF0F7;
+    border-left: 5px solid var(--azul-acento);
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .eslabon.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .eslabon.final {
+    background: var(--azul-oscuro);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+  }
+
+  .eslabon.inicio {
+    background: var(--dorado);
+    color: var(--azul-oscuro);
+    border-left-color: var(--azul-oscuro);
+  }
+
+  .eslabon.opcional {
+    background: #F5F3EF;
+    color: var(--texto-suave);
+    border-left-color: #B0B8C4;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .eslabon .num-eslabon {
+    display: inline-block;
+    width: 30px;
+    font-weight: 700;
+    color: var(--dorado);
+    font-size: 18px;
+  }
+
+  .eslabon.inicio .num-eslabon { color: var(--azul-oscuro); }
+
+  .flecha-cadena {
+    text-align: center;
+    font-size: 22px;
+    color: var(--dorado);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .flecha-cadena.visible { opacity: 1; }
+
+  .flecha-cadena.bidireccional {
+    font-size: 20px;
+    color: var(--azul-acento);
+  }
+
+  /* COMPARATIVA */
+  .comparativa {
+    display: flex;
+    gap: 24px;
+    margin: 22px 0;
+    flex-wrap: wrap;
+  }
+
+  .comparativa .lado {
+    flex: 1;
+    min-width: 260px;
+    padding: 24px;
+    border-radius: var(--radio);
+    border: 2px solid #E0E4EC;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .comparativa .lado.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .comparativa .lado h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--dorado);
+  }
+
+  .comparativa .lado ul li { font-size: 19px; margin-bottom: 10px; }
+
+  .comparativa .lado.sensoriomotora {
+    border-top: 6px solid var(--azul-acento);
+    background: #EBF0F7;
+  }
+
+  .comparativa .lado.interoceptiva {
+    border-top: 6px solid var(--verde);
+    background: #EBF7EE;
+  }
+
+  /* TABLA */
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 20px;
+  }
+
+  .tabla th {
+    background: var(--azul-oscuro);
+    color: #fff;
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .tabla td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #E0E4EC;
+    color: var(--texto-suave);
+    line-height: 1.5;
+    font-size: 19px;
+  }
+
+  .tabla tr:nth-child(even) td { background: #FAFBFD; }
+
+  .tabla tbody tr.fila-anim {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+
+  .tabla tbody tr.fila-anim.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* CUATRO NIVELES */
+  .cuatro-niveles {
+    display: flex;
+    gap: 16px;
+    margin: 26px 0;
+    flex-wrap: wrap;
+  }
+
+  .nivel-cuatro {
+    flex: 1;
+    min-width: 220px;
+    padding: 22px 24px;
+    border-radius: var(--radio);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.5s ease;
+  }
+
+  .nivel-cuatro.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nivel-cuatro h4 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .nivel-cuatro p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .nivel-cuatro.n1 { background: #EBF0F7; border: 3px solid var(--azul-acento); }
+  .nivel-cuatro.n1 h4 { color: var(--azul-acento); }
+
+  .nivel-cuatro.n2 { background: #FDF9EE; border: 3px solid var(--dorado); }
+  .nivel-cuatro.n2 h4 { color: #B8942E; }
+
+  .nivel-cuatro.n3 { background: #EBF7EE; border: 3px solid var(--verde); }
+  .nivel-cuatro.n3 h4 { color: var(--verde); }
+
+  .nivel-cuatro.n4 { background: #FDF0F0; border: 3px solid var(--rojo); }
+  .nivel-cuatro.n4 h4 { color: var(--rojo); }
+
+  /* ESPECTRO DE FUERZA */
+  .espectro {
+    display: flex;
+    gap: 0;
+    margin: 30px 0;
+    align-items: stretch;
+    border-radius: var(--radio);
+    overflow: hidden;
+    border: 2px solid #E0E4EC;
+  }
+
+  .posicion-espectro {
+    flex: 1;
+    padding: 24px 18px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.6s ease;
+  }
+
+  .posicion-espectro.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .posicion-espectro h4 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .posicion-espectro p {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .posicion-espectro.influencia { background: #F5F3EF; }
+  .posicion-espectro.influencia h4 { color: #6A7280; }
+
+  .posicion-espectro.participacion { background: #EBF0F7; }
+  .posicion-espectro.participacion h4 { color: var(--azul-acento); }
+
+  .posicion-espectro.necesidad { background: #FDF9EE; }
+  .posicion-espectro.necesidad h4 { color: #B8942E; }
+
+  .posicion-espectro.constitucion { background: #EBF7EE; }
+  .posicion-espectro.constitucion h4 { color: var(--verde); }
+
+  /* RESULTADOS DE APRENDIZAJE */
+  .resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .resultado {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 22px 26px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 2px solid #E0E4EC;
+    border-left: 6px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s ease;
+  }
+
+  .resultado.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .resultado .num-resultado {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .resultado .texto-resultado h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 6px;
+  }
+
+  .resultado .texto-resultado p {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  /* CONCLUSIONES */
+  .conclusiones {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .conclusion {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-radius: var(--radio);
+    background: #F8FAFD;
+    border-left: 5px solid var(--azul-acento);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+
+  .conclusion.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .conclusion .icono-conclusion {
+    font-size: 26px;
+    flex-shrink: 0;
+    line-height: 1;
+    color: var(--dorado);
+  }
+
+  .conclusion p {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--texto-suave);
+    margin-bottom: 0;
+  }
+
+  .conclusion p strong { color: var(--azul-oscuro); }
+
+  /* ÍNDICE */
+  .grid-indice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .item-indice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: var(--radio);
+    background: #fff;
+    border: 1.5px solid #E0E4EC;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  .item-indice.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .item-indice .num-indice {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .item-indice span {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--azul-oscuro);
+  }
+
+  /* CIRCUITO COMPLETO */
+  .circuito-completo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 24px 0;
+  }
+
+  .paso-circuito {
+    padding: 12px 20px;
+    border-radius: 10px;
+    background: #EBF0F7;
+    border-left: 5px solid var(--azul-acento);
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: all 0.5s ease;
+  }
+
+  .paso-circuito.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .paso-circuito.cuerpo { background: #EBF0F7; }
+  .paso-circuito.intero { background: #FDF9EE; border-left-color: var(--dorado); }
+  .paso-circuito.emocion { background: #EBF7EE; border-left-color: var(--verde); }
+  .paso-circuito.cognicion { background: #FDF0F0; border-left-color: var(--rojo); }
+  .paso-circuito.regulacion { background: var(--azul-oscuro); color: var(--dorado); border-left-color: var(--dorado); }
+
+  /* REFERENCIAS */
+  .refs p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--texto-suave);
+    margin-bottom: 12px;
+    padding-left: 28px;
+    text-indent: -28px;
+  }
+
+  /* NAVEGACIÓN INFERIOR */
+  #nav-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    background: #fff;
+    border-top: 1px solid #EEF0F4;
+    flex-shrink: 0;
+  }
+
+  .btn-nav {
+    padding: 10px 22px;
+    border: 1.5px solid #D0D5DE;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--texto-suave);
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-nav:hover { opacity: 1; border-color: var(--azul-acento); color: var(--azul-oscuro); }
+  .btn-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+
+  #indicador-progreso {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--texto-suave);
+  }
+
+  #barra-progreso {
+    width: 140px;
+    height: 5px;
+    background: #EEF0F4;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  #barra-progreso .relleno {
+    height: 100%;
+    background: var(--azul-acento);
+    transition: width 0.4s ease;
+  }
+
+  /* BOTÓN DE ANIMACIÓN */
+  .btn-animacion {
+    padding: 12px 26px;
+    border: none;
+    border-radius: 10px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 14px rgba(11, 37, 69, 0.25);
+    margin-top: 16px;
+  }
+
+  .btn-animacion:hover {
+    background: var(--azul-acento);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(19, 83, 138, 0.35);
+  }
+
+  .btn-animacion:disabled {
+    background: #D0D5DE;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1200px) {
+    .slide { padding: 45px 45px 60px; }
+    .slide h2 { font-size: 36px; }
+    .slide p, .slide ul li { font-size: 22px; }
+    .slide.portada h1 { font-size: 42px; }
+    .pregunta-grande { font-size: 40px; }
+  }
+
+  @media (max-width: 1024px) {
+    .slide { padding: 40px 35px 60px; }
+    .slide h2 { font-size: 32px; }
+    .slide p, .slide ul li { font-size: 21px; }
+    .slide.portada h1 { font-size: 36px; }
+    .grid-indice { grid-template-columns: 1fr; }
+    .pregunta-grande { font-size: 32px; }
+    .cuatro-niveles { flex-direction: column; }
+    .espectro { flex-direction: column; }
+  }
+
+  @media (max-width: 768px) {
+    #sidebar { position: fixed; height: 100%; z-index: 150; }
+    #sidebar:not(.colapsada) { width: 290px; }
+    .slide { padding: 28px 20px 60px; }
+    .slide h2 { font-size: 24px; }
+    .slide p, .slide ul li { font-size: 18px; }
+    .slide.portada h1 { font-size: 28px; }
+    .tarjetas, .comparativa { flex-direction: column; }
+    .pregunta-grande { font-size: 24px; }
+  }
+
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-thumb { background: #D0D5DE; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h2>Cuerpo e interocepción</h2>
+    <p>El organismo como fuente de información</p>
+  </div>
+  <nav id="nav-secciones"></nav>
+</aside>
+
+<button id="toggle-sidebar" title="Mostrar/ocultar">☰</button>
+
+<div id="main">
+  <div id="slides-container">
+
+    <!-- 0 PORTADA -->
+    <section class="slide portada activa" data-seccion="portada">
+      <div class="slide-inner">
+        <h1>Cuerpo, emoción<br>e interocepción</h1>
+        <div class="subtitulo">El organismo como fuente de información para la cognición</div>
+        <div class="curso">Ciencias cognitivas · Cognición corporeizada</div>
+        <div class="autor">Juan Carlos Valderrama Cárdenas</div>
+      </div>
+    </section>
+
+    <!-- 1 RESULTADOS DE APRENDIZAJE -->
+    <section class="slide" data-seccion="resultados">
+      <div class="slide-inner">
+        <h2>Resultados de aprendizaje</h2>
+        <p>Al finalizar el recorrido, se espera que el estudiante sea capaz de:</p>
+        <div class="resultados" id="lista-resultados"></div>
+        <button class="btn-animacion" data-anim="resultados">Mostrar resultados ▶</button>
+      </div>
+    </section>
+
+    <!-- 2 ÍNDICE -->
+    <section class="slide" data-seccion="indice">
+      <div class="slide-inner">
+        <h2>Recorrido de la clase</h2>
+        <div class="grid-indice" id="grid-indice"></div>
+        <button class="btn-animacion" data-anim="indice">Mostrar recorrido ▶</button>
+      </div>
+    </section>
+
+    <!-- 3 PUNTO DE PARTIDA: DOS DIMENSIONES DEL CUERPO -->
+    <section class="slide" data-seccion="punto-partida">
+      <div class="slide-inner">
+        <h2>El punto de partida: dos dimensiones del cuerpo</h2>
+        <p>Hasta ahora hemos utilizado <em>embodied cognition</em> principalmente para analizar la relación:</p>
+        <div class="bloque">
+          <p style="text-align:center; font-size:28px; font-weight:700;">cuerpo → acción → ambiente</p>
+        </div>
+        <p>Pero existe <strong>otra dimensión corporal</strong>: el organismo también posee un estado fisiológico interno que cambia continuamente.</p>
+      </div>
+    </section>
+
+    <!-- 4 VARIABLES INTERNAS -->
+    <section class="slide" data-seccion="punto-partida">
+      <div class="slide-inner">
+        <h2>Variables internas relevantes</h2>
+        <ul>
+          <li>Actividad cardiovascular.</li>
+          <li>Actividad respiratoria.</li>
+          <li>Actividad gastrointestinal.</li>
+          <li>Temperatura corporal.</li>
+          <li>Disponibilidad energética.</li>
+          <li>Señales de hambre y saciedad.</li>
+          <li>Actividad autonómica.</li>
+          <li>Señales asociadas a daño tisular.</li>
+          <li>Cambios hormonales, entre otros.</li>
+        </ul>
+        <div class="bloque dorado" style="margin-top:20px;">
+          <span class="etiqueta">La cuestión cognitiva</span>
+          <p>El sistema nervioso no solamente <strong>regula</strong> estas variables: también <strong>recibe, procesa e integra</strong> información procedente del interior del cuerpo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 EXTEROCEPCIÓN VS INTEROCEPCIÓN -->
+    <section class="slide" data-seccion="punto-partida">
+      <div class="slide-inner">
+        <h2>Una distinción fundamental</h2>
+        <div class="comparativa">
+          <div class="lado visible sensoriomotora">
+            <h4>Exterocepción</h4>
+            <p style="font-size:20px; line-height:1.55;">Procesamiento de información procedente principalmente del <strong>entorno</strong>.</p>
+            <p style="font-size:18px; margin-top:12px;">Ejemplos: una luz, un sonido, la superficie de un objeto.</p>
+          </div>
+          <div class="lado visible interoceptiva">
+            <h4>Interocepción</h4>
+            <p style="font-size:20px; line-height:1.55;">Procesamiento neural y representación de señales relacionadas con el <strong>estado interno del organismo</strong>.</p>
+            <p style="font-size:18px; margin-top:12px;">Señalización aferente, procesamiento central y representación neural y mental de señales corporales internas.</p>
+          </div>
+        </div>
+        <div class="bloque rojo" style="margin-top:20px;">
+          <span class="etiqueta">Precisión importante</span>
+          <p>Interocepción <strong>no significa simplemente</strong> «sentir el cuerpo» de manera consciente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 DEFINICIÓN DE INTEROCEPCIÓN -->
+    <section class="slide" data-seccion="definicion">
+      <div class="slide-inner">
+        <h2>¿Qué es exactamente la interocepción?</h2>
+        <p>Definición consensuada (Khalsa et al., <em>Interoception Summit</em>):</p>
+        <div class="bloque dorado">
+          <p style="font-size:24px; line-height:1.55;">La interocepción es el proceso mediante el cual el sistema nervioso <strong>detecta, interpreta e integra señales originadas dentro del organismo</strong>, generando una representación continuamente actualizada de sus condiciones internas en niveles conscientes y no conscientes.</p>
+        </div>
+        <p>Esta definición contiene varios componentes que conviene separar.</p>
+      </div>
+    </section>
+
+    <!-- 7 COMPONENTE 1: DETECCIÓN -->
+    <section class="slide" data-seccion="definicion">
+      <div class="slide-inner">
+        <h2>Componente 1: detección</h2>
+        <p>Existen modificaciones fisiológicas que pueden generar señalización dentro del organismo.</p>
+        <div class="bloque">
+          <span class="etiqueta">Ejemplo</span>
+          <p>Una persona comienza una actividad física. Se producen modificaciones en frecuencia cardíaca, respiración, actividad autonómica y necesidades metabólicas.</p>
+        </div>
+        <p>El sistema nervioso recibe información relacionada con esas modificaciones. <strong>Todavía no es necesario que la persona sea consciente de ellas.</strong></p>
+      </div>
+    </section>
+
+    <!-- 8 COMPONENTE 2: TRANSMISIÓN Y PROCESAMIENTO -->
+    <section class="slide" data-seccion="definicion">
+      <div class="slide-inner">
+        <h2>Componente 2: transmisión y procesamiento</h2>
+        <p>La información corporal debe ser integrada por el sistema nervioso.</p>
+        <div class="bloque rojo">
+          <span class="etiqueta">Sería incorrecto definir</span>
+          <p>Interocepción = «ser consciente de los cambios del cuerpo».</p>
+        </div>
+        <p>La interocepción también comprende <strong>procesamiento que no alcanza una representación consciente</strong>.</p>
+        <div class="cadena" id="cadena-interocepcion"></div>
+        <button class="btn-animacion" data-anim="cadena-interocepcion">Construir proceso ▶</button>
+      </div>
+    </section>
+
+    <!-- 9 COMPONENTE 3: REPRESENTACIÓN -->
+    <section class="slide" data-seccion="definicion">
+      <div class="slide-inner">
+        <h2>Componente 3: representación</h2>
+        <p>El sistema nervioso integra información acerca del estado actual del organismo. Esto permite mantener una <strong>representación funcional</strong> de variables relevantes.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">La pregunta que se representa</span>
+          <p style="font-size:26px; text-align:center; font-style:italic;">¿Cuál es el estado actual de mi organismo?</p>
+        </div>
+        <p>Determinadas señales pueden contribuir a experiencias conscientes asociadas a:</p>
+        <ul>
+          <li>Hambre, sed, saciedad.</li>
+          <li>Temperatura y respiración.</li>
+          <li>Activación cardiovascular.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10 INTEROCEPCIÓN ≠ PROPIOCEPCIÓN -->
+    <section class="slide" data-seccion="diferencias">
+      <div class="slide-inner">
+        <h2>Interocepción ≠ propiocepción</h2>
+        <p>Son conceptos que los estudiantes suelen confundir.</p>
+        <div class="comparativa">
+          <div class="lado visible sensoriomotora">
+            <h4>Propiocepción</h4>
+            <ul>
+              <li>Posición de las extremidades.</li>
+              <li>Posición corporal.</li>
+              <li>Movimiento corporal.</li>
+              <li>Configuración del aparato musculoesquelético.</li>
+            </ul>
+          </div>
+          <div class="lado visible interoceptiva">
+            <h4>Interocepción</h4>
+            <ul>
+              <li>Procesamiento de señales del medio interno.</li>
+              <li>Estado fisiológico del organismo.</li>
+              <li>Información cardiovascular o respiratoria.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 LOS TRES SISTEMAS -->
+    <section class="slide" data-seccion="diferencias">
+      <div class="slide-inner">
+        <h2>Los tres sistemas, en una tabla</h2>
+        <table class="tabla" id="tabla-tres-sistemas">
+          <thead>
+            <tr>
+              <th>Sistema</th>
+              <th>Información que procesa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fila-anim"><td><strong>Exterocepción</strong></td><td>Condiciones externas</td></tr>
+            <tr class="fila-anim"><td><strong>Propiocepción</strong></td><td>Posición y movimiento corporal</td></tr>
+            <tr class="fila-anim"><td><strong>Interocepción</strong></td><td>Condiciones internas del organismo</td></tr>
+          </tbody>
+        </table>
+        <button class="btn-animacion" data-anim="tabla-tres-sistemas">Mostrar tabla ▶</button>
+        <div class="bloque dorado" style="margin-top:20px;">
+          <span class="etiqueta">Precisión</span>
+          <p>En situaciones reales estos sistemas <strong>interactúan</strong>. La distinción es funcional y conceptual, no implica que operen aisladamente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 DE LA INTEROCEPCIÓN A LA EMOCIÓN: CUESTIÓN HISTÓRICA -->
+    <section class="slide" data-seccion="emocion">
+      <div class="slide-inner">
+        <h2>De la interocepción a la emoción</h2>
+        <p>Diversas teorías de la emoción han sostenido que la experiencia emocional mantiene una relación fundamental con <strong>modificaciones fisiológicas del organismo</strong>.</p>
+        <p>La investigación contemporánea sobre interocepción replantea esta cuestión con herramientas de psicología experimental y neurociencia.</p>
+        <div class="bloque">
+          <span class="etiqueta">Critchley y Garfinkel (2017)</span>
+          <p>Los sentimientos emocionales se relacionan con el procesamiento y representación de señales corporales internas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 EVITAR UNA SIMPLIFICACIÓN -->
+    <section class="slide" data-seccion="emocion">
+      <div class="slide-inner">
+        <h2>Evitemos una simplificación</h2>
+        <div class="bloque rojo">
+          <span class="etiqueta">Formulación simplista (incorrecta)</span>
+          <p style="text-align:center; font-size:26px; font-style:italic;">cambio corporal → emoción específica</p>
+        </div>
+        <p>Una descripción más cuidadosa:</p>
+        <div class="circuito-completo" id="circuito-emocion"></div>
+        <button class="btn-animacion" data-anim="circuito-emocion">Construir circuito ▶</button>
+      </div>
+    </section>
+
+    <!-- 14 FLECHAS BIDIRECCIONALES -->
+    <section class="slide" data-seccion="emocion">
+      <div class="slide-inner">
+        <h2>¿Por qué flechas bidireccionales?</h2>
+        <p>El organismo <strong>no espera pasivamente</strong> la llegada de información corporal.</p>
+        <div class="bloque dorado">
+          <p>La <strong>regulación</strong> y las <strong>expectativas</strong> también pueden modificar la actividad corporal.</p>
+        </div>
+        <p>Se trata de un proceso <strong>recursivo</strong>, no de una secuencia lineal de etapas.</p>
+      </div>
+    </section>
+
+    <!-- 15 CUATRO NIVELES QUE NO SON LO MISMO -->
+    <section class="slide" data-seccion="niveles">
+      <div class="slide-inner">
+        <h2>Estado corporal, emoción y sentimiento no son lo mismo</h2>
+        <p>Imaginemos una estudiante antes de una exposición oral. Podemos distinguir cuatro niveles:</p>
+        <div class="cuatro-niveles" id="cuatro-niveles"></div>
+        <button class="btn-animacion" data-anim="cuatro-niveles">Mostrar niveles ▶</button>
+      </div>
+    </section>
+
+    <!-- 16 LA CLAVE DE LOS CUATRO NIVELES -->
+    <section class="slide" data-seccion="niveles">
+      <div class="slide-inner">
+        <h2>La clave de esta distinción</h2>
+        <div class="bloque rojo">
+          <span class="etiqueta">No asumir</span>
+          <p>Que el <strong>nivel 1</strong> (estado fisiológico) determina automáticamente el <strong>nivel 4</strong> (experiencia emocional).</p>
+        </div>
+        <p>La experiencia emocional incorpora:</p>
+        <ul>
+          <li>Procesamiento del estado corporal.</li>
+          <li>Información contextual.</li>
+          <li>Expectativas.</li>
+          <li>Experiencias anteriores.</li>
+          <li>Otros procesos psicológicos.</li>
+        </ul>
+        <div class="bloque dorado" style="margin-top:20px;">
+          <p>Respuestas interoceptivas similares pueden categorizarse emocionalmente de maneras <strong>diferentes</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 HOMEOSTASIS -->
+    <section class="slide" data-seccion="regulacion">
+      <div class="slide-inner">
+        <h2>Homeostasis</h2>
+        <p>Procesos mediante los cuales el organismo mantiene variables fisiológicas dentro de condiciones compatibles con su funcionamiento.</p>
+        <div class="bloque">
+          <span class="etiqueta">Ejemplo</span>
+          <p>Una persona pasa varias horas sin ingerir alimento. Ocurren cambios fisiológicos y metabólicos que generan señales internas. Dichas señales son integradas por el sistema nervioso y pueden participar en:</p>
+        </div>
+        <ul>
+          <li>Motivación para buscar alimento.</li>
+          <li>Experiencia consciente de hambre.</li>
+          <li>Modificación de prioridades conductuales.</li>
+        </ul>
+        <p>La señal corporal no solo describe el estado: <strong>puede contribuir a organizar la conducta</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 18 ALOSTASIS -->
+    <section class="slide" data-seccion="regulacion">
+      <div class="slide-inner">
+        <h2>Alostasis</h2>
+        <p>La regulación no consiste exclusivamente en corregir un cambio después de que ocurra. El organismo también puede <strong>anticipar demandas futuras</strong> y ajustar su funcionamiento.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">Definición</span>
+          <p>Procesos regulatorios en los cuales el organismo ajusta su actividad en función de demandas <strong>previstas o cambiantes</strong>.</p>
+        </div>
+        <div class="cadena">
+          <div class="eslabon visible inicio">Experiencia anterior</div>
+          <div class="flecha-cadena visible">↓</div>
+          <div class="eslabon visible">Predicción</div>
+          <div class="flecha-cadena visible">↓</div>
+          <div class="eslabon visible">Regulación corporal</div>
+          <div class="flecha-cadena visible">↓</div>
+          <div class="eslabon visible final">Acción</div>
+        </div>
+        <p>Ya no tenemos solo un cerebro respondiendo a señales fisiológicas, sino sistemas que <strong>regulan activamente</strong> el organismo en función de las condiciones presentes y esperadas.</p>
+      </div>
+    </section>
+
+    <!-- 19 DOS DIMENSIONES DE CORPOREIZACIÓN -->
+    <section class="slide" data-seccion="regulacion">
+      <div class="slide-inner">
+        <h2>Dos dimensiones de la corporeización</h2>
+        <p>La interocepción permite añadir una dimensión a la cognición corporeizada:</p>
+        <div class="comparativa">
+          <div class="lado visible sensoriomotora">
+            <h4>Corporeización sensoriomotora</h4>
+            <ul>
+              <li>Percepción.</li>
+              <li>Movimiento.</li>
+              <li>Acción.</li>
+              <li>Posibilidades corporales.</li>
+            </ul>
+          </div>
+          <div class="lado visible interoceptiva">
+            <h4>Corporeización interoceptiva</h4>
+            <ul>
+              <li>Estados internos.</li>
+              <li>Señales fisiológicas.</li>
+              <li>Regulación corporal.</li>
+              <li>Representaciones internas del cuerpo.</li>
+            </ul>
+          </div>
+        </div>
+        <p style="text-align:center; font-size:22px; margin-top:20px;">Ambas pueden <strong>coexistir</strong> en una misma situación.</p>
+      </div>
+    </section>
+
+    <!-- 20 HIPÓTESIS DEL MARCADOR SOMÁTICO -->
+    <section class="slide" data-seccion="marcador-somatico">
+      <div class="slide-inner">
+        <h2>La hipótesis del marcador somático</h2>
+        <p>Su principal formulación está asociada con <strong>Antonio R. Damasio</strong>.</p>
+        <div class="bloque">
+          <span class="etiqueta">Origen</span>
+          <p>La propuesta se desarrolló a partir de observaciones de pacientes con lesiones cerebrales que mostraban dificultades importantes para tomar decisiones ventajosas pese a conservar diversas capacidades intelectuales.</p>
+        </div>
+        <p>Fue desarrollada durante los años noventa y expuesta ampliamente en <em>Descartes' Error</em> (1994).</p>
+      </div>
+    </section>
+
+    <!-- 21 IDEA CENTRAL DEL MARCADOR SOMÁTICO -->
+    <section class="slide" data-seccion="marcador-somatico">
+      <div class="slide-inner">
+        <h2>La idea central</h2>
+        <p>Las consecuencias de experiencias anteriores pueden quedar <strong>asociadas con estados corporales y emocionales</strong>.</p>
+        <p>Frente a una decisión posterior, señales relacionadas con esos estados pueden contribuir a:</p>
+        <ul>
+          <li>Favorecer determinadas opciones.</li>
+          <li>Desalentar otras.</li>
+          <li>Priorizar alternativas.</li>
+          <li>Orientar el procesamiento de posibles consecuencias.</li>
+        </ul>
+        <div class="bloque dorado" style="margin-top:20px;">
+          <p>Damasio propuso que estas señales pueden influir en la selección de respuestas tanto <strong>consciente como no conscientemente</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22 IOWA GAMBLING TASK -->
+    <section class="slide" data-seccion="igt">
+      <div class="slide-inner">
+        <h2>Un caso experimental: Iowa Gambling Task</h2>
+        <p>Los participantes toman repetidamente decisiones entre diferentes mazos cuyos patrones de ganancias y pérdidas son distintos.</p>
+        <div class="bloque">
+          <span class="etiqueta">La pregunta fundamental</span>
+          <p>¿Cómo aprende una persona a evitar las elecciones desfavorables?</p>
+        </div>
+        <p>La hipótesis del marcador somático sostiene que las respuestas corporales relacionadas con experiencias anteriores pueden contribuir a orientar decisiones posteriores.</p>
+        <p>Bechara, Damasio, Tranel y Damasio utilizaron este paradigma para investigar la relación entre señales afectivas y decisiones.</p>
+      </div>
+    </section>
+
+    <!-- 23 ADVERTENCIA SOBRE LA IGT -->
+    <section class="slide" data-seccion="igt">
+      <div class="slide-inner">
+        <h2>Aquí debemos ser especialmente rigurosos</h2>
+        <div class="bloque rojo">
+          <span class="etiqueta">Lo que NO sería correcto enseñar</span>
+          <p style="text-align:center; font-size:24px; font-style:italic;">«La Iowa Gambling Task demostró la teoría de Damasio».</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">Formulación adecuada</span>
+          <p>La IGT proporcionó un <strong>paradigma experimental importante</strong> para estudiar la relación entre estados emocionales, respuestas fisiológicas y toma de decisiones, pero la interpretación de sus resultados respecto de la hipótesis del marcador somático <strong>continúa siendo discutida</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24 EL DEBATE SOBRE LA IGT -->
+    <section class="slide" data-seccion="igt">
+      <div class="slide-inner">
+        <h2>El debate en torno a la IGT</h2>
+        <div class="bloque">
+          <span class="etiqueta">Interpretaciones originales</span>
+          <p>Fueron cuestionadas porque los participantes podían poseer más conocimiento explícito de las contingencias de la tarea de lo que inicialmente se había supuesto.</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">Respuesta de Bechara y colaboradores</span>
+          <p>La hipótesis del marcador somático <strong>no requiere ausencia de conocimiento consciente</strong>. Plantea que señales relacionadas con emociones pueden contribuir a los procesos cognitivos incluso cuando no son conscientes.</p>
+        </div>
+        <p>Revisiones posteriores también han señalado resultados mixtos y dificultades para interpretar la IGT como confirmación exclusiva de la hipótesis.</p>
+      </div>
+    </section>
+
+    <!-- 25 PROCESAMIENTO PREDICTIVO: CAMBIO TEÓRICO -->
+    <section class="slide" data-seccion="predictivo">
+      <div class="slide-inner">
+        <h2>Una perspectiva contemporánea: el cerebro no solo recibe, también predice</h2>
+        <p>Los enfoques recientes sobre interocepción incorporan modelos de <strong>procesamiento predictivo interoceptivo</strong>.</p>
+        <div class="bloque dorado">
+          <span class="etiqueta">Critchley y Garfinkel</span>
+          <p>Señalan este desarrollo como una línea contemporánea para explicar emociones y aspectos relacionados con el sentido de sí mismo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 CÓMO FUNCIONA LA PREDICCIÓN INTEROCEPTIVA -->
+    <section class="slide" data-seccion="predictivo">
+      <div class="slide-inner">
+        <h2>Cómo funciona la predicción interoceptiva</h2>
+        <p>El sistema nervioso posee información derivada de:</p>
+        <ul>
+          <li>Estados corporales anteriores.</li>
+          <li>Necesidades regulatorias.</li>
+          <li>Condiciones ambientales.</li>
+          <li>Expectativas acerca de estados corporales.</li>
+        </ul>
+        <div class="cadena">
+          <div class="eslabon visible inicio">Estado corporal esperado</div>
+          <div class="flecha-cadena visible">↓</div>
+          <div class="eslabon visible">Comparación</div>
+          <div class="flecha-cadena visible">↑</div>
+          <div class="eslabon visible">Señales corporales actuales</div>
+          <div class="flecha-cadena visible">↓</div>
+          <div class="eslabon visible">Diferencia entre predicción y señal</div>
+          <div class="flecha-cadena visible">↓</div>
+          <div class="eslabon visible final">Actualización y/o regulación</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 27 LA PREGUNTA CAMBIA -->
+    <section class="slide" data-seccion="predictivo">
+      <div class="slide-inner">
+        <h2>La pregunta clásica cambia</h2>
+        <div class="comparativa">
+          <div class="lado visible">
+            <h4>Pregunta clásica</h4>
+            <p style="font-size:21px; line-height:1.55;">¿Cómo percibimos una señal producida por el cuerpo?</p>
+          </div>
+          <div class="lado visible">
+            <h4>Pregunta contemporánea</h4>
+            <p style="font-size:21px; line-height:1.55;">¿Cómo genera el sistema nervioso <strong>expectativas</strong> acerca del estado corporal y <strong>regula el organismo</strong> en función de ellas?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 28 DIMENSIONES INDIVIDUALES -->
+    <section class="slide" data-seccion="dimensiones">
+      <div class="slide-inner">
+        <h2>No todas las personas perciben sus señales internas de la misma manera</h2>
+        <p>La interocepción <strong>no puede tratarse como una capacidad única</strong> de la cual una persona posee «mucha» o «poca».</p>
+        <div class="tarjetas" id="tarjetas-dimensiones"></div>
+        <button class="btn-animacion" data-anim="tarjetas-dimensiones">Mostrar dimensiones ▶</button>
+      </div>
+    </section>
+
+    <!-- 29 PROBLEMAS METODOLÓGICOS -->
+    <section class="slide" data-seccion="dimensiones">
+      <div class="slide-inner">
+        <h2>Advertencia metodológica</h2>
+        <p>Dos personas pueden decir «Soy muy consciente de mi cuerpo» y presentar desempeños <strong>diferentes</strong> en tareas experimentales.</p>
+        <div class="bloque rojo">
+          <span class="etiqueta">Limitación actual</span>
+          <p>La definición y medición del constructo <strong>no han sido uniformes</strong>. Existen limitaciones que deben considerarse al interpretar los resultados.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 30 CIRCUITO COMPLETO DE LA EMOCIÓN -->
+    <section class="slide" data-seccion="circuito">
+      <div class="slide-inner">
+        <h2>¿Qué relación tiene esto con las emociones?</h2>
+        <p>Una emoción puede implicar simultáneamente:</p>
+        <div class="circuito-completo" id="circuito-completo-emocion"></div>
+        <button class="btn-animacion" data-anim="circuito-completo-emocion">Construir circuito ▶</button>
+      </div>
+    </section>
+
+    <!-- 31 AFIRMACIÓN PRECISA -->
+    <section class="slide" data-seccion="circuito">
+      <div class="slide-inner">
+        <h2>La afirmación precisa</h2>
+        <div class="bloque dorado">
+          <p style="font-size:26px; line-height:1.55;">Parte de la información disponible para constituir y regular una experiencia emocional <strong>procede del estado del propio organismo</strong>.</p>
+        </div>
+        <p>Esta afirmación es considerablemente más precisa que decir:</p>
+        <div class="bloque rojo">
+          <p style="text-align:center; font-size:26px; font-style:italic;">«Las emociones están en el cuerpo».</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 32 EJEMPLO COMPLETO: ESTUDIANTE ANTE EXAMEN -->
+    <section class="slide" data-seccion="ejemplo">
+      <div class="slide-inner">
+        <h2>El ejemplo completo: estudiante antes de un examen</h2>
+        <p><strong>Contexto:</strong> una estudiante llega al aula donde realizará un examen final.</p>
+        <div class="cadena" id="cadena-ejemplo-examen"></div>
+        <button class="btn-animacion" data-anim="cadena-ejemplo-examen">Construir secuencia ▶</button>
+      </div>
+    </section>
+
+    <!-- 33 EL PROCESO ES RECURSIVO -->
+    <section class="slide" data-seccion="ejemplo">
+      <div class="slide-inner">
+        <h2>El proceso es recursivo</h2>
+        <div class="paso-circuito visible cuerpo">CUERPO</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible intero">SEÑALES INTERNAS</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible intero">INTEROCEPCIÓN</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible intero">REPRESENTACIÓN CORPORAL</div>
+        <div class="flecha-cadena visible">↕</div>
+        <div class="paso-circuito visible emocion">CONTEXTO + EXPECTATIVAS + MEMORIA</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible emocion">EXPERIENCIA EMOCIONAL</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible cognicion">COGNICIÓN Y ACCIÓN</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible regulacion">REGULACIÓN CORPORAL</div>
+        <div class="flecha-cadena visible">↓</div>
+        <div class="paso-circuito visible regulacion">NUEVO ESTADO CORPORAL</div>
+      </div>
+    </section>
+
+    <!-- 34 ¿ENTONCES LA EMOCIÓN PROVIENE DEL CUERPO? -->
+    <section class="slide" data-seccion="cuatro-niveles-fuerza">
+      <div class="slide-inner">
+        <h2>¿Entonces la emoción proviene del cuerpo?</h2>
+        <p><strong>No en ese sentido fuerte.</strong></p>
+        <p>La evidencia permite defender razonablemente que las señales y representaciones corporales <strong>contribuyen</strong> a la experiencia emocional, pero esto es diferente de sostener que una emoción sea <strong>solamente</strong> la percepción de cambios fisiológicos.</p>
+      </div>
+    </section>
+
+    <!-- 35 LOS CUATRO NIVELES DE FUERZA -->
+    <section class="slide" data-seccion="cuatro-niveles-fuerza">
+      <div class="slide-inner">
+        <h2>Los cuatro niveles de fuerza</h2>
+        <div class="espectro" id="espectro-fuerza"></div>
+        <button class="btn-animacion" data-anim="espectro-fuerza">Mostrar espectro ▶</button>
+        <div class="bloque rojo" style="margin-top:20px;">
+          <span class="etiqueta">Precaución conceptual</span>
+          <p>La evidencia de <strong>influencia</strong> o <strong>participación</strong> no demuestra automáticamente <strong>necesidad</strong> o <strong>constitución</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 36 INTEROCEPCIÓN Y SALUD MENTAL -->
+    <section class="slide" data-seccion="salud-mental">
+      <div class="slide-inner">
+        <h2>Interocepción y salud mental</h2>
+        <p>El consenso del <em>Interoception Summit</em> identifica alteraciones interoceptivas como componentes potencialmente relevantes en diferentes condiciones relacionadas con:</p>
+        <ul>
+          <li>Ansiedad.</li>
+          <li>Trastornos del estado de ánimo.</li>
+          <li>Trastornos alimentarios.</li>
+          <li>Adicciones.</li>
+          <li>Síntomas somáticos.</li>
+        </ul>
+        <p>Una revisión en español (Pizarro y Ceric, 2023) también informa asociaciones entre procesos interoceptivos atípicos y sintomatología presente en alexitimia, depresión, ansiedad y trastornos somáticos.</p>
+      </div>
+    </section>
+
+    <!-- 37 ADVERTENCIA SOBRE SALUD MENTAL -->
+    <section class="slide" data-seccion="salud-mental">
+      <div class="slide-inner">
+        <h2>Una precaución importante</h2>
+        <div class="bloque rojo">
+          <span class="etiqueta">Distinción necesaria</span>
+          <p>Encontrar una <strong>asociación</strong> entre interocepción y un trastorno <strong>no significa</strong> que una alteración interoceptiva sea necesariamente su <strong>causa</strong>.</p>
+        </div>
+        <p>Debe distinguirse entre:</p>
+        <ul>
+          <li>Correlación.</li>
+          <li>Mecanismo causal.</li>
+          <li>Factor de mantenimiento.</li>
+          <li>Consecuencia.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 38 LAS CINCO PIEZAS -->
+    <section class="slide" data-seccion="cinco-piezas">
+      <div class="slide-inner">
+        <h2>Las cinco piezas que el estudiante debería poder distinguir</h2>
+        <div class="cadena" id="cadena-cinco-piezas"></div>
+        <button class="btn-animacion" data-anim="cadena-cinco-piezas">Construir cadena ▶</button>
+      </div>
+    </section>
+
+    <!-- 39 CONCEPTOS ADICIONALES -->
+    <section class="slide" data-seccion="cinco-piezas">
+      <div class="slide-inner">
+        <h2>Y simultáneamente necesitamos distinguir</h2>
+        <div class="bloque">
+          <span class="etiqueta">Homeostasis</span>
+          <p>Regulación de condiciones fisiológicas.</p>
+        </div>
+        <div class="bloque dorado">
+          <span class="etiqueta">Alostasis</span>
+          <p>Regulación ajustada a necesidades y demandas anticipadas.</p>
+        </div>
+        <div class="bloque verde">
+          <span class="etiqueta">Marcador somático</span>
+          <p>Hipótesis específica de Damasio acerca de cómo determinadas señales asociadas con estados corporales y emocionales contribuyen a orientar decisiones.</p>
+        </div>
+        <div class="bloque rojo">
+          <span class="etiqueta">Procesamiento interoceptivo predictivo</span>
+          <p>Familia de modelos que estudia cómo predicciones acerca del estado corporal interactúan con señales interoceptivas para contribuir a percepción corporal, regulación y experiencia afectiva.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 40 PROGRESIÓN HISTÓRICA -->
+    <section class="slide" data-seccion="debate">
+      <div class="slide-inner">
+        <h2>Dónde está realmente el debate teórico</h2>
+        <p>Hay una progresión histórica muy productiva:</p>
+        <div class="cadena" id="cadena-progresion"></div>
+        <button class="btn-animacion" data-anim="cadena-progresion">Construir progresión ▶</button>
+      </div>
+    </section>
+
+    <!-- 41 LA FORMULACIÓN FINAL -->
+    <section class="slide" data-seccion="debate">
+      <div class="slide-inner">
+        <h2>Una formulación final</h2>
+        <div class="bloque dorado">
+          <p style="font-size:24px; line-height:1.55;">Una perspectiva corporeizada de la emoción <strong>no sostiene simplemente</strong> que una emoción produce cambios corporales. Investiga si la <strong>regulación y representación del estado corporal</strong> participan causal o constitutivamente en la producción de experiencias afectivas, decisiones y conductas.</p>
+        </div>
+        <p>Y esta diferencia —entre que el cuerpo cambie durante una emoción y que la información corporal participe en la constitución y regulación del proceso emocional— es precisamente uno de los puntos más importantes para comprender la dimensión interoceptiva de la cognición corporeizada.</p>
+      </div>
+    </section>
+
+    <!-- 42 SÍNTESIS -->
+    <section class="slide" data-seccion="sintesis">
+      <div class="slide-inner">
+        <h2>Síntesis: conceptos clave</h2>
+        <div class="conclusiones" id="lista-sintesis"></div>
+        <button class="btn-animacion" data-anim="sintesis">Mostrar síntesis ▶</button>
+      </div>
+    </section>
+
+    <!-- 43 CONCLUSIONES -->
+    <section class="slide" data-seccion="conclusiones">
+      <div class="slide-inner">
+        <h2>Conclusiones</h2>
+        <div class="conclusiones" id="lista-conclusiones"></div>
+        <button class="btn-animacion" data-anim="conclusiones">Mostrar conclusiones ▶</button>
+      </div>
+    </section>
+
+    <!-- 44 REFERENCIAS -->
+    <section class="slide" data-seccion="referencias">
+      <div class="slide-inner">
+        <h2>Referencias</h2>
+        <div class="refs" id="lista-referencias"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="nav-inferior">
+    <button class="btn-nav" id="btn-anterior" disabled>← Anterior</button>
+    <div id="indicador-progreso">
+      <span id="num-diapositiva">1 / 45</span>
+      <div id="barra-progreso"><div class="relleno" id="relleno-progreso"></div></div>
+    </div>
+    <button class="btn-nav" id="btn-siguiente">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATOS DE SECCIONES
+   ============================================================ */
+var secciones = [
+  { id: 'portada', nombre: 'Portada', icono: '◆' },
+  { id: 'resultados', nombre: 'Resultados de aprendizaje', icono: '★' },
+  { id: 'indice', nombre: 'Índice', icono: '☰' },
+  { id: 'punto-partida', nombre: 'Punto de partida', icono: '1' },
+  { id: 'definicion', nombre: '¿Qué es la interocepción?', icono: '2' },
+  { id: 'diferencias', nombre: 'Interocepción ≠ propiocepción', icono: '3' },
+  { id: 'emocion', nombre: 'De la interocepción a la emoción', icono: '4' },
+  { id: 'niveles', nombre: 'Estado corporal ≠ emoción', icono: '5' },
+  { id: 'regulacion', nombre: 'Homeostasis y alostasis', icono: '6' },
+  { id: 'marcador-somatico', nombre: 'Hipótesis del marcador somático', icono: '7' },
+  { id: 'igt', nombre: 'Iowa Gambling Task', icono: '8' },
+  { id: 'predictivo', nombre: 'Procesamiento predictivo', icono: '9' },
+  { id: 'dimensiones', nombre: 'Dimensiones individuales', icono: '10' },
+  { id: 'circuito', nombre: 'Circuito completo de la emoción', icono: '11' },
+  { id: 'ejemplo', nombre: 'Ejemplo: examen', icono: '12' },
+  { id: 'cuatro-niveles-fuerza', nombre: 'Cuatro niveles de fuerza', icono: '13' },
+  { id: 'salud-mental', nombre: 'Salud mental', icono: '14' },
+  { id: 'cinco-piezas', nombre: 'Las cinco piezas', icono: '15' },
+  { id: 'debate', nombre: 'El debate teórico', icono: '16' },
+  { id: 'sintesis', nombre: 'Síntesis', icono: '17' },
+  { id: 'conclusiones', nombre: 'Conclusiones', icono: '✓' },
+  { id: 'referencias', nombre: 'Referencias', icono: '18' }
+];
+
+var indiceActual = 0;
+var slides = [];
+var seccionesMap = {};
+var animaciones = {};
+
+/* ============================================================
+   INICIALIZACIÓN
+   ============================================================ */
+window.addEventListener('load', function() {
+  slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  construirNavegacion();
+  construirIndice();
+  construirResultados();
+  construirCadenaInterocepcion();
+  construirCircuitoEmocion();
+  construirCuatroNiveles();
+  construirTarjetasDimensiones();
+  construirCircuitoCompletoEmocion();
+  construirCadenaEjemploExamen();
+  construirEspectroFuerza();
+  construirCadenaCincoPiezas();
+  construirCadenaProgresion();
+  construirSintesis();
+  construirConclusiones();
+  construirReferencias();
+  configurarEventos();
+  configurarBotonesAnimacion();
+  actualizarSlide(0, true);
+});
+
+/* ============================================================
+   NAVEGACIÓN LATERAL
+   ============================================================ */
+function construirNavegacion() {
+  var nav = document.getElementById('nav-secciones');
+  secciones.forEach(function(sec) {
+    var a = document.createElement('a');
+    a.href = '#';
+    a.innerHTML = '<span class="num">' + sec.icono + '</span>' + sec.nombre;
+    a.dataset.seccion = sec.id;
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      irASeccion(sec.id);
+    });
+    nav.appendChild(a);
+  });
+
+  secciones.forEach(function(sec) { seccionesMap[sec.id] = []; });
+  slides.forEach(function(slide, i) {
+    var sec = slide.dataset.seccion;
+    if (seccionesMap[sec]) seccionesMap[sec].push(i);
+  });
+}
+
+function irASeccion(secId) {
+  var indices = seccionesMap[secId];
+  if (indices && indices.length > 0) actualizarSlide(indices[0]);
+}
+
+function actualizarNavActiva() {
+  var secActual = slides[indiceActual].dataset.seccion;
+  var enlaces = document.querySelectorAll('#nav-secciones a');
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].classList.toggle('activa', enlaces[i].dataset.seccion === secActual);
+  }
+}
+
+/* ============================================================
+   CONSTRUCCIÓN DE CONTENIDO
+   ============================================================ */
+function construirIndice() {
+  var grid = document.getElementById('grid-indice');
+  var items = [
+    { num: '1', texto: 'Punto de partida: el cuerpo tiene estados internos' },
+    { num: '2', texto: '¿Qué es exactamente la interocepción?' },
+    { num: '3', texto: 'Interocepción ≠ propiocepción' },
+    { num: '4', texto: 'De la interocepción a la emoción' },
+    { num: '5', texto: 'Estado corporal ≠ emoción ≠ sentimiento' },
+    { num: '6', texto: 'Homeostasis y alostasis' },
+    { num: '7', texto: 'Hipótesis del marcador somático' },
+    { num: '8', texto: 'Iowa Gambling Task' },
+    { num: '9', texto: 'Procesamiento interoceptivo predictivo' },
+    { num: '10', texto: 'Dimensiones individuales' },
+    { num: '11', texto: 'Circuito completo de la emoción' },
+    { num: '12', texto: 'Ejemplo: estudiante antes del examen' }
+  ];
+  items.forEach(function(item, i) {
+    var div = document.createElement('div');
+    div.className = 'item-indice';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="num-indice">' + item.num + '</div><span>' + item.texto + '</span>';
+    grid.appendChild(div);
+  });
+}
+
+function construirResultados() {
+  var contenedor = document.getElementById('lista-resultados');
+  var resultados = [
+    { titulo: 'Comprender la interocepción como proceso', desc: 'Reconocer que no se reduce a «sentir el cuerpo» conscientemente, sino que incluye detección, transmisión, procesamiento y representación en niveles conscientes y no conscientes.' },
+    { titulo: 'Distinguir interocepción, propiocepción y exterocepción', desc: 'Diferenciar los tres sistemas y comprender que la distinción es funcional y conceptual, no implica que operen aisladamente.' },
+    { titulo: 'Comprender el papel de la interocepción en la emoción', desc: 'Distinguir entre estado fisiológico, procesamiento interoceptivo, experiencia consciente y experiencia emocional situada.' },
+    { titulo: 'Evaluar críticamente la hipótesis del marcador somático', desc: 'Reconocer que la Iowa Gambling Task proporcionó un paradigma importante, pero que la interpretación de sus resultados respecto de la hipótesis sigue siendo discutida.' },
+    { titulo: 'Distinguir grados de fuerza teórica', desc: 'Diferenciar entre influencia, participación, necesidad y constitución, y comprender que la evidencia de las dos primeras no demuestra automáticamente las dos últimas.' }
+  ];
+  resultados.forEach(function(r, i) {
+    var div = document.createElement('div');
+    div.className = 'resultado';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="num-resultado">' + (i + 1) + '</div>' +
+      '<div class="texto-resultado"><h4>' + r.titulo + '</h4><p>' + r.desc + '</p></div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirCadenaInterocepcion() {
+  var contenedor = document.getElementById('cadena-interocepcion');
+  var pasos = [
+    'Estado interno del organismo',
+    'Señalización corporal',
+    'Procesamiento nervioso',
+    'Integración de información',
+    'Representación del estado corporal',
+    'Posible experiencia consciente'
+  ];
+  pasos.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'eslabon' + (i === 0 ? ' inicio' : '') + (i === pasos.length - 1 ? ' opcional' : '');
+    div.dataset.animIndex = i;
+    div.textContent = p;
+    contenedor.appendChild(div);
+    if (i < pasos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirCircuitoEmocion() {
+  var contenedor = document.getElementById('circuito-emocion');
+  var pasos = [
+    { texto: 'Situación', tipo: 'cuerpo' },
+    { texto: 'Procesamiento del acontecimiento', tipo: 'cuerpo' },
+    { texto: 'Modificaciones corporales', tipo: 'intero', bidireccional: true },
+    { texto: 'Procesamiento interoceptivo', tipo: 'intero', bidireccional: true },
+    { texto: 'Memoria, expectativas y contexto', tipo: 'emocion' },
+    { texto: 'Experiencia afectiva', tipo: 'emocion' }
+  ];
+  pasos.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'paso-circuito ' + p.tipo;
+    div.dataset.animIndex = i;
+    div.textContent = p.texto;
+    contenedor.appendChild(div);
+    if (i < pasos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena' + (pasos[i + 1].bidireccional || p.bidireccional ? ' bidireccional' : '');
+      flecha.dataset.animIndex = i;
+      flecha.textContent = (pasos[i + 1].bidireccional || p.bidireccional) ? '↕' : '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirCuatroNiveles() {
+  var contenedor = document.getElementById('cuatro-niveles');
+  var niveles = [
+    { clase: 'n1', titulo: 'Nivel 1. Estado fisiológico', desc: 'Incremento de frecuencia cardíaca, cambios respiratorios, sudoración, tensión muscular.' },
+    { clase: 'n2', titulo: 'Nivel 2. Procesamiento interoceptivo', desc: 'El sistema nervioso recibe y procesa información relacionada con esos cambios.' },
+    { clase: 'n3', titulo: 'Nivel 3. Experiencia consciente', desc: '«Mi corazón está latiendo con mayor intensidad».' },
+    { clase: 'n4', titulo: 'Nivel 4. Experiencia emocional', desc: '«Estoy ansiosa por la presentación».' }
+  ];
+  niveles.forEach(function(n, i) {
+    var div = document.createElement('div');
+    div.className = 'nivel-cuatro ' + n.clase;
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + n.titulo + '</h4><p>' + n.desc + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirTarjetasDimensiones() {
+  var contenedor = document.getElementById('tarjetas-dimensiones');
+  var dimensiones = [
+    { titulo: 'Rendimiento interoceptivo', desc: 'Qué tan adecuadamente una persona realiza determinada tarea experimental relacionada con información corporal.' },
+    { titulo: 'Experiencia subjetiva interoceptiva', desc: 'Cómo informa la persona acerca de su percepción y atención hacia señales corporales.' },
+    { titulo: 'Conciencia o metacognición interoceptiva', desc: 'Hasta qué punto la confianza que la persona tiene sobre su propio desempeño corresponde con su rendimiento.' }
+  ];
+  dimensiones.forEach(function(d, i) {
+    var div = document.createElement('div');
+    div.className = 'tarjeta';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + d.titulo + '</h4><p>' + d.desc + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirCircuitoCompletoEmocion() {
+  var contenedor = document.getElementById('circuito-completo-emocion');
+  var pasos = [
+    { texto: 'Acontecimiento o situación', tipo: 'cuerpo' },
+    { texto: 'Evaluación y procesamiento cognitivo', tipo: 'cognicion' },
+    { texto: 'Cambios autonómicos y corporales', tipo: 'cuerpo' },
+    { texto: 'Procesamiento interoceptivo', tipo: 'intero' },
+    { texto: 'Expectativas y experiencias anteriores', tipo: 'emocion' },
+    { texto: 'Experiencia emocional', tipo: 'emocion' },
+    { texto: 'Preparación y regulación de la conducta', tipo: 'regulacion' }
+  ];
+  pasos.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'paso-circuito';
+    div.dataset.animIndex = i;
+    div.textContent = p.texto;
+    if (p.tipo === 'cuerpo') div.style.background = '#EBF0F7';
+    else if (p.tipo === 'intero') { div.style.background = '#FDF9EE'; div.style.borderLeftColor = 'var(--dorado)'; }
+    else if (p.tipo === 'emocion') { div.style.background = '#EBF7EE'; div.style.borderLeftColor = 'var(--verde)'; }
+    else if (p.tipo === 'cognicion') { div.style.background = '#FDF0F0'; div.style.borderLeftColor = 'var(--rojo)'; }
+    else if (p.tipo === 'regulacion') { div.style.background = 'var(--azul-oscuro)'; div.style.color = 'var(--dorado)'; div.style.borderLeftColor = 'var(--dorado)'; }
+    contenedor.appendChild(div);
+    if (i < pasos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirCadenaEjemploExamen() {
+  var contenedor = document.getElementById('cadena-ejemplo-examen');
+  var pasos = [
+    'Estado corporal: frecuencia cardíaca aumenta, respiración cambia',
+    'Interocepción: señales cardiovasculares y respiratorias son procesadas',
+    'Representación corporal: parte de esos cambios se representa',
+    'Experiencia consciente: «Mi corazón está latiendo con intensidad»',
+    'Contexto: sabe que es un examen difícil',
+    'Experiencia emocional: interpreta su estado como ansiedad',
+    'Cognición: atención, anticipación, evaluación de amenaza, estrategias',
+    'Regulación: modifica respiración, postura o atención'
+  ];
+  pasos.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'eslabon' + (i === 0 ? ' inicio' : '') + (i === pasos.length - 1 ? ' final' : '');
+    div.dataset.animIndex = i;
+    div.textContent = p;
+    contenedor.appendChild(div);
+    if (i < pasos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirEspectroFuerza() {
+  var contenedor = document.getElementById('espectro-fuerza');
+  var posiciones = [
+    { clase: 'influencia', titulo: 'Influencia', desc: 'Los estados corporales pueden modificar procesos emocionales y cognitivos.' },
+    { clase: 'participacion', titulo: 'Participación', desc: 'El procesamiento de señales corporales participa sistemáticamente en determinados procesos emocionales.' },
+    { clase: 'necesidad', titulo: 'Necesidad', desc: 'Determinados procesos interoceptivos serían necesarios para una experiencia emocional específica.' },
+    { clase: 'constitucion', titulo: 'Constitución', desc: 'Componentes interoceptivos formarían parte constitutiva de la emoción correspondiente.' }
+  ];
+  posiciones.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'posicion-espectro ' + p.clase;
+    div.dataset.animIndex = i;
+    div.innerHTML = '<h4>' + p.titulo + '</h4><p>' + p.desc + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirCadenaCincoPiezas() {
+  var contenedor = document.getElementById('cadena-cinco-piezas');
+  var piezas = [
+    { num: '1', texto: 'Estado corporal: condición fisiológica real del organismo' },
+    { num: '2', texto: 'Interocepción: procesamiento de señales originadas en el interior del organismo' },
+    { num: '3', texto: 'Representación corporal: información integrada acerca del estado interno' },
+    { num: '4', texto: 'Experiencia emocional: estado afectivo en cuya generación y regulación puede participar la información corporal' },
+    { num: '5', texto: 'Regulación y decisión: procesos mediante los cuales información corporal, cognitiva, afectiva y contextual contribuye a seleccionar y modificar acciones' }
+  ];
+  piezas.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'eslabon' + (i === 0 ? ' inicio' : '') + (i === piezas.length - 1 ? ' final' : '');
+    div.dataset.animIndex = i;
+    div.innerHTML = '<span class="num-eslabon">' + p.num + '</span>' + p.texto;
+    contenedor.appendChild(div);
+    if (i < piezas.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirCadenaProgresion() {
+  var contenedor = document.getElementById('cadena-progresion');
+  var pasos = [
+    'Primera pregunta: ¿Los cambios corporales participan en las emociones?',
+    'Segunda pregunta: ¿Cómo detecta y representa el sistema nervioso el estado interno del organismo?',
+    'Tercera pregunta: ¿Cómo contribuyen esas representaciones corporales a sentimientos y emociones?',
+    'Cuarta pregunta: ¿Cómo intervienen estados emocionales e interoceptivos en procesos cognitivos como la toma de decisiones?',
+    'Pregunta contemporánea: ¿El sistema nervioso solamente representa el estado corporal actual o también predice y regula activamente estados corporales?'
+  ];
+  pasos.forEach(function(p, i) {
+    var div = document.createElement('div');
+    div.className = 'eslabon' + (i === 0 ? ' inicio' : '') + (i === pasos.length - 1 ? ' final' : '');
+    div.dataset.animIndex = i;
+    div.textContent = p;
+    contenedor.appendChild(div);
+    if (i < pasos.length - 1) {
+      var flecha = document.createElement('div');
+      flecha.className = 'flecha-cadena';
+      flecha.dataset.animIndex = i;
+      flecha.textContent = '↓';
+      contenedor.appendChild(flecha);
+    }
+  });
+}
+
+function construirSintesis() {
+  var contenedor = document.getElementById('lista-sintesis');
+  var sintesis = [
+    { icono: '◆', texto: 'La <strong>interocepción</strong> es el proceso mediante el cual el sistema nervioso detecta, interpreta e integra señales originadas dentro del organismo.' },
+    { icono: '◆', texto: 'Incluye procesamiento en niveles <strong>conscientes y no conscientes</strong>. No se reduce a «sentir el cuerpo».' },
+    { icono: '◆', texto: 'Debe distinguirse de la <strong>propiocepción</strong> (posición y movimiento corporal) y de la <strong>exterocepción</strong> (condiciones externas).' },
+    { icono: '◆', texto: 'La interocepción participa en la <strong>regulación corporal</strong>, la <strong>experiencia emocional</strong> y determinados procesos cognitivos.' },
+    { icono: '◆', texto: 'Deben distinguirse cuatro niveles: <strong>estado fisiológico</strong>, <strong>procesamiento interoceptivo</strong>, <strong>experiencia consciente</strong> y <strong>experiencia emocional situada</strong>.' },
+    { icono: '◆', texto: 'La <strong>hipótesis del marcador somático</strong> sostiene que señales asociadas con estados corporales y emocionales contribuyen a orientar decisiones. La IGT proporcionó un paradigma importante, pero su interpretación sigue siendo discutida.' },
+    { icono: '◆', texto: 'Los modelos de <strong>procesamiento predictivo interoceptivo</strong> incorporan la idea de que el sistema nervioso no solo recibe señales, sino que también genera expectativas y regula activamente el organismo.' },
+    { icono: '◆', texto: 'Conviene distinguir <strong>influencia, participación, necesidad y constitución</strong>. La evidencia de las dos primeras no demuestra automáticamente las dos últimas.' }
+  ];
+  sintesis.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'conclusion';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="icono-conclusion">' + c.icono + '</div><p>' + c.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirConclusiones() {
+  var contenedor = document.getElementById('lista-conclusiones');
+  var conclusiones = [
+    { icono: '◆', texto: 'La interocepción <strong>amplía lo que entendemos por cuerpo</strong> dentro de la cognición corporeizada: no es solo el cuerpo que actúa sobre el ambiente, sino también el organismo cuyo estado interno es regulado, señalizado y representado.' },
+    { icono: '◆', texto: 'Una perspectiva corporeizada de la emoción <strong>no sostiene simplemente</strong> que una emoción produce cambios corporales. Investiga si la regulación y representación del estado corporal participan <strong>causal o constitutivamente</strong> en la producción de experiencias afectivas.' },
+    { icono: '◆', texto: 'La distinción entre <strong>que el cuerpo cambie durante una emoción</strong> y <strong>que la información corporal participe en la constitución y regulación del proceso emocional</strong> es uno de los puntos más importantes.' },
+    { icono: '◆', texto: 'La interocepción se ha convertido en un área importante de investigación clínica, pero debe distinguirse entre <strong>correlación, mecanismo causal, factor de mantenimiento y consecuencia</strong>.' }
+  ];
+  conclusiones.forEach(function(c, i) {
+    var div = document.createElement('div');
+    div.className = 'conclusion';
+    div.dataset.animIndex = i;
+    div.innerHTML = '<div class="icono-conclusion">' + c.icono + '</div><p>' + c.texto + '</p>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirReferencias() {
+  var contenedor = document.getElementById('lista-referencias');
+  var refs = [
+    'Bechara, A., Damasio, H., Tranel, D., & Damasio, A. R. (2005). The Iowa Gambling Task and the somatic marker hypothesis: Some questions and answers. Trends in Cognitive Sciences, 9, 159–162.',
+    'Critchley, H. D., & Garfinkel, S. N. (2017). Interoception and emotion. Current Opinion in Psychology, 17, 7–14.',
+    'Damasio, A. R. (1994). Descartes\' error: Emotion, reason, and the human brain. Putnam.',
+    'Khalsa, S. S., Adolphs, R., Cameron, O. G., Critchley, H. D., Davenport, P. W., Feinstein, J. S., ... & Zucker, N. (2018). Interoception and mental health: A roadmap. Biological Psychiatry: Cognitive Neuroscience and Neuroimaging, 3(6), 501–513.',
+    'Pizarro, C., & Ceric, F. (2023). La interocepción en el procesamiento emocional: de la sensación a la psicopatología. Papeles del Psicólogo, 44(2).'
+  ];
+  refs.forEach(function(r) {
+    var p = document.createElement('p');
+    p.textContent = r;
+    contenedor.appendChild(p);
+  });
+}
+
+/* ============================================================
+   BOTONES DE ANIMACIÓN
+   ============================================================ */
+function configurarBotonesAnimacion() {
+  var botones = document.querySelectorAll('.btn-animacion[data-anim]');
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].addEventListener('click', function() {
+      var tipo = this.dataset.anim;
+      ejecutarAnimacion(tipo, this);
+    });
+  }
+}
+
+function ejecutarAnimacion(tipo, boton) {
+  if (!animaciones[tipo]) animaciones[tipo] = 0;
+  var elementos, maximo;
+
+  switch(tipo) {
+    case 'resultados':
+      elementos = document.querySelectorAll('#lista-resultados .resultado');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Resultados completos ✓';
+      }
+      break;
+
+    case 'indice':
+      elementos = document.querySelectorAll('#grid-indice .item-indice');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Índice completo ✓';
+      }
+      break;
+
+    case 'cadena-interocepcion':
+      var eslabonesI = document.querySelectorAll('#cadena-interocepcion .eslabon');
+      var flechasI = document.querySelectorAll('#cadena-interocepcion .flecha-cadena');
+      maximo = eslabonesI.length + flechasI.length;
+      if (animaciones[tipo] < maximo) {
+        var idxI = animaciones[tipo];
+        if (idxI % 2 === 0) {
+          eslabonesI[idxI / 2].classList.add('visible');
+        } else {
+          flechasI[(idxI - 1) / 2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Proceso completo ✓';
+      }
+      break;
+
+    case 'circuito-emocion':
+      var pasosCE = document.querySelectorAll('#circuito-emocion .paso-circuito');
+      var flechasCE = document.querySelectorAll('#circuito-emocion .flecha-cadena');
+      maximo = pasosCE.length + flechasCE.length;
+      if (animaciones[tipo] < maximo) {
+        var idxCE = animaciones[tipo];
+        if (idxCE % 2 === 0) {
+          pasosCE[idxCE / 2].classList.add('visible');
+        } else {
+          flechasCE[(idxCE - 1) / 2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Circuito completo ✓';
+      }
+      break;
+
+    case 'cuatro-niveles':
+      elementos = document.querySelectorAll('#cuatro-niveles .nivel-cuatro');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Niveles completos ✓';
+      }
+      break;
+
+    case 'tabla-tres-sistemas':
+      elementos = document.querySelectorAll('#tabla-tres-sistemas tbody tr.fila-anim');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Tabla completa ✓';
+      }
+      break;
+
+    case 'tarjetas-dimensiones':
+      elementos = document.querySelectorAll('#tarjetas-dimensiones .tarjeta');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Dimensiones completas ✓';
+      }
+      break;
+
+    case 'circuito-completo-emocion':
+      var pasosCC = document.querySelectorAll('#circuito-completo-emocion .paso-circuito');
+      var flechasCC = document.querySelectorAll('#circuito-completo-emocion .flecha-cadena');
+      maximo = pasosCC.length + flechasCC.length;
+      if (animaciones[tipo] < maximo) {
+        var idxCC = animaciones[tipo];
+        if (idxCC % 2 === 0) {
+          pasosCC[idxCC / 2].classList.add('visible');
+        } else {
+          flechasCC[(idxCC - 1) / 2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Circuito completo ✓';
+      }
+      break;
+
+    case 'cadena-ejemplo-examen':
+      var eslabonesE = document.querySelectorAll('#cadena-ejemplo-examen .eslabon');
+      var flechasE = document.querySelectorAll('#cadena-ejemplo-examen .flecha-cadena');
+      maximo = eslabonesE.length + flechasE.length;
+      if (animaciones[tipo] < maximo) {
+        var idxE = animaciones[tipo];
+        if (idxE % 2 === 0) {
+          eslabonesE[idxE / 2].classList.add('visible');
+        } else {
+          flechasE[(idxE - 1) / 2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Secuencia completa ✓';
+      }
+      break;
+
+    case 'espectro-fuerza':
+      elementos = document.querySelectorAll('#espectro-fuerza .posicion-espectro');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Espectro completo ✓';
+      }
+      break;
+
+    case 'cadena-cinco-piezas':
+      var eslabonesCP = document.querySelectorAll('#cadena-cinco-piezas .eslabon');
+      var flechasCP = document.querySelectorAll('#cadena-cinco-piezas .flecha-cadena');
+      maximo = eslabonesCP.length + flechasCP.length;
+      if (animaciones[tipo] < maximo) {
+        var idxCP = animaciones[tipo];
+        if (idxCP % 2 === 0) {
+          eslabonesCP[idxCP / 2].classList.add('visible');
+        } else {
+          flechasCP[(idxCP - 1) / 2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Cadena completa ✓';
+      }
+      break;
+
+    case 'cadena-progresion':
+      var eslabonesP = document.querySelectorAll('#cadena-progresion .eslabon');
+      var flechasP = document.querySelectorAll('#cadena-progresion .flecha-cadena');
+      maximo = eslabonesP.length + flechasP.length;
+      if (animaciones[tipo] < maximo) {
+        var idxP = animaciones[tipo];
+        if (idxP % 2 === 0) {
+          eslabonesP[idxP / 2].classList.add('visible');
+        } else {
+          flechasP[(idxP - 1) / 2].classList.add('visible');
+        }
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Progresión completa ✓';
+      }
+      break;
+
+    case 'sintesis':
+      elementos = document.querySelectorAll('#lista-sintesis .conclusion');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Síntesis completa ✓';
+      }
+      break;
+
+    case 'conclusiones':
+      elementos = document.querySelectorAll('#lista-conclusiones .conclusion');
+      maximo = elementos.length;
+      if (animaciones[tipo] < maximo) {
+        elementos[animaciones[tipo]].classList.add('visible');
+        animaciones[tipo]++;
+      }
+      if (animaciones[tipo] >= maximo) {
+        boton.disabled = true;
+        boton.textContent = 'Conclusiones completas ✓';
+      }
+      break;
+  }
+}
+
+/* ============================================================
+   RESETEO DE ANIMACIONES
+   ============================================================ */
+function resetearAnimacionesSlide(slide) {
+  var elementos = slide.querySelectorAll('.resultado, .tarjeta, .item-indice, .conclusion, .eslabon, .flecha-cadena, .paso-circuito, .nivel-cuatro, .posicion-espectro, .fila-anim');
+  for (var i = 0; i < elementos.length; i++) {
+    elementos[i].classList.remove('visible');
+  }
+
+  // Excepción: la diapositiva 33 tiene los pasos-circuito ya visibles en HTML; no resetear
+  var pasosFijos = slide.querySelectorAll('.paso-circuito.visible');
+  for (var k = 0; k < pasosFijos.length; k++) {
+    pasosFijos[k].classList.add('visible');
+  }
+
+  var botones = slide.querySelectorAll('.btn-animacion[data-anim]');
+  for (var j = 0; j < botones.length; j++) {
+    botones[j].disabled = false;
+    var tipo = botones[j].dataset.anim;
+    if (tipo === 'resultados') botones[j].textContent = 'Mostrar resultados ▶';
+    else if (tipo === 'indice') botones[j].textContent = 'Mostrar recorrido ▶';
+    else if (tipo === 'cadena-interocepcion') botones[j].textContent = 'Construir proceso ▶';
+    else if (tipo === 'circuito-emocion') botones[j].textContent = 'Construir circuito ▶';
+    else if (tipo === 'cuatro-niveles') botones[j].textContent = 'Mostrar niveles ▶';
+    else if (tipo === 'tabla-tres-sistemas') botones[j].textContent = 'Mostrar tabla ▶';
+    else if (tipo === 'tarjetas-dimensiones') botones[j].textContent = 'Mostrar dimensiones ▶';
+    else if (tipo === 'circuito-completo-emocion') botones[j].textContent = 'Construir circuito ▶';
+    else if (tipo === 'cadena-ejemplo-examen') botones[j].textContent = 'Construir secuencia ▶';
+    else if (tipo === 'espectro-fuerza') botones[j].textContent = 'Mostrar espectro ▶';
+    else if (tipo === 'cadena-cinco-piezas') botones[j].textContent = 'Construir cadena ▶';
+    else if (tipo === 'cadena-progresion') botones[j].textContent = 'Construir progresión ▶';
+    else if (tipo === 'sintesis') botones[j].textContent = 'Mostrar síntesis ▶';
+    else if (tipo === 'conclusiones') botones[j].textContent = 'Mostrar conclusiones ▶';
+  }
+}
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+function configurarEventos() {
+  document.getElementById('btn-anterior').addEventListener('click', function() {
+    if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+  });
+  document.getElementById('btn-siguiente').addEventListener('click', function() {
+    if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+  });
+  document.getElementById('toggle-sidebar').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('colapsada');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+    }
+  });
+}
+
+/* ============================================================
+   CAMBIO DE DIAPOSITIVA
+   ============================================================ */
+function actualizarSlide(nuevoIndice, forzar) {
+  if (!forzar && nuevoIndice === indiceActual) return;
+  if (nuevoIndice < 0 || nuevoIndice >= slides.length) return;
+
+  if (slides[indiceActual]) {
+    resetearAnimacionesSlide(slides[indiceActual]);
+  }
+
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.remove('activa');
+  }
+  slides[nuevoIndice].classList.add('activa');
+  slides[nuevoIndice].scrollTop = 0;
+  indiceActual = nuevoIndice;
+
+  animaciones = {};
+
+  actualizarNavActiva();
+  document.getElementById('num-diapositiva').textContent = (indiceActual + 1) + ' / ' + slides.length;
+  document.getElementById('relleno-progreso').style.width = ((indiceActual + 1) / slides.length * 100) + '%';
+  document.getElementById('btn-anterior').disabled = indiceActual === 0;
+  document.getElementById('btn-siguiente').disabled = indiceActual === slides.length - 1;
+}
+</script>
+</body>
+</html>
