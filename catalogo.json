@@ -1,13 +1,17 @@
 [
   {
     "titulo": "Diseño metodológico",
-    "descripcion": "Recurso educativo sobre el diseño metodológico en investigación.",
-    "tipo": "HTML",
+    "descripcion": "Recurso interactivo para comprender el diseño metodológico como arquitectura de una investigación y diferenciar diseños cuantitativos y cualitativos.",
+    "tipo": "Artefacto interactivo",
     "archivo": "materiales/diseno-metodologico.html",
     "etiquetas": [
       "Investigación",
       "Metodología",
-      "Diseño metodológico"
-    ]
+      "Diseño metodológico",
+      "Investigación cuantitativa",
+      "Investigación cualitativa"
+    ],
+    "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
   }
 ]
