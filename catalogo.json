@@ -18,6 +18,28 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Cognición social",
+    "descripcion": "Tutoría interactiva sobre atribución, formación de impresiones, esquemas sociales, estereotipos, teoría de la mente, lenguaje, cultura e interpretación social.",
+    "tipo": "Tutoría interactiva",
+    "archivo": "materiales/cognicion-social.html",
+    "etiquetas": [
+      "Cognición social",
+      "Atribución",
+      "Heider",
+      "Kelley",
+      "Asch",
+      "Formación de impresiones",
+      "Esquemas sociales",
+      "Error fundamental de atribución",
+      "Estereotipos",
+      "Teoría de la mente",
+      "Lenguaje",
+      "Cultura"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Correlación y causalidad",
     "descripcion": "Tutoría interactiva sobre correlación, causalidad, direccionalidad, variables de confusión e inferencia causal, con laboratorio de correlaciones, actividades y semáforo causal.",
     "tipo": "Tutoría interactiva",
@@ -67,6 +89,46 @@
       "Coherencia metodológica"
     ],
     "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Funciones ejecutivas",
+    "descripcion": "Presentación interactiva sobre control inhibitorio, memoria de trabajo, flexibilidad cognitiva, funcionamiento automático y controlado, bases neuropsicológicas y evaluación de funciones ejecutivas.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/funciones-ejecutivas.html",
+    "etiquetas": [
+      "Funciones ejecutivas",
+      "Control inhibitorio",
+      "Memoria de trabajo",
+      "Flexibilidad cognitiva",
+      "Stroop",
+      "Norman y Shallice",
+      "Diamond",
+      "Miyake",
+      "Neuropsicología",
+      "Psicología cognitiva"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Funciones ejecutivas en acción: ¿quién está al mando?",
+    "descripcion": "Taller interactivo de 30 minutos para experimentar control inhibitorio, flexibilidad cognitiva, planificación y resolución de problemas mediante retos, casos, simulación y metacognición.",
+    "tipo": "Taller interactivo",
+    "archivo": "materiales/funciones-ejecutivas-en-accion.html",
+    "etiquetas": [
+      "Funciones ejecutivas",
+      "Control inhibitorio",
+      "Flexibilidad cognitiva",
+      "Planificación",
+      "Resolución de problemas",
+      "Stroop",
+      "Perseveración",
+      "Control ejecutivo",
+      "Metacognición",
+      "Psicología cognitiva"
+    ],
+    "curso": "Enfoque Cognitivo",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
