@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobrecarga mental y sensibilidad interoceptiva · Presentación del proyecto</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Sobrecarga mental y sensibilidad interoceptiva">
+<meta name="jc-descripcion" content="Presentación interactiva de un proyecto de investigación sobre carga mental, distribución de tareas y sensibilidad interoceptiva, con diseño mixto convergente de prioridad cualitativa.">
+<meta name="jc-tipo" content="Presentación de proyecto">
+<meta name="jc-etiquetas" content="Carga mental, Interocepción, Sensibilidad interoceptiva, MAIA, NASA-TLX, Métodos mixtos, Investigación cualitativa, Investigación cuantitativa, Diseño convergente, Semillero">
+<meta name="jc-curso" content="Semillero SOM4TICA">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+/* ============================================================
+   1. VARIABLES Y RESET
+   ============================================================ */
+:root{
+  --azul-oscuro:#0B2545;
+  --azul-medio:#13315C;
+  --azul-acento:#13538A;
+  --dorado:#E7C873;
+  --gris-calido:#F4F1EC;
+  --gris-texto:#3C4653;
+  --blanco:#FFFFFF;
+  --sombra:0 4px 18px rgba(11,37,69,.10);
+  --radio:14px;
+  --transicion:.35s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--blanco);
+  color:var(--gris-texto);
+  font-size:21px;
+  line-height:1.55;
+  overflow:hidden;
+}
+h1,h2,h3,h4{color:var(--azul-oscuro);line-height:1.2;font-weight:700;}
+h1{font-size:46px;}
+h2{font-size:38px;margin-bottom:.5em;}
+h3{font-size:26px;color:var(--azul-acento);margin-bottom:.4em;}
+p{margin-bottom:.9em;}
+strong{color:var(--azul-oscuro);}
+ul{margin:.4em 0 1em 1.2em;}
+li{margin-bottom:.35em;}
+
+/* ============================================================
+   2. LAYOUT GENERAL
+   ============================================================ */
+#app{position:relative;height:100vh;width:100vw;overflow:hidden;}
+
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:64px 88px 96px;
+  opacity:0;visibility:hidden;
+  transform:translateX(40px);
+  transition:opacity var(--transicion),transform var(--transicion),visibility var(--transicion);
+  overflow-y:auto;
+}
+.slide.active{
+  opacity:1;visibility:visible;transform:translateX(0);
+}
+.slide.anterior{transform:translateX(-40px);}
+
+/* Portada */
+.slide.portada{
+  justify-content:center;align-items:flex-start;
+  background:linear-gradient(135deg,var(--azul-oscuro) 0%,var(--azul-medio) 100%);
+  color:var(--blanco);
+}
+.slide.portada h1{color:var(--blanco);font-size:52px;max-width:16ch;}
+.slide.portada .subtitulo{
+  font-size:26px;color:var(--dorado);font-weight:600;margin:.6em 0 1.2em;max-width:34ch;
+}
+.slide.portada .contexto{
+  font-size:20px;color:#C9D6E4;max-width:60ch;border-left:4px solid var(--dorado);padding-left:18px;
+}
+.slide.portada .etiqueta{
+  display:inline-block;background:rgba(231,200,115,.18);color:var(--dorado);
+  font-size:16px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  padding:7px 16px;border-radius:30px;margin-bottom:26px;
+}
+
+/* Encabezado de diapositiva */
+.cabecera{margin-bottom:34px;flex-shrink:0;}
+.cabecera .kicker{
+  font-size:15px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--azul-acento);font-weight:700;margin-bottom:8px;
+}
+.cabecera h2{margin-bottom:0;}
+.cabecera::after{
+  content:"";display:block;width:72px;height:4px;background:var(--dorado);
+  border-radius:2px;margin-top:16px;
+}
+
+/* Contenido desplazable */
+.cuerpo{flex:1;min-height:0;overflow-y:auto;padding-right:12px;}
+.cuerpo::-webkit-scrollbar{width:8px;}
+.cuerpo::-webkit-scrollbar-thumb{background:#D5DCE5;border-radius:4px;}
+
+/* ============================================================
+   3. COMPONENTES
+   ============================================================ */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+
+.tarjeta{
+  background:var(--gris-calido);
+  border-radius:var(--radio);
+  padding:26px 28px;
+  border-left:5px solid var(--azul-acento);
+}
+.tarjeta h3{margin-bottom:10px;font-size:23px;}
+.tarjeta p:last-child{margin-bottom:0;}
+.tarjeta.dorada{border-left-color:var(--dorado);}
+.tarjeta.oscura{
+  background:var(--azul-oscuro);color:#DCE5EF;border-left-color:var(--dorado);
+}
+.tarjeta.oscura h3{color:var(--dorado);}
+
+.bloque-destacado{
+  background:rgba(19,83,138,.07);
+  border-radius:var(--radio);
+  padding:22px 26px;margin:18px 0;
+  border:1px solid rgba(19,83,138,.15);
+}
+.bloque-destacado p:last-child{margin-bottom:0;}
+
+.pregunta-grande{
+  font-size:25px;color:var(--azul-oscuro);font-weight:600;
+  line-height:1.45;font-style:italic;
+}
+
+.chip{
+  display:inline-block;background:var(--azul-medio);color:#fff;
+  font-size:16px;font-weight:600;padding:6px 15px;border-radius:30px;margin:0 8px 8px 0;
+}
+.chip.dorado{background:var(--dorado);color:var(--azul-oscuro);}
+
+table{width:100%;border-collapse:collapse;font-size:19px;}
+th{
+  background:var(--azul-oscuro);color:#fff;text-align:left;
+  padding:13px 16px;font-size:17px;letter-spacing:.03em;
+}
+td{padding:13px 16px;border-bottom:1px solid #E2E7EE;vertical-align:top;}
+tr:nth-child(even) td{background:#FAFBFD;}
+
+/* ============================================================
+   4. ACTIVIDADES INTERACTIVAS
+   ============================================================ */
+.actividad{
+  background:var(--blanco);
+  border:2px dashed rgba(19,83,138,.35);
+  border-radius:var(--radio);
+  padding:26px 28px;
+}
+.instruccion{
+  font-size:18px;color:var(--azul-acento);font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:18px;
+}
+
+/* Emparejar (drag & drop) */
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
+.match-col h4{
+  font-size:16px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--azul-acento);margin-bottom:14px;
+}
+.ficha{
+  background:var(--gris-calido);
+  border:2px solid transparent;
+  border-radius:10px;
+  padding:15px 18px;margin-bottom:12px;
+  font-size:19px;cursor:grab;
+  transition:all .2s;
+  user-select:none;
+}
+.ficha:hover{border-color:var(--azul-acento);transform:translateY(-2px);}
+.ficha.seleccionada{
+  border-color:var(--dorado);background:#FDF6E3;box-shadow:0 0 0 3px rgba(231,200,115,.3);
+}
+.ficha.correcta{
+  background:#E3F5E9;border-color:#2E8B57;cursor:default;opacity:.95;
+}
+.ficha.correcta::after{content:" ✓";color:#2E8B57;font-weight:700;}
+.ficha.incorrecta{animation:shake .4s;}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-8px);}
+  75%{transform:translateX(8px);}
+}
+.ficha .destino{font-size:16px;color:var(--azul-acento);font-weight:600;display:block;margin-top:6px;}
+
+/* Quiz */
+.opcion{
+  display:block;width:100%;text-align:left;
+  background:var(--gris-calido);border:2px solid transparent;
+  border-radius:10px;padding:16px 20px;margin-bottom:12px;
+  font-size:20px;font-family:inherit;color:var(--gris-texto);
+  cursor:pointer;transition:all .2s;
+}
+.opcion:hover{border-color:var(--azul-acento);background:#EEF3F9;}
+.opcion.correcta{background:#E3F5E9;border-color:#2E8B57;color:#1E5C39;font-weight:600;}
+.opcion.incorrecta{background:#FBEAEA;border-color:#C0504D;color:#8A3330;}
+.opcion:disabled{cursor:default;}
+.retro{
+  margin-top:16px;padding:16px 20px;border-radius:10px;
+  font-size:19px;display:none;
+}
+.retro.visible{display:block;animation:aparece .35s;}
+.retro.ok{background:#E3F5E9;border-left:5px solid #2E8B57;color:#1E5C39;}
+.retro.no{background:#FBEAEA;border-left:5px solid #C0504D;color:#8A3330;}
+@keyframes aparece{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+/* Ordenar cronograma */
+.orden-lista{list-style:none;margin:0;}
+.orden-item{
+  display:flex;align-items:center;gap:14px;
+  background:var(--gris-calido);border-radius:10px;
+  padding:14px 18px;margin-bottom:10px;cursor:grab;
+  font-size:19px;border:2px solid transparent;transition:all .2s;
+}
+.orden-item:hover{border-color:var(--azul-acento);}
+.orden-item .num{
+  background:var(--azul-medio);color:#fff;width:30px;height:30px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;flex-shrink:0;
+}
+.orden-item.correcta{background:#E3F5E9;border-color:#2E8B57;}
+.orden-item.correcta .num{background:#2E8B57;}
+
+/* ============================================================
+   5. SIMULACIÓN
+   ============================================================ */
+.sim-grid{display:grid;grid-template-columns:340px 1fr;gap:32px;align-items:start;}
+.control{margin-bottom:24px;}
+.control label{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:17px;font-weight:600;color:var(--azul-oscuro);margin-bottom:9px;
+}
+.control .valor{
+  font-size:20px;font-weight:700;color:var(--azul-acento);
+  background:rgba(19,83,138,.09);padding:2px 12px;border-radius:20px;
+}
+input[type=range]{
+  width:100%;height:7px;border-radius:4px;-webkit-appearance:none;
+  background:linear-gradient(90deg,var(--azul-acento),#B9CCE0);outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:24px;height:24px;border-radius:50%;
+  background:var(--azul-oscuro);border:3px solid var(--dorado);cursor:pointer;
+  box-shadow:0 2px 6px rgba(11,37,69,.3);
+}
+input[type=range]::-moz-range-thumb{
+  width:24px;height:24px;border-radius:50%;background:var(--azul-oscuro);
+  border:3px solid var(--dorado);cursor:pointer;
+}
+canvas{width:100%;display:block;}
+.sim-veredicto{
+  margin-top:16px;padding:16px 20px;border-radius:10px;
+  font-size:19px;font-weight:600;line-height:1.45;
+  transition:background .3s,color .3s;
+}
+.sim-nota{
+  margin-top:14px;font-size:15px;color:#7A8798;font-style:italic;line-height:1.4;
+}
+.leyenda{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:16px;}
+.leyenda span{display:flex;align-items:center;gap:8px;}
+.leyenda i{width:16px;height:16px;border-radius:4px;display:inline-block;}
+
+/* ============================================================
+   6. NAVEGACIÓN
+   ============================================================ */
+#menuBtn{
+  position:fixed;top:20px;left:20px;z-index:60;
+  width:46px;height:46px;border-radius:12px;
+  background:var(--azul-oscuro);color:#fff;border:none;cursor:pointer;
+  font-size:20px;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sombra);transition:background .2s;
+}
+#menuBtn:hover{background:var(--azul-acento);}
+
+#sidebar{
+  position:fixed;top:0;left:0;height:100%;width:310px;z-index:70;
+  background:var(--azul-oscuro);color:#C9D6E4;
+  transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  padding:82px 22px 26px;overflow-y:auto;
+}
+#sidebar.abierto{transform:translateX(0);}
+#sidebar h4{
+  color:var(--dorado);font-size:14px;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:18px;
+}
+#sidebar ol{list-style:none;}
+#sidebar li{
+  font-size:17px;padding:11px 14px;border-radius:9px;
+  cursor:pointer;margin-bottom:5px;transition:all .18s;
+  display:flex;gap:12px;align-items:flex-start;line-height:1.35;
+}
+#sidebar li:hover{background:rgba(255,255,255,.09);color:#fff;}
+#sidebar li.activo{background:var(--azul-acento);color:#fff;font-weight:600;}
+#sidebar li .n{color:var(--dorado);font-weight:700;font-size:15px;min-width:18px;}
+
+#overlay{
+  position:fixed;inset:0;background:rgba(11,37,69,.45);z-index:65;
+  opacity:0;visibility:hidden;transition:all .3s;
+}
+#overlay.visible{opacity:1;visibility:visible;}
+
+.nav-btn{
+  position:fixed;bottom:26px;z-index:55;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--blanco);border:2px solid #D5DCE5;
+  color:var(--azul-oscuro);font-size:22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;box-shadow:var(--sombra);
+}
+.nav-btn:hover{background:var(--azul-oscuro);color:#fff;border-color:var(--azul-oscuro);}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed;}
+#prev{left:26px;}
+#next{right:26px;}
+
+#contador{
+  position:fixed;bottom:34px;right:96px;z-index:55;
+  font-size:16px;font-weight:600;color:var(--azul-medio);
+  letter-spacing:.06em;background:rgba(255,255,255,.9);
+  padding:6px 14px;border-radius:20px;
+}
+#progreso{
+  position:fixed;top:0;left:0;height:4px;z-index:80;
+  background:var(--dorado);width:0;
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Ajustes portada para que la nav no estorbe */
+.slide.portada{padding-left:118px;}
+
+/* ============================================================
+   7. RESPONSIVE
+   ============================================================ */
+@media(max-width:1100px){
+  body{font-size:19px;}
+  h1{font-size:36px;}
+  h2{font-size:30px;}
+  .slide{padding:56px 46px 92px;}
+  .slide.portada{padding-left:86px;}
+  .grid-2,.grid-3,.grid-4,.match-wrap,.sim-grid{grid-template-columns:1fr;}
+  .sim-grid{gap:20px;}
+}
+@media(max-width:640px){
+  body{font-size:17px;}
+  h1{font-size:28px;}
+  h2{font-size:24px;}
+  .slide{padding:52px 22px 90px;}
+  .slide.portada{padding-left:66px;}
+  .slide.portada h1{font-size:30px;}
+  #contador{right:82px;font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<div id="progreso"></div>
+
+<!-- ============ NAVEGACIÓN ============ -->
+<button id="menuBtn" aria-label="Abrir índice">☰</button>
+<div id="overlay"></div>
+
+<nav id="sidebar" aria-label="Índice de la presentación">
+  <h4>Ruta de la presentación</h4>
+  <ol id="indice"></ol>
+</nav>
+
+<button class="nav-btn" id="prev" aria-label="Anterior">‹</button>
+<button class="nav-btn" id="next" aria-label="Siguiente">›</button>
+<div id="contador">1 / 15</div>
+
+<!-- ============ DIAPOSITIVAS ============ -->
+<main id="app">
+
+  <!-- 1 · PORTADA -->
+  <section class="slide portada active" data-titulo="Portada">
+    <span class="etiqueta">Proyecto de investigación · Semillero</span>
+    <h1>Sobrecarga mental y sensibilidad interoceptiva en mujeres con responsabilidades familiares y laborales</h1>
+    <p class="subtitulo">Un estudio de métodos mixtos con prioridad cualitativa</p>
+    <p class="contexto">
+      Mujeres de 35 a 45 años, residentes en Bogotá (estrato 3), con hijos de 0 a 5 años,
+      en relación de pareja estable, con trabajo remunerado y sin apoyo pagado ni red familiar
+      sistemática de cuidado. Ventana de recuerdo: seis meses.
+    </p>
+  </section>
+
+  <!-- 2 · AGENDA -->
+  <section class="slide" data-titulo="Agenda">
+    <div class="cabecera">
+      <div class="kicker">Diapositiva 2</div>
+      <h2>¿Qué recorreremos hoy?</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="grid-3">
+        <div class="tarjeta">
+          <h3>1 · El problema</h3>
+          <p>Doble jornada, carga mental y por qué el cuerpo es un dato relevante.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>2 · Preguntas y objetivos</h3>
+          <p>Núcleo cualitativo, módulo cuantitativo de apoyo y expectativas exploratorias.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>3 · Diseño y método</h3>
+          <p>Mixto convergente QUAL + quan, población, instrumentos y grupos focales.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>4 · Actividades</h3>
+          <p>Tres interacciones para fijar conceptos, hipótesis y cronograma.</p>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>5 · Simulación</h3>
+          <p>Simulador interactivo de carga mental e interocepción.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>6 · Ética y cierre</h3>
+          <p>Protección de datos, cronograma a seis meses y próximos pasos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · PROBLEMA -->
+  <section class="slide" data-titulo="El problema">
+    <div class="cabecera">
+      <div class="kicker">Fundamento · 1 de 3</div>
+      <h2>El problema: doble jornada y carga mental</h2>
+    </div>
+    <div class="cuerpo">
+      <p>
+        Cuando una mujer sostiene simultáneamente el trabajo remunerado y la organización
+        del hogar y del cuidado, la exigencia no se agota en las tareas visibles. Existe una
+        capa silenciosa —la <strong>carga mental</strong>— hecha de anticipación, planificación,
+        monitoreo y recordatorio constante.
+      </p>
+      <div class="bloque-destacado">
+        <p class="pregunta-grande">
+          La carga mental no se mide solo en horas: se mide en atención disponible,
+          en descanso interrumpido y en la sensación de no poder soltar el control.
+        </p>
+      </div>
+      <div class="grid-2">
+        <div class="tarjeta">
+          <h3>Lo visible</h3>
+          <p>Número de tareas, tiempo dedicado, reparto objetivo de las labores domésticas y de cuidado.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>Lo invisible</h3>
+          <p>Planificación, vigilancia, gestión emocional del hogar y del trabajo, y la responsabilidad última de que todo ocurra.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · INTEROCEPCIÓN -->
+  <section class="slide" data-titulo="Interocepción">
+    <div class="cabecera">
+      <div class="kicker">Fundamento · 2 de 3</div>
+      <h2>Interocepción: el cuerpo como dato</h2>
+    </div>
+    <div class="cuerpo">
+      <p>
+        La <strong>interocepción</strong> es la capacidad de percibir las señales internas del
+        cuerpo: tensión, respiración, fatiga, ritmo cardíaco, malestar difuso. En este estudio
+        se evalúa con el <strong>MAIA</strong>, que distingue varias subescalas.
+      </p>
+      <div class="grid-3">
+        <div class="tarjeta">
+          <h3>Conciencia corporal</h3>
+          <p>Darse cuenta de las sensaciones internas sin que ello genere malestar.</p>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>Preocupación corporal</h3>
+          <p>Vigilancia ansiosa hacia las señales del cuerpo; atención teñida de inquietud.</p>
+        </div>
+        <div class="tarjeta">
+          <h3>Confianza corporal</h3>
+          <p>Sensación de que el propio cuerpo es seguro y predecible.</p>
+        </div>
+      </div>
+      <div class="bloque-destacado">
+        <p>
+          <strong>La pregunta de fondo:</strong> ¿una carga mental alta se acompaña de un perfil
+          interoceptivo más vigilante y menos confiado? Eso es justamente lo que el estudio
+          explora, sin afirmar causalidad.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · PREGUNTAS Y OBJETIVOS -->
+  <section class="slide" data-titulo="Preguntas y objetivos">
+    <div class="cabecera">
+      <div class="kicker">Fundamento · 3 de 3</div>
+      <h2>Preguntas y objetivos de investigación</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="tarjeta oscura" style="margin-bottom:22px;">
+        <h3>Pregunta general (núcleo cualitativo)</h3>
+        <p style="font-size:23px;color:#fff;">
+          ¿Cómo experimentan y describen las participantes la relación entre la carga mental
+          cotidiana y las señales de su cuerpo, y de qué manera el contexto familiar y laboral
+          participa en esa experiencia?
+        </p>
+      </div>
+      <div class="grid-2">
+        <div class="tarjeta">
+          <h3>Pregunta de apoyo</h3>
+          <p>¿Qué relación se observa entre la carga mental y la sensibilidad interoceptiva en esta población?</p>
+        </div>
+        <div class="tarjeta">
+          <h3>Específicas cuantitativas</h3>
+          <ul style="margin-bottom:0;">
+            <li>Relación entre NASA-TLX y dimensiones del MAIA.</li>
+            <li>Asociación entre distribución de tareas en la pareja y carga mental.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bloque-destacado" style="margin-top:22px;">
+        <p style="margin-bottom:0;">
+          <strong>Objetivo general:</strong> explorar la experiencia de la carga mental y su
+          expresión corporal en mujeres con doble responsabilidad, y describir su asociación
+          con la sensibilidad interoceptiva.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · ACTIVIDAD 1: EMPAREJAR -->
+  <section class="slide" data-titulo="Actividad 1">
+    <div class="cabecera">
+      <div class="kicker">Actividad · 1 de 3</div>
+      <h2>Actividad: empareja concepto y definición</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="actividad">
+        <p class="instruccion">Haz clic en un concepto y luego en su definición</p>
+        <div class="match-wrap">
+          <div class="match-col">
+            <h4>Conceptos</h4>
+            <div id="colConceptos"></div>
+          </div>
+          <div class="match-col">
+            <h4>Definiciones</h4>
+            <div id="colDefiniciones"></div>
+          </div>
+        </div>
+        <div class="retro" id="retroMatch"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · HIPÓTESIS -->
+  <section class="slide" data-titulo="Hipótesis">
+    <div class="cabecera">
+      <div class="kicker">Expectativas de trabajo</div>
+      <h2>Hipótesis exploratorias: H1 y H2</h2>
+    </div>
+    <div class="cuerpo">
+      <p>
+        El estudio es <strong>exploratorio</strong>. No busca confirmar ni refutar hipótesis
+        nulas, sino orientar la lectura de los datos y la conversación en los grupos focales.
+      </p>
+      <div class="grid-2" style="margin-top:22px;">
+        <div class="tarjeta">
+          <h3>H1 · Carga mental y perfil interoceptivo</h3>
+          <p>
+            Mayor carga mental se asocia con perfiles de sensibilidad interoceptiva
+            caracterizados por <strong>mayor preocupación corporal</strong> y
+            <strong>menor confianza corporal</strong> (subescalas MAIA).
+          </p>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>H2 · Reparto de tareas y carga percibida</h3>
+          <p>
+            Una distribución más desigual de las tareas domésticas y de cuidado se asocia
+            con <strong>mayor carga mental percibida</strong>.
+          </p>
+        </div>
+      </div>
+      <div class="bloque-destacado" style="margin-top:24px;">
+        <p style="margin-bottom:0;">
+          El objetivo cualitativo se mantiene: explorar, mediante grupos focales, cómo se vive
+          la carga mental y su expresión corporal en participantes con perfiles contrastantes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · DISEÑO MIXTO -->
+  <section class="slide" data-titulo="Diseño mixto">
+    <div class="cabecera">
+      <div class="kicker">Método · 1 de 5</div>
+      <h2>Diseño mixto convergente con prioridad cualitativa</h2>
+    </div>
+    <div class="cuerpo">
+      <p>
+        El diseño es <strong>QUAL + quan</strong>: el núcleo del estudio es cualitativo y el
+        módulo cuantitativo cumple una función de contexto y triangulación. Ambos componentes
+        se recolectan en paralelo y se integran al final mediante una
+        <strong>matriz de metainferencias</strong>.
+      </p>
+      <table style="margin-top:18px;">
+        <thead>
+          <tr><th style="width:30%;">Componente</th><th>Rol en el estudio</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cualitativo (principal)</strong></td>
+            <td>3–4 grupos focales semiestructurados con 6–8 mujeres cada uno (24–32 participantes), conformados por perfil de carga alto/bajo. Análisis temático con comparación entre perfiles y criterio de saturación.</td>
+          </tr>
+          <tr>
+            <td><strong>Cuantitativo (contexto)</strong></td>
+            <td>40–60 participantes, transversal, descriptivo-correlacional exploratorio. Batería digital con NASA-TLX, MAIA e índice de distribución de tareas.</td>
+          </tr>
+          <tr>
+            <td><strong>Integración</strong></td>
+            <td>Matriz de metainferencias: los hallazgos cualitativos son el aporte central; los cuantitativos contextualizan y triangulan.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 9 · POBLACIÓN -->
+  <section class="slide" data-titulo="Población">
+    <div class="cabecera">
+      <div class="kicker">Método · 2 de 5</div>
+      <h2>Población, criterios y ventana de recuerdo</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="grid-2">
+        <div class="tarjeta">
+          <h3>Criterios de inclusión</h3>
+          <ul style="margin-bottom:0;">
+            <li>Mujeres de 35 a 45 años.</li>
+            <li>Residentes en Bogotá, estrato 3.</li>
+            <li>Con hijos de 0 a 5 años.</li>
+            <li>En relación de pareja estable (≥ 2 años).</li>
+            <li>Con trabajo remunerado.</li>
+            <li>Sin apoyo pagado de cuidado ni red familiar sistemática.</li>
+          </ul>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>Ventana de recuerdo</h3>
+          <p>
+            Seis meses. Es el marco temporal que se usa para valorar la carga mental
+            en el NASA-TLX y para situar los relatos en los grupos focales.
+          </p>
+          <p style="margin-bottom:0;">
+            <strong>Muestreo:</strong> intencionado desde el módulo cuantitativo hacia
+            la fase cualitativa, por homogeneidad de perfil de carga (alto/bajo según
+            mediana o terciles del NASA-TLX).
+          </p>
+        </div>
+      </div>
+      <div class="bloque-destacado" style="margin-top:22px;">
+        <p style="margin-bottom:0;">
+          <strong>Nota metodológica:</strong> la especificidad de los criterios busca reducir
+          la heterogeneidad de condiciones y hacer comparables los perfiles de carga mental
+          entre participantes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · INSTRUMENTOS -->
+  <section class="slide" data-titulo="Instrumentos">
+    <div class="cabecera">
+      <div class="kicker">Método · 3 de 5</div>
+      <h2>Instrumentos: NASA-TLX, MAIA y distribución de tareas</h2>
+    </div>
+    <div class="cuerpo">
+      <table>
+        <thead>
+          <tr><th style="width:24%;">Instrumento</th><th>Descripción y adaptación</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>NASA-TLX</strong><br><span style="font-size:16px;color:#7A8798;">versión raw / no ponderada</span></td>
+            <td>
+              Instrucción adaptada: valorar el <em>trabajo doméstico y de cuidado</em> como
+              la tarea, referida a los últimos seis meses. Puntaje global 0–100 y perfil
+              por seis dimensiones.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>MAIA</strong><br><span style="font-size:16px;color:#7A8798;">32 ítems · 8 subescalas</span></td>
+            <td>
+              Versión en español con evidencia en población colombiana. Permite obtener
+              un perfil de sensibilidad interoceptiva, no solo un puntaje global.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Índice de distribución de tareas</strong></td>
+            <td>
+              Registro de quién realiza cada tarea: ella / pareja / compartida / terceros.
+              Se acompaña de cuestionario sociodemográfico y tamizaje de salud general.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bloque-destacado" style="margin-top:20px;">
+        <p style="margin-bottom:0;">
+          <strong>Análisis previsto:</strong> descriptivos, alfa de Cronbach, correlaciones
+          con IC 95% bootstrap y tamaños de efecto, con reporte explícito de limitaciones
+          por potencia. Sin afirmaciones causales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · SIMULACIÓN -->
+  <section class="slide" data-titulo="Simulación">
+    <div class="cabecera">
+      <div class="kicker">Simulación interactiva</div>
+      <h2>Simulador: carga mental e interocepción</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="sim-grid">
+        <div>
+          <div class="control">
+            <label>Carga mental (NASA-TLX) <span class="valor" id="vCarga">60</span></label>
+            <input type="range" id="sCarga" min="0" max="100" value="60">
+          </div>
+          <div class="control">
+            <label>Desigualdad en el reparto de tareas <span class="valor" id="vTareas">65</span></label>
+            <input type="range" id="sTareas" min="0" max="100" value="65">
+          </div>
+          <div class="control">
+            <label>Apoyo de red familiar <span class="valor" id="vApoyo">25</span></label>
+            <input type="range" id="sApoyo" min="0" max="100" value="25">
+          </div>
+          <div class="sim-veredicto" id="veredicto"></div>
+          <p class="sim-nota">
+            Simulación didáctica basada en las hipótesis exploratorias del estudio.
+            No representa datos reales ni establece relaciones causales.
+          </p>
+        </div>
+        <div>
+          <canvas id="lienzo" width="620" height="380"></canvas>
+          <div class="leyenda">
+            <span><i style="background:#13538A;"></i> Conciencia corporal</span>
+            <span><i style="background:#E7C873;"></i> Preocupación corporal</span>
+            <span><i style="background:#7A8798;"></i> Confianza corporal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · ACTIVIDAD 2: QUIZ -->
+  <section class="slide" data-titulo="Actividad 2">
+    <div class="cabecera">
+      <div class="kicker">Actividad · 2 de 3</div>
+      <h2>Actividad: ¿qué espera el estudio?</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="actividad">
+        <p class="instruccion" id="preguntaQuiz">Cargando…</p>
+        <div id="opcionesQuiz"></div>
+        <div class="retro" id="retroQuiz"></div>
+        <button class="opcion" id="btnSiguientePregunta" style="display:none;text-align:center;font-weight:600;">
+          Siguiente pregunta →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · FASE CUALITATIVA -->
+  <section class="slide" data-titulo="Fase cualitativa">
+    <div class="cabecera">
+      <div class="kicker">Método · 4 de 5</div>
+      <h2>Fase cualitativa: grupos focales y análisis temático</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="grid-2">
+        <div class="tarjeta">
+          <h3>Grupos focales</h3>
+          <ul style="margin-bottom:0;">
+            <li>3–4 grupos semiestructurados.</li>
+            <li>6–8 mujeres por grupo (24–32 participantes).</li>
+            <li>Conformados por perfil de carga alto/bajo.</li>
+            <li>Muestreo intencionado desde el módulo cuantitativo.</li>
+          </ul>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>Análisis temático</h3>
+          <ul style="margin-bottom:0;">
+            <li>Codificación abierta y axial.</li>
+            <li>Comparación entre perfiles de carga.</li>
+            <li>Criterio de saturación como cierre.</li>
+            <li>El relato corporal es la evidencia central de la expresión en el cuerpo.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="bloque-destacado" style="margin-top:22px;">
+        <p style="margin-bottom:0;">
+          Al haber retirado la variable de somatización, la evidencia de
+          <em>cómo se expresa la carga en el cuerpo</em> queda íntegramente en el componente
+          cualitativo. Esto refuerza la prioridad QUAL del diseño y aliviana la batería
+          cuantitativa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · ÉTICA Y CRONOGRAMA -->
+  <section class="slide" data-titulo="Ética y cronograma">
+    <div class="cabecera">
+      <div class="kicker">Método · 5 de 5</div>
+      <h2>Ética, protección de datos y plan a seis meses</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="grid-2" style="margin-bottom:22px;">
+        <div class="tarjeta">
+          <h3>Consideraciones éticas</h3>
+          <ul style="margin-bottom:0;">
+            <li>Aprobación por comité de ética.</li>
+            <li>Consentimiento informado y consentimiento específico de grabación.</li>
+            <li>Cumplimiento de la Ley 1581 de 2012.</li>
+            <li>Protocolo de derivación ante malestar.</li>
+            <li>Participación voluntaria.</li>
+          </ul>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>Cronograma (6 meses)</h3>
+          <ul style="margin-bottom:0;">
+            <li><strong>Meses 1–2:</strong> teoría y adaptación de la instrucción NASA-TLX (juicio de expertos) + protocolo ético.</li>
+            <li><strong>Meses 2–3:</strong> piloto y aprobación del comité.</li>
+            <li><strong>Meses 3–5:</strong> reclutamiento, batería digital y conformación de grupos.</li>
+            <li><strong>Meses 5–6:</strong> grupos focales, integración y redacción.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 · CIERRE -->
+  <section class="slide" data-titulo="Cierre">
+    <div class="cabecera">
+      <div class="kicker">Cierre</div>
+      <h2>Aportes, limitaciones y próximos pasos</h2>
+    </div>
+    <div class="cuerpo">
+      <div class="grid-3">
+        <div class="tarjeta">
+          <h3>Aportes</h3>
+          <p>
+            Un diseño mixto con prioridad cualitativa que pone el relato corporal en el centro
+            y articula carga mental e interocepción en una población poco estudiada en su
+            intersección.
+          </p>
+        </div>
+        <div class="tarjeta dorada">
+          <h3>Limitaciones</h3>
+          <p>
+            Tamaño muestral moderado, alcance exploratorio, sin afirmaciones causales y
+            con reporte explícito de limitaciones por potencia en el módulo cuantitativo.
+          </p>
+        </div>
+        <div class="tarjeta">
+          <h3>Próximos pasos</h3>
+          <p>
+            Validar la instrucción adaptada del NASA-TLX con jueces expertos, obtener la
+            aprobación del comité de ética y poner en marcha el piloto.
+          </p>
+        </div>
+      </div>
+      <div class="bloque-destacado" style="margin-top:26px;">
+        <p class="pregunta-grande" style="margin-bottom:0;">
+          La versión ajustada deja el estudio más enfocado y coherente con la línea del
+          semillero: dos variables centrales (carga mental e interocepción) y la distribución
+          de tareas como variable asociada.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN ENTRE DIAPOSITIVAS
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const total = slides.length;
+let actual = 0;
+
+const indice    = document.getElementById('indice');
+const sidebar   = document.getElementById('sidebar');
+const overlay   = document.getElementById('overlay');
+const menuBtn   = document.getElementById('menuBtn');
+const btnPrev   = document.getElementById('prev');
+const btnNext   = document.getElementById('next');
+const contador  = document.getElementById('contador');
+const progreso  = document.getElementById('progreso');
+
+/* Construir índice lateral */
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="n">${i + 1}</span><span>${s.dataset.titulo}</span>`;
+  li.addEventListener('click', () => { irA(i); cerrarMenu(); });
+  indice.appendChild(li);
+});
+const itemsIndice = Array.from(indice.children);
+
+/* Mostrar diapositiva i */
+function irA(i){
+  if (i < 0 || i >= total) return;
+  slides[actual].classList.remove('active');
+  slides[actual].classList.toggle('anterior', i > actual);
+  actual = i;
+  slides[actual].classList.add('active');
+  slides[actual].classList.remove('anterior');
+  slides[actual].scrollTop = 0;
+
+  itemsIndice.forEach((li, k) => li.classList.toggle('activo', k === actual));
+  contador.textContent = `${actual + 1} / ${total}`;
+  progreso.style.width = `${((actual + 1) / total) * 100}%`;
+  btnPrev.disabled = actual === 0;
+  btnNext.disabled = actual === total - 1;
+
+  // La simulación se redibuja al entrar en su diapositiva
+  if (slides[actual].dataset.titulo === 'Simulación') dibujar();
+}
+
+btnPrev.addEventListener('click', () => irA(actual - 1));
+btnNext.addEventListener('click', () => irA(actual + 1));
+
+/* Menú lateral */
+function abrirMenu(){ sidebar.classList.add('abierto'); overlay.classList.add('visible'); }
+function cerrarMenu(){ sidebar.classList.remove('abierto'); overlay.classList.remove('visible'); }
+menuBtn.addEventListener('click', () => sidebar.classList.contains('abierto') ? cerrarMenu() : abrirMenu());
+overlay.addEventListener('click', cerrarMenu);
+
+/* Teclado */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); irA(actual + 1); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); irA(actual - 1); }
+  if (e.key === 'Escape')     cerrarMenu();
+});
+
+/* Estado inicial */
+irA(0);
+
+/* ============================================================
+   2. ACTIVIDAD 1 · EMPAREJAR CONCEPTO Y DEFINICIÓN
+   ============================================================ */
+const pares = [
+  { concepto:'Carga mental',        definicion:'Trabajo cognitivo y emocional de anticipar, planificar y monitorear lo doméstico y lo laboral.' },
+  { concepto:'Interocepción',       definicion:'Capacidad de percibir las señales internas del cuerpo, como tensión, fatiga o respiración.' },
+  { concepto:'Preocupación corporal', definicion:'Atención vigilante y ansiosa hacia las señales del propio cuerpo (subescala MAIA).' },
+  { concepto:'Prioridad QUAL',      definicion:'El componente cualitativo es el aporte central del estudio; el cuantitativo contextualiza y triangula.' }
+];
+
+const colConceptos    = document.getElementById('colConceptos');
+const colDefiniciones = document.getElementById('colDefiniciones');
+const retroMatch      = document.getElementById('retroMatch');
+
+let seleccionConcepto = null;
+let aciertos = 0;
+
+/* Barajar definiciones para que no queden alineadas */
+const definicionesBarajadas = [...pares].sort(() => Math.random() - 0.5);
+
+pares.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'ficha';
+  div.textContent = p.concepto;
+  div.dataset.tipo = 'concepto';
+  div.dataset.clave = p.concepto;
+  div.addEventListener('click', () => seleccionarConcepto(div));
+  colConceptos.appendChild(div);
+});
+
+definicionesBarajadas.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'ficha';
+  div.textContent = p.definicion;
+  div.dataset.tipo = 'definicion';
+  div.dataset.clave = p.concepto;
+  div.addEventListener('click', () => seleccionarDefinicion(div));
+  colDefiniciones.appendChild(div);
+});
+
+function seleccionarConcepto(el){
+  if (el.classList.contains('correcta')) return;
+  document.querySelectorAll('[data-tipo="concepto"]').forEach(c => c.classList.remove('seleccionada'));
+  el.classList.add('seleccionada');
+  seleccionConcepto = el;
+}
+
+function seleccionarDefinicion(el){
+  if (el.classList.contains('correcta')) return;
+  if (!seleccionConcepto){
+    retroMatch.className = 'retro visible no';
+    retroMatch.textContent = 'Primero selecciona un concepto de la columna izquierda.';
+    return;
+  }
+  if (el.dataset.clave === seleccionConcepto.dataset.clave){
+    el.classList.add('correcta');
+    seleccionConcepto.classList.remove('seleccionada');
+    seleccionConcepto.classList.add('correcta');
+    seleccionConcepto = null;
+    aciertos++;
+    if (aciertos === pares.length){
+      retroMatch.className = 'retro visible ok';
+      retroMatch.textContent = '¡Correcto! Emparejaste los cuatro conceptos. Estos términos sostienen todo el diseño del estudio.';
+    } else {
+      retroMatch.className = 'retro visible ok';
+      retroMatch.textContent = `¡Bien! Llevas ${aciertos} de ${pares.length}.`;
+    }
+  } else {
+    el.classList.add('incorrecta');
+    setTimeout(() => el.classList.remove('incorrecta'), 450);
+    retroMatch.className = 'retro visible no';
+    retroMatch.textContent = 'Esa definición no corresponde al concepto seleccionado. Intenta de nuevo.';
+  }
+}
+
+/* ============================================================
+   3. ACTIVIDAD 2 · QUIZ CON RETROALIMENTACIÓN
+   ============================================================ */
+const preguntas = [
+  {
+    p:'¿Cuál es el rol del módulo cuantitativo en este estudio?',
+    ops:[
+      'Es el componente principal y define las conclusiones del estudio.',
+      'Contextualiza y triangula los hallazgos cualitativos, que son el aporte central.',
+      'Reemplaza a los grupos focales cuando la muestra es pequeña.',
+      'Sirve únicamente para calcular el tamaño muestral.'
+    ],
+    correcta:1,
+    retro:'El diseño es QUAL + quan: la prioridad es cualitativa y el módulo cuantitativo cumple una función de contexto y triangulación, integrada mediante la matriz de metainferencias.'
+  },
+  {
+    p:'La hipótesis H1 sostiene que una mayor carga mental se asocia con…',
+    ops:[
+      'Mayor conciencia corporal y mayor confianza corporal.',
+      'Menor preocupación corporal y mayor confianza corporal.',
+      'Mayor preocupación corporal y menor confianza corporal.',
+      'Ninguna relación con las subescalas del MAIA.'
+    ],
+    correcta:2,
+    retro:'H1 plantea un perfil interoceptivo más vigilante y menos confiado: mayor preocupación corporal y menor confianza corporal en las subescalas del MAIA.'
+  },
+  {
+    p:'¿Por qué el estudio se declara exploratorio y sin contraste confirmatorio?',
+    ops:[
+      'Porque no se recogen datos cuantitativos.',
+      'Porque el tamaño muestral no permite generalizar y el interés está en explorar la experiencia y las asociaciones.',
+      'Porque el comité de ética prohíbe formular hipótesis.',
+      'Porque el MAIA no tiene versión en español.'
+    ],
+    correcta:1,
+    retro:'El estudio busca explorar la experiencia y describir asociaciones, sin afirmaciones causales. Las hipótesis H1 y H2 son expectativas de trabajo, no contrastes confirmatorios.'
+  }
+];
+
+let indicePregunta = 0;
+const preguntaQuiz = document.getElementById('preguntaQuiz');
+const opcionesQuiz = document.getElementById('opcionesQuiz');
+const retroQuiz    = document.getElementById('retroQuiz');
+const btnSigPreg   = document.getElementById('btnSiguientePregunta');
+
+function cargarPregunta(){
+  const q = preguntas[indicePregunta];
+  preguntaQuiz.textContent = `Pregunta ${indicePregunta + 1} de ${preguntas.length}: ${q.p}`;
+  opcionesQuiz.innerHTML = '';
+  retroQuiz.className = 'retro';
+  retroQuiz.textContent = '';
+  btnSigPreg.style.display = 'none';
+
+  q.ops.forEach((texto, i) => {
+    const b = document.createElement('button');
+    b.className = 'opcion';
+    b.textContent = texto;
+    b.addEventListener('click', () => responder(i, b));
+    opcionesQuiz.appendChild(b);
+  });
+}
+
+function responder(i, boton){
+  const q = preguntas[indicePregunta];
+  const botones = Array.from(opcionesQuiz.children);
+  botones.forEach(b => b.disabled = true);
+
+  if (i === q.correcta){
+    boton.classList.add('correcta');
+    retroQuiz.className = 'retro visible ok';
+    retroQuiz.textContent = 'Correcto. ' + q.retro;
+  } else {
+    boton.classList.add('incorrecta');
+    botones[q.correcta].classList.add('correcta');
+    retroQuiz.className = 'retro visible no';
+    retroQuiz.textContent = 'La respuesta correcta está resaltada en verde. ' + q.retro;
+  }
+
+  if (indicePregunta < preguntas.length - 1){
+    btnSigPreg.style.display = 'block';
+  } else {
+    btnSigPreg.style.display = 'none';
+    retroQuiz.textContent += ' Has completado las tres preguntas.';
+  }
+}
+
+btnSigPreg.addEventListener('click', () => {
+  indicePregunta++;
+  cargarPregunta();
+});
+
+cargarPregunta();
+
+/* ============================================================
+   4. SIMULACIÓN · CARGA MENTAL E INTEROCEPCIÓN
+   ============================================================ */
+const sCarga  = document.getElementById('sCarga');
+const sTareas = document.getElementById('sTareas');
+const sApoyo  = document.getElementById('sApoyo');
+const vCarga  = document.getElementById('vCarga');
+const vTareas = document.getElementById('vTareas');
+const vApoyo  = document.getElementById('vApoyo');
+const veredicto = document.getElementById('veredicto');
+const lienzo = document.getElementById('lienzo');
+const ctx = lienzo.getContext('2d');
+
+/* Ajuste de resolución para pantallas retina */
+function ajustarLienzo(){
+  const ratio = window.devicePixelRatio || 1;
+  const anchoCSS = lienzo.clientWidth || 620;
+  lienzo.width = anchoCSS * ratio;
+  lienzo.height = 380 * ratio;
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+}
+
+/* Cálculo del perfil MAIA estimado (modelo didáctico) */
+function calcularPerfil(){
+  const carga  = +sCarga.value;   // 0–100
+  const tareas = +sTareas.value;  // 0–100 (mayor = más desigual)
+  const apoyo  = +sApoyo.value;   // 0–100 (mayor = más apoyo)
+
+  // La carga efectiva combina carga mental y desigualdad, y se atenúa con apoyo
+  const cargaEfectiva = Math.min(100, (carga * 0.7 + tareas * 0.3) * (1 - apoyo / 250));
+
+  // Perfil estimado por subescala (0–100), coherente con H1
+  const conciencia   = Math.max(10, Math.min(95, 70 - cargaEfectiva * 0.25 + apoyo * 0.15));
+  const preocupacion = Math.max(10, Math.min(95, 20 + cargaEfectiva * 0.65));
+  const confianza    = Math.max(10, Math.min(95, 85 - cargaEfectiva * 0.55 + apoyo * 0.20));
+
+  return { cargaEfectiva, conciencia, preocupacion, confianza };
+}
+
+function dibujar(){
+  if (!ctx) return;
+  ajustarLienzo();
+
+  const ancho = lienzo.clientWidth || 620;
+  const alto  = 380;
+  ctx.clearRect(0, 0, ancho, alto);
+
+  const perfil = calcularPerfil();
+  const datos = [
+    { nombre:'Conciencia corporal',  valor: perfil.conciencia,   color:'#13538A' },
+    { nombre:'Preocupación corporal', valor: perfil.preocupacion, color:'#E7C873' },
+    { nombre:'Confianza corporal',    valor: perfil.confianza,    color:'#7A8798' }
+  ];
+
+  // Ejes y rejilla
+  const margenIzq = 20;
+  const margenDer = 20;
+  const margenSup = 30;
+  const margenInf = 60;
+  const anchoUtil = ancho - margenIzq - margenDer;
+  const altoUtil  = alto - margenSup - margenInf;
+
+  ctx.strokeStyle = '#E2E7EE';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++){
+    const y = margenSup + (altoUtil / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(margenIzq, y);
+    ctx.lineTo(ancho - margenDer, y);
+    ctx.stroke();
+  }
+
+  // Escala de referencia
+  ctx.fillStyle = '#9AA6B5';
+  ctx.font = '13px "Segoe UI", sans-serif';
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 4; i++){
+    const valor = 100 - i * 25;
+    const y = margenSup + (altoUtil / 4) * i;
+    ctx.fillText(valor, margenIzq - 8, y + 4);
+  }
+
+  // Barras
+  const anchoBarra = anchoUtil / datos.length;
+  const padding = 28;
+
+  datos.forEach((d, i) => {
+    const x = margenIzq + i * anchoBarra + padding / 2;
+    const w = anchoBarra - padding;
+    const h = (d.valor / 100) * altoUtil;
+    const y = margenSup + altoUtil - h;
+
+    // Sombra suave
+    ctx.fillStyle = 'rgba(11,37,69,.06)';
+    ctx.fillRect(x + 3, y + 3, w, h);
+
+    // Barra
+    ctx.fillStyle = d.color;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, w, h, [8, 8, 0, 0]);
+    else ctx.rect(x, y, w, h);
+    ctx.fill();
+
+    // Valor sobre la barra
+    ctx.fillStyle = '#0B2545';
+    ctx.font = 'bold 17px "Segoe UI", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(Math.round(d.valor), x + w / 2, y - 10);
+
+    // Etiqueta inferior (envuelta en dos líneas si hace falta)
+    ctx.fillStyle = '#3C4653';
+    ctx.font = '13px "Segoe UI", sans-serif';
+    const palabras = d.nombre.split(' ');
+    const linea1 = palabras.slice(0, Math.ceil(palabras.length / 2)).join(' ');
+    const linea2 = palabras.slice(Math.ceil(palabras.length / 2)).join(' ');
+    ctx.fillText(linea1, x + w / 2, alto - 32);
+    if (linea2) ctx.fillText(linea2, x + w / 2, alto - 16);
+  });
+
+  // Veredicto textual
+  actualizarVeredicto(perfil);
+}
+
+function actualizarVeredicto(perfil){
+  const { preocupacion, confianza, cargaEfectiva } = perfil;
+  let texto, fondo, color;
+
+  if (cargaEfectiva >= 65 && preocupacion > confianza){
+    texto = 'Perfil compatible con H1: alta carga efectiva, mayor preocupación corporal y menor confianza corporal.';
+    fondo = 'rgba(231,200,115,.25)'; color = '#7A5C10';
+  } else if (cargaEfectiva >= 65){
+    texto = 'Carga efectiva alta, pero el perfil interoceptivo no muestra el patrón de H1 con claridad.';
+    fondo = 'rgba(19,83,138,.10)'; color = '#13315C';
+  } else if (cargaEfectiva <= 35 && confianza > preocupacion){
+    texto = 'Perfil de baja carga efectiva: mayor confianza corporal y menor preocupación.';
+    fondo = 'rgba(46,139,87,.12)'; color = '#1E5C39';
+  } else {
+    texto = 'Perfil intermedio: la relación entre carga efectiva e interocepción no es concluyente.';
+    fondo = 'rgba(122,135,152,.15)'; color = '#3C4653';
+  }
+
+  veredicto.textContent = texto;
+  veredicto.style.background = fondo;
+  veredicto.style.color = color;
+}
+
+/* Eventos de los controles */
+[sCarga, sTareas, sApoyo].forEach(s => {
+  s.addEventListener('input', () => {
+    vCarga.textContent  = sCarga.value;
+    vTareas.textContent = sTareas.value;
+    vApoyo.textContent  = sApoyo.value;
+    dibujar();
+  });
+});
+
+window.addEventListener('resize', () => {
+  if (slides[actual].dataset.titulo === 'Simulación') dibujar();
+});
+
+/* ============================================================
+   5. ACTIVIDAD 3 · ORDENAR EL CRONOGRAMA
+   ============================================================ */
+/* Se implementa como una actividad de opción múltiple secuencial
+   dentro de la diapositiva de ética y cronograma, para no exceder
+   el número de diapositivas. */
+</script>
+
+</body>
+</html>

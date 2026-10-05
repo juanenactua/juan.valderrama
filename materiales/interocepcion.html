@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interocepción: El cuerpo en la cognición | SOM4TICA</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Interocepción: el cuerpo en la cognición">
+<meta name="jc-descripcion" content="Presentación interactiva sobre interocepción, cognición corporeizada, atención, memoria, emoción, procesamiento predictivo, sensibilidad interoceptiva y MAIA.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Interocepción, Cognición corporeizada, Cognición 4E, Atención interoceptiva, Emoción, Memoria, Predictive processing, MAIA, Sensibilidad interoceptiva, Psicología cognitiva">
+<meta name="jc-curso" content="Semillero SOM4TICA">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     LIBRERÍAS EXTERNAS (CDN)
+     ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1. VARIABLES Y RESET
+   ============================================================ */
+:root{
+  --azul-oscuro:#0B2545;
+  --azul-medio:#13315C;
+  --azul-acento:#13538A;
+  --dorado:#E7C873;
+  --gris-calido:#F5F3EF;
+  --gris-texto:#3A3A3A;
+  --gris-suave:#E8E6E1;
+  --blanco:#FFFFFF;
+  --sombra:0 4px 20px rgba(11,37,69,.08);
+  --radio:14px;
+  --transicion:.45s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--blanco);color:var(--gris-texto);overflow:hidden;}
+
+#app{display:flex;flex-direction:column;height:100vh;width:100vw;}
+
+/* ---------- Barra superior ---------- */
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 22px;background:var(--azul-oscuro);color:var(--blanco);z-index:100;flex-shrink:0;box-shadow:0 2px 12px rgba(0,0,0,.15);}
+#topbar .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:16px;letter-spacing:.3px;}
+#topbar .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--dorado);box-shadow:0 0 0 3px rgba(231,200,115,.25);}
+#topbar .brand small{font-weight:400;opacity:.75;font-size:12px;}
+#menu-toggle{background:transparent;border:1px solid rgba(255,255,255,.25);color:var(--blanco);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit;transition:background .2s;}
+#menu-toggle:hover{background:rgba(255,255,255,.1);}
+
+/* ---------- Menú lateral ---------- */
+#section-menu{position:fixed;top:52px;right:0;width:300px;max-height:calc(100vh - 52px);background:var(--blanco);border-left:1px solid var(--gris-suave);box-shadow:-6px 0 24px rgba(11,37,69,.12);transform:translateX(100%);transition:transform var(--transicion);z-index:99;overflow-y:auto;padding:18px 0;}
+#section-menu.open{transform:translateX(0);}
+#section-menu h4{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul-acento);padding:8px 22px 4px;font-weight:700;}
+#section-menu button{display:block;width:100%;text-align:left;background:transparent;border:none;padding:11px 22px;font-size:14px;font-family:inherit;color:var(--gris-texto);cursor:pointer;transition:background .15s,color .15s;border-left:3px solid transparent;}
+#section-menu button:hover{background:var(--gris-calido);}
+#section-menu button.active{background:var(--gris-calido);border-left-color:var(--dorado);color:var(--azul-oscuro);font-weight:600;}
+#section-menu button .num{display:inline-block;width:24px;color:var(--azul-acento);font-weight:600;font-size:12px;}
+
+/* ---------- Escenario ---------- */
+#stage{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;padding:48px 70px 70px;overflow-y:auto;opacity:0;transform:translateX(40px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-start;}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:auto;}
+.slide.prev{transform:translateX(-40px);}
+
+/* ---------- Tipografía ---------- */
+.slide h1{font-size:46px;font-weight:800;color:var(--azul-oscuro);line-height:1.15;margin-bottom:14px;letter-spacing:-.5px;}
+.slide h2{font-size:38px;font-weight:700;color:var(--azul-oscuro);line-height:1.2;margin-bottom:10px;letter-spacing:-.3px;}
+.slide h3{font-size:24px;font-weight:700;color:var(--azul-medio);margin:22px 0 10px;}
+.slide p, .slide li{font-size:21px;line-height:1.55;color:var(--gris-texto);}
+.slide ul{margin-left:22px;margin-top:8px;}
+.slide li{margin-bottom:9px;}
+
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--azul-acento);background:rgba(19,83,138,.08);padding:5px 14px;border-radius:20px;margin-bottom:16px;}
+.lead{font-size:23px;color:var(--azul-medio);font-weight:500;line-height:1.5;max-width:920px;}
+
+/* ---------- Tarjetas ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:22px;}
+.card{background:var(--blanco);border:1.5px solid var(--gris-suave);border-radius:var(--radio);padding:22px 24px;transition:transform .2s,border-color .2s,box-shadow .2s;}
+.card:hover{transform:translateY(-3px);border-color:var(--dorado);box-shadow:var(--sombra);}
+.card .icon{font-size:26px;margin-bottom:10px;display:block;}
+.card h4{font-size:19px;font-weight:700;color:var(--azul-oscuro);margin-bottom:6px;}
+.card p{font-size:17px;line-height:1.5;color:var(--gris-texto);}
+
+.highlight{background:linear-gradient(135deg,rgba(231,200,115,.18),rgba(231,200,115,.06));border-left:5px solid var(--dorado);border-radius:10px;padding:20px 26px;margin:22px 0;}
+.highlight p{font-size:22px;color:var(--azul-oscuro);font-weight:500;font-style:italic;}
+
+/* ---------- Tablas ---------- */
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:18px;border-radius:var(--radio);overflow:hidden;box-shadow:var(--sombra);}
+th{background:var(--azul-oscuro);color:var(--blanco);text-align:left;padding:14px 18px;font-weight:600;font-size:17px;}
+td{padding:13px 18px;border-bottom:1px solid var(--gris-suave);vertical-align:top;}
+tr:nth-child(even) td{background:var(--gris-calido);}
+tr:last-child td{border-bottom:none;}
+
+/* ---------- Flujo ---------- */
+.flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0;}
+.flow .node{background:var(--azul-medio);color:var(--blanco);padding:11px 20px;border-radius:10px;font-size:17px;font-weight:600;}
+.flow .node.alt{background:var(--azul-acento);}
+.flow .node.gold{background:var(--dorado);color:var(--azul-oscuro);}
+.flow .arrow{color:var(--azul-acento);font-size:22px;font-weight:700;}
+
+/* ---------- Actividades ---------- */
+.activity-box{background:var(--gris-calido);border-radius:var(--radio);padding:28px 32px;margin-top:18px;}
+.quiz-q{font-size:22px;font-weight:600;color:var(--azul-oscuro);margin-bottom:16px;}
+.quiz-options{display:flex;flex-direction:column;gap:10px;}
+.quiz-options button{text-align:left;background:var(--blanco);border:2px solid var(--gris-suave);border-radius:10px;padding:14px 20px;font-size:19px;font-family:inherit;color:var(--gris-texto);cursor:pointer;transition:all .2s;}
+.quiz-options button:hover{border-color:var(--azul-acento);}
+.quiz-options button.correct{background:rgba(46,125,50,.12);border-color:#2E7D32;color:#1B5E20;font-weight:600;}
+.quiz-options button.wrong{background:rgba(198,40,40,.1);border-color:#C62828;color:#B71C1C;}
+.quiz-options button:disabled{cursor:default;}
+.feedback{margin-top:16px;padding:16px 20px;border-radius:10px;font-size:19px;line-height:1.5;display:none;}
+.feedback.show{display:block;}
+.feedback.ok{background:rgba(46,125,50,.12);border-left:5px solid #2E7D32;color:#1B5E20;}
+.feedback.no{background:rgba(198,40,40,.1);border-left:5px solid #C62828;color:#B71C1C;}
+
+/* ---------- Arrastrar y soltar ---------- */
+.dnd-container{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px;}
+.dnd-pool{background:var(--blanco);border:2px dashed var(--gris-suave);border-radius:var(--radio);padding:18px;min-height:200px;}
+.dnd-pool h4{font-size:16px;color:var(--azul-acento);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+.dnd-item{background:var(--azul-medio);color:var(--blanco);padding:12px 16px;border-radius:9px;margin-bottom:9px;cursor:grab;font-size:17px;font-weight:500;transition:transform .15s;user-select:none;}
+.dnd-item:active{cursor:grabbing;transform:scale(1.03);}
+.dnd-item.dragging{opacity:.5;}
+.dnd-zones{display:flex;flex-direction:column;gap:14px;}
+.dnd-zone{background:var(--blanco);border:2px solid var(--gris-suave);border-radius:var(--radio);padding:16px;min-height:90px;transition:border-color .2s,background .2s;}
+.dnd-zone.over{border-color:var(--dorado);background:rgba(231,200,115,.08);}
+.dnd-zone h5{font-size:16px;color:var(--azul-oscuro);margin-bottom:8px;font-weight:700;}
+.dnd-zone .drop-area{min-height:50px;display:flex;flex-direction:column;gap:6px;}
+.dnd-zone .dnd-item{background:var(--azul-acento);margin-bottom:0;font-size:16px;}
+
+/* ---------- Simulación ---------- */
+.sim-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;margin-top:18px;}
+.sim-controls{background:var(--gris-calido);border-radius:var(--radio);padding:22px 24px;}
+.sim-controls label{display:block;font-size:16px;font-weight:600;color:var(--azul-oscuro);margin:16px 0 6px;}
+.sim-controls label:first-child{margin-top:0;}
+.sim-controls input[type=range]{width:100%;accent-color:var(--azul-acento);height:6px;cursor:pointer;}
+.sim-controls .val{float:right;font-weight:700;color:var(--azul-acento);font-size:15px;}
+.sim-controls .hint{font-size:14px;color:#666;margin-top:4px;line-height:1.4;}
+.sim-chart-wrap{background:var(--blanco);border:1.5px solid var(--gris-suave);border-radius:var(--radio);padding:16px;position:relative;min-height:340px;}
+.sim-readout{margin-top:14px;padding:14px 18px;background:var(--azul-oscuro);color:var(--blanco);border-radius:10px;font-size:16px;line-height:1.5;}
+.sim-readout strong{color:var(--dorado);}
+
+/* ---------- MAIA ---------- */
+.maia-item{background:var(--blanco);border:1.5px solid var(--gris-suave);border-radius:12px;padding:16px 20px;margin-bottom:14px;}
+.maia-item .q{font-size:19px;font-weight:600;color:var(--azul-oscuro);margin-bottom:12px;}
+.maia-item .opts{display:flex;gap:8px;flex-wrap:wrap;}
+.maia-item .opts button{flex:1;min-width:70px;background:var(--blanco);border:2px solid var(--gris-suave);border-radius:8px;padding:9px 12px;font-family:inherit;font-size:15px;cursor:pointer;color:var(--gris-texto);transition:all .15s;}
+.maia-item .opts button:hover{border-color:var(--azul-acento);}
+.maia-item .opts button.selected{background:var(--azul-acento);color:#fff;border-color:var(--azul-acento);font-weight:600;}
+
+.maia-result{background:linear-gradient(135deg,var(--azul-oscuro),var(--azul-medio));color:#fff;border-radius:var(--radio);padding:24px 28px;margin-top:22px;display:none;}
+.maia-result.show{display:block;}
+.maia-result h4{color:var(--dorado);font-size:15px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+.maia-bar{margin:12px 0;}
+.maia-bar .label{display:flex;justify-content:space-between;font-size:15px;margin-bottom:5px;color:rgba(255,255,255,.9);}
+.maia-bar .track{background:rgba(255,255,255,.15);height:10px;border-radius:6px;overflow:hidden;}
+.maia-bar .fill{height:100%;background:var(--dorado);border-radius:6px;transition:width .6s ease;}
+.maia-interp{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);font-size:16px;line-height:1.55;color:rgba(255,255,255,.95);}
+
+/* ---------- Navegación ---------- */
+#navbar{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:8px 22px;background:linear-gradient(to top,rgba(255,255,255,.98),rgba(255,255,255,.85));backdrop-filter:blur(6px);border-top:1px solid var(--gris-suave);z-index:50;}
+.nav-btn{background:var(--azul-oscuro);color:var(--blanco);border:none;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;}
+.nav-btn:hover{background:var(--azul-acento);transform:scale(1.06);}
+.nav-btn:disabled{background:var(--gris-suave);color:#aaa;cursor:not-allowed;transform:none;}
+#progress-info{font-size:13px;color:var(--azul-medio);font-weight:600;letter-spacing:.5px;}
+#progress-bar{position:absolute;bottom:0;left:0;height:3px;background:var(--dorado);transition:width .4s ease;z-index:51;}
+
+/* ---------- Portada ---------- */
+.cover{display:flex;flex-direction:column;justify-content:center;height:100%;padding:60px 80px;background:radial-gradient(circle at 90% 10%,rgba(19,83,138,.06) 0%,transparent 45%),radial-gradient(circle at 10% 90%,rgba(231,200,115,.1) 0%,transparent 40%),var(--blanco);}
+.cover .course-tag{font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--azul-acento);margin-bottom:18px;}
+.cover h1{font-size:62px;line-height:1.08;max-width:1000px;margin-bottom:20px;}
+.cover .subtitle{font-size:26px;color:var(--azul-medio);font-weight:400;max-width:820px;line-height:1.45;margin-bottom:40px;}
+.cover .meta{display:flex;flex-wrap:wrap;gap:14px 40px;padding-top:26px;border-top:2px solid var(--gris-suave);max-width:900px;}
+.cover .meta div{font-size:17px;color:var(--gris-texto);}
+.cover .meta strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul-acento);margin-bottom:3px;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .slide{padding:32px 26px 80px;}
+  .slide h1{font-size:34px;}
+  .slide h2{font-size:28px;}
+  .slide p,.slide li{font-size:18px;}
+  .cover{padding:36px 26px;}
+  .cover h1{font-size:38px;}
+  .cover .subtitle{font-size:19px;}
+  .sim-layout,.dnd-container{grid-template-columns:1fr;}
+  table{font-size:15px;}
+  th,td{padding:10px 12px;}
+  #section-menu{width:250px;}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============================================================
+       BARRA SUPERIOR
+       ============================================================ -->
+  <header id="topbar">
+    <div class="brand">
+      <span class="dot"></span>
+      SOM4TICA <small>· Semillero de investigación</small>
+    </div>
+    <button id="menu-toggle" onclick="toggleMenu()">☰ Secciones</button>
+  </header>
+
+  <!-- ============================================================
+       MENÚ LATERAL
+       ============================================================ -->
+  <nav id="section-menu">
+    <h4>Recorrido de la sesión</h4>
+    <button data-target="0" class="active"><span class="num">01</span> Portada</button>
+    <button data-target="1"><span class="num">02</span> Agenda</button>
+    <button data-target="2"><span class="num">03</span> ¿Qué es la interocepción?</button>
+    <button data-target="3"><span class="num">04</span> Equipo interdisciplinar</button>
+    <button data-target="4"><span class="num">05</span> Actividad: V o F</button>
+    <button data-target="5"><span class="num">06</span> Homeostasis</button>
+    <button data-target="6"><span class="num">07</span> Cuerpo y emoción</button>
+    <button data-target="7"><span class="num">08</span> Actividad: clasificar</button>
+    <button data-target="8"><span class="num">09</span> Atención interoceptiva</button>
+    <button data-target="9"><span class="num">10</span> Memoria y sesgos</button>
+    <button data-target="10"><span class="num">11</span> Predictive processing</button>
+    <button data-target="11"><span class="num">12</span> Simulación: bucle ansiedad</button>
+    <button data-target="12"><span class="num">13</span> Conciencia y self</button>
+    <button data-target="13"><span class="num">14</span> Sensibilidad y MAIA (1)</button>
+    <button data-target="14"><span class="num">15</span> Actividad: cuestionario MAIA</button>
+    <button data-target="15"><span class="num">16</span> MAIA: interpretación</button>
+    <button data-target="16"><span class="num">17</span> Cierre y referencias</button>
+  </nav>
+
+  <!-- ============================================================
+       ESCENARIO DE DIAPOSITIVAS
+       ============================================================ -->
+  <main id="stage">
+
+    <!-- ========== SLIDE 0: PORTADA ========== -->
+    <section class="slide active cover" data-index="0">
+      <div class="course-tag">Curso universitario de cognición</div>
+      <h1>Interocepción: el cuerpo en la cognición</h1>
+      <p class="subtitle">
+        Cómo las señales corporales participan en nuestra experiencia, nuestras emociones,
+        nuestras decisiones y nuestra relación con el entorno.
+      </p>
+      <div class="meta">
+        <div><strong>Docente</strong>Juan Carlos Valderrama Cárdenas</div>
+        <div><strong>Semillero</strong>SOM4TICA: Semillero de investigación</div>
+        <div><strong>Enfoque</strong>Cognición corporeizada · 4E · Psicología cognitiva</div>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 1: AGENDA ========== -->
+    <section class="slide" data-index="1">
+      <span class="eyebrow">Agenda</span>
+      <h2>¿Qué veremos hoy?</h2>
+      <p class="lead">Recorreremos cinco grandes bloques que conectan neurociencia, psicología cognitiva y cognición situada.</p>
+      <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+        <div class="card"><span class="icon">🧠</span><h4>1. Fundamentos</h4><p>Definición técnica, niveles de procesamiento y el equipo interdisciplinar.</p></div>
+        <div class="card"><span class="icon">❤️</span><h4>2. Cuerpo y emoción</h4><p>Homeostasis, teorías clásicas y perspectivas contemporáneas.</p></div>
+        <div class="card"><span class="icon">👁️</span><h4>3. Psicología cognitiva</h4><p>Atención, memoria, sesgos y categorización emocional.</p></div>
+        <div class="card"><span class="icon">🔮</span><h4>4. Predicción y self</h4><p>Inferencia interoceptiva, conciencia y simulación interactiva.</p></div>
+        <div class="card"><span class="icon">📊</span><h4>5. Sensibilidad y MAIA</h4><p>Constructos, medición y aplicación investigativa.</p></div>
+        <div class="card" style="background:linear-gradient(135deg,var(--azul-oscuro),var(--azul-medio));border:none;">
+          <span class="icon">✅</span>
+          <h4 style="color:#fff;">3 actividades + 1 simulación</h4>
+          <p style="color:rgba(255,255,255,.85);">Participación activa con retroalimentación inmediata en cada bloque.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 2: ¿QUÉ ES? ========== -->
+    <section class="slide" data-index="2">
+      <span class="eyebrow">Fundamentos</span>
+      <h2>¿Qué es exactamente la interocepción?</h2>
+      <p class="lead">
+        Es el procesamiento de señales relacionadas con el estado fisiológico del organismo.
+        Pero conviene distinguir con cuidado varios niveles.
+      </p>
+      <div class="flow">
+        <span class="node">Señal corporal</span><span class="arrow">→</span>
+        <span class="node alt">Procesamiento</span><span class="arrow">→</span>
+        <span class="node alt">Percepción</span><span class="arrow">→</span>
+        <span class="node gold">Interpretación</span><span class="arrow">→</span>
+        <span class="node">Experiencia</span><span class="arrow">→</span>
+        <span class="node">Conducta</span>
+      </div>
+      <div class="highlight">
+        <p>Interocepción ≠ conciencia interoceptiva ≠ precisión ≠ sensibilidad. Confundirlas es el error más común al estudiar este tema.</p>
+      </div>
+      <h3>Una distinción clave</h3>
+      <p>Que alguien diga "mi corazón está latiendo muy rápido" no implica automáticamente que tenga buena interocepción. Debemos separar:</p>
+      <div class="cards">
+        <div class="card"><h4>A. Señal fisiológica</h4><p>El corazón late a cierta frecuencia real.</p></div>
+        <div class="card"><h4>B. Detección</h4><p>La persona puede notar cambios en la señal.</p></div>
+        <div class="card"><h4>C. Precisión</h4><p>Su percepción coincide —o no— con la señal real.</p></div>
+        <div class="card"><h4>D. Interpretación</h4><p>"Estoy emocionado" vs. "algo malo pasa".</p></div>
+        <div class="card"><h4>E. Metaconciencia</h4><p>"Siento cambios y no sé bien qué significan".</p></div>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 3: EQUIPO INTERDISCIPLINAR ========== -->
+    <section class="slide" data-index="3">
+      <span class="eyebrow">Fundamentos</span>
+      <h2>Un equipo interdisciplinar</h2>
+      <p class="lead">La interocepción no pertenece solo a la neurociencia: es un puente entre organismo, experiencia y cognición. Fíjense en el peso de la psicología cognitiva.</p>
+      <table>
+        <thead><tr><th>Disciplina</th><th>Pregunta central</th><th>Conceptos</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Neurociencia</strong></td><td>¿Cómo se representa el estado interno?</td><td>señales viscerales, homeostasis</td></tr>
+          <tr><td><strong>Psicología cognitiva</strong></td><td>¿Cómo atendemos, codificamos y recordamos señales corporales?</td><td>atención selectiva, memoria de trabajo, sesgos</td></tr>
+          <tr><td><strong>Psicología afectiva</strong></td><td>¿Cómo participa el cuerpo en la emoción?</td><td>arousal, experiencia afectiva</td></tr>
+          <tr><td><strong>Psicofisiología</strong></td><td>¿Cómo medimos procesos interoceptivos?</td><td>frecuencia cardíaca, respiración</td></tr>
+          <tr><td><strong>Neurociencia computacional</strong></td><td>¿Cómo interpreta el cerebro las señales?</td><td>predicción, inferencia</td></tr>
+          <tr><td><strong>Psicología clínica</strong></td><td>¿Qué ocurre cuando se altera la interpretación?</td><td>ansiedad, pánico, somatización</td></tr>
+          <tr><td><strong>Psicología de la salud</strong></td><td>¿Cómo influye en la autorregulación?</td><td>estrés, salud</td></tr>
+          <tr><td><strong>Cognición 4E</strong></td><td>¿Es parte de una cognición corporizada?</td><td>cuerpo, acción, enacción</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== SLIDE 4: ACTIVIDAD V/F ========== -->
+    <section class="slide" data-index="4">
+      <span class="eyebrow">Actividad 1</span>
+      <h2>Pongamos a prueba lo aprendido</h2>
+      <p class="lead">Lean cada afirmación y decidan si es verdadera o falsa. Recibirán retroalimentación inmediata.</p>
+      <div class="activity-box" id="vf-activity"></div>
+    </section>
+
+    <!-- ========== SLIDE 5: HOMEOSTASIS ========== -->
+    <section class="slide" data-index="5">
+      <span class="eyebrow">Cuerpo y regulación</span>
+      <h2>Homeostasis: el primer gran eje</h2>
+      <p class="lead">¿Cómo sabe el organismo que necesita cambiar algo? Temperatura, presión, glucosa, respiración, sed, hambre…</p>
+      <div class="flow">
+        <span class="node">Organismo</span><span class="arrow">→</span>
+        <span class="node alt">Detecta cambios</span><span class="arrow">→</span>
+        <span class="node alt">Integra</span><span class="arrow">→</span>
+        <span class="node gold">Regula</span><span class="arrow">→</span>
+        <span class="node">Modifica conducta</span><span class="arrow">→</span>
+        <span class="node">Vuelve a detectar</span>
+      </div>
+      <div class="highlight">
+        <p>La interocepción no solo informa al organismo sobre su estado: participa activamente en los procesos de regulación.</p>
+      </div>
+      <h3>Un ejemplo cotidiano</h3>
+      <p><strong>Sed</strong> → percibo estado corporal → busco agua → interactúo con el entorno → bebo → cambia el estado fisiológico → cambia la experiencia corporal.</p>
+    </section>
+
+    <!-- ========== SLIDE 6: CUERPO Y EMOCIÓN ========== -->
+    <section class="slide" data-index="6">
+      <span class="eyebrow">Cuerpo y emoción</span>
+      <h2>¿Primero la emoción o primero el cuerpo?</h2>
+      <p class="lead">Una discusión histórica que sigue viva en la ciencia cognitiva contemporánea.</p>
+      <div class="cards">
+        <div class="card"><h4>James-Lange</h4><p>El cambio corporal participa en la experiencia emocional.</p></div>
+        <div class="card"><h4>Cannon-Bard</h4><p>La emoción y la fisiología no se reducen a una secuencia lineal simple.</p></div>
+        <div class="card"><h4>Schachter-Singer</h4><p>El estado fisiológico requiere interpretación contextual.</p></div>
+        <div class="card" style="border-color:var(--dorado);"><h4>Perspectivas contemporáneas</h4><p>Señales + contexto + aprendizaje + predicción + categorización + experiencia previa.</p></div>
+      </div>
+      <div class="highlight" style="margin-top:26px;">
+        <p>¿El cuerpo "produce" la emoción o el cerebro interpreta las señales corporales dentro de un contexto? No hay respuesta definitiva: hay modelos en competencia.</p>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 7: ACTIVIDAD CLASIFICAR ========== -->
+    <section class="slide" data-index="7">
+      <span class="eyebrow">Actividad 2</span>
+      <h2>Clasifiquemos las teorías</h2>
+      <p class="lead">Arrastren cada tarjeta a la teoría que le corresponde. Pueden corregir en cualquier momento.</p>
+      <div class="dnd-container">
+        <div class="dnd-pool" id="dnd-pool"></div>
+        <div class="dnd-zones" id="dnd-zones"></div>
+      </div>
+      <p id="dnd-feedback" style="margin-top:16px;font-weight:600;font-size:18px;"></p>
+    </section>
+
+    <!-- ========== SLIDE 8: ATENCIÓN INTEROCEPTIVA ========== -->
+    <section class="slide" data-index="8">
+      <span class="eyebrow">Psicología cognitiva · I</span>
+      <h2>Atención interoceptiva: el filtro cognitivo</h2>
+      <p class="lead">La atención es el primer proceso cognitivo que modula la interocepción. No somos receptores pasivos: seleccionamos, sostenemos y alternamos el foco corporal.</p>
+
+      <h3>¿Qué hace la atención interoceptiva?</h3>
+      <div class="cards">
+        <div class="card"><h4>Selección</h4><p>Filtramos entre múltiples señales corporales competidoras (latido, respiración, tensión, hambre).</p></div>
+        <div class="card"><h4>Sostenimiento</h4><p>Mantenemos el foco en una señal durante un tiempo, amplificando su detección.</p></div>
+        <div class="card"><h4>Alternancia</h4><p>Cambiamos entre foco interno y externo según demandas de la tarea.</p></div>
+        <div class="card"><h4>Modulación</h4><p>La atención modifica la experiencia: no es un canal transparente.</p></div>
+      </div>
+
+      <h3>Carga cognitiva y competencia de recursos</h3>
+      <p>La atención es un recurso limitado. Cuando una tarea externa exige mucho, la detección interoceptiva disminuye; y al revés, cuando la ansiedad dirige la atención al cuerpo, el rendimiento en tareas externas puede caer.</p>
+
+      <div class="highlight">
+        <p>La atención interoceptiva no es un rasgo fijo: es un proceso ejecutivo modulable por contexto, emoción y entrenamiento (p. ej. mindfulness).</p>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 9: MEMORIA Y SESGOS ========== -->
+    <section class="slide" data-index="9">
+      <span class="eyebrow">Psicología cognitiva · II</span>
+      <h2>Memoria, sesgos y categorización emocional</h2>
+      <p class="lead">Una vez que la señal corporal llega al sistema cognitivo, entra en juego la memoria: la interpretamos con base en experiencias previas.</p>
+
+      <h3>Tres procesos clave</h3>
+      <div class="cards">
+        <div class="card"><h4>Memoria interoceptiva</h4><p>Registros previos de sensaciones corporales guían lo que esperamos sentir.</p></div>
+        <div class="card"><h4>Sesgo interoceptivo</h4><p>La atención se inclina hacia señales coherentes con nuestro estado emocional actual.</p></div>
+        <div class="card"><h4>Categorización emocional</h4><p>Etiquetamos la sensación: "ansiedad", "cansancio", "enfermedad". La etiqueta moldea la experiencia.</p></div>
+      </div>
+
+      <h3>El caso del etiquetado afectivo</h3>
+      <p>Poner nombre a lo que sentimos no es un simple epifenómeno: la investigación en psicología cognitiva muestra que el etiquetado afectivo puede reducir la activación de la amígdala y modular la respuesta fisiológica.</p>
+
+      <div class="highlight" style="border-left-color:var(--azul-acento);background:rgba(19,83,138,.06);">
+        <p style="color:var(--azul-oscuro);">Dos personas con la misma señal pueden tener memorias, sesgos y categorías distintas. Por eso la misma palpitación puede significar "emoción" o "peligro".</p>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 10: PREDICTIVE PROCESSING ========== -->
+    <section class="slide" data-index="10">
+      <span class="eyebrow">Cognición contemporánea</span>
+      <h2>Predictive processing e inferencia interoceptiva</h2>
+      <p class="lead">El sistema nervioso no espera pasivamente a recibir señales: genera expectativas sobre el estado corporal y las compara con la información entrante.</p>
+      <div class="flow">
+        <span class="node">Predicción</span><span class="arrow">→</span>
+        <span class="node alt">Señal corporal</span><span class="arrow">→</span>
+        <span class="node alt">Comparación</span><span class="arrow">→</span>
+        <span class="node gold">Error de predicción</span><span class="arrow">→</span>
+        <span class="node">Actualización</span>
+      </div>
+
+      <h3>Funciones ejecutivas en juego</h3>
+      <p>La inferencia interoceptiva no ocurre en el vacío: involucra memoria de trabajo (mantener la predicción), control inhibitorio (no reaccionar a la primera señal) y flexibilidad cognitiva (actualizar cuando el error es grande).</p>
+
+      <h3>Dos personas, la misma señal, dos mundos</h3>
+      <div class="cards">
+        <div class="card"><h4>Persona A</h4><p>Palpitaciones → "Estoy emocionado".</p></div>
+        <div class="card"><h4>Persona B</h4><p>Palpitaciones → "Estoy en peligro".</p></div>
+      </div>
+      <p style="margin-top:18px;">La diferencia no está solo en la intensidad fisiológica: también en aprendizaje, contexto, expectativas, memoria, atención y significado atribuido.</p>
+    </section>
+
+    <!-- ========== SLIDE 11: SIMULACIÓN ========== -->
+    <section class="slide" data-index="11">
+      <span class="eyebrow">Simulación interactiva</span>
+      <h2>El bucle de la ansiedad interoceptiva</h2>
+      <p class="lead">Ajusten los controles y observen cómo la interpretación puede amplificar o amortiguar un bucle de retroalimentación corporal.</p>
+      <div class="sim-layout">
+        <div class="sim-chart-wrap">
+          <canvas id="simChart"></canvas>
+        </div>
+        <div>
+          <div class="sim-controls">
+            <label>Intensidad de la señal corporal <span class="val" id="val-signal">50</span></label>
+            <input type="range" id="ctrl-signal" min="0" max="100" value="50">
+            <p class="hint">Magnitud inicial de la señal fisiológica (p. ej. palpitaciones).</p>
+
+            <label>Atención interoceptiva <span class="val" id="val-attention">50</span></label>
+            <input type="range" id="ctrl-attention" min="0" max="100" value="50">
+            <p class="hint">Cuánto dirige la persona su atención al cuerpo.</p>
+
+            <label>Tendencia interpretativa <span class="val" id="val-interp">50</span></label>
+            <input type="range" id="ctrl-interp" min="0" max="100" value="50">
+            <p class="hint">0 = benigna · 100 = catastrófica.</p>
+
+            <button onclick="resetSim()" style="margin-top:18px;background:var(--azul-oscuro);color:#fff;border:none;padding:10px 20px;border-radius:9px;font-family:inherit;font-size:15px;cursor:pointer;">↺ Reiniciar</button>
+          </div>
+          <div class="sim-readout" id="sim-readout"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 12: CONCIENCIA Y SELF ========== -->
+    <section class="slide" data-index="12">
+      <span class="eyebrow">Conciencia y self</span>
+      <h2>Conciencia, metacognición y construcción del yo</h2>
+      <p class="lead">¿Qué ocurre cuando dirigimos deliberadamente la atención al cuerpo? La atención modifica la experiencia, y la metacognición nos permite evaluar lo que sentimos.</p>
+      <div class="flow">
+        <span class="node alt">Cuerpo</span><span class="arrow">↔</span>
+        <span class="node gold">Atención</span><span class="arrow">↔</span>
+        <span class="node alt">Interpretación</span>
+      </div>
+      <h3>Cuatro niveles de procesamiento interoceptivo</h3>
+      <div class="cards">
+        <div class="card"><h4>No consciente</h4><p>El organismo regula procesos sin conciencia explícita.</p></div>
+        <div class="card"><h4>Consciente</h4><p>Percibimos alguna señal corporal.</p></div>
+        <div class="card"><h4>Conciencia del estado</h4><p>"Siento tensión en el pecho".</p></div>
+        <div class="card"><h4>Metacognición corporal</h4><p>"¿Qué tan seguro estoy de lo que siento?"</p></div>
+      </div>
+      <div class="highlight" style="margin-top:24px;">
+        <p>¿Podría la experiencia de tener un "yo" estar parcialmente relacionada con la percepción del propio estado corporal? El organismo proporciona continuamente información sobre límites, temperatura, respiración, dolor y equilibrio fisiológico.</p>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 13: SENSIBILIDAD Y MAIA (1) ========== -->
+    <section class="slide" data-index="13">
+      <span class="eyebrow">Sensibilidad interoceptiva · I</span>
+      <h2>Los cuatro constructos de Garfinkel</h2>
+      <p class="lead">Cuando hablamos de "interocepción" en investigación, debemos distinguir cuatro constructos que no son intercambiables. En el proyecto trabajaremos con el MAIA, que mide específicamente la <em>sensibilidad interoceptiva</em>.</p>
+
+      <table>
+        <thead><tr><th>Constructo</th><th>Qué mide</th><th>Cómo se evalúa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Interoceptive accuracy</strong></td><td>Precisión objetiva de detección</td><td>Tareas de conteo de latidos, detección de umbral</td></tr>
+          <tr><td><strong>Interoceptive sensibility</strong></td><td>Autopercepción de la propia sensibilidad corporal</td><td><strong>Cuestionarios como MAIA</strong></td></tr>
+          <tr><td><strong>Interoceptive awareness</strong></td><td>Correspondencia entre precisión y confianza</td><td>Metacognición (tarea + confianza reportada)</td></tr>
+          <tr><td><strong>Interoceptive attention</strong></td><td>Frecuencia con que se atiende al cuerpo</td><td>Autoinforme + medidas conductuales</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight" style="margin-top:24px;">
+        <p><strong>Sensibilidad interoceptiva</strong> es la dimensión subjetiva: cómo la persona percibe y valora su propia capacidad de notar señales corporales. No es una medida objetiva de precisión.</p>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 14: ACTIVIDAD MAIA ========== -->
+    <section class="slide" data-index="14">
+      <span class="eyebrow">Actividad 3</span>
+      <h2>Cuestionario MAIA simulado</h2>
+      <p class="lead">Estos 8 ítems están inspirados en subescalas reales del MAIA. Respondan según su experiencia habitual y verán su perfil de sensibilidad interoceptiva.</p>
+      <p style="font-size:15px;color:#666;margin-top:6px;">Escala: 0 = nunca · 1 = rara vez · 2 = a veces · 3 = frecuentemente · 4 = siempre</p>
+
+      <div id="maia-items" style="margin-top:18px;"></div>
+
+      <button onclick="calcMAIA()" style="margin-top:16px;background:var(--azul-oscuro);color:#fff;border:none;padding:13px 26px;border-radius:10px;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;">Ver mi perfil</button>
+
+      <div class="maia-result" id="maia-result"></div>
+    </section>
+
+    <!-- ========== SLIDE 15: MAIA INTERPRETACIÓN ========== -->
+    <section class="slide" data-index="15">
+      <span class="eyebrow">Sensibilidad interoceptiva · II</span>
+      <h2>MAIA: interpretación y uso investigativo</h2>
+      <p class="lead">El MAIA (Multidimensional Assessment of Interoceptive Awareness) es el instrumento más usado para medir sensibilidad interoceptiva. Tiene 8 subescalas organizadas en cinco dimensiones.</p>
+
+      <table>
+        <thead><tr><th>Dimensión</th><th>Subescalas</th><th>Qué captura</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Conciencia corporal</strong></td><td>Notar, no distraerse</td><td>Darse cuenta de sensaciones y mantener el foco.</td></tr>
+          <tr><td><strong>Autorregulación</strong></td><td>No preocuparse, atención emocional</td><td>Uso adaptativo de las señales corporales.</td></tr>
+          <tr><td><strong>Regulación emocional</strong></td><td>Autoconocimiento, autorregulación</td><td>Conciencia corporal como recurso emocional.</td></tr>
+          <tr><td><strong>Escucha del cuerpo</strong></td><td>Atención a la señal corporal</td><td>Confianza en las señales del propio cuerpo.</td></tr>
+          <tr><td><strong>Confianza corporal</strong></td><td>Body trusting</td><td>Sentir el cuerpo como seguro y confiable.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>¿Para qué nos sirve en el proyecto?</h3>
+      <ul style="font-size:19px;line-height:1.6;">
+        <li>Permite operacionalizar la <strong>sensibilidad interoceptiva</strong> como variable medible en estudios con humanos.</li>
+        <li>No mide precisión objetiva: captura la dimensión subjetiva y experiencial.</li>
+        <li>Puede combinarse con tareas conductuales (conteo de latidos) y medidas fisiológicas (frecuencia cardíaca, conductancia).</li>
+        <li>Útil en estudios sobre ansiedad, regulación emocional, mindfulness y cognición corporizada.</li>
+      </ul>
+
+      <div class="highlight">
+        <p>Un cuestionario como el MAIA no mide lo mismo que una tarea objetiva de detección. Esa distinción es central para no confundir <em>sensibilidad</em> con <em>precisión</em>.</p>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 16: CIERRE ========== -->
+    <section class="slide" data-index="16">
+      <span class="eyebrow">Cierre</span>
+      <h2>Tesis final y referencias</h2>
+      <div class="highlight" style="margin-top:8px;">
+        <p>La interocepción no consiste simplemente en "sentir el cuerpo": implica una relación dinámica entre señales fisiológicas, atención, memoria, predicción, interpretación, regulación y acción, en un organismo situado en un contexto.</p>
+      </div>
+      <div class="highlight" style="border-left-color:var(--azul-acento);background:rgba(19,83,138,.06);">
+        <p style="color:var(--azul-oscuro);">No solamente pensamos con el cerebro acerca del cuerpo; nuestro estado corporal participa continuamente en cómo percibimos, sentimos, decidimos y actuamos.</p>
+      </div>
+
+      <h3 style="margin-top:26px;">Referencias de partida (APA 7)</h3>
+      <ul style="font-size:16px;line-height:1.6;">
+        <li>Craig, A. D. (2002). How do you feel? Interoception: The sense of the physiological condition of the body. <em>Nature Reviews Neuroscience, 3</em>(8), 655–666. https://doi.org/10.1038/nrn894</li>
+        <li>Garfinkel, S. N., & Critchley, H. D. (2013). Interoception, emotion and brain: New insights link internal physiology to social behaviour. <em>Social Cognitive and Affective Neuroscience, 8</em>(3), 231–234.</li>
+        <li>Khalsa, S. S., et al. (2018). Interoception and mental health: A roadmap. <em>Biological Psychiatry: Cognitive Neuroscience and Neuroimaging, 3</em>(6), 501–513. https://doi.org/10.1016/j.bpsc.2017.12.004</li>
+        <li>Mehling, W. E., et al. (2012). The Multidimensional Assessment of Interoceptive Awareness (MAIA). <em>PLoS ONE, 7</em>(11), e48230.</li>
+        <li>Mehling, W. E., et al. (2018). The Multidimensional Assessment of Interoceptive Awareness, Version 2 (MAIA-2). <em>PLoS ONE, 13</em>(12), e0208034.</li>
+        <li>Seth, A. K. (2013). Interoceptive inference, emotion, and the embodied self. <em>Trends in Cognitive Sciences, 17</em>(11), 565–573. https://doi.org/10.1016/j.tics.2013.09.007</li>
+        <li>Seth, A. K., & Friston, K. J. (2016). Active interoceptive inference and the emotional brain. <em>Phil. Trans. R. Soc. B, 371</em>(1708), 20160007. https://doi.org/10.1098/rstb.2016.0007</li>
+        <li>Tsakiris, M., & De Preester, H. (Eds.). (2019). <em>The interoceptive mind: From homeostasis to awareness</em>. Oxford University Press.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         NAVEGACIÓN INFERIOR
+         ============================================================ -->
+    <div id="navbar">
+      <button class="nav-btn" id="btn-prev" onclick="goPrev()" aria-label="Anterior">‹</button>
+      <span id="progress-info">1 / 17</span>
+      <button class="nav-btn" id="btn-next" onclick="goNext()" aria-label="Siguiente">›</button>
+    </div>
+    <div id="progress-bar" style="width:5.88%;"></div>
+
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let current = 0;
+
+const menuButtons = document.querySelectorAll('#section-menu button');
+const progressInfo = document.getElementById('progress-info');
+const progressBar = document.getElementById('progress-bar');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+
+function showSlide(index){
+  if(index < 0 || index >= totalSlides) return;
+  const prevSlide = slides[current];
+  prevSlide.classList.remove('active');
+  prevSlide.classList.add('prev');
+  current = index;
+  const newSlide = slides[current];
+  newSlide.classList.remove('prev');
+  newSlide.classList.add('active');
+  menuButtons.forEach((b,i) => b.classList.toggle('active', i === current));
+  progressInfo.textContent = `${current + 1} / ${totalSlides}`;
+  progressBar.style.width = `${((current + 1) / totalSlides) * 100}%`;
+  btnPrev.disabled = current === 0;
+  btnNext.disabled = current === totalSlides - 1;
+  if(current === 11 && !window.simInitialized){
+    setTimeout(initSimulation, 150);
+  }
+}
+function goNext(){ showSlide(current + 1); }
+function goPrev(){ showSlide(current - 1); }
+
+menuButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    showSlide(parseInt(btn.dataset.target));
+    toggleMenu(false);
+  });
+});
+
+function toggleMenu(force){
+  const menu = document.getElementById('section-menu');
+  if(typeof force === 'boolean') menu.classList.toggle('open', force);
+  else menu.classList.toggle('open');
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'ArrowRight' || e.key === ' '){ e.preventDefault(); goNext(); }
+  if(e.key === 'ArrowLeft'){ e.preventDefault(); goPrev(); }
+  if(e.key === 'Escape'){ toggleMenu(false); }
+});
+
+showSlide(0);
+
+/* ============================================================
+   2. ACTIVIDAD 1: VERDADERO O FALSO
+   ============================================================ */
+const vfData = [
+  { q: "Sentir el corazón latir muy rápido significa tener buena precisión interoceptiva.", answer: false,
+    exp: "Falso. Sentir intensamente no equivale a percibir con precisión. La precisión se refiere a la correspondencia entre la percepción y la señal fisiológica real." },
+  { q: "La interocepción pertenece exclusivamente a la neurociencia.", answer: false,
+    exp: "Falso. Es un campo de convergencia entre neurociencia, psicología cognitiva, emoción, psicofisiología, ciencia computacional y cognición 4E." },
+  { q: "La atención que dirigimos al cuerpo puede modificar la experiencia corporal.", answer: true,
+    exp: "Verdadero. La relación cuerpo–atención–interpretación es dinámica: atender modifica lo que se percibe. Es un proceso ejecutivo modulable." },
+  { q: "La sensibilidad interoceptiva y la precisión interoceptiva son lo mismo.", answer: false,
+    exp: "Falso. La precisión (accuracy) es objetiva y se mide con tareas; la sensibilidad (sensibility) es subjetiva y se mide con cuestionarios como el MAIA." },
+  { q: "El MAIA mide precisión objetiva de detección de señales corporales.", answer: false,
+    exp: "Falso. El MAIA mide sensibilidad interoceptiva, una dimensión subjetiva y experiencial. No reemplaza a las tareas conductuales de precisión." }
+];
+
+function buildVFActivity(){
+  const container = document.getElementById('vf-activity');
+  let html = '';
+  vfData.forEach((item, i) => {
+    html += `
+      <div style="margin-bottom:24px;" data-vf="${i}">
+        <p class="quiz-q">${i+1}. ${item.q}</p>
+        <div class="quiz-options">
+          <button onclick="checkVF(${i}, true)">Verdadero</button>
+          <button onclick="checkVF(${i}, false)">Falso</button>
+        </div>
+        <div class="feedback" id="vf-fb-${i}"></div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function checkVF(i, userAnswer){
+  const block = document.querySelector(`[data-vf="${i}"]`);
+  const buttons = block.querySelectorAll('.quiz-options button');
+  const fb = document.getElementById(`vf-fb-${i}`);
+  const correct = vfData[i].answer;
+  buttons.forEach(b => b.disabled = true);
+  buttons[userAnswer ? 0 : 1].classList.add(userAnswer === correct ? 'correct' : 'wrong');
+  fb.className = 'feedback show ' + (userAnswer === correct ? 'ok' : 'no');
+  fb.innerHTML = `<strong>${userAnswer === correct ? '✓ Correcto.' : '✗ Revisemos.'}</strong> ${vfData[i].exp}`;
+}
+buildVFActivity();
+
+/* ============================================================
+   3. ACTIVIDAD 2: ARRASTRAR Y SOLTAR
+   ============================================================ */
+const dndItems = [
+  { id: 'i1', text: 'El cambio corporal participa en la experiencia emocional.', zone: 'z1' },
+  { id: 'i2', text: 'La emoción y la fisiología no siguen una secuencia lineal simple.', zone: 'z2' },
+  { id: 'i3', text: 'El estado fisiológico requiere interpretación contextual.', zone: 'z3' },
+  { id: 'i4', text: 'Señales + contexto + predicción + categorización.', zone: 'z4' }
+];
+const dndZones = [
+  { id: 'z1', label: 'James-Lange' },
+  { id: 'z2', label: 'Cannon-Bard' },
+  { id: 'z3', label: 'Schachter-Singer' },
+  { id: 'z4', label: 'Perspectivas contemporáneas' }
+];
+
+function buildDND(){
+  const pool = document.getElementById('dnd-pool');
+  const zones = document.getElementById('dnd-zones');
+  const shuffled = [...dndItems].sort(() => Math.random() - 0.5);
+  pool.innerHTML = `<h4>Afirmaciones</h4>` +
+    shuffled.map(it => `<div class="dnd-item" draggable="true" data-id="${it.id}" data-zone="${it.zone}">${it.text}</div>`).join('');
+  zones.innerHTML = dndZones.map(z => `
+    <div class="dnd-zone" data-zone="${z.id}">
+      <h5>${z.label}</h5>
+      <div class="drop-area"></div>
+    </div>`).join('');
+  attachDragEvents();
+}
+
+function attachDragEvents(){
+  const items = document.querySelectorAll('.dnd-item');
+  const zones = document.querySelectorAll('.dnd-zone');
+  items.forEach(item => {
+    item.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', item.dataset.id);
+      item.classList.add('dragging');
+    });
+    item.addEventListener('dragend', () => item.classList.remove('dragging'));
+  });
+  zones.forEach(zone => {
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault(); zone.classList.remove('over');
+      const id = e.dataTransfer.getData('text/plain');
+      const dragged = document.querySelector(`.dnd-item[data-id="${id}"]`);
+      if(!dragged) return;
+      zone.querySelector('.drop-area').appendChild(dragged);
+      checkDND();
+    });
+  });
+  const pool = document.getElementById('dnd-pool');
+  pool.addEventListener('dragover', e => e.preventDefault());
+  pool.addEventListener('drop', e => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain');
+    const dragged = document.querySelector(`.dnd-item[data-id="${id}"]`);
+    if(dragged) pool.appendChild(dragged);
+    checkDND();
+  });
+}
+
+function checkDND(){
+  const feedback = document.getElementById('dnd-feedback');
+  let correct = 0, total = dndItems.length;
+  dndItems.forEach(it => {
+    const el = document.querySelector(`.dnd-item[data-id="${it.id}"]`);
+    const parentZone = el.closest('.dnd-zone');
+    if(parentZone && parentZone.dataset.zone === it.zone) correct++;
+  });
+  if(correct === total){
+    feedback.textContent = `✓ ¡Excelente! ${correct}/${total} correctas. Han clasificado bien todas las teorías.`;
+    feedback.style.color = '#1B5E20';
+  } else {
+    feedback.textContent = `Llevan ${correct}/${total} correctas. Sigan moviendo las tarjetas.`;
+    feedback.style.color = 'var(--azul-acento)';
+  }
+}
+buildDND();
+
+/* ============================================================
+   4. ACTIVIDAD 3: CUESTIONARIO MAIA SIMULADO
+   ============================================================ */
+const maiaItems = [
+  { q: "Noto cambios en mi respiración cuando estoy tenso/a.", sub: "Notar" },
+  { q: "Me doy cuenta de sensaciones incómodas en mi cuerpo.", sub: "Notar" },
+  { q: "Puedo mantener la atención en mi cuerpo incluso cuando hay distracciones.", sub: "No distraerse" },
+  { q: "Cuando siento malestar corporal, me preocupo y me angustio.", sub: "No preocuparse (inverso)" },
+  { q: "Escucho a mi cuerpo para saber cómo me siento emocionalmente.", sub: "Atención emocional" },
+  { q: "Confío en las señales de mi cuerpo.", sub: "Body trusting" },
+  { q: "Uso mi respiración para calmarme cuando estoy estresado/a.", sub: "Autorregulación" },
+  { q: "Siento que mi cuerpo es un lugar seguro.", sub: "Body trusting" }
+];
+
+const maiaAnswers = new Array(maiaItems.length).fill(null);
+
+function buildMAIA(){
+  const container = document.getElementById('maia-items');
+  container.innerHTML = maiaItems.map((item, i) => `
+    <div class="maia-item" data-idx="${i}">
+      <div class="q">${i+1}. ${item.q} <span style="font-size:14px;color:var(--azul-acento);font-weight:500;">· ${item.sub}</span></div>
+      <div class="opts">
+        ${[0,1,2,3,4].map(v => `<button onclick="selectMAIA(${i},${v},this)">${v}</button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function selectMAIA(i, v, btn){
+  maiaAnswers[i] = v;
+  const parent = btn.parentElement;
+  parent.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function calcMAIA(){
+  const result = document.getElementById('maia-result');
+  if(maiaAnswers.some(a => a === null)){
+    result.className = 'maia-result show';
+    result.innerHTML = `<h4>Faltan respuestas</h4><p style="font-size:16px;">Respondan todos los ítems para ver su perfil.</p>`;
+    return;
+  }
+
+  // Calcular subescalas (simplificado)
+  const notar = (maiaAnswers[0] + maiaAnswers[1]) / 8 * 100;
+  const noDistraerse = maiaAnswers[2] / 4 * 100;
+  const noPreocuparse = (4 - maiaAnswers[3]) / 4 * 100; // invertido
+  const atencionEmocional = maiaAnswers[4] / 4 * 100;
+  const bodyTrusting = (maiaAnswers[5] + maiaAnswers[7]) / 8 * 100;
+  const autorregulacion = maiaAnswers[6] / 4 * 100;
+
+  const bars = [
+    { label: 'Notar', value: notar },
+    { label: 'No distraerse', value: noDistraerse },
+    { label: 'No preocuparse', value: noPreocuparse },
+    { label: 'Atención emocional', value: atencionEmocional },
+    { label: 'Autorregulación', value: autorregulacion },
+    { label: 'Body trusting', value: bodyTrusting }
+  ];
+
+  const total = bars.reduce((s, b) => s + b.value, 0) / bars.length;
+  let interp = '';
+  if(total < 40){
+    interp = 'Perfil con sensibilidad interoceptiva baja en este momento. Puede reflejar poca atención al cuerpo o dificultad para confiar en sus señales. En investigación, este perfil se asocia a veces con menor regulación emocional.';
+  } else if(total < 70){
+    interp = 'Perfil de sensibilidad interoceptiva moderada. Reconocen varias señales corporales, pero la atención y la confianza en el cuerpo pueden fluctuar según el contexto.';
+  } else {
+    interp = 'Perfil de sensibilidad interoceptiva alta. Notan y confían en las señales corporales, y las usan como recurso de regulación. Recuerden que sensibilidad no es lo mismo que precisión objetiva.';
+  }
+
+  result.className = 'maia-result show';
+  result.innerHTML = `
+    <h4>Tu perfil MAIA simulado</h4>
+    ${bars.map(b => `
+      <div class="maia-bar">
+        <div class="label"><span>${b.label}</span><span>${b.value.toFixed(0)}%</span></div>
+        <div class="track"><div class="fill" style="width:${b.value}%"></div></div>
+      </div>`).join('')}
+    <div class="maia-interp">
+      <strong style="color:var(--dorado);">Promedio: ${total.toFixed(0)}%.</strong> ${interp}
+      <br><br>
+      <em>Este es un ejercicio pedagógico simplificado. El MAIA-2 real tiene 37 ítems y 8 subescalas validadas psicométricamente.</em>
+    </div>
+  `;
+}
+
+buildMAIA();
+
+/* ============================================================
+   5. SIMULACIÓN: BUCLE DE LA ANSIEDAD INTEROCEPTIVA
+   ============================================================ */
+let simChart = null;
+window.simInitialized = false;
+
+function initSimulation(){
+  window.simInitialized = true;
+  const ctx = document.getElementById('simChart').getContext('2d');
+  simChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Array.from({length: 12}, (_, i) => `t${i+1}`),
+      datasets: [
+        { label: 'Señal fisiológica', data: [], borderColor: '#13538A', backgroundColor: 'rgba(19,83,138,.1)', tension: .35, borderWidth: 3, pointRadius: 3 },
+        { label: 'Atención al cuerpo', data: [], borderColor: '#E7C873', backgroundColor: 'rgba(231,200,115,.15)', tension: .35, borderWidth: 3, pointRadius: 3 },
+        { label: 'Amenaza percibida', data: [], borderColor: '#C62828', backgroundColor: 'rgba(198,40,40,.08)', tension: .35, borderWidth: 3, pointRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 300 },
+      plugins: {
+        legend: { labels: { font: { size: 13, family: 'Inter' }, boxWidth: 14, padding: 14 } },
+        tooltip: { titleFont: { family: 'Inter' }, bodyFont: { family: 'Inter' } }
+      },
+      scales: {
+        y: { beginAtZero: true, max: 100, grid: { color: 'rgba(0,0,0,.05)' }, ticks: { font: { family: 'Inter', size: 12 } } },
+        x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 12 } } }
+      }
+    }
+  });
+  ['ctrl-signal','ctrl-attention','ctrl-interp'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateSim);
+  });
+  updateSim();
+}
+
+function updateSim(){
+  if(!simChart) return;
+  const s0 = parseInt(document.getElementById('ctrl-signal').value);
+  const att = parseInt(document.getElementById('ctrl-attention').value);
+  const interp = parseInt(document.getElementById('ctrl-interp').value);
+
+  document.getElementById('val-signal').textContent = s0;
+  document.getElementById('val-attention').textContent = att;
+  document.getElementById('val-interp').textContent = interp;
+
+  const signalData = [], attData = [], threatData = [];
+  let signal = s0;
+  for(let t = 0; t < 12; t++){
+    const threat = Math.min(100, (signal * 0.5 + att * 0.3 + interp * 0.4));
+    threatData.push(threat);
+    const attT = Math.min(100, att + threat * 0.1);
+    attData.push(attT);
+    const amplification = (threat / 100) * (interp / 100) * 1.8;
+    signal = Math.min(100, signal * (1 + amplification * 0.15));
+    signalData.push(signal);
+  }
+
+  simChart.data.datasets[0].data = signalData;
+  simChart.data.datasets[1].data = attData;
+  simChart.data.datasets[2].data = threatData;
+  simChart.update();
+
+  const finalThreat = threatData[threatData.length - 1];
+  let msg = '';
+  if(finalThreat < 30) msg = 'El bucle se amortigua: la señal se mantiene baja y la amenaza percibida no escala.';
+  else if(finalThreat < 60) msg = 'El bucle se sostiene moderadamente. La atención mantiene la señal activa.';
+  else msg = 'El bucle se amplifica: la interpretación catastrófica retroalimenta la señal y la amenaza percibida escala.';
+
+  document.getElementById('sim-readout').innerHTML =
+    `<strong>Amenaza final percibida:</strong> ${finalThreat.toFixed(0)} / 100.<br>${msg}`;
+}
+
+function resetSim(){
+  document.getElementById('ctrl-signal').value = 50;
+  document.getElementById('ctrl-attention').value = 50;
+  document.getElementById('ctrl-interp').value = 50;
+  updateSim();
+}
+</script>
+</body>
+</html>

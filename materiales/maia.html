@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAIA - Evaluación Multidimensional de la Conciencia Corporal Interoceptiva</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="MAIA: evaluación multidimensional de la conciencia interoceptiva">
+<meta name="jc-descripcion" content="Aplicación interactiva del MAIA de 32 ítems y 8 subescalas, con cálculo de puntuaciones e interpretación orientativa del perfil de conciencia interoceptiva.">
+<meta name="jc-tipo" content="Instrumento interactivo">
+<meta name="jc-etiquetas" content="MAIA, Interocepción, Conciencia interoceptiva, Sensibilidad interoceptiva, Evaluación, Cuestionario, Autorregulación, Conciencia corporal">
+<meta name="jc-curso" content="Semillero SOM4TICA">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root {
+    --primary: #2c6e6f;
+    --primary-light: #e6f2f2;
+    --accent: #d97b4a;
+    --text: #222;
+    --muted: #555;
+    --bg: #f7f9f9;
+    --card: #ffffff;
+    --border: #cfdcdc;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  header {
+    background: linear-gradient(135deg, #2c6e6f, #1f4f50);
+    color: #fff;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  header h1 {
+    margin: 0 0 0.4rem;
+    font-size: 1.7rem;
+    line-height: 1.25;
+  }
+
+  header p {
+    margin: 0.2rem 0;
+    font-size: 0.95rem;
+    opacity: 0.92;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.2rem;
+  }
+
+  .intro {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+
+  .intro h2 {
+    margin-top: 0;
+    color: var(--primary);
+    font-size: 1.2rem;
+  }
+
+  .intro p, .intro li {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .section-title {
+    background: var(--primary-light);
+    border-left: 5px solid var(--primary);
+    padding: 0.7rem 1rem;
+    margin: 1.6rem 0 0.8rem;
+    border-radius: 0 8px 8px 0;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.05rem;
+  }
+
+  .question {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    transition: border-color 0.2s;
+  }
+
+  .question.answered {
+    border-color: var(--primary);
+    background: #fbfefe;
+  }
+
+  .q-text {
+    flex: 1 1 320px;
+    font-size: 0.97rem;
+  }
+
+  .q-num {
+    display: inline-block;
+    min-width: 1.6rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .scale {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .scale label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: var(--muted);
+    width: 2.1rem;
+  }
+
+  .scale input[type="radio"] {
+    margin: 0 0 0.15rem;
+    accent-color: var(--primary);
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .scale-legend {
+    display: flex;
+    justify-content: space-between;
+    max-width: 340px;
+    margin: 0.3rem auto 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .btn-row {
+    text-align: center;
+    margin: 2rem 0 1rem;
+  }
+
+  button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.05rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 3px 8px rgba(44,110,111,0.3);
+  }
+
+  button:hover { background: #1f4f50; }
+  button:active { transform: scale(0.98); }
+
+  button.secondary {
+    background: #fff;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: none;
+    margin-left: 0.6rem;
+  }
+
+  #results {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    margin-top: 1.6rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+
+  #results h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-top: 0;
+  }
+
+  .subscale-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.9rem;
+    background: #fcfefe;
+  }
+
+  .subscale-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .subscale-name {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1rem;
+  }
+
+  .subscale-score {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+    background: #fdf1ea;
+    padding: 0.15rem 0.7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .bar-container {
+    background: #e8efef;
+    border-radius: 6px;
+    height: 10px;
+    overflow: hidden;
+    margin: 0.4rem 0 0.5rem;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #7fb8b8, #2c6e6f);
+    width: 0%;
+    transition: width 0.6s ease;
+  }
+
+  .subscale-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0.2rem 0 0.4rem;
+  }
+
+  .interpretation {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    margin-top: 0.3rem;
+  }
+
+  .interp-low { background: #fdecea; color: #8a2a1f; border-left: 4px solid #d9534f; }
+  .interp-mid { background: #fff8e1; color: #7a5c12; border-left: 4px solid #e0a800; }
+  .interp-high { background: #e8f5e9; color: #1e5e2a; border-left: 4px solid #43a047; }
+
+  .global-summary {
+    background: var(--primary-light);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .global-summary strong { color: var(--primary); }
+
+  .warning {
+    background: #fff3cd;
+    border: 1px solid #ffe08a;
+    color: #7a5c12;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    display: none;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #888;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.3rem; }
+    .q-text { font-size: 0.92rem; }
+    .scale label { width: 1.8rem; font-size: 0.68rem; }
+    .scale input[type="radio"] { width: 1rem; height: 1rem; }
+    button { width: 100%; margin-bottom: 0.5rem; }
+    button.secondary { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Evaluación Multidimensional de la Conciencia Corporal Interoceptiva</h1>
+  <p>Multidimensional Assessment of Interoceptive Awareness (MAIA)</p>
+  <p>Versión en español · 32 ítems · 8 subescalas</p>
+</header>
+
+<div class="container">
+
+  <div class="intro">
+    <h2>Instrucciones</h2>
+    <p>A continuación encontrarás 32 afirmaciones sobre cómo te relacionas con las sensaciones de tu cuerpo. Para cada una, indica con qué frecuencia te ocurre, usando una escala de <strong>0 (Nunca)</strong> a <strong>5 (Siempre)</strong>.</p>
+    <p>No hay respuestas correctas o incorrectas. Responde con honestidad según lo que experimentas habitualmente, no según lo que crees que deberías sentir.</p>
+    <p><strong>Nota:</strong> los ítems 5, 6, 7, 8 y 9 se puntúan de forma inversa (ver más abajo). El sistema lo calcula automáticamente.</p>
+  </div>
+
+  <div class="warning" id="warning">
+    ⚠️ Faltan respuestas por completar. Por favor responde todos los ítems antes de ver tus resultados.
+  </div>
+
+  <form id="maiaForm">
+
+    <!-- ============ SUBESCALA 1: PERCIBE ============ -->
+    <div class="section-title">1. Percibe — Conciencia de incomodidad, comodidad y sensaciones corporales neutrales</div>
+
+    <div class="question" data-q="1">
+      <div class="q-text"><span class="q-num">1.</span> Cuando estoy tenso(a) noto dónde se ubica la tensión en mi cuerpo.</div>
+      <div class="scale">
+        <label><input type="radio" name="q1" value="0">0</label>
+        <label><input type="radio" name="q1" value="1">1</label>
+        <label><input type="radio" name="q1" value="2">2</label>
+        <label><input type="radio" name="q1" value="3">3</label>
+        <label><input type="radio" name="q1" value="4">4</label>
+        <label><input type="radio" name="q1" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="2">
+      <div class="q-text"><span class="q-num">2.</span> Me doy cuenta cuando me siento incómodo(a) en mi cuerpo.</div>
+      <div class="scale">
+        <label><input type="radio" name="q2" value="0">0</label>
+        <label><input type="radio" name="q2" value="1">1</label>
+        <label><input type="radio" name="q2" value="2">2</label>
+        <label><input type="radio" name="q2" value="3">3</label>
+        <label><input type="radio" name="q2" value="4">4</label>
+        <label><input type="radio" name="q2" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="3">
+      <div class="q-text"><span class="q-num">3.</span> Cuando estoy cómodo(a) lo noto en partes específicas de mi cuerpo.</div>
+      <div class="scale">
+        <label><input type="radio" name="q3" value="0">0</label>
+        <label><input type="radio" name="q3" value="1">1</label>
+        <label><input type="radio" name="q3" value="2">2</label>
+        <label><input type="radio" name="q3" value="3">3</label>
+        <label><input type="radio" name="q3" value="4">4</label>
+        <label><input type="radio" name="q3" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="4">
+      <div class="q-text"><span class="q-num">4.</span> Noto cambios en mi respiración, tales como cuando se hace más lenta o más rápida.</div>
+      <div class="scale">
+        <label><input type="radio" name="q4" value="0">0</label>
+        <label><input type="radio" name="q4" value="1">1</label>
+        <label><input type="radio" name="q4" value="2">2</label>
+        <label><input type="radio" name="q4" value="3">3</label>
+        <label><input type="radio" name="q4" value="4">4</label>
+        <label><input type="radio" name="q4" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 2: NO-DISTRAE ============ -->
+    <div class="section-title">2. No-distrae — Tendencia a no ignorar o distraerse de la sensación de dolor o incomodidad</div>
+
+    <div class="question" data-q="5">
+      <div class="q-text"><span class="q-num">5.</span> Noto la tensión física o el malestar solamente cuando se vuelve muy severo. <em>(inversa)</em></div>
+      <div class="scale">
+        <label><input type="radio" name="q5" value="0">0</label>
+        <label><input type="radio" name="q5" value="1">1</label>
+        <label><input type="radio" name="q5" value="2">2</label>
+        <label><input type="radio" name="q5" value="3">3</label>
+        <label><input type="radio" name="q5" value="4">4</label>
+        <label><input type="radio" name="q5" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="6">
+      <div class="q-text"><span class="q-num">6.</span> No me doy cuenta de las sensaciones de malestar. <em>(inversa)</em></div>
+      <div class="scale">
+        <label><input type="radio" name="q6" value="0">0</label>
+        <label><input type="radio" name="q6" value="1">1</label>
+        <label><input type="radio" name="q6" value="2">2</label>
+        <label><input type="radio" name="q6" value="3">3</label>
+        <label><input type="radio" name="q6" value="4">4</label>
+        <label><input type="radio" name="q6" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="7">
+      <div class="q-text"><span class="q-num">7.</span> Cuando siento dolor o malestar intento ignorarlo y continuar con lo que estaba haciendo. <em>(inversa)</em></div>
+      <div class="scale">
+        <label><input type="radio" name="q7" value="0">0</label>
+        <label><input type="radio" name="q7" value="1">1</label>
+        <label><input type="radio" name="q7" value="2">2</label>
+        <label><input type="radio" name="q7" value="3">3</label>
+        <label><input type="radio" name="q7" value="4">4</label>
+        <label><input type="radio" name="q7" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 3: NO-INQUIETA ============ -->
+    <div class="section-title">3. No-inquieta — Tendencia a no inquietarse o a no experimentar estrés emocional con las sensaciones de dolor o molestia</div>
+
+    <div class="question" data-q="8">
+      <div class="q-text"><span class="q-num">8.</span> Cuando siento dolor físico me enojo. <em>(inversa)</em></div>
+      <div class="scale">
+        <label><input type="radio" name="q8" value="0">0</label>
+        <label><input type="radio" name="q8" value="1">1</label>
+        <label><input type="radio" name="q8" value="2">2</label>
+        <label><input type="radio" name="q8" value="3">3</label>
+        <label><input type="radio" name="q8" value="4">4</label>
+        <label><input type="radio" name="q8" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="9">
+      <div class="q-text"><span class="q-num">9.</span> Si siento algún malestar me empieza a preocupar que algo no ande bien. <em>(inversa)</em></div>
+      <div class="scale">
+        <label><input type="radio" name="q9" value="0">0</label>
+        <label><input type="radio" name="q9" value="1">1</label>
+        <label><input type="radio" name="q9" value="2">2</label>
+        <label><input type="radio" name="q9" value="3">3</label>
+        <label><input type="radio" name="q9" value="4">4</label>
+        <label><input type="radio" name="q9" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="10">
+      <div class="q-text"><span class="q-num">10.</span> Puedo sentir alguna sensación física desagradable sin preocuparme por ella.</div>
+      <div class="scale">
+        <label><input type="radio" name="q10" value="0">0</label>
+        <label><input type="radio" name="q10" value="1">1</label>
+        <label><input type="radio" name="q10" value="2">2</label>
+        <label><input type="radio" name="q10" value="3">3</label>
+        <label><input type="radio" name="q10" value="4">4</label>
+        <label><input type="radio" name="q10" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 4: REGULACIÓN DE LA ATENCIÓN ============ -->
+    <div class="section-title">4. Regulación de la Atención — Habilidad para sostener y controlar la atención a las sensaciones corporales</div>
+
+    <div class="question" data-q="11">
+      <div class="q-text"><span class="q-num">11.</span> Puedo prestar atención a mi respiración sin ser distraído(a) por lo que pasa a mi alrededor.</div>
+      <div class="scale">
+        <label><input type="radio" name="q11" value="0">0</label>
+        <label><input type="radio" name="q11" value="1">1</label>
+        <label><input type="radio" name="q11" value="2">2</label>
+        <label><input type="radio" name="q11" value="3">3</label>
+        <label><input type="radio" name="q11" value="4">4</label>
+        <label><input type="radio" name="q11" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="12">
+      <div class="q-text"><span class="q-num">12.</span> Puedo tener conciencia de mis sensaciones corporales internas aun cuando hay muchas cosas sucediendo a mi alrededor.</div>
+      <div class="scale">
+        <label><input type="radio" name="q12" value="0">0</label>
+        <label><input type="radio" name="q12" value="1">1</label>
+        <label><input type="radio" name="q12" value="2">2</label>
+        <label><input type="radio" name="q12" value="3">3</label>
+        <label><input type="radio" name="q12" value="4">4</label>
+        <label><input type="radio" name="q12" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="13">
+      <div class="q-text"><span class="q-num">13.</span> Cuando estoy conversando con alguien puedo prestarle atención a mi postura.</div>
+      <div class="scale">
+        <label><input type="radio" name="q13" value="0">0</label>
+        <label><input type="radio" name="q13" value="1">1</label>
+        <label><input type="radio" name="q13" value="2">2</label>
+        <label><input type="radio" name="q13" value="3">3</label>
+        <label><input type="radio" name="q13" value="4">4</label>
+        <label><input type="radio" name="q13" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="14">
+      <div class="q-text"><span class="q-num">14.</span> Puedo volver a concentrarme en mi cuerpo si estoy distraído(a).</div>
+      <div class="scale">
+        <label><input type="radio" name="q14" value="0">0</label>
+        <label><input type="radio" name="q14" value="1">1</label>
+        <label><input type="radio" name="q14" value="2">2</label>
+        <label><input type="radio" name="q14" value="3">3</label>
+        <label><input type="radio" name="q14" value="4">4</label>
+        <label><input type="radio" name="q14" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="15">
+      <div class="q-text"><span class="q-num">15.</span> Puedo re-dirigir mi atención desde mis pensamientos a mis sensaciones corporales.</div>
+      <div class="scale">
+        <label><input type="radio" name="q15" value="0">0</label>
+        <label><input type="radio" name="q15" value="1">1</label>
+        <label><input type="radio" name="q15" value="2">2</label>
+        <label><input type="radio" name="q15" value="3">3</label>
+        <label><input type="radio" name="q15" value="4">4</label>
+        <label><input type="radio" name="q15" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="16">
+      <div class="q-text"><span class="q-num">16.</span> Puedo prestar atención a todo mi cuerpo incluso cuando una parte de mí siente dolor o malestar.</div>
+      <div class="scale">
+        <label><input type="radio" name="q16" value="0">0</label>
+        <label><input type="radio" name="q16" value="1">1</label>
+        <label><input type="radio" name="q16" value="2">2</label>
+        <label><input type="radio" name="q16" value="3">3</label>
+        <label><input type="radio" name="q16" value="4">4</label>
+        <label><input type="radio" name="q16" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="17">
+      <div class="q-text"><span class="q-num">17.</span> Soy capaz de concentrarme conscientemente en mi cuerpo de manera global.</div>
+      <div class="scale">
+        <label><input type="radio" name="q17" value="0">0</label>
+        <label><input type="radio" name="q17" value="1">1</label>
+        <label><input type="radio" name="q17" value="2">2</label>
+        <label><input type="radio" name="q17" value="3">3</label>
+        <label><input type="radio" name="q17" value="4">4</label>
+        <label><input type="radio" name="q17" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 5: CONCIENCIA EMOCIONAL ============ -->
+    <div class="section-title">5. Conciencia emocional — Conciencia de la conexión entre las sensaciones corporales y los estados emocionales</div>
+
+    <div class="question" data-q="18">
+      <div class="q-text"><span class="q-num">18.</span> Noto cómo mi cuerpo cambia cuando estoy enojado(a).</div>
+      <div class="scale">
+        <label><input type="radio" name="q18" value="0">0</label>
+        <label><input type="radio" name="q18" value="1">1</label>
+        <label><input type="radio" name="q18" value="2">2</label>
+        <label><input type="radio" name="q18" value="3">3</label>
+        <label><input type="radio" name="q18" value="4">4</label>
+        <label><input type="radio" name="q18" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="19">
+      <div class="q-text"><span class="q-num">19.</span> Cuando algo anda mal en mi vida puedo sentirlo en mi cuerpo.</div>
+      <div class="scale">
+        <label><input type="radio" name="q19" value="0">0</label>
+        <label><input type="radio" name="q19" value="1">1</label>
+        <label><input type="radio" name="q19" value="2">2</label>
+        <label><input type="radio" name="q19" value="3">3</label>
+        <label><input type="radio" name="q19" value="4">4</label>
+        <label><input type="radio" name="q19" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="20">
+      <div class="q-text"><span class="q-num">20.</span> Noto que mi cuerpo se siente diferente después de una experiencia apacible.</div>
+      <div class="scale">
+        <label><input type="radio" name="q20" value="0">0</label>
+        <label><input type="radio" name="q20" value="1">1</label>
+        <label><input type="radio" name="q20" value="2">2</label>
+        <label><input type="radio" name="q20" value="3">3</label>
+        <label><input type="radio" name="q20" value="4">4</label>
+        <label><input type="radio" name="q20" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="21">
+      <div class="q-text"><span class="q-num">21.</span> Noto que puedo respirar libre y fácilmente cuando me siento cómodo(a).</div>
+      <div class="scale">
+        <label><input type="radio" name="q21" value="0">0</label>
+        <label><input type="radio" name="q21" value="1">1</label>
+        <label><input type="radio" name="q21" value="2">2</label>
+        <label><input type="radio" name="q21" value="3">3</label>
+        <label><input type="radio" name="q21" value="4">4</label>
+        <label><input type="radio" name="q21" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="22">
+      <div class="q-text"><span class="q-num">22.</span> Noto cómo mi cuerpo cambia cuando me siento contento(a) / feliz.</div>
+      <div class="scale">
+        <label><input type="radio" name="q22" value="0">0</label>
+        <label><input type="radio" name="q22" value="1">1</label>
+        <label><input type="radio" name="q22" value="2">2</label>
+        <label><input type="radio" name="q22" value="3">3</label>
+        <label><input type="radio" name="q22" value="4">4</label>
+        <label><input type="radio" name="q22" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 6: AUTO-REGULACIÓN ============ -->
+    <div class="section-title">6. Auto-Regulación — Habilidad para regular la tensión/angustia/aflicción a través de prestar atención a las sensaciones corporales</div>
+
+    <div class="question" data-q="23">
+      <div class="q-text"><span class="q-num">23.</span> Cuando me siento sobrepasado(a) puedo encontrar un lugar tranquilo dentro de mí.</div>
+      <div class="scale">
+        <label><input type="radio" name="q23" value="0">0</label>
+        <label><input type="radio" name="q23" value="1">1</label>
+        <label><input type="radio" name="q23" value="2">2</label>
+        <label><input type="radio" name="q23" value="3">3</label>
+        <label><input type="radio" name="q23" value="4">4</label>
+        <label><input type="radio" name="q23" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="24">
+      <div class="q-text"><span class="q-num">24.</span> Cuando dirijo la atención hacia mi cuerpo siento calma.</div>
+      <div class="scale">
+        <label><input type="radio" name="q24" value="0">0</label>
+        <label><input type="radio" name="q24" value="1">1</label>
+        <label><input type="radio" name="q24" value="2">2</label>
+        <label><input type="radio" name="q24" value="3">3</label>
+        <label><input type="radio" name="q24" value="4">4</label>
+        <label><input type="radio" name="q24" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="25">
+      <div class="q-text"><span class="q-num">25.</span> Puedo utilizar mi respiración para reducir la tensión.</div>
+      <div class="scale">
+        <label><input type="radio" name="q25" value="0">0</label>
+        <label><input type="radio" name="q25" value="1">1</label>
+        <label><input type="radio" name="q25" value="2">2</label>
+        <label><input type="radio" name="q25" value="3">3</label>
+        <label><input type="radio" name="q25" value="4">4</label>
+        <label><input type="radio" name="q25" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="26">
+      <div class="q-text"><span class="q-num">26.</span> Cuando estoy atrapado(a) en mis pensamientos puedo calmar mi mente concentrándome en mi cuerpo/respiración.</div>
+      <div class="scale">
+        <label><input type="radio" name="q26" value="0">0</label>
+        <label><input type="radio" name="q26" value="1">1</label>
+        <label><input type="radio" name="q26" value="2">2</label>
+        <label><input type="radio" name="q26" value="3">3</label>
+        <label><input type="radio" name="q26" value="4">4</label>
+        <label><input type="radio" name="q26" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 7: ESCUCHAR AL CUERPO ============ -->
+    <div class="section-title">7. Escuchar al Cuerpo — Escuchar activamente al cuerpo para esclarecerse</div>
+
+    <div class="question" data-q="27">
+      <div class="q-text"><span class="q-num">27.</span> Estoy a la escucha de la información que envía mi cuerpo sobre mi estado emocional.</div>
+      <div class="scale">
+        <label><input type="radio" name="q27" value="0">0</label>
+        <label><input type="radio" name="q27" value="1">1</label>
+        <label><input type="radio" name="q27" value="2">2</label>
+        <label><input type="radio" name="q27" value="3">3</label>
+        <label><input type="radio" name="q27" value="4">4</label>
+        <label><input type="radio" name="q27" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="28">
+      <div class="q-text"><span class="q-num">28.</span> Cuando estoy alterado(a), me tomo el tiempo para explorar cómo se siente mi cuerpo.</div>
+      <div class="scale">
+        <label><input type="radio" name="q28" value="0">0</label>
+        <label><input type="radio" name="q28" value="1">1</label>
+        <label><input type="radio" name="q28" value="2">2</label>
+        <label><input type="radio" name="q28" value="3">3</label>
+        <label><input type="radio" name="q28" value="4">4</label>
+        <label><input type="radio" name="q28" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="29">
+      <div class="q-text"><span class="q-num">29.</span> Escucho a mi cuerpo para saber qué hacer.</div>
+      <div class="scale">
+        <label><input type="radio" name="q29" value="0">0</label>
+        <label><input type="radio" name="q29" value="1">1</label>
+        <label><input type="radio" name="q29" value="2">2</label>
+        <label><input type="radio" name="q29" value="3">3</label>
+        <label><input type="radio" name="q29" value="4">4</label>
+        <label><input type="radio" name="q29" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- ============ SUBESCALA 8: CONFIANZA ============ -->
+    <div class="section-title">8. Confianza — Confiar en que el cuerpo se manifiesta de manera segura y confiable</div>
+
+    <div class="question" data-q="30">
+      <div class="q-text"><span class="q-num">30.</span> En mi cuerpo, estoy en casa.</div>
+      <div class="scale">
+        <label><input type="radio" name="q30" value="0">0</label>
+        <label><input type="radio" name="q30" value="1">1</label>
+        <label><input type="radio" name="q30" value="2">2</label>
+        <label><input type="radio" name="q30" value="3">3</label>
+        <label><input type="radio" name="q30" value="4">4</label>
+        <label><input type="radio" name="q30" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="31">
+      <div class="q-text"><span class="q-num">31.</span> Siento que mi cuerpo es un lugar seguro.</div>
+      <div class="scale">
+        <label><input type="radio" name="q31" value="0">0</label>
+        <label><input type="radio" name="q31" value="1">1</label>
+        <label><input type="radio" name="q31" value="2">2</label>
+        <label><input type="radio" name="q31" value="3">3</label>
+        <label><input type="radio" name="q31" value="4">4</label>
+        <label><input type="radio" name="q31" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="question" data-q="32">
+      <div class="q-text"><span class="q-num">32.</span> Confío en mis sensaciones corporales.</div>
+      <div class="scale">
+        <label><input type="radio" name="q32" value="0">0</label>
+        <label><input type="radio" name="q32" value="1">1</label>
+        <label><input type="radio" name="q32" value="2">2</label>
+        <label><input type="radio" name="q32" value="3">3</label>
+        <label><input type="radio" name="q32" value="4">4</label>
+        <label><input type="radio" name="q32" value="5">5</label>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="btn-row">
+    <button type="button" id="calcBtn">Ver mis resultados</button>
+    <button type="button" class="secondary" id="resetBtn">Limpiar respuestas</button>
+  </div>
+
+  <!-- ============ RESULTADOS ============ -->
+  <div id="results">
+    <h2>Resultados e interpretación</h2>
+
+    <div class="global-summary" id="globalSummary"></div>
+
+    <div id="subscalesContainer"></div>
+
+    <div class="intro" style="margin-top:1.4rem;">
+      <h2 style="font-size:1.05rem;">Sobre la interpretación</h2>
+      <p>Las puntuaciones de cada subescala son promedios que van de <strong>0 a 5</strong>. Valores más altos indican una mayor presencia de la cualidad evaluada. No existen puntos de corte clínicos universales; la interpretación propuesta es orientativa y se basa en el rango teórico de la escala:</p>
+      <ul>
+        <li><strong>Bajo (0 – 1.66):</strong> la cualidad está poco desarrollada o se experimenta con poca frecuencia.</li>
+        <li><strong>Medio (1.67 – 3.33):</strong> la cualidad está presente de forma moderada u ocasional.</li>
+        <li><strong>Alto (3.34 – 5):</strong> la cualidad está bien desarrollada y se experimenta con frecuencia.</li>
+      </ul>
+      <p style="font-size:0.85rem; margin-bottom:0;">Este resultado no constituye un diagnóstico. Si tienes inquietudes sobre tu salud física o mental, consulta con un profesional.</p>
+    </div>
+  </div>
+
+  <footer>
+    MAIA · Multidimensional Assessment of Interoceptive Awareness · Mehling et al.<br>
+    Traducción al español coordinada por Dra. Camila Valenzuela Moguillansky.<br>
+    Uso libre sin cargo, citando el nombre completo del instrumento.
+  </footer>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  /* ============================================================
+     DEFINICIÓN DE SUBESCALAS
+     reverse: true indica que el ítem se invierte (6 - valor)
+     ============================================================ */
+  const SUBSCALES = [
+    {
+      id: 1,
+      name: "Percibe",
+      desc: "Conciencia de incomodidad, comodidad y sensaciones corporales neutrales.",
+      items: [1, 2, 3, 4],
+      reverse: []
+    },
+    {
+      id: 2,
+      name: "No-distrae",
+      desc: "Tendencia a no ignorar o distraerse de la sensación de dolor o incomodidad.",
+      items: [5, 6, 7],
+      reverse: [5, 6, 7]
+    },
+    {
+      id: 3,
+      name: "No-inquieta",
+      desc: "Tendencia a no inquietarse o a no experimentar estrés emocional con las sensaciones de dolor o molestia.",
+      items: [8, 9, 10],
+      reverse: [8, 9]
+    },
+    {
+      id: 4,
+      name: "Regulación de la Atención",
+      desc: "Habilidad para sostener y controlar la atención a las sensaciones corporales.",
+      items: [11, 12, 13, 14, 15, 16, 17],
+      reverse: []
+    },
+    {
+      id: 5,
+      name: "Conciencia emocional",
+      desc: "Conciencia de la conexión entre las sensaciones corporales y los estados emocionales.",
+      items: [18, 19, 20, 21, 22],
+      reverse: []
+    },
+    {
+      id: 6,
+      name: "Auto-Regulación",
+      desc: "Habilidad para regular la tensión/angustia/aflicción a través de prestar atención a las sensaciones corporales.",
+      items: [23, 24, 25, 26],
+      reverse: []
+    },
+    {
+      id: 7,
+      name: "Escuchar al Cuerpo",
+      desc: "Escuchar activamente al cuerpo para esclarecerse.",
+      items: [27, 28, 29],
+      reverse: []
+    },
+    {
+      id: 8,
+      name: "Confianza",
+      desc: "Confiar en que el cuerpo se manifiesta de manera segura y confiable.",
+      items: [30, 31, 32],
+      reverse: []
+    }
+  ];
+
+  const TOTAL_ITEMS = 32;
+
+  /* ============================================================
+     UTILIDADES
+     ============================================================ */
+  function getRadioValue(name) {
+    const radios = document.getElementsByName(name);
+    for (let i = 0; i < radios.length; i++) {
+      if (radios[i].checked) return parseFloat(radios[i].value);
+    }
+    return null;
+  }
+
+  function isValidNumber(n) {
+    return typeof n === "number" && !isNaN(n);
+  }
+
+  function interpretScore(score) {
+    if (score < 1.67) return { label: "Bajo", cls: "interp-low" };
+    if (score < 3.34) return { label: "Medio", cls: "interp-mid" };
+    return { label: "Alto", cls: "interp-high" };
+  }
+
+  function buildInterpretationText(score, subscale) {
+    const level = interpretScore(score);
+    let text = "";
+
+    const generic = {
+      "Percibe": {
+        low: "Tu conciencia de las señales corporales básicas (tensión, comodidad, respiración) es limitada. Es posible que no notes los cambios corporales hasta que sean intensos.",
+        mid: "Percibes tus sensaciones corporales de forma moderada. En ocasiones notas la tensión, la comodidad o los cambios en la respiración, pero no siempre.",
+        high: "Tienes una buena conciencia de las sensaciones corporales cotidianas. Notas con facilidad la tensión, la comodidad y los cambios en tu respiración."
+      },
+      "No-distrae": {
+        low: "Tiendes a ignorar o distraerte de las sensaciones de dolor o incomodidad. Puede que solo las notes cuando se vuelven severas.",
+        mid: "A veces logras mantener la atención en el dolor o la incomodidad sin ignorarlos, pero en otras ocasiones te distraes.",
+        high: "No sueles ignorar ni distraerte de las sensaciones de dolor o incomodidad; las atiendes con relativa facilidad."
+      },
+      "No-inquieta": {
+        low: "Es probable que el dolor o el malestar te generen preocupación, enojo o estrés emocional con frecuencia.",
+        mid: "En ocasiones el malestar físico te inquieta o preocupa, pero puedes manejarlo sin que domine tu experiencia.",
+        high: "Puedes experimentar sensaciones físicas desagradables sin que te generen gran preocupación o estrés emocional."
+      },
+      "Regulación de la Atención": {
+        low: "Te resulta difícil sostener o redirigir la atención hacia tus sensaciones corporales, especialmente cuando hay distracciones.",
+        mid: "Puedes regular tu atención hacia el cuerpo en algunas situaciones, aunque no siempre te resulta fácil sostenerla.",
+        high: "Tienes una buena capacidad para sostener y controlar la atención hacia tus sensaciones corporales, incluso con distracciones."
+      },
+      "Conciencia emocional": {
+        low: "La conexión entre tus sensaciones corporales y tus estados emocionales es poco clara o poco frecuente.",
+        mid: "A veces notas cómo tus emociones se reflejan en el cuerpo, pero no siempre eres consciente de esa conexión.",
+        high: "Reconoces con facilidad la conexión entre tus sensaciones corporales y tus estados emocionales."
+      },
+      "Auto-Regulación": {
+        low: "No sueles utilizar la atención a las sensaciones corporales como herramienta para regular la tensión o la angustia.",
+        mid: "En algunas ocasiones puedes regular tu tensión o angustia a través de la atención al cuerpo, pero no es tu estrategia habitual.",
+        high: "Utilizas con eficacia la atención a tus sensaciones corporales para regular la tensión, la angustia o el malestar."
+      },
+      "Escuchar al Cuerpo": {
+        low: "No sueles escuchar activamente las señales de tu cuerpo para orientar tus decisiones o comprenderte mejor.",
+        mid: "A veces prestas atención a lo que tu cuerpo te comunica, pero no es una práctica constante.",
+        high: "Escuchas activamente a tu cuerpo y utilizas su información para esclarecerte y orientar tus decisiones."
+      },
+      "Confianza": {
+        low: "No sientes tu cuerpo como un lugar seguro o confiable; es posible que desconfíes de sus señales.",
+        mid: "Confías moderadamente en tu cuerpo y en sus sensaciones; en algunas situaciones te sientes seguro/a en él.",
+        high: "Confías plenamente en tu cuerpo, lo sientes un lugar seguro y te fías de sus sensaciones."
+      }
+    };
+
+    const sub = generic[subscale.name];
+    if (sub) {
+      if (level.label === "Bajo") text = sub.low;
+      else if (level.label === "Medio") text = sub.mid;
+      else text = sub.high;
+    } else {
+      text = "Puntuación " + level.label.toLowerCase() + " para esta subescala.";
+    }
+
+    return { level, text };
+  }
+
+  /* ============================================================
+     CÁLCULO PRINCIPAL
+     ============================================================ */
+  function calculateResults() {
+    const rawValues = {};
+    const missing = [];
+
+    for (let i = 1; i <= TOTAL_ITEMS; i++) {
+      const val = getRadioValue("q" + i);
+      if (val === null) {
+        missing.push(i);
+      } else {
+        rawValues[i] = val;
+      }
+    }
+
+    if (missing.length > 0) {
+      return { error: true, missing: missing };
+    }
+
+    const results = [];
+
+    SUBSCALES.forEach(function(sub) {
+      let sum = 0;
+      sub.items.forEach(function(itemNum) {
+        let val = rawValues[itemNum];
+        if (sub.reverse.indexOf(itemNum) !== -1) {
+          val = 5 - val; // Inversión correcta para escala 0-5
+        }
+        sum += val;
+      });
+      const avg = sum / sub.items.length;
+      const interp = buildInterpretationText(avg, sub);
+      results.push({
+        subscale: sub,
+        average: avg,
+        level: interp.level,
+        text: interp.text
+      });
+    });
+
+    return { error: false, results: results };
+  }
+
+  /* ============================================================
+     RENDERIZADO DE RESULTADOS
+     ============================================================ */
+  function renderResults(data) {
+    const resultsDiv = document.getElementById("results");
+    const container = document.getElementById("subscalesContainer");
+    const globalSummary = document.getElementById("globalSummary");
+
+    // Resumen global
+    const highCount = data.filter(function(r) { return r.level.label === "Alto"; }).length;
+    const lowCount = data.filter(function(r) { return r.level.label === "Bajo"; }).length;
+
+    let globalText = "";
+    if (highCount >= 6) {
+      globalText = "En general, tus resultados sugieren una <strong>conciencia interoceptiva bien desarrollada</strong>. La mayoría de las subescalas se encuentran en un rango alto, lo que indica que sueles estar conectado/a con las señales de tu cuerpo y confías en ellas.";
+    } else if (lowCount >= 5) {
+      globalText = "Tus resultados indican que varias dimensiones de la conciencia interoceptiva están <strong>poco desarrolladas</strong>. Es posible que te resulte difícil notar, interpretar o regular tus sensaciones corporales. Esto puede ser un área de crecimiento.";
+    } else if (highCount >= 3) {
+      globalText = "Tus resultados muestran un <strong>perfil mixto</strong>: algunas dimensiones de la conciencia interoceptiva están bien desarrolladas, mientras que otras podrían fortalecerse.";
+    } else {
+      globalText = "Tus resultados sugieren un <strong>nivel moderado general</strong> de conciencia interoceptiva. Hay áreas con buen desarrollo y otras que podrías explorar más.";
+    }
+
+    globalSummary.innerHTML = globalText;
+
+    // Subescalas
+    container.innerHTML = "";
+
+    data.forEach(function(r) {
+      const sub = r.subscale;
+      const pct = (r.average / 5) * 100;
+
+      const card = document.createElement("div");
+      card.className = "subscale-card";
+
+      const header = document.createElement("div");
+      header.className = "subscale-header";
+      header.innerHTML =
+        '<span class="subscale-name">' + sub.id + ". " + sub.name + '</span>' +
+        '<span class="subscale-score">' + r.average.toFixed(2) + ' / 5</span>';
+      card.appendChild(header);
+
+      const desc = document.createElement("div");
+      desc.className = "subscale-desc";
+      desc.textContent = sub.desc;
+      card.appendChild(desc);
+
+      const barContainer = document.createElement("div");
+      barContainer.className = "bar-container";
+      const barFill = document.createElement("div");
+      barFill.className = "bar-fill";
+      barFill.style.width = pct + "%";
+      barContainer.appendChild(barFill);
+      card.appendChild(barContainer);
+
+      const interpDiv = document.createElement("div");
+      interpDiv.className = "interpretation " + r.level.cls;
+      interpDiv.innerHTML = "<strong>" + r.level.label + ":</strong> " + r.text;
+      card.appendChild(interpDiv);
+
+      container.appendChild(card);
+    });
+
+    resultsDiv.style.display = "block";
+    resultsDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  /* ============================================================
+     EVENTOS
+     ============================================================ */
+  document.getElementById("calcBtn").addEventListener("click", function() {
+    const warning = document.getElementById("warning");
+    const result = calculateResults();
+
+    if (result.error) {
+      warning.style.display = "block";
+      warning.textContent = "⚠️ Faltan respuestas en los ítems: " + result.missing.join(", ") + ". Por favor completa todos los ítems antes de ver tus resultados.";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    warning.style.display = "none";
+    renderResults(result.results);
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", function() {
+    document.getElementById("maiaForm").reset();
+    document.getElementById("results").style.display = "none";
+    document.getElementById("warning").style.display = "none";
+    document.querySelectorAll(".question").forEach(function(q) {
+      q.classList.remove("answered");
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // Marcar pregunta como respondida
+  document.getElementById("maiaForm").addEventListener("change", function(e) {
+    if (e.target.type === "radio") {
+      const questionDiv = e.target.closest(".question");
+      if (questionDiv) {
+        questionDiv.classList.add("answered");
+      }
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
