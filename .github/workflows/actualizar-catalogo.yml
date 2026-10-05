@@ -22,38 +22,51 @@ jobs:
         run: |
           python3 <<'PY'
           import json
-          import re
           from pathlib import Path
+          from html.parser import HTMLParser
 
           carpeta = Path("materiales")
           materiales = []
 
-          def obtener_meta(contenido, nombre):
-              patron = (
-                  r'<meta\s+[^>]*name=["\']'
-                  + re.escape(nombre)
-                  + r'[^"\']*["\'][^>]*>'
-              )
 
-              resultado = re.search(
-                  patron,
-                  contenido,
-                  re.IGNORECASE
-              )
+          class LectorMetadatos(HTMLParser):
 
-              return resultado.group(1).strip() if resultado else ""
+              def __init__(self):
+                  super().__init__()
+                  self.metadatos = {}
 
-          for archivo in sorted(carpeta.glob("*.html")):
+              def handle_starttag(self, tag, attrs):
+
+                  if tag.lower() != "meta":
+                      return
+
+                  atributos = dict(attrs)
+
+                  nombre = atributos.get("name", "")
+                  contenido = atributos.get("content", "")
+
+                  if nombre.startswith("jc-"):
+                      self.metadatos[nombre] = contenido.strip()
+
+
+          def leer_metadatos(archivo):
 
               contenido = archivo.read_text(
                   encoding="utf-8",
                   errors="ignore"
               )
 
-              titulo = obtener_meta(
-                  contenido,
-                  "jc-titulo"
-              )
+              parser = LectorMetadatos()
+              parser.feed(contenido)
+
+              return parser.metadatos
+
+
+          for archivo in sorted(carpeta.glob("*.html")):
+
+              meta = leer_metadatos(archivo)
+
+              titulo = meta.get("jc-titulo", "")
 
               if not titulo:
                   print(
@@ -62,58 +75,82 @@ jobs:
                   )
                   continue
 
-              descripcion = obtener_meta(
-                  contenido,
-                  "jc-descripcion"
+
+              descripcion = meta.get(
+                  "jc-descripcion",
+                  ""
               )
 
-              tipo = obtener_meta(
-                  contenido,
-                  "jc-tipo"
-              ) or "HTML"
 
-              etiquetas_texto = obtener_meta(
-                  contenido,
-                  "jc-etiquetas"
+              tipo = meta.get(
+                  "jc-tipo",
+                  "HTML"
               )
+
+
+              etiquetas_texto = meta.get(
+                  "jc-etiquetas",
+                  ""
+              )
+
 
               etiquetas = [
                   etiqueta.strip()
-                  for etiqueta in etiquetas_texto.split(",")
+                  for etiqueta
+                  in etiquetas_texto.split(",")
                   if etiqueta.strip()
               ]
 
-              curso = obtener_meta(
-                  contenido,
-                  "jc-curso"
+
+              curso = meta.get(
+                  "jc-curso",
+                  ""
               )
 
-              autor = obtener_meta(
-                  contenido,
-                  "jc-autor"
+
+              autor = meta.get(
+                  "jc-autor",
+                  ""
               )
+
 
               material = {
+
                   "titulo": titulo,
+
                   "descripcion": descripcion,
+
                   "tipo": tipo,
+
                   "archivo": archivo.as_posix(),
+
                   "etiquetas": etiquetas
+
               }
 
+
               if curso:
+
                   material["curso"] = curso
 
+
               if autor:
+
                   material["autor"] = autor
+
 
               materiales.append(material)
 
-              print(f"Agregado: {titulo}")
+              print(
+                  f"Agregado: {titulo}"
+              )
+
 
           materiales.sort(
-              key=lambda item: item["titulo"].casefold()
+              key=lambda material:
+                  material["titulo"].casefold()
           )
+
 
           with open(
               "catalogo.json",
@@ -130,23 +167,41 @@ jobs:
 
               salida.write("\n")
 
+
           print(
-              f"Catalogo generado: "
+              f"Catalogo generado correctamente: "
               f"{len(materiales)} materiales"
           )
 
           PY
 
+
+      - name: Mostrar catalogo generado
+        run: |
+          cat catalogo.json
+
+
       - name: Guardar catalogo actualizado
         run: |
+
           if git diff --quiet catalogo.json; then
+
             echo "El catalogo ya esta actualizado."
+
             exit 0
+
           fi
 
+
           git config user.name "github-actions[bot]"
+
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+
           git add catalogo.json
+
+
           git commit -m "Actualizar catalogo automaticamente"
+
+
           git push
