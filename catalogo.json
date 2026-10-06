@@ -348,6 +348,28 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Inteligencia artificial: posibilidades, límites y desafíos",
+    "descripcion": "Tutoría introductoria sobre inteligencia artificial e IA generativa, modelos de lenguaje, generación frente a recuperación, capacidad, utilidad, confiabilidad, gestión de riesgos, agencia humana y pensamiento crítico.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/introduccion-inteligencia-artificial.html",
+    "etiquetas": [
+      "Inteligencia artificial",
+      "IA generativa",
+      "Modelos de lenguaje",
+      "LLM",
+      "Confiabilidad",
+      "Pensamiento crítico",
+      "Alfabetización en IA",
+      "Generación",
+      "Recuperación de información",
+      "NIST",
+      "UNESCO",
+      "Metacognición"
+    ],
+    "curso": "Herramientas Digitales",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Interocepción: el cuerpo en la cognición",
     "descripcion": "Presentación interactiva sobre interocepción, cognición corporeizada, atención, memoria, emoción, procesamiento predictivo, sensibilidad interoceptiva y MAIA.",
     "tipo": "Presentación interactiva",
@@ -659,6 +681,27 @@
       "Metodología de investigación"
     ],
     "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "¿Puedes confiar en esta respuesta?",
+    "descripcion": "Artefacto metacognitivo para examinar la confiabilidad de respuestas generadas por IA, diferenciar fluidez de evidencia, contrastar afirmaciones y construir un protocolo personal de verificación.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/puedes-confiar-en-esta-respuesta.html",
+    "etiquetas": [
+      "Inteligencia artificial",
+      "IA generativa",
+      "Confiabilidad",
+      "Pensamiento crítico",
+      "Metacognición",
+      "Verificación",
+      "Evidencia",
+      "Alfabetización en IA",
+      "Fuentes",
+      "Sesgos",
+      "Toma de decisiones"
+    ],
+    "curso": "Herramientas Digitales",
     "autor": "Juan Carlos Valderrama Cárdenas"
   }
 ]
