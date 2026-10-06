@@ -128,6 +128,27 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Conectivismo: aprender en redes de información y conocimiento",
+    "descripcion": "Presentación de la Tutoría 3 sobre conectivismo, conocimiento distribuido, nodos, conexiones, relevancia, diversidad, actualización de redes e inteligencia artificial como nodo de aprendizaje.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/conectivismo-presentacion.html",
+    "etiquetas": [
+      "Conectivismo",
+      "George Siemens",
+      "Stephen Downes",
+      "Aprendizaje en red",
+      "Conocimiento distribuido",
+      "Nodos",
+      "Conexiones",
+      "Diversidad epistemológica",
+      "Inteligencia artificial",
+      "Alfabetización digital",
+      "Redes de aprendizaje"
+    ],
+    "curso": "Herramientas Digitales",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Correlación y causalidad",
     "descripcion": "Tutoría interactiva sobre correlación, causalidad, direccionalidad, variables de confusión e inferencia causal, con laboratorio de correlaciones, actividades y semáforo causal.",
     "tipo": "Tutoría interactiva",
@@ -474,6 +495,27 @@
       "Filosofía de la mente"
     ],
     "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Laboratorio de redes: ¿cómo construyes conocimiento?",
+    "descripcion": "Laboratorio individual para construir y evaluar una red personal de aprendizaje mediante nodos, conexiones, créditos, diversidad, relevancia, redundancia, IA como atajo, actualización y protocolo metacognitivo.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-de-redes.html",
+    "etiquetas": [
+      "Conectivismo",
+      "Redes de aprendizaje",
+      "Nodos",
+      "Conexiones",
+      "Diversidad",
+      "Relevancia",
+      "Redundancia",
+      "Inteligencia artificial",
+      "Metacognición",
+      "Conocimiento distribuido",
+      "Aprendizaje en red"
+    ],
+    "curso": "Herramientas Digitales",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
