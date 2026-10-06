@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Puedes confiar en esta respuesta? · Artefacto ampliado</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿Puedes confiar en esta respuesta?">
+<meta name="jc-descripcion" content="Artefacto metacognitivo para examinar la confiabilidad de respuestas generadas por IA, diferenciar fluidez de evidencia, contrastar afirmaciones y construir un protocolo personal de verificación.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Inteligencia artificial, IA generativa, Confiabilidad, Pensamiento crítico, Metacognición, Verificación, Evidencia, Alfabetización en IA, Fuentes, Sesgos, Toma de decisiones">
+<meta name="jc-curso" content="Herramientas Digitales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 780px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ---- BARRA DE PROGRESO ---- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.3s ease;
+  }
+
+  /* ---- CONTENEDOR ---- */
+  .artifact-container {
+    width: 100%;
+    max-width: var(--max-width);
+    background: rgba(18, 35, 61, 0.6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow);
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ---- HEADER ---- */
+  .artifact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .artifact-header .station-label {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ---- PANTALLAS ---- */
+  .screen {
+    display: none;
+    animation: fadeIn 0.6s ease;
+    flex: 1;
+    flex-direction: column;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- TIPOGRAFÍA ---- */
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(135deg, #ffffff 40%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 1.5rem 0 0.8rem;
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  /* ---- PROMPT ---- */
+  .user-prompt {
+    background: rgba(96, 165, 250, 0.08);
+    border-left: 4px solid var(--info);
+    padding: 1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.2rem 0;
+    font-style: italic;
+    color: var(--text-main);
+  }
+  .user-prompt .prompt-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--info);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-style: normal;
+  }
+
+  /* ---- RESPUESTA IA ---- */
+  .ai-response {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.8rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+  .ai-response::before {
+    content: 'IA';
+    position: absolute;
+    top: -10px; left: 1.5rem;
+    background: var(--accent);
+    color: #0a1628;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+  .ai-response p {
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    line-height: 1.75;
+    font-size: 0.98rem;
+  }
+  .ai-response p:last-child { margin-bottom: 0; }
+
+  /* ---- OPCIONES ---- */
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 1.5rem 0;
+  }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.95rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+  .option-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+    transform: translateX(4px);
+  }
+  .option-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.25);
+  }
+  .option-card .option-marker {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+
+  /* ---- CHECKBOXES ---- */
+  .checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1.5rem 0;
+  }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1.15rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.94rem;
+  }
+  .checkbox-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+  }
+  .checkbox-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .checkbox-card .checkbox-marker {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ---- ESCALA CONFIANZA ---- */
+  .confidence-scale {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.5rem 0 0.5rem;
+    padding: 1.5rem 1rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .confidence-option {
+    flex: 1;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--text-main);
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    max-width: 56px;
+  }
+  .confidence-option:hover {
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .confidence-option.selected {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.4);
+  }
+  .confidence-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.9rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45);
+  }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+
+  /* ---- FRAGMENTOS ANATOMÍA ---- */
+  .fragment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+  .fragment {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .fragment:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+  }
+  .fragment.expanded {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .fragment .frag-text {
+    font-size: 0.94rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+    font-style: italic;
+  }
+  .fragment .frag-type {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    background: var(--bg-soft);
+    color: var(--text-soft);
+  }
+  .fragment.expanded .frag-type {
+    background: var(--accent);
+    color: #0a1628;
+  }
+  .fragment .frag-question {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    animation: fadeIn 0.4s ease;
+  }
+  .fragment.expanded .frag-question { display: block; }
+  .fragment .frag-question p {
+    font-size: 0.92rem;
+    color: var(--text-main);
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+    font-style: normal;
+  }
+  .fragment .frag-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .fragment .frag-option {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+  }
+  .fragment .frag-option:hover {
+    background: var(--bg-soft);
+    border-color: var(--accent);
+  }
+  .fragment .frag-option.selected {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .fragment .frag-feedback {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 0.7rem 1rem;
+    background: rgba(96, 165, 250, 0.08);
+    border-left: 3px solid var(--info);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.88rem;
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+  .fragment .frag-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+
+  /* ---- ALERTAS ---- */
+  .alert {
+    padding: 1.05rem 1.35rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+  .alert.info { background: rgba(96, 165, 250, 0.08); border-left: 4px solid var(--info); }
+  .alert.success { background: rgba(74, 222, 128, 0.08); border-left: 4px solid var(--success); }
+  .alert.error { background: rgba(248, 113, 113, 0.08); border-left: 4px solid var(--error); }
+  .alert.warning { background: rgba(251, 191, 36, 0.08); border-left: 4px solid var(--warning); }
+  .alert strong { color: var(--accent); }
+
+  /* ---- REFERENCIA FICTICIA ---- */
+  .fake-reference {
+    background: var(--bg-mid);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.3rem;
+    margin: 1.2rem 0;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    position: relative;
+    transition: all 0.5s;
+  }
+  .fake-reference.revealed {
+    border-color: var(--error);
+    background: rgba(248, 113, 113, 0.06);
+  }
+  .fake-reference.revealed::after {
+    content: '⚠ REFERENCIA FICTICIA DEL EJERCICIO — NO CITAR';
+    position: absolute;
+    bottom: -10px;
+    left: 1rem;
+    background: var(--error);
+    color: #0a1628;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ---- CADENA CAUSAL ---- */
+  .causal-chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .causal-chain .cc-item {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 220px;
+    font-size: 0.95rem;
+  }
+  .causal-chain .cc-item.final {
+    border-color: var(--error);
+    color: var(--error);
+  }
+  .causal-chain .cc-arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  /* ---- DRAG & DROP ---- */
+  .drag-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) {
+    .drag-container { grid-template-columns: 1fr; }
+  }
+  .drag-pool {
+    background: var(--bg-mid);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    min-height: 220px;
+  }
+  .drag-pool h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    text-align: center;
+  }
+  .drag-item {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.88rem;
+    cursor: grab;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .drag-item:hover {
+    background: var(--bg-mid);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .drag-item:active { cursor: grabbing; }
+  .drop-zones {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .drop-zone {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    min-height: 70px;
+    transition: all 0.3s;
+  }
+  .drop-zone.drag-over {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.3);
+  }
+  .drop-zone[data-level="bajo"] { border-top: 4px solid var(--success); }
+  .drop-zone[data-level="medio"] { border-top: 4px solid var(--warning); }
+  .drop-zone[data-level="alto"] { border-top: 4px solid var(--error); }
+  .drop-zone .dz-header {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
+  .drop-zone[data-level="bajo"] .dz-header { color: var(--success); }
+  .drop-zone[data-level="medio"] .dz-header { color: var(--warning); }
+  .drop-zone[data-level="alto"] .dz-header { color: var(--error); }
+  .drop-zone .dz-desc {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-bottom: 0.5rem;
+  }
+  .drop-zone .dz-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-height: 20px;
+  }
+  .drop-zone .drag-item {
+    margin-bottom: 0;
+  }
+
+  /* ---- ESPEJO ---- */
+  .mirror-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 600px) {
+    .mirror-comparison { grid-template-columns: 1fr; }
+  }
+  .mirror-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    text-align: center;
+  }
+  .mirror-card.before { border-top: 5px solid var(--error); }
+  .mirror-card.after { border-top: 5px solid var(--success); }
+  .mirror-card .mirror-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    margin-bottom: 0.6rem;
+  }
+  .mirror-card .mirror-score {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .mirror-card.before .mirror-score { color: var(--error); }
+  .mirror-card.after .mirror-score { color: var(--success); }
+  .mirror-card .mirror-caption {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- CHECKLIST ---- */
+  .checklist-section {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .checklist-section .cs-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .checklist-section .cs-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .checklist-section .cs-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    cursor: pointer;
+    padding: 0.4rem 0;
+    transition: color 0.2s;
+  }
+  .checklist-section .cs-item:hover { color: var(--accent); }
+  .checklist-section .cs-item input {
+    margin-top: 0.3rem;
+    accent-color: var(--accent);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* ---- PROTOCOLO PERSONAL ---- */
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 2rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1.2rem;
+  }
+  .personal-protocol ol {
+    margin-left: 1.5rem;
+    color: var(--text-main);
+  }
+  .personal-protocol li {
+    margin-bottom: 0.7rem;
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+
+  /* ---- CIERRE FINAL ---- */
+  .final-message {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .final-message .fm-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+  .final-message .fm-subtitle {
+    font-size: 0.98rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .final-message .fm-question {
+    font-size: 1.02rem;
+    color: var(--text-main);
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+  }
+
+  /* ---- FLUJO CONCEPTUAL ---- */
+  .concept-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 2rem 0;
+    padding: 1.8rem 1rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .concept-flow .cf-item {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 200px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .concept-flow .cf-arrow {
+    color: var(--accent);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    body { padding: 1rem; }
+    .artifact-container { padding: 1.8rem 1.3rem; }
+    h1 { font-size: 1.45rem; }
+    h2 { font-size: 1.12rem; }
+    .confidence-scale { padding: 1rem 0.4rem; gap: 0.35rem; }
+    .confidence-option { font-size: 0.95rem; max-width: 44px; }
+    .artifact-header { font-size: 0.68rem; }
+    .mirror-card .mirror-score { font-size: 2.2rem; }
+  }
+
+  button:focus-visible,
+  .option-card:focus-visible,
+  .checkbox-card:focus-visible,
+  .confidence-option:focus-visible,
+  .fragment:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso del artefacto"></div>
+
+<div class="artifact-container">
+
+  <!-- HEADER -->
+  <div class="artifact-header">
+    <span class="station-label" id="stationLabel">ESTACIÓN 1 · ENCUENTRO</span>
+    <span id="screenLabel">Pantalla 1 / 18</span>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 1 · ENCUENTRO (Pantallas 1-2)
+       ============================================================ -->
+
+  <div class="screen active" data-screen="1">
+    <h1>¿Puedes confiar en esta respuesta?</h1>
+    <p style="color: var(--text-soft); font-size: 1rem;">
+      Estás desarrollando un trabajo para una asignatura de Psicología.
+    </p>
+    <p style="color: var(--text-soft); font-size: 1rem;">
+      Encuentras un concepto que no conoces suficientemente bien y decides pedir ayuda a una IA.
+    </p>
+    <button class="btn" data-next="2">Comenzar</button>
+  </div>
+
+  <div class="screen" data-screen="2">
+    <h2>Tu pregunta</h2>
+    <div class="user-prompt">
+      <span class="prompt-label">Prompt</span>
+      "¿Qué relación existe entre memoria de trabajo y atención? Explícamelo de manera clara para utilizarlo como punto de partida en un trabajo universitario."
+    </div>
+    <button class="btn" data-next="3">Generar respuesta</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 2 · JUICIO (Pantallas 3-4)
+       ============================================================ -->
+
+  <div class="screen" data-screen="3">
+    <h2>Respuesta de la IA</h2>
+    <div class="ai-response">
+      <p>La memoria de trabajo y la atención están estrechamente relacionadas porque ambas permiten seleccionar, mantener y manipular información necesaria para realizar una tarea.</p>
+      <p>Cuando prestamos atención a determinada información, esta puede mantenerse temporalmente disponible en la memoria de trabajo para ser utilizada en procesos como la comprensión, el razonamiento o la solución de problemas.</p>
+      <p>Por ejemplo, cuando una persona realiza mentalmente una operación matemática, necesita mantener ciertos números activos mientras dirige su atención hacia las operaciones que debe ejecutar.</p>
+      <p>Esta relación explica por qué las personas con mayor capacidad de memoria de trabajo poseen generalmente una mayor capacidad para mantener la atención y presentan un mejor rendimiento en actividades académicas complejas.</p>
+      <p>En consecuencia, fortalecer la memoria de trabajo mediante entrenamiento cognitivo puede mejorar de manera significativa la atención y, con ello, el rendimiento académico.</p>
+    </div>
+    <button class="btn" data-next="4">Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="4">
+    <h2>Comprométete con una decisión</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      ¿Qué tan confiable te parece esta respuesta?
+    </p>
+
+    <div class="confidence-scale" id="initialConfidence">
+      <button class="confidence-option" data-value="1">1</button>
+      <button class="confidence-option" data-value="2">2</button>
+      <button class="confidence-option" data-value="3">3</button>
+      <button class="confidence-option" data-value="4">4</button>
+      <button class="confidence-option" data-value="5">5</button>
+    </div>
+    <div class="confidence-labels">
+      <span>1. Muy poco confiable</span>
+      <span>5. Muy confiable</span>
+    </div>
+
+    <h3>Si esta respuesta apareciera ahora en tu trabajo, ¿qué harías?</h3>
+    <div class="options-list" id="initialDecision">
+      <div class="option-card" data-value="A" tabindex="0" role="button">
+        <span class="option-marker">A</span>
+        <span>La utilizaría tal como está.</span>
+      </div>
+      <div class="option-card" data-value="B" tabindex="0" role="button">
+        <span class="option-marker">B</span>
+        <span>La utilizaría después de mejorar la redacción.</span>
+      </div>
+      <div class="option-card" data-value="C" tabindex="0" role="button">
+        <span class="option-marker">C</span>
+        <span>Utilizaría las ideas, pero comprobaría algunos aspectos.</span>
+      </div>
+      <div class="option-card" data-value="D" tabindex="0" role="button">
+        <span class="option-marker">D</span>
+        <span>Comprobaría la información antes de utilizarla.</span>
+      </div>
+      <div class="option-card" data-value="E" tabindex="0" role="button">
+        <span class="option-marker">E</span>
+        <span>Descartaría completamente la respuesta.</span>
+      </div>
+    </div>
+
+    <button class="btn" data-next="5" id="btnInitDecision" disabled>Continuar</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 3 · SEÑALES DE CONFIANZA (Pantalla 5)
+       ============================================================ -->
+
+  <div class="screen" data-screen="5">
+    <h2>¿Por qué confiaste?</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Selecciona las <strong>tres</strong> características que más influyeron en tu decisión anterior.
+    </p>
+
+    <div class="checkbox-list" id="confidenceSignals">
+      <div class="checkbox-card" data-value="redaccion" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Está bien redactada.</span>
+      </div>
+      <div class="checkbox-card" data-value="logica" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Parece lógica.</span>
+      </div>
+      <div class="checkbox-card" data-value="vocabulario" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Utiliza vocabulario psicológico.</span>
+      </div>
+      <div class="checkbox-card" data-value="ejemplo" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Ofrece un ejemplo.</span>
+      </div>
+      <div class="checkbox-card" data-value="relaciones" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Explica relaciones entre conceptos.</span>
+      </div>
+      <div class="checkbox-card" data-value="detalle" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Es suficientemente detallada.</span>
+      </div>
+      <div class="checkbox-card" data-value="tono" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>El tono transmite seguridad.</span>
+      </div>
+      <div class="checkbox-card" data-value="coincide" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Coincide con cosas que ya sabía.</span>
+      </div>
+      <div class="checkbox-card" data-value="no-falso" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>No encontré nada que pareciera obviamente falso.</span>
+      </div>
+      <div class="checkbox-card" data-value="matices" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Identifica matices y limitaciones.</span>
+      </div>
+      <div class="checkbox-card" data-value="fuentes" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Presenta fuentes verificables.</span>
+      </div>
+      <div class="checkbox-card" data-value="contrastar" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Pude contrastar sus afirmaciones.</span>
+      </div>
+    </div>
+
+    <button class="btn" data-next="6" id="btnSignals" disabled>Continuar</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 4 · COMPARACIÓN (Pantallas 6-7)
+       ============================================================ -->
+
+  <div class="screen" data-screen="6">
+    <h2>¿Y si encontramos otra respuesta?</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Le pediste a la IA una segunda explicación sobre el mismo tema. Esto es lo que produjo.
+    </p>
+
+    <div class="ai-response" style="border-color: var(--info);">
+      <p>La memoria de trabajo y la atención mantienen relaciones estrechas, aunque no conviene tratarlas como procesos equivalentes.</p>
+      <p>Algunos modelos de memoria de trabajo atribuyen un papel importante a mecanismos de control atencional. Sin embargo, la relación entre ambos constructos depende también de cómo sean definidos y medidos.</p>
+      <p>Por ello, encontrar una asociación entre capacidad de memoria de trabajo y determinadas tareas atencionales no permite concluir, por sí mismo, que una capacidad cause directamente la otra.</p>
+      <p>Para establecer afirmaciones sobre sus relaciones sería necesario precisar qué tipo de atención, qué medida de memoria de trabajo y qué evidencia empírica se está considerando.</p>
+    </div>
+
+    <button class="btn" data-next="7">Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="7">
+    <h2>Comparemos las dos respuestas</h2>
+
+    <h3>¿Cuál parece más convincente?</h3>
+    <div class="options-list" id="whichConvincing">
+      <div class="option-card" data-value="A" tabindex="0" role="button">
+        <span class="option-marker">A</span>
+        <span>La respuesta A (la primera).</span>
+      </div>
+      <div class="option-card" data-value="B" tabindex="0" role="button">
+        <span class="option-marker">B</span>
+        <span>La respuesta B (la segunda).</span>
+      </div>
+    </div>
+
+    <h3>¿Cuál considerarías más confiable para iniciar un trabajo académico?</h3>
+    <div class="options-list" id="whichReliable">
+      <div class="option-card" data-value="A" tabindex="0" role="button">
+        <span class="option-marker">A</span>
+        <span>La respuesta A.</span>
+      </div>
+      <div class="option-card" data-value="B" tabindex="0" role="button">
+        <span class="option-marker">B</span>
+        <span>La respuesta B.</span>
+      </div>
+      <div class="option-card" data-value="no-se" tabindex="0" role="button">
+        <span class="option-marker">?</span>
+        <span>No puedo decidir todavía.</span>
+      </div>
+    </div>
+
+    <h3>¿Convincente y confiable significan lo mismo para ti?</h3>
+    <div class="options-list" id="sameMeaning">
+      <div class="option-card" data-value="si" tabindex="0" role="button">
+        <span class="option-marker">Sí</span>
+        <span>Sí, son lo mismo.</span>
+      </div>
+      <div class="option-card" data-value="no" tabindex="0" role="button">
+        <span class="option-marker">No</span>
+        <span>No, son cosas distintas.</span>
+      </div>
+      <div class="option-card" data-value="no-seguro" tabindex="0" role="button">
+        <span class="option-marker">?</span>
+        <span>No estoy seguro/a.</span>
+      </div>
+    </div>
+
+    <button class="btn" data-next="8" id="btnCompare" disabled>Continuar</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 5 · ANATOMÍA (Pantallas 8-10)
+       ============================================================ -->
+
+  <div class="screen" data-screen="8">
+    <h2>Anatomía de una respuesta</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Hasta ahora viste un texto. Ahora vamos a verlo como un conjunto de afirmaciones. Pulsa cada fragmento para examinarlo.
+    </p>
+
+    <div class="fragment-list" id="fragmentList">
+      <div class="fragment" data-frag="1">
+        <div class="frag-text">"La memoria de trabajo y la atención están estrechamente relacionadas..."</div>
+        <span class="frag-type">Relación entre constructos</span>
+        <div class="frag-question">
+          <p>¿Qué necesitarías para aceptarla?</p>
+          <div class="frag-options">
+            <div class="frag-option" data-correct="false">Una definición.</div>
+            <div class="frag-option" data-correct="true">Evidencia empírica.</div>
+            <div class="frag-option" data-correct="true">Una fuente académica.</div>
+            <div class="frag-option" data-correct="false">Nada, parece evidente.</div>
+          </div>
+          <div class="frag-feedback">
+            Para aceptar una afirmación sobre la relación entre dos constructos, necesitas algo más que la impresión de que "suena bien". Necesitas evidencia empírica o una fuente académica que respalde esa relación específica.
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment" data-frag="2">
+        <div class="frag-text">"...ambas permiten seleccionar, mantener y manipular información..."</div>
+        <span class="frag-type">Descripción de procesos</span>
+        <div class="frag-question">
+          <p>¿La oración describe correctamente a ambos procesos o está simplificando sus diferencias?</p>
+          <div class="frag-options">
+            <div class="frag-option" data-correct="false">Parece adecuada.</div>
+            <div class="frag-option" data-correct="true">Requiere matización.</div>
+            <div class="frag-option" data-correct="false">No sé.</div>
+          </div>
+          <div class="frag-feedback">
+            La atención y la memoria de trabajo no hacen exactamente lo mismo. La afirmación las trata como si compartieran funciones, cuando en realidad son procesos distintos con relaciones complejas. Requiere matización.
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment" data-frag="3">
+        <div class="frag-text">"Cuando una persona realiza mentalmente una operación matemática..."</div>
+        <span class="frag-type">Ejemplo</span>
+        <div class="frag-question">
+          <p>Un ejemplo convincente, ¿demuestra que la explicación general es correcta?</p>
+          <div class="frag-options">
+            <div class="frag-option" data-correct="false">Sí.</div>
+            <div class="frag-option" data-correct="true">No.</div>
+          </div>
+          <div class="frag-feedback">
+            Un ejemplo puede ayudarnos a comprender una afirmación sin constituir evidencia suficiente para demostrarla. Los ejemplos ilustran; no demuestran.
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment" data-frag="4">
+        <div class="frag-text">"Las personas con mayor capacidad de memoria de trabajo poseen generalmente una mayor capacidad para mantener la atención..."</div>
+        <span class="frag-type">Generalización</span>
+        <div class="frag-question">
+          <p>¿Qué necesitaríamos para evaluar esta afirmación? (Selecciona todas las que apliquen)</p>
+          <div class="frag-options">
+            <div class="frag-option" data-correct="true">Definir memoria de trabajo.</div>
+            <div class="frag-option" data-correct="true">Definir qué significa "atención".</div>
+            <div class="frag-option" data-correct="true">Determinar cómo fueron medidas.</div>
+            <div class="frag-option" data-correct="true">Consultar resultados empíricos.</div>
+            <div class="frag-option" data-correct="true">Conocer las características de las personas estudiadas.</div>
+          </div>
+          <div class="frag-feedback">
+            Para evaluar una generalización necesitas descomponerla en preguntas verificables: definiciones operacionales, mediciones concretas, evidencia empírica y características de la población. Esta es una habilidad transferible a cualquier afirmación.
+          </div>
+        </div>
+      </div>
+
+      <div class="fragment" data-frag="5">
+        <div class="frag-text">"Fortalecer la memoria de trabajo mediante entrenamiento cognitivo puede mejorar de manera significativa la atención y, con ello, el rendimiento académico."</div>
+        <span class="frag-type">Conclusión fuerte</span>
+        <div class="frag-question">
+          <p>La respuesta comenzó describiendo una relación entre conceptos. ¿Qué está afirmando ahora?</p>
+          <div class="frag-options">
+            <div class="frag-option" data-correct="false">Otra relación.</div>
+            <div class="frag-option" data-correct="false">Una definición.</div>
+            <div class="frag-option" data-correct="true">Una posible cadena causal.</div>
+            <div class="frag-option" data-correct="false">Un ejemplo.</div>
+          </div>
+          <div class="frag-feedback">
+            La respuesta pasó de describir una relación a proponer una cadena causal: entrenar → mejorar → mejorar. Esto es una conclusión mucho más fuerte que la evidencia presentada inicialmente.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" data-next="9" id="btnFragments" disabled>Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="9">
+    <h2>El giro de la respuesta</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Observa lo que ocurrió entre el inicio y el final de la respuesta.
+    </p>
+
+    <div class="causal-chain">
+      <div class="cc-item">Memoria de trabajo</div>
+      <div class="cc-arrow">↓</div>
+      <div class="cc-item">Atención</div>
+      <div class="cc-arrow">↓</div>
+      <div class="cc-item final">Rendimiento académico</div>
+    </div>
+
+    <div class="alert warning">
+      <strong>Descubrimiento clave:</strong> Una respuesta puede comenzar con afirmaciones razonables y avanzar
+      gradualmente hacia conclusiones más fuertes que aquello que estaba inicialmente justificado.
+    </div>
+
+    <button class="btn" data-next="10">Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="10">
+    <h2>Cuando la apariencia se vuelve académica</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Le pediste a la IA una fuente para respaldar la explicación. Esto es lo que produjo.
+    </p>
+
+    <div class="ai-response" style="padding: 1.2rem 1.5rem;">
+      <p style="margin-bottom: 0.8rem;">Puedes respaldar esta explicación con:</p>
+      <div class="fake-reference" id="fakeRef1">
+        <strong>Baddeley, A. D. (2012).</strong> <em>Working Memory and Attention: An Integrated Cognitive Model.</em> Oxford University Press.
+      </div>
+    </div>
+
+    <h3>¿Qué haces?</h3>
+    <div class="options-list" id="referenceAction">
+      <div class="option-card" data-value="incorporo" tabindex="0" role="button">
+        <span class="option-marker">A</span>
+        <span>La incorporo. Parece una referencia académica válida.</span>
+      </div>
+      <div class="option-card" data-value="reconozco" tabindex="0" role="button">
+        <span class="option-marker">B</span>
+        <span>Reconozco al autor, por lo que probablemente es correcta.</span>
+      </div>
+      <div class="option-card" data-value="busco" tabindex="0" role="button">
+        <span class="option-marker">C</span>
+        <span>Busco la referencia para comprobar que existe.</span>
+      </div>
+      <div class="option-card" data-value="verifico" tabindex="0" role="button">
+        <span class="option-marker">D</span>
+        <span>Además de comprobar que existe, verifico que respalde esa afirmación.</span>
+      </div>
+    </div>
+
+    <button class="btn" data-next="11" id="btnReferenceAction" disabled>Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="11">
+    <h2>La revelación</h2>
+
+    <div class="fake-reference revealed" id="fakeRef2">
+      <strong>Baddeley, A. D. (2012).</strong> <em>Working Memory and Attention: An Integrated Cognitive Model.</em> Oxford University Press.
+    </div>
+
+    <div class="alert error" style="margin-top: 2rem;">
+      <strong>La referencia fue fabricada para este ejercicio.</strong> No existe tal publicación. No debe citarse.
+    </div>
+
+    <h3>¿Qué habría ocurrido si la hubieras copiado directamente en tu trabajo?</h3>
+    <div class="alert info">
+      <p style="margin-bottom: 0.8rem;">El problema es más grave de lo que parece. Existen al menos cuatro niveles distintos que solemos confundir:</p>
+      <p style="margin-bottom: 0.5rem;"><strong>Parece una referencia</strong> ≠ <strong>La referencia existe</strong> ≠ <strong>La fuente dice eso</strong> ≠ <strong>La evidencia permite concluir eso</strong></p>
+    </div>
+
+    <div class="alert success">
+      <strong>Nota ética:</strong> Alan Baddeley es un psicólogo real y ha publicado sobre memoria de trabajo.
+      Pero eso no valida la referencia específica que se mostró. El apellido conocido no es prueba de que el documento exista.
+    </div>
+
+    <button class="btn" data-next="12">Continuar</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 7 · NIVEL DE VERIFICACIÓN (Pantallas 12-13)
+       ============================================================ -->
+
+  <div class="screen" data-screen="12">
+    <h2>No todo necesita el mismo nivel de verificación</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Aquí hay cuatro situaciones en las que pediste ayuda a una IA. Arrastra cada caso hacia el nivel de verificación que corresponde.
+    </p>
+
+    <div class="drag-container">
+      <div class="drag-pool" id="dragPool">
+        <h4>Casos</h4>
+        <div class="drag-item" draggable="true" data-case="titulos">
+          <strong>Caso A:</strong> Le pediste cinco posibles títulos para una presentación.
+        </div>
+        <div class="drag-item" draggable="true" data-case="explicacion">
+          <strong>Caso B:</strong> Le pediste una explicación introductoria sobre memoria de trabajo.
+        </div>
+        <div class="drag-item" draggable="true" data-case="evidencia">
+          <strong>Caso C:</strong> Le pediste evidencia científica para afirmar que un programa mejora la atención.
+        </div>
+        <div class="drag-item" draggable="true" data-case="interpretacion">
+          <strong>Caso D:</strong> Le pediste interpretar el resultado de una persona en una evaluación psicológica.
+        </div>
+      </div>
+
+      <div class="drop-zones">
+        <div class="drop-zone" data-level="bajo">
+          <div class="dz-header">BAJO</div>
+          <div class="dz-desc">Puedo valorar directamente la utilidad del resultado.</div>
+          <div class="dz-content"></div>
+        </div>
+        <div class="drop-zone" data-level="medio">
+          <div class="dz-header">MEDIO</div>
+          <div class="dz-desc">Necesito contrastar conceptos importantes.</div>
+          <div class="dz-content"></div>
+        </div>
+        <div class="drop-zone" data-level="alto">
+          <div class="dz-header">ALTO</div>
+          <div class="dz-desc">Necesito fuentes, evidencia y revisión cuidadosa.</div>
+          <div class="dz-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" data-next="13" id="btnDrag" disabled>Verificar</button>
+  </div>
+
+  <div class="screen" data-screen="13">
+    <h2>La enseñanza clave</h2>
+
+    <div class="alert success">
+      <strong>Confiabilidad no significa desconfiar siempre.</strong> Significa ajustar el nivel de comprobación
+      al tipo de afirmación y a las consecuencias de equivocarnos.
+    </div>
+
+    <h3>Resumen de la clasificación correcta</h3>
+    <div class="alert info">
+      <p style="margin-bottom: 0.5rem;"><strong>BAJO:</strong> Caso A (títulos). Puedo valorar directamente si me sirven o no.</p>
+      <p style="margin-bottom: 0.5rem;"><strong>MEDIO:</strong> Caso B (explicación introductoria). Necesito contrastar conceptos importantes.</p>
+      <p style="margin-bottom: 0.5rem;"><strong>ALTO:</strong> Caso C (evidencia científica) y Caso D (interpretación clínica). Requieren fuentes, evidencia y revisión cuidadosa.</p>
+    </div>
+
+    <button class="btn" data-next="14">Continuar</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 8 · ESPEJO (Pantallas 14-15)
+       ============================================================ -->
+
+  <div class="screen" data-screen="14">
+    <h2>Ahora no evalúes a la IA</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Hasta aquí has evaluado a la inteligencia artificial. Pausa.
+    </p>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Ahora observa cómo la evaluaste.
+    </p>
+
+    <div class="mirror-comparison" id="mirrorComparison">
+      <div class="mirror-card before">
+        <div class="mirror-label">Antes</div>
+        <div class="mirror-score" id="mirrorBefore">—</div>
+        <div class="mirror-caption">Tu valoración inicial</div>
+      </div>
+      <div class="mirror-card after">
+        <div class="mirror-label">Ahora</div>
+        <div class="mirror-score" id="mirrorAfter">—</div>
+        <div class="mirror-caption">Después del análisis</div>
+      </div>
+    </div>
+
+    <h3>Después del análisis, ¿qué puntuación le darías ahora?</h3>
+    <div class="confidence-scale" id="finalConfidence">
+      <button class="confidence-option" data-value="1">1</button>
+      <button class="confidence-option" data-value="2">2</button>
+      <button class="confidence-option" data-value="3">3</button>
+      <button class="confidence-option" data-value="4">4</button>
+      <button class="confidence-option" data-value="5">5</button>
+    </div>
+    <div class="confidence-labels">
+      <span>1. Muy poco confiable</span>
+      <span>5. Muy confiable</span>
+    </div>
+
+    <button class="btn" data-next="15" id="btnMirror" disabled>Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="15">
+    <h2>¿Qué ocurrió entre ambas decisiones?</h2>
+
+    <div class="checkbox-list" id="whatHappened">
+      <div class="checkbox-card" data-value="nueva" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Aprendí información nueva.</span>
+      </div>
+      <div class="checkbox-card" data-value="examine" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Examiné afirmaciones que antes había tratado como un todo.</span>
+      </div>
+      <div class="checkbox-card" data-value="diferencie" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Diferencié ejemplos de evidencias.</span>
+      </div>
+      <div class="checkbox-card" data-value="referencia" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Descubrí una referencia problemática.</span>
+      </div>
+      <div class="checkbox-card" data-value="conciencia" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Me volví más consciente de las señales que producen confianza.</span>
+      </div>
+      <div class="checkbox-card" data-value="no-cambie" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>No cambié realmente mi valoración.</span>
+      </div>
+    </div>
+
+    <button class="btn" data-next="16">Continuar</button>
+  </div>
+
+  <!-- ============================================================
+       ESTACIÓN 9 · CHECKLIST PERSONAL (Pantallas 16-18)
+       ============================================================ -->
+
+  <div class="screen" data-screen="16">
+    <h2>Mi checklist de confianza</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Este checklist no es sobre "cosas que debe hacer la IA". Es sobre cómo estás pensando tú.
+    </p>
+
+    <div class="checklist-section">
+      <div class="cs-title">01. Mi reacción</div>
+      <div class="cs-items">
+        <label class="cs-item"><input type="checkbox" data-check="r1"> ¿La respuesta me convence principalmente porque está bien escrita?</label>
+        <label class="cs-item"><input type="checkbox" data-check="r2"> ¿El tono de seguridad está aumentando mi confianza?</label>
+        <label class="cs-item"><input type="checkbox" data-check="r3"> ¿Estoy interpretando vocabulario especializado como señal automática de conocimiento?</label>
+        <label class="cs-item"><input type="checkbox" data-check="r4"> ¿Estoy confiando porque la respuesta coincide con lo que ya pensaba?</label>
+      </div>
+    </div>
+
+    <div class="checklist-section">
+      <div class="cs-title">02. Lo que realmente afirma</div>
+      <div class="cs-items">
+        <label class="cs-item"><input type="checkbox" data-check="a1"> ¿Puedo identificar cuáles son las afirmaciones principales?</label>
+        <label class="cs-item"><input type="checkbox" data-check="a2"> ¿Estoy diferenciando hechos, interpretaciones, ejemplos y conclusiones?</label>
+        <label class="cs-item"><input type="checkbox" data-check="a3"> ¿Alguna conclusión es más fuerte que la evidencia presentada?</label>
+        <label class="cs-item"><input type="checkbox" data-check="a4"> ¿Hay afirmaciones causales donde solamente se ha mostrado una relación?</label>
+      </div>
+    </div>
+
+    <div class="checklist-section">
+      <div class="cs-title">03. La evidencia</div>
+      <div class="cs-items">
+        <label class="cs-item"><input type="checkbox" data-check="e1"> ¿La respuesta proporciona evidencia o solo una explicación plausible?</label>
+        <label class="cs-item"><input type="checkbox" data-check="e2"> Si aparecen fuentes, ¿comprobé que existen?</label>
+        <label class="cs-item"><input type="checkbox" data-check="e3"> ¿Comprobé que la fuente realmente respalda la afirmación?</label>
+        <label class="cs-item"><input type="checkbox" data-check="e4"> ¿Estoy confundiendo una referencia bibliográfica con evidencia?</label>
+      </div>
+    </div>
+
+    <div class="checklist-section">
+      <div class="cs-title">04. El contexto</div>
+      <div class="cs-items">
+        <label class="cs-item"><input type="checkbox" data-check="c1"> ¿Conozco suficientemente el tema para detectar posibles errores?</label>
+        <label class="cs-item"><input type="checkbox" data-check="c2"> Si no conozco el tema, ¿debería aumentar mi nivel de verificación?</label>
+        <label class="cs-item"><input type="checkbox" data-check="c3"> ¿Qué consecuencias tendría utilizar información incorrecta en este caso?</label>
+      </div>
+    </div>
+
+    <div class="checklist-section">
+      <div class="cs-title">05. Mi decisión</div>
+      <div class="cs-items">
+        <label class="cs-item"><input type="checkbox" data-check="d1"> ¿Necesito verificar esta información antes de utilizarla?</label>
+        <label class="cs-item"><input type="checkbox" data-check="d2"> ¿Sé exactamente qué parte debo comprobar?</label>
+        <label class="cs-item"><input type="checkbox" data-check="d3"> ¿Puedo explicar por qué acepto esta respuesta?</label>
+        <label class="cs-item"><input type="checkbox" data-check="d4"> ¿Estoy tomando yo la decisión o simplemente aceptando la decisión de la IA?</label>
+      </div>
+    </div>
+
+    <button class="btn" data-next="17">Continuar</button>
+  </div>
+
+  <div class="screen" data-screen="17">
+    <h2>Selecciona las tres preguntas que más necesitas recordar</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      De todo el checklist, elige <strong>solo tres</strong> preguntas. Estas formarán tu protocolo personal de pausa.
+    </p>
+
+    <div class="checkbox-list" id="priorityQuestions">
+      <div class="checkbox-card" data-value="r1" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿La respuesta me convence principalmente porque está bien escrita?</span>
+      </div>
+      <div class="checkbox-card" data-value="r3" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Estoy interpretando vocabulario especializado como señal automática de conocimiento?</span>
+      </div>
+      <div class="checkbox-card" data-value="r4" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Estoy confiando porque coincide con lo que ya pensaba?</span>
+      </div>
+      <div class="checkbox-card" data-value="a3" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Alguna conclusión es más fuerte que la evidencia presentada?</span>
+      </div>
+      <div class="checkbox-card" data-value="a4" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Hay afirmaciones causales donde solamente se ha mostrado una relación?</span>
+      </div>
+      <div class="checkbox-card" data-value="e3" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Comprobé que la fuente realmente respalda la afirmación?</span>
+      </div>
+      <div class="checkbox-card" data-value="c2" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>Si no conozco el tema, ¿debería aumentar mi nivel de verificación?</span>
+      </div>
+      <div class="checkbox-card" data-value="c3" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Qué consecuencias tendría utilizar información incorrecta en este caso?</span>
+      </div>
+      <div class="checkbox-card" data-value="d4" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Estoy tomando yo la decisión o simplemente aceptando la decisión de la IA?</span>
+      </div>
+    </div>
+
+    <button class="btn" data-next="18" id="btnPriorities" disabled>Generar mi protocolo</button>
+  </div>
+
+  <div class="screen" data-screen="18">
+    <h2>Mi protocolo personal de pausa</h2>
+    <p style="color: var(--text-soft); font-size: 0.94rem;">
+      Antes de utilizar una respuesta generada por IA me preguntaré:
+    </p>
+
+    <div class="personal-protocol" id="personalProtocol">
+      <div class="pp-title">Mi protocolo personal</div>
+      <ol id="protocolList">
+        <!-- Se llena dinámicamente -->
+      </ol>
+    </div>
+
+    <div class="alert info">
+      <strong>Este protocolo es tuyo.</strong> No es una regla general. Es la selección personal de las preguntas
+      que más necesitas recordar según tu propio recorrido en este artefacto.
+    </div>
+
+    <button class="btn" data-next="19">Finalizar</button>
+  </div>
+
+  <!-- ============================================================
+       CIERRE FINAL (Pantalla 19)
+       ============================================================ -->
+
+  <div class="screen" data-screen="19">
+    <div class="final-message">
+      <div class="fm-title">La fluidez produce una impresión.<br>La evidencia proporciona una razón.</div>
+
+      <div class="fm-subtitle">
+        No preguntes únicamente:<br>
+        <em>"¿Esta respuesta parece correcta?"</em><br><br>
+        Aprende también a preguntar:<br>
+        <strong style="color: var(--accent);">"¿Por qué estoy dispuesto a creerla?"</strong>
+      </div>
+    </div>
+
+    <div class="concept-flow">
+      <div class="cf-item">PREGUNTAR</div>
+      <div class="cf-arrow">↓</div>
+      <div class="cf-item">EXAMINAR</div>
+      <div class="cf-arrow">↓</div>
+      <div class="cf-item">CONTRASTAR</div>
+      <div class="cf-arrow">↓</div>
+      <div class="cf-item">DECIDIR</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn btn-outline" id="btnRestart">↻ Volver a empezar</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  /* ============================================================
+     ESTADO
+     ============================================================ */
+  const state = {
+    screen: 1,
+    initialConfidence: null,
+    initialDecision: null,
+    confidenceSignals: [],
+    whichConvincing: null,
+    whichReliable: null,
+    sameMeaning: null,
+    fragmentsExamined: [],
+    fragmentAnswers: {},
+    referenceAction: null,
+    dragClassification: {},
+    finalConfidence: null,
+    whatHappened: [],
+    checklist: {},
+    priorityQuestions: []
+  };
+
+  try {
+    const saved = localStorage.getItem('artifact01_extended_state');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('artifact01_extended_state', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  /* ============================================================
+     NAVEGACIÓN
+     ============================================================ */
+  const screens = document.querySelectorAll('.screen');
+  const stationLabel = document.getElementById('stationLabel');
+  const screenLabel = document.getElementById('screenLabel');
+  const progressBar = document.getElementById('progressBar');
+
+  const stationNames = {
+    1: 'ESTACIÓN 1 · ENCUENTRO', 2: 'ESTACIÓN 1 · ENCUENTRO',
+    3: 'ESTACIÓN 2 · JUICIO', 4: 'ESTACIÓN 2 · JUICIO',
+    5: 'ESTACIÓN 3 · SEÑALES DE CONFIANZA',
+    6: 'ESTACIÓN 4 · COMPARACIÓN', 7: 'ESTACIÓN 4 · COMPARACIÓN',
+    8: 'ESTACIÓN 5 · ANATOMÍA', 9: 'ESTACIÓN 5 · ANATOMÍA', 10: 'ESTACIÓN 6 · REFERENCIA', 11: 'ESTACIÓN 6 · REFERENCIA',
+    12: 'ESTACIÓN 7 · NIVEL DE VERIFICACIÓN', 13: 'ESTACIÓN 7 · NIVEL DE VERIFICACIÓN',
+    14: 'ESTACIÓN 8 · ESPEJO', 15: 'ESTACIÓN 8 · ESPEJO',
+    16: 'ESTACIÓN 9 · CHECKLIST', 17: 'ESTACIÓN 9 · CHECKLIST', 18: 'ESTACIÓN 9 · CHECKLIST',
+    19: 'CIERRE'
+  };
+
+  const screenOrder = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19'];
+
+  function goToScreen(id) {
+    screens.forEach(s => s.classList.remove('active'));
+    const target = document.querySelector(`.screen[data-screen="${id}"]`);
+    if (!target) return;
+    target.classList.add('active');
+    state.screen = id;
+    saveState();
+
+    stationLabel.textContent = stationNames[id] || 'CIERRE';
+    const idx = screenOrder.indexOf(String(id));
+    screenLabel.textContent = `Pantalla ${idx + 1} / ${screenOrder.length}`;
+    progressBar.style.width = ((idx + 1) / screenOrder.length * 100) + '%';
+
+    if (id === '14') updateMirror();
+    if (id === '18') buildProtocol();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const next = this.dataset.next;
+      if (next) goToScreen(next);
+    });
+  });
+
+  /* ============================================================
+     PANTALLA 4: CONFIANZA INICIAL Y DECISIÓN
+     ============================================================ */
+  const initConfOpts = document.querySelectorAll('#initialConfidence .confidence-option');
+  initConfOpts.forEach(o => {
+    o.addEventListener('click', function() {
+      initConfOpts.forEach(x => x.classList.remove('selected'));
+      this.classList.add('selected');
+      state.initialConfidence = this.dataset.value;
+      saveState();
+      checkInitDecision();
+    });
+  });
+
+  const initDecOpts = document.querySelectorAll('#initialDecision .option-card');
+  const btnInitDecision = document.getElementById('btnInitDecision');
+  initDecOpts.forEach(o => {
+    o.addEventListener('click', function() {
+      initDecOpts.forEach(x => x.classList.remove('selected'));
+      this.classList.add('selected');
+      state.initialDecision = this.dataset.value;
+      saveState();
+      checkInitDecision();
+    });
+    o.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+
+  function checkInitDecision() {
+    btnInitDecision.disabled = !(state.initialConfidence && state.initialDecision);
+  }
+
+  // Restaurar
+  if (state.initialConfidence) {
+    const el = document.querySelector(`#initialConfidence .confidence-option[data-value="${state.initialConfidence}"]`);
+    if (el) el.classList.add('selected');
+  }
+  if (state.initialDecision) {
+    const el = document.querySelector(`#initialDecision .option-card[data-value="${state.initialDecision}"]`);
+    if (el) el.classList.add('selected');
+  }
+  checkInitDecision();
+
+  /* ============================================================
+     PANTALLA 5: SEÑALES (máximo 3)
+     ============================================================ */
+  const signalOpts = document.querySelectorAll('#confidenceSignals .checkbox-card');
+  const btnSignals = document.getElementById('btnSignals');
+
+  function updateSignals() {
+    const selected = document.querySelectorAll('#confidenceSignals .checkbox-card.selected');
+    signalOpts.forEach(o => {
+      if (!o.classList.contains('selected') && selected.length >= 3) o.classList.add('disabled');
+      else o.classList.remove('disabled');
+    });
+    btnSignals.disabled = selected.length !== 3;
+    state.confidenceSignals = Array.from(selected).map(o => o.dataset.value);
+    saveState();
+  }
+
+  signalOpts.forEach(o => {
+    o.addEventListener('click', function() {
+      if (this.classList.contains('disabled')) return;
+      this.classList.toggle('selected');
+      updateSignals();
+    });
+    o.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+
+  if (state.confidenceSignals && state.confidenceSignals.length > 0) {
+    state.confidenceSignals.forEach(v => {
+      const el = document.querySelector(`#confidenceSignals .checkbox-card[data-value="${v}"]`);
+      if (el) el.classList.add('selected');
+    });
+    updateSignals();
+  }
+
+  /* ============================================================
+     PANTALLA 7: COMPARACIÓN
+     ============================================================ */
+  function setupSingleSelect(containerId, stateKey) {
+    const opts = document.querySelectorAll(`#${containerId} .option-card`);
+    opts.forEach(o => {
+      o.addEventListener('click', function() {
+        opts.forEach(x => x.classList.remove('selected'));
+        this.classList.add('selected');
+        state[stateKey] = this.dataset.value;
+        saveState();
+        checkCompare();
+      });
+      o.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+      });
+    });
+    if (state[stateKey]) {
+      const el = document.querySelector(`#${containerId} .option-card[data-value="${state[stateKey]}"]`);
+      if (el) el.classList.add('selected');
+    }
+  }
+
+  setupSingleSelect('whichConvincing', 'whichConvincing');
+  setupSingleSelect('whichReliable', 'whichReliable');
+  setupSingleSelect('sameMeaning', 'sameMeaning');
+
+  const btnCompare = document.getElementById('btnCompare');
+  function checkCompare() {
+    btnCompare.disabled = !(state.whichConvincing && state.whichReliable && state.sameMeaning);
+  }
+  checkCompare();
+
+  /* ============================================================
+     PANTALLA 8: FRAGMENTOS
+     ============================================================ */
+  const fragments = document.querySelectorAll('#fragmentList .fragment');
+  const btnFragments = document.getElementById('btnFragments');
+
+  fragments.forEach(f => {
+    f.addEventListener('click', function(e) {
+      if (e.target.closest('.frag-option')) return;
+      this.classList.toggle('expanded');
+      const fragId = this.dataset.frag;
+      if (this.classList.contains('expanded') && !state.fragmentsExamined.includes(fragId)) {
+        state.fragmentsExamined.push(fragId);
+        saveState();
+        checkFragments();
+      }
+    });
+  });
+
+  document.querySelectorAll('.frag-option').forEach(opt => {
+    opt.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.classList.add('selected');
+      const frag = this.closest('.fragment');
+      const feedback = frag.querySelector('.frag-feedback');
+      if (feedback) feedback.classList.add('show');
+    });
+  });
+
+  function checkFragments() {
+    btnFragments.disabled = state.fragmentsExamined.length < 5;
+  }
+  checkFragments();
+
+  /* ============================================================
+     PANTALLA 10: REFERENCIA
+     ============================================================ */
+  setupSingleSelect('referenceAction', 'referenceAction');
+  const btnRefAction = document.getElementById('btnReferenceAction');
+  function checkRefAction() {
+    btnRefAction.disabled = !state.referenceAction;
+  }
+  checkRefAction();
+
+  // Sobrescribir para que actualice el botón
+  document.querySelectorAll('#referenceAction .option-card').forEach(o => {
+    o.addEventListener('click', checkRefAction);
+  });
+
+  /* ============================================================
+     PANTALLA 12: DRAG & DROP
+     ============================================================ */
+  const dragItems = document.querySelectorAll('.drag-item');
+  const dropZones = document.querySelectorAll('.drop-zone');
+  let draggedItem = null;
+
+  dragItems.forEach(item => {
+    item.addEventListener('dragstart', function() {
+      draggedItem = this;
+      setTimeout(() => this.style.opacity = '0.5', 0);
+    });
+    item.addEventListener('dragend', function() {
+      this.style.opacity = '1';
+      draggedItem = null;
+    });
+    // Touch support: tap to cycle
+    item.addEventListener('click', function() {
+      const zones = ['bajo', 'medio', 'alto'];
+      const current = this.dataset.case;
+      // Find current zone
+      let currentZone = null;
+      zones.forEach(z => {
+        if (document.querySelector(`.drop-zone[data-level="${z}"] .drag-item[data-case="${current}"]`)) {
+          currentZone = z;
+        }
+      });
+      const nextIdx = currentZone ? (zones.indexOf(currentZone) + 1) % zones.length : 0;
+      const targetZone = document.querySelector(`.drop-zone[data-level="${zones[nextIdx]}"] .dz-content`);
+      targetZone.appendChild(this);
+      updateDragState();
+    });
+  });
+
+  dropZones.forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      e.preventDefault();
+      zone.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      if (draggedItem) {
+        zone.querySelector('.dz-content').appendChild(draggedItem);
+        updateDragState();
+      }
+    });
+  });
+
+  const dragPool = document.getElementById('dragPool');
+  dragPool.addEventListener('dragover', e => e.preventDefault());
+  dragPool.addEventListener('drop', e => {
+    e.preventDefault();
+    if (draggedItem) {
+      dragPool.appendChild(draggedItem);
+      updateDragState();
+    }
+  });
+
+  function updateDragState() {
+    state.dragClassification = {};
+    dropZones.forEach(zone => {
+      const items = zone.querySelectorAll('.drag-item');
+      items.forEach(item => {
+        state.dragClassification[item.dataset.case] = zone.dataset.level;
+      });
+    });
+    saveState();
+    const total = Object.keys(state.dragClassification).length;
+    document.getElementById('btnDrag').disabled = total < 4;
+  }
+
+  document.getElementById('btnDrag').addEventListener('click', function() {
+    goToScreen('13');
+  });
+
+  /* ============================================================
+     PANTALLA 14: ESPEJO
+     ============================================================ */
+  function updateMirror() {
+    const before = document.getElementById('mirrorBefore');
+    const after = document.getElementById('mirrorAfter');
+    before.textContent = state.initialConfidence ? state.initialConfidence + '/5' : '—';
+    after.textContent = state.finalConfidence ? state.finalConfidence + '/5' : '—';
+  }
+
+  const finalConfOpts = document.querySelectorAll('#finalConfidence .confidence-option');
+  const btnMirror = document.getElementById('btnMirror');
+  finalConfOpts.forEach(o => {
+    o.addEventListener('click', function() {
+      finalConfOpts.forEach(x => x.classList.remove('selected'));
+      this.classList.add('selected');
+      state.finalConfidence = this.dataset.value;
+      saveState();
+      btnMirror.disabled = false;
+      updateMirror();
+    });
+  });
+  if (state.finalConfidence) {
+    const el = document.querySelector(`#finalConfidence .confidence-option[data-value="${state.finalConfidence}"]`);
+    if (el) el.classList.add('selected');
+    btnMirror.disabled = false;
+  }
+
+  /* ============================================================
+     PANTALLA 15: QUÉ OCURRIÓ
+     ============================================================ */
+  document.querySelectorAll('#whatHappened .checkbox-card').forEach(o => {
+    o.addEventListener('click', function() {
+      this.classList.toggle('selected');
+      state.whatHappened = Array.from(document.querySelectorAll('#whatHappened .checkbox-card.selected')).map(x => x.dataset.value);
+      saveState();
+    });
+    o.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+  if (state.whatHappened && state.whatHappened.length > 0) {
+    state.whatHappened.forEach(v => {
+      const el = document.querySelector(`#whatHappened .checkbox-card[data-value="${v}"]`);
+      if (el) el.classList.add('selected');
+    });
+  }
+
+  /* ============================================================
+     PANTALLA 16: CHECKLIST
+     ============================================================ */
+  document.querySelectorAll('.checklist-section .cs-item input').forEach(input => {
+    input.addEventListener('change', function() {
+      state.checklist[this.dataset.check] = this.checked;
+      saveState();
+    });
+  });
+  if (state.checklist) {
+    Object.keys(state.checklist).forEach(k => {
+      const input = document.querySelector(`input[data-check="${k}"]`);
+      if (input) input.checked = state.checklist[k];
+    });
+  }
+
+  /* ============================================================
+     PANTALLA 17: PRIORIDADES (máximo 3)
+     ============================================================ */
+  const priorityOpts = document.querySelectorAll('#priorityQuestions .checkbox-card');
+  const btnPriorities = document.getElementById('btnPriorities');
+
+  function updatePriorities() {
+    const selected = document.querySelectorAll('#priorityQuestions .checkbox-card.selected');
+    priorityOpts.forEach(o => {
+      if (!o.classList.contains('selected') && selected.length >= 3) o.classList.add('disabled');
+      else o.classList.remove('disabled');
+    });
+    btnPriorities.disabled = selected.length !== 3;
+    state.priorityQuestions = Array.from(selected).map(o => o.dataset.value);
+    saveState();
+  }
+
+  priorityOpts.forEach(o => {
+    o.addEventListener('click', function() {
+      if (this.classList.contains('disabled')) return;
+      this.classList.toggle('selected');
+      updatePriorities();
+    });
+    o.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+  if (state.priorityQuestions && state.priorityQuestions.length > 0) {
+    state.priorityQuestions.forEach(v => {
+      const el = document.querySelector(`#priorityQuestions .checkbox-card[data-value="${v}"]`);
+      if (el) el.classList.add('selected');
+    });
+    updatePriorities();
+  }
+
+  /* ============================================================
+     PANTALLA 18: PROTOCOLO PERSONAL
+     ============================================================ */
+  const questionTexts = {
+    r1: '¿La respuesta me convence principalmente porque está bien escrita?',
+    r3: '¿Estoy interpretando vocabulario especializado como señal automática de conocimiento?',
+    r4: '¿Estoy confiando porque coincide con lo que ya pensaba?',
+    a3: '¿Alguna conclusión es más fuerte que la evidencia presentada?',
+    a4: '¿Hay afirmaciones causales donde solamente se ha mostrado una relación?',
+    e3: '¿Comprobé que la fuente realmente respalda la afirmación?',
+    c2: 'Si no conozco el tema, ¿debería aumentar mi nivel de verificación?',
+    c3: '¿Qué consecuencias tendría utilizar información incorrecta en este caso?',
+    d4: '¿Estoy tomando yo la decisión o simplemente aceptando la decisión de la IA?'
+  };
+
+  function buildProtocol() {
+    const list = document.getElementById('protocolList');
+    if (!list) return;
+    list.innerHTML = '';
+    state.priorityQuestions.forEach((q, idx) => {
+      const li = document.createElement('li');
+      li.textContent = questionTexts[q] || q;
+      list.appendChild(li);
+    });
+    if (state.priorityQuestions.length === 0) {
+      list.innerHTML = '<li style="color: var(--text-soft); font-style: italic;">No seleccionaste preguntas prioritarias.</li>';
+    }
+  }
+
+  /* ============================================================
+     REINICIAR
+     ============================================================ */
+  document.getElementById('btnRestart').addEventListener('click', function() {
+    if (!confirm('¿Reiniciar todo el artefacto? Se borrarán tus respuestas.')) return;
+    localStorage.removeItem('artifact01_extended_state');
+    location.reload();
+  });
+
+  /* ============================================================
+     INICIALIZACIÓN
+     ============================================================ */
+  if (state.screen && state.screen !== 1) {
+    goToScreen(state.screen);
+  } else {
+    goToScreen('1');
+  }
+
+})();
+</script>
+</body>
+</html>
