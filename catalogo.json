@@ -22,6 +22,26 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Caso Andrés: laboratorio ABC interactivo",
+    "descripcion": "Laboratorio grupal sobre el modelo ABC a partir del caso Andrés, con clasificación de acontecimientos, creencias y consecuencias, experimento contrafactual, transferencia, debate y autoevaluación.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/caso-andres-laboratorio-abc.html",
+    "etiquetas": [
+      "Modelo ABC",
+      "Albert Ellis",
+      "Creencias irracionales",
+      "Acontecimiento activador",
+      "Consecuencias emocionales",
+      "Conducta",
+      "Debate",
+      "Reestructuración cognitiva",
+      "Transferencia conceptual",
+      "Terapias cognitivas"
+    ],
+    "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Casos de Psicología Cognitiva",
     "descripcion": "Cinco casos clínicos, educativos y cotidianos para aplicar memoria de trabajo, procesamiento de información, sesgos cognitivos, funciones ejecutivas y cognición-emoción.",
     "tipo": "Artefacto de aprendizaje",
@@ -465,6 +485,26 @@
       "Psicología cognitiva"
     ],
     "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Pon a prueba tu propuesta de investigación",
+    "descripcion": "Laboratorio colaborativo de 60 minutos para evaluar la coherencia y viabilidad de una propuesta de investigación mediante estaciones sobre objeto, pregunta, objetivos, justificación, metodología y diagnóstico final.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/pon-a-prueba-tu-propuesta-investigacion.html",
+    "etiquetas": [
+      "Propuesta de investigación",
+      "Coherencia metodológica",
+      "Objeto de estudio",
+      "Pregunta de investigación",
+      "Objetivos",
+      "Justificación",
+      "Metodología",
+      "Viabilidad",
+      "Autoevaluación",
+      "Trabajo colaborativo"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
