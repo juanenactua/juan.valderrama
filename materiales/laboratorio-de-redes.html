@@ -1,0 +1,2381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio de redes · ¿Cómo construyes conocimiento?</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Laboratorio de redes: ¿cómo construyes conocimiento?">
+<meta name="jc-descripcion" content="Laboratorio individual para construir y evaluar una red personal de aprendizaje mediante nodos, conexiones, créditos, diversidad, relevancia, redundancia, IA como atajo, actualización y protocolo metacognitivo.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Conectivismo, Redes de aprendizaje, Nodos, Conexiones, Diversidad, Relevancia, Redundancia, Inteligencia artificial, Metacognición, Conocimiento distribuido, Aprendizaje en red">
+<meta name="jc-curso" content="Herramientas Digitales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- TIMER ---- */
+  .timer-box {
+    position: fixed;
+    top: 80px; right: 20px;
+    background: rgba(18, 35, 61, 0.95);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    z-index: 850;
+    box-shadow: var(--shadow);
+    display: none;
+    min-width: 170px;
+    text-align: center;
+  }
+  .timer-box.show { display: block; }
+  .timer-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-soft);
+    margin-bottom: 0.3rem;
+  }
+  .timer-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .timer-display.warning { color: var(--warning); }
+  .timer-display.danger { color: var(--error); animation: pulse 1s infinite; }
+  .timer-controls {
+    display: flex; gap: 0.35rem; margin-top: 0.5rem;
+    justify-content: center;
+  }
+  .timer-btn {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.28rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.2s;
+  }
+  .timer-btn:hover { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .timer-box { top: auto; bottom: 20px; right: 20px; left: 20px; }
+  }
+
+  /* ---- CRÉDITOS FLOTANTES ---- */
+  .credits-box {
+    position: fixed;
+    top: 80px; left: 20px;
+    background: rgba(18, 35, 61, 0.95);
+    border: 2px solid var(--success);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    z-index: 850;
+    box-shadow: var(--shadow);
+    display: none;
+    min-width: 150px;
+    text-align: center;
+  }
+  .credits-box.show { display: block; }
+  .credits-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-soft);
+    margin-bottom: 0.3rem;
+  }
+  .credits-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--success);
+    line-height: 1;
+  }
+  .credits-display.low { color: var(--warning); }
+  .credits-display.empty { color: var(--error); }
+
+  @media (max-width: 900px) {
+    .credits-box { top: auto; bottom: 20px; left: 20px; right: auto; }
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.8rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.35rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+
+  /* ---- LAYOUT PRINCIPAL ---- */
+  .lab-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .lab-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ---- CANVAS DE LA RED ---- */
+  .network-canvas {
+    background: #060f1c;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    position: relative;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .network-canvas svg {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    display: block;
+  }
+
+  /* ---- NODOS SVG ---- */
+  .node-group {
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .node-group:hover .node-circle {
+    filter: brightness(1.3) drop-shadow(0 0 12px rgba(240, 180, 41, 0.6));
+  }
+  .node-group.selected .node-circle {
+    filter: brightness(1.4) drop-shadow(0 0 16px rgba(240, 180, 41, 0.8));
+  }
+  .node-circle { transition: all 0.3s; }
+  .node-label {
+    font-family: var(--font);
+    font-size: 10px;
+    fill: var(--text-main);
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+    font-weight: 600;
+  }
+  .connection {
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-opacity: 0.4;
+    fill: none;
+    transition: all 0.3s;
+  }
+
+  /* ---- PANEL DE CONTROLES ---- */
+  .control-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+  @media (max-width: 900px) {
+    .control-panel { position: static; max-height: none; }
+  }
+  .control-panel h4 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ---- TARJETAS DE RECURSOS ---- */
+  .resource-cards {
+    display: grid;
+    gap: 0.55rem;
+  }
+  .resource-card {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .resource-card:hover:not(.disabled):not(.already-added) {
+    border-color: var(--accent);
+    background: var(--bg-mid);
+    transform: translateX(4px);
+  }
+  .resource-card.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .resource-card.already-added {
+    opacity: 0.55;
+    border-color: var(--success);
+    cursor: default;
+  }
+  .resource-card .rc-info { flex: 1; }
+  .resource-card .rc-name {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text-main);
+    margin-bottom: 0.15rem;
+  }
+  .resource-card .rc-type {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-soft);
+  }
+  .resource-card .rc-cost {
+    background: var(--accent);
+    color: #0a1628;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.22rem 0.55rem;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .resource-card.already-added .rc-cost { background: var(--success); }
+
+  /* ---- INDICADORES DE SALUD ---- */
+  .health-indicators {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1rem 0;
+  }
+  .health-item .hi-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .health-item .hi-label .hi-name { color: var(--text-main); }
+  .health-item .hi-label .hi-value { color: var(--accent); }
+  .health-bar {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .health-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+  .health-fill.diversidad { background: linear-gradient(90deg, var(--info), #93c5fd); }
+  .health-fill.relevancia { background: linear-gradient(90deg, var(--accent), #ffd97a); }
+  .health-fill.conectividad { background: linear-gradient(90deg, var(--violet), #c4b5fd); }
+
+  /* ---- ALERTAS ---- */
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.3rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.3rem 0;
+    font-size: 0.96rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+  .callout.warning {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04));
+    border-left-color: var(--warning);
+  }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.3rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45);
+  }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-next {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.9rem;
+    font-size: 0.95rem;
+  }
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+  }
+  .btn-small:hover { background: #ffd97a; }
+
+  /* ---- CAMPOS ---- */
+  .response-field { margin: 1rem 0; }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  /* ---- OPCIONES ---- */
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 1.2rem 0;
+  }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .option-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+    transform: translateX(4px);
+  }
+  .option-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.25);
+  }
+  .option-card .option-marker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+
+  /* ---- CHECKBOXES ---- */
+  .checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+  }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .checkbox-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+  }
+  .checkbox-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .checkbox-card .checkbox-marker {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  /* ---- FASES ---- */
+  .phases-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .phases-nav { position: static; grid-template-columns: 1fr 1fr; }
+  }
+
+  .phase-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .phase-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .phase-btn.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .phase-btn.completed {
+    border-color: var(--success);
+    color: var(--success);
+  }
+  .phase-btn.locked {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .phase-btn .ph-num {
+    display: block;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  /* ---- FUNCIONES (FASE 7) ---- */
+  .function-assignment-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.8rem;
+    transition: all 0.3s;
+  }
+  .function-assignment-card.completed {
+    border-color: var(--success);
+    background: rgba(74, 222, 128, 0.05);
+  }
+  .function-assignment-card .fac-title {
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.95rem;
+  }
+  .function-assignment-card .fac-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    background: var(--bg-soft);
+    color: var(--text-soft);
+  }
+  .function-assignment-card.completed .fac-status {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--success);
+  }
+  .function-assignment-card .fac-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.4rem;
+  }
+  .function-checkbox {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .function-checkbox:hover {
+    border-color: var(--accent);
+    background: var(--bg-mid);
+  }
+  .function-checkbox.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .function-checkbox .fc-check {
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: transparent;
+  }
+  .function-checkbox.selected .fc-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+  .function-checkbox.selected .fc-check::after { content: '✓'; font-weight: 700; }
+
+  /* ---- DIAGNÓSTICO ---- */
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.8rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 {
+    margin-top: 0;
+    color: var(--accent);
+    text-align: center;
+  }
+  .diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 1.3rem 0;
+  }
+  .diagnostic-item {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem;
+    text-align: center;
+  }
+  .diagnostic-item .di-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    margin-bottom: 0.4rem;
+  }
+  .diagnostic-item .di-status {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+  }
+  .diagnostic-item .di-desc {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .diagnostic-item.green .di-desc { color: var(--success); }
+  .diagnostic-item.yellow .di-desc { color: var(--warning); }
+  .diagnostic-item.red .di-desc { color: var(--error); }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  /* ---- PROTOCOLO ---- */
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    margin: 1.8rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .personal-protocol ol {
+    margin-left: 1.4rem;
+    color: var(--text-main);
+  }
+  .personal-protocol li {
+    margin-bottom: 0.6rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  /* ---- CIERRE FINAL ---- */
+  .final-message {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .final-message .fm-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+  .final-message .fm-subtitle {
+    font-size: 0.98rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+    margin-bottom: 1.3rem;
+  }
+
+  /* ---- INDICADOR DE FASE EN EL PANEL ---- */
+  .phase-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.9rem;
+    background: var(--bg-soft);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+  }
+  .phase-indicator strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ---- PREVIEW / INFO BOX ---- */
+  .info-box {
+    background: rgba(96, 165, 250, 0.08);
+    border-left: 3px solid var(--info);
+    padding: 0.8rem 1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 0.8rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .info-box strong { color: var(--info); }
+
+  .warning-box {
+    background: rgba(251, 191, 36, 0.08);
+    border-left: 3px solid var(--warning);
+    padding: 0.8rem 1rem;
+    border-radius: 0 8px 8px 0;
+    margin: 0.8rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .warning-box strong { color: var(--warning); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    main { padding: 1.2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .phases-nav { grid-template-columns: 1fr 1fr; }
+  }
+
+  button:focus-visible, .option-card:focus-visible, .checkbox-card:focus-visible,
+  .resource-card:focus-visible, .phase-btn:focus-visible, .function-checkbox:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes nodeAppear {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .node-group.appearing {
+    animation: nodeAppear 0.5s ease;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Laboratorio de redes: ¿cómo construyes conocimiento?</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<!-- TIMER FLOTANTE -->
+<div class="timer-box" id="timerBox">
+  <div class="timer-label">Tiempo</div>
+  <div class="timer-display" id="timerDisplay">30:00</div>
+  <div class="timer-controls">
+    <button class="timer-btn" id="timerStart">▶</button>
+    <button class="timer-btn" id="timerPause">⏸</button>
+    <button class="timer-btn" id="timerReset">↻</button>
+  </div>
+</div>
+
+<!-- CRÉDITOS FLOTANTES -->
+<div class="credits-box" id="creditsBox">
+  <div class="credits-label">Créditos</div>
+  <div class="credits-display" id="creditsDisplay">8</div>
+</div>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Laboratorio interactivo · Conectivismo</span>
+    <h1>Laboratorio de redes: ¿cómo construyes conocimiento?</h1>
+    <p style="font-size: 1.1rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Tener acceso a muchos nodos no equivale a poseer una buena red de aprendizaje. Este laboratorio
+      te permite experimentar cómo cambia tu posibilidad de comprender un problema cuando incorporas
+      diferentes nodos, estableces conexiones, identificas redundancias, introduces diversidad y decides
+      qué mantener y qué abandonar.
+    </p>
+
+    <div class="card">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 25-30 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Red de aprendizaje personal + protocolo metacognitivo</p>
+    </div>
+
+    <div class="callout">
+      <strong>Pregunta central:</strong> ¿Tener acceso a más información significa tener una mejor red para aprender?
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" id="btnStartLab">▶ Comenzar laboratorio</button>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN DE FASES -->
+  <div class="phases-nav" id="phasesNav" style="display: none;">
+    <button class="phase-btn active" data-phase="1"><span class="ph-num">Fase 1</span><span>Problema</span></button>
+    <button class="phase-btn" data-phase="2"><span class="ph-num">Fase 2</span><span>Primer nodo</span></button>
+    <button class="phase-btn" data-phase="3"><span class="ph-num">Fase 3</span><span>Conexión</span></button>
+    <button class="phase-btn" data-phase="4"><span class="ph-num">Fase 4</span><span>Construcción</span></button>
+    <button class="phase-btn" data-phase="5"><span class="ph-num">Fase 5</span><span>Evaluación</span></button>
+    <button class="phase-btn" data-phase="6"><span class="ph-num">Fase 6</span><span>Redundancia</span></button>
+    <button class="phase-btn" data-phase="7"><span class="ph-num">Fase 7</span><span>Funciones</span></button>
+    <button class="phase-btn" data-phase="8"><span class="ph-num">Fase 8</span><span>IA atajo</span></button>
+    <button class="phase-btn" data-phase="9"><span class="ph-num">Fase 9</span><span>Actualizar</span></button>
+    <button class="phase-btn" data-phase="10"><span class="ph-num">Fase 10</span><span>Red final</span></button>
+    <button class="phase-btn" data-phase="11"><span class="ph-num">Fase 11</span><span>Metacognición</span></button>
+  </div>
+
+  <!-- LAYOUT PRINCIPAL: RED + CONTROLES -->
+  <div class="lab-layout" id="labLayout" style="display: none;">
+
+    <!-- CANVAS DE LA RED -->
+    <div class="network-canvas">
+      <svg id="networkSvg" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="nodeGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f0b429" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#d99a1a" stop-opacity="1"/>
+          </radialGradient>
+          <radialGradient id="youGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#60a5fa" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="1"/>
+          </radialGradient>
+        </defs>
+        <g id="connectionsLayer"></g>
+        <g id="nodesLayer"></g>
+      </svg>
+    </div>
+
+    <!-- PANEL DE CONTROLES -->
+    <div class="control-panel">
+      <div class="phase-indicator">
+        <span>Fase <strong id="currentPhaseNum">1</strong>/11</span>
+        <span style="margin-left: auto;" id="currentPhaseName">El problema</span>
+      </div>
+
+      <div id="panelContent">
+        <!-- Se llena dinámicamente -->
+      </div>
+
+      <!-- INDICADORES DE SALUD -->
+      <div class="health-indicators" id="healthIndicators" style="display: none;">
+        <div class="health-item">
+          <div class="hi-label">
+            <span class="hi-name">Diversidad</span>
+            <span class="hi-value" id="diversidadValue">0%</span>
+          </div>
+          <div class="health-bar">
+            <div class="health-fill diversidad" id="diversidadBar" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="health-item">
+          <div class="hi-label">
+            <span class="hi-name">Relevancia</span>
+            <span class="hi-value" id="relevanciaValue">0%</span>
+          </div>
+          <div class="health-bar">
+            <div class="health-fill relevancia" id="relevanciaBar" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="health-item">
+          <div class="hi-label">
+            <span class="hi-name">Conectividad</span>
+            <span class="hi-value" id="conectividadValue">0%</span>
+          </div>
+          <div class="health-bar">
+            <div class="health-fill conectividad" id="conectividadBar" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTENIDO EXTRA DE FASES (debajo del layout, para fases que lo requieran) -->
+  <section id="phaseContent" style="display: none;">
+    <div id="phaseContentArea"></div>
+  </section>
+
+  <!-- DIAGNÓSTICO FINAL -->
+  <section id="diagnostico" class="reveal" style="display: none;">
+    <h2>Espejo metacognitivo: observa tu red</h2>
+
+    <div class="diagnostic-box">
+      <h3>Tu red de aprendizaje</h3>
+
+      <div class="diagnostic-grid" id="diagnosticGrid">
+        <div class="diagnostic-item" id="diag-nodos">
+          <div class="di-label">Nodos</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-diversidad">
+          <div class="di-label">Diversidad</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-conectividad">
+          <div class="di-label">Conectividad</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-relevancia">
+          <div class="di-label">Relevancia</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-eliminacion">
+          <div class="di-label">Eliminación</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-patron">
+          <div class="di-label">Patrón</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+      </div>
+
+      <div id="diagnosticVerdict"></div>
+
+      <h4>Hallazgo más importante</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-hallazgo" placeholder="La principal fortaleza o debilidad que identifiqué es..."></textarea>
+      </div>
+
+      <h4>Decisión</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-decision" placeholder="Por lo anterior, modificaré mi forma de construir redes de aprendizaje..."></textarea>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnIrProtocolo">Generar mi protocolo</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir</button>
+      <button class="btn btn-outline" id="btnReiniciar">↻ Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- PROTOCOLO PERSONAL -->
+  <section id="protocolo" class="reveal" style="display: none;">
+    <h2>Mi protocolo personal de red</h2>
+    <p style="color: var(--text-soft);">
+      Selecciona las <strong>tres</strong> preguntas que más necesitas recordar cuando construyas una red de aprendizaje.
+    </p>
+
+    <div class="checkbox-list" id="protocolQuestions">
+      <div class="checkbox-card" data-value="q1" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Qué función necesito que cumpla esta fuente?</span>
+      </div>
+      <div class="checkbox-card" data-value="q2" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Estoy encontrando perspectivas distintas o repeticiones de lo mismo?</span>
+      </div>
+      <div class="checkbox-card" data-value="q3" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿En qué momento necesito abandonar esta conexión y buscar otra?</span>
+      </div>
+      <div class="checkbox-card" data-value="q4" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Estoy acumulando información o construyendo relaciones entre nodos?</span>
+      </div>
+      <div class="checkbox-card" data-value="q5" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Puedo identificar quién o qué está detrás de esta fuente?</span>
+      </div>
+      <div class="checkbox-card" data-value="q6" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Mis fuentes aportan perspectivas epistemológicamente distintas?</span>
+      </div>
+      <div class="checkbox-card" data-value="q7" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Estoy confundiendo repetición con confirmación?</span>
+      </div>
+      <div class="checkbox-card" data-value="q8" tabindex="0" role="button">
+        <span class="checkbox-marker"></span>
+        <span>¿Qué decisión no quiero delegar a ningún nodo, ni siquiera a la IA?</span>
+      </div>
+    </div>
+
+    <button class="btn" id="btnGenerarProtocolo" disabled>Ver mi protocolo</button>
+  </section>
+
+  <!-- PROTOCOLO FINAL -->
+  <section id="protocoloFinal" class="reveal" style="display: none;">
+    <h2>Cuando construya una red de aprendizaje recordaré preguntarme:</h2>
+
+    <div class="personal-protocol" id="personalProtocol">
+      <div class="pp-title">Mi protocolo personal</div>
+      <ol id="protocolList"></ol>
+    </div>
+
+    <div class="final-message">
+      <div class="fm-title">Aprender no es acumular nodos.</div>
+
+      <div class="highlight-box info" style="margin: 1.5rem 0;">
+        <p>● ● ● ● ● ● ● ● ● ●</p>
+      </div>
+
+      <div class="fm-subtitle">Después las conexiones aparecen:</div>
+
+      <div class="highlight-box" style="margin: 1.5rem 0; font-family: monospace; font-size: 0.9rem;">
+        <p>●─────●<br>
+        \&nbsp;&nbsp;&nbsp;/ \<br>
+        &nbsp;●─●──●<br>
+        &nbsp;/&nbsp;&nbsp;&nbsp;\ /<br>
+        ●─────●</p>
+      </div>
+
+      <div class="fm-subtitle">
+        <strong style="color: var(--accent); font-size: 1.05rem;">Es construir conexiones que permitan avanzar.</strong>
+      </div>
+
+      <div class="fm-subtitle" style="margin-top: 1.5rem;">
+        No importa solamente qué sabes.<br>
+        También importa a qué puedes llegar, cómo puedes llegar y cómo decides qué camino merece mantenerse.
+      </div>
+    </div>
+
+    <div class="callout violet" style="margin-top: 2rem;">
+      <strong>Pregunta que queda abierta:</strong> Si utilizamos una tecnología de forma estable para recordar,
+      organizar, buscar, relacionar y resolver problemas, ¿esa tecnología continúa siendo simplemente un nodo
+      externo de nuestra red?
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="btn btn-outline" id="btnRestartFinal">↻ Volver a empezar</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Laboratorio de redes: ¿cómo construyes conocimiento?</strong> · Artefacto educativo interactivo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============================================================
+     ESTADO
+     ============================================================ */
+  const state = {
+    phase: 0,
+    credits: 8,
+    nodes: [],
+    connections: [],
+    firstNode: null,
+    firstNodeReason: null,
+    pathChoices: [],
+    evalAnswer: null,
+    redundancyAnswer: null,
+    functions: {},
+    iaAnswer: null,
+    eliminatedNode: null,
+    eliminatedReason: null,
+    finalPurpose: null,
+    metacogAnswers: [],
+    protocolQuestions: [],
+    labStarted: false,
+    phase5Triggered: false
+  };
+
+  try {
+    const saved = localStorage.getItem('artifact03_networks_state_v2');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('artifact03_networks_state_v2', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  /* ============================================================
+     RECURSOS
+     ============================================================ */
+  const RESOURCES = {
+    google: { name: 'Google', type: 'Buscador', cost: 1, functions: ['explorar'], diversity: 0.2 },
+    scholar: { name: 'Google Scholar', type: 'Buscador académico', cost: 1, functions: ['localizar'], diversity: 0.5 },
+    ia: { name: 'IA generativa', type: 'Sistema generativo', cost: 1, functions: ['explorar', 'comprender', 'orientar'], diversity: 0.4 },
+    manual: { name: 'Manual de Psicología', type: 'Fuente académica', cost: 2, functions: ['comprender'], diversity: 0.7 },
+    profesor: { name: 'Profesor', type: 'Persona', cost: 2, functions: ['comprender', 'orientar', 'contrastar'], diversity: 0.8 },
+    articulo: { name: 'Artículo científico', type: 'Fuente primaria', cost: 2, functions: ['evidenciar'], diversity: 0.9 },
+    video: { name: 'Video divulgativo', type: 'Divulgación', cost: 1, functions: ['comprender'], diversity: 0.3 },
+    blog: { name: 'Blog especializado', type: 'Divulgación', cost: 1, functions: ['explorar'], diversity: 0.2 },
+    meta: { name: 'Metaanálisis', type: 'Síntesis', cost: 2, functions: ['evidenciar', 'contrastar'], diversity: 1.0 },
+    concepto: { name: 'Concepto: consolidación', type: 'Concepto', cost: 1, functions: ['comprender'], diversity: 0.4 }
+  };
+
+  /* ============================================================
+     TIMER
+     ============================================================ */
+  let timerSeconds = 30 * 60;
+  let timerInterval = null;
+  let timerRunning = false;
+
+  const timerBox = document.getElementById('timerBox');
+  const timerDisplay = document.getElementById('timerDisplay');
+
+  function updateTimerDisplay() {
+    const min = Math.floor(timerSeconds / 60);
+    const sec = timerSeconds % 60;
+    timerDisplay.textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    timerDisplay.classList.remove('warning', 'danger');
+    if (timerSeconds <= 120) timerDisplay.classList.add('danger');
+    else if (timerSeconds <= 300) timerDisplay.classList.add('warning');
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerDisplay.textContent = '00:00';
+      timerDisplay.classList.add('danger');
+    }
+  }
+
+  function startTimer() {
+    if (timerRunning) return;
+    timerRunning = true;
+    timerBox.classList.add('show');
+    timerInterval = setInterval(() => {
+      if (timerSeconds > 0) {
+        timerSeconds--;
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    timerSeconds = 30 * 60;
+    updateTimerDisplay();
+  }
+
+  document.getElementById('timerStart').addEventListener('click', startTimer);
+  document.getElementById('timerPause').addEventListener('click', pauseTimer);
+  document.getElementById('timerReset').addEventListener('click', resetTimer);
+  updateTimerDisplay();
+
+  /* ============================================================
+     CRÉDITOS
+     ============================================================ */
+  const creditsBox = document.getElementById('creditsBox');
+  const creditsDisplay = document.getElementById('creditsDisplay');
+
+  function updateCredits() {
+    creditsDisplay.textContent = state.credits;
+    creditsDisplay.classList.remove('low', 'empty');
+    if (state.credits === 0) creditsDisplay.classList.add('empty');
+    else if (state.credits <= 2) creditsDisplay.classList.add('low');
+  }
+
+  /* ============================================================
+     RED SVG
+     ============================================================ */
+  const svg = document.getElementById('networkSvg');
+  const nodesLayer = document.getElementById('nodesLayer');
+  const connectionsLayer = document.getElementById('connectionsLayer');
+
+  function renderNetwork() {
+    nodesLayer.innerHTML = '';
+    connectionsLayer.innerHTML = '';
+
+    state.connections.forEach(conn => {
+      const from = state.nodes.find(n => n.id === conn.from);
+      const to = state.nodes.find(n => n.id === conn.to);
+      if (!from || !to) return;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', from.x);
+      line.setAttribute('y1', from.y);
+      line.setAttribute('x2', to.x);
+      line.setAttribute('y2', to.y);
+      line.setAttribute('class', 'connection');
+      connectionsLayer.appendChild(line);
+    });
+
+    state.nodes.forEach(node => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'node-group');
+      g.setAttribute('data-node-id', node.id);
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', node.x);
+      circle.setAttribute('cy', node.y);
+      circle.setAttribute('r', node.isYou ? 26 : 20);
+      circle.setAttribute('fill', node.isYou ? 'url(#youGrad)' : 'url(#nodeGrad)');
+      circle.setAttribute('class', 'node-circle');
+      g.appendChild(circle);
+
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', node.x);
+      text.setAttribute('y', node.y + 38);
+      text.setAttribute('class', 'node-label');
+      const label = node.name.length > 14 ? node.name.substring(0, 12) + '…' : node.name;
+      text.textContent = label;
+      g.appendChild(text);
+
+      g.addEventListener('click', () => handleNodeClick(node.id));
+      nodesLayer.appendChild(g);
+    });
+  }
+
+  function calculateNodePosition(index) {
+    const centerX = 250;
+    const centerY = 250;
+    if (index === 0) return { x: centerX, y: centerY };
+    const radius = 130 + Math.floor((index - 1) / 8) * 60;
+    const angleStep = (2 * Math.PI) / 8;
+    const angle = ((index - 1) % 8) * angleStep - Math.PI / 2;
+    return {
+      x: centerX + radius * Math.cos(angle),
+      y: centerY + radius * Math.sin(angle)
+    };
+  }
+
+  function addNode(resourceKey) {
+    const resource = RESOURCES[resourceKey];
+    if (!resource) return false;
+    if (state.nodes.some(n => n.id === resourceKey)) return false;
+    if (state.credits < resource.cost) return false;
+
+    const pos = calculateNodePosition(state.nodes.length);
+    state.nodes.push({
+      id: resourceKey,
+      name: resource.name,
+      type: resource.type,
+      x: pos.x,
+      y: pos.y,
+      isYou: false,
+      diversity: resource.diversity,
+      functions: resource.functions
+    });
+
+    if (state.nodes.length > 1) {
+      state.connections.push({ from: 'you', to: resourceKey });
+    }
+
+    state.credits -= resource.cost;
+    updateCredits();
+    saveState();
+    renderNetwork();
+    updateHealthIndicators();
+    return true;
+  }
+
+  function handleNodeClick(nodeId) {
+    // En fase 9 manejar eliminación
+    if (state.phase === 9 && !state.eliminatedNode && nodeId !== 'you') {
+      state.eliminatedNode = nodeId;
+      saveState();
+      renderPhasePanel(9);
+      return;
+    }
+    // En fase 7 manejar asignación
+    if (state.phase === 7 && nodeId !== 'you') {
+      // Podría resaltarse el nodo; la asignación se hace en el panel
+      return;
+    }
+  }
+
+  /* ============================================================
+     INDICADORES DE SALUD
+     ============================================================ */
+  function updateHealthIndicators() {
+    const indicators = document.getElementById('healthIndicators');
+    if (!indicators) return;
+    if (state.nodes.length < 2) {
+      indicators.style.display = 'none';
+      return;
+    }
+    indicators.style.display = 'flex';
+
+    const nodesWithoutYou = state.nodes.filter(n => !n.isYou);
+    const diversidad = nodesWithoutYou.length > 0
+      ? Math.round(nodesWithoutYou.reduce((sum, n) => sum + (n.diversity || 0.3), 0) / nodesWithoutYou.length * 100)
+      : 0;
+
+    const types = new Set(nodesWithoutYou.map(n => n.type));
+    const relevancia = nodesWithoutYou.length > 0
+      ? Math.round(Math.min(100, (types.size / Math.max(1, nodesWithoutYou.length)) * 100 + 30))
+      : 0;
+
+    const nonYouConnections = state.connections.filter(c => c.from !== 'you' && c.to !== 'you').length;
+    const conectividad = state.nodes.length > 1
+      ? Math.round(Math.min(100, (nonYouConnections / Math.max(1, state.nodes.length - 1)) * 100 + 10))
+      : 0;
+
+    document.getElementById('diversidadBar').style.width = diversidad + '%';
+    document.getElementById('diversidadValue').textContent = diversidad + '%';
+    document.getElementById('relevanciaBar').style.width = relevancia + '%';
+    document.getElementById('relevanciaValue').textContent = relevancia + '%';
+    document.getElementById('conectividadBar').style.width = conectividad + '%';
+    document.getElementById('conectividadValue').textContent = conectividad + '%';
+  }
+
+  /* ============================================================
+     NAVEGACIÓN DE FASES
+     ============================================================ */
+  const phaseNames = {
+    1: 'El problema',
+    2: 'Primer nodo',
+    3: 'Conexión',
+    4: 'Construcción',
+    5: 'Evaluación',
+    6: 'Redundancia',
+    7: 'Funciones',
+    8: 'IA atajo',
+    9: 'Actualizar',
+    10: 'Red final',
+    11: 'Metacognición'
+  };
+
+  const phaseBtns = document.querySelectorAll('.phase-btn');
+
+  function getMaxUnlockedPhase() {
+    let max = 1;
+    if (state.firstNode) max = 3;
+    if (state.pathChoices.length > 0) max = 4;
+    if (state.nodes.length >= 4) max = 5;
+    if (state.phase5Triggered) max = 6;
+    if (state.redundancyAnswer) max = 7;
+    if (state.functions && Object.keys(state.functions).length >= Math.max(2, state.nodes.length - 2)) max = 8;
+    if (state.iaAnswer) max = 9;
+    if (state.eliminatedReason) max = 10;
+    if (state.finalPurpose) max = 11;
+    return max;
+  }
+
+  function goToPhase(num) {
+    state.phase = num;
+    saveState();
+
+    const maxUnlocked = getMaxUnlockedPhase();
+
+    phaseBtns.forEach(b => {
+      const n = parseInt(b.dataset.phase);
+      b.classList.toggle('active', n === num);
+      b.classList.toggle('completed', n < num);
+      b.classList.toggle('locked', n > maxUnlocked);
+    });
+
+    document.getElementById('currentPhaseNum').textContent = num;
+    document.getElementById('currentPhaseName').textContent = phaseNames[num] || '';
+
+    renderPhasePanel(num);
+
+    const progress = (num / 11) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  }
+
+  phaseBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const num = parseInt(this.dataset.phase);
+      const maxUnlocked = getMaxUnlockedPhase();
+      if (num <= maxUnlocked) {
+        goToPhase(num);
+      }
+    });
+  });
+
+  /* ============================================================
+     RENDERIZADO DEL PANEL DE FASE
+     ============================================================ */
+  function renderPhasePanel(num) {
+    const panel = document.getElementById('panelContent');
+    panel.innerHTML = '';
+
+    /* ---------- FASE 1 ---------- */
+    if (num === 1) {
+      panel.innerHTML = `
+        <h4>Fase 1 · El problema</h4>
+        <p style="font-size: 0.88rem; color: var(--text-soft);">
+          Estás preparando un trabajo para una asignatura de Psicología. Encuentras la siguiente afirmación:
+        </p>
+        <div style="background: var(--bg-soft); border-left: 3px solid var(--accent); padding: 0.8rem; border-radius: 0 8px 8px 0; margin: 0.8rem 0; font-size: 0.88rem;">
+          <em>"Dormir después de estudiar favorece la consolidación de algunos tipos de memoria."</em>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Conoces superficialmente la idea, pero no podrías explicarla ni evaluar qué tan generalizable es.
+        </p>
+        <div class="info-box">
+          <strong>Tu misión:</strong> Construir una red que te permita comprender suficientemente esta afirmación para explicarla en un trabajo académico.
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-soft); font-style: italic;">
+          No preguntamos "¿es verdadera o falsa?". Preguntamos: ¿cómo construirías una red que te permita comprenderla?
+        </p>
+        <button class="btn btn-next" data-action="next">Comenzar →</button>
+      `;
+      attachNext(2);
+      return;
+    }
+
+    /* ---------- FASE 2: Primer nodo ---------- */
+    if (num === 2 && !state.firstNode) {
+      panel.innerHTML = `
+        <h4>Fase 2 · ¿Dónde empezarías?</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Solo puedes empezar por un nodo. ¿Cuál eliges?
+        </p>
+        <div class="resource-cards">
+          ${['google', 'scholar', 'ia', 'manual', 'profesor', 'articulo', 'video'].map(key => {
+            const r = RESOURCES[key];
+            return `
+              <div class="resource-card" data-resource="${key}" tabindex="0" role="button">
+                <div class="rc-info">
+                  <div class="rc-name">${r.name}</div>
+                  <div class="rc-type">${r.type}</div>
+                </div>
+                <div class="rc-cost">${r.cost} cr.</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      panel.querySelectorAll('.resource-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const key = this.dataset.resource;
+          if (state.credits >= RESOURCES[key].cost) {
+            state.firstNode = key;
+            addNode(key);
+            saveState();
+            renderPhasePanel(2);
+          }
+        });
+      });
+      return;
+    }
+
+    /* ---------- FASE 2.5: Razón ---------- */
+    if (num === 2 && state.firstNode && !state.firstNodeReason) {
+      panel.innerHTML = `
+        <h4>Fase 2 · ¿Por qué comenzaste aquí?</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Has elegido tu primer nodo: <strong>${RESOURCES[state.firstNode].name}</strong>.
+        </p>
+        <div class="options-list">
+          <div class="option-card" data-reason="rapido"><span class="option-marker">A</span><span>Es rápido.</span></div>
+          <div class="option-card" data-reason="familiar"><span class="option-marker">B</span><span>Me resulta familiar.</span></div>
+          <div class="option-card" data-reason="explicacion"><span class="option-marker">C</span><span>Espero encontrar una explicación comprensible.</span></div>
+          <div class="option-card" data-reason="evidencia"><span class="option-marker">D</span><span>Espero encontrar evidencia.</span></div>
+          <div class="option-card" data-reason="descubrir"><span class="option-marker">E</span><span>Me permitirá descubrir nuevas fuentes.</span></div>
+          <div class="option-card" data-reason="confio"><span class="option-marker">F</span><span>Confío particularmente en esta fuente.</span></div>
+        </div>
+      `;
+
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.firstNodeReason = this.dataset.reason;
+          saveState();
+          setTimeout(() => goToPhase(3), 400);
+        });
+      });
+      return;
+    }
+
+    /* ---------- FASE 3: Conexión ---------- */
+    if (num === 3) {
+      const firstNodeName = RESOURCES[state.firstNode]?.name || 'IA generativa';
+      panel.innerHTML = `
+        <h4>Fase 3 · Una conexión produce nuevas conexiones</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Tu primer nodo fue <strong>${firstNodeName}</strong>. El laboratorio simula una respuesta:
+        </p>
+        <div class="info-box">
+          <em>"El sueño participa en diferentes procesos relacionados con la consolidación de la memoria..."</em>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.8rem 0;">¿Qué harías ahora?</p>
+        <div class="options-list">
+          <div class="option-card" data-path="ia"><span class="option-marker">A</span><span>Continuar preguntando a la IA con mayor profundidad.</span></div>
+          <div class="option-card" data-path="concepto"><span class="option-marker">B</span><span>Buscar el concepto "consolidación de memoria" que apareció.</span></div>
+          <div class="option-card" data-path="evidencia"><span class="option-marker">C</span><span>Buscar evidencia: investigaciones sobre sueño y consolidación.</span></div>
+        </div>
+      `;
+
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.pathChoices.push(this.dataset.path);
+          const nodeKey = this.dataset.path === 'ia' ? 'ia' : this.dataset.path === 'concepto' ? 'concepto' : 'scholar';
+          if (!state.nodes.some(n => n.id === nodeKey) && state.credits >= RESOURCES[nodeKey].cost) {
+            addNode(nodeKey);
+          }
+          saveState();
+          setTimeout(() => goToPhase(4), 400);
+        });
+      });
+      return;
+    }
+
+    /* ---------- FASE 4: Construcción ---------- */
+    if (num === 4) {
+      panel.innerHTML = `
+        <h4>Fase 4 · Construye tu red</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Tienes <strong>${state.credits} créditos</strong> de exploración. Cada acción consume créditos.
+        </p>
+        <p style="font-size: 0.82rem; color: var(--text-soft);">
+          Nodos actuales: <strong>${state.nodes.length}</strong>.
+        </p>
+        <div class="resource-cards">
+          ${Object.entries(RESOURCES).map(([key, r]) => {
+            const already = state.nodes.some(n => n.id === key);
+            const canAfford = state.credits >= r.cost;
+            const disabled = already || !canAfford;
+            return `
+              <div class="resource-card ${already ? 'already-added' : ''} ${disabled && !already ? 'disabled' : ''}" data-resource="${key}">
+                <div class="rc-info">
+                  <div class="rc-name">${r.name}</div>
+                  <div class="rc-type">${r.type}</div>
+                </div>
+                <div class="rc-cost">${already ? '✓' : r.cost + ' cr.'}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <button class="btn btn-next" data-action="next" ${state.nodes.length < 3 ? 'disabled' : ''}>
+          ${state.nodes.length < 3 ? 'Necesitas al menos 3 nodos' : 'Continuar →'}
+        </button>
+      `;
+
+      panel.querySelectorAll('.resource-card').forEach(card => {
+        card.addEventListener('click', function() {
+          if (this.classList.contains('disabled') || this.classList.contains('already-added')) return;
+          addNode(this.dataset.resource);
+          renderPhasePanel(4);
+        });
+      });
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      if (nextBtn && !nextBtn.disabled) {
+        nextBtn.addEventListener('click', () => goToPhase(5));
+      }
+      return;
+    }
+
+    /* ---------- FASE 5: Evaluación ---------- */
+    if (num === 5) {
+      state.phase5Triggered = true;
+      saveState();
+      panel.innerHTML = `
+        <h4>Fase 5 · ¿Más nodos = mejor red?</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Tu red tiene <strong>${state.nodes.length} nodos</strong> y <strong>${state.connections.length} conexiones</strong>.
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.9rem 0;">
+          ¿Tu red es ahora necesariamente mejor?
+        </p>
+        <div class="options-list">
+          <div class="option-card" data-eval="si"><span class="option-marker">Sí</span><span>Sí, porque contiene más información.</span></div>
+          <div class="option-card" data-eval="no"><span class="option-marker">No</span><span>No, más nodos no garantizan mejor comprensión.</span></div>
+          <div class="option-card" data-eval="no-saber"><span class="option-marker">?</span><span>No puedo saberlo solamente por el número.</span></div>
+        </div>
+        <button class="btn btn-next" data-action="next" disabled>Continuar →</button>
+      `;
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.evalAnswer = this.dataset.eval;
+          saveState();
+          nextBtn.disabled = false;
+        });
+      });
+      nextBtn.addEventListener('click', () => goToPhase(6));
+      return;
+    }
+
+    /* ---------- FASE 6: Redundancia ---------- */
+    if (num === 6) {
+      panel.innerHTML = `
+        <h4>Fase 6 · La trampa de la red redundante</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Has encontrado varios recursos que sostienen algo parecido. Todos dicen:
+        </p>
+        <div class="warning-box">
+          <em>"Dormir mejora la memoria."</em>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.9rem 0;">
+          Cinco fuentes coinciden. ¿Qué concluyes?
+        </p>
+        <div class="options-list">
+          <div class="option-card" data-red="A"><span class="option-marker">A</span><span>La afirmación está confirmada.</span></div>
+          <div class="option-card" data-red="B"><span class="option-marker">B</span><span>Cinco fuentes son suficientes.</span></div>
+          <div class="option-card" data-red="C"><span class="option-marker">C</span><span>Necesito saber de dónde procede realmente la afirmación.</span></div>
+          <div class="option-card" data-red="D"><span class="option-marker">D</span><span>Necesito introducir fuentes que permitan precisar o cuestionar.</span></div>
+        </div>
+        <div id="redundancyExtra"></div>
+        <button class="btn btn-next" data-action="next" disabled>Continuar →</button>
+      `;
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      const extra = panel.querySelector('#redundancyExtra');
+
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.redundancyAnswer = this.dataset.red;
+          saveState();
+          extra.innerHTML = `
+            <div class="info-box" style="margin-top: 0.8rem;">
+              <strong>Coincidencia ≠ independencia.</strong> Una red puede parecer diversa porque contiene
+              muchos nodos y, sin embargo, estar reproduciendo una misma explicación.
+            </div>
+          `;
+          nextBtn.disabled = false;
+        });
+      });
+      nextBtn.addEventListener('click', () => goToPhase(7));
+      return;
+    }
+
+    /* ---------- FASE 7: Funciones ---------- */
+    if (num === 7) {
+      const nodesWithoutYou = state.nodes.filter(n => !n.isYou);
+      const requiredAssignments = Math.max(2, nodesWithoutYou.length);
+
+      if (nodesWithoutYou.length === 0) {
+        panel.innerHTML = `
+          <h4>Fase 7 · ¿Qué función cumple cada nodo?</h4>
+          <div class="warning-box">
+            No tienes nodos en tu red. Vuelve a la Fase 4 para construirla.
+          </div>
+          <button class="btn btn-next" data-action="back">← Volver a Fase 4</button>
+        `;
+        panel.querySelector('[data-action="back"]').addEventListener('click', () => goToPhase(4));
+        return;
+      }
+
+      const totalAssigned = nodesWithoutYou.filter(n => state.functions[n.id] && state.functions[n.id].length > 0).length;
+      const canContinue = totalAssigned >= Math.min(requiredAssignments, nodesWithoutYou.length);
+
+      panel.innerHTML = `
+        <h4>Fase 7 · Funciones de los nodos</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Asigna al menos una función a cada nodo. <strong>No todos los nodos tienen que hacer lo mismo.</strong>
+        </p>
+        <p style="font-size: 0.82rem; color: var(--text-soft); margin-bottom: 1rem;">
+          Progreso: <strong>${totalAssigned}</strong> / ${nodesWithoutYou.length} nodos clasificados
+        </p>
+        <div id="functionsList"></div>
+        <button class="btn btn-next" data-action="next" ${canContinue ? '' : 'disabled'}>
+          ${canContinue ? 'Continuar →' : `Asigna al menos ${Math.min(requiredAssignments, nodesWithoutYou.length)} nodos`}
+        </button>
+      `;
+
+      const functionsList = panel.querySelector('#functionsList');
+      const FUNCTIONS = ['explorar', 'comprender', 'localizar', 'evidenciar', 'contrastar', 'orientar', 'actualizar'];
+
+      nodesWithoutYou.forEach(node => {
+        const assignedFuncs = state.functions[node.id] || [];
+        const isCompleted = assignedFuncs.length > 0;
+
+        const card = document.createElement('div');
+        card.className = 'function-assignment-card' + (isCompleted ? ' completed' : '');
+        card.innerHTML = `
+          <div class="fac-title">
+            <span>${node.name}</span>
+            <span class="fac-status">${isCompleted ? '✓ ' + assignedFuncs.length + ' asignada(s)' : 'Pendiente'}</span>
+          </div>
+          <div class="fac-options">
+            ${FUNCTIONS.map(f => `
+              <div class="function-checkbox ${assignedFuncs.includes(f) ? 'selected' : ''}"
+                   data-node="${node.id}" data-func="${f}">
+                <span class="fc-check"></span>
+                <span>${f.charAt(0).toUpperCase() + f.slice(1)}</span>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        functionsList.appendChild(card);
+      });
+
+      functionsList.querySelectorAll('.function-checkbox').forEach(cb => {
+        cb.addEventListener('click', function() {
+          const nodeId = this.dataset.node;
+          const func = this.dataset.func;
+          if (!state.functions[nodeId]) state.functions[nodeId] = [];
+
+          if (state.functions[nodeId].includes(func)) {
+            state.functions[nodeId] = state.functions[nodeId].filter(f => f !== func);
+          } else {
+            state.functions[nodeId].push(func);
+          }
+          saveState();
+          renderPhasePanel(7);
+        });
+      });
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      if (nextBtn && !nextBtn.disabled) {
+        nextBtn.addEventListener('click', () => goToPhase(8));
+      }
+      return;
+    }
+
+    /* ---------- FASE 8: IA como atajo ---------- */
+    if (num === 8) {
+      panel.innerHTML = `
+        <h4>Fase 8 · La IA como atajo</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Hay un camino más corto. Comparemos dos redes:
+        </p>
+        <div style="background: rgba(240, 180, 41, 0.08); border: 1px solid var(--accent); border-radius: 8px; padding: 0.9rem; margin: 0.9rem 0;">
+          <strong style="color: var(--accent); font-size: 0.9rem;">RED A</strong>
+          <pre style="color: var(--text-main); font-family: monospace; font-size: 0.82rem; margin: 0.5rem 0; line-height: 1.4;">TÚ
+ │
+ IA</pre>
+          <p style="font-size: 0.8rem; color: var(--text-soft); margin: 0;">
+            La IA proporciona: explicación, conceptos, autores, resumen, ejemplos, referencias, conclusión.
+          </p>
+        </div>
+        <div style="background: rgba(96, 165, 250, 0.08); border: 1px solid var(--info); border-radius: 8px; padding: 0.9rem; margin: 0.9rem 0;">
+          <strong style="color: var(--info); font-size: 0.9rem;">RED B</strong>
+          <pre style="color: var(--text-main); font-family: monospace; font-size: 0.82rem; margin: 0.5rem 0; line-height: 1.4;">        IA
+         |
+Manual ── TÚ ── Artículo
+         |
+      Scholar
+         |
+      Revisión</pre>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.9rem 0;">
+          ¿La red A es necesariamente peor?
+        </p>
+        <div class="options-list">
+          <div class="option-card" data-ia="si"><span class="option-marker">Sí</span><span>Sí, porque la IA puede equivocarse.</span></div>
+          <div class="option-card" data-ia="no"><span class="option-marker">No</span><span>No necesariamente. Depende de lo que necesito hacer.</span></div>
+        </div>
+        <div id="iaExtra"></div>
+        <button class="btn btn-next" data-action="next" disabled>Continuar →</button>
+      `;
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      const extra = panel.querySelector('#iaExtra');
+
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.iaAnswer = this.dataset.ia;
+          saveState();
+          extra.innerHTML = `
+            <div class="info-box" style="margin-top: 0.8rem;">
+              <strong>¿Qué ocurre si la IA se equivoca?</strong><br>
+              <strong>Red A:</strong> ERROR → IA → TÚ. El error llega directamente.<br>
+              <strong>Red B:</strong> IA → contraste con artículo y manual → posibilidad de detección.
+            </div>
+            <div class="warning-box" style="margin-top: 0.6rem;">
+              <strong>La confiabilidad no depende únicamente del nodo.</strong> También depende de la estructura
+              de la red mediante la cual evaluamos la información.
+            </div>
+          `;
+          nextBtn.disabled = false;
+        });
+      });
+      nextBtn.addEventListener('click', () => goToPhase(9));
+      return;
+    }
+
+    /* ---------- FASE 9: Actualizar (eliminar nodo) ---------- */
+    if (num === 9 && !state.eliminatedNode) {
+      const nodesWithoutYou = state.nodes.filter(n => !n.isYou);
+      if (nodesWithoutYou.length === 0) {
+        panel.innerHTML = `
+          <h4>Fase 9 · Actualiza tu red</h4>
+          <div class="warning-box">No hay nodos para eliminar. Vuelve a la Fase 4.</div>
+          <button class="btn btn-next" data-action="next">Continuar →</button>
+        `;
+        panel.querySelector('[data-action="next"]').addEventListener('click', () => goToPhase(10));
+        return;
+      }
+
+      panel.innerHTML = `
+        <h4>Fase 9 · Actualiza tu red</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          Tu tiempo es limitado. Debes abandonar una conexión.
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.8rem 0;">
+          <strong>Haz clic sobre el nodo que eliminarías:</strong>
+        </p>
+        <div class="resource-cards">
+          ${nodesWithoutYou.map(n => `
+            <div class="resource-card" data-eliminate="${n.id}" tabindex="0" role="button">
+              <div class="rc-info">
+                <div class="rc-name">${n.name}</div>
+                <div class="rc-type">${n.type}</div>
+              </div>
+              <div class="rc-cost" style="background: var(--error); color: #0a1628;">Eliminar</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      panel.querySelectorAll('[data-eliminate]').forEach(card => {
+        card.addEventListener('click', function() {
+          state.eliminatedNode = this.dataset.eliminate;
+          saveState();
+          renderPhasePanel(9);
+        });
+      });
+      return;
+    }
+
+    /* ---------- FASE 9.5: Razón de eliminación ---------- */
+    if (num === 9 && state.eliminatedNode && !state.eliminatedReason) {
+      panel.innerHTML = `
+        <h4>¿Por qué eliminas este nodo?</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-bottom: 0.8rem;">
+          Nodo seleccionado: <strong>${RESOURCES[state.eliminatedNode]?.name}</strong>
+        </p>
+        <div class="options-list">
+          <div class="option-card" data-elim-reason="redundante"><span class="option-marker">A</span><span>Es redundante.</span></div>
+          <div class="option-card" data-elim-reason="poco-relevante"><span class="option-marker">B</span><span>Es poco relevante.</span></div>
+          <div class="option-card" data-elim-reason="sin-procedencia"><span class="option-marker">C</span><span>No puedo identificar su procedencia.</span></div>
+          <div class="option-card" data-elim-reason="mejor-conexion"><span class="option-marker">D</span><span>Existe una conexión mejor.</span></div>
+          <div class="option-card" data-elim-reason="desactualizado"><span class="option-marker">E</span><span>Está desactualizado.</span></div>
+          <div class="option-card" data-elim-reason="no-aporta"><span class="option-marker">F</span><span>No aporta al problema actual.</span></div>
+        </div>
+      `;
+
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.eliminatedReason = this.dataset.elimReason;
+          // Eliminar el nodo
+          state.nodes = state.nodes.filter(n => n.id !== state.eliminatedNode);
+          state.connections = state.connections.filter(c => c.from !== state.eliminatedNode && c.to !== state.eliminatedNode);
+          saveState();
+          renderNetwork();
+          setTimeout(() => goToPhase(10), 400);
+        });
+      });
+      return;
+    }
+
+    /* ---------- FASE 10: Red final ---------- */
+    if (num === 10) {
+      panel.innerHTML = `
+        <h4>Fase 10 · Tu red final</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          No preguntamos cuántos nodos tienes. Preguntamos:
+        </p>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.8rem 0;">
+          ¿Qué tipo de recurso usarías principalmente para...?
+        </p>
+        <div class="options-list">
+          <div class="option-card" data-final-purpose="explicacion"><span class="option-marker">A</span><span>Obtener una explicación inicial.</span></div>
+          <div class="option-card" data-final-purpose="evidencia"><span class="option-marker">B</span><span>Buscar evidencia empírica.</span></div>
+          <div class="option-card" data-final-purpose="perspectiva"><span class="option-marker">C</span><span>Obtener una perspectiva diferente.</span></div>
+          <div class="option-card" data-final-purpose="nuevos-caminos"><span class="option-marker">D</span><span>Descubrir nuevos caminos.</span></div>
+        </div>
+        <button class="btn btn-next" data-action="next" disabled>Continuar →</button>
+      `;
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      panel.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          panel.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.finalPurpose = this.dataset.finalPurpose;
+          saveState();
+          nextBtn.disabled = false;
+        });
+      });
+      nextBtn.addEventListener('click', () => goToPhase(11));
+      return;
+    }
+
+    /* ---------- FASE 11: Metacognición ---------- */
+    if (num === 11) {
+      panel.innerHTML = `
+        <h4>Fase 11 · Espejo metacognitivo</h4>
+        <p style="font-size: 0.85rem; color: var(--text-soft);">
+          No observes la información. Observa cómo buscaste.
+        </p>
+        <div style="background: rgba(240, 180, 41, 0.08); border-left: 3px solid var(--accent); padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin: 0.9rem 0; font-size: 0.83rem;">
+          <strong style="color: var(--accent);">Tu recorrido:</strong><br>
+          Primer nodo: <strong>${RESOURCES[state.firstNode]?.name || '—'}</strong><br>
+          Nodos totales: <strong>${state.nodes.length}</strong><br>
+          Créditos restantes: <strong>${state.credits}</strong><br>
+          Nodo eliminado: <strong>${RESOURCES[state.eliminatedNode]?.name || '—'}</strong>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-main); margin: 0.9rem 0;">
+          Cuando no sabes algo, ¿cuál es tu patrón? <em>(marca los que reconozcas)</em>
+        </p>
+        <div class="checkbox-list" id="patternsList">
+          <div class="checkbox-card" data-pattern="rapido"><span class="checkbox-marker"></span><span>Tiendo a utilizar primero lo más rápido.</span></div>
+          <div class="checkbox-card" data-pattern="conocido"><span class="checkbox-marker"></span><span>Tiendo a utilizar aquello que ya conozco.</span></div>
+          <div class="checkbox-card" data-pattern="explicacion"><span class="checkbox-marker"></span><span>Busco una explicación antes que evidencia.</span></div>
+          <div class="checkbox-card" data-pattern="evidencia-primero"><span class="checkbox-marker"></span><span>Busco evidencia antes de comprender suficientemente.</span></div>
+          <div class="checkbox-card" data-pattern="una-fuente"><span class="checkbox-marker"></span><span>Permanezco demasiado tiempo en una sola fuente.</span></div>
+          <div class="checkbox-card" data-pattern="acumulo"><span class="checkbox-marker"></span><span>Acumulo información antes de relacionarla.</span></div>
+          <div class="checkbox-card" data-pattern="contrasto"><span class="checkbox-marker"></span><span>Contrasto perspectivas desde el comienzo.</span></div>
+          <div class="checkbox-card" data-pattern="cambio"><span class="checkbox-marker"></span><span>Cambio de fuente cuando aparece una dificultad.</span></div>
+        </div>
+        <button class="btn btn-next" data-action="next" disabled>Generar mi diagnóstico →</button>
+      `;
+
+      const nextBtn = panel.querySelector('[data-action="next"]');
+      panel.querySelectorAll('#patternsList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          state.metacogAnswers = Array.from(panel.querySelectorAll('#patternsList .checkbox-card.selected')).map(c => c.dataset.pattern);
+          saveState();
+          nextBtn.disabled = state.metacogAnswers.length === 0;
+        });
+      });
+      nextBtn.addEventListener('click', () => {
+        updateDiagnostic();
+        document.getElementById('diagnostico').style.display = 'block';
+        document.getElementById('diagnostico').scrollIntoView({ behavior: 'smooth' });
+      });
+      return;
+    }
+  }
+
+  /* ============================================================
+     ATTACH BOTÓN SIGUIENTE
+     ============================================================ */
+  function attachNext(nextPhase) {
+    const panel = document.getElementById('panelContent');
+    const btn = panel.querySelector('[data-action="next"]');
+    if (btn) {
+      btn.addEventListener('click', () => goToPhase(nextPhase));
+    }
+  }
+
+  /* ============================================================
+     DIAGNÓSTICO
+     ============================================================ */
+  function updateDiagnostic() {
+    const nodesCount = state.nodes.length;
+    setDiagItem(document.getElementById('diag-nodos'),
+      nodesCount >= 5 ? 'green' : nodesCount >= 3 ? 'yellow' : 'red',
+      `${nodesCount} nodos`);
+
+    const types = new Set(state.nodes.filter(n => !n.isYou).map(n => n.type));
+    setDiagItem(document.getElementById('diag-diversidad'),
+      types.size >= 4 ? 'green' : types.size >= 2 ? 'yellow' : 'red',
+      `${types.size} tipos`);
+
+    const nonYouConns = state.connections.filter(c => c.from !== 'you' && c.to !== 'you').length;
+    setDiagItem(document.getElementById('diag-conectividad'),
+      nonYouConns >= 2 ? 'green' : nonYouConns >= 1 ? 'yellow' : 'red',
+      `${nonYouConns} conexiones`);
+
+    setDiagItem(document.getElementById('diag-relevancia'),
+      nodesCount >= 4 ? 'green' : nodesCount >= 3 ? 'yellow' : 'red',
+      `${nodesCount} útiles`);
+
+    setDiagItem(document.getElementById('diag-eliminacion'),
+      state.eliminatedReason ? 'green' : 'red',
+      state.eliminatedReason ? 'Con criterio' : 'Sin eliminar');
+
+    setDiagItem(document.getElementById('diag-patron'),
+      state.metacogAnswers.length >= 2 ? 'green' : state.metacogAnswers.length >= 1 ? 'yellow' : 'red',
+      `${state.metacogAnswers.length} patrones`);
+
+    updateVerdict();
+  }
+
+  function setDiagItem(item, color, text) {
+    if (!item) return;
+    const statusEl = item.querySelector('.di-status');
+    const descEl = item.querySelector('.di-desc');
+    item.classList.remove('green', 'yellow', 'red');
+    if (color === 'green') {
+      item.classList.add('green');
+      statusEl.textContent = '🟢';
+    } else if (color === 'yellow') {
+      item.classList.add('yellow');
+      statusEl.textContent = '🟡';
+    } else {
+      item.classList.add('red');
+      statusEl.textContent = '🔴';
+    }
+    descEl.textContent = text;
+  }
+
+  function updateVerdict() {
+    const verdict = document.getElementById('diagnosticVerdict');
+    if (!verdict) return;
+    const items = ['diag-nodos','diag-diversidad','diag-conectividad','diag-relevancia','diag-eliminacion','diag-patron'];
+    const colors = items.map(id => {
+      const el = document.getElementById(id);
+      if (el.classList.contains('green')) return 'green';
+      if (el.classList.contains('yellow')) return 'yellow';
+      if (el.classList.contains('red')) return 'red';
+      return null;
+    });
+    const greenCount = colors.filter(c => c === 'green').length;
+    const redCount = colors.filter(c => c === 'red').length;
+
+    if (redCount >= 3) {
+      verdict.innerHTML = '<div class="highlight-box error" style="margin: 1.3rem 0;"><p>🔴 RED FRÁGIL — Necesita más diversidad y conexiones</p></div>';
+    } else if (greenCount >= 4) {
+      verdict.innerHTML = '<div class="highlight-box success" style="margin: 1.3rem 0;"><p>🟢 RED ROBUSTA — Diversa, conectada y con criterios de actualización</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box warning" style="margin: 1.3rem 0;"><p>🟡 RED EN CONSTRUCCIÓN — Puede mejorar en diversidad o conectividad</p></div>';
+    }
+  }
+
+  /* ============================================================
+     PROTOCOLO
+     ============================================================ */
+  document.querySelectorAll('#protocolQuestions .checkbox-card').forEach(card => {
+    card.addEventListener('click', function() {
+      this.classList.toggle('selected');
+      const selected = document.querySelectorAll('#protocolQuestions .checkbox-card.selected');
+      if (selected.length > 3) {
+        this.classList.remove('selected');
+        return;
+      }
+      document.querySelectorAll('#protocolQuestions .checkbox-card').forEach(c => {
+        if (!c.classList.contains('selected') && selected.length >= 3) c.classList.add('disabled');
+        else c.classList.remove('disabled');
+      });
+      state.protocolQuestions = Array.from(selected).map(c => c.dataset.value);
+      saveState();
+      document.getElementById('btnGenerarProtocolo').disabled = selected.length !== 3;
+    });
+  });
+
+  const protocolTexts = {
+    q1: '¿Qué función necesito que cumpla esta fuente?',
+    q2: '¿Estoy encontrando perspectivas distintas o repeticiones de lo mismo?',
+    q3: '¿En qué momento necesito abandonar esta conexión y buscar otra?',
+    q4: '¿Estoy acumulando información o construyendo relaciones entre nodos?',
+    q5: '¿Puedo identificar quién o qué está detrás de esta fuente?',
+    q6: '¿Mis fuentes aportan perspectivas epistemológicamente distintas?',
+    q7: '¿Estoy confundiendo repetición con confirmación?',
+    q8: '¿Qué decisión no quiero delegar a ningún nodo, ni siquiera a la IA?'
+  };
+
+  document.getElementById('btnGenerarProtocolo').addEventListener('click', function() {
+    const list = document.getElementById('protocolList');
+    list.innerHTML = '';
+    state.protocolQuestions.forEach(q => {
+      const li = document.createElement('li');
+      li.textContent = protocolTexts[q];
+      list.appendChild(li);
+    });
+    document.getElementById('protocolo').style.display = 'none';
+    document.getElementById('protocoloFinal').style.display = 'block';
+    document.getElementById('protocoloFinal').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnIrProtocolo').addEventListener('click', function() {
+    document.getElementById('protocolo').style.display = 'block';
+    document.getElementById('protocolo').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ============================================================
+     INICIO DEL LABORATORIO
+     ============================================================ */
+  document.getElementById('btnStartLab').addEventListener('click', function() {
+    state.labStarted = true;
+    saveState();
+    this.disabled = true;
+    this.textContent = '⏱️ Laboratorio en curso...';
+    this.style.opacity = '0.5';
+
+    document.getElementById('phasesNav').style.display = 'grid';
+    document.getElementById('labLayout').style.display = 'grid';
+    document.getElementById('phaseContent').style.display = 'block';
+    creditsBox.classList.add('show');
+    updateCredits();
+
+    startTimer();
+
+    // Nodo TÚ
+    if (!state.nodes.some(n => n.isYou)) {
+      state.nodes.unshift({
+        id: 'you',
+        name: 'TÚ',
+        type: 'Estudiante',
+        x: 250,
+        y: 250,
+        isYou: true
+      });
+      saveState();
+      renderNetwork();
+    }
+
+    goToPhase(1);
+    document.getElementById('labLayout').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  /* ============================================================
+     REINICIAR
+     ============================================================ */
+  function reiniciar() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus decisiones.')) return;
+    localStorage.removeItem('artifact03_networks_state_v2');
+    location.reload();
+  }
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciar);
+  document.getElementById('btnRestartFinal').addEventListener('click', reiniciar);
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+  /* ============================================================
+     RESTAURAR SESIÓN PREVIA (si existe)
+     ============================================================ */
+  if (state.labStarted) {
+    document.getElementById('btnStartLab').disabled = true;
+    document.getElementById('btnStartLab').textContent = '⏱️ Laboratorio en curso...';
+    document.getElementById('btnStartLab').style.opacity = '0.5';
+    document.getElementById('phasesNav').style.display = 'grid';
+    document.getElementById('labLayout').style.display = 'grid';
+    document.getElementById('phaseContent').style.display = 'block';
+    creditsBox.classList.add('show');
+    updateCredits();
+    renderNetwork();
+    updateHealthIndicators();
+    if (state.phase > 0) goToPhase(state.phase);
+  }
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conectivismo — Juan Carlos Valderrama Cárdenas</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Conectivismo: aprender en redes de información y conocimiento">
+<meta name="jc-descripcion" content="Presentación de la Tutoría 3 sobre conectivismo, conocimiento distribuido, nodos, conexiones, relevancia, diversidad, actualización de redes e inteligencia artificial como nodo de aprendizaje.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Conectivismo, George Siemens, Stephen Downes, Aprendizaje en red, Conocimiento distribuido, Nodos, Conexiones, Diversidad epistemológica, Inteligencia artificial, Alfabetización digital, Redes de aprendizaje">
+<meta name="jc-curso" content="Herramientas Digitales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  :root {
+    --azul-oscuro: #0B2545;
+    --azul-medio: #13315C;
+    --azul-acento: #13538A;
+    --dorado: #E7C873;
+    --gris-calido: #F5F3EF;
+    --blanco: #FFFFFF;
+    --texto: #1A1A2E;
+    --texto-suave: #3D3D4E;
+    --sombra: 0 4px 20px rgba(11, 37, 69, 0.08);
+    --radio: 14px;
+    --verde: #2E7D4F;
+    --rojo: #C0392B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+  }
+
+  body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 300px;
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    transition: width 0.35s ease;
+  }
+
+  #sidebar.colapsada { width: 0; overflow: hidden; }
+
+  #sidebar-header {
+    padding: 26px 22px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  #sidebar-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dorado);
+    margin-bottom: 5px;
+  }
+
+  #sidebar-header p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  #sidebar nav { padding: 14px 0; }
+
+  #sidebar nav a {
+    display: block;
+    padding: 12px 22px;
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    font-size: 17px;
+    line-height: 1.4;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+
+  #sidebar nav a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+  #sidebar nav a.activa {
+    background: rgba(231, 200, 115, 0.14);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+    font-weight: 600;
+  }
+
+  #sidebar nav a .num {
+    display: inline-block;
+    width: 26px;
+    font-size: 14px;
+    opacity: 0.55;
+  }
+
+  #toggle-sidebar {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    border: none;
+    background: var(--azul-oscuro);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+
+  #toggle-sidebar:hover { opacity: 1; }
+
+  /* LAYOUT */
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--blanco);
+  }
+
+  #slides-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* DIAPOSITIVAS */
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 28px 45px 38px;
+    overflow-y: auto;
+    background: var(--blanco);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .slide.activa {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+  }
+
+  .slide-inner {
+    width: 100%;
+    max-width: 1350px;
+    margin: 0 auto;
+  }
+
+  .slide.portada {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 100%);
+    color: #fff;
+    padding: 40px 60px;
+  }
+
+  .slide.portada .slide-inner { max-width: 1100px; }
+
+  .slide.portada h1 {
+    font-size: 62px;
+    font-weight: 700;
+    line-height: 1.12;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .slide.portada .subtitulo {
+    font-size: 28px;
+    color: var(--dorado);
+    margin-bottom: 16px;
+  }
+
+  .slide.portada .curso {
+    font-size: 22px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 36px;
+  }
+
+  .slide.portada .autor {
+    font-size: 24px;
+    color: rgba(255,255,255,0.88);
+    border-top: 1px solid rgba(255,255,255,0.22);
+    padding-top: 20px;
+    display: inline-block;
+  }
+
+  /* TIPOGRAFÍA AUMENTADA */
+  .slide h2 {
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .slide p {
+    font-size: 30px;
+    line-height: 1.45;
+    color: var(--texto-suave);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .slide ul { list-style: none; }
+
+  .slide ul li {
+    font-size: 30px;
+    line-height: 1.45;
+    color: var(--texto-suave);
+    margin-bottom: 10px;
+    padding-left: 40px;
+    position: relative;
+  }
+
+  .slide ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--azul-acento);
+  }
+
+  /* PREGUNTA GIGANTE */
+  .pregunta-grande {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    line-height: 1.2;
+    text-align: center;
+    margin: 16px 0;
+    padding: 20px;
+  }
+
+  .pregunta-grande.dorada {
+    color: var(--dorado);
+    background: var(--azul-oscuro);
+    border-radius: var(--radio);
+    padding: 30px;
+  }
+
+  .pregunta {
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--azul-acento);
+    font-style: italic;
+    margin: 14px 0;
+    padding-left: 24px;
+    border-left: 5px solid var(--dorado);
+    text-align: left;
+  }
+
+  /* BLOQUES */
+  .bloque {
+    background: var(--gris-calido);
+    border-left: 7px solid var(--azul-acento);
+    padding: 20px 26px;
+    border-radius: 0 var(--radio) var(--radio) 0;
+    margin: 14px 0;
+    text-align: left;
+  }
+
+  .bloque.dorado {
+    border-left-color: var(--dorado);
+    background: #FDF9EE;
+  }
+
+  .bloque.verde {
+    border-left-color: var(--verde);
+    background: #EBF7EE;
+  }
+
+  .bloque.rojo {
+    border-left-color: var(--rojo);
+    background: #FDF0F0;
+  }
+
+  .bloque p { margin-bottom: 0; font-size: 28px; text-align: left; }
+
+  .bloque .etiqueta {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--azul-acento);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .bloque.dorado .etiqueta { color: #B8942E; }
+  .bloque.verde .etiqueta { color: var(--verde); }
+  .bloque.rojo .etiqueta { color: #A04040; }
+
+  /* ============================================================
+     TARJETAS GIRATORIAS
+     ============================================================ */
+  .grid-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+    margin-top: 16px;
+  }
+
+  .grid-tarjetas.cols-2 { grid-template-columns: 1fr 1fr; }
+  .grid-tarjetas.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-tarjetas.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-tarjetas.cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .grid-tarjetas.cols-6 { grid-template-columns: repeat(6, 1fr); }
+
+  .tarjeta-giratoria {
+    perspective: 1400px;
+    cursor: pointer;
+    height: 250px;
+    min-height: 250px;
+  }
+
+  .tarjeta-giratoria.compacta { height: 180px; min-height: 180px; }
+  .tarjeta-giratoria.grande { height: 320px; min-height: 320px; }
+
+  .tarjeta-giratoria .interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .tarjeta-giratoria.volteada .interior {
+    transform: rotateY(180deg);
+  }
+
+  .tarjeta-giratoria .frente,
+  .tarjeta-giratoria .reverso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radio);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .tarjeta-giratoria .frente {
+    background: #fff;
+    border: 3px solid var(--azul-acento);
+    color: var(--azul-oscuro);
+    align-items: center;
+    text-align: center;
+  }
+
+  .tarjeta-giratoria .frente .icono-tarjeta {
+    font-size: 54px;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .tarjeta-giratoria.compacta .frente .icono-tarjeta {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  .tarjeta-giratoria .frente h4 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .tarjeta-giratoria.compacta .frente h4 {
+    font-size: 22px;
+  }
+
+  .tarjeta-giratoria .frente .indicacion {
+    position: absolute;
+    bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--azul-acento);
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+
+  .tarjeta-giratoria .reverso {
+    background: var(--azul-oscuro);
+    color: #fff;
+    border: 3px solid var(--azul-oscuro);
+    transform: rotateY(180deg);
+    text-align: left;
+    justify-content: center;
+  }
+
+  .tarjeta-giratoria .reverso h4 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dorado);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+
+  .tarjeta-giratoria .reverso p {
+    font-size: 20px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .tarjeta-giratoria .reverso ul {
+    margin-top: 4px;
+  }
+
+  .tarjeta-giratoria .reverso ul li {
+    font-size: 19px;
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 4px;
+    padding-left: 24px;
+  }
+
+  .tarjeta-giratoria .reverso ul li::before {
+    width: 9px;
+    height: 9px;
+    top: 11px;
+    background: var(--dorado);
+  }
+
+  /* Variantes de color */
+  .tarjeta-giratoria.dorada .frente {
+    border-color: var(--dorado);
+    background: #FDF9EE;
+  }
+  .tarjeta-giratoria.dorada .reverso {
+    background: #8B6B1F;
+    border-color: #8B6B1F;
+  }
+
+  .tarjeta-giratoria.verde .frente {
+    border-color: var(--verde);
+    background: #EBF7EE;
+  }
+  .tarjeta-giratoria.verde .reverso {
+    background: var(--verde);
+    border-color: var(--verde);
+  }
+
+  .tarjeta-giratoria.roja .frente {
+    border-color: var(--rojo);
+    background: #FDF0F0;
+  }
+  .tarjeta-giratoria.roja .reverso {
+    background: var(--rojo);
+    border-color: var(--rojo);
+  }
+
+  .tarjeta-giratoria.oscura .frente {
+    background: var(--azul-oscuro);
+    border-color: var(--azul-oscuro);
+    color: var(--dorado);
+  }
+  .tarjeta-giratoria.oscura .frente .indicacion {
+    color: var(--dorado);
+  }
+  .tarjeta-giratoria.oscura .reverso {
+    background: var(--dorado);
+    border-color: var(--dorado);
+  }
+  .tarjeta-giratoria.oscura .reverso h4 { color: var(--azul-oscuro); }
+  .tarjeta-giratoria.oscura .reverso p { color: var(--azul-oscuro); }
+  .tarjeta-giratoria.oscura .reverso ul li { color: var(--azul-oscuro); }
+  .tarjeta-giratoria.oscura .reverso ul li::before { background: var(--azul-oscuro); }
+
+  /* COMPARATIVA */
+  .comparativa {
+    display: flex;
+    gap: 20px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .comparativa .lado {
+    flex: 1;
+    min-width: 280px;
+    padding: 20px;
+    border-radius: var(--radio);
+    border: 3px solid #E0E4EC;
+    text-align: left;
+  }
+
+  .comparativa .lado h4 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--dorado);
+    text-align: center;
+  }
+
+  .comparativa .lado p { font-size: 24px; text-align: left; }
+  .comparativa .lado ul li { font-size: 22px; }
+
+  /* FLUJO */
+  .flujo-modelo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin: 14px 0;
+  }
+
+  .paso-flujo {
+    padding: 12px 28px;
+    border-radius: 10px;
+    background: #EBF0F7;
+    border-left: 6px solid var(--azul-acento);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    text-align: center;
+    min-width: 480px;
+  }
+
+  .paso-flujo.destacado {
+    background: var(--azul-oscuro);
+    color: var(--dorado);
+    border-left-color: var(--dorado);
+  }
+
+  .flecha-flujo {
+    font-size: 24px;
+    color: var(--dorado);
+    line-height: 1;
+  }
+
+  /* TABLA */
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 24px;
+  }
+
+  .tabla th {
+    background: var(--azul-oscuro);
+    color: #fff;
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  .tabla td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #E0E4EC;
+    color: var(--texto-suave);
+    line-height: 1.45;
+    font-size: 23px;
+  }
+
+  .tabla tr:nth-child(even) td { background: #FAFBFD; }
+
+  /* ÍNDICE */
+  .indice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .tarjeta-indice {
+    perspective: 1200px;
+    cursor: pointer;
+    height: 120px;
+  }
+
+  .tarjeta-indice .interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+  }
+
+  .tarjeta-indice.volteada .interior {
+    transform: rotateY(180deg);
+  }
+
+  .tarjeta-indice .frente,
+  .tarjeta-indice .reverso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radio);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .tarjeta-indice .frente {
+    background: #fff;
+    border: 2px solid #E0E4EC;
+  }
+
+  .tarjeta-indice .reverso {
+    background: var(--azul-oscuro);
+    color: #fff;
+    border: 2px solid var(--azul-oscuro);
+    transform: rotateY(180deg);
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .tarjeta-indice .num-indice {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--azul-oscuro);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .tarjeta-indice .frente span {
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+  }
+
+  /* RED VISUAL */
+  .red-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 24px;
+    background: #F8FAFD;
+    border-radius: var(--radio);
+    border: 2px solid #E0E4EC;
+    margin: 14px 0;
+  }
+
+  .nodo-central {
+    padding: 16px 32px;
+    border-radius: 50px;
+    background: var(--azul-oscuro);
+    color: var(--dorado);
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .nodos-conectados {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nodo-conectado {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: #fff;
+    border: 2px solid var(--azul-acento);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+  }
+
+  .nodo-conectado.ia-nodo {
+    background: var(--dorado);
+    border-color: #B8942E;
+    color: var(--azul-oscuro);
+  }
+
+  /* REFERENCIAS */
+  .refs p {
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--texto-suave);
+    margin-bottom: 8px;
+    padding-left: 30px;
+    text-indent: -30px;
+    text-align: left;
+  }
+
+  /* NAVEGACIÓN INFERIOR */
+  #nav-inferior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+    background: #fff;
+    border-top: 1px solid #EEF0F4;
+    flex-shrink: 0;
+  }
+
+  .btn-nav {
+    padding: 10px 22px;
+    border: 1.5px solid #D0D5DE;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--texto-suave);
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.65;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-nav:hover { opacity: 1; border-color: var(--azul-acento); color: var(--azul-oscuro); }
+  .btn-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+
+  #indicador-progreso {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 17px;
+    color: var(--texto-suave);
+  }
+
+  #barra-progreso {
+    width: 150px;
+    height: 6px;
+    background: #EEF0F4;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  #barra-progreso .relleno {
+    height: 100%;
+    background: var(--azul-acento);
+    transition: width 0.4s ease;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1200px) {
+    .slide { padding: 24px 35px 32px; }
+    .slide h2 { font-size: 44px; }
+    .slide p, .slide ul li { font-size: 26px; }
+    .slide.portada h1 { font-size: 48px; }
+    .pregunta-grande { font-size: 44px; }
+    .grid-tarjetas.cols-4, .grid-tarjetas.cols-5, .grid-tarjetas.cols-6 { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 1024px) {
+    .slide { padding: 20px 28px 28px; }
+    .slide h2 { font-size: 36px; }
+    .slide p, .slide ul li { font-size: 22px; }
+    .slide.portada h1 { font-size: 38px; }
+    .pregunta-grande { font-size: 32px; }
+    .grid-tarjetas.cols-3, .grid-tarjetas.cols-4, .grid-tarjetas.cols-5, .grid-tarjetas.cols-6 { grid-template-columns: 1fr 1fr; }
+    .indice-grid { grid-template-columns: 1fr; }
+    .comparativa .lado { min-width: 100%; }
+    .paso-flujo { min-width: 100%; font-size: 22px; }
+  }
+
+  @media (max-width: 768px) {
+    #sidebar { position: fixed; height: 100%; z-index: 150; }
+    #sidebar:not(.colapsada) { width: 300px; }
+    .slide { padding: 18px 16px 28px; }
+    .slide h2 { font-size: 26px; }
+    .slide p, .slide ul li { font-size: 19px; }
+    .slide.portada h1 { font-size: 30px; }
+    .pregunta-grande { font-size: 24px; }
+    .grid-tarjetas.cols-2, .grid-tarjetas.cols-3, .grid-tarjetas.cols-4, .grid-tarjetas.cols-5, .grid-tarjetas.cols-6 { grid-template-columns: 1fr; }
+  }
+
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-thumb { background: #D0D5DE; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h2>Conectivismo</h2>
+    <p>Herramientas Digitales · Tutoría 3</p>
+  </div>
+  <nav id="nav-secciones"></nav>
+</aside>
+
+<button id="toggle-sidebar" title="Mostrar/ocultar">☰</button>
+
+<div id="main">
+  <div id="slides-container">
+
+    <!-- 0 PORTADA -->
+    <section class="slide portada activa" data-seccion="portada">
+      <div class="slide-inner">
+        <h1>Conectivismo<br>Aprender en redes<br>de información y conocimiento</h1>
+        <div class="subtitulo">¿Qué significa aprender cuando el conocimiento se encuentra distribuido?</div>
+        <div class="curso">Herramientas Digitales · Tutoría 3</div>
+        <div class="autor">Juan Carlos Valderrama Cárdenas</div>
+      </div>
+    </section>
+
+    <!-- 1 RESULTADOS DE APRENDIZAJE -->
+    <section class="slide" data-seccion="resultados">
+      <div class="slide-inner">
+        <h2>Resultados de aprendizaje</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta para descubrir el resultado.</p>
+        <div class="grid-tarjetas cols-2" id="resultados-grid"></div>
+      </div>
+    </section>
+
+    <!-- 2 ÍNDICE -->
+    <section class="slide" data-seccion="indice">
+      <div class="slide-inner">
+        <h2>Arquitectura de la tutoría</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta para ver el propósito.</p>
+        <div class="indice-grid" id="indice-grid"></div>
+      </div>
+    </section>
+
+    <!-- 3 PREGUNTA ORIENTADORA -->
+    <section class="slide" data-seccion="tesis">
+      <div class="slide-inner">
+        <p class="pregunta-grande dorada" style="font-size:40px;">¿Qué significa aprender<br>cuando el conocimiento que necesitamos<br>se encuentra distribuido entre personas,<br>documentos, comunidades y tecnologías?</p>
+      </div>
+    </section>
+
+    <!-- 4 TESIS DE LA SESIÓN -->
+    <section class="slide" data-seccion="tesis">
+      <div class="slide-inner">
+        <h2>Tesis de la sesión</h2>
+        <div class="bloque dorado" style="text-align:center;">
+          <p style="font-size:32px; line-height:1.35;">Aprender no consiste únicamente en acumular conocimientos dentro de nosotros. También implica <strong>construir, mantener y evaluar las conexiones</strong> que nos permiten acceder a conocimiento relevante.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 EL PROBLEMA: ¿DÓNDE ESTÁ LO QUE SABEMOS? -->
+    <section class="slide" data-seccion="problema">
+      <div class="slide-inner">
+        <h2>El problema que origina el conectivismo</h2>
+        <p class="pregunta-grande" style="font-size:46px;">¿Dónde está lo que sabemos?</p>
+        <div class="bloque">
+          <p style="font-size:26px;">Un estudiante debe explicar: <strong>¿Qué relación existe entre sueño, memoria y aprendizaje?</strong></p>
+        </div>
+        <p style="font-size:24px; margin-top:12px;">Haz clic en cada tarjeta para ver las fuentes a las que podría acudir.</p>
+        <div class="grid-tarjetas cols-5" id="grid-fuentes"></div>
+      </div>
+    </section>
+
+    <!-- 6 LA PREGUNTA DEL CONECTIVISMO -->
+    <section class="slide" data-seccion="problema">
+      <div class="slide-inner">
+        <h2>La respuesta tradicional y la del conectivismo</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#F5F3EF; border-top:8px solid #6A7280;">
+            <h4>Respuesta tradicional</h4>
+            <p style="text-align:center; font-size:26px;">«En lo que el estudiante aprendió.»</p>
+          </div>
+          <div class="lado" style="background:#FDF9EE; border-top:8px solid var(--dorado);">
+            <h4>Respuesta del conectivismo</h4>
+            <p style="text-align:center; font-size:26px;">Parte del conocimiento relevante puede estar <strong>distribuido en una red</strong> a la cual tenemos acceso.</p>
+          </div>
+        </div>
+        <div class="bloque dorado" style="text-align:center; margin-top:16px;">
+          <p style="font-size:26px;">Nuestra capacidad para <strong>construir y recorrer esa red</strong> afecta lo que podemos llegar a saber y hacer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 POR QUÉ APARECE EL CONECTIVISMO -->
+    <section class="slide" data-seccion="origen">
+      <div class="slide-inner">
+        <h2>¿Por qué aparece el conectivismo?</h2>
+        <p style="font-size:26px;">El texto fundacional de George Siemens, «Connectivism: A Learning Theory for the Digital Age», apareció inicialmente en 2004 y fue publicado en 2005.</p>
+        <div class="bloque">
+          <p style="font-size:26px;">Su punto de partida era una crítica: conductismo, cognitivismo y constructivismo fueron desarrollados <strong>antes</strong> de que las tecnologías digitales adquirieran el papel que posteriormente alcanzarían.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 ACLARACIÓN IMPORTANTE -->
+    <section class="slide" data-seccion="origen">
+      <div class="slide-inner">
+        <h2>Una aclaración importante</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#FDF0F0; border-top:8px solid var(--rojo);">
+            <h4>Evitemos plantearlo así</h4>
+            <p style="text-align:center; font-size:24px;">Teorías antiguas = incorrectas<br>Conectivismo = teoría nueva que las reemplaza.</p>
+          </div>
+          <div class="lado" style="background:#EBF7EE; border-top:8px solid var(--verde);">
+            <h4>Planteamiento más específico</h4>
+            <p style="text-align:center; font-size:24px;">¿Cómo explicamos el aprendizaje en un entorno donde <strong>no necesitamos poseer internamente toda la información</strong> que podemos utilizar?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 TRANSFORMACIONES DEL ENTORNO -->
+    <section class="slide" data-seccion="origen">
+      <div class="slide-inner">
+        <h2>Transformaciones que originan el problema</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-4" id="grid-transformaciones"></div>
+      </div>
+    </section>
+
+    <!-- 10 DE LO INDIVIDUAL A LO RETICULAR -->
+    <section class="slide" data-seccion="reticular">
+      <div class="slide-inner">
+        <h2>De una concepción individual a una reticular</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#F5F3EF; border-top:8px solid #6A7280;">
+            <h4>Esquema sencillo</h4>
+            <div class="flujo-modelo" style="margin-top:12px;">
+              <div class="paso-flujo" style="min-width:auto; font-size:22px;">INFORMACIÓN</div>
+              <div class="flecha-flujo">↓</div>
+              <div class="paso-flujo" style="min-width:auto; font-size:22px;">INDIVIDUO</div>
+              <div class="flecha-flujo">↓</div>
+              <div class="paso-flujo" style="min-width:auto; font-size:22px;">CONOCIMIENTO</div>
+            </div>
+          </div>
+          <div class="lado" style="background:#FDF9EE; border-top:8px solid var(--dorado);">
+            <h4>Esquema reticular</h4>
+            <p style="text-align:center; font-size:22px; margin-top:8px;">El estudiante conectado a múltiples nodos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 RED VISUAL -->
+    <section class="slide" data-seccion="reticular">
+      <div class="slide-inner">
+        <h2>La red del estudiante</h2>
+        <div class="red-visual">
+          <div class="nodo-central">ESTUDIANTE</div>
+          <div class="nodos-conectados">
+            <span class="nodo-conectado">Profesor</span>
+            <span class="nodo-conectado">Compañeros</span>
+            <span class="nodo-conectado">Libro</span>
+            <span class="nodo-conectado">Artículos</span>
+            <span class="nodo-conectado">Bases de datos</span>
+            <span class="nodo-conectado">Buscador</span>
+            <span class="nodo-conectado ia-nodo">IA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 LAS NUEVAS PREGUNTAS -->
+    <section class="slide" data-seccion="reticular">
+      <div class="slide-inner">
+        <h2>Las nuevas preguntas</h2>
+        <p style="font-size:26px;">Ya no preguntamos solamente: <strong>¿Qué sabe el individuo?</strong></p>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta para ver las nuevas preguntas.</p>
+        <div class="grid-tarjetas cols-2" id="grid-nuevas-preguntas"></div>
+      </div>
+    </section>
+
+    <!-- 13 NODOS Y CONEXIONES -->
+    <section class="slide" data-seccion="nodos">
+      <div class="slide-inner">
+        <h2>Los conceptos fundamentales: nodos y conexiones</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#EBF0F7; border-top:8px solid var(--azul-acento);">
+            <h4>Nodo</h4>
+            <p style="text-align:center; font-size:24px;">Aquello que puede participar en una red de conocimiento.</p>
+          </div>
+          <div class="lado" style="background:#FDF9EE; border-top:8px solid var(--dorado);">
+            <h4>Conexión</h4>
+            <p style="text-align:center; font-size:24px;">Relación entre nodos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 TIPOS DE NODOS -->
+    <section class="slide" data-seccion="nodos">
+      <div class="slide-inner">
+        <h2>¿Qué puede ser un nodo?</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-4" id="grid-nodos"></div>
+      </div>
+    </section>
+
+    <!-- 15 ADVERTENCIA FUNDAMENTAL -->
+    <section class="slide" data-seccion="nodos">
+      <div class="slide-inner">
+        <h2>Una precisión fundamental</h2>
+        <p class="pregunta-grande dorada" style="font-size:38px;">Estar conectado<br>no significa necesariamente aprender.</p>
+        <ul style="margin-top:20px;">
+          <li>No basta con seguir 300 cuentas de Psicología.</li>
+          <li>No basta con guardar 500 artículos.</li>
+          <li>No basta con tener acceso a una IA.</li>
+        </ul>
+        <p style="font-size:26px; text-align:center; margin-top:12px;">Lo importante es <strong>qué conexiones se establecen, cómo se utilizan y qué función desempeñan</strong>.</p>
+      </div>
+    </section>
+
+    <!-- 16 CANTIDAD VS CALIDAD -->
+    <section class="slide" data-seccion="calidad">
+      <div class="slide-inner">
+        <h2>No todas las conexiones tienen el mismo valor</h2>
+        <p class="pregunta-grande" style="font-size:36px;">Cantidad de conexiones ≠ calidad de la red</p>
+        <p style="font-size:24px; margin-top:14px;">Haz clic en cada estudiante para comparar.</p>
+        <div class="grid-tarjetas cols-2" id="grid-estudiantes"></div>
+      </div>
+    </section>
+
+    <!-- 17 RELEVANCIA -->
+    <section class="slide" data-seccion="calidad">
+      <div class="slide-inner">
+        <h2>El concepto clave: relevancia</h2>
+        <div class="bloque dorado" style="text-align:center;">
+          <p style="font-size:30px; line-height:1.4;">Una red de aprendizaje no se evalúa por su <strong>tamaño</strong>, sino por nuestra capacidad de identificar y utilizar <strong>conexiones pertinentes</strong>.</p>
+        </div>
+        <p style="font-size:26px; text-align:center;">La pregunta adecuada es: <strong>¿qué conexiones permiten obtener el conocimiento relevante para la tarea?</strong></p>
+      </div>
+    </section>
+
+    <!-- 18 SABER ALGO VS SABER DÓNDE -->
+    <section class="slide" data-seccion="acceso">
+      <div class="slide-inner">
+        <h2>Saber algo y saber dónde encontrarlo</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#EBF0F7; border-top:8px solid var(--azul-acento);">
+            <h4>Conocimiento disponible internamente</h4>
+            <p style="text-align:center; font-size:28px; margin-top:14px;">Sé X.</p>
+          </div>
+          <div class="lado" style="background:#FDF9EE; border-top:8px solid var(--dorado);">
+            <h4>Capacidad de acceso</h4>
+            <p style="text-align:center; font-size:28px; margin-top:14px;">Sé cómo llegar a X cuando lo necesito.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19 HABILIDADES DEL PSICÓLOGO -->
+    <section class="slide" data-seccion="acceso">
+      <div class="slide-inner">
+        <h2>Ejemplo: el psicólogo no memoriza todos los artículos</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Pero debería desarrollar habilidades para (haz clic en cada tarjeta):</p>
+        <div class="grid-tarjetas cols-3" id="grid-habilidades"></div>
+      </div>
+    </section>
+
+    <!-- 20 APRENDER ES CONSTRUIR CAMINOS -->
+    <section class="slide" data-seccion="acceso">
+      <div class="slide-inner">
+        <p class="pregunta-grande dorada" style="font-size:40px;">Aprender implica también<br>aprender a construir caminos<br>hacia el conocimiento.</p>
+      </div>
+    </section>
+
+    <!-- 21 DIVERSIDAD -->
+    <section class="slide" data-seccion="diversidad">
+      <div class="slide-inner">
+        <h2>Diversidad: una red que solo confirma</h2>
+        <p style="font-size:26px;">Siemens sostiene que aprendizaje y conocimiento se apoyan en una <strong>diversidad de opiniones</strong>.</p>
+        <p class="pregunta-grande" style="font-size:34px;">¿Una red sigue siendo buena si todos sus nodos dicen lo mismo?</p>
+      </div>
+    </section>
+
+    <!-- 22 EJEMPLO DEL ESTUDIANTE -->
+    <section class="slide" data-seccion="diversidad">
+      <div class="slide-inner">
+        <h2>Un ejemplo</h2>
+        <p style="font-size:24px;">Un estudiante investiga un concepto y:</p>
+        <ul>
+          <li>Consulta una explicación de IA.</li>
+          <li>Busca un blog que coincide.</li>
+          <li>Encuentra un vídeo que repite la misma explicación.</li>
+          <li>Consulta otra IA y obtiene algo parecido.</li>
+        </ul>
+        <div class="bloque rojo" style="text-align:center; margin-top:14px;">
+          <p style="font-size:26px;">Podría experimentar: «Cuatro fuentes coinciden».</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23 REPETICIÓN VS DIVERSIDAD -->
+    <section class="slide" data-seccion="diversidad">
+      <div class="slide-inner">
+        <h2>La distinción clave</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#FDF0F0; border-top:8px solid var(--rojo);">
+            <h4>Repetición</h4>
+            <p style="text-align:center; font-size:24px;">Muchas fuentes producen mensajes semejantes.</p>
+          </div>
+          <div class="lado" style="background:#EBF7EE; border-top:8px solid var(--verde);">
+            <h4>Diversidad epistemológica</h4>
+            <p style="text-align:center; font-size:24px;">Tenemos acceso a perspectivas, evidencias, métodos o argumentos <strong>diferentes</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24 ACTUALIZAR LA RED -->
+    <section class="slide" data-seccion="actualizacion">
+      <div class="slide-inner">
+        <h2>Aprender también significa actualizar la red</h2>
+        <p style="font-size:24px;">Una fuente puede:</p>
+        <ul>
+          <li>Quedar desactualizada.</li>
+          <li>Dejar de ser pertinente.</li>
+          <li>Resultar poco fiable.</li>
+          <li>Ser reemplazada por mejor evidencia.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 25 CICLO DE ACTUALIZACIÓN -->
+    <section class="slide" data-seccion="actualizacion">
+      <div class="slide-inner">
+        <h2>El ciclo del conocimiento conectivo</h2>
+        <div class="flujo-modelo">
+          <div class="paso-flujo">CREAR conexiones</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo">UTILIZAR conexiones</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo">EVALUAR conexiones</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo">MANTENER / MODIFICAR / ABANDONAR</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo destacado">CREAR nuevas conexiones</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 26 ¿DÓNDE ENTRA LA IA? -->
+    <section class="slide" data-seccion="ia">
+      <div class="slide-inner">
+        <h2>¿Dónde entra la inteligencia artificial?</h2>
+        <div class="red-visual">
+          <div class="nodo-central">ESTUDIANTE</div>
+          <div class="nodos-conectados">
+            <span class="nodo-conectado">Profesor</span>
+            <span class="nodo-conectado">Compañeros</span>
+            <span class="nodo-conectado">Libro</span>
+            <span class="nodo-conectado">Artículos</span>
+            <span class="nodo-conectado">Bases de datos</span>
+            <span class="nodo-conectado">Buscador</span>
+            <span class="nodo-conectado ia-nodo">IA</span>
+          </div>
+        </div>
+        <p style="font-size:24px; text-align:center; margin-top:8px;">La IA puede constituir <strong>un nodo</strong> dentro de una red más amplia.</p>
+      </div>
+    </section>
+
+    <!-- 27 QUÉ PUEDE HACER LA IA -->
+    <section class="slide" data-seccion="ia">
+      <div class="slide-inner">
+        <h2>Qué puede hacer la IA como nodo</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-3" id="grid-ia-nodo"></div>
+      </div>
+    </section>
+
+    <!-- 28 EL PROBLEMA DE LA IA -->
+    <section class="slide" data-seccion="ia">
+      <div class="slide-inner">
+        <h2>El problema: la ilusión de que ya no necesitamos la red</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#F5F3EF; border-top:8px solid #6A7280;">
+            <h4>Antes</h4>
+            <p style="text-align:center; font-size:22px; line-height:1.5;">Pregunta → Búsqueda → Fuente A → Fuente B → Comparación → Nueva pregunta</p>
+          </div>
+          <div class="lado" style="background:#FDF0F0; border-top:8px solid var(--rojo);">
+            <h4>Con IA</h4>
+            <p style="text-align:center; font-size:22px; line-height:1.5;">Pregunta → IA → Respuesta integrada</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 29 QUÉ PUEDE OCULTAR LA RESPUESTA -->
+    <section class="slide" data-seccion="ia">
+      <div class="slide-inner">
+        <h2>Lo que una respuesta integrada puede ocultar</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-4" id="grid-oculta"></div>
+      </div>
+    </section>
+
+    <!-- 30 CONECTIVISMO NO ES ESTAR CONECTADO -->
+    <section class="slide" data-seccion="precision">
+      <div class="slide-inner">
+        <h2>Una precisión conceptual</h2>
+        <p class="pregunta-grande" style="font-size:34px;">Conectivismo ≠ simplemente «estar conectado»</p>
+        <p style="font-size:24px; margin-top:12px;">Haz clic en cada tarjeta para ver las afirmaciones incorrectas.</p>
+        <div class="grid-tarjetas cols-3" id="grid-afirmaciones"></div>
+      </div>
+    </section>
+
+    <!-- 31 LA CUESTIÓN REAL -->
+    <section class="slide" data-seccion="precision">
+      <div class="slide-inner">
+        <h2>La cuestión real</h2>
+        <div class="bloque dorado" style="text-align:center;">
+          <p style="font-size:30px; line-height:1.4;">La cuestión está en nuestra capacidad para <strong>crear, recorrer, seleccionar, evaluar y reorganizar conexiones</strong>.</p>
+        </div>
+        <p style="font-size:26px; text-align:center;">Aprender puede describirse como <strong>crecimiento, desarrollo, modificación o fortalecimiento de conexiones</strong> dentro de redes.</p>
+      </div>
+    </section>
+
+    <!-- 32 CIERRE: CUATRO CAMBIOS DE PREGUNTA -->
+    <section class="slide" data-seccion="cierre">
+      <div class="slide-inner">
+        <h2>Cierre: cuatro cambios de pregunta</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-2" id="grid-cambios"></div>
+      </div>
+    </section>
+
+    <!-- 33 LA PREGUNTA FINAL -->
+    <section class="slide" data-seccion="cierre">
+      <div class="slide-inner">
+        <p class="pregunta-grande dorada" style="font-size:34px;">¿Qué ocurre cuando esas tecnologías dejan de ser únicamente lugares a los que acudimos para buscar información y comienzan a participar de manera estable en nuestra memoria, organización, razonamiento o resolución de problemas?</p>
+        <p class="pregunta-grande" style="font-size:40px; margin-top:16px;">¿Siguen estando simplemente «afuera»?</p>
+      </div>
+    </section>
+
+    <!-- 34 MAPA CONCEPTUAL -->
+    <section class="slide" data-seccion="mapa">
+      <div class="slide-inner">
+        <h2>Mapa conceptual de la masterclass</h2>
+        <div class="flujo-modelo">
+          <div class="paso-flujo destacado">CONECTIVISMO</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo">CONOCIMIENTO DISTRIBUIDO · APRENDIZAJE EN RED</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo">NODOS · CONEXIONES</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo">RELEVANCIA · DIVERSIDAD · ACTUALIZACIÓN</div>
+          <div class="flecha-flujo">↓</div>
+          <div class="paso-flujo destacado">CAPACIDAD DE NAVEGAR LA RED</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 35 PUENTE A TUTORÍA 4 -->
+    <section class="slide" data-seccion="puente">
+      <div class="slide-inner">
+        <h2>Puente a la Tutoría 4</h2>
+        <div class="comparativa">
+          <div class="lado" style="background:#FDF9EE; border-top:8px solid var(--dorado);">
+            <h4>Conectivismo</h4>
+            <p style="text-align:center; font-size:24px;">Pregunta por las <strong>redes mediante las que aprendemos</strong>.</p>
+          </div>
+          <div class="lado" style="background:#EBF7EE; border-top:8px solid var(--verde);">
+            <h4>Mente extendida</h4>
+            <p style="text-align:center; font-size:24px;">Planteará una cuestión más radical sobre <strong>dónde situamos los límites del propio sistema cognitivo</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 36 SÍNTESIS -->
+    <section class="slide" data-seccion="sintesis">
+      <div class="slide-inner">
+        <h2>Síntesis: conceptos clave</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-2" id="grid-sintesis"></div>
+      </div>
+    </section>
+
+    <!-- 37 CONCLUSIONES -->
+    <section class="slide" data-seccion="conclusiones">
+      <div class="slide-inner">
+        <h2>Conclusiones</h2>
+        <p style="font-size:24px; margin-bottom:12px;">Haz clic en cada tarjeta.</p>
+        <div class="grid-tarjetas cols-2" id="grid-conclusiones"></div>
+      </div>
+    </section>
+
+    <!-- 38 REFERENCIAS -->
+    <section class="slide" data-seccion="referencias">
+      <div class="slide-inner">
+        <h2>Fuentes y referencias</h2>
+        <div class="refs" id="lista-referencias"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="nav-inferior">
+    <button class="btn-nav" id="btn-anterior" disabled>← Anterior</button>
+    <div id="indicador-progreso">
+      <span id="num-diapositiva">1 / 39</span>
+      <div id="barra-progreso"><div class="relleno" id="relleno-progreso"></div></div>
+    </div>
+    <button class="btn-nav" id="btn-siguiente">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATOS DE SECCIONES
+   ============================================================ */
+var secciones = [
+  { id: 'portada', nombre: 'Portada', icono: '◆' },
+  { id: 'resultados', nombre: 'Resultados de aprendizaje', icono: '★' },
+  { id: 'indice', nombre: 'Arquitectura de la tutoría', icono: '☰' },
+  { id: 'tesis', nombre: 'Pregunta y tesis', icono: '1' },
+  { id: 'problema', nombre: 'El problema que origina el conectivismo', icono: '2' },
+  { id: 'origen', nombre: 'Origen del conectivismo', icono: '3' },
+  { id: 'reticular', nombre: 'De lo individual a lo reticular', icono: '4' },
+  { id: 'nodos', nombre: 'Nodos y conexiones', icono: '5' },
+  { id: 'calidad', nombre: 'Cantidad vs. calidad', icono: '6' },
+  { id: 'acceso', nombre: 'Saber algo y saber dónde', icono: '7' },
+  { id: 'diversidad', nombre: 'Diversidad', icono: '8' },
+  { id: 'actualizacion', nombre: 'Actualizar la red', icono: '9' },
+  { id: 'ia', nombre: 'La IA como nodo', icono: '10' },
+  { id: 'precision', nombre: 'Precisión conceptual', icono: '11' },
+  { id: 'cierre', nombre: 'Cierre', icono: '12' },
+  { id: 'mapa', nombre: 'Mapa conceptual', icono: '13' },
+  { id: 'puente', nombre: 'Puente a la Tutoría 4', icono: '14' },
+  { id: 'sintesis', nombre: 'Síntesis', icono: '15' },
+  { id: 'conclusiones', nombre: 'Conclusiones', icono: '✓' },
+  { id: 'referencias', nombre: 'Referencias', icono: '16' }
+];
+
+var indiceActual = 0;
+var slides = [];
+var seccionesMap = {};
+
+/* ============================================================
+   INICIALIZACIÓN
+   ============================================================ */
+window.addEventListener('load', function() {
+  slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  construirNavegacion();
+  construirResultados();
+  construirIndice();
+  construirFuentes();
+  construirTransformaciones();
+  construirNuevasPreguntas();
+  construirNodos();
+  construirEstudiantes();
+  construirHabilidades();
+  construirIANodo();
+  construirOculta();
+  construirAfirmaciones();
+  construirCambios();
+  construirSintesis();
+  construirConclusiones();
+  construirReferencias();
+  configurarEventos();
+  configurarTarjetasGiratorias();
+  actualizarSlide(0, true);
+});
+
+/* ============================================================
+   NAVEGACIÓN LATERAL
+   ============================================================ */
+function construirNavegacion() {
+  var nav = document.getElementById('nav-secciones');
+  secciones.forEach(function(sec) {
+    var a = document.createElement('a');
+    a.href = '#';
+    a.innerHTML = '<span class="num">' + sec.icono + '</span>' + sec.nombre;
+    a.dataset.seccion = sec.id;
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      irASeccion(sec.id);
+    });
+    nav.appendChild(a);
+  });
+
+  secciones.forEach(function(sec) { seccionesMap[sec.id] = []; });
+  slides.forEach(function(slide, i) {
+    var sec = slide.dataset.seccion;
+    if (seccionesMap[sec]) seccionesMap[sec].push(i);
+  });
+}
+
+function irASeccion(secId) {
+  var indices = seccionesMap[secId];
+  if (indices && indices.length > 0) actualizarSlide(indices[0]);
+}
+
+function actualizarNavActiva() {
+  var secActual = slides[indiceActual].dataset.seccion;
+  var enlaces = document.querySelectorAll('#nav-secciones a');
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].classList.toggle('activa', enlaces[i].dataset.seccion === secActual);
+  }
+}
+
+/* ============================================================
+   AUXILIAR: crear tarjeta giratoria
+   ============================================================ */
+function crearTarjetaGiratoria(frente, reverso, claseExtra) {
+  var div = document.createElement('div');
+  div.className = 'tarjeta-giratoria ' + (claseExtra || '');
+  var iconoHTML = frente.icono ? '<div class="icono-tarjeta">' + frente.icono + '</div>' : '';
+  var reversoHTML = '<h4>' + reverso.titulo + '</h4>';
+  if (reverso.parrafos) {
+    reverso.parrafos.forEach(function(p) {
+      reversoHTML += '<p>' + p + '</p>';
+    });
+  }
+  if (reverso.lista) {
+    reversoHTML += '<ul>';
+    reverso.lista.forEach(function(l) {
+      reversoHTML += '<li>' + l + '</li>';
+    });
+    reversoHTML += '</ul>';
+  }
+  div.innerHTML = 
+    '<div class="interior">' +
+      '<div class="frente">' + iconoHTML + '<h4>' + frente.titulo + '</h4><span class="indicacion">Clic →</span></div>' +
+      '<div class="reverso">' + reversoHTML + '</div>' +
+    '</div>';
+  return div;
+}
+
+/* ============================================================
+   CONSTRUCCIÓN DE CONTENIDO
+   ============================================================ */
+function construirResultados() {
+  var contenedor = document.getElementById('resultados-grid');
+  var items = [
+    {
+      frente: { icono: '🌐', titulo: 'Comprende el conectivismo como marco' },
+      reverso: { titulo: 'Marco conceptual', parrafos: ['Comprende el conectivismo como un marco para pensar el aprendizaje cuando el conocimiento está distribuido en redes.'] }
+    },
+    {
+      frente: { icono: '🔗', titulo: 'Distingue nodos y conexiones' },
+      reverso: { titulo: 'Vocabulario', parrafos: ['Distingue nodos y conexiones, y comprende que estar conectado no equivale a aprender.'] }
+    },
+    {
+      frente: { icono: '⚖️', titulo: 'Evalúa la calidad de su red' },
+      reverso: { titulo: 'Calidad de la red', parrafos: ['Evalúa la calidad de su red de aprendizaje por relevancia, diversidad y actualización, no por cantidad.'] }
+    },
+    {
+      frente: { icono: '🧭', titulo: 'Reconoce la IA como nodo' },
+      reverso: { titulo: 'IA como nodo', parrafos: ['Reconoce la IA como un nodo de la red y comprende el riesgo de que una respuesta integrada reduzca la necesidad percibida de explorar.'] }
+    }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirIndice() {
+  var contenedor = document.getElementById('indice-grid');
+  var items = [
+    { num: '1', titulo: 'El problema que origina el conectivismo', reverso: '¿Dónde está lo que sabemos cuando el conocimiento está distribuido?' },
+    { num: '2', titulo: 'Origen del conectivismo', reverso: 'Siemens (2004/2005) y el contexto de las tecnologías digitales.' },
+    { num: '3', titulo: 'De lo individual a lo reticular', reverso: 'La red como unidad relevante para pensar el aprendizaje.' },
+    { num: '4', titulo: 'Nodos y conexiones', reverso: 'Vocabulario conceptual y advertencia fundamental.' },
+    { num: '5', titulo: 'Cantidad vs. calidad', reverso: 'La relevancia como criterio.' },
+    { num: '6', titulo: 'Saber algo y saber dónde', reverso: 'Dos tipos de conocimiento.' },
+    { num: '7', titulo: 'Diversidad', reverso: 'Repetición vs. diversidad epistemológica.' },
+    { num: '8', titulo: 'Actualizar la red', reverso: 'El conocimiento conectivo es dinámico.' },
+    { num: '9', titulo: 'La IA como nodo', reverso: 'Riesgos de la respuesta integrada.' },
+    { num: '10', titulo: 'Precisión y cierre', reverso: 'Conectivismo no es estar conectado.' }
+  ];
+  items.forEach(function(item) {
+    var div = document.createElement('div');
+    div.className = 'tarjeta-indice';
+    div.innerHTML = 
+      '<div class="interior">' +
+        '<div class="frente">' +
+          '<div class="num-indice">' + item.num + '</div>' +
+          '<span>' + item.titulo + '</span>' +
+        '</div>' +
+        '<div class="reverso">' + item.reverso + '</div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirFuentes() {
+  var contenedor = document.getElementById('grid-fuentes');
+  var items = [
+    { icono: '🎓', titulo: 'Lo que recuerda de clase' },
+    { icono: '📝', titulo: 'Sus apuntes' },
+    { icono: '📖', titulo: 'Un libro' },
+    { icono: '🔬', titulo: 'Un artículo científico' },
+    { icono: '🎯', titulo: 'Google Scholar' },
+    { icono: '🗄️', titulo: 'Una base de datos' },
+    { icono: '👨‍🏫', titulo: 'Un profesor' },
+    { icono: '👥', titulo: 'Un compañero' },
+    { icono: '🎤', titulo: 'Una conferencia' },
+    { icono: '🤖', titulo: 'Una IA generativa' }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    var div = document.createElement('div');
+    div.className = 'tarjeta-giratoria compacta ' + clases[i % 4];
+    div.innerHTML = 
+      '<div class="interior">' +
+        '<div class="frente">' +
+          '<div class="icono-tarjeta">' + item.icono + '</div>' +
+          '<h4>' + item.titulo + '</h4>' +
+        '</div>' +
+        '<div class="reverso">' +
+          '<h4>Fuente</h4>' +
+          '<p>' + item.titulo + '</p>' +
+        '</div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirTransformaciones() {
+  var contenedor = document.getElementById('grid-transformaciones');
+  var items = [
+    { frente: { icono: '🌊', titulo: 'Abundancia de información' }, reverso: { titulo: 'Abundancia', parrafos: ['El problema no es únicamente acceder a información. También debemos seleccionarla.'] } },
+    { frente: { icono: '🔄', titulo: 'Cambio' }, reverso: { titulo: 'Cambio', parrafos: ['Parte del conocimiento disponible puede actualizarse. Por eso no basta con haber aprendido algo una vez.'] } },
+    { frente: { icono: '🌐', titulo: 'Distribución' }, reverso: { titulo: 'Distribución', parrafos: ['La información relevante puede encontrarse en diferentes lugares.'] } },
+    { frente: { icono: '💻', titulo: 'Tecnología' }, reverso: { titulo: 'Tecnología', parrafos: ['Las tecnologías intervienen en búsqueda, almacenamiento, recuperación, comunicación y organización.'] } }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirNuevasPreguntas() {
+  var contenedor = document.getElementById('grid-nuevas-preguntas');
+  var items = [
+    { frente: { icono: '🔗', titulo: '¿Con qué está conectado?' }, reverso: { titulo: 'Conexión', parrafos: ['¿Con qué nodos está conectado el estudiante?'] } },
+    { frente: { icono: '🧭', titulo: '¿Sabe dónde encontrar?' }, reverso: { titulo: 'Acceso', parrafos: ['¿Sabe dónde encontrar lo que necesita?'] } },
+    { frente: { icono: '⚖️', titulo: '¿Reconoce qué conexión merece confianza?' }, reverso: { titulo: 'Evaluación', parrafos: ['¿Puede evaluar qué conexiones son confiables?'] } },
+    { frente: { icono: '🔀', titulo: '¿Puede relacionar información de distintos nodos?' }, reverso: { titulo: 'Integración', parrafos: ['¿Puede relacionar información procedente de distintos nodos?'] } }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirNodos() {
+  var contenedor = document.getElementById('grid-nodos');
+  var items = [
+    { icono: '👤', titulo: 'Una persona' },
+    { icono: '💡', titulo: 'Un concepto' },
+    { icono: '📄', titulo: 'Un documento' },
+    { icono: '👥', titulo: 'Una comunidad' },
+    { icono: '🏢', titulo: 'Una organización' },
+    { icono: '🗄️', titulo: 'Una base de datos' },
+    { icono: '🌐', titulo: 'Una plataforma' },
+    { icono: '💻', titulo: 'Un recurso tecnológico' }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    var div = document.createElement('div');
+    div.className = 'tarjeta-giratoria compacta ' + clases[i % 4];
+    div.innerHTML = 
+      '<div class="interior">' +
+        '<div class="frente">' +
+          '<div class="icono-tarjeta">' + item.icono + '</div>' +
+          '<h4>' + item.titulo + '</h4>' +
+        '</div>' +
+        '<div class="reverso">' +
+          '<h4>Nodo</h4>' +
+          '<p>' + item.titulo + '</p>' +
+        '</div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirEstudiantes() {
+  var contenedor = document.getElementById('grid-estudiantes');
+  var items = [
+    {
+      frente: { icono: '👤', titulo: 'Estudiante A' },
+      reverso: { titulo: 'Estudiante A', parrafos: ['Tiene acceso a:'], lista: ['TikTok.', 'Instagram.', 'Google.', 'ChatGPT.', 'Decenas de blogs.'] }
+    },
+    {
+      frente: { icono: '👤', titulo: 'Estudiante B' },
+      reverso: { titulo: 'Estudiante B', parrafos: ['Tiene acceso a:'], lista: ['Dos docentes.', 'Google Scholar.', 'PsycINFO.', 'Tres artículos fundamentales.', 'Un manual especializado.', 'Una IA generativa.'] }
+    }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirHabilidades() {
+  var contenedor = document.getElementById('grid-habilidades');
+  var items = [
+    { icono: '🔍', titulo: 'Formular una búsqueda' },
+    { icono: '📚', titulo: 'Identificar literatura pertinente' },
+    { icono: '✅', titulo: 'Reconocer una fuente fiable' },
+    { icono: '🔗', titulo: 'Seguir referencias' },
+    { icono: '⚖️', titulo: 'Comparar hallazgos' },
+    { icono: '🔄', titulo: 'Actualizar su comprensión' }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    var div = document.createElement('div');
+    div.className = 'tarjeta-giratoria compacta ' + clases[i % 4];
+    div.innerHTML = 
+      '<div class="interior">' +
+        '<div class="frente">' +
+          '<div class="icono-tarjeta">' + item.icono + '</div>' +
+          '<h4>' + item.titulo + '</h4>' +
+        '</div>' +
+        '<div class="reverso">' +
+          '<h4>Habilidad</h4>' +
+          '<p>' + item.titulo + '</p>' +
+        '</div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirIANodo() {
+  var contenedor = document.getElementById('grid-ia-nodo');
+  var items = [
+    { icono: '🔤', titulo: 'Explorar vocabulario' },
+    { icono: '🔀', titulo: 'Identificar posibles relaciones' },
+    { icono: '❓', titulo: 'Generar preguntas' },
+    { icono: '📂', titulo: 'Reorganizar información' },
+    { icono: '🧭', titulo: 'Detectar caminos de búsqueda' },
+    { icono: '⚖️', titulo: 'Comparar ideas' }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    var div = document.createElement('div');
+    div.className = 'tarjeta-giratoria compacta ' + clases[i % 4];
+    div.innerHTML = 
+      '<div class="interior">' +
+        '<div class="frente">' +
+          '<div class="icono-tarjeta">' + item.icono + '</div>' +
+          '<h4>' + item.titulo + '</h4>' +
+        '</div>' +
+        '<div class="reverso">' +
+          '<h4>Puede ayudarnos a</h4>' +
+          '<p>' + item.titulo + '</p>' +
+        '</div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirOculta() {
+  var contenedor = document.getElementById('grid-oculta');
+  var items = [
+    { icono: '📚', titulo: 'Qué fuentes existen' },
+    { icono: '⚖️', titulo: 'Qué perspectivas discrepan' },
+    { icono: '🔬', titulo: 'Qué evidencia sostiene cada afirmación' },
+    { icono: '🚫', titulo: 'Qué información quedó excluida' }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'roja'];
+    var div = document.createElement('div');
+    div.className = 'tarjeta-giratoria compacta ' + clases[i];
+    div.innerHTML = 
+      '<div class="interior">' +
+        '<div class="frente">' +
+          '<div class="icono-tarjeta">' + item.icono + '</div>' +
+          '<h4>' + item.titulo + '</h4>' +
+        '</div>' +
+        '<div class="reverso">' +
+          '<h4>Puede ocultar</h4>' +
+          '<p>' + item.titulo + '</p>' +
+        '</div>' +
+      '</div>';
+    contenedor.appendChild(div);
+  });
+}
+
+function construirAfirmaciones() {
+  var contenedor = document.getElementById('grid-afirmaciones');
+  var items = [
+    { frente: { icono: '❌', titulo: '«Uso Internet, por tanto aprendo mediante conectivismo»' }, reverso: { titulo: 'No necesariamente', parrafos: ['Usar internet no implica automáticamente aprender en red. Es necesario construir, recorrer y evaluar conexiones.'] } },
+    { frente: { icono: '❌', titulo: '«Tengo muchas fuentes, por tanto mi red es buena»' }, reverso: { titulo: 'No necesariamente', parrafos: ['La calidad de la red no depende de la cantidad, sino de la relevancia, la diversidad y la actualización.'] } },
+    { frente: { icono: '❌', titulo: '«La información está en Google, por tanto ya poseo ese conocimiento»' }, reverso: { titulo: 'No', parrafos: ['Tener acceso no equivale a conocer. La cuestión está en la capacidad para crear, recorrer, seleccionar, evaluar y reorganizar conexiones.'] } }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['roja', 'roja', 'roja'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirCambios() {
+  var contenedor = document.getElementById('grid-cambios');
+  var items = [
+    { frente: { icono: '❓', titulo: '¿Qué sabes? → ¿Sabes dónde encontrar lo que no sabes?' }, reverso: { titulo: 'Cambio 1', parrafos: ['De preguntar solamente qué sabes, a preguntar también si sabes dónde encontrar lo que no sabes.'] } },
+    { frente: { icono: '📊', titulo: '¿Cuánta información tienes? → ¿Qué tan buenas son tus conexiones?' }, reverso: { titulo: 'Cambio 2', parrafos: ['De medir la cantidad de información a evaluar la calidad de las conexiones.'] } },
+    { frente: { icono: '🔗', titulo: '¿A cuántas fuentes tienes acceso? → ¿Sabes evaluar cuáles necesitas?' }, reverso: { titulo: 'Cambio 3', parrafos: ['De medir el acceso a fuentes a evaluar la pertinencia y la relevancia.'] } },
+    { frente: { icono: '🧭', titulo: '¿Dónde están las tecnologías? → ¿Participan en nuestro razonamiento?' }, reverso: { titulo: 'Cambio 4', parrafos: ['De considerar las tecnologías como lugares externos a considerar su participación estable en memoria, organización, razonamiento o resolución de problemas.'] } }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirSintesis() {
+  var contenedor = document.getElementById('grid-sintesis');
+  var items = [
+    { frente: { icono: '🌐', titulo: 'Conocimiento distribuido' }, reverso: { titulo: 'Síntesis', parrafos: ['Parte del conocimiento relevante está distribuido en una red a la cual tenemos acceso.'] } },
+    { frente: { icono: '🔗', titulo: 'Nodos y conexiones' }, reverso: { titulo: 'Síntesis', parrafos: ['Un nodo es aquello que puede participar en una red; una conexión es la relación entre nodos.'] } },
+    { frente: { icono: '⚖️', titulo: 'Cantidad ≠ calidad' }, reverso: { titulo: 'Síntesis', parrafos: ['La calidad de una red depende de la relevancia de sus conexiones, no de su número.'] } },
+    { frente: { icono: '🧭', titulo: 'Saber dónde' }, reverso: { titulo: 'Síntesis', parrafos: ['Aprender implica también saber construir caminos hacia el conocimiento que no poseemos internamente.'] } },
+    { frente: { icono: '🌐', titulo: 'Diversidad' }, reverso: { titulo: 'Síntesis', parrafos: ['Una red que solo confirma no es una buena red. Necesitamos diversidad epistemológica, no repetición.'] } },
+    { frente: { icono: '🔄', titulo: 'Actualización' }, reverso: { titulo: 'Síntesis', parrafos: ['El conocimiento conectivo es dinámico: crear, utilizar, evaluar, mantener o abandonar conexiones.'] } }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'roja', 'oscura', ''];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirConclusiones() {
+  var contenedor = document.getElementById('grid-conclusiones');
+  var items = [
+    { frente: { icono: '🌐', titulo: 'Aprender en red' }, reverso: { titulo: 'Conclusión', parrafos: ['El conectivismo desplaza parcialmente la unidad relevante del contenido que posee un individuo hacia la configuración de conexiones que le permiten acceder, relacionar, evaluar y actualizar conocimiento.'] } },
+    { frente: { icono: '🔗', titulo: 'Construir, recorrer, evaluar' }, reverso: { titulo: 'Conclusión', parrafos: ['Estar conectado no equivale a aprender. La cuestión es qué conexiones establecemos, cómo las usamos y qué función desempeñan.'] } },
+    { frente: { icono: '🤖', titulo: 'La IA como nodo' }, reverso: { titulo: 'Conclusión', parrafos: ['La IA puede ser un nodo de la red, pero una respuesta integrada puede reducir nuestra necesidad percibida de explorar la red.'] } },
+    { frente: { icono: '➡️', titulo: 'Puente a la Tutoría 4' }, reverso: { titulo: 'Conclusión', parrafos: ['La mente extendida planteará una cuestión más radical: ¿dónde situamos los límites del propio sistema cognitivo?'] } }
+  ];
+  items.forEach(function(item, i) {
+    var clases = ['', 'dorada', 'verde', 'oscura'];
+    contenedor.appendChild(crearTarjetaGiratoria(item.frente, item.reverso, clases[i]));
+  });
+}
+
+function construirReferencias() {
+  var contenedor = document.getElementById('lista-referencias');
+  var refs = [
+    'Downes, S. (2007). An introduction to connective knowledge. En T. Hug (Ed.), Media, knowledge & education. Innsbruck University Press.',
+    'Siemens, G. (2005). Connectivism: A learning theory for the digital age. International Journal of Instructional Technology and Distance Learning, 2(1), 3-10.'
+  ];
+  refs.forEach(function(r) {
+    var p = document.createElement('p');
+    p.textContent = r;
+    contenedor.appendChild(p);
+  });
+}
+
+/* ============================================================
+   TARJETAS GIRATORIAS
+   ============================================================ */
+function configurarTarjetasGiratorias() {
+  document.addEventListener('click', function(e) {
+    var tarjeta = e.target.closest('.tarjeta-giratoria, .tarjeta-indice');
+    if (tarjeta) {
+      tarjeta.classList.toggle('volteada');
+    }
+  });
+}
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+function configurarEventos() {
+  document.getElementById('btn-anterior').addEventListener('click', function() {
+    if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+  });
+  document.getElementById('btn-siguiente').addEventListener('click', function() {
+    if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+  });
+  document.getElementById('toggle-sidebar').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('colapsada');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (indiceActual < slides.length - 1) actualizarSlide(indiceActual + 1);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (indiceActual > 0) actualizarSlide(indiceActual - 1);
+    }
+  });
+}
+
+/* ============================================================
+   CAMBIO DE DIAPOSITIVA
+   ============================================================ */
+function actualizarSlide(nuevoIndice, forzar) {
+  if (!forzar && nuevoIndice === indiceActual) return;
+  if (nuevoIndice < 0 || nuevoIndice >= slides.length) return;
+
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].classList.remove('activa');
+  }
+  slides[nuevoIndice].classList.add('activa');
+  slides[nuevoIndice].scrollTop = 0;
+  indiceActual = nuevoIndice;
+
+  var tarjetasVolteadas = slides[nuevoIndice].querySelectorAll('.volteada');
+  for (var j = 0; j < tarjetasVolteadas.length; j++) {
+    tarjetasVolteadas[j].classList.remove('volteada');
+  }
+
+  actualizarNavActiva();
+  document.getElementById('num-diapositiva').textContent = (indiceActual + 1) + ' / ' + slides.length;
+  document.getElementById('relleno-progreso').style.width = ((indiceActual + 1) / slides.length * 100) + '%';
+  document.getElementById('btn-anterior').disabled = indiceActual === 0;
+  document.getElementById('btn-siguiente').disabled = indiceActual === slides.length - 1;
+}
+</script>
+</body>
+</html>
