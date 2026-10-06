@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diseña la interacción · Laboratorio individual de prompts</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Diseña la interacción, no solo la pregunta">
+<meta name="jc-descripcion" content="Laboratorio individual de 50 minutos para diseñar prompts académicos con contexto, tarea, restricciones, criterios y formato de salida, evaluando ambigüedad, función de la IA y agencia del estudiante.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Diseño de prompts, Prompting, Inteligencia artificial, IA generativa, Agencia, Pensamiento crítico, Metacognición, Contexto, Restricciones, Criterios, Formato de salida, Investigación académica">
+<meta name="jc-curso" content="Herramientas Digitales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1200px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- TIMER ---- */
+  .timer-box {
+    position: fixed;
+    top: 80px; right: 20px;
+    background: rgba(18, 35, 61, 0.95);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    z-index: 850;
+    box-shadow: var(--shadow);
+    display: none;
+    min-width: 180px;
+    text-align: center;
+  }
+  .timer-box.show { display: block; }
+  .timer-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-soft);
+    margin-bottom: 0.3rem;
+  }
+  .timer-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .timer-display.warning { color: var(--warning); }
+  .timer-display.danger { color: var(--error); animation: pulse 1s infinite; }
+  .timer-controls {
+    display: flex; gap: 0.4rem; margin-top: 0.6rem;
+    justify-content: center;
+  }
+  .timer-btn {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.2s;
+  }
+  .timer-btn:hover { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .timer-box { top: auto; bottom: 20px; right: 20px; left: 20px; }
+  }
+
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 245px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1250px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1250px) {
+    main { margin-left: 265px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+  .callout.warning {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04));
+    border-left-color: var(--warning);
+  }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  /* ---- ESTACIONES ---- */
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.7rem;
+    margin: 1.8rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .stations-nav { position: static; grid-template-columns: 1fr 1fr; }
+  }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .station-btn.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.2rem;
+  }
+  .station-btn .st-time {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    margin-top: 0.2rem;
+    opacity: 0.75;
+  }
+
+  /* ---- CAMPOS DE RESPUESTA ---- */
+  .response-field {
+    margin: 1rem 0;
+  }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .response-input::placeholder { color: #6b8299; }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  /* ---- SEMÁFORO ---- */
+  .semaforo {
+    display: flex;
+    gap: 1rem;
+    margin: 1.2rem 0;
+    flex-wrap: wrap;
+  }
+  .semaforo-option {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .semaforo-option:hover {
+    transform: translateY(-3px);
+  }
+  .semaforo-option.selected {
+    border-width: 3px;
+    transform: scale(1.03);
+  }
+  .semaforo-option[data-color="green"].selected {
+    border-color: var(--success);
+    background: rgba(74, 222, 128, 0.1);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.25);
+  }
+  .semaforo-option[data-color="yellow"].selected {
+    border-color: var(--warning);
+    background: rgba(251, 191, 36, 0.1);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
+  }
+  .semaforo-option[data-color="red"].selected {
+    border-color: var(--error);
+    background: rgba(248, 113, 113, 0.1);
+    box-shadow: 0 0 20px rgba(248, 113, 113, 0.25);
+  }
+  .semaforo-option .sem-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+    display: block;
+  }
+  .semaforo-option[data-color="green"] .sem-circle { background: var(--success); }
+  .semaforo-option[data-color="yellow"] .sem-circle { background: var(--warning); }
+  .semaforo-option[data-color="red"] .sem-circle { background: var(--error); }
+  .semaforo-option .sem-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .semaforo-option[data-color="green"] .sem-label { color: var(--success); }
+  .semaforo-option[data-color="yellow"] .sem-label { color: var(--warning); }
+  .semaforo-option[data-color="red"] .sem-label { color: var(--error); }
+  .semaforo-option .sem-desc {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- ROLES ---- */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .role-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    transition: all 0.3s;
+    border-top: 4px solid var(--accent);
+  }
+  .role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.2);
+  }
+  .role-card .role-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .role-card .role-name {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .role-card .role-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- TABLAS ---- */
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.8rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  /* ---- DIAGNÓSTICO FINAL ---- */
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 {
+    margin-top: 0;
+    color: var(--accent);
+    text-align: center;
+  }
+  .diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .diagnostic-item {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .diagnostic-item .di-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    margin-bottom: 0.5rem;
+  }
+  .diagnostic-item .di-status {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+  .diagnostic-item .di-desc {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .diagnostic-item.green .di-desc { color: var(--success); }
+  .diagnostic-item.yellow .di-desc { color: var(--warning); }
+  .diagnostic-item.red .di-desc { color: var(--error); }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+
+  /* ---- ALERTA ROJA ---- */
+  .alert-red {
+    background: rgba(248, 113, 113, 0.1);
+    border: 2px solid var(--error);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    color: #fbc7c7;
+    font-weight: 500;
+  }
+  .alert-red strong { color: var(--error); }
+
+  /* ---- CHECKLIST ---- */
+  .checklist {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .checklist li {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    transition: all 0.2s;
+  }
+  .checklist li:hover {
+    border-color: var(--accent);
+  }
+  .checklist li .check-icon {
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+
+  /* ---- PROMPT BUILDER ---- */
+  .prompt-builder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .builder-block {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    transition: all 0.3s;
+  }
+  .builder-block.active {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .builder-block .bb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .builder-block .bb-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .builder-block .bb-icon {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: transform 0.3s;
+  }
+  .builder-block.active .bb-icon { transform: rotate(45deg); }
+  .builder-block .bb-options {
+    display: none;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+  .builder-block.active .bb-options { display: block; }
+  .builder-block .bb-option {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+    margin-bottom: 0.4rem;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  .builder-block .bb-option:hover {
+    background: var(--bg-soft);
+    border-color: var(--accent);
+  }
+  .builder-block .bb-option.selected {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .prompt-preview {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    margin: 1.5rem 0;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-main);
+    min-height: 100px;
+    position: relative;
+  }
+  .prompt-preview::before {
+    content: 'PROMPT CONSTRUIDO';
+    position: absolute;
+    top: -10px; left: 1rem;
+    background: var(--accent);
+    color: #0a1628;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+  .prompt-preview .pp-placeholder {
+    color: #6b8299;
+    font-style: italic;
+    font-family: var(--font);
+  }
+
+  /* ---- COMPARACIÓN DE PROMPTS ---- */
+  .prompt-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .prompt-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .prompt-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(240, 180, 41, 0.2);
+  }
+  .prompt-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .prompt-card .pcard-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .prompt-card .pcard-text {
+    font-size: 0.86rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .prompt-card .pcard-meta {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    margin-top: 0.8rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---- CONSECUENCIAS ---- */
+  .consequence-card {
+    background: rgba(96, 165, 250, 0.06);
+    border-left: 4px solid var(--info);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.3rem;
+    margin: 1rem 0;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    animation: fadeIn 0.4s ease;
+  }
+  .consequence-card strong { color: var(--info); }
+
+  /* ---- FUNCIONES DE IA ---- */
+  .functions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .function-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem;
+    transition: all 0.3s;
+    border-top: 4px solid var(--accent);
+  }
+  .function-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.2);
+  }
+  .function-card .fc-name {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .function-card .fc-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- AGENCIA ---- */
+  .agency-scale {
+    margin: 1.5rem 0;
+    padding: 1.5rem 1rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .agency-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  .agency-labels .left { color: var(--error); }
+  .agency-labels .right { color: var(--success); }
+  .agency-track {
+    position: relative;
+    height: 8px;
+    background: linear-gradient(90deg, var(--error), var(--warning), var(--success));
+    border-radius: 4px;
+    margin: 1.5rem 0;
+  }
+  .agency-points {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: -18px;
+  }
+  .agency-point {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-soft);
+  }
+  .agency-point:hover {
+    border-color: var(--accent);
+    transform: scale(1.15);
+  }
+  .agency-point.selected {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    transform: scale(1.25);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.4);
+  }
+  .agency-desc {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 1rem;
+  }
+
+  /* ---- PROGRESO ---- */
+  .lab-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.8rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+  }
+  .lab-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin: 0 1rem;
+    overflow: hidden;
+  }
+  .lab-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 4px;
+  }
+
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .semaforo { flex-direction: column; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .pulse { animation: pulse 1s infinite; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Diseña la interacción, no solo la pregunta</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta del laboratorio</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#proposito">Propósito</a></li>
+    <li><a href="#roles">Roles y regla</a></li>
+    <li><a href="#estacion1">Estación 1 · Diagnóstico</a></li>
+    <li><a href="#estacion2">Estación 2 · Anatomía</a></li>
+    <li><a href="#estacion3">Estación 3 · Construcción</a></li>
+    <li><a href="#estacion4">Estación 4 · Comparación</a></li>
+    <li><a href="#estacion5">Estación 5 · Función</a></li>
+    <li><a href="#estacion6">Estación 6 · Veredicto</a></li>
+    <li><a href="#diagnostico">Radar del diseño</a></li>
+    <li><a href="#cierre">Consigna de cierre</a></li>
+  </ul>
+</nav>
+
+<!-- TIMER FLOTANTE -->
+<div class="timer-box" id="timerBox">
+  <div class="timer-label">Tiempo restante</div>
+  <div class="timer-display" id="timerDisplay">50:00</div>
+  <div class="timer-controls">
+    <button class="timer-btn" id="timerStart">▶ Iniciar</button>
+    <button class="timer-btn" id="timerPause">⏸ Pausa</button>
+    <button class="timer-btn" id="timerReset">↻ Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Laboratorio individual · Diseño de prompts</span>
+    <h1>Diseña la interacción, no solo la pregunta</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Un buen prompt no es el más largo ni el más elaborado. Es el que reduce las ambigüedades relevantes
+      y conserva las decisiones que te corresponden como investigador. Este laboratorio te ayuda a diseñar
+      tus interacciones con IA para tus proyectos académicos.
+    </p>
+
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 50 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Prompt final personal y radar del diseño</p>
+      <p><strong>Insumo obligatorio:</strong> Un tema de investigación propio</p>
+    </div>
+
+    <div class="callout">
+      <strong>Resultado de aprendizaje:</strong> Diseñar interacciones con IA que especifiquen contexto, tarea,
+      información, restricciones, criterios y formato de salida, ajustando el nivel de delegación según el tipo
+      de decisión académica.
+    </div>
+
+    <div class="callout info">
+      <strong>Cómo funciona este laboratorio:</strong> Seis estaciones con tiempo asignado, semáforos de diagnóstico,
+      un constructor visual de prompts y un radar final del diseño. Usa el temporizador flotante para controlar el tiempo.
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnStartTimer">▶ Iniciar laboratorio (50 min)</button>
+    </div>
+  </section>
+
+  <!-- PROPÓSITO -->
+  <section id="proposito" class="reveal">
+    <h2>Propósito del laboratorio</h2>
+    <p>Diseñar interacciones con IA que sean <strong>específicas, verificables y que conserven tu agencia como investigador</strong>, mediante el análisis de cinco componentes:</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-num">Componente 1</div>
+        <div class="role-name">Contexto</div>
+        <div class="role-desc">¿Qué situación, rol y objetivo enmarcan la solicitud?</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Componente 2</div>
+        <div class="role-name">Tarea</div>
+        <div class="role-desc">¿Qué operación específica se solicita a la IA? (analizar, comparar, formular, criticar)</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Componente 3</div>
+        <div class="role-name">Restricciones</div>
+        <div class="role-desc">¿Qué no debe hacer? ¿Qué decisiones no queremos delegar?</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Componente 4</div>
+        <div class="role-name">Criterios</div>
+        <div class="role-desc">¿Cómo se evaluará la calidad de la respuesta?</div>
+      </div>
+      <div class="role-card" style="border-top-color: var(--info);">
+        <div class="role-num">Componente 5</div>
+        <div class="role-name">Formato de salida</div>
+        <div class="role-desc">¿Cómo debe presentarse la respuesta? (tabla, lista, preguntas, comparación)</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>¿ESTOY DISEÑANDO UNA INTERACCIÓN O SIMPLEMENTE PIDIÉNDOLE A LA IA QUE DECIDA POR MÍ?</p>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles" class="reveal">
+    <h2>Tu rol y la regla del laboratorio</h2>
+    <p>En esta versión individual, tú asumes simultáneamente cuatro funciones durante el laboratorio. Puedes alternar entre ellas según la estación:</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-num">Función 1</div>
+        <div class="role-name">🧭 Diseñador de contexto</div>
+        <div class="role-desc">Verificas que tu prompt proporcione suficiente información sobre la situación y el objetivo.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Función 2</div>
+        <div class="role-name">🔍 Auditor de tarea</div>
+        <div class="role-desc">Compruebas que la operación solicitada sea específica y no ambigua.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Función 3</div>
+        <div class="role-name">🛡️ Guardián de tu agencia</div>
+        <div class="role-desc">Detectas si tu prompt delega decisiones que tú deberías conservar.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Función 4</div>
+        <div class="role-name">📝 Relator de tu proceso</div>
+        <div class="role-desc">Registras tus ajustes y el prompt final que vas a conservar.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box error">
+      <p>NO BUSCAMOS EL PROMPT PERFECTO. BUSCAMOS REDUCIR LAS AMBIGÜEDADES RELEVANTES PARA TU TAREA.</p>
+    </div>
+
+    <div class="callout success">
+      Esta regla transforma el ejercicio de diseño en una experiencia de pensamiento crítico sobre tu propia delegación.
+    </div>
+
+    <!-- Progreso del laboratorio -->
+    <div class="lab-progress">
+      <span>Progreso del laboratorio</span>
+      <div class="lab-progress-bar">
+        <div class="lab-progress-fill" id="labProgressFill"></div>
+      </div>
+      <span id="labProgressText">0 / 6 estaciones</span>
+    </div>
+
+    <!-- Navegación de estaciones -->
+    <div class="stations-nav" id="stationsNav">
+      <button class="station-btn active" data-station="1">
+        <span class="st-num">Estación 1</span>
+        <span>Diagnóstico</span>
+        <span class="st-time">8 min</span>
+      </button>
+      <button class="station-btn" data-station="2">
+        <span class="st-num">Estación 2</span>
+        <span>Anatomía</span>
+        <span class="st-time">8 min</span>
+      </button>
+      <button class="station-btn" data-station="3">
+        <span class="st-num">Estación 3</span>
+        <span>Construcción</span>
+        <span class="st-time">12 min</span>
+      </button>
+      <button class="station-btn" data-station="4">
+        <span class="st-num">Estación 4</span>
+        <span>Comparación</span>
+        <span class="st-time">8 min</span>
+      </button>
+      <button class="station-btn" data-station="5">
+        <span class="st-num">Estación 5</span>
+        <span>Función</span>
+        <span class="st-time">8 min</span>
+      </button>
+      <button class="station-btn" data-station="6">
+        <span class="st-num">Estación 6</span>
+        <span>Veredicto</span>
+        <span class="st-time">6 min</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 1 -->
+  <section id="estacion1" class="reveal">
+    <h2>Estación 1 · Diagnóstico de tu prompt inicial</h2>
+    <p><strong>Tiempo: 8 minutos.</strong></p>
+
+    <div class="callout">
+      <strong>Reto:</strong> Sin consultar tus apuntes, escribe el prompt que le enviarías a la IA para avanzar en tu investigación.
+      Después lo analizaremos juntos.
+    </div>
+
+    <div class="response-field">
+      <label>Tu tema de investigación:</label>
+      <input type="text" class="response-input" id="e1-tema" placeholder="Ej.: Uso de redes sociales y autoestima en universitarios...">
+    </div>
+
+    <div class="response-field">
+      <label>Tu prompt inicial:</label>
+      <textarea class="response-input" id="e1-prompt" placeholder="Escribe el prompt que le enviarías a la IA..." style="min-height: 100px;"></textarea>
+    </div>
+
+    <h3>Diagnóstico estructural</h3>
+    <p>Revisa tu prompt y evalúa cada componente:</p>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Componente</th>
+          <th>¿Está en tu prompt?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Contexto (situación, rol, objetivo)</td>
+          <td>
+            <select class="response-input" id="e1-ctx" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Tarea (operación específica)</td>
+          <td>
+            <select class="response-input" id="e1-tar" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Información (texto o pregunta sobre la que trabajar)</td>
+          <td>
+            <select class="response-input" id="e1-inf" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Restricciones (qué no debe hacer)</td>
+          <td>
+            <select class="response-input" id="e1-res" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Criterios (cómo evaluar la respuesta)</td>
+          <td>
+            <select class="response-input" id="e1-cri" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Salida (formato esperado)</td>
+          <td>
+            <select class="response-input" id="e1-sal" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>El giro</h3>
+    <div class="callout warning">
+      <strong>Cada aspecto que no especificaste no desaparece necesariamente.</strong> Puede convertirse
+      en una decisión que dejas abierta al sistema. Si no defines qué significa "mejorar", "analizar" o "profundizar",
+      permites que la IA adopte algún criterio por ti.
+    </div>
+
+    <div class="response-field">
+      <label>¿Qué decisiones quedaron abiertas en tu prompt?</label>
+      <textarea class="response-input" id="e1-decisiones" placeholder="Las decisiones que no especifiqué fueron..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Versión mejorada del prompt (primera aproximación):</label>
+      <textarea class="response-input" id="e1-prompt-mejorado" placeholder="Mi versión mejorada sería..."></textarea>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 2 -->
+  <section id="estacion2" class="reveal">
+    <h2>Estación 2 · Anatomía de un prompt</h2>
+    <p><strong>Tiempo: 8 minutos.</strong> Aquí analizamos los componentes de un prompt bien construido.</p>
+
+    <p>Observa este prompt y clasifica cada fragmento según su función:</p>
+
+    <div class="card" style="font-size: 0.9rem; line-height: 1.7;">
+      "Soy estudiante de Psicología y estoy delimitando mi proyecto de investigación sobre uso de redes sociales
+      y autoestima. Analiza mi pregunta: '¿Cómo influyen las redes sociales en la autoestima de los jóvenes?'.
+      Examina delimitación de población, claridad conceptual y posibilidad de establecer causalidad.
+      No la reescribas todavía. Para cada dificultad identificada, explica por qué representa un problema
+      y formula una pregunta que me ayude a revisarla."
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Fragmento</th>
+          <th>Función</th>
+          <th>Diagnóstico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Soy estudiante de Psicología..."</td>
+          <td>Contexto</td>
+          <td>
+            <select class="response-input" id="e2-f1" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"Analiza mi pregunta"</td>
+          <td>Tarea</td>
+          <td>
+            <select class="response-input" id="e2-f2" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"¿Cómo influyen las redes sociales..."</td>
+          <td>Información</td>
+          <td>
+            <select class="response-input" id="e2-f3" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"No la reescribas todavía"</td>
+          <td>Restricción</td>
+          <td>
+            <select class="response-input" id="e2-f4" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"delimitación de población, claridad conceptual..."</td>
+          <td>Criterios</td>
+          <td>
+            <select class="response-input" id="e2-f5" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"Para cada dificultad... formula una pregunta"</td>
+          <td>Salida</td>
+          <td>
+            <select class="response-input" id="e2-f6" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Bien especificado</option>
+              <option value="yellow">🟡 Parcial</option>
+              <option value="red">🔴 Ausente</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>Aclaración:</strong> Un buen prompt no tiene que contener siempre los seis componentes.
+      Los utilizamos para identificar qué información es necesaria para esta tarea particular.
+      El objetivo no es maximizar el número de instrucciones, sino reducir las ambigüedades relevantes.
+    </div>
+
+    <div class="response-field">
+      <label>¿Qué componente sueles omitir con más frecuencia en tus prompts?</label>
+      <textarea class="response-input" id="e2-faltante" placeholder="El componente que más suelo omitir es..."></textarea>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 3 -->
+  <section id="estacion3" class="reveal">
+    <h2>Estación 3 · Construcción de tu prompt</h2>
+    <p><strong>Tiempo: 12 minutos.</strong> Este es el núcleo del laboratorio.</p>
+
+    <p>Activa los bloques que necesites para tu tarea. Tu prompt se construye visualmente mientras seleccionas opciones.</p>
+
+    <h3>Tu tema</h3>
+    <div class="response-field">
+      <input type="text" class="response-input" id="e3-tema" placeholder="Ej.: Uso de redes sociales y autoestima en universitarios...">
+    </div>
+
+    <h3>Constructor de prompt</h3>
+    <div class="prompt-builder" id="promptBuilder">
+      <div class="builder-block" data-block="contexto">
+        <div class="bb-header">
+          <span class="bb-title">Contexto</span>
+          <span class="bb-icon">+</span>
+        </div>
+        <div class="bb-options">
+          <button class="bb-option" data-value="explorando">Estoy explorando inicialmente un tema.</button>
+          <button class="bb-option" data-value="delimitando">Estoy delimitando una pregunta.</button>
+          <button class="bb-option" data-value="revisando">Estoy revisando un borrador.</button>
+          <button class="bb-option" data-value="evaluando">Quiero evaluar una decisión ya tomada.</button>
+          <button class="bb-option" data-value="metodologia">Estoy eligiendo una metodología.</button>
+        </div>
+      </div>
+
+      <div class="builder-block" data-block="tarea">
+        <div class="bb-header">
+          <span class="bb-title">Tarea</span>
+          <span class="bb-icon">+</span>
+        </div>
+        <div class="bb-options">
+          <button class="bb-option" data-value="explica">Explica.</button>
+          <button class="bb-option" data-value="compara">Compara.</button>
+          <button class="bb-option" data-value="identifica">Identifica problemas.</button>
+          <button class="bb-option" data-value="genera">Genera alternativas.</button>
+          <button class="bb-option" data-value="evalua">Evalúa.</button>
+          <button class="bb-option" data-value="formula">Formula preguntas.</button>
+        </div>
+      </div>
+
+      <div class="builder-block" data-block="restricciones">
+        <div class="bb-header">
+          <span class="bb-title">Restricciones</span>
+          <span class="bb-icon">+</span>
+        </div>
+        <div class="bb-options">
+          <button class="bb-option" data-value="no-reescribas">No reescribas mi texto.</button>
+          <button class="bb-option" data-value="no-soluciones">No propongas todavía soluciones.</button>
+          <button class="bb-option" data-value="no-decidas">No decidas entre alternativas por mí.</button>
+          <button class="bb-option" data-value="no-conceptos">No introduzcas nuevos conceptos sin explicarlos.</button>
+          <button class="bb-option" data-value="pregunta-si-falta">Si falta información, pregúntame.</button>
+          <button class="bb-option" data-value="senala-limites">Señala explícitamente lo que no puedas determinar.</button>
+        </div>
+      </div>
+
+      <div class="builder-block" data-block="criterios">
+        <div class="bb-header">
+          <span class="bb-title">Criterios</span>
+          <span class="bb-icon">+</span>
+        </div>
+        <div class="bb-options">
+          <button class="bb-option" data-value="claridad">Claridad conceptual.</button>
+          <button class="bb-option" data-value="delimitacion">Delimitación de población.</button>
+          <button class="bb-option" data-value="coherencia">Coherencia con la pregunta.</button>
+          <button class="bb-option" data-value="viabilidad">Viabilidad metodológica.</button>
+          <button class="bb-option" data-value="evidencia">Suficiencia de evidencia.</button>
+          <button class="bb-option" data-value="causalidad">Posibilidad de establecer causalidad.</button>
+        </div>
+      </div>
+
+      <div class="builder-block" data-block="salida">
+        <div class="bb-header">
+          <span class="bb-title">Salida</span>
+          <span class="bb-icon">+</span>
+        </div>
+        <div class="bb-options">
+          <button class="bb-option" data-value="tabla">Tabla comparativa.</button>
+          <button class="bb-option" data-value="lista">Lista argumentada.</button>
+          <button class="bb-option" data-value="preguntas">Preguntas para reflexionar.</button>
+          <button class="bb-option" data-value="observaciones">Observaciones por fragmento.</button>
+          <button class="bb-option" data-value="fortalezas">Fortalezas y dificultades.</button>
+        </div>
+      </div>
+
+      <div class="builder-block" data-block="rol">
+        <div class="bb-header">
+          <span class="bb-title">Rol de la IA</span>
+          <span class="bb-icon">+</span>
+        </div>
+        <div class="bb-options">
+          <button class="bb-option" data-value="exploradora">Exploradora: ayúdame a encontrar posibilidades.</button>
+          <button class="bb-option" data-value="espejo">Espejo: muéstrame qué interpretas de lo que he construido.</button>
+          <button class="bb-option" data-value="critica">Crítica: busca debilidades e inconsistencias.</button>
+          <button class="bb-option" data-value="interrogadora">Interrogadora: hazme preguntas para que yo piense.</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-preview" id="promptPreview">
+      <span class="pp-placeholder">El prompt construido aparecerá aquí mientras seleccionas bloques...</span>
+    </div>
+
+    <div class="response-field">
+      <label>¿Qué decisiones conservas tú como investigador?</label>
+      <textarea class="response-input" id="e3-decisiones" placeholder="Conservo la decisión sobre..."></textarea>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 4 -->
+  <section id="estacion4" class="reveal">
+    <h2>Estación 4 · Comparación de prompts</h2>
+    <p><strong>Tiempo: 8 minutos.</strong> Más largo no significa necesariamente mejor.</p>
+
+    <p>Aquí hay tres prompts. Selecciona cuál consideras mejor para la tarea de revisar una pregunta de investigación.</p>
+
+    <div class="prompt-compare" id="promptCompare">
+      <div class="prompt-card" data-value="A" tabindex="0" role="button">
+        <div class="pcard-label">Prompt A</div>
+        <div class="pcard-text">"Mejora mi pregunta de investigación."</div>
+        <div class="pcard-meta">7 palabras — sin contexto, sin criterios, sin restricciones</div>
+      </div>
+      <div class="prompt-card" data-value="B" tabindex="0" role="button">
+        <div class="pcard-label">Prompt B</div>
+        <div class="pcard-text">"Soy estudiante de Psicología delimitando mi proyecto. Analiza mi pregunta: '¿Cómo influyen las redes sociales en la autoestima de los jóvenes?'. Examina delimitación de población, claridad conceptual y posibilidad de causalidad. No la reescribas todavía. Para cada dificultad, explica por qué es un problema y formula una pregunta que me ayude a revisarla."</div>
+        <div class="pcard-meta">60 palabras — contexto, tarea, información, restricción, criterios, salida</div>
+      </div>
+      <div class="prompt-card" data-value="C" tabindex="0" role="button">
+        <div class="pcard-label">Prompt C</div>
+        <div class="pcard-text">"Debes ser absolutamente riguroso, extremadamente preciso, extraordinariamente crítico, completamente profesional, altamente académico, profundamente analítico y muy detallado. Mejora mi pregunta de investigación sobre redes sociales y autoestima. Analízala completamente. Sé exhaustivo. No omitas nada. Considera todos los aspectos posibles. Sé muy crítico. Dame la mejor versión posible."</div>
+        <div class="pcard-meta">65 palabras — muchas indicaciones genéricas, poca información específica</div>
+      </div>
+    </div>
+
+    <div id="promptCompareFeedback"></div>
+
+    <h3>Semáforo del prompt elegido</h3>
+    <div class="semaforo" data-field="e4-semaforo">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🟢 Verde</div>
+        <div class="sem-desc">Especifica suficiente información para reducir ambigüedades relevantes</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🟡 Amarillo</div>
+        <div class="sem-desc">Tiene algunos componentes pero deja decisiones abiertas</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🔴 Rojo</div>
+        <div class="sem-desc">Es ambiguo o redundante; la IA decidiría demasiado por mí</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 5 -->
+  <section id="estacion5" class="reveal">
+    <h2>Estación 5 · Función y agencia</h2>
+    <p><strong>Tiempo: 8 minutos.</strong> No todos los usos de IA delegan lo mismo.</p>
+
+    <h3>Cinco solicitudes, cinco funciones</h3>
+    <p>Marca qué función cumple cada solicitud:</p>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Solicitud</th>
+          <th>Función</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Escribe la justificación de mi investigación."</td>
+          <td>
+            <select class="response-input" id="e5-c1" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="exploradora">Exploradora</option>
+              <option value="espejo">Espejo</option>
+              <option value="critica">Crítica</option>
+              <option value="interrogadora">Interrogadora</option>
+              <option value="producto">Delega el producto completo</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"Señala qué afirmaciones de mi justificación todavía necesitan argumentación."</td>
+          <td>
+            <select class="response-input" id="e5-c2" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="exploradora">Exploradora</option>
+              <option value="espejo">Espejo</option>
+              <option value="critica">Crítica</option>
+              <option value="interrogadora">Interrogadora</option>
+              <option value="producto">Delega el producto completo</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"Resume qué entiendes que estoy intentando argumentar."</td>
+          <td>
+            <select class="response-input" id="e5-c3" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="exploradora">Exploradora</option>
+              <option value="espejo">Espejo</option>
+              <option value="critica">Crítica</option>
+              <option value="interrogadora">Interrogadora</option>
+              <option value="producto">Delega el producto completo</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"Formula cinco objeciones posibles a mi argumento."</td>
+          <td>
+            <select class="response-input" id="e5-c4" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="exploradora">Exploradora</option>
+              <option value="espejo">Espejo</option>
+              <option value="critica">Crítica</option>
+              <option value="interrogadora">Interrogadora</option>
+              <option value="producto">Delega el producto completo</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>"Formula preguntas que debería responder antes de decidir entre dos metodologías."</td>
+          <td>
+            <select class="response-input" id="e5-c5" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="exploradora">Exploradora</option>
+              <option value="espejo">Espejo</option>
+              <option value="critica">Crítica</option>
+              <option value="interrogadora">Interrogadora</option>
+              <option value="producto">Delega el producto completo</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>La pregunta decisiva</h3>
+    <p>Aquí hay dos prompts. ¿En cuál conservas mayor agencia como investigador?</p>
+
+    <div class="prompt-compare" id="agencyChoice" style="grid-template-columns: 1fr;">
+      <div class="prompt-card" data-value="A" tabindex="0" role="button">
+        <div class="pcard-label">Prompt A</div>
+        <div class="pcard-text">"Actúa como un experto investigador y decide cuál metodología debo utilizar."</div>
+      </div>
+      <div class="prompt-card" data-value="B" tabindex="0" role="button">
+        <div class="pcard-label">Prompt B</div>
+        <div class="pcard-text">"Compara las implicaciones de utilizar las metodologías A y B considerando mi pregunta. Señala ventajas y limitaciones, y formula tres preguntas que debería resolver antes de tomar la decisión. No selecciones una metodología por mí."</div>
+      </div>
+    </div>
+
+    <div id="agencyFeedback"></div>
+
+    <h3>Tu escala de agencia</h3>
+    <p>¿Qué papel le asignas con mayor frecuencia a la IA en tus prompts?</p>
+
+    <div class="agency-scale">
+      <div class="agency-labels">
+        <span class="left">DELEGACIÓN</span>
+        <span class="right">COLABORACIÓN</span>
+      </div>
+      <div class="agency-track"></div>
+      <div class="agency-points" id="agencyPoints">
+        <div class="agency-point" data-value="1" tabindex="0" role="button">1</div>
+        <div class="agency-point" data-value="2" tabindex="0" role="button">2</div>
+        <div class="agency-point" data-value="3" tabindex="0" role="button">3</div>
+        <div class="agency-point" data-value="4" tabindex="0" role="button">4</div>
+        <div class="agency-point" data-value="5" tabindex="0" role="button">5</div>
+      </div>
+      <div class="agency-desc">
+        <span>IA decide</span>
+        <span>Yo decido</span>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>No toda delegación es mala.</strong> Pedir "organiza estas referencias alfabéticamente" puede delegarse
+      razonablemente. La pregunta es: ¿qué tipo de tarea estoy delegando y qué consecuencias tiene equivocarme?
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 6 -->
+  <section id="estacion6" class="reveal">
+    <h2>Estación 6 · El veredicto</h2>
+    <p><strong>Tiempo: 6 minutos.</strong> Evalúa tu prompt final con la rúbrica del laboratorio.</p>
+
+    <h3>Matriz de autoevaluación del prompt</h3>
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Diagnóstico</th>
+          <th>Evidencia encontrada</th>
+          <th>Ajuste requerido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Contexto</td>
+          <td>
+            <select class="response-input" id="e6-ctx-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e6-ctx-ev" placeholder="¿Qué demuestra mi nivel?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e6-ctx-aj" placeholder="¿Qué debo modificar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Tarea</td>
+          <td>
+            <select class="response-input" id="e6-tar-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e6-tar-ev" placeholder="¿Dónde se observa la especificidad?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e6-tar-aj" placeholder="¿Qué debo modificar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Restricciones</td>
+          <td>
+            <select class="response-input" id="e6-res-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e6-res-ev" placeholder="¿Qué decisiones no delego?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e6-res-aj" placeholder="¿Qué límites debo agregar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Criterios</td>
+          <td>
+            <select class="response-input" id="e6-cri-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e6-cri-ev" placeholder="¿Cómo evaluaré la respuesta?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e6-cri-aj" placeholder="¿Qué criterios faltan?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Salida</td>
+          <td>
+            <select class="response-input" id="e6-sal-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e6-sal-ev" placeholder="¿Cómo quiero que se presente?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e6-sal-aj" placeholder="¿Qué formato falta especificar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Metacognición y transferencia</h3>
+
+    <div class="response-field">
+      <label>Pregunta 1 · ¿Cuál es la mayor fortaleza de tu prompt y qué evidencia permite afirmarlo?</label>
+      <textarea class="response-input" id="e6-p1" placeholder="Mi mayor fortaleza es... y lo afirmo porque..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Pregunta 2 · ¿Cuál es la decisión más importante que conservas como investigador?</label>
+      <textarea class="response-input" id="e6-p2" placeholder="La decisión más importante que conservo es..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Pregunta 3 · Si tuvieras que reescribir el prompt, ¿qué cambiarías y por qué?</label>
+      <textarea class="response-input" id="e6-p3" placeholder="Si reescribiera el prompt, cambiaría X porque..."></textarea>
+    </div>
+  </section>
+
+  <!-- DIAGNÓSTICO FINAL -->
+  <section id="diagnostico" class="reveal">
+    <h2>Radar del diseño de prompts</h2>
+    <p>Con base en los semáforos de las estaciones anteriores, se genera tu radar del diseño.</p>
+
+    <div class="diagnostic-box">
+      <h3>Estado actual de tu diseño</h3>
+
+      <div class="diagnostic-grid" id="diagnosticGrid">
+        <div class="diagnostic-item" id="diag-contexto">
+          <div class="di-label">Contexto</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-anatomia">
+          <div class="di-label">Anatomía</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-construccion">
+          <div class="di-label">Construcción</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-comparacion">
+          <div class="di-label">Comparación</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-agencia">
+          <div class="di-label">Agencia</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-veredicto">
+          <div class="di-label">Veredicto</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+      </div>
+
+      <div id="diagnosticVerdict"></div>
+
+      <h4>Tu prompt final</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-prompt-final" placeholder="Escribe aquí el prompt final que vas a conservar..." style="min-height: 120px;"></textarea>
+      </div>
+
+      <h4>Hallazgo más importante</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-hallazgo" placeholder="La principal fortaleza o debilidad que identifiqué es..."></textarea>
+      </div>
+
+      <h4>Evidencia</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-evidencia" placeholder="Lo afirmo porque en mi prompt..."></textarea>
+      </div>
+
+      <h4>Decisión</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-decision" placeholder="Por lo anterior, modificaré..."></textarea>
+      </div>
+
+      <h4>Consecuencia</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-consecuencia" placeholder="Este cambio implica revisar también..."></textarea>
+      </div>
+
+      <h4>Prioridades (solo tres compromisos en orden)</h4>
+      <div class="response-field">
+        <label>Prioridad 1:</label>
+        <input type="text" class="response-input" id="diag-p1" placeholder="Acción 1">
+      </div>
+      <div class="response-field">
+        <label>Prioridad 2:</label>
+        <input type="text" class="response-input" id="diag-p2" placeholder="Acción 2">
+      </div>
+      <div class="response-field">
+        <label>Prioridad 3:</label>
+        <input type="text" class="response-input" id="diag-p3" placeholder="Acción 3">
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGenerarDiagnostico">🔄 Generar diagnóstico</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir / Guardar PDF</button>
+      <button class="btn btn-outline" id="btnReiniciarTodo">↻ Reiniciar todo</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" class="reveal">
+    <h2>Consigna de cierre</h2>
+
+    <div class="highlight-box warning">
+      <p>¿ESTÁ LISTO TU PROMPT?</p>
+    </div>
+
+    <p style="text-align: center; font-size: 1.1rem; color: var(--accent); font-weight: 600;">No respondas todavía. Demuéstralo.</p>
+
+    <ul class="checklist">
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Especificaste suficiente contexto para que la IA comprenda tu situación?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿La tarea solicitada es específica y no ambigua?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Indicaste qué decisiones no quieres delegar?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Definiste cómo evaluarás la calidad de la respuesta?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Especificaste el formato de salida que necesitas?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Conservas la agencia sobre las decisiones que te corresponden como investigador?</span>
+      </li>
+    </ul>
+
+    <div class="highlight-box success">
+      <p>UN PROMPT NO ES MEJOR POR SER MÁS LARGO. ES MEJOR CUANDO REDUCE LAS AMBIGÜEDADES RELEVANTES Y CONSERVA TU AGENCIA.</p>
+    </div>
+
+    <div class="highlight-box">
+      <p>EL PROMPT NO EMPIEZA ESCRIBIENDO. EMPIEZA DECIDIENDO.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Diseña la interacción, no solo la pregunta</strong> · Laboratorio individual de prompts para proyectos académicos</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============ BARRA DE PROGRESO ============ */
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  /* ============ SCROLL REVEAL ============ */
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============ TIMER ============ */
+  let timerSeconds = 50 * 60;
+  let timerInterval = null;
+  let timerRunning = false;
+
+  const timerBox = document.getElementById('timerBox');
+  const timerDisplay = document.getElementById('timerDisplay');
+
+  function updateTimerDisplay() {
+    const min = Math.floor(timerSeconds / 60);
+    const sec = timerSeconds % 60;
+    timerDisplay.textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+
+    timerDisplay.classList.remove('warning', 'danger');
+    if (timerSeconds <= 300) {
+      timerDisplay.classList.add('danger');
+    } else if (timerSeconds <= 900) {
+      timerDisplay.classList.add('warning');
+    }
+
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerDisplay.textContent = '00:00';
+      timerDisplay.classList.add('danger');
+    }
+  }
+
+  function startTimer() {
+    if (timerRunning) return;
+    timerRunning = true;
+    timerBox.classList.add('show');
+    timerInterval = setInterval(() => {
+      if (timerSeconds > 0) {
+        timerSeconds--;
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    timerSeconds = 50 * 60;
+    updateTimerDisplay();
+  }
+
+  document.getElementById('timerStart').addEventListener('click', startTimer);
+  document.getElementById('timerPause').addEventListener('click', pauseTimer);
+  document.getElementById('timerReset').addEventListener('click', resetTimer);
+  document.getElementById('btnStartTimer').addEventListener('click', function() {
+    startTimer();
+    this.textContent = '⏱️ Laboratorio en curso...';
+    this.disabled = true;
+    this.style.opacity = '0.6';
+  });
+
+  updateTimerDisplay();
+
+  /* ============ NAVEGACIÓN DE ESTACIONES ============ */
+  const stationBtns = document.querySelectorAll('.station-btn');
+  const stationSections = {
+    1: document.getElementById('estacion1'),
+    2: document.getElementById('estacion2'),
+    3: document.getElementById('estacion3'),
+    4: document.getElementById('estacion4'),
+    5: document.getElementById('estacion5'),
+    6: document.getElementById('estacion6')
+  };
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const station = this.dataset.station;
+      stationBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      if (stationSections[station]) {
+        stationSections[station].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  const stationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const stationNum = id.replace('estacion', '');
+        stationBtns.forEach(b => {
+          b.classList.toggle('active', b.dataset.station === stationNum);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  Object.values(stationSections).forEach(s => {
+    if (s) stationObserver.observe(s);
+  });
+
+  /* ============ SEMÁFOROS ============ */
+  document.querySelectorAll('.semaforo').forEach(semaforo => {
+    const options = semaforo.querySelectorAll('.semaforo-option');
+    options.forEach(opt => {
+      opt.addEventListener('click', function() {
+        options.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        updateDiagnostic();
+        updateLabProgress();
+      });
+    });
+  });
+
+  /* ============ PROMPT BUILDER ============ */
+  const builderBlocks = document.querySelectorAll('.builder-block');
+  const promptPreview = document.getElementById('promptPreview');
+
+  builderBlocks.forEach(block => {
+    const header = block.querySelector('.bb-header');
+    header.addEventListener('click', function() {
+      block.classList.toggle('active');
+    });
+
+    const options = block.querySelectorAll('.bb-option');
+    options.forEach(opt => {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        options.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        updatePromptPreview();
+      });
+    });
+  });
+
+  function updatePromptPreview() {
+    const labels = {
+      contexto: 'Contexto',
+      tarea: 'Tarea',
+      restricciones: 'Restricciones',
+      criterios: 'Criterios',
+      salida: 'Salida',
+      rol: 'Rol de la IA'
+    };
+
+    const parts = [];
+    builderBlocks.forEach(block => {
+      const blockName = block.dataset.block;
+      const selected = block.querySelector('.bb-option.selected');
+      if (selected) {
+        parts.push(`<strong style="color: var(--accent);">${labels[blockName]}:</strong> ${selected.textContent}`);
+      }
+    });
+
+    if (parts.length > 0) {
+      promptPreview.innerHTML = parts.join('<br><br>');
+      updateLabProgress();
+    } else {
+      promptPreview.innerHTML = '<span class="pp-placeholder">El prompt construido aparecerá aquí mientras seleccionas bloques...</span>';
+    }
+  }
+
+  /* ============ COMPARACIÓN DE PROMPTS ============ */
+  const promptCompare = document.querySelectorAll('#promptCompare .prompt-card');
+  const promptCompareFeedback = document.getElementById('promptCompareFeedback');
+
+  const compareMessages = {
+    'A': '<div class="consequence-card"><strong>Prompt A:</strong> Es demasiado vago. "Mejora" no dice qué significa mejorar: ¿más específica, más corta, más viable, más académica? Todas las decisiones quedan delegadas a la IA.</div>',
+    'B': '<div class="consequence-card"><strong>Prompt B:</strong> Es el mejor construido. Proporciona contexto, tarea específica, información, restricción clara y criterios explícitos. La extensión es suficiente sin ser redundante.</div>',
+    'C': '<div class="consequence-card"><strong>Prompt C:</strong> Es el más largo, pero no el mejor. Contiene muchas indicaciones genéricas ("sé riguroso", "sé crítico") que no aportan información específica sobre la tarea. El propósito no es maximizar el número de instrucciones, sino reducir las ambigüedades relevantes.</div>'
+  };
+
+  promptCompare.forEach(card => {
+    card.addEventListener('click', function() {
+      promptCompare.forEach(c => c.classList.remove('selected'));
+      this.classList.add('selected');
+      promptCompareFeedback.innerHTML = compareMessages[this.dataset.value] || '';
+      document.querySelectorAll('[data-field="e4-semaforo"] .semaforo-option').forEach(o => o.classList.remove('selected'));
+      if (this.dataset.value === 'B') {
+        document.querySelector('[data-field="e4-semaforo"] .semaforo-option[data-color="green"]').classList.add('selected');
+      } else if (this.dataset.value === 'C') {
+        document.querySelector('[data-field="e4-semaforo"] .semaforo-option[data-color="yellow"]').classList.add('selected');
+      } else {
+        document.querySelector('[data-field="e4-semaforo"] .semaforo-option[data-color="red"]').classList.add('selected');
+      }
+      updateLabProgress();
+      updateDiagnostic();
+    });
+  });
+
+  /* ============ AGENCIA ============ */
+  const agencyCards = document.querySelectorAll('#agencyChoice .prompt-card');
+  const agencyFeedback = document.getElementById('agencyFeedback');
+
+  agencyCards.forEach(card => {
+    card.addEventListener('click', function() {
+      agencyCards.forEach(c => c.classList.remove('selected'));
+      this.classList.add('selected');
+      if (this.dataset.value === 'A') {
+        agencyFeedback.innerHTML = '<div class="consequence-card"><strong>Prompt A:</strong> Delega la decisión metodológica completa. La IA decide por ti. No conservas agencia sobre una decisión central de tu investigación.</div>';
+      } else {
+        agencyFeedback.innerHTML = '<div class="consequence-card"><strong>Prompt B:</strong> Conserva la agencia. La IA compara, señala ventajas y limitaciones, y formula preguntas para que tú decidas. La decisión metodológica sigue siendo tuya.</div>';
+      }
+    });
+  });
+
+  const agencyPoints = document.querySelectorAll('#agencyPoints .agency-point');
+  agencyPoints.forEach(p => {
+    p.addEventListener('click', function() {
+      agencyPoints.forEach(x => x.classList.remove('selected'));
+      this.classList.add('selected');
+      updateLabProgress();
+      updateDiagnostic();
+    });
+    p.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+
+  /* ============ PROGRESO DEL LABORATORIO ============ */
+  function updateLabProgress() {
+    const checks = [
+      document.querySelector('[data-field="e1-contexto"] .semaforo-option.selected') || document.getElementById('e1-ctx')?.value,
+      document.getElementById('e2-f1')?.value,
+      Array.from(builderBlocks).some(b => b.querySelector('.bb-option.selected')),
+      document.querySelector('[data-field="e4-semaforo"] .semaforo-option.selected'),
+      document.querySelector('#agencyPoints .agency-point.selected'),
+      document.getElementById('e6-ctx-diag')?.value
+    ];
+    const completed = checks.filter(Boolean).length;
+    const pct = (completed / 6) * 100;
+    document.getElementById('labProgressFill').style.width = pct + '%';
+    document.getElementById('labProgressText').textContent = `${completed} / 6 estaciones`;
+  }
+
+  /* ============ DIAGNÓSTICO ============ */
+  function getSemaforoValue(fieldName) {
+    const semaforo = document.querySelector(`[data-field="${fieldName}"]`);
+    if (!semaforo) return null;
+    const selected = semaforo.querySelector('.semaforo-option.selected');
+    if (!selected) return null;
+    return selected.dataset.color;
+  }
+
+  function updateDiagnostic() {
+    // Contexto
+    const ctxValue = document.getElementById('e1-ctx')?.value;
+    setDiagnosticItem(document.getElementById('diag-contexto'), ctxValue);
+
+    // Anatomía
+    const anatFields = ['e2-f1','e2-f2','e2-f3','e2-f4','e2-f5','e2-f6'];
+    const anatValues = anatFields.map(f => document.getElementById(f)?.value).filter(Boolean);
+    const anatGreen = anatValues.filter(v => v === 'green').length;
+    setDiagnosticItem(document.getElementById('diag-anatomia'), anatGreen >= 4 ? 'green' : anatGreen >= 2 ? 'yellow' : anatValues.length > 0 ? 'red' : null);
+
+    // Construcción
+    const builderCompleted = Array.from(builderBlocks).filter(b => b.querySelector('.bb-option.selected')).length;
+    setDiagnosticItem(document.getElementById('diag-construccion'), builderCompleted >= 5 ? 'green' : builderCompleted >= 3 ? 'yellow' : builderCompleted > 0 ? 'red' : null);
+
+    // Comparación
+    setDiagnosticItem(document.getElementById('diag-comparacion'), getSemaforoValue('e4-semaforo'));
+
+    // Agencia
+    const agencySelected = document.querySelector('#agencyPoints .agency-point.selected');
+    if (agencySelected) {
+      const val = parseInt(agencySelected.dataset.value);
+      setDiagnosticItem(document.getElementById('diag-agencia'), val >= 4 ? 'green' : val >= 3 ? 'yellow' : 'red');
+    } else {
+      setDiagnosticItem(document.getElementById('diag-agencia'), null);
+    }
+
+    // Veredicto
+    const verdictValues = ['e6-ctx-diag','e6-tar-diag','e6-res-diag','e6-cri-diag','e6-sal-diag'].map(f => document.getElementById(f)?.value).filter(Boolean);
+    const verdictGreen = verdictValues.filter(v => v === 'green').length;
+    const verdictRed = verdictValues.filter(v => v === 'red').length;
+    setDiagnosticItem(document.getElementById('diag-veredicto'), verdictRed > 0 ? 'red' : verdictGreen >= 4 ? 'green' : verdictValues.length > 0 ? 'yellow' : null);
+
+    updateVerdict();
+  }
+
+  function setDiagnosticItem(item, color) {
+    if (!item) return;
+    const statusEl = item.querySelector('.di-status');
+    const descEl = item.querySelector('.di-desc');
+    item.classList.remove('green', 'yellow', 'red');
+
+    if (color === 'green') {
+      item.classList.add('green');
+      statusEl.textContent = '🟢';
+      descEl.textContent = 'Verde: bien diseñado';
+    } else if (color === 'yellow') {
+      item.classList.add('yellow');
+      statusEl.textContent = '🟡';
+      descEl.textContent = 'Amarillo: revisar';
+    } else if (color === 'red') {
+      item.classList.add('red');
+      statusEl.textContent = '🔴';
+      descEl.textContent = 'Rojo: requiere rediseño';
+    } else {
+      statusEl.textContent = '—';
+      descEl.textContent = 'Sin evaluar';
+    }
+  }
+
+  function updateVerdict() {
+    const verdict = document.getElementById('diagnosticVerdict');
+    if (!verdict) return;
+
+    const items = ['diag-contexto','diag-anatomia','diag-construccion','diag-comparacion','diag-agencia','diag-veredicto'];
+    const colors = items.map(id => {
+      const el = document.getElementById(id);
+      if (el.classList.contains('green')) return 'green';
+      if (el.classList.contains('yellow')) return 'yellow';
+      if (el.classList.contains('red')) return 'red';
+      return null;
+    });
+
+    const greenCount = colors.filter(c => c === 'green').length;
+    const redCount = colors.filter(c => c === 'red').length;
+    const evaluated = colors.filter(Boolean).length;
+
+    if (evaluated < 3) {
+      verdict.innerHTML = '<div class="callout info">Completa al menos 3 componentes para generar tu veredicto.</div>';
+    } else if (redCount >= 2) {
+      verdict.innerHTML = '<div class="alert-red"><strong>⚠️ REDISEÑO NECESARIO:</strong> Varios componentes están en rojo. Tu prompt deja demasiadas decisiones a la IA o no proporciona información suficiente para reducir ambigüedades. Vuelve al constructor y agrega contexto, criterios y restricciones.</div>';
+    } else if (greenCount >= 4) {
+      verdict.innerHTML = '<div class="highlight-box success" style="margin: 1.5rem 0;"><p>🟢 PROMPT BIEN DISEÑADO — Listo para enviar</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box warning" style="margin: 1.5rem 0;"><p>🟡 PROMPT EN REVISIÓN — Ajustar antes de enviar</p></div>';
+    }
+  }
+
+  document.getElementById('btnGenerarDiagnostico').addEventListener('click', function() {
+    updateDiagnostic();
+    document.getElementById('diagnosticGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  /* ============ ESCUCHAR CAMBIOS ============ */
+  document.querySelectorAll('select, input, textarea').forEach(el => {
+    el.addEventListener('change', () => {
+      updateLabProgress();
+      updateDiagnostic();
+    });
+    el.addEventListener('input', () => {
+      updateLabProgress();
+      updateDiagnostic();
+    });
+  });
+
+  /* ============ IMPRIMIR ============ */
+  document.getElementById('btnImprimir').addEventListener('click', function() {
+    window.print();
+  });
+
+  /* ============ REINICIAR ============ */
+  document.getElementById('btnReiniciarTodo').addEventListener('click', function() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus respuestas.')) return;
+
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+    document.querySelectorAll('.semaforo-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.bb-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.prompt-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.agency-point').forEach(p => p.classList.remove('selected'));
+    document.querySelectorAll('.builder-block').forEach(b => b.classList.remove('active'));
+    document.getElementById('promptPreview').innerHTML = '<span class="pp-placeholder">El prompt construido aparecerá aquí mientras seleccionas bloques...</span>';
+    document.getElementById('promptCompareFeedback').innerHTML = '';
+    document.getElementById('agencyFeedback').innerHTML = '';
+    document.getElementById('diagnosticVerdict').innerHTML = '';
+
+    resetTimer();
+    updateLabProgress();
+    updateDiagnostic();
+
+    document.getElementById('btnStartTimer').textContent = '▶ Iniciar laboratorio (50 min)';
+    document.getElementById('btnStartTimer').disabled = false;
+    document.getElementById('btnStartTimer').style.opacity = '1';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ============ INICIALIZACIÓN ============ */
+  updateLabProgress();
+  updateDiagnostic();
+
+  ['e6-ctx-diag','e6-tar-diag','e6-res-diag','e6-cri-diag','e6-sal-diag'].forEach(id => {
+    document.getElementById(id).addEventListener('change', updateDiagnostic);
+  });
+
+})();
+</script>
+</body>
+</html>
