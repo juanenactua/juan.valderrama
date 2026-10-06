@@ -254,6 +254,49 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Diseña la interacción, no solo la pregunta",
+    "descripcion": "Laboratorio individual de 50 minutos para diseñar prompts académicos con contexto, tarea, restricciones, criterios y formato de salida, evaluando ambigüedad, función de la IA y agencia del estudiante.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/disena-la-interaccion-laboratorio-prompts.html",
+    "etiquetas": [
+      "Diseño de prompts",
+      "Prompting",
+      "Inteligencia artificial",
+      "IA generativa",
+      "Agencia",
+      "Pensamiento crítico",
+      "Metacognición",
+      "Contexto",
+      "Restricciones",
+      "Criterios",
+      "Formato de salida",
+      "Investigación académica"
+    ],
+    "curso": "Herramientas Digitales",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Diseño de prompts para proyectos académicos y de investigación",
+    "descripcion": "Tutoría sobre diseño de prompts como diseño de interacción con IA: subespecificación, anatomía del prompt, restricciones, criterios, prompting iterativo, operaciones cognitivas y distribución de decisiones.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/diseno-de-prompts-presentacion.html",
+    "etiquetas": [
+      "Diseño de prompts",
+      "Prompting",
+      "Inteligencia artificial",
+      "IA generativa",
+      "Interacción humano-IA",
+      "Subespecificación",
+      "Pensamiento crítico",
+      "Metacognición",
+      "Agencia",
+      "Alfabetización en IA",
+      "Investigación académica"
+    ],
+    "curso": "Herramientas Digitales",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Diseño metodológico",
     "descripcion": "Recurso interactivo para comprender el diseño metodológico como arquitectura de una investigación y diferenciar diseños cuantitativos y cualitativos.",
     "tipo": "Artefacto interactivo",
