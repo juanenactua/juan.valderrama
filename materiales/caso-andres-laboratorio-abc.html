@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caso Andrés · Laboratorio ABC interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Caso Andrés: laboratorio ABC interactivo">
+<meta name="jc-descripcion" content="Laboratorio grupal sobre el modelo ABC a partir del caso Andrés, con clasificación de acontecimientos, creencias y consecuencias, experimento contrafactual, transferencia, debate y autoevaluación.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Modelo ABC, Albert Ellis, Creencias irracionales, Acontecimiento activador, Consecuencias emocionales, Conducta, Debate, Reestructuración cognitiva, Transferencia conceptual, Terapias cognitivas">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1200px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 245px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1250px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1250px) {
+    main { margin-left: 265px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+
+  /* ---- BOTONES DE ETAPA ---- */
+  .phase-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8rem;
+    margin: 1.8rem 0;
+  }
+  .phase-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: left;
+    position: relative;
+  }
+  .phase-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.2);
+  }
+  .phase-btn.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.4);
+  }
+  .phase-btn .phase-num {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.3rem;
+  }
+  .phase-btn .phase-name {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  /* ---- REVELACIÓN DE ETAPAS ---- */
+  .phase-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .phase-content.active { display: block; }
+
+  /* ---- CASO: TEXTO REVELADO POR ETAPAS ---- */
+  .case-text {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.5rem 0;
+    line-height: 1.8;
+    font-size: 1.02rem;
+  }
+  .case-text p {
+    margin-bottom: 1rem;
+    color: var(--text-main);
+  }
+  .case-text p:last-child { margin-bottom: 0; }
+  .case-text .highlight {
+    background: rgba(240, 180, 41, 0.15);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ---- TARJETAS ARRASTRABLES ---- */
+  .lab-container {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 1.5rem;
+    margin: 1.8rem 0;
+  }
+  @media (max-width: 900px) {
+    .lab-container { grid-template-columns: 1fr; }
+  }
+
+  .card-pool {
+    background: var(--bg-mid);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    min-height: 400px;
+  }
+  .card-pool h4 {
+    margin-top: 0;
+    text-align: center;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+
+  .abc-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 700px) {
+    .abc-columns { grid-template-columns: 1fr; }
+  }
+
+  .abc-column {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    min-height: 300px;
+    transition: all 0.3s;
+  }
+  .abc-column.drag-over {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.3);
+  }
+  .abc-column[data-abc="A"] { border-top: 5px solid var(--info); }
+  .abc-column[data-abc="B"] { border-top: 5px solid var(--accent); }
+  .abc-column[data-abc="C"] { border-top: 5px solid var(--rose); }
+  .abc-column .col-header {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .abc-column[data-abc="A"] .col-header { color: var(--info); }
+  .abc-column[data-abc="B"] .col-header { color: var(--accent); }
+  .abc-column[data-abc="C"] .col-header { color: var(--rose); }
+
+  .drag-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.88rem;
+    cursor: grab;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .drag-card:hover {
+    background: var(--bg-mid);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  .drag-card:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+  }
+  .drag-card.correct {
+    border-color: var(--success);
+    background: rgba(74, 222, 128, 0.1);
+  }
+  .drag-card.incorrect {
+    border-color: var(--error);
+    background: rgba(248, 113, 113, 0.1);
+  }
+  .drag-card .card-source {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    margin-top: 0.3rem;
+    font-style: italic;
+  }
+
+  .lab-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+    justify-content: center;
+  }
+
+  /* ---- CONTRAFACTUAL ---- */
+  .counterfactual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) {
+    .counterfactual-grid { grid-template-columns: 1fr; }
+  }
+  .andres-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.3s;
+  }
+  .andres-card:hover {
+    transform: translateY(-4px);
+  }
+  .andres-card.original { border-top: 5px solid var(--error); }
+  .andres-card.alt1 { border-top: 5px solid var(--info); }
+  .andres-card.alt2 { border-top: 5px solid var(--success); }
+  .andres-card.alt3 { border-top: 5px solid var(--violet); }
+  .andres-card .andres-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .andres-card.original .andres-name { color: var(--error); }
+  .andres-card.alt1 .andres-name { color: var(--info); }
+  .andres-card.alt2 .andres-name { color: var(--success); }
+  .andres-card.alt3 .andres-name { color: var(--violet); }
+  .andres-card .andres-thought {
+    font-style: italic;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-size: 0.92rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-main);
+  }
+  .andres-card .andres-prediction {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  .andres-card .andres-prediction strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ---- TRANSFERENCIA ---- */
+  .transfer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .transfer-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .transfer-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.2);
+  }
+  .transfer-card .transfer-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .transfer-card .transfer-title {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+  .transfer-card .transfer-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+  .transfer-detail {
+    margin-top: 1.5rem;
+    padding: 1.4rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .transfer-detail.show { display: block; }
+  .transfer-detail h4 {
+    margin-top: 0;
+  }
+
+  /* ---- DEBATE D ---- */
+  .debate-questions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .debate-q {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    border-left: 4px solid var(--accent);
+    transition: all 0.3s;
+  }
+  .debate-q:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.15);
+  }
+  .debate-q .dq-type {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .debate-q .dq-question {
+    font-size: 0.92rem;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  /* ---- MAPA FINAL ---- */
+  .final-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.8rem 0;
+    padding: 1.8rem;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .fm-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    text-align: center;
+    min-width: 240px;
+  }
+  .fm-box.highlight {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .fm-box.success {
+    background: var(--success);
+    color: #0a1628;
+    border-color: var(--success);
+  }
+  .fm-arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  /* ---- PREGUNTAS ---- */
+  .question-block {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.6rem;
+    box-shadow: var(--shadow);
+  }
+  .question-block .q-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 30px;
+    margin-bottom: 0.8rem;
+  }
+  .q-tag.open { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+  .q-tag.closed { background: var(--accent-soft); color: var(--accent); }
+
+  .question-block p.q-text {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+  .q-options { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+  .q-option {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+  .q-option:hover { background: var(--bg-soft); border-color: var(--accent); }
+  .q-option input { margin-top: 0.3rem; accent-color: var(--accent); }
+  .q-option.selected-correct { border-color: var(--success); background: rgba(74, 222, 128, 0.1); }
+  .q-option.selected-incorrect { border-color: var(--error); background: rgba(248, 113, 113, 0.1); }
+
+  .open-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .open-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .open-textarea::placeholder { color: #6b8299; }
+
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    margin-top: 0.7rem;
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .feedback-box {
+    margin-top: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback-box.show { display: block; animation: fadeIn 0.4s ease; }
+  .feedback-box.correct { background: rgba(74, 222, 128, 0.12); border-left: 4px solid var(--success); color: #b9f5cc; }
+  .feedback-box.incorrect { background: rgba(248, 113, 113, 0.12); border-left: 4px solid var(--error); color: #fbc7c7; }
+  .feedback-box.model { background: rgba(240, 180, 41, 0.1); border-left: 4px solid var(--accent); color: var(--text-main); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.15), rgba(240, 180, 41, 0.05));
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    display: none;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .result-message.show { display: block; animation: fadeIn 0.5s ease; }
+  .result-message .score { font-size: 2rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.3rem; }
+
+  .ref-list { list-style: none; margin-left: 0; }
+  .ref-list li {
+    margin-bottom: 0.9rem;
+    padding-left: 1.8rem;
+    text-indent: -1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+  }
+
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .counterfactual-grid { grid-template-columns: 1fr; }
+    .debate-questions { grid-template-columns: 1fr; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(240, 180, 41, 0); }
+    50% { box-shadow: 0 0 24px rgba(240, 180, 41, 0.5); }
+  }
+  .pulse { animation: pulse 2s infinite; }
+
+  /* ---- EVALUACIÓN ---- */
+  .rubric-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.92rem;
+  }
+  .rubric-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.9rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rubric-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+  }
+  .rubric-table tr:last-child td { border-bottom: none; }
+  .rubric-table tr:hover td { background: var(--bg-soft); }
+  .rubric-table td:first-child { font-weight: 600; color: var(--accent); }
+  .rubric-table td:last-child { text-align: right; font-weight: 700; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Caso Andrés · Laboratorio ABC interactivo</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta del laboratorio</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#proposito">Propósito didáctico</a></li>
+    <li><a href="#caso">1. El caso Andrés</a></li>
+    <li><a href="#fase1">Fase 1 · Reconstruyan el caso</a></li>
+    <li><a href="#fase2">Fase 2 · Desafío de roles</a></li>
+    <li><a href="#fase3">Fase 3 · Contrafactual</a></li>
+    <li><a href="#fase4">Fase 4 · Transferencia</a></li>
+    <li><a href="#fase5">Fase 5 · Debate D y E</a></li>
+    <li><a href="#producto">Producto grupal final</a></li>
+    <li><a href="#rubrica">Rúbrica de evaluación</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+    <li><a href="#autoevaluacion">Autoevaluación</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Artefacto educativo interactivo · Trabajo grupal</span>
+    <h1>"Si no puedo con esto, quizá no sirvo para la carrera"</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Laboratorio ABC para estudiantes de Psicología. El caso de Andrés no presenta el ABC resuelto:
+      ustedes deberán separar hechos de interpretaciones, inferir creencias, relacionarlas con consecuencias
+      y transferir el modelo a situaciones nuevas.
+    </p>
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Modalidad:</strong> Trabajo grupal (grupos de 4 estudiantes)</p>
+      <p><strong>Tipo de recurso:</strong> Artefacto educativo interactivo con actividades de arrastrar y clasificar</p>
+      <p><strong>Palabras clave:</strong> modelo ABC, creencias irracionales, consecuencias emocionales, conducta, transferencia conceptual, razonamiento clínico basado en evidencia</p>
+    </div>
+    <div class="callout">
+      <strong>Regla fundamental del laboratorio:</strong> No pueden agregar información que el caso no proporciona.
+      Si consideran que Andrés siente vergüenza, por ejemplo, tendrán que distinguir entre "el caso lo dice" y
+      "nosotros lo inferimos".
+    </div>
+  </section>
+
+  <!-- PROPÓSITO -->
+  <section id="proposito" class="reveal">
+    <h2>Propósito didáctico</h2>
+    <p>Este caso está diseñado para trabajar cuatro niveles progresivos:</p>
+
+    <div class="phase-buttons" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+      <div class="phase-btn" style="cursor: default;">
+        <span class="phase-num">Nivel 1</span>
+        <span class="phase-name">Identificar los componentes del modelo ABC</span>
+      </div>
+      <div class="phase-btn" style="cursor: default;">
+        <span class="phase-num">Nivel 2</span>
+        <span class="phase-name">Diferenciar acontecimiento, interpretación, emoción y conducta</span>
+      </div>
+      <div class="phase-btn" style="cursor: default;">
+        <span class="phase-num">Nivel 3</span>
+        <span class="phase-name">Argumentar por qué determinadas creencias explican distintas consecuencias</span>
+      </div>
+      <div class="phase-btn" style="cursor: default;">
+        <span class="phase-num">Nivel 4</span>
+        <span class="phase-name">Transferir el modelo a situaciones nuevas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASO -->
+  <section id="caso" class="reveal">
+    <h2>1. El caso Andrés</h2>
+    <p>Lean el caso completo antes de comenzar las actividades. Pueden releerlo tantas veces como necesiten.</p>
+
+    <div class="case-text">
+      <p>Andrés tiene 21 años y cursa cuarto semestre de Psicología. Hasta el semestre anterior había mantenido un rendimiento académico que consideraba satisfactorio. Se describe como una persona responsable, aunque reconoce que suele preocuparse mucho por sus resultados académicos.</p>
+
+      <p>En las últimas semanas ha tenido varias entregas simultáneas y manifiesta sentirse especialmente presionado por una asignatura que considera difícil. Para el segundo corte debe realizar, junto con tres compañeros, una exposición que representa una parte importante de la calificación.</p>
+
+      <p>Andrés dedica varios días a preparar su intervención. La noche anterior ensaya repetidamente y revisa las diapositivas hasta pasada la medianoche.</p>
+
+      <p>Durante la exposición, el profesor lo interrumpe en dos ocasiones. En la segunda le dice:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Andrés, detente un momento. Estás utilizando dos conceptos como si fueran equivalentes y es importante diferenciarlos. Revisa esa parte."</p>
+
+      <p>Andrés permanece callado unos segundos, responde "sí, profesor" y continúa.</p>
+
+      <p>Al finalizar, el profesor realiza observaciones a los demás integrantes y les indica que posteriormente recibirán la calificación completa.</p>
+
+      <p>Al salir del salón, una compañera le comenta:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--text-soft); font-style: italic; color: var(--text-soft);">"Tranquilo, creo que en general nos fue bien. A todos nos corrigió algo."</p>
+
+      <p>Andrés responde: <span class="highlight">"Sí... puede ser."</span></p>
+
+      <p>Esa tarde recibe la calificación: <strong style="color: var(--accent);">3,6 sobre 5,0</strong>.</p>
+
+      <p>Andrés observa la nota varias veces. Piensa que había estudiado mucho más de lo habitual y comienza a recordar especialmente el momento en que el profesor lo interrumpió frente al grupo.</p>
+
+      <p>Mientras regresa a casa piensa:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"No debería haber cometido ese error después de todo lo que estudié."</p>
+
+      <p>Más adelante aparecen otras ideas:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Un estudiante de cuarto semestre ya debería manejar algo tan básico."</p>
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Seguro los demás se dieron cuenta de que no estaba suficientemente preparado."</p>
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Si me equivoco explicando conceptos básicos, ¿cómo voy a ser un buen psicólogo?"</p>
+
+      <p>Por la noche, uno de sus compañeros escribe en el chat del grupo:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--text-soft); font-style: italic; color: var(--text-soft);">"¿Revisamos las correcciones mañana para mejorar el trabajo final?"</p>
+
+      <p>Andrés lee el mensaje, pero no responde.</p>
+
+      <p>Al día siguiente tiene clase de la misma asignatura. Antes de entrar piensa que el profesor podría hacer preguntas sobre el tema de la exposición. Decide sentarse en la última fila, aunque habitualmente se ubica adelante. Durante la clase tiene una respuesta para una de las preguntas del profesor, pero no levanta la mano.</p>
+
+      <p>Piensa:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Mejor no digo nada. ¿Qué tal vuelva a equivocarme?"</p>
+
+      <p>Cuando otro estudiante responde correctamente, Andrés experimenta una mezcla de preocupación y desánimo. Al terminar la clase sale rápidamente.</p>
+
+      <p>Durante los días siguientes dedica bastante tiempo a estudiar, pero comprueba varias veces si realmente ha entendido cada concepto antes de avanzar. En algunas ocasiones vuelve a leer las mismas páginas porque piensa:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Tengo que estar completamente seguro antes de participar otra vez."</p>
+
+      <p>Una compañera le propone que él presente una sección del siguiente trabajo. Andrés responde:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Mejor que la presente otra persona. Yo puedo hacer la parte escrita."</p>
+
+      <p>Cuando habla con un amigo acerca de lo sucedido dice:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--accent); font-style: italic; color: var(--accent);">"Últimamente pienso que quizá no tengo las capacidades que debería tener. Si estando ya en cuarto semestre sigo cometiendo estos errores, no sé qué dice eso de mí."</p>
+
+      <p>Sin embargo, unas horas después agrega:</p>
+
+      <p style="padding-left: 1.5rem; border-left: 3px solid var(--success); font-style: italic; color: var(--success);">"Aunque también sé que probablemente estoy haciendo demasiado grande una sola exposición. He tenido buenas notas en otras materias. Pero cuando estoy en clase no logro verlo de esa manera."</p>
+    </div>
+  </section>
+
+  <!-- FASE 1 -->
+  <section id="fase1" class="reveal">
+    <h2>Fase 1 · Reconstruyan el caso</h2>
+    <p><strong>Tiempo estimado: 10 minutos.</strong> El grupo debe construir un ABC inicial sin modificar la historia de Andrés.</p>
+
+    <div class="callout">
+      <strong>Dificultad a resolver:</strong> ¿Cuál es exactamente el acontecimiento? ¿Obtener 3,6? ¿Ser corregido
+      públicamente? ¿Recordar posteriormente la corrección? ¿Anticipar una nueva pregunta del profesor? El grupo
+      puede identificar más de un ABC si considera que el caso contiene varias secuencias.
+    </div>
+
+    <h3>Actividad: arrastren cada tarjeta a la columna correspondiente</h3>
+    <p>Analicen cada tarjeta y decidan si describe un <strong>acontecimiento (A)</strong>, una <strong>creencia (B)</strong>
+    o una <strong>consecuencia (C)</strong>. Algunas tarjetas pueden ser ambiguas: discutan en grupo antes de colocarlas.</p>
+
+    <div class="lab-container">
+      <div class="card-pool" id="cardPool">
+        <h4>Tarjetas del caso</h4>
+        <div class="drag-card" draggable="true" data-abc="A" data-id="1">
+          El profesor interrumpe a Andrés durante la exposición y le dice que confunde dos conceptos.
+          <span class="card-source">Hecho explícito en el caso</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="A" data-id="2">
+          Andrés obtiene 3,6 sobre 5,0 en la exposición.
+          <span class="card-source">Hecho explícito en el caso</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="B" data-id="3">
+          "No debería haber cometido ese error después de todo lo que estudié."
+          <span class="card-source">Expresión textual de Andrés</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="B" data-id="4">
+          "Un estudiante de cuarto semestre ya debería manejar algo tan básico."
+          <span class="card-source">Expresión textual de Andrés</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="B" data-id="5">
+          "Seguro los demás se dieron cuenta de que no estaba suficientemente preparado."
+          <span class="card-source">Expresión textual de Andrés (inferencia)</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="B" data-id="6">
+          "Si me equivoco explicando conceptos básicos, ¿cómo voy a ser un buen psicólogo?"
+          <span class="card-source">Expresión textual de Andrés (exigencia/conclusión)</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="B" data-id="7">
+          "Mejor no digo nada. ¿Qué tal vuelva a equivocarme?"
+          <span class="card-source">Pensamiento anticipatorio de Andrés</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="B" data-id="8">
+          "Tengo que estar completamente seguro antes de participar otra vez."
+          <span class="card-source">Exigencia de Andrés</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="C" data-id="9">
+          Andrés decide sentarse en la última fila.
+          <span class="card-source">Conducta observable</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="C" data-id="10">
+          Andrés no responde al mensaje del chat del grupo.
+          <span class="card-source">Conducta observable</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="C" data-id="11">
+          Andrés experimenta preocupación y desánimo cuando otro estudiante responde correctamente.
+          <span class="card-source">Emoción explícita en el caso</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="C" data-id="12">
+          Andrés rechaza presentar la siguiente sección y pide hacer solo la parte escrita.
+          <span class="card-source">Conducta observable</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="C" data-id="13">
+          Andrés relee las mismas páginas varias veces para asegurarse de haber entendido.
+          <span class="card-source">Conducta observable</span>
+        </div>
+        <div class="drag-card" draggable="true" data-abc="C" data-id="14">
+          Andrés no levanta la mano aunque tiene la respuesta.
+          <span class="card-source">Conducta observable</span>
+        </div>
+      </div>
+
+      <div class="abc-columns">
+        <div class="abc-column" data-abc="A" id="colA">
+          <div class="col-header">A · Acontecimiento</div>
+        </div>
+        <div class="abc-column" data-abc="B" id="colB">
+          <div class="col-header">B · Creencias</div>
+        </div>
+        <div class="abc-column" data-abc="C" id="colC">
+          <div class="col-header">C · Consecuencias</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lab-controls">
+      <button class="btn" id="btnCheckLab">Verificar clasificación</button>
+      <button class="btn btn-outline" id="btnResetLab">Reiniciar laboratorio</button>
+    </div>
+
+    <div class="result-message" id="labResult"></div>
+
+    <div class="callout info" style="margin-top: 1.5rem;">
+      <strong>Nota importante:</strong> Algunas tarjetas pueden ser objeto de debate. Por ejemplo, "Mejor no digo nada"
+      es un pensamiento (B) que anticipa una consecuencia. Discutan en grupo si lo clasifican como B o como parte de C.
+      Lo relevante no es acertar todas, sino argumentar la decisión.
+    </div>
+  </section>
+
+  <!-- FASE 2 -->
+  <section id="fase2" class="reveal">
+    <h2>Fase 2 · El desafío conceptual</h2>
+    <p><strong>Tiempo estimado: 15 minutos.</strong> Cada integrante asume una función diferente.</p>
+
+    <div class="phase-buttons" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+      <div class="phase-btn" style="cursor: default; border-top: 4px solid var(--info);">
+        <span class="phase-num">Integrante 1</span>
+        <span class="phase-name">Defensor de A</span>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.5rem; font-weight: 400;">Debe argumentar: "La situación objetiva es suficientemente adversa para explicar buena parte de C."</p>
+      </div>
+      <div class="phase-btn" style="cursor: default; border-top: 4px solid var(--accent);">
+        <span class="phase-num">Integrante 2</span>
+        <span class="phase-name">Defensor de B</span>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.5rem; font-weight: 400;">Debe demostrar qué evidencia indica que la interpretación de Andrés contribuye a explicar C.</p>
+      </div>
+      <div class="phase-btn" style="cursor: default; border-top: 4px solid var(--error);">
+        <span class="phase-num">Integrante 3</span>
+        <span class="phase-name">Abogado de la evidencia</span>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.5rem; font-weight: 400;">Debe detener al grupo cada vez que atribuya al personaje algo que no está presente en el caso.</p>
+      </div>
+      <div class="phase-btn" style="cursor: default; border-top: 4px solid var(--violet);">
+        <span class="phase-num">Integrante 4</span>
+        <span class="phase-name">Analista funcional</span>
+        <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.5rem; font-weight: 400;">Debe localizar las conexiones: B → emoción → conducta → posibles nuevos acontecimientos.</p>
+      </div>
+    </div>
+
+    <div class="callout violet">
+      <strong>Preguntas guía para el debate interno:</strong>
+      <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+        <li>¿Qué parte de C se explica mejor por A y qué parte requiere apelar a B?</li>
+        <li>¿Qué evidencia del caso respalda que Andrés mantiene una creencia específica?</li>
+        <li>¿Hay algún momento en el que el propio Andrés reconoce que su interpretación podría ser exagerada? ¿Qué implica eso?</li>
+        <li>¿Cómo se encadenan B → emoción → conducta a lo largo del caso?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FASE 3 -->
+  <section id="fase3" class="reveal">
+    <h2>Fase 3 · Experimento contrafactual</h2>
+    <p>Supongan que A permanece exactamente igual: Andrés obtiene 3,6 y el profesor realiza exactamente la misma corrección. <strong>Lo único que pueden modificar es B.</strong></p>
+
+    <div class="counterfactual-grid">
+      <div class="andres-card original">
+        <div class="andres-name">Andrés original</div>
+        <div class="andres-thought">"No debería haber cometido ese error después de todo lo que estudié."<br><br>"Si me equivoco explicando conceptos básicos, ¿cómo voy a ser un buen psicólogo?"</div>
+        <div class="andres-prediction">
+          <strong>Consecuencias observadas:</strong>
+          Preocupación, desánimo, evitación de participar, sentarse atrás, no responder al chat, releer varias veces.
+        </div>
+      </div>
+
+      <div class="andres-card alt1">
+        <div class="andres-name">Andrés 2 (preferencia flexible)</div>
+        <div class="andres-thought">"Prefería hacerlo mucho mejor y me molesta haber confundido esos conceptos. La corrección muestra que esa parte todavía debo fortalecer, no que sea incompetente."</div>
+        <div class="andres-prediction">
+          <strong>Predigan ustedes:</strong>
+          ¿Qué emociones aparecerían? ¿Con qué intensidad relativa? ¿Qué conductas serían probables? ¿Qué elementos de C cambiarían? ¿Por qué?
+        </div>
+      </div>
+    </div>
+
+    <h3>Ahora construyan un Andrés 3 con una B todavía más rígida</h3>
+    <div class="question-block" data-open="1">
+      <span class="q-tag open">Trabajo grupal</span>
+      <p class="q-text">Escriban la creencia más rígida que puedan imaginar para el mismo A. Luego predigan las consecuencias emocionales, conductuales y fisiológicas.</p>
+      <textarea class="open-textarea" placeholder="Creencia más rígida: ...&#10;&#10;Consecuencias emocionales: ...&#10;Consecuencias conductuales: ...&#10;Consecuencias fisiológicas: ..." aria-label="Construcción de Andrés 3"></textarea>
+    </div>
+
+    <div class="highlight-box success">
+      <p>MISMO A + DIFERENTES B → DIFERENTES C</p>
+    </div>
+
+    <div class="callout">
+      <strong>La clave es que no se lo damos hecho.</strong> Ustedes deben construir experimentalmente
+      la relación entre B y C manteniendo A constante.
+    </div>
+  </section>
+
+  <!-- FASE 4 -->
+  <section id="fase4" class="reveal">
+    <h2>Fase 4 · La prueba de transferencia</h2>
+    <p>Ahora cambiamos completamente el contexto. Elijan una de las siguientes situaciones y apliquen el modelo ABC.</p>
+
+    <div class="transfer-grid">
+      <div class="transfer-card" data-transfer="1">
+        <div class="transfer-num">Situación A</div>
+        <div class="transfer-title">Contexto laboral</div>
+        <div class="transfer-desc">Una psicóloga presenta un informe durante una reunión y su coordinadora señala que una de las conclusiones no está suficientemente respaldada por los datos.</div>
+      </div>
+      <div class="transfer-card" data-transfer="2">
+        <div class="transfer-num">Situación B</div>
+        <div class="transfer-title">Relaciones interpersonales</div>
+        <div class="transfer-desc">Una estudiante envía un mensaje importante a su mejor amiga. Han pasado seis horas y no ha recibido respuesta.</div>
+      </div>
+      <div class="transfer-card" data-transfer="3">
+        <div class="transfer-num">Situación C</div>
+        <div class="transfer-title">Práctica profesional</div>
+        <div class="transfer-desc">Durante una simulación de entrevista clínica, un estudiante queda en silencio durante varios segundos y posteriormente el docente le señala que dejó pasar una oportunidad importante para profundizar.</div>
+      </div>
+      <div class="transfer-card" data-transfer="4">
+        <div class="transfer-num">Situación D</div>
+        <div class="transfer-title">Vida cotidiana</div>
+        <div class="transfer-desc">Una persona se presenta a una convocatoria para obtener una beca y recibe la notificación de que no fue seleccionada.</div>
+      </div>
+    </div>
+
+    <div id="transferDetail" class="transfer-detail">
+      <h4 id="transferTitle">Selecciona una situación</h4>
+      <div id="transferContent"></div>
+    </div>
+
+    <div class="callout success">
+      <strong>Condición fundamental:</strong> No pueden cambiar A para producir una C diferente. Deben construir
+      A → B₁ → C₁ y después el mismo A → B₂ → C₂. Esto obliga a transferir el principio explicativo del modelo
+      y no solamente las letras ABC.
+    </div>
+
+    <div class="question-block" data-open="2">
+      <span class="q-tag open">Trabajo grupal · Transferencia</span>
+      <p class="q-text">Construyan el ABC completo para la situación elegida: describan A, propongan dos B diferentes y predigan las C correspondientes. Argumenten por qué el mismo A puede producir C distintas.</p>
+      <textarea class="open-textarea" placeholder="Situación elegida: ...&#10;&#10;A: ...&#10;&#10;B₁: ...&#10;C₁: ...&#10;&#10;B₂: ...&#10;C₂: ...&#10;&#10;Argumentación: ..." aria-label="Transferencia ABC" style="min-height: 200px;"></textarea>
+    </div>
+  </section>
+
+  <!-- FASE 5 -->
+  <section id="fase5" class="reveal">
+    <h2>Fase 5 · Debate D y E</h2>
+    <p>Andrés afirma:</p>
+
+    <div class="highlight-box error">
+      <p>"SI COMETO ERRORES COMO ESTE, SIGNIFICA QUE NO TENGO LAS CAPACIDADES NECESARIAS PARA SER UN BUEN PSICÓLOGO"</p>
+    </div>
+
+    <p>El grupo debe formular tres preguntas que permitan examinar críticamente esa creencia, <strong>sin decir simplemente "eso no es verdad"</strong>.</p>
+
+    <div class="debate-questions">
+      <div class="debate-q">
+        <div class="dq-type">Evidencia</div>
+        <div class="dq-question">¿Qué datos apoyan y qué datos contradicen esa conclusión?</div>
+      </div>
+      <div class="debate-q">
+        <div class="dq-type">Lógica</div>
+        <div class="dq-question">¿Cometer un error implica necesariamente incompetencia global?</div>
+      </div>
+      <div class="debate-q">
+        <div class="dq-type">Utilidad / Pragmatismo</div>
+        <div class="dq-question">¿Qué consecuencias tiene para Andrés mantener esa creencia?</div>
+      </div>
+    </div>
+
+    <h3>Construyan una alternativa que sea simultáneamente:</h3>
+    <div class="phase-buttons" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+      <div class="phase-btn" style="cursor: default; text-align: center;">
+        <span class="phase-name">Realista</span>
+      </div>
+      <div class="phase-btn" style="cursor: default; text-align: center;">
+        <span class="phase-name">Lógica</span>
+      </div>
+      <div class="phase-btn" style="cursor: default; text-align: center;">
+        <span class="phase-name">Flexible</span>
+      </div>
+      <div class="phase-btn" style="cursor: default; text-align: center;">
+        <span class="phase-name">No complaciente</span>
+      </div>
+      <div class="phase-btn" style="cursor: default; text-align: center;">
+        <span class="phase-name">Compatible con los hechos</span>
+      </div>
+    </div>
+
+    <div class="callout error">
+      <strong>No aceptaríamos:</strong> "Soy excelente y no tengo nada de qué preocuparme." Porque eso no representa
+      necesariamente pensamiento racional.
+    </div>
+
+    <div class="callout success">
+      <strong>Sí podría aceptarse:</strong> "Prefería no equivocarme y necesito revisar esos conceptos. Haber cometido
+      este error no demuestra por sí solo mi competencia global como estudiante o futuro profesional."
+    </div>
+
+    <div class="question-block" data-open="3">
+      <span class="q-tag open">Trabajo grupal · D y E</span>
+      <p class="q-text">Escriban las tres preguntas de debate (evidencia, lógica, utilidad) y construyan una alternativa racional para la creencia de Andrés. Expliquen por qué su alternativa cumple los cinco criterios.</p>
+      <textarea class="open-textarea" placeholder="Pregunta de evidencia: ...&#10;Pregunta de lógica: ...&#10;Pregunta de utilidad: ...&#10;&#10;Alternativa racional: ...&#10;&#10;Justificación de los cinco criterios: ..." aria-label="Debate D y E" style="min-height: 180px;"></textarea>
+    </div>
+  </section>
+
+  <!-- PRODUCTO FINAL -->
+  <section id="producto" class="reveal">
+    <h2>Producto grupal final</h2>
+    <p>Entreguen un <strong>mapa argumentado del caso</strong>, no un cuestionario.</p>
+
+    <div class="final-map">
+      <div class="fm-box highlight">CASO ANDRÉS</div>
+      <div class="fm-arrow">↓</div>
+      <div class="fm-box">¿QUÉ OCURRIÓ? (A)</div>
+      <div class="fm-arrow">↙ ↘</div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin: 0.5rem 0;">
+        <div class="fm-box" style="min-width: 180px;">¿Qué sabemos?</div>
+        <div class="fm-box" style="min-width: 180px;">¿Qué inferimos?</div>
+      </div>
+      <div class="fm-arrow">↓</div>
+      <div class="fm-box">¿QUÉ CREE? (B)</div>
+      <div class="fm-arrow">↙ ↓ ↘</div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin: 0.5rem 0;">
+        <div class="fm-box" style="min-width: 140px;">Creencias</div>
+        <div class="fm-box" style="min-width: 140px;">Evaluación</div>
+        <div class="fm-box" style="min-width: 140px;">Exigencias</div>
+      </div>
+      <div class="fm-arrow">↓</div>
+      <div class="fm-box">CONSECUENCIAS (C)</div>
+      <div class="fm-arrow">↙ ↓ ↘</div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin: 0.5rem 0;">
+        <div class="fm-box" style="min-width: 140px;">Emoción</div>
+        <div class="fm-box" style="min-width: 140px;">Conducta</div>
+        <div class="fm-box" style="min-width: 140px;">Fisiología</div>
+      </div>
+      <div class="fm-arrow">↓</div>
+      <div class="fm-box">¿QUÉ B ALTERNATIVA MODIFICARÍA C?</div>
+      <div class="fm-arrow">↓</div>
+      <div class="fm-box">DEBATE (D)</div>
+      <div class="fm-arrow">↓</div>
+      <div class="fm-box success">NUEVO EFECTO (E)</div>
+    </div>
+
+    <div class="highlight-box violet">
+      <p>CASILLA OBLIGATORIA: ¿QUÉ PRINCIPIO DEL MODELO ABC APRENDIDO CON ANDRÉS PUEDE APLICARSE A UN CASO COMPLETAMENTE DISTINTO?</p>
+    </div>
+
+    <div class="question-block" data-open="4">
+      <span class="q-tag open">Respuesta final obligatoria</span>
+      <p class="q-text">Expliquen qué principio del modelo ABC han transferido y cómo lo aplicarían a un caso completamente distinto. Esta es la pregunta más importante del laboratorio.</p>
+      <textarea class="open-textarea" placeholder="El principio que transfiero es...&#10;&#10;Lo aplicaría a...&#10;&#10;Porque..." aria-label="Transferencia final" style="min-height: 150px;"></textarea>
+    </div>
+  </section>
+
+  <!-- RÚBRICA -->
+  <section id="rubrica" class="reveal">
+    <h2>Rúbrica de evaluación (sobre 20 puntos)</h2>
+
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Distingue hechos (A) de interpretaciones (B)</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Identifica y fundamenta las creencias relevantes</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Relaciona B con consecuencias emocionales y conductuales</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Formula y argumenta una alternativa racional, no simplemente "positiva"</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Transfiere correctamente el mecanismo ABC a una situación nueva</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Argumentación y construcción colaborativa</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td><strong>20</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout error">
+      <strong>No se otorgará el máximo puntaje</strong> al grupo que simplemente escriba:
+      A = corrección del profesor, B = "soy incompetente", C = ansiedad. Eso demuestra identificación, pero muy poca comprensión.
+    </div>
+
+    <div class="callout success">
+      <strong>El desempeño superior</strong> será el del grupo capaz de explicar: por qué una determinada B contribuye
+      a comprender C, qué evidencia del caso respalda esa relación, qué consecuencias cambiarían manteniendo A constante
+      y cómo el mismo principio explicativo puede aplicarse a otro contexto.
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section id="referencias" class="reveal">
+    <h2>Referencias</h2>
+    <ul class="ref-list">
+      <li>Beck, A. T. (1976). <em>Cognitive therapy and the emotional disorders</em>. International Universities Press.</li>
+      <li>Ellis, A. (1962). <em>Reason and emotion in psychotherapy</em>. Lyle Stuart.</li>
+      <li>Beck, J. S. (2020). <em>Cognitive behavior therapy: Basics and beyond</em> (3.ª ed.). Guilford Press.</li>
+      <li>Dryden, W. (2019). <em>Rational emotive behaviour therapy: Distinctive features</em> (2.ª ed.). Routledge.</li>
+    </ul>
+  </section>
+
+  <!-- AUTOEVALUACIÓN -->
+  <section id="autoevaluacion" class="reveal">
+    <h2>Autoevaluación del laboratorio</h2>
+    <p>Esta sección combina preguntas cerradas y abiertas. Las cerradas se califican automáticamente; las abiertas te permiten comparar tu respuesta con un modelo.</p>
+
+    <h3>Preguntas cerradas</h3>
+
+    <div class="question-block" data-closed="1">
+      <span class="q-tag closed">Cerrada · 1</span>
+      <p class="q-text">¿Cuál es la diferencia entre un hecho (A) y una interpretación (B) en el caso de Andrés?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q1" value="a"> a) Son sinónimos; solo cambia la redacción.</label>
+        <label class="q-option"><input type="radio" name="q1" value="b"> b) El hecho es lo que ocurrió objetivamente; la interpretación es el significado que Andrés le atribuye.</label>
+        <label class="q-option"><input type="radio" name="q1" value="c"> c) El hecho es la emoción; la interpretación es la conducta.</label>
+        <label class="q-option"><input type="radio" name="q1" value="d"> d) La interpretación siempre es falsa.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(1, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb1"></div>
+    </div>
+
+    <div class="question-block" data-closed="2">
+      <span class="q-tag closed">Cerrada · 2</span>
+      <p class="q-text">¿Por qué es importante la regla "no pueden agregar información que el caso no proporciona"?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q2" value="a"> a) Porque hace el ejercicio más difícil.</label>
+        <label class="q-option"><input type="radio" name="q2" value="b"> b) Porque introduce razonamiento clínico basado en evidencia en lugar de completar intuitivamente la historia.</label>
+        <label class="q-option"><input type="radio" name="q2" value="c"> c) Porque el caso es demasiado corto.</label>
+        <label class="q-option"><input type="radio" name="q2" value="d"> d) Porque no se puede inferir nada.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(2, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb2"></div>
+    </div>
+
+    <div class="question-block" data-closed="3">
+      <span class="q-tag closed">Cerrada · 3</span>
+      <p class="q-text">En el experimento contrafactual, ¿qué se mantiene constante y qué se modifica?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q3" value="a"> a) Se mantiene B constante y se modifica A.</label>
+        <label class="q-option"><input type="radio" name="q3" value="b"> b) Se mantiene A constante y se modifica B.</label>
+        <label class="q-option"><input type="radio" name="q3" value="c"> c) Se modifican tanto A como B.</label>
+        <label class="q-option"><input type="radio" name="q3" value="d"> d) Solo se modifica C.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(3, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb3"></div>
+    </div>
+
+    <div class="question-block" data-closed="4">
+      <span class="q-tag closed">Cerrada · 4</span>
+      <p class="q-text">¿Qué tipo de pregunta de debate examina si cometer un error implica necesariamente incompetencia global?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q4" value="a"> a) Pregunta de evidencia</label>
+        <label class="q-option"><input type="radio" name="q4" value="b"> b) Pregunta de lógica</label>
+        <label class="q-option"><input type="radio" name="q4" value="c"> c) Pregunta de utilidad</label>
+        <label class="q-option"><input type="radio" name="q4" value="d"> d) Pregunta de empatía</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(4, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb4"></div>
+    </div>
+
+    <div class="question-block" data-closed="5">
+      <span class="q-tag closed">Cerrada · 5</span>
+      <p class="q-text">¿Cuál es la diferencia entre una alternativa "positiva" y una alternativa racional?</p>
+      <div class="q-options">
+        <label class="q-option"><input type="radio" name="q5" value="a"> a) No hay diferencia; son sinónimos.</label>
+        <label class="q-option"><input type="radio" name="q5" value="b"> b) La positiva dice "todo está bien"; la racional es realista, lógica, flexible y compatible con los hechos.</label>
+        <label class="q-option"><input type="radio" name="q5" value="c"> c) La positiva es más útil.</label>
+        <label class="q-option"><input type="radio" name="q5" value="d"> d) La racional siempre es negativa.</label>
+      </div>
+      <button class="btn-small" onclick="checkClosed(5, 'b')">Comprobar</button>
+      <div class="feedback-box" id="closedFb5"></div>
+    </div>
+
+    <button type="button" class="btn" id="btnCalificar">Calificar respuestas cerradas</button>
+    <button type="button" class="btn btn-outline" id="btnReiniciar" style="margin-left: 0.8rem;">Reiniciar todo</button>
+
+    <div class="result-message" id="resultMessage"></div>
+
+    <h3 style="margin-top: 2.5rem;">Preguntas abiertas de cierre</h3>
+
+    <div class="question-block" data-open="5">
+      <span class="q-tag open">Abierta · 1</span>
+      <p class="q-text">Explica con tus palabras por qué el caso de Andrés no permite afirmar que "el profesor causó la ansiedad de Andrés". ¿Qué papel juega B en esa explicación?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu argumentación aquí..." aria-label="Respuesta a pregunta abierta 5"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(5)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb5">
+        <strong>Respuesta modelo:</strong> El caso no permite afirmar que el profesor causó la ansiedad porque el mismo acontecimiento (ser corregido públicamente) podría haber producido consecuencias muy diferentes en otra persona con creencias distintas. Lo que media entre A y C es B: la interpretación que Andrés hace del acontecimiento. Si Andrés pensara "la corrección muestra que debo fortalecer esa parte, no que sea incompetente", la consecuencia emocional sería diferente. El profesor es el acontecimiento activador, pero no determina directamente la emoción. B es el mecanismo explicativo que permite entender por qué ese A produce ese C específico en Andrés. Sin B, no podemos explicar la variabilidad de respuestas ante el mismo acontecimiento.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="6">
+      <span class="q-tag open">Abierta · 2</span>
+      <p class="q-text">Toma una de las situaciones de transferencia (laboral, interpersonal, práctica profesional o vida cotidiana). Describe el A y construye dos B diferentes con sus respectivas C. Explica qué principio del ABC estás aplicando.</p>
+      <textarea class="open-textarea" placeholder="Situación: ...&#10;&#10;A: ...&#10;B₁: ... C₁: ...&#10;B₂: ... C₂: ...&#10;&#10;Principio aplicado: ..." aria-label="Respuesta a pregunta abierta 6" style="min-height: 180px;"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(6)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb6">
+        <strong>Respuesta modelo:</strong> Situación: contexto laboral. A: La coordinadora señala en una reunión que una conclusión del informe no está suficientemente respaldada. B₁: "No debería haber presentado esto así. Soy una incompetente. Todos van a pensar que no sirvo para este trabajo." C₁: Vergüenza intensa, ganas de desaparecer, evitación de futuras presentaciones. B₂: "Prefería que el informe estuviera más sólido. La observación es específica sobre una conclusión, no sobre mi competencia global. Puedo revisar los datos y reforzar esa parte." C₂: Decepción funcional, motivación para revisar, disposición a pedir ayuda. Principio aplicado: el mismo acontecimiento (A) puede producir consecuencias diferentes según la creencia (B) que medie. El ABC no dice que A cause C directamente, sino que B es el mecanismo explicativo.
+      </div>
+    </div>
+
+    <div class="question-block" data-open="7">
+      <span class="q-tag open">Abierta · 3</span>
+      <p class="q-text">Reflexión final: ¿qué cambió en tu forma de entender el modelo ABC después de este laboratorio? ¿Qué te genera más dudas?</p>
+      <textarea class="open-textarea" placeholder="Escribe tu reflexión aquí..." aria-label="Respuesta a pregunta abierta 7"></textarea>
+      <button class="btn-small" onclick="showModelAnswer(7)">Ver respuesta modelo</button>
+      <div class="feedback-box" id="openFb7">
+        <strong>Respuesta modelo:</strong> Antes pensaba que el ABC era una secuencia mecánica: A causa B, B causa C. Ahora entiendo que el modelo es más profundo: A no determina directamente C; B es la interpretación que media y explica por qué el mismo A puede producir C diferentes en distintas personas o en la misma persona en momentos distintos. Lo que más me cuesta es distinguir hechos de interpretaciones sin caer en la trampa de completar la historia con lo que yo supondría. También me doy cuenta de que la alternativa racional no es "pensar positivo", sino construir una interpretación realista, lógica y flexible. Me genera dudas cómo se trabajaría esto con un paciente real que no verbaliza sus creencias con tanta claridad como Andrés.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Caso Andrés · Laboratorio ABC interactivo</strong> · Artefacto educativo interactivo para trabajo grupal</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============================================
+     LABORATORIO DE ARRASTRAR Y CLASIFICAR (FASE 1)
+     ============================================ */
+  const dragCards = document.querySelectorAll('.drag-card');
+  const dropZones = document.querySelectorAll('.abc-column');
+  let draggedCard = null;
+
+  dragCards.forEach(card => {
+    card.addEventListener('dragstart', function(e) {
+      draggedCard = this;
+      setTimeout(() => this.style.opacity = '0.5', 0);
+    });
+    card.addEventListener('dragend', function() {
+      this.style.opacity = '1';
+      draggedCard = null;
+    });
+  });
+
+  dropZones.forEach(zone => {
+    zone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      this.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', function() {
+      this.classList.remove('drag-over');
+    });
+    zone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.classList.remove('drag-over');
+      if (draggedCard) {
+        this.appendChild(draggedCard);
+        draggedCard.classList.remove('correct', 'incorrect');
+        draggedCard = null;
+      }
+    });
+  });
+
+  // También permitir drop en el pool original
+  const cardPool = document.getElementById('cardPool');
+  cardPool.addEventListener('dragover', function(e) {
+    e.preventDefault();
+  });
+  cardPool.addEventListener('drop', function(e) {
+    e.preventDefault();
+    if (draggedCard) {
+      this.appendChild(draggedCard);
+      draggedCard.classList.remove('correct', 'incorrect');
+      draggedCard = null;
+    }
+  });
+
+  // Verificar clasificación
+  document.getElementById('btnCheckLab').addEventListener('click', function() {
+    const allCards = document.querySelectorAll('.drag-card');
+    let correct = 0;
+    let total = 0;
+
+    allCards.forEach(card => {
+      const parent = card.parentElement;
+      if (parent.classList.contains('abc-column')) {
+        total++;
+        const expected = card.dataset.abc;
+        const actual = parent.dataset.abc;
+        card.classList.remove('correct', 'incorrect');
+        if (expected === actual) {
+          card.classList.add('correct');
+          correct++;
+        } else {
+          card.classList.add('incorrect');
+        }
+      }
+    });
+
+    const result = document.getElementById('labResult');
+    if (total === 0) {
+      result.innerHTML = '<span class="score">—</span> Aún no han clasificado ninguna tarjeta.';
+    } else {
+      let msg = '';
+      if (correct === total) {
+        msg = `<span class="score">${correct}/${total}</span> ¡Excelente! Han clasificado correctamente todas las tarjetas. Ahora discutan si alguna podría ser ambigua.`;
+      } else if (correct >= total * 0.7) {
+        msg = `<span class="score">${correct}/${total}</span> Buen trabajo. Revisen las tarjetas marcadas en rojo y discutan por qué podrían ir en otra columna.`;
+      } else {
+        msg = `<span class="score">${correct}/${total}</span> Revisen las tarjetas marcadas en rojo. Recuerden: A = hechos objetivos, B = interpretaciones/creencias, C = consecuencias emocionales, conductuales o fisiológicas.`;
+      }
+      result.innerHTML = msg;
+    }
+    result.classList.add('show');
+  });
+
+  // Reiniciar laboratorio
+  document.getElementById('btnResetLab').addEventListener('click', function() {
+    const pool = document.getElementById('cardPool');
+    document.querySelectorAll('.drag-card').forEach(card => {
+      card.classList.remove('correct', 'incorrect');
+      pool.appendChild(card);
+    });
+    document.getElementById('labResult').classList.remove('show');
+    document.getElementById('labResult').innerHTML = '';
+  });
+
+  /* ============================================
+     TRANSFERENCIA (FASE 4)
+     ============================================ */
+  const transferData = {
+    1: {
+      title: 'Situación A · Contexto laboral',
+      content: '<p><strong>A:</strong> La coordinadora señala que una conclusión del informe no está suficientemente respaldada por los datos.</p><p><strong>B₁:</strong> "No debería haber presentado esto así. Soy una incompetente." → <strong>C₁:</strong> Vergüenza, evitación de futuras presentaciones.</p><p><strong>B₂:</strong> "La observación es específica sobre una conclusión, no sobre mi competencia global. Puedo revisar los datos." → <strong>C₂:</strong> Decepción funcional, motivación para revisar.</p><p><strong>Principio:</strong> El mismo A produce C diferentes según la B que media.</p>'
+    },
+    2: {
+      title: 'Situación B · Relaciones interpersonales',
+      content: '<p><strong>A:</strong> Han pasado seis horas y la mejor amiga no ha respondido al mensaje importante.</p><p><strong>B₁:</strong> "Está enojada conmigo. Seguro hice algo mal. No puedo soportar que esté molesta." → <strong>C₁:</strong> Ansiedad, culpa, ganas de enviar más mensajes para asegurarse.</p><p><strong>B₂:</strong> "No sé por qué no ha respondido. Puede estar ocupada o sin batería. Si hay un problema, ya lo hablaré." → <strong>C₂:</strong> Preocupación leve, disposición a esperar.</p><p><strong>Principio:</strong> El mismo A produce C diferentes según la B que media.</p>'
+    },
+    3: {
+      title: 'Situación C · Práctica profesional',
+      content: '<p><strong>A:</strong> Durante una simulación, el estudiante queda en silencio y el docente le señala que dejó pasar una oportunidad para profundizar.</p><p><strong>B₁:</strong> "No sirvo para esto. Si no puedo hacer una pregunta básica, menos voy a poder conducir una entrevista real." → <strong>C₁:</strong> Desánimo intenso, evitación de futuras prácticas, autocrítica excesiva.</p><p><strong>B₂:</strong> "Prefería haber profundizado más. Es una habilidad que puedo entrenar. El docente me está dando información útil para mejorar." → <strong>C₂:</strong> Decepción funcional, motivación para practicar, búsqueda de feedback.</p><p><strong>Principio:</strong> El mismo A produce C diferentes según la B que media.</p>'
+    },
+    4: {
+      title: 'Situación D · Vida cotidiana',
+      content: '<p><strong>A:</strong> La persona no es seleccionada para la beca.</p><p><strong>B₁:</strong> "Siempre fracaso en todo lo que intento. No soy lo suficientemente bueno. Nunca voy a lograr nada." → <strong>C₁:</strong> Tristeza profunda, abandono de futuras convocatorias, aislamiento.</p><p><strong>B₂:</strong> "No fui seleccionado en esta ocasión. Es una decepción, pero no define mi valía. Puedo pedir retroalimentación y postularme a otras convocatorias." → <strong>C₂:</strong> Decepción funcional, motivación para buscar alternativas.</p><p><strong>Principio:</strong> El mismo A produce C diferentes según la B que media.</p>'
+    }
+  };
+
+  document.querySelectorAll('.transfer-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const id = this.dataset.transfer;
+      const detail = document.getElementById('transferDetail');
+      const title = document.getElementById('transferTitle');
+      const content = document.getElementById('transferContent');
+      const data = transferData[id];
+      title.textContent = data.title;
+      content.innerHTML = data.content;
+      detail.classList.add('show');
+      detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+
+  /* ============================================
+     PREGUNTAS CERRADAS
+     ============================================ */
+  const closedAnswers = {
+    1: { correct: 'b', fbCorrect: '¡Correcto! El hecho es lo que ocurrió objetivamente; la interpretación es el significado que Andrés le atribuye.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    2: { correct: 'b', fbCorrect: '¡Bien! La regla introduce razonamiento clínico basado en evidencia.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' },
+    3: { correct: 'b', fbCorrect: 'Exacto. Se mantiene A constante y se modifica B.', fbIncorrect: 'Incorrecto. Se mantiene A constante y se modifica B.' },
+    4: { correct: 'b', fbCorrect: '¡Correcto! La pregunta de lógica examina la coherencia interna de la creencia.', fbIncorrect: 'Incorrecto. La pregunta de lógica es la que examina si cometer un error implica incompetencia global.' },
+    5: { correct: 'b', fbCorrect: '¡Bien! La alternativa racional es realista, lógica, flexible y compatible con los hechos, no simplemente positiva.', fbIncorrect: 'Incorrecto. La opción correcta es la b.' }
+  };
+
+  window.checkClosed = function(id, correct) {
+    const block = document.querySelector(`.question-block[data-closed="${id}"]`);
+    const selected = block.querySelector('input[type="radio"]:checked');
+    const fb = document.getElementById(`closedFb${id}`);
+    const options = block.querySelectorAll('.q-option');
+
+    options.forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+
+    if (!selected) {
+      fb.textContent = 'Por favor, selecciona una opción.';
+      fb.className = 'feedback-box incorrect show';
+      return;
+    }
+
+    const isCorrect = selected.value === correct;
+    const parentLabel = selected.closest('.q-option');
+    parentLabel.classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+    const data = closedAnswers[id];
+    fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+    fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+  };
+
+  window.showModelAnswer = function(id) {
+    const fb = document.getElementById(`openFb${id}`);
+    fb.classList.add('show', 'model');
+    fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  /* ============================================
+     CALIFICAR
+     ============================================ */
+  const finalQuestions = [
+    { name: 'q1', correct: 'b', id: 1 },
+    { name: 'q2', correct: 'b', id: 2 },
+    { name: 'q3', correct: 'b', id: 3 },
+    { name: 'q4', correct: 'b', id: 4 },
+    { name: 'q5', correct: 'b', id: 5 }
+  ];
+
+  const btnCalificar = document.getElementById('btnCalificar');
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  const resultMessage = document.getElementById('resultMessage');
+
+  btnCalificar.addEventListener('click', function() {
+    let score = 0;
+    let allAnswered = true;
+
+    finalQuestions.forEach(q => {
+      const block = document.querySelector(`.question-block[data-closed="${q.id}"]`);
+      const selected = block.querySelector(`input[name="${q.name}"]:checked`);
+      const fb = document.getElementById(`closedFb${q.id}`);
+
+      if (!selected) {
+        allAnswered = false;
+        fb.textContent = 'Sin responder.';
+        fb.className = 'feedback-box incorrect show';
+        return;
+      }
+
+      const isCorrect = selected.value === q.correct;
+      if (isCorrect) score++;
+      selected.closest('.q-option').classList.add(isCorrect ? 'selected-correct' : 'selected-incorrect');
+
+      const data = closedAnswers[q.id];
+      fb.textContent = isCorrect ? data.fbCorrect : data.fbIncorrect;
+      fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'} show`;
+    });
+
+    if (!allAnswered) {
+      resultMessage.innerHTML = '<span class="score">—</span> Responde todas las preguntas cerradas antes de calificar.';
+      resultMessage.classList.add('show');
+      return;
+    }
+
+    const total = finalQuestions.length;
+    let msg = '';
+    if (score === total) {
+      msg = `<span class="score">${score}/${total}</span> ¡Excelente! Comprendes el modelo ABC y su aplicación clínica.`;
+    } else if (score >= 3) {
+      msg = `<span class="score">${score}/${total}</span> Buen trabajo. Repasa las secciones donde fallaste para afinar los detalles.`;
+    } else {
+      msg = `<span class="score">${score}/${total}</span> Te invitamos a releer las fases del laboratorio y volver a intentarlo. ¡La práctica hace al maestro!`;
+    }
+    resultMessage.innerHTML = msg;
+    resultMessage.classList.add('show');
+    resultMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  btnReiniciar.addEventListener('click', function() {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected-correct', 'selected-incorrect'));
+    document.querySelectorAll('.feedback-box').forEach(fb => {
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+    });
+    document.querySelectorAll('.open-textarea').forEach(t => t.value = '');
+    resultMessage.classList.remove('show');
+    resultMessage.innerHTML = '';
+    // Reiniciar laboratorio
+    const pool = document.getElementById('cardPool');
+    document.querySelectorAll('.drag-card').forEach(card => {
+      card.classList.remove('correct', 'incorrect');
+      pool.appendChild(card);
+    });
+    document.getElementById('labResult').classList.remove('show');
+    document.getElementById('labResult').innerHTML = '';
+    // Ocultar detalle de transferencia
+    document.getElementById('transferDetail').classList.remove('show');
+  });
+
+})();
+</script>
+</body>
+</html>

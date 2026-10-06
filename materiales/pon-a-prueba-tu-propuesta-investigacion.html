@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pon a prueba tu propuesta de investigación · Laboratorio interactivo</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Pon a prueba tu propuesta de investigación">
+<meta name="jc-descripcion" content="Laboratorio colaborativo de 60 minutos para evaluar la coherencia y viabilidad de una propuesta de investigación mediante estaciones sobre objeto, pregunta, objetivos, justificación, metodología y diagnóstico final.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Propuesta de investigación, Coherencia metodológica, Objeto de estudio, Pregunta de investigación, Objetivos, Justificación, Metodología, Viabilidad, Autoevaluación, Trabajo colaborativo">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1200px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.1s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  /* ---- TIMER ---- */
+  .timer-box {
+    position: fixed;
+    top: 80px; right: 20px;
+    background: rgba(18, 35, 61, 0.95);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    z-index: 850;
+    box-shadow: var(--shadow);
+    display: none;
+    min-width: 180px;
+    text-align: center;
+  }
+  .timer-box.show { display: block; }
+  .timer-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-soft);
+    margin-bottom: 0.3rem;
+  }
+  .timer-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .timer-display.warning { color: var(--warning); }
+  .timer-display.danger { color: var(--error); animation: pulse 1s infinite; }
+  .timer-controls {
+    display: flex; gap: 0.4rem; margin-top: 0.6rem;
+    justify-content: center;
+  }
+  .timer-btn {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.2s;
+  }
+  .timer-btn:hover { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .timer-box { top: auto; bottom: 20px; right: 20px; left: 20px; }
+  }
+
+  .nav-side {
+    position: fixed; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 245px;
+    padding: 1.4rem 0.9rem 1.4rem 1.4rem;
+    background: rgba(18, 35, 61, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 0 14px 14px 0;
+    border: 1px solid var(--border);
+    border-left: none;
+    z-index: 800;
+    display: none;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  @media (min-width: 1250px) { .nav-side { display: block; } }
+
+  .nav-side .nav-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+  }
+  .nav-side ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .nav-side a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .nav-side a:hover, .nav-side a:focus {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left-color: var(--accent);
+    outline: none;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+  @media (min-width: 1250px) {
+    main { margin-left: 265px; max-width: calc(var(--max-width) - 30px); }
+  }
+
+  section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.reveal { opacity: 1; transform: translateY(0); }
+
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 26px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.8rem 0 0.9rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 1.2rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.4rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.6rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.5rem 0;
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+  .callout.warning {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04));
+    border-left-color: var(--warning);
+  }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  /* ---- ESTACIONES ---- */
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.7rem;
+    margin: 1.8rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .stations-nav { position: static; grid-template-columns: 1fr 1fr; }
+  }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .station-btn.active {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+  }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.2rem;
+  }
+  .station-btn .st-time {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    margin-top: 0.2rem;
+    opacity: 0.75;
+  }
+
+  /* ---- CAMPOS DE RESPUESTA ---- */
+  .response-field {
+    margin: 1rem 0;
+  }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  .response-input::placeholder { color: #6b8299; }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  /* ---- SEMÁFORO ---- */
+  .semaforo {
+    display: flex;
+    gap: 1rem;
+    margin: 1.2rem 0;
+    flex-wrap: wrap;
+  }
+  .semaforo-option {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .semaforo-option:hover {
+    transform: translateY(-3px);
+  }
+  .semaforo-option.selected {
+    border-width: 3px;
+    transform: scale(1.03);
+  }
+  .semaforo-option[data-color="green"].selected {
+    border-color: var(--success);
+    background: rgba(74, 222, 128, 0.1);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.25);
+  }
+  .semaforo-option[data-color="yellow"].selected {
+    border-color: var(--warning);
+    background: rgba(251, 191, 36, 0.1);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.25);
+  }
+  .semaforo-option[data-color="red"].selected {
+    border-color: var(--error);
+    background: rgba(248, 113, 113, 0.1);
+    box-shadow: 0 0 20px rgba(248, 113, 113, 0.25);
+  }
+  .semaforo-option .sem-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+    display: block;
+  }
+  .semaforo-option[data-color="green"] .sem-circle { background: var(--success); }
+  .semaforo-option[data-color="yellow"] .sem-circle { background: var(--warning); }
+  .semaforo-option[data-color="red"] .sem-circle { background: var(--error); }
+  .semaforo-option .sem-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .semaforo-option[data-color="green"] .sem-label { color: var(--success); }
+  .semaforo-option[data-color="yellow"] .sem-label { color: var(--warning); }
+  .semaforo-option[data-color="red"] .sem-label { color: var(--error); }
+  .semaforo-option .sem-desc {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+  }
+
+  /* ---- ROLES ---- */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .role-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    transition: all 0.3s;
+    border-top: 4px solid var(--accent);
+  }
+  .role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(240, 180, 41, 0.2);
+  }
+  .role-card .role-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .role-card .role-name {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .role-card .role-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- CADENA DE COHERENCIA ---- */
+  .chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 1.5rem 0;
+  }
+  .chain-step {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 260px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .chain-step .chain-label {
+    flex: 1;
+    text-align: left;
+  }
+  .chain-arrow {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  .chain-status {
+    display: flex; gap: 0.3rem;
+  }
+  .chain-status button {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    font-size: 0;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .chain-status button[data-status="green"]:hover,
+  .chain-status button[data-status="green"].active { background: var(--success); border-color: var(--success); }
+  .chain-status button[data-status="yellow"]:hover,
+  .chain-status button[data-status="yellow"].active { background: var(--warning); border-color: var(--warning); }
+  .chain-status button[data-status="red"]:hover,
+  .chain-status button[data-status="red"].active { background: var(--error); border-color: var(--error); }
+
+  /* ---- TABLAS ---- */
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.8rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  /* ---- DIAGNÓSTICO FINAL ---- */
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 {
+    margin-top: 0;
+    color: var(--accent);
+    text-align: center;
+  }
+  .diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .diagnostic-item {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .diagnostic-item .di-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    margin-bottom: 0.5rem;
+  }
+  .diagnostic-item .di-status {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+  .diagnostic-item .di-desc {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .diagnostic-item.green .di-desc { color: var(--success); }
+  .diagnostic-item.yellow .di-desc { color: var(--warning); }
+  .diagnostic-item.red .di-desc { color: var(--error); }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active { transform: scale(0.97); }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover { background: var(--accent-soft); }
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+  }
+  .btn-small:hover { background: #ffd97a; transform: translateY(-1px); }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+
+  /* ---- ALERTA ROJA ---- */
+  .alert-red {
+    background: rgba(248, 113, 113, 0.1);
+    border: 2px solid var(--error);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+    color: #fbc7c7;
+    font-weight: 500;
+  }
+  .alert-red strong { color: var(--error); }
+
+  /* ---- CHECKLIST ---- */
+  .checklist {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .checklist li {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    transition: all 0.2s;
+  }
+  .checklist li:hover {
+    border-color: var(--accent);
+  }
+  .checklist li .check-icon {
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    background: rgba(5, 12, 23, 0.9);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+  footer p { margin-bottom: 0.3rem; color: var(--text-soft); }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .chain-step { min-width: 100%; flex-direction: column; }
+    .semaforo { flex-direction: column; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .pulse { animation: pulse 1s infinite; }
+
+  /* ---- PROGRESO DEL LABORATORIO ---- */
+  .lab-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.8rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.88rem;
+  }
+  .lab-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin: 0 1rem;
+    overflow: hidden;
+  }
+  .lab-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Pon a prueba tu propuesta de investigación</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<nav class="nav-side" aria-label="Índice de contenidos">
+  <div class="nav-label">Ruta del laboratorio</div>
+  <ul>
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#proposito">Propósito</a></li>
+    <li><a href="#roles">Roles y regla</a></li>
+    <li><a href="#estacion1">Estación 1 · Objeto</a></li>
+    <li><a href="#estacion2">Estación 2 · Hilo conductor</a></li>
+    <li><a href="#estacion3">Estación 3 · Justificación</a></li>
+    <li><a href="#estacion4">Estación 4 · Metodología</a></li>
+    <li><a href="#estacion5">Estación 5 · Veredicto</a></li>
+    <li><a href="#diagnostico">Diagnóstico final</a></li>
+    <li><a href="#cierre">Consigna de cierre</a></li>
+  </ul>
+</nav>
+
+<!-- TIMER FLOTANTE -->
+<div class="timer-box" id="timerBox">
+  <div class="timer-label">Tiempo restante</div>
+  <div class="timer-display" id="timerDisplay">60:00</div>
+  <div class="timer-controls">
+    <button class="timer-btn" id="timerStart">▶ Iniciar</button>
+    <button class="timer-btn" id="timerPause">⏸ Pausa</button>
+    <button class="timer-btn" id="timerReset">↻ Reset</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada" class="reveal">
+    <span class="badge">Laboratorio interactivo · Trabajo colaborativo</span>
+    <h1>Pon a prueba tu propuesta de investigación</h1>
+    <p style="font-size: 1.15rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Antes de entregar el informe, sometan su propuesta a una prueba de consistencia interna. Este laboratorio
+      no les pide construir la propuesta: les pide encontrar sus puntos débiles y producir ajustes concretos.
+    </p>
+
+    <div class="card" style="margin-top: 2rem;">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado</p>
+      <p><strong>Duración:</strong> 60 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo colaborativo en grupos de 4-5 estudiantes</p>
+      <p><strong>Producto:</strong> Matriz de diagnóstico y plan de ajustes de la propuesta</p>
+      <p><strong>Insumo obligatorio:</strong> Borrador actual de la propuesta de investigación del grupo</p>
+    </div>
+
+    <div class="callout">
+      <strong>Resultado de aprendizaje:</strong> Caracterizar los objetos de investigación de acuerdo con su disciplina,
+      a partir de orientaciones metodológicas para el desarrollo de propuestas y proyectos de investigación.
+    </div>
+
+    <div class="callout info">
+      <strong>Cómo funciona este laboratorio:</strong> Cinco estaciones con tiempo asignado, semáforos de diagnóstico
+      y campos de respuesta. Al final se genera un diagnóstico de salud de la propuesta. Usen el temporizador
+      flotante para controlar el tiempo.
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnStartTimer">▶ Iniciar laboratorio (60 min)</button>
+    </div>
+  </section>
+
+  <!-- PROPÓSITO -->
+  <section id="proposito" class="reveal">
+    <h2>Propósito del laboratorio</h2>
+    <p>Evaluar críticamente la coherencia y viabilidad de la propuesta de investigación construida por el grupo, mediante el análisis de cuatro componentes:</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-num">Componente 1</div>
+        <div class="role-name">Objeto de estudio</div>
+        <div class="role-desc">¿Está claramente delimitado qué fenómeno se va a investigar, en quiénes y en qué contexto?</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Componente 2</div>
+        <div class="role-name">Pregunta y objetivos</div>
+        <div class="role-desc">¿La pregunta interroga el objeto? ¿Los objetivos permiten responder la pregunta?</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Componente 3</div>
+        <div class="role-name">Justificación</div>
+        <div class="role-desc">¿Se demuestra por qué vale la pena investigarlo, más allá de afirmar que es importante?</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Componente 4</div>
+        <div class="role-name">Estructura metodológica</div>
+        <div class="role-desc">¿Cada objetivo tiene una ruta metodológica que permite alcanzarlo de manera viable?</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>¿NUESTRA PROPUESTA CONSTITUYE REALMENTE UN SISTEMA COHERENTE EN EL QUE EL OBJETO, LA PREGUNTA, LOS OBJETIVOS, LA JUSTIFICACIÓN Y LA METODOLOGÍA APUNTAN AL MISMO PROBLEMA DE CONOCIMIENTO?</p>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section id="roles" class="reveal">
+    <h2>Roles y regla del laboratorio</h2>
+    <p>Cada grupo debe disponer de su borrador y seleccionar cuatro roles (cinco si hay cinco integrantes):</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-num">Rol 1</div>
+        <div class="role-name">🛡️ Guardián del objeto</div>
+        <div class="role-desc">Comprueba que el grupo no pierda de vista qué fenómeno pretende estudiar.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Rol 2</div>
+        <div class="role-name">🔍 Auditor de coherencia</div>
+        <div class="role-desc">Busca contradicciones entre pregunta, objetivos y metodología.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Rol 3</div>
+        <div class="role-name">😈 Abogado del diablo</div>
+        <div class="role-desc">Su función es preguntar: ¿por qué?, ¿con qué evidencia?, ¿esto realmente se puede investigar?</div>
+      </div>
+      <div class="role-card">
+        <div class="role-num">Rol 4</div>
+        <div class="role-name">📝 Relator</div>
+        <div class="role-desc">Registra los hallazgos y modificaciones acordadas.</div>
+      </div>
+      <div class="role-card" style="border-top-color: var(--info);">
+        <div class="role-num">Rol 5 (opcional)</div>
+        <div class="role-name">⚖️ Control de viabilidad</div>
+        <div class="role-desc">Pregunta si lo propuesto puede realizarse con el tiempo, participantes y recursos disponibles.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box error">
+      <p>NO DEFENDEMOS NUESTRA PROPUESTA. INTENTAMOS ENCONTRAR SUS PUNTOS DÉBILES PARA MEJORARLA.</p>
+    </div>
+
+    <div class="callout success">
+      Esta regla transforma la actividad de autoevaluación en una experiencia de pensamiento crítico.
+    </div>
+
+    <!-- Progreso del laboratorio -->
+    <div class="lab-progress">
+      <span>Progreso del laboratorio</span>
+      <div class="lab-progress-bar">
+        <div class="lab-progress-fill" id="labProgressFill"></div>
+      </div>
+      <span id="labProgressText">0 / 5 estaciones</span>
+    </div>
+
+    <!-- Navegación de estaciones -->
+    <div class="stations-nav" id="stationsNav">
+      <button class="station-btn active" data-station="1">
+        <span class="st-num">Estación 1</span>
+        <span>Objeto</span>
+        <span class="st-time">10 min</span>
+      </button>
+      <button class="station-btn" data-station="2">
+        <span class="st-num">Estación 2</span>
+        <span>Hilo conductor</span>
+        <span class="st-time">15 min</span>
+      </button>
+      <button class="station-btn" data-station="3">
+        <span class="st-num">Estación 3</span>
+        <span>Justificación</span>
+        <span class="st-time">10 min</span>
+      </button>
+      <button class="station-btn" data-station="4">
+        <span class="st-num">Estación 4</span>
+        <span>Metodología</span>
+        <span class="st-time">15 min</span>
+      </button>
+      <button class="station-btn" data-station="5">
+        <span class="st-num">Estación 5</span>
+        <span>Veredicto</span>
+        <span class="st-time">10 min</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 1 -->
+  <section id="estacion1" class="reveal">
+    <h2>Estación 1 · ¿Tenemos realmente un objeto de investigación?</h2>
+    <p><strong>Tiempo: 10 minutos.</strong></p>
+
+    <div class="callout">
+      <strong>Reto:</strong> Sin consultar el documento durante los primeros dos minutos, cada integrante completa
+      individualmente las siguientes frases. Después comparan las respuestas.
+    </div>
+
+    <div class="response-field">
+      <label>Nuestro objeto de estudio es:</label>
+      <input type="text" class="response-input" id="e1-objeto" placeholder="Ej.: La percepción de estudiantes de primer semestre sobre...">
+    </div>
+
+    <div class="response-field">
+      <label>Específicamente queremos comprender / conocer / analizar:</label>
+      <textarea class="response-input" id="e1-especifico" placeholder="Describan qué quieren conocer exactamente..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>En esta población / contexto:</label>
+      <input type="text" class="response-input" id="e1-poblacion" placeholder="Ej.: Estudiantes de primer semestre de Psicología de la Universidad X...">
+    </div>
+
+    <h3>Prueba 1: coincidencia</h3>
+    <p>¿Todos están describiendo el mismo objeto?</p>
+    <div class="semaforo" data-field="e1-coincidencia">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Sí, claramente</div>
+        <div class="sem-desc">Todas las descripciones apuntan al mismo objeto</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Parcialmente</div>
+        <div class="sem-desc">Hay coincidencias pero también diferencias importantes</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">No</div>
+        <div class="sem-desc">Cuatro integrantes ofrecen cuatro explicaciones diferentes</div>
+      </div>
+    </div>
+
+    <h3>Prueba 2: el zoom</h3>
+    <p>Describan el objeto en máximo 40 palabras, incluyendo cuando sea pertinente: fenómeno central, población o unidad de análisis, contexto, delimitación, principales dimensiones.</p>
+
+    <div class="response-field">
+      <label>Descripción del objeto (máx. 40 palabras):</label>
+      <textarea class="response-input" id="e1-zoom" placeholder="Ej.: La percepción de estudiantes de primer semestre de Psicología sobre las situaciones académicas que generan estrés durante su transición inicial a la vida universitaria..." maxlength="300"></textarea>
+    </div>
+
+    <h3>Semáforo del objeto</h3>
+    <div class="semaforo" data-field="e1-semaforo">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🟢 Verde</div>
+        <div class="sem-desc">Podemos explicar claramente qué estudiamos, en quiénes y bajo qué condiciones</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🟡 Amarillo</div>
+        <div class="sem-desc">Sabemos qué queremos estudiar, pero existen ambigüedades importantes</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🔴 Rojo</div>
+        <div class="sem-desc">Tenemos un tema general, pero todavía no un objeto suficientemente delimitado</div>
+      </div>
+    </div>
+
+    <div class="response-field">
+      <label>Versión actual:</label>
+      <textarea class="response-input" id="e1-version-actual" placeholder="Versión actual de nuestro objeto..."></textarea>
+    </div>
+    <div class="response-field">
+      <label>Problema detectado:</label>
+      <textarea class="response-input" id="e1-problema" placeholder="El problema que detectamos es..."></textarea>
+    </div>
+    <div class="response-field">
+      <label>Versión mejorada:</label>
+      <textarea class="response-input" id="e1-version-mejorada" placeholder="Nuestra versión mejorada sería..."></textarea>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 2 -->
+  <section id="estacion2" class="reveal">
+    <h2>Estación 2 · La prueba del hilo conductor</h2>
+    <p><strong>Tiempo: 15 minutos.</strong> Esta es la estación central.</p>
+
+    <p>Escriban, sin explicaciones adicionales, la cadena de coherencia de su propuesta:</p>
+
+    <div class="response-field">
+      <label>OBJETO</label>
+      <input type="text" class="response-input" id="e2-objeto" placeholder="Nuestro objeto de estudio es...">
+    </div>
+
+    <div class="response-field">
+      <label>PREGUNTA</label>
+      <textarea class="response-input" id="e2-pregunta" placeholder="Nuestra pregunta de investigación es..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>OBJETIVO GENERAL</label>
+      <textarea class="response-input" id="e2-objetivo-general" placeholder="Nuestro objetivo general es..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>OBJETIVOS ESPECÍFICOS</label>
+      <textarea class="response-input" id="e2-objetivos-especificos" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+    </div>
+
+    <h3>Prueba A · Pregunta ↔ objeto</h3>
+    <p>Si alguien leyera exclusivamente nuestra pregunta de investigación, ¿podría identificar qué objeto estamos investigando?</p>
+    <div class="semaforo" data-field="e2-prueba-a">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Sí</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Parcialmente</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">No</div>
+      </div>
+    </div>
+
+    <h3>Prueba B · Pregunta ↔ objetivo general</h3>
+    <p>Cubran la pregunta y lean solamente el objetivo general. ¿Si alcanzamos este objetivo, habremos respondido nuestra pregunta?</p>
+    <div class="semaforo" data-field="e2-prueba-b">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Sí, coinciden</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Parcialmente</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">No, hay ruptura</div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <strong>Ejemplo de ruptura:</strong> Pregunta: "¿Cómo perciben los estudiantes de primer semestre las situaciones académicas asociadas al estrés?" — Objetivo: "Determinar la prevalencia de trastornos de ansiedad en estudiantes universitarios." Aunque ambos están en el campo de la salud mental, no persiguen el mismo conocimiento.
+    </div>
+
+    <h3>Prueba C · General ↔ específicos</h3>
+    <p>Por cada objetivo específico, completen: "Si desarrollamos este objetivo, aportará al objetivo general porque..."</p>
+    <div class="response-field">
+      <textarea class="response-input" id="e2-prueba-c" placeholder="Objetivo específico 1 aporta porque...&#10;Objetivo específico 2 aporta porque...&#10;Objetivo específico 3 aporta porque..." style="min-height: 120px;"></textarea>
+    </div>
+
+    <h3>Prueba D · El verbo promete algo</h3>
+    <p>Subrayen el verbo principal de cada objetivo (describir, identificar, analizar, comprender, interpretar, comparar, relacionar, caracterizar) y respondan: ¿nuestra metodología realmente permitirá cumplir la acción que promete ese verbo?</p>
+    <div class="response-field">
+      <textarea class="response-input" id="e2-prueba-d" placeholder="Verbos identificados: ...&#10;¿La metodología los cumple?: ..."></textarea>
+    </div>
+
+    <h3>Cadena de coherencia</h3>
+    <p>Marquen el estado de cada relación:</p>
+    <div class="chain">
+      <div class="chain-step">
+        <span class="chain-label">OBJETO → PREGUNTA</span>
+        <div class="chain-status" data-chain="1">
+          <button data-status="green" title="Relación clara"></button>
+          <button data-status="yellow" title="Requiere ajustes"></button>
+          <button data-status="red" title="Contradicción"></button>
+        </div>
+      </div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">
+        <span class="chain-label">PREGUNTA → OBJETIVO GENERAL</span>
+        <div class="chain-status" data-chain="2">
+          <button data-status="green" title="Relación clara"></button>
+          <button data-status="yellow" title="Requiere ajustes"></button>
+          <button data-status="red" title="Contradicción"></button>
+        </div>
+      </div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-step">
+        <span class="chain-label">OBJETIVO GENERAL → ESPECÍFICOS</span>
+        <div class="chain-status" data-chain="3">
+          <button data-status="green" title="Relación clara"></button>
+          <button data-status="yellow" title="Requiere ajustes"></button>
+          <button data-status="red" title="Contradicción"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 3 -->
+  <section id="estacion3" class="reveal">
+    <h2>Estación 3 · Tribunal de la justificación</h2>
+    <p><strong>Tiempo: 10 minutos.</strong> Cada grupo debe defender la necesidad de su investigación, pero no mediante afirmaciones generales.</p>
+
+    <div class="response-field">
+      <label>A. Relevancia práctica</label>
+      <p style="font-size: 0.88rem; color: var(--text-soft); margin-bottom: 0.5rem;">¿Quién podría beneficiarse del conocimiento generado y para qué podría utilizarlo?</p>
+      <textarea class="response-input" id="e3-practica" placeholder="El conocimiento podría beneficiar a... para..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>B. Relevancia académica</label>
+      <p style="font-size: 0.88rem; color: var(--text-soft); margin-bottom: 0.5rem;">¿Qué comprensión del fenómeno permitiría ampliar, precisar, contrastar o problematizar?</p>
+      <textarea class="response-input" id="e3-academica" placeholder="Permitiría ampliar/precisar/contrastar..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>C. Relevancia científica</label>
+      <p style="font-size: 0.88rem; color: var(--text-soft); margin-bottom: 0.5rem;">¿Qué conocimiento hace falta producir y por qué una investigación sistemática contribuiría a generarlo?</p>
+      <textarea class="response-input" id="e3-cientifica" placeholder="Hace falta producir conocimiento sobre... y una investigación sistemática contribuiría porque..."></textarea>
+    </div>
+
+    <div class="callout error">
+      <strong>El abogado del diablo</strong> debe someter las tres respuestas a la misma pregunta: <strong>¿Cómo sabemos esto?</strong>
+      Expresiones como "es un tema muy importante", "afecta mucho a los jóvenes", "existen pocos estudios" o
+      "es una problemática de actualidad" no son suficientes por sí mismas.
+    </div>
+
+    <h3>Clasificación de la justificación</h3>
+    <div class="semaforo" data-field="e3-semaforo">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🟢 Argumentada</div>
+        <div class="sem-desc">Explica relevancia práctica, académica y científica y puede sustentarse</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🟡 Parcial</div>
+        <div class="sem-desc">Alguna de las tres dimensiones está débilmente desarrollada</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">🔴 Declarativa</div>
+        <div class="sem-desc">Predominantemente afirma que el tema es importante, pero no demuestra por qué</div>
+      </div>
+    </div>
+
+    <div class="response-field">
+      <label>Acción concreta para fortalecer la justificación:</label>
+      <textarea class="response-input" id="e3-accion" placeholder="Para fortalecerla necesitamos..."></textarea>
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 4 -->
+  <section id="estacion4" class="reveal">
+    <h2>Estación 4 · ¿Nuestra metodología puede cumplir lo que prometimos?</h2>
+    <p><strong>Tiempo: 15 minutos.</strong> Abandonen expresiones genéricas como "realizaremos encuestas" o "haremos entrevistas". Piensen metodológicamente.</p>
+
+    <h3>Orientación metodológica</h3>
+    <div class="semaforo" data-field="e4-orientacion">
+      <div class="semaforo-option" data-color="green">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Empírico-analítica</div>
+        <div class="sem-desc">Enfoque cuantitativo, medición, análisis estadístico</div>
+      </div>
+      <div class="semaforo-option" data-color="yellow">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Histórico-hermenéutica</div>
+        <div class="sem-desc">Enfoque cualitativo, comprensión, interpretación</div>
+      </div>
+      <div class="semaforo-option" data-color="red">
+        <span class="sem-circle"></span>
+        <div class="sem-label">Mixta</div>
+        <div class="sem-desc">Combinación de ambas orientaciones</div>
+      </div>
+    </div>
+
+    <h3>Cadena metodológica por objetivo específico</h3>
+    <p>Para cada objetivo específico, completen la cadena:</p>
+
+    <div class="response-field">
+      <label>Objetivo específico 1</label>
+      <textarea class="response-input" id="e4-obj1" placeholder="¿Qué necesitamos conocer? → ¿De quién/de qué obtendremos información? → ¿Qué procedimiento realizaremos? → ¿Qué recurso o instrumento necesitaremos? → ¿Qué información esperamos obtener? → ¿Cómo contribuirá al objetivo general?" style="min-height: 100px;"></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Objetivo específico 2</label>
+      <textarea class="response-input" id="e4-obj2" placeholder="Misma cadena para el objetivo 2..." style="min-height: 100px;"></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Objetivo específico 3</label>
+      <textarea class="response-input" id="e4-obj3" placeholder="Misma cadena para el objetivo 3..." style="min-height: 100px;"></textarea>
+    </div>
+
+    <h3>La prueba de eliminación</h3>
+    <div class="callout">
+      <strong>Imaginen que eliminan una fase metodológica. Pregúntense:</strong> ¿Qué objetivo ya no podríamos alcanzar?
+      Si eliminan una fase y ningún objetivo resulta afectado, probablemente esa fase no tiene una función clara.
+      Si existe un objetivo para el que ninguna fase genera información suficiente, tienen el problema contrario:
+      prometen algo que su metodología no permite alcanzar.
+    </div>
+
+    <div class="response-field">
+      <label>Resultado de la prueba de eliminación:</label>
+      <textarea class="response-input" id="e4-eliminacion" placeholder="Si eliminamos la fase X, el objetivo Y ya no podría alcanzarse porque..."></textarea>
+    </div>
+
+    <h3>Prueba de viabilidad</h3>
+    <p>Califiquen de 0 a 2 cada condición. Máximo: 10 puntos.</p>
+
+    <div style="display: grid; gap: 0.8rem; margin: 1.5rem 0;">
+      <div class="response-field" style="display: flex; align-items: center; gap: 1rem;">
+        <label style="flex: 1; margin: 0;">Acceso a participantes o fuentes</label>
+        <select class="response-input" id="e4-v1" style="width: 80px; flex: none;">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        </select>
+      </div>
+      <div class="response-field" style="display: flex; align-items: center; gap: 1rem;">
+        <label style="flex: 1; margin: 0;">Tiempo disponible</label>
+        <select class="response-input" id="e4-v2" style="width: 80px; flex: none;">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        </select>
+      </div>
+      <div class="response-field" style="display: flex; align-items: center; gap: 1rem;">
+        <label style="flex: 1; margin: 0;">Recursos</label>
+        <select class="response-input" id="e4-v3" style="width: 80px; flex: none;">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        </select>
+      </div>
+      <div class="response-field" style="display: flex; align-items: center; gap: 1rem;">
+        <label style="flex: 1; margin: 0;">Conocimientos/habilidades del equipo</label>
+        <select class="response-input" id="e4-v4" style="width: 80px; flex: none;">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        </select>
+      </div>
+      <div class="response-field" style="display: flex; align-items: center; gap: 1rem;">
+        <label style="flex: 1; margin: 0;">Posibilidad real de obtener la información necesaria</label>
+        <select class="response-input" id="e4-v5" style="width: 80px; flex: none;">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="highlight-box info" id="viabilidadResult">
+      <p>Puntuación de viabilidad: <span id="viabilidadScore">0</span> / 10</p>
+      <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-soft); font-weight: 400;" id="viabilidadMsg">Seleccionen los valores para calcular la viabilidad</p>
+    </div>
+
+    <div class="callout info">
+      <strong>La puntuación no es una calificación del curso.</strong> Es una alerta diagnóstica para el grupo.
+      8-10: alta viabilidad. 5-7: requiere ajustes. 0-4: existe una dificultad de viabilidad que debe resolverse antes de avanzar.
+    </div>
+  </section>
+
+  <!-- ESTACIÓN 5 -->
+  <section id="estacion5" class="reveal">
+    <h2>Estación 5 · El veredicto</h2>
+    <p><strong>Tiempo: 10 minutos.</strong> Ahora utilicen la rúbrica oficial. Pero hay una condición: no pueden asignarse un nivel sin escribir la evidencia que justifica esa decisión.</p>
+
+    <h3>Matriz de autoevaluación</h3>
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Diagnóstico</th>
+          <th>Evidencia encontrada</th>
+          <th>Ajuste requerido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Descripción del objeto</td>
+          <td>
+            <select class="response-input" id="e5-obj-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e5-obj-ev" placeholder="¿Qué demuestra nuestro nivel?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e5-obj-aj" placeholder="¿Qué debemos modificar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Pregunta y objetivos</td>
+          <td>
+            <select class="response-input" id="e5-preg-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e5-preg-ev" placeholder="¿Dónde se observa la coherencia?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e5-preg-aj" placeholder="¿Qué debemos modificar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Justificación</td>
+          <td>
+            <select class="response-input" id="e5-just-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e5-just-ev" placeholder="¿Qué argumentos tenemos?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e5-just-aj" placeholder="¿Qué falta sustentar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+        <tr>
+          <td>Estructura metodológica</td>
+          <td>
+            <select class="response-input" id="e5-met-diag" style="padding: 0.4rem;">
+              <option value="">—</option>
+              <option value="green">🟢 Verde</option>
+              <option value="yellow">🟡 Amarillo</option>
+              <option value="red">🔴 Rojo</option>
+            </select>
+          </td>
+          <td><textarea class="response-input" id="e5-met-ev" placeholder="¿Cómo responde a los objetivos?" style="min-height: 60px;"></textarea></td>
+          <td><textarea class="response-input" id="e5-met-aj" placeholder="¿Qué debemos modificar?" style="min-height: 60px;"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Metacognición y transferencia</h3>
+    <p>Los últimos cinco minutos de esta estación son fundamentales. El laboratorio no termina preguntando solamente "¿qué debemos corregir?", sino:</p>
+
+    <div class="response-field">
+      <label>Pregunta 1 · ¿Cuál es actualmente la mayor fortaleza de nuestra propuesta y qué evidencia permite afirmarlo?</label>
+      <textarea class="response-input" id="e5-p1" placeholder="Nuestra mayor fortaleza es... y lo afirmamos porque..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Pregunta 2 · ¿Cuál es la inconsistencia más importante que detectamos?</label>
+      <textarea class="response-input" id="e5-p2" placeholder="La inconsistencia más importante es..."></textarea>
+    </div>
+
+    <div class="response-field">
+      <label>Pregunta 3 · Si modificamos esa parte, ¿qué otros componentes tendremos que modificar como consecuencia?</label>
+      <textarea class="response-input" id="e5-p3" placeholder="Si modificamos X, tendremos que revisar también Y y Z porque..."></textarea>
+    </div>
+
+    <div class="callout violet">
+      <strong>Esta tercera pregunta trabaja la transferencia conceptual:</strong> Cambio el objeto → ¿debo modificar la pregunta? →
+      ¿cambian los objetivos? → ¿cambia la metodología? El estudiante comienza así a comprender una propuesta de investigación
+      como un sistema de decisiones interdependientes y no como cinco apartados independientes de un documento.
+    </div>
+  </section>
+
+  <!-- DIAGNÓSTICO FINAL -->
+  <section id="diagnostico" class="reveal">
+    <h2>Diagnóstico de salud de la propuesta</h2>
+    <p>Con base en los semáforos de las estaciones anteriores, se genera el diagnóstico final de su propuesta.</p>
+
+    <div class="diagnostic-box">
+      <h3>Estado actual de la propuesta</h3>
+
+      <div class="diagnostic-grid" id="diagnosticGrid">
+        <div class="diagnostic-item" id="diag-obj">
+          <div class="di-label">Objeto de estudio</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-preg">
+          <div class="di-label">Pregunta y objetivos</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-just">
+          <div class="di-label">Justificación</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+        <div class="diagnostic-item" id="diag-met">
+          <div class="di-label">Metodología</div>
+          <div class="di-status">—</div>
+          <div class="di-desc">Sin evaluar</div>
+        </div>
+      </div>
+
+      <div id="diagnosticVerdict"></div>
+
+      <h4>Hallazgo más importante</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-hallazgo" placeholder="La principal inconsistencia/fortaleza que identificamos es..."></textarea>
+      </div>
+
+      <h4>Evidencia</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-evidencia" placeholder="Lo afirmamos porque en nuestra propuesta..."></textarea>
+      </div>
+
+      <h4>Decisión</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-decision" placeholder="Por lo anterior, modificaremos..."></textarea>
+      </div>
+
+      <h4>Consecuencia</h4>
+      <div class="response-field">
+        <textarea class="response-input" id="diag-consecuencia" placeholder="Este cambio implica revisar también..."></textarea>
+      </div>
+
+      <h4>Prioridades (solo tres compromisos en orden)</h4>
+      <div class="response-field">
+        <label>Prioridad 1:</label>
+        <input type="text" class="response-input" id="diag-p1" placeholder="Acción 1" style="margin-bottom: 0.4rem;">
+        <input type="text" class="response-input" id="diag-p1-resp" placeholder="Responsable: ...">
+      </div>
+      <div class="response-field">
+        <label>Prioridad 2:</label>
+        <input type="text" class="response-input" id="diag-p2" placeholder="Acción 2" style="margin-bottom: 0.4rem;">
+        <input type="text" class="response-input" id="diag-p2-resp" placeholder="Responsable: ...">
+      </div>
+      <div class="response-field">
+        <label>Prioridad 3:</label>
+        <input type="text" class="response-input" id="diag-p3" placeholder="Acción 3" style="margin-bottom: 0.4rem;">
+        <input type="text" class="response-input" id="diag-p3-resp" placeholder="Responsable: ...">
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGenerarDiagnostico">🔄 Generar diagnóstico</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir / Guardar PDF</button>
+      <button class="btn btn-outline" id="btnReiniciarTodo">↻ Reiniciar todo</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" class="reveal">
+    <h2>Consigna de cierre</h2>
+
+    <div class="highlight-box warning">
+      <p>¿ESTÁ LISTA NUESTRA PROPUESTA?</p>
+    </div>
+
+    <p style="text-align: center; font-size: 1.1rem; color: var(--accent); font-weight: 600;">No respondan todavía. Demuéstrenlo.</p>
+
+    <ul class="checklist">
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Está claramente delimitado el objeto?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿La pregunta realmente interroga ese objeto?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Los objetivos permiten responder la pregunta?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿La justificación demuestra por qué vale la pena investigarlo?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Cada objetivo tiene una ruta metodológica que permite alcanzarlo?</span>
+      </li>
+      <li>
+        <span class="check-icon">✓</span>
+        <span>¿Es viable realizar lo que estamos prometiendo?</span>
+      </li>
+    </ul>
+
+    <div class="highlight-box success">
+      <p>UNA BUENA PROPUESTA NO ES AQUELLA CUYOS APARTADOS ESTÁN COMPLETOS. ES AQUELLA EN LA QUE LAS DECISIONES SON COHERENTES ENTRE SÍ.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Pon a prueba tu propuesta de investigación</strong> · Laboratorio interactivo para trabajo colaborativo</p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Diseño instruccional y desarrollo front-end · 2025</p>
+</footer>
+
+<script>
+(function() {
+  /* ============ BARRA DE PROGRESO ============ */
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  /* ============ SCROLL REVEAL ============ */
+  const sections = document.querySelectorAll('section.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('reveal');
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+
+  /* ============ TIMER ============ */
+  let timerSeconds = 60 * 60; // 60 minutos
+  let timerInterval = null;
+  let timerRunning = false;
+
+  const timerBox = document.getElementById('timerBox');
+  const timerDisplay = document.getElementById('timerDisplay');
+
+  function updateTimerDisplay() {
+    const min = Math.floor(timerSeconds / 60);
+    const sec = timerSeconds % 60;
+    timerDisplay.textContent = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+
+    timerDisplay.classList.remove('warning', 'danger');
+    if (timerSeconds <= 300) {
+      timerDisplay.classList.add('danger');
+    } else if (timerSeconds <= 900) {
+      timerDisplay.classList.add('warning');
+    }
+
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerDisplay.textContent = '00:00';
+      timerDisplay.classList.add('danger');
+    }
+  }
+
+  function startTimer() {
+    if (timerRunning) return;
+    timerRunning = true;
+    timerBox.classList.add('show');
+    timerInterval = setInterval(() => {
+      if (timerSeconds > 0) {
+        timerSeconds--;
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    timerSeconds = 60 * 60;
+    updateTimerDisplay();
+  }
+
+  document.getElementById('timerStart').addEventListener('click', startTimer);
+  document.getElementById('timerPause').addEventListener('click', pauseTimer);
+  document.getElementById('timerReset').addEventListener('click', resetTimer);
+  document.getElementById('btnStartTimer').addEventListener('click', function() {
+    startTimer();
+    this.textContent = '⏱️ Laboratorio en curso...';
+    this.disabled = true;
+    this.style.opacity = '0.6';
+  });
+
+  updateTimerDisplay();
+
+  /* ============ NAVEGACIÓN DE ESTACIONES ============ */
+  const stationBtns = document.querySelectorAll('.station-btn');
+  const stationSections = {
+    1: document.getElementById('estacion1'),
+    2: document.getElementById('estacion2'),
+    3: document.getElementById('estacion3'),
+    4: document.getElementById('estacion4'),
+    5: document.getElementById('estacion5')
+  };
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const station = this.dataset.station;
+      stationBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      if (stationSections[station]) {
+        stationSections[station].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Actualizar botón activo con el scroll
+  const stationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const stationNum = id.replace('estacion', '');
+        stationBtns.forEach(b => {
+          b.classList.toggle('active', b.dataset.station === stationNum);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  Object.values(stationSections).forEach(s => {
+    if (s) stationObserver.observe(s);
+  });
+
+  /* ============ SEMÁFOROS ============ */
+  document.querySelectorAll('.semaforo').forEach(semaforo => {
+    const options = semaforo.querySelectorAll('.semaforo-option');
+    options.forEach(opt => {
+      opt.addEventListener('click', function() {
+        options.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        updateDiagnosticFromSemaforos();
+      });
+    });
+  });
+
+  /* ============ CADENA DE COHERENCIA ============ */
+  document.querySelectorAll('.chain-status').forEach(chainStatus => {
+    const buttons = chainStatus.querySelectorAll('button');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        buttons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        updateDiagnosticFromSemaforos();
+      });
+    });
+  });
+
+  /* ============ VIABILIDAD ============ */
+  const viabilidadSelects = ['e4-v1', 'e4-v2', 'e4-v3', 'e4-v4', 'e4-v5'];
+  viabilidadSelects.forEach(id => {
+    document.getElementById(id).addEventListener('change', updateViabilidad);
+  });
+
+  function updateViabilidad() {
+    let total = 0;
+    viabilidadSelects.forEach(id => {
+      total += parseInt(document.getElementById(id).value) || 0;
+    });
+    document.getElementById('viabilidadScore').textContent = total;
+
+    const msg = document.getElementById('viabilidadMsg');
+    if (total >= 8) {
+      msg.textContent = '🟢 Alta viabilidad';
+      msg.style.color = 'var(--success)';
+    } else if (total >= 5) {
+      msg.textContent = '🟡 Requiere ajustes';
+      msg.style.color = 'var(--warning)';
+    } else if (total > 0) {
+      msg.textContent = '🔴 Existe una dificultad de viabilidad que debe resolverse antes de avanzar';
+      msg.style.color = 'var(--error)';
+    } else {
+      msg.textContent = 'Seleccionen los valores para calcular la viabilidad';
+      msg.style.color = 'var(--text-soft)';
+    }
+  }
+
+  /* ============ PROGRESO DEL LABORATORIO ============ */
+  function updateLabProgress() {
+    const stations = ['e1-semaforo', 'e2-prueba-a', 'e3-semaforo', 'e4-orientacion', 'e5-obj-diag'];
+    let completed = 0;
+    stations.forEach(id => {
+      const el = document.getElementById(id) || document.querySelector(`[data-field="${id}"]`);
+      if (!el) return;
+
+      if (el.tagName === 'SELECT') {
+        if (el.value !== '') completed++;
+      } else if (el.classList.contains('semaforo')) {
+        if (el.querySelector('.semaforo-option.selected')) completed++;
+      }
+    });
+
+    const pct = (completed / 5) * 100;
+    document.getElementById('labProgressFill').style.width = pct + '%';
+    document.getElementById('labProgressText').textContent = `${completed} / 5 estaciones`;
+  }
+
+  // Escuchar cambios en selects
+  document.querySelectorAll('select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      updateLabProgress();
+      updateDiagnosticFromSemaforos();
+    });
+  });
+
+  /* ============ DIAGNÓSTICO ============ */
+  function getSemaforoValue(fieldName) {
+    const semaforo = document.querySelector(`[data-field="${fieldName}"]`);
+    if (!semaforo) return null;
+    const selected = semaforo.querySelector('.semaforo-option.selected');
+    if (!selected) return null;
+    return selected.dataset.color;
+  }
+
+  function updateDiagnosticFromSemaforos() {
+    // Objeto
+    const objColor = getSemaforoValue('e1-semaforo');
+    const objItem = document.getElementById('diag-obj');
+    setDiagnosticItem(objItem, objColor);
+
+    // Pregunta
+    const pregA = getSemaforoValue('e2-prueba-a');
+    const pregB = getSemaforoValue('e2-prueba-b');
+    const pregColor = worstColor(pregA, pregB);
+    setDiagnosticItem(document.getElementById('diag-preg'), pregColor);
+
+    // Justificación
+    const justColor = getSemaforoValue('e3-semaforo');
+    setDiagnosticItem(document.getElementById('diag-just'), justColor);
+
+    // Metodología
+    const metDiag = document.getElementById('e5-met-diag')?.value;
+    setDiagnosticItem(document.getElementById('diag-met'), metDiag);
+
+    // Veredicto
+    updateVerdict(objColor, pregColor, justColor, metDiag);
+    updateLabProgress();
+  }
+
+  function setDiagnosticItem(item, color) {
+    if (!item) return;
+    const statusEl = item.querySelector('.di-status');
+    const descEl = item.querySelector('.di-desc');
+    item.classList.remove('green', 'yellow', 'red');
+
+    if (color === 'green') {
+      item.classList.add('green');
+      statusEl.textContent = '🟢';
+      descEl.textContent = 'Verde: listo para entregar';
+    } else if (color === 'yellow') {
+      item.classList.add('yellow');
+      statusEl.textContent = '🟡';
+      descEl.textContent = 'Amarillo: revisar antes de entregar';
+    } else if (color === 'red') {
+      item.classList.add('red');
+      statusEl.textContent = '🔴';
+      descEl.textContent = 'Rojo: detenerse y reconstruir';
+    } else {
+      statusEl.textContent = '—';
+      descEl.textContent = 'Sin evaluar';
+    }
+  }
+
+  function worstColor(a, b) {
+    if (a === 'red' || b === 'red') return 'red';
+    if (a === 'yellow' || b === 'yellow') return 'yellow';
+    if (a === 'green' && b === 'green') return 'green';
+    return a || b;
+  }
+
+  function updateVerdict(objColor, pregColor, justColor, metColor) {
+    const verdict = document.getElementById('diagnosticVerdict');
+    if (!verdict) return;
+
+    const hasRedCritical = pregColor === 'red' || metColor === 'red';
+
+    if (hasRedCritical) {
+      verdict.innerHTML = `<div class="alert-red"><strong>⚠️ ALERTA CRÍTICA:</strong> Un componente en rojo en pregunta-objetivos o metodología impide declarar la propuesta "lista para entregar". Deben detenerse y reconstruir antes de continuar.</div>`;
+    } else if (objColor === 'green' && pregColor === 'green' && justColor === 'green' && metColor === 'green') {
+      verdict.innerHTML = `<div class="highlight-box success" style="margin: 1.5rem 0;"><p>🟢 PROPUESTA LISTA PARA ENTREGAR</p></div>`;
+    } else {
+      verdict.innerHTML = `<div class="highlight-box warning" style="margin: 1.5rem 0;"><p>🟡 PROPUESTA EN REVISIÓN — Ajustar antes de entregar</p></div>`;
+    }
+  }
+
+  document.getElementById('btnGenerarDiagnostico').addEventListener('click', function() {
+    updateDiagnosticFromSemaforos();
+    document.getElementById('diagnosticGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  /* ============ IMPRIMIR ============ */
+  document.getElementById('btnImprimir').addEventListener('click', function() {
+    window.print();
+  });
+
+  /* ============ REINICIAR TODO ============ */
+  document.getElementById('btnReiniciarTodo').addEventListener('click', function() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán las respuestas.')) return;
+
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+    document.querySelectorAll('.semaforo-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.chain-status button').forEach(b => b.classList.remove('active'));
+
+    resetTimer();
+    updateViabilidad();
+    updateDiagnosticFromSemaforos();
+    updateLabProgress();
+
+    document.getElementById('btnStartTimer').textContent = '▶ Iniciar laboratorio (60 min)';
+    document.getElementById('btnStartTimer').disabled = false;
+    document.getElementById('btnStartTimer').style.opacity = '1';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ============ INICIALIZAR ============ */
+  updateViabilidad();
+  updateDiagnosticFromSemaforos();
+  updateLabProgress();
+
+  // Escuchar cambios en el diagnóstico de estación 5
+  ['e5-obj-diag', 'e5-preg-diag', 'e5-just-diag', 'e5-met-diag'].forEach(id => {
+    document.getElementById(id).addEventListener('change', updateDiagnosticFromSemaforos);
+  });
+
+})();
+</script>
+</body>
+</html>
