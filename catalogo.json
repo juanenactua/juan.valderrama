@@ -22,6 +22,26 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Antecedentes, estado del conocimiento y construcción de la brecha",
+    "descripcion": "Encuentro sincrónico sobre revisión de literatura durante la formulación, síntesis del estado del conocimiento, tipos de brecha, contribución, matriz de evidencia y argumentación de la necesidad de investigación.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/encuentro-02-estado-conocimiento-brecha.html",
+    "etiquetas": [
+      "Antecedentes",
+      "Estado del conocimiento",
+      "Brecha de conocimiento",
+      "Revisión de literatura",
+      "Evidencia científica",
+      "Síntesis",
+      "Matriz de evidencia",
+      "Contribución científica",
+      "Incertidumbre",
+      "Formulación de proyectos"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Cartografía de la salud mental",
     "descripcion": "Exploración conceptual guiada sobre salud mental como constructo multidimensional, dinámico y contextual, con bienestar emocional, psicológico y social, dos continuos, determinantes, riesgo, protección y trayectorias.",
     "tipo": "Artefacto educativo interactivo",
@@ -300,6 +320,26 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "De la brecha a la pregunta y los objetivos",
+    "descripcion": "Encuentro sincrónico sobre la arquitectura lógica entre brecha, pregunta, pretensión de conocimiento, Taxonomía de Bloom, objetivos, evidencia necesaria y coherencia del proyecto.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/encuentro-03-brecha-pregunta-objetivos.html",
+    "etiquetas": [
+      "Brecha de conocimiento",
+      "Pregunta de investigación",
+      "Objetivos de investigación",
+      "Taxonomía de Bloom",
+      "Pretensión de conocimiento",
+      "Coherencia investigativa",
+      "Evidencia",
+      "Objetivo general",
+      "Objetivos específicos",
+      "Formulación de proyectos"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "De la pregunta al diseño",
     "descripcion": "Encuentro sincrónico sobre cómo derivar la evidencia necesaria desde la pregunta y construir una estrategia metodológica coherente, diferenciando enfoque, diseño, técnicas, temporalidad, métodos mixtos e inferencias.",
     "tipo": "Presentación interactiva",
@@ -355,6 +395,26 @@
       "Delimitación",
       "Formulación de proyectos",
       "Metodología de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Del tema al problema de investigación - Encuentro 1",
+    "descripcion": "Encuentro sincrónico sobre problematización, diferencia entre tema, situación problemática, problema práctico y problema de investigación, delimitación, relevancia e investigabilidad.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/encuentro-01-tema-problema.html",
+    "etiquetas": [
+      "Problema de investigación",
+      "Tema de investigación",
+      "Problematización",
+      "Situación problemática",
+      "Delimitación",
+      "Relevancia científica",
+      "Investigabilidad",
+      "FINER",
+      "Salud mental",
+      "Formulación de proyectos"
     ],
     "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
