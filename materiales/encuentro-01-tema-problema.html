@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Encuentro sincrónico 1 · Del tema al problema de investigación</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Del tema al problema de investigación - Encuentro 1">
+<meta name="jc-descripcion" content="Encuentro sincrónico sobre problematización, diferencia entre tema, situación problemática, problema práctico y problema de investigación, delimitación, relevancia e investigabilidad.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Problema de investigación, Tema de investigación, Problematización, Situación problemática, Delimitación, Relevancia científica, Investigabilidad, FINER, Salud mental, Formulación de proyectos">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     ESTILOS
+     Formato magistral para encuentro sincrónico de 45 minutos.
+     Fondo azul oscuro, diapositivas en tarjetas claras.
+     Sin interacción con el estudiante.
+     Índice lateral plegable. Indicador de progresión discreto.
+     ============================================================ -->
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EC;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --crema:#FBF8F1;
+    --sombra:0 16px 42px rgba(0,0,0,.35);
+    --radio:18px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--azul-oscuro); color:var(--texto);
+    font-size:30px; line-height:1.5; overflow:hidden;
+  }
+
+  /* ---------- Fondo decorativo sutil ---------- */
+  .fondo{
+    position:fixed; inset:0; z-index:0;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(231,200,115,.10) 0%, transparent 42%),
+      radial-gradient(circle at 88% 82%, rgba(19,83,138,.35) 0%, transparent 55%),
+      linear-gradient(150deg,#0B2545 0%,#13315C 55%,#0B2545 100%);
+  }
+
+  /* ---------- Encabezado ---------- */
+  .titulo-encuentro{
+    position:fixed; top:22px; left:28px; z-index:65;
+    font-size:15px; color:var(--dorado); font-weight:600;
+    letter-spacing:.6px; text-transform:uppercase;
+    opacity:.85;
+  }
+  .titulo-encuentro::before{
+    content:"●"; color:var(--dorado); margin-right:10px; font-size:13px;
+  }
+
+  /* ---------- Botón índice ---------- */
+  .toggle-indice{
+    position:fixed; top:18px; right:24px; z-index:65;
+    background:var(--dorado); color:var(--azul-oscuro);
+    border:none; border-radius:24px; padding:10px 22px;
+    font-size:15px; font-weight:700; letter-spacing:.4px;
+    cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.25);
+    transition:background .2s, transform .15s;
+  }
+  .toggle-indice:hover{background:#F0D48F; transform:scale(1.04);}
+
+  /* ---------- Panel de índice ---------- */
+  .indice-panel{
+    position:fixed; top:0; right:0; bottom:0; width:380px;
+    background:linear-gradient(180deg,#071A33 0%,#0B2545 100%);
+    color:var(--blanco);
+    padding:80px 24px 30px; overflow-y:auto;
+    transform:translateX(100%); transition:transform .35s ease;
+    z-index:75; box-shadow:-12px 0 40px rgba(0,0,0,.5);
+    border-left:1px solid rgba(231,200,115,.25);
+  }
+  .indice-panel.open{transform:translateX(0);}
+  .indice-panel h2{
+    color:var(--dorado); font-size:19px; margin:0 0 22px;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  }
+  .indice-panel ol{list-style:none; margin:0; padding:0;}
+  .indice-panel li{
+    font-size:16px; padding:10px 14px; border-radius:8px;
+    cursor:pointer; margin-bottom:3px; color:#C9D6E8;
+    line-height:1.35; transition:background .2s, color .2s;
+  }
+  .indice-panel li:hover{background:rgba(231,200,115,.15); color:var(--blanco);}
+  .indice-panel li.active{
+    background:var(--azul-acento); color:var(--blanco); font-weight:600;
+  }
+
+  /* ---------- Escenario ---------- */
+  .stage{
+    position:absolute; inset:0; z-index:10;
+    display:flex; align-items:center; justify-content:center;
+    padding:70px 90px 120px;
+    overflow-y:auto;
+  }
+
+  /* ---------- Diapositiva como tarjeta ---------- */
+  .slide{
+    max-width:1320px; width:100%;
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:var(--sombra);
+    padding:60px 70px;
+    opacity:0; visibility:hidden;
+    position:absolute; left:90px; right:90px; top:70px;
+    transition:opacity .4s ease, transform .4s ease, visibility .4s;
+    transform:translateY(20px);
+    border-top:8px solid var(--dorado);
+  }
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  h1{font-size:60px; color:var(--azul-oscuro); margin:0 0 16px; line-height:1.1;}
+  h2{font-size:46px; color:var(--azul-oscuro); margin:0 0 26px; line-height:1.15;}
+  h3{font-size:30px; color:var(--azul-medio); margin:0 0 12px;}
+  p, li{font-size:28px; color:var(--texto);}
+  .lead{font-size:30px; color:var(--texto-suave);}
+  .subtitulo{font-size:32px; color:var(--azul-acento); font-weight:600; margin-bottom:10px;}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{padding-left:40px; position:relative; margin-bottom:14px;}
+  ul.clean li::before{
+    content:"›"; position:absolute; left:8px; top:-4px;
+    color:var(--dorado); font-size:38px; font-weight:700;
+  }
+
+  .card{
+    background:var(--gris-calido); border-left:8px solid var(--azul-acento);
+    border-radius:14px; padding:26px 30px; margin:18px 0;
+    box-shadow:0 4px 14px rgba(11,37,69,.06);
+  }
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB;}
+  .card.azul{background:#EAF1F8; border-left-color:var(--azul-medio);}
+  .card.verde{background:#E4F3E6; border-left-color:var(--verde);}
+  .card.rojo{background:#FBE9E7; border-left-color:var(--rojo);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+
+  .pill{
+    display:inline-block; background:var(--azul-oscuro); color:var(--blanco);
+    border-radius:40px; padding:9px 24px; font-size:20px; font-weight:700;
+    letter-spacing:.5px; margin-bottom:20px; text-transform:uppercase;
+  }
+  .pill.dorado{background:var(--dorado); color:var(--azul-oscuro);}
+  .pill.verde{background:var(--verde); color:var(--blanco);}
+  .pill.rojo{background:var(--rojo); color:var(--blanco);}
+
+  /* ---------- Portada ---------- */
+  .portada{
+    text-align:center; padding-top:60px;
+    background:linear-gradient(150deg,#FFFFFF 0%,#F4F1EC 100%);
+  }
+  .portada h1{font-size:64px; margin-bottom:20px;}
+  .portada .linea{
+    width:140px; height:6px; background:var(--dorado);
+    margin:28px auto; border-radius:3px;
+  }
+  .portada .autor{font-size:34px; color:var(--azul-oscuro); font-weight:700; margin-top:14px;}
+  .portada .contexto{font-size:24px; color:var(--texto-suave); margin-top:8px;}
+
+  /* ---------- Resultados de aprendizaje ---------- */
+  .ra-lista{display:flex; flex-direction:column; gap:14px;}
+  .ra-item{
+    display:grid; grid-template-columns:70px 1fr; gap:18px;
+    background:var(--crema); border-radius:12px;
+    padding:20px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--dorado); align-items:center;
+  }
+  .ra-num{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-radius:50%; width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:700;
+  }
+  .ra-texto{font-size:24px; line-height:1.45;}
+  .ra-texto strong{color:var(--azul-medio);}
+
+  /* ---------- Desafío ---------- */
+  .desafio{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:32px 38px; margin:24px 0;
+    box-shadow:0 10px 30px rgba(11,37,69,.25);
+  }
+  .desafio h3{color:var(--dorado); margin:0 0 14px; font-size:30px;}
+  .desafio p{color:var(--blanco); font-size:28px; margin:8px 0; line-height:1.5;}
+
+  .interrogante{
+    background:#FBF7EB; border-left:10px solid var(--dorado);
+    border-radius:14px; padding:24px 30px; margin:22px 0;
+    font-size:30px; font-weight:600; color:var(--azul-oscuro);
+    line-height:1.45;
+  }
+  .interrogante::before{
+    content:"?"; display:inline-block;
+    background:var(--dorado); color:var(--azul-oscuro);
+    width:48px; height:48px; border-radius:50%;
+    text-align:center; line-height:48px; font-weight:900;
+    margin-right:18px; font-size:30px; vertical-align:middle;
+  }
+
+  /* ---------- Provocación inicial ---------- */
+  .afirmacion{
+    display:grid; grid-template-columns:64px 1fr; gap:20px;
+    background:var(--crema); border:3px solid var(--azul-medio);
+    border-radius:14px; padding:20px 26px; margin:14px 0;
+    align-items:center; font-size:26px; line-height:1.4;
+  }
+  .afirmacion .letra{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-radius:50%; width:56px; height:56px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:28px; font-weight:700;
+  }
+
+  /* ---------- Secuencia de 6 pasos ---------- */
+  .secuencia{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+    margin-top:16px;
+  }
+  .paso{
+    display:grid; grid-template-columns:56px 1fr; gap:16px;
+    background:var(--crema); border-left:6px solid var(--dorado);
+    border-radius:12px; padding:18px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06); align-items:center;
+  }
+  .paso .n{
+    background:var(--dorado); color:var(--azul-oscuro);
+    border-radius:50%; width:48px; height:48px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:700;
+  }
+  .paso .t{font-size:22px; line-height:1.4;}
+  .paso .t strong{color:var(--azul-medio); display:block; font-size:23px; margin-bottom:3px;}
+
+  /* ---------- Estructura argumentativa ---------- */
+  .arg-lista{display:flex; flex-direction:column; gap:16px; margin-top:16px;}
+  .arg-item{
+    display:grid; grid-template-columns:190px 1fr; gap:22px;
+    background:var(--crema); border-radius:12px; padding:20px 24px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06); border-left:6px solid var(--azul-acento);
+    align-items:center;
+  }
+  .arg-item .clave{
+    background:var(--azul-medio); color:var(--blanco);
+    border-radius:20px; padding:8px 16px;
+    font-size:20px; font-weight:700; text-align:center;
+    letter-spacing:.5px;
+  }
+  .arg-item .desc{font-size:24px; line-height:1.4;}
+
+  /* ---------- Filtros de investigabilidad ---------- */
+  .filtros{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:16px;}
+  .filtro{
+    background:var(--crema); border-top:8px solid var(--dorado);
+    border-radius:12px; padding:20px 16px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06); text-align:center;
+  }
+  .filtro .icono{
+    width:48px; height:48px; border-radius:50%;
+    background:var(--dorado); color:var(--azul-oscuro);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 14px; font-weight:700; font-size:22px;
+  }
+  .filtro .nombre{font-size:22px; font-weight:700; color:var(--azul-medio); margin-bottom:8px;}
+  .filtro .desc{font-size:17px; color:var(--texto-suave); line-height:1.35;}
+
+  /* ---------- Errores ---------- */
+  .errores{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+  .error-card{
+    background:var(--crema); border-left:6px solid var(--rojo);
+    border-radius:12px; padding:18px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06);
+  }
+  .error-card .num{
+    display:inline-block; background:var(--rojo); color:var(--blanco);
+    border-radius:20px; padding:3px 14px; font-size:16px; font-weight:700;
+    margin-bottom:10px;
+  }
+  .error-card .cita{font-size:21px; font-style:italic; margin:0 0 10px; color:var(--texto-suave); line-height:1.4;}
+  .error-card .diag{font-size:18px; font-weight:700; color:var(--rojo); margin:0; line-height:1.35;}
+
+  /* ---------- Ficha ---------- */
+  .ficha{
+    background:var(--crema); border-radius:14px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06); padding:28px 32px;
+    border-top:8px solid var(--dorado);
+  }
+  .ficha ol{
+    counter-reset:item; list-style:none;
+    padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:12px 30px;
+  }
+  .ficha li{
+    counter-increment:item;
+    display:grid; grid-template-columns:40px 1fr; gap:14px;
+    padding:12px 0; border-bottom:1px dashed #D6DEE9;
+    font-size:22px; line-height:1.4;
+  }
+  .ficha li::before{
+    content:counter(item); 
+    background:var(--azul-oscuro); color:var(--dorado);
+    width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:16px;
+  }
+
+  /* ---------- Puente ---------- */
+  .puente{
+    background:linear-gradient(135deg,#13538A 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:34px 40px; margin:24px 0;
+    box-shadow:0 10px 30px rgba(19,83,138,.25);
+    text-align:center;
+  }
+  .puente .flecha{font-size:48px; color:var(--dorado); margin:0 0 12px;}
+  .puente p{color:var(--blanco); font-size:28px; margin:10px 0; line-height:1.5;}
+  .puente .destino{
+    display:inline-block; background:var(--dorado); color:var(--azul-oscuro);
+    padding:10px 24px; border-radius:30px; font-size:24px; font-weight:700;
+    margin-top:14px;
+  }
+
+  /* ============================================================
+     INDICADOR DE PROGRESIÓN (parte inferior)
+     Puntos que marcan la diapositiva actual. Discreto.
+     ============================================================ */
+  .progresion{
+    position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+    z-index:65; display:flex; align-items:center; gap:10px;
+    padding:10px 20px; border-radius:30px;
+    background:rgba(7,26,51,.65); backdrop-filter:blur(6px);
+    box-shadow:0 4px 16px rgba(0,0,0,.25);
+    border:1px solid rgba(231,200,115,.2);
+  }
+  .progresion .punto{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(201,214,232,.35);
+    transition:background .25s ease, transform .25s ease;
+  }
+  .progresion .punto.activo{
+    background:var(--dorado);
+    transform:scale(1.5);
+    box-shadow:0 0 10px rgba(231,200,115,.7);
+  }
+  .progresion .punto.hecho{
+    background:rgba(231,200,115,.55);
+  }
+
+  /* ---------- Barra fina superior como segundo indicador ---------- */
+  .progress{
+    position:fixed; top:0; left:0; height:3px;
+    background:var(--dorado); width:0%;
+    transition:width .3s ease; z-index:80;
+  }
+
+  /* ---------- Navegación discreta ---------- */
+  .nav-bottom{
+    position:fixed; bottom:22px; right:24px; z-index:65;
+    display:flex; align-items:center; gap:10px;
+    opacity:.4; transition:opacity .25s ease;
+  }
+  .nav-bottom:hover{opacity:1;}
+  .nav-btn{
+    background:var(--dorado); color:var(--azul-oscuro); border:none;
+    border-radius:50%; width:48px; height:48px; font-size:24px;
+    font-weight:700; cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.3);
+    transition:background .2s, transform .15s;
+  }
+  .nav-btn:hover{background:#F0D48F; transform:scale(1.06);}
+  .nav-btn:disabled{opacity:.3; cursor:default; transform:none;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px){
+    body{font-size:20px;}
+    h1{font-size:36px;} h2{font-size:28px;} h3{font-size:22px;}
+    p, li{font-size:20px;} .lead{font-size:21px;}
+    .portada h1{font-size:36px;}
+    .portada .autor{font-size:22px;}
+    .portada .contexto{font-size:17px;}
+    .pill{font-size:14px; padding:6px 16px;}
+    .grid-2, .grid-3, .secuencia, .errores{grid-template-columns:1fr;}
+    .filtros{grid-template-columns:repeat(2,1fr);}
+    .ficha ol{grid-template-columns:1fr;}
+    .stage{padding:80px 22px 130px;}
+    .slide{left:22px; right:22px; top:80px; padding:36px 30px;}
+    .ra-texto{font-size:17px;}
+    .ra-num{width:44px; height:44px; font-size:17px;}
+    .desafio h3{font-size:20px;}
+    .desafio p{font-size:18px;}
+    .interrogante{font-size:18px;}
+    .afirmacion{font-size:19px;}
+    .afirmacion .letra{width:42px; height:42px; font-size:19px;}
+    .paso .t{font-size:17px;}
+    .arg-item{grid-template-columns:1fr;}
+    .arg-item .desc{font-size:17px;}
+    .error-card .cita{font-size:17px;}
+    .error-card .diag{font-size:15px;}
+    .titulo-encuentro{font-size:12px; top:16px; left:16px;}
+    .toggle-indice{font-size:12px; padding:7px 14px; top:14px; right:14px;}
+    .indice-panel{width:280px;}
+    .progresion{padding:8px 14px; gap:7px; bottom:16px;}
+    .progresion .punto{width:6px; height:6px;}
+    .nav-bottom{bottom:16px; right:14px;}
+    .nav-btn{width:40px; height:40px; font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo"></div>
+
+<div class="titulo-encuentro">Formulación de proyectos de investigación en Psicología · Encuentro sincrónico 1</div>
+<button class="toggle-indice" id="toggleIndice" aria-label="Mostrar índice">☰ Índice</button>
+
+<nav class="indice-panel" id="indicePanel">
+  <h2>ÍNDICE DEL ENCUENTRO</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<div class="progress" id="progress"></div>
+
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada active" data-title="Portada">
+    <span class="pill dorado">Encuentro sincrónico 1</span>
+    <h1>Del tema al problema de investigación</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">La problematización como construcción argumentada</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">Formulación de proyectos de investigación en Psicología · Convocatoria simulada de salud mental</p>
+  </section>
+
+  <!-- ===== 2. RESULTADOS DE APRENDIZAJE ===== -->
+  <section class="slide" data-title="Resultados de aprendizaje">
+    <span class="pill">Resultados de aprendizaje</span>
+    <h2>Al terminar el encuentro podrás…</h2>
+    <div class="ra-lista">
+      <div class="ra-item">
+        <div class="ra-num">RA1</div>
+        <div class="ra-texto"><strong>Diferenciar</strong> tema, situación problemática, problema práctico y problema de investigación.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA2</div>
+        <div class="ra-texto"><strong>Delimitar</strong> un problema identificando fenómeno, población, contexto y límites conceptuales.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA3</div>
+        <div class="ra-texto"><strong>Problematizar</strong> articulando qué ocurre, qué sabemos, qué necesitamos conocer y por qué importa.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA4</div>
+        <div class="ra-texto"><strong>Evaluar</strong> la pertinencia inicial de un problema según relevancia, factibilidad, ética y contribución.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. AGENDA ===== -->
+  <section class="slide" data-title="Agenda">
+    <span class="pill">Agenda</span>
+    <h2>Recorrido del encuentro</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Provocación inicial: cuatro afirmaciones</li>
+        <li>Tema, situación y problema</li>
+        <li>Problema práctico vs. problema de investigación</li>
+        <li>Tres tipos de relevancia</li>
+      </ul>
+      <ul class="clean">
+        <li>Cuatro dimensiones de la delimitación</li>
+        <li>Del interés a la problematización</li>
+        <li>El problema como argumento</li>
+        <li>Errores frecuentes y ficha de trabajo</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      <p><strong>Idea fuerza:</strong> un tema nos dice de qué queremos hablar. Un problema de investigación establece qué necesitamos comprender y por qué vale la pena investigarlo.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4. PROVOCACIÓN INICIAL ===== -->
+  <section class="slide" data-title="Provocación inicial">
+    <span class="pill rojo">Provocación inicial</span>
+    <h2>Cuatro afirmaciones, un mismo tema</h2>
+    <p class="lead">Observemos estas cuatro formulaciones en torno a la ansiedad.</p>
+
+    <div class="afirmacion">
+      <div class="letra">A</div>
+      <div>“Quiero investigar ansiedad.”</div>
+    </div>
+    <div class="afirmacion">
+      <div class="letra">B</div>
+      <div>“Quiero investigar ansiedad en estudiantes universitarios.”</div>
+    </div>
+    <div class="afirmacion">
+      <div class="letra">C</div>
+      <div>“Quiero aplicar el GAD-7 a 300 estudiantes universitarios.”</div>
+    </div>
+    <div class="afirmacion">
+      <div class="letra">D</div>
+      <div>“Quiero conocer si existen diferencias en sintomatología ansiosa entre estudiantes de primeros y últimos semestres.”</div>
+    </div>
+  </section>
+
+  <!-- ===== 5. ANÁLISIS DE LAS CUATRO AFIRMACIONES ===== -->
+  <section class="slide" data-title="Análisis de las cuatro">
+    <span class="pill">Lectura metodológica</span>
+    <h2>¿Qué hay en cada afirmación?</h2>
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>A</h3>
+        <p>Contiene un tema. Todavía no hay delimitación ni problema.</p>
+      </div>
+      <div class="card rojo">
+        <h3>B</h3>
+        <p>Delimita parcialmente el tema. Sigue siendo un territorio, no un problema.</p>
+      </div>
+      <div class="card rojo">
+        <h3>C</h3>
+        <p>Introduce prematuramente población, instrumento y procedimiento. Confunde método con problema.</p>
+      </div>
+      <div class="card dorado">
+        <h3>D</h3>
+        <p>Se acerca a una pregunta susceptible de investigación, pero desconocemos todavía por qué sería necesario producir ese conocimiento.</p>
+      </div>
+    </div>
+    <div class="interrogante">
+      Ninguna de las cuatro constituye todavía un problema de investigación suficientemente construido.
+    </div>
+  </section>
+
+  <!-- ===== 6. LA INVESTIGACIÓN NO EMPIEZA CON EL MÉTODO ===== -->
+  <section class="slide" data-title="Punto de partida">
+    <span class="pill">Tesis inicial</span>
+    <h2>La investigación no empieza con el método</h2>
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Pregunta equivocada para empezar</h3>
+        <p>“¿Qué método voy a utilizar?”</p>
+      </div>
+      <div class="card verde">
+        <h3>Pregunta correcta para empezar</h3>
+        <p>“¿Qué merece ser conocido y por qué?”</p>
+      </div>
+    </div>
+    <div class="card azul">
+      <p>La formulación rigurosa parte de un área de interés, examina lo que se conoce, identifica qué necesita conocerse, delimita el foco y solo entonces construye la pregunta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 7. TEMA DE INVESTIGACIÓN ===== -->
+  <section class="slide" data-title="Tema">
+    <span class="pill">Concepto 1</span>
+    <h2>Tema de investigación: el territorio inicial</h2>
+    <p class="lead">El tema es el campo general de interés dentro del cual podría construirse una investigación.</p>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Ejemplos de temas</h3>
+        <ul class="clean">
+          <li>Ansiedad</li>
+          <li>Depresión</li>
+          <li>Bienestar psicológico</li>
+          <li>Estrés académico</li>
+          <li>Estigma en salud mental</li>
+        </ul>
+      </div>
+      <div class="card dorado">
+        <h3>El error más común</h3>
+        <p>Confundir <strong>haber elegido un tema</strong> con <strong>haber formulado un proyecto</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>Ejemplo:</strong> “salud mental de estudiantes universitarios” es un tema válido, pero permite cientos de investigaciones diferentes.</p>
+    </div>
+  </section>
+
+  <!-- ===== 8. SITUACIÓN PROBLEMÁTICA ===== -->
+  <section class="slide" data-title="Situación problemática">
+    <span class="pill">Concepto 2</span>
+    <h2>La situación problemática</h2>
+    <p class="lead">Describe una condición de la realidad que genera preocupación, tensión, dificultad o necesidad de comprensión.</p>
+
+    <div class="card azul">
+      <p><strong>Ejemplo:</strong> en un contexto universitario se observa preocupación por el bienestar psicológico de estudiantes de primeros semestres.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Otro ejemplo:</strong> un servicio universitario observa un incremento en estudiantes que solicitan acompañamiento psicológico.</p>
+      <p>Esto plantea preguntas: ¿aumentaron las solicitudes? ¿por qué? ¿qué necesidades expresan los estudiantes? ¿qué barreras encuentran?</p>
+    </div>
+
+    <div class="interrogante">
+      Puede existir una situación social problemática sin que hayamos identificado todavía qué conocimiento hace falta producir sobre ella.
+    </div>
+  </section>
+
+  <!-- ===== 9. PROBLEMA PRÁCTICO VS. PROBLEMA DE INVESTIGACIÓN ===== -->
+  <section class="slide" data-title="Práctico vs. investigación">
+    <span class="pill">Distinción clave</span>
+    <h2>Problema práctico vs. problema de investigación</h2>
+
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Problema práctico</h3>
+        <p>Situación que queremos <strong>modificar, solucionar o mejorar</strong>.</p>
+        <p class="lead">“Algunos estudiantes que requieren atención psicológica no acceden oportunamente a los servicios.”</p>
+      </div>
+      <div class="card verde">
+        <h3>Problema de investigación</h3>
+        <p>Algo que <strong>necesitamos conocer</strong> para producir una respuesta fundamentada.</p>
+        <p class="lead">“Se desconocen las barreras percibidas por estudiantes universitarios para utilizar los servicios institucionales.”</p>
+      </div>
+    </div>
+
+    <div class="card dorado">
+      <p>La investigación no resuelve de inmediato el problema práctico: produce conocimiento que puede contribuir a comprenderlo, explicarlo o intervenirlo.</p>
+    </div>
+  </section>
+
+  <!-- ===== 10. TRES RELEVANCIAS ===== -->
+  <section class="slide" data-title="Tres relevancias">
+    <span class="pill">Justificación</span>
+    <h2>Tres tipos de relevancia que no son intercambiables</h2>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Relevancia social</h3>
+        <p>¿Por qué importa el fenómeno?</p>
+        <p class="lead">Consecuencias para personas, familias, instituciones o sociedad.</p>
+      </div>
+      <div class="card verde">
+        <h3>Relevancia científica</h3>
+        <p>¿Qué necesitamos conocer que todavía no conocemos?</p>
+        <p class="lead">Aquí empieza a aparecer la brecha de conocimiento.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Relevancia práctica</h3>
+        <p>¿Quién podría usar el conocimiento y para qué?</p>
+        <p class="lead">Servicios universitarios, profesionales, formuladores de política.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 11. PROBLEMA SOCIAL NO EQUIVALE A PROBLEMA CIENTÍFICO ===== -->
+  <section class="slide" data-title="Social vs. científico">
+    <span class="pill rojo">Advertencia</span>
+    <h2>Problema social no equivale a problema científico</h2>
+
+    <div class="card rojo">
+      <p>“La depresión afecta a millones de personas. Por tanto, es necesario investigar la depresión en estudiantes universitarios.”</p>
+    </div>
+
+    <p class="lead">El razonamiento es insuficiente.</p>
+
+    <div class="card azul">
+      <p>La importancia general del fenómeno puede justificar que sea un <strong>área</strong> relevante, pero no demuestra por sí misma por qué necesitamos <strong>ese estudio particular</strong>.</p>
+    </div>
+
+    <div class="interrogante">
+      La fortaleza del proyecto aumenta cuando las tres dimensiones de relevancia pueden articularse.
+    </div>
+  </section>
+
+  <!-- ===== 12. DELIMITAR NO ES AGREGAR POBLACIÓN ===== -->
+  <section class="slide" data-title="Delimitar">
+    <span class="pill">Delimitación</span>
+    <h2>Delimitar no es solamente agregar población</h2>
+
+    <div class="card rojo">
+      <p><strong>Tema muy amplio:</strong> ansiedad.</p>
+      <p><strong>Tema “delimitado”:</strong> ansiedad en estudiantes universitarios de Bogotá.</p>
+    </div>
+
+    <p class="lead">Ha habido una delimitación, pero todavía bastante superficial. La delimitación seria se juega en al menos cuatro dimensiones.</p>
+  </section>
+
+  <!-- ===== 13. CUATRO DIMENSIONES ===== -->
+  <section class="slide" data-title="Cuatro dimensiones">
+    <span class="pill">Delimitación</span>
+    <h2>Cuatro dimensiones para delimitar un problema</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>A. Conceptual</h3>
+        <p>¿Qué fenómeno estudiamos realmente?</p>
+        <p class="lead">“Salud mental”, “ansiedad”, “estrés” y “depresión” no son intercambiables.</p>
+      </div>
+      <div class="card azul">
+        <h3>B. Poblacional</h3>
+        <p>¿A quiénes concierne el problema?</p>
+        <p class="lead">No basta con decir “jóvenes”. ¿Primer ingreso? ¿Cuidadores? ¿Docentes?</p>
+      </div>
+      <div class="card azul">
+        <h3>C. Contextual</h3>
+        <p>¿Dónde y bajo qué condiciones ocurre?</p>
+        <p class="lead">El contexto importa teóricamente, no solo por accesibilidad.</p>
+      </div>
+      <div class="card azul">
+        <h3>D. Temporal</h3>
+        <p>¿Hay un período relevante?</p>
+        <p class="lead">La dimensión temporal se justifica, no se añade mecánicamente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 14. DELIMITAR HASTA VOLVER TRIVIAL ===== -->
+  <section class="slide" data-title="Delimitar demasiado">
+    <span class="pill rojo">Advertencia</span>
+    <h2>El error de delimitar hasta volver trivial el estudio</h2>
+
+    <div class="card rojo">
+      <p>“Ansiedad de los estudiantes de tercer semestre del grupo 302 de una asignatura durante el segundo corte académico.”</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Es específico</h3>
+        <p>Sí, totalmente.</p>
+      </div>
+      <div class="card dorado">
+        <h3>¿Pero a quién le importa?</h3>
+        <p>¿Por qué alguien fuera de ese grupo necesitaría conocerlo?</p>
+      </div>
+    </div>
+
+    <div class="desafio">
+      <h3>Fórmula</h3>
+      <p><strong>Delimitación adecuada = suficiente precisión + justificación conceptual.</strong></p>
+    </div>
+  </section>
+
+  <!-- ===== 15. SECUENCIA DE 6 PASOS ===== -->
+  <section class="slide" data-title="Seis pasos">
+    <span class="pill">Proceso</span>
+    <h2>Del interés a la problematización</h2>
+
+    <div class="secuencia">
+      <div class="paso"><div class="n">1</div><div class="t"><strong>¿Qué me interesa?</strong>Uso de redes sociales y salud mental.</div></div>
+      <div class="paso"><div class="n">2</div><div class="t"><strong>¿Qué está ocurriendo?</strong>Describir la situación problemática.</div></div>
+      <div class="paso"><div class="n">3</div><div class="t"><strong>¿Qué sabemos?</strong>Primer acercamiento al conocimiento disponible.</div></div>
+      <div class="paso"><div class="n">4</div><div class="t"><strong>¿Qué no comprendemos?</strong>Aparece una incertidumbre concreta.</div></div>
+      <div class="paso"><div class="n">5</div><div class="t"><strong>¿Por qué importa?</strong>Aparece la justificación.</div></div>
+      <div class="paso"><div class="n">6</div><div class="t"><strong>¿Qué investigar?</strong>Aparece el problema de investigación.</div></div>
+    </div>
+  </section>
+
+  <!-- ===== 16. EL PROBLEMA COMO ARGUMENTO ===== -->
+  <section class="slide" data-title="Problema como argumento">
+    <span class="pill">Idea clave</span>
+    <h2>El problema es un argumento, no un párrafo</h2>
+
+    <div class="card azul">
+      <p>El planteamiento del problema no es una sección del documento. Es un <strong>argumento</strong> que debe convencer al evaluador.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Puede ocupar</h3>
+        <p>Dos páginas o diez. La extensión no es lo decisivo.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Lo decisivo es</h3>
+        <p>Que la estructura lógica sea visible y convincente.</p>
+      </div>
+    </div>
+
+    <div class="interrogante">
+      ¿Un evaluador externo entendería por qué este estudio es necesario, sin necesidad de leer el resto del proyecto?
+    </div>
+  </section>
+
+  <!-- ===== 17. ESTRUCTURA ARGUMENTATIVA ===== -->
+  <section class="slide" data-title="Estructura argumentativa">
+    <span class="pill">Modelo</span>
+    <h2>Sabemos → observamos → desconocemos → importa → investigamos</h2>
+
+    <div class="arg-lista">
+      <div class="arg-item">
+        <div class="clave">SABEMOS</div>
+        <div class="desc">Determinado fenómeno está relacionado con la salud mental de cierta población.</div>
+      </div>
+      <div class="arg-item">
+        <div class="clave">OBSERVAMOS</div>
+        <div class="desc">Aparece una situación particular en determinado contexto.</div>
+      </div>
+      <div class="arg-item">
+        <div class="clave">DESCONOCEMOS</div>
+        <div class="desc">Un aspecto concreto necesario para comprenderla.</div>
+      </div>
+      <div class="arg-item">
+        <div class="clave">IMPORTA</div>
+        <div class="desc">La ausencia de conocimiento tiene consecuencias científicas, sociales o prácticas.</div>
+      </div>
+      <div class="arg-item">
+        <div class="clave">INVESTIGAMOS</div>
+        <div class="desc">Un objeto susceptible de ser abordado científicamente.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 18. INVESTIGABILIDAD: CINCO FILTROS ===== -->
+  <section class="slide" data-title="Investigabilidad">
+    <span class="pill">Filtros</span>
+    <h2>La investigabilidad del problema: cinco filtros iniciales</h2>
+
+    <div class="filtros">
+      <div class="filtro">
+        <div class="icono">C</div>
+        <div class="nombre">Claridad</div>
+        <div class="desc">¿Qué requiere conocerse exactamente?</div>
+      </div>
+      <div class="filtro">
+        <div class="icono">R</div>
+        <div class="nombre">Relevancia</div>
+        <div class="desc">¿Tiene valor científico, social o práctico?</div>
+      </div>
+      <div class="filtro">
+        <div class="icono">F</div>
+        <div class="nombre">Factibilidad</div>
+        <div class="desc">¿Podría abordarse en estas condiciones?</div>
+      </div>
+      <div class="filtro">
+        <div class="icono">É</div>
+        <div class="nombre">Ética</div>
+        <div class="desc">¿Sin riesgos injustificados?</div>
+      </div>
+      <div class="filtro">
+        <div class="icono">C</div>
+        <div class="nombre">Contribución</div>
+        <div class="desc">¿Qué cambiaría si lográramos responderlo?</div>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:24px;">
+      <p>Estos filtros se relacionan con el criterio <strong>FINER</strong> (feasible, interesting, novel, ethical, relevant), utilizado para evaluar preguntas de investigación. No es una lista mecánica: es una forma de someter nuestras ideas a escrutinio.</p>
+    </div>
+  </section>
+
+  <!-- ===== 19. CUIDADO CON LAS ETIQUETAS ===== -->
+  <section class="slide" data-title="Cuidado con las etiquetas">
+    <span class="pill rojo">Ética y precisión</span>
+    <h2>Cuidado con las etiquetas en salud mental</h2>
+
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Etiqueta directa</h3>
+        <p>“Estudiantes depresivos de primer semestre.”</p>
+        <p>“Adolescentes con ansiedad.”</p>
+      </div>
+      <div class="card verde">
+        <h3>Descripción precisa</h3>
+        <p>“Estudiantes de primer semestre que reportan sintomatología depresiva.”</p>
+        <p>“Adolescentes con puntuaciones elevadas de sintomatología ansiosa.”</p>
+      </div>
+    </div>
+
+    <div class="interrogante">
+      ¿Tengo evidencia suficiente para denominar el fenómeno de esa manera?
+    </div>
+
+    <p class="lead">La precisión conceptual tiene implicaciones éticas: evita estigmatizar y prepara discusiones sobre constructos, instrumentos y validez.</p>
+  </section>
+
+  <!-- ===== 20. SEIS ERRORES FRECUENTES (parte 1) ===== -->
+  <section class="slide" data-title="Errores frecuentes 1">
+    <span class="pill">Diagnóstico</span>
+    <h2>Seis errores que debemos aprender a detectar</h2>
+    <p class="lead">Cuatro primeros.</p>
+
+    <div class="errores">
+      <div class="error-card">
+        <span class="num">Error 1</span>
+        <p class="cita">“El estrés académico en universitarios.”</p>
+        <p class="diag">Es un tema, no un problema.</p>
+      </div>
+      <div class="error-card">
+        <span class="num">Error 2</span>
+        <p class="cita">“¿Existe relación entre estrés y rendimiento?”</p>
+        <p class="diag">Pregunta investigable, pero sin problematización.</p>
+      </div>
+      <div class="error-card">
+        <span class="num">Error 3</span>
+        <p class="cita">“Aplicaremos una escala de ansiedad a 200 estudiantes.”</p>
+        <p class="diag">Procedimiento sin problema formulado.</p>
+      </div>
+      <div class="error-card">
+        <span class="num">Error 4</span>
+        <p class="cita">“La salud mental es muy importante.”</p>
+        <p class="diag">Relevancia genérica, no justificación del estudio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 21. SEIS ERRORES FRECUENTES (parte 2) ===== -->
+  <section class="slide" data-title="Errores frecuentes 2">
+    <span class="pill">Diagnóstico</span>
+    <h2>Dos errores especialmente importantes</h2>
+
+    <div class="errores" style="grid-template-columns:1fr;">
+      <div class="error-card" style="padding:24px 28px;">
+        <span class="num">Error 5</span>
+        <p class="cita" style="font-size:24px;">“Nuestro estudio solucionará la salud mental universitaria.”</p>
+        <p class="diag" style="font-size:20px;">Desproporción entre lo que una investigación puede producir y el problema práctico. El solucionismo debilita la credibilidad del proyecto.</p>
+      </div>
+      <div class="error-card" style="padding:24px 28px;">
+        <span class="num">Error 6</span>
+        <p class="cita" style="font-size:24px;">“Los estudiantes sufren trastornos como consecuencia de las redes sociales.”</p>
+        <p class="diag" style="font-size:20px;">La formulación ya presupone aquello que pretende investigar e introduce causalidad sin haberla demostrado. Prepara la discusión posterior sobre qué podemos concluir según el diseño.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 22. DÓNDE QUEDA EL ESTUDIANTE ===== -->
+  <section class="slide" data-title="Dónde queda el estudiante">
+    <span class="pill">Punto de llegada</span>
+    <h2>Al terminar el encuentro, todavía no tienes una pregunta definitiva</h2>
+
+    <p class="lead">Tienes algo más fundamental: el recorrido que permite construirla.</p>
+
+    <div class="card dorado">
+      <p style="text-align:center; font-size:26px; line-height:1.7;">
+        INTERÉS → TEMA → SITUACIÓN PROBLEMÁTICA → DELIMITACIÓN →<br>
+        ¿QUÉ SABEMOS? → ¿QUÉ NECESITAMOS CONOCER? → ¿POR QUÉ IMPORTA? →<br>
+        <strong>PROBLEMA DE INVESTIGACIÓN PRELIMINAR</strong>
+      </p>
+    </div>
+
+    <div class="interrogante">
+      Construir un problema de investigación no es tener una idea: es saber argumentar por qué merece ser investigada.
+    </div>
+  </section>
+
+  <!-- ===== 23. FICHA DE PROBLEMATIZACIÓN ===== -->
+  <section class="slide" data-title="Ficha de problematización">
+    <span class="pill">Trabajo autónomo</span>
+    <h2>Ficha de problematización</h2>
+
+    <p class="lead">Cada equipo completará esta ficha a partir de una temática de salud mental, como trabajo autónomo entre encuentros.</p>
+
+    <div class="ficha">
+      <ol>
+        <li>Tema general</li>
+        <li>Situación problemática</li>
+        <li>Fenómeno psicológico central</li>
+        <li>Población o unidad involucrada</li>
+        <li>Contexto relevante</li>
+        <li>Qué sabemos provisionalmente</li>
+        <li>Qué necesitamos conocer</li>
+        <li>Por qué sería importante conocerlo</li>
+        <li>Problema de investigación preliminar</li>
+        <li>Qué afirmaciones necesitan evidencia bibliográfica</li>
+      </ol>
+    </div>
+
+    <div class="card dorado" style="margin-top:22px;">
+      <p><strong>El punto 10 es clave:</strong> conecta este encuentro con el siguiente. Cada equipo llega al Encuentro sincrónico 2 sabiendo qué afirmaciones necesita sustentar con literatura.</p>
+    </div>
+  </section>
+
+  <!-- ===== 24. CRITERIO DE LOGRO ===== -->
+  <section class="slide" data-title="Criterio de logro">
+    <span class="pill">Verificación</span>
+    <h2>Criterio de logro del primer encuentro</h2>
+
+    <div class="card rojo">
+      <p><strong>Frase a la que deberás responder:</strong></p>
+      <p style="font-size:28px;">“Quiero investigar la relación entre redes sociales y ansiedad en jóvenes.”</p>
+    </div>
+
+    <div class="card verde">
+      <p><strong>Respuesta esperada:</strong></p>
+      <p>“Todavía no tienes un problema de investigación. Explícame qué está ocurriendo, qué sabemos, qué necesitamos conocer, por qué necesitamos conocerlo y por qué esa población y ese contexto son relevantes.”</p>
+    </div>
+
+    <div class="interrogante">
+      Cuando puedas hacer eso con autonomía, habrás alcanzado el propósito fundamental del encuentro: aprender a problematizar antes de investigar.
+    </div>
+  </section>
+
+  <!-- ===== 25. PUENTE HACIA EL ENCUENTRO 2 ===== -->
+  <section class="slide" data-title="Puente al Encuentro 2">
+    <span class="pill">Próximo encuentro</span>
+    <h2>Puente hacia el Encuentro sincrónico 2</h2>
+
+    <div class="puente">
+      <div class="flecha">↓</div>
+      <p>El próximo encuentro comienza donde terminamos hoy:</p>
+      <p style="font-size:30px; font-weight:600;">“Ustedes afirman que algo necesita ser conocido. Ahora demuéstrenlo mediante la literatura.”</p>
+      <div class="destino">Encuentro sincrónico 2 · Antecedentes, estado del conocimiento y construcción de la brecha</div>
+    </div>
+
+    <div class="card">
+      <h3>Referencias base (APA 7)</h3>
+      <p style="font-size:20px; line-height:1.55;">
+        Creswell, J. W., &amp; Creswell, J. D. (2018). <em>Research design: Qualitative, quantitative, and mixed methods approaches</em> (5th ed.). SAGE.<br><br>
+        Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. (2016). <em>The craft of research</em> (4th ed.). University of Chicago Press.<br><br>
+        Hulley, S. B., Cummings, S. R., Browner, W. S., Grady, D. G., &amp; Newman, T. B. (2013). <em>Designing clinical research</em> (4th ed.). Wolters Kluwer.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Indicador de progresión (puntos) -->
+<div class="progresion" id="progresion"></div>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progresion = document.getElementById('progresion');
+let current = 0;
+
+/* ---------- Construir índice lateral ---------- */
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  li.addEventListener('click', () => {
+    goTo(i);
+    document.getElementById('indicePanel').classList.remove('open');
+  });
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+/* ---------- Construir indicador de progresión ---------- */
+slides.forEach((s, i) => {
+  const punto = document.createElement('div');
+  punto.className = 'punto';
+  punto.title = s.dataset.title;
+  punto.addEventListener('click', () => goTo(i));
+  punto.style.cursor = 'pointer';
+  progresion.appendChild(punto);
+});
+const puntos = Array.from(progresion.children);
+
+/* ---------- Funciones de navegación ---------- */
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+  updateUI();
+}
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+
+  // Actualizar puntos de progresión
+  puntos.forEach((p, i) => {
+    p.classList.remove('activo','hecho');
+    if (i < current) p.classList.add('hecho');
+    if (i === current) p.classList.add('activo');
+  });
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+
+/* ---------- Estado inicial ---------- */
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+/* ---------- Teclado ---------- */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+  if (e.key === 'Escape') document.getElementById('indicePanel').classList.remove('open');
+});
+
+/* ---------- Botón índice ---------- */
+document.getElementById('toggleIndice').addEventListener('click', () => {
+  document.getElementById('indicePanel').classList.toggle('open');
+});
+</script>
+</body>
+</html>
