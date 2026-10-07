@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio 04 · El proyecto roto: coherencia investigativa</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="El proyecto roto: laboratorio de coherencia investigativa">
+<meta name="jc-descripcion" content="Laboratorio de auditoría metodológica para identificar y reparar rupturas entre problema, pregunta, objetivos, evidencia, diseño, técnicas, análisis e inferencias mediante estaciones, autopsia y reconstrucción inversa.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Coherencia investigativa, Coherencia metodológica, Pregunta de investigación, Objetivos, Taxonomía de Bloom, Evidencia, Diseño metodológico, Técnicas, Instrumentos, Inferencia, Causalidad, Auditoría metodológica">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.3s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '🔧'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+
+  section { margin-bottom: 3rem; scroll-margin-top: 100px; }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.8rem; color: #ffffff; }
+  h4 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--accent); }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.35rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) { .stations-nav { position: static; grid-template-columns: 1fr 1fr; } }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover:not(.locked) { border-color: var(--accent); transform: translateY(-2px); }
+  .station-btn.active { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .station-btn.completed { border-color: var(--success); color: var(--success); }
+  .station-btn.locked { opacity: 0.35; cursor: not-allowed; }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  .station-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+  }
+
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .station-header .sh-num {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .station-header .sh-title { font-weight: 600; color: var(--text-main); font-size: 1rem; }
+  .station-header .sh-time { margin-left: auto; font-size: 0.78rem; color: var(--text-soft); font-style: italic; }
+
+  .options-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1.3rem 0; }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+  .option-card:hover { border-color: var(--accent); background: var(--bg-soft); transform: translateX(4px); }
+  .option-card.selected { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 20px rgba(240, 180, 41, 0.25); }
+  .option-card .option-marker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+
+  .checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.2rem 0; }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .checkbox-card:hover { border-color: var(--accent); background: var(--bg-soft); }
+  .checkbox-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .checkbox-card .checkbox-marker {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.3rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.3rem 0;
+    font-size: 0.96rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info { background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04)); border-left-color: var(--info); }
+  .callout.info strong { color: var(--info); }
+  .callout.success { background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04)); border-left-color: var(--success); }
+  .callout.success strong { color: var(--success); }
+  .callout.violet { background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04)); border-left-color: var(--violet); }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error { background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04)); border-left-color: var(--error); }
+  .callout.error strong { color: var(--error); }
+  .callout.warning { background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04)); border-left-color: var(--warning); }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.3rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin: 0; }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-next { width: 100%; margin-top: 1.2rem; padding: 0.9rem; font-size: 0.95rem; }
+
+  .response-field { margin: 1rem 0; }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15); }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.7rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.7rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  .chain-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #060f1c;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .chain-box {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 280px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .chain-box:hover { border-color: var(--accent); transform: scale(1.02); }
+  .chain-box.highlight { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .chain-box.alert { border-color: var(--error); color: var(--error); }
+  .chain-arrow { color: var(--accent); font-size: 1.1rem; line-height: 1; }
+
+  .sindrome-card {
+    background: rgba(248, 113, 113, 0.06);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-left: 4px solid var(--error);
+    margin-bottom: 0.7rem;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .sindrome-card:hover { transform: translateX(4px); }
+  .sindrome-card.selected { border-left-color: var(--accent); background: rgba(240, 180, 41, 0.06); }
+  .sindrome-card .sic-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--error);
+    margin-bottom: 0.4rem;
+  }
+  .sindrome-card.selected .sic-num { color: var(--accent); }
+  .sindrome-card .sic-title { font-weight: 700; color: var(--text-main); font-size: 0.92rem; margin-bottom: 0.3rem; }
+  .sindrome-card .sic-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; }
+
+  .patient-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    margin: 1rem 0;
+    transition: all 0.3s;
+  }
+  .patient-card.evaluated { border-color: var(--accent); }
+  .patient-card .pat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .patient-card .pat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .patient-card .pat-text {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .triage-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .triage-option {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-weight: 600;
+  }
+  .triage-option:hover { border-color: var(--accent); background: var(--bg-mid); }
+  .triage-option.selected { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .triage-option[data-triage="estable"].selected { background: var(--success); border-color: var(--success); }
+  .triage-option[data-triage="herida"].selected { background: var(--warning); border-color: var(--warning); }
+  .triage-option[data-triage="cascada"].selected { background: #fb923c; border-color: #fb923c; }
+  .triage-option[data-triage="mayor"].selected { background: var(--error); border-color: var(--error); }
+
+  .bloom-card {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.7rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .bloom-card:hover { border-color: var(--accent); }
+  .bloom-card.selected { border-left: 4px solid var(--accent); background: rgba(240, 180, 41, 0.06); }
+  .bloom-card .bc-verb {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .bloom-card .bc-desc {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.8rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 { margin-top: 0; color: var(--accent); text-align: center; }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  .final-message { text-align: center; margin: 2rem 0; }
+  .final-message .fm-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+  .final-message .fm-subtitle { font-size: 0.98rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 1.3rem; }
+
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    margin: 1.8rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .personal-protocol ol { margin-left: 1.4rem; color: var(--text-main); }
+  .personal-protocol li { margin-bottom: 0.6rem; font-size: 0.94rem; line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    main { padding: 1.2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+    .chain-box { min-width: 100%; font-size: 0.85rem; }
+  }
+
+  button:focus-visible, .option-card:focus-visible, .checkbox-card:focus-visible,
+  .station-btn:focus-visible, .triage-option:focus-visible, .sindrome-card:focus-visible,
+  .bloom-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  .shake { animation: shake 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Laboratorio 04 · El proyecto roto</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada">
+    <span class="badge">Laboratorio de coherencia investigativa · Alta complejidad</span>
+    <h1>El proyecto roto: laboratorio de coherencia investigativa</h1>
+    <p style="font-size: 1.1rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Auditoría de preguntas, objetivos, diseño, evidencia e inferencias. Recibirás propuestas aparentemente
+      perfectas y tendrás que descubrir dónde se rompen, por qué se propagan los errores y cómo repararlos
+      con el mínimo número de cambios.
+    </p>
+
+    <div class="card">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 45-55 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Autopsia de coherencia + proyecto reconstruido</p>
+      <p><strong>Aplicable a:</strong> Investigación cuantitativa · cualitativa · mixta · revisiones</p>
+    </div>
+
+    <div class="callout">
+      <strong>Pregunta central:</strong> ¿Todas las partes de este proyecto están intentando responder
+      realmente la misma pregunta?
+    </div>
+
+    <div class="highlight-box info" style="margin: 1.5rem 0;">
+      <p style="font-size: 1rem;">Una propuesta puede tener buen problema, excelentes objetivos, técnicas válidas y metodología reconocida, y aun así ser un mal proyecto si esas piezas no son coherentes entre sí.</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" id="btnStartLab">▶ Comenzar auditoría</button>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN DE ESTACIONES -->
+  <div class="stations-nav" id="stationsNav" style="display: none;">
+    <button class="station-btn active" data-station="0"><span class="st-num">Caso</span><span>Aparente</span></button>
+    <button class="station-btn" data-station="1"><span class="st-num">Est. 1</span><span>Cadena</span></button>
+    <button class="station-btn" data-station="2"><span class="st-num">Est. 2</span><span>Promesa</span></button>
+    <button class="station-btn" data-station="3"><span class="st-num">Est. 3</span><span>Bloom</span></button>
+    <button class="station-btn" data-station="4"><span class="st-num">Est. 4</span><span>Evidencia</span></button>
+    <button class="station-btn" data-station="5"><span class="st-num">Est. 5</span><span>Diseño ≠ téc.</span></button>
+    <button class="station-btn" data-station="6"><span class="st-num">Est. 6</span><span>Inferencia</span></button>
+    <button class="station-btn" data-station="7"><span class="st-num">Est. 7</span><span>Síndromes</span></button>
+    <button class="station-btn" data-station="8"><span class="st-num">Est. 8</span><span>Cirugía</span></button>
+    <button class="station-btn" data-station="9"><span class="st-num">Final</span><span>Urgencias</span></button>
+  </div>
+
+  <!-- CONTENIDO DE ESTACIONES -->
+  <section id="stationContent" style="display: none;">
+    <div class="station-panel" id="stationPanel"></div>
+  </section>
+
+  <!-- AUTOPSIA FINAL -->
+  <section id="autopsia" style="display: none;">
+    <h2>Autopsia de coherencia</h2>
+
+    <div class="diagnostic-box">
+      <h3>Tu autopsia de coherencia</h3>
+      <p style="text-align: center; color: var(--text-soft); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Aplica el análisis completo a un proyecto de tu interés. Este documento te acompañará durante el curso.
+      </p>
+
+      <div class="response-field">
+        <label>1. Pretensión central · Este proyecto quiere saber...</label>
+        <textarea class="response-input" id="autopsia1" placeholder="¿Qué conocimiento intenta producir?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. Primera ruptura · La coherencia se rompe entre ______ y ______.</label>
+        <textarea class="response-input" id="autopsia2" placeholder="¿Dónde aparece la primera incoherencia?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. Propagación · Esta ruptura afecta posteriormente...</label>
+        <textarea class="response-input" id="autopsia3" placeholder="¿Qué componentes quedan comprometidos por esa ruptura?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. Deuda cognitiva · El objetivo promete...</label>
+        <textarea class="response-input" id="autopsia4" placeholder="¿Qué operación cognitiva promete el objetivo?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. Evidencia requerida · Para cumplirlo necesitaría...</label>
+        <textarea class="response-input" id="autopsia5" placeholder="¿Qué tendría que observarse o disponerse?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>6. Evidencia realmente producida · Sin embargo, el diseño produce...</label>
+        <textarea class="response-input" id="autopsia6" placeholder="¿Qué evidencia produce realmente el diseño propuesto?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>7. Techo de inferencia · Por ello puede concluir...</label>
+        <textarea class="response-input" id="autopsia7" placeholder="¿Qué afirmaciones permite el diseño?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>8. Inferencia prohibida · Pero no puede concluir...</label>
+        <textarea class="response-input" id="autopsia8" placeholder="¿Qué afirmaciones exceden el diseño?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>9. Reparación mínima · Modificaríamos...</label>
+        <textarea class="response-input" id="autopsia9" placeholder="¿Cuál es el mínimo cambio necesario?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>10. Proyecto reconstruido · La nueva cadena sería...</label>
+        <textarea class="response-input" id="autopsia10" placeholder="Reescribe la cadena coherente: pregunta → objetivo → evidencia → diseño → conclusión" style="min-height: 100px;"></textarea>
+      </div>
+
+      <div id="autopsiaVerdict" style="margin-top: 1.5rem;"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGuardarAutopsia">🔄 Guardar autopsia</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir</button>
+      <button class="btn btn-outline" id="btnReiniciar">↻ Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- PRUEBA EXTREMA -->
+  <section id="pruebaExtrema" style="display: none;">
+    <h2>Prueba extrema: reconstrucción inversa</h2>
+
+    <div class="diagnostic-box">
+      <h3>Partimos de una conclusión</h3>
+      <div class="highlight-box info" style="margin: 1.5rem 0;">
+        <p style="font-size: 1rem;">"Encontramos una asociación entre X e Y en la población estudiada."</p>
+      </div>
+
+      <p style="text-align: center; color: var(--text-soft); font-size: 0.92rem;">
+        Reconstruye hacia atrás cada componente del proyecto.
+      </p>
+
+      <div class="response-field">
+        <label>¿Qué tipo de evidencia podría haber permitido esa afirmación?</label>
+        <textarea class="response-input" id="inversa1" placeholder="Evidencia necesaria..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>¿Qué análisis podría producirla?</label>
+        <textarea class="response-input" id="inversa2" placeholder="Estrategia de análisis..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>¿Qué datos necesitaríamos?</label>
+        <textarea class="response-input" id="inversa3" placeholder="Datos requeridos..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>¿Qué diseño podría obtenerlos?</label>
+        <textarea class="response-input" id="inversa4" placeholder="Diseño compatible..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>¿Qué objetivo sería coherente?</label>
+        <textarea class="response-input" id="inversa5" placeholder="Objetivo derivado..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>¿Qué pregunta podría haberlo originado?</label>
+        <textarea class="response-input" id="inversa6" placeholder="Pregunta original..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div id="inversaVerdict" style="margin-top: 1.5rem;"></div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="btn" id="btnIrMetacognicion">Ver metacognición →</button>
+    </div>
+  </section>
+
+  <!-- METACOGNICIÓN -->
+  <section id="metacognicion" style="display: none;">
+    <h2>Componente metacognitivo</h2>
+
+    <div class="card">
+      <div class="response-field">
+        <label>1. ¿En qué componente de un proyecto tiendes a confiar demasiado porque "suena científico"?</label>
+        <textarea class="response-input" id="meta1" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. ¿Alguna vez has confundido una técnica conocida con una decisión metodológica justificada?</label>
+        <textarea class="response-input" id="meta2" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. ¿Cuál es la afirmación más ambiciosa de tu propio proyecto?</label>
+        <textarea class="response-input" id="meta3" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. ¿Tu diseño podría realmente sostenerla?</label>
+        <textarea class="response-input" id="meta4" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. Si tuvieras que reducir una sola promesa de tu proyecto para hacerlo más riguroso, ¿cuál sería?</label>
+        <textarea class="response-input" id="meta5" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="btn" id="btnCierre">Ver cierre del laboratorio →</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" style="display: none;">
+    <div class="final-message">
+      <div class="fm-title">La sofisticación analítica al final no puede compensar una incoherencia conceptual al principio.</div>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Aprendizajes indispensables de este laboratorio:</strong>
+      </div>
+
+      <div class="chain-diagram">
+        <div class="chain-box">1. La coherencia es relacional</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">2. La pregunta contiene una pretensión de conocimiento</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">3. Bloom funciona como herramienta diagnóstica</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">4. Evidencia precede a instrumento</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">5. Técnica y diseño son diferentes</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">6. Toda metodología tiene límites inferenciales</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box highlight">7. Complejidad no significa rigor</div>
+      </div>
+
+      <div class="highlight-box success" style="margin: 2rem 0;">
+        <p>Cada verbo del objetivo es una promesa que el diseño tendrá que pagar.</p>
+      </div>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Los cuatro laboratorios forman una arquitectura de vigilancia:</strong>
+      </div>
+
+      <table class="matrix-table" style="margin-top: 1.5rem;">
+        <thead>
+          <tr>
+            <th>Laboratorio</th>
+            <th>Vigilancia</th>
+            <th>Pregunta interna</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>Conceptual</td>
+            <td>¿Qué significa exactamente este constructo?</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>Argumentativa</td>
+            <td>¿Por qué esto necesita investigación?</td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td>Epistémica</td>
+            <td>¿Cómo sé que realmente falta conocimiento?</td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td>Metodológica</td>
+            <td>¿Mis decisiones producen realmente el conocimiento que prometí?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Laboratorio 04 · El proyecto roto</strong></p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Formulación de proyectos de investigación en Psicología · 2025</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const state = {
+    station: -1,
+    labStarted: false,
+    station0: { selected: null },
+    station1: { selected: null },
+    station2: { selected: null },
+    station3: { marked: [] },
+    station4: { selected: null },
+    station5: { classifications: {} },
+    station6: { selected: null },
+    station7: { selected: [] },
+    station8: { strategy: null },
+    station9: { triages: {} },
+    autopsia: {},
+    inversa: {},
+    meta: {}
+  };
+
+  try {
+    const saved = localStorage.getItem('lab04_proyecto_roto_v1');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('lab04_proyecto_roto_v1', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  const stationNames = {
+    0: 'Una propuesta aparentemente impecable',
+    1: 'La cadena de coherencia',
+    2: '¿Qué promete realmente la pregunta?',
+    3: 'Objetivos y Bloom',
+    4: 'La evidencia necesaria',
+    5: 'Diseño ≠ técnica ≠ instrumento',
+    6: 'La deuda inferencial',
+    7: 'Errores que se propagan',
+    8: 'Cirugía metodológica',
+    9: 'Sala de urgencias de proyectos'
+  };
+
+  const stationTimes = {
+    0: '4 min', 1: '5 min', 2: '5 min', 3: '5 min',
+    4: '5 min', 5: '6 min', 6: '5 min', 7: '5 min', 8: '5 min', 9: '5 min'
+  };
+
+  const stationBtns = document.querySelectorAll('.station-btn');
+
+  function getMaxUnlockedStation() {
+    let max = 0;
+    if (state.station0.selected) max = 1;
+    if (state.station1.selected) max = 2;
+    if (state.station2.selected) max = 3;
+    if (state.station3.marked.length >= 3) max = 4;
+    if (state.station4.selected) max = 5;
+    if (Object.keys(state.station5.classifications).length >= 6) max = 6;
+    if (state.station6.selected) max = 7;
+    if (state.station7.selected.length >= 3) max = 8;
+    if (state.station8.strategy) max = 9;
+    if (Object.keys(state.station9.triages).length >= 4) max = 10;
+    return max;
+  }
+
+  function goToStation(num) {
+    state.station = num;
+    saveState();
+
+    const maxUnlocked = getMaxUnlockedStation();
+
+    stationBtns.forEach(b => {
+      const n = parseInt(b.dataset.station);
+      b.classList.toggle('active', n === num);
+      b.classList.toggle('completed', n < num);
+      b.classList.toggle('locked', n > maxUnlocked);
+    });
+
+    renderStation(num);
+
+    const progress = ((num + 1) / 10) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+
+    document.getElementById('autopsia').style.display = 'none';
+    document.getElementById('pruebaExtrema').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'none';
+
+    document.getElementById('stationContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const num = parseInt(this.dataset.station);
+      if (num <= getMaxUnlockedStation()) goToStation(num);
+    });
+  });
+
+  function renderStation(num) {
+    const panel = document.getElementById('stationPanel');
+    if (!panel) return;
+
+    panel.innerHTML = `
+      <div class="station-header">
+        <span class="sh-num">Estación ${num}</span>
+        <span class="sh-title">${stationNames[num]}</span>
+        <span class="sh-time">${stationTimes[num]}</span>
+      </div>
+      <div id="stationBody"></div>
+    `;
+
+    const body = document.getElementById('stationBody');
+
+    /* ============ ESTACIÓN 0 ============ */
+    if (num === 0) {
+      body.innerHTML = `
+        <div class="callout info">
+          <strong>Propuesta recibida:</strong> "Barreras para la búsqueda de ayuda psicológica entre estudiantes universitarios"
+        </div>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Problema</h4>
+          <p style="font-size: 0.92rem;">La literatura indica que diversos factores pueden intervenir en la búsqueda de ayuda profesional. Sin embargo, todavía existen dificultades para comprender cómo los estudiantes experimentan determinadas barreras en el momento de decidir solicitar atención.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Pregunta</h4>
+          <p style="font-size: 0.92rem;">¿Cómo experimentan los estudiantes universitarios las barreras que intervienen en su decisión de solicitar ayuda psicológica?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--error);">
+          <h4 style="color: var(--error);">Objetivo general</h4>
+          <p style="font-size: 0.92rem;">Determinar la prevalencia de sintomatología ansiosa entre estudiantes universitarios.</p>
+          <h4 style="margin-top: 1rem;">Objetivos específicos</h4>
+          <ul style="font-size: 0.9rem;">
+            <li>Aplicar una escala de ansiedad.</li>
+            <li>Comparar estudiantes de primero y quinto semestre.</li>
+            <li>Diseñar un programa de atención psicológica.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Diseño</h4>
+          <p style="font-size: 0.92rem;">Investigación cuantitativa descriptiva transversal.</p>
+          <h4 style="margin-top: 1rem;">Instrumento</h4>
+          <p style="font-size: 0.92rem;">Escala de sintomatología ansiosa.</p>
+          <h4 style="margin-top: 1rem;">Resultado esperado</h4>
+          <p style="font-size: 0.92rem;">Demostrar que las barreras para buscar ayuda causan mayores problemas de ansiedad.</p>
+        </div>
+
+        <div class="callout warning">
+          Todo parece familiar. Todo utiliza lenguaje científico. Y casi todo está roto.
+        </div>
+
+        <h3>La primera pregunta no será "¿cuántos errores hay?"</h3>
+        <p style="color: var(--text-main); font-size: 0.95rem;">
+          Será: <strong>¿Dónde se rompe por primera vez el proyecto?</strong>
+        </p>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Cuál es la primera ruptura de coherencia que identificas?
+        </p>
+
+        <div class="options-list" id="firstBreakOptions">
+          <div class="option-card ${state.station0.selected === 'preg-obj' ? 'selected' : ''}" data-value="preg-obj">
+            <span class="option-marker">A</span>
+            <span>Entre la pregunta y el objetivo general: la pregunta busca comprender experiencias, el objetivo promete estimar sintomatología.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'obj-dis' ? 'selected' : ''}" data-value="obj-dis">
+            <span class="option-marker">B</span>
+            <span>Entre el objetivo y el diseño: el objetivo requiere otra arquitectura.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'dis-inst' ? 'selected' : ''}" data-value="dis-inst">
+            <span class="option-marker">C</span>
+            <span>Entre el diseño y el instrumento: la escala no mide lo que se busca.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'res-conc' ? 'selected' : ''}" data-value="res-conc">
+            <span class="option-marker">D</span>
+            <span>Entre el resultado esperado y la conclusión: se afirma causalidad con un diseño transversal.</span>
+          </div>
+        </div>
+
+        <div id="firstBreakReflection" style="display: ${state.station0.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Descubrimiento central:</strong> La primera ruptura ocurre cuando pasamos de <em>Pregunta → Objetivo general</em>.
+            La pregunta busca comprender experiencias; el objetivo promete estimar sintomatología. A partir de allí,
+            muchas decisiones posteriores pueden ser internamente coherentes con el nuevo objetivo, pero ya no
+            pertenecen al proyecto original.
+          </div>
+          <div class="callout warning">
+            <strong>Un proyecto puede volverse coherente consigo mismo después de haberse desviado de su problema.</strong>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station0.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#firstBreakReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station0.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(1));
+      return;
+    }
+
+    /* ============ ESTACIÓN 1 ============ */
+    if (num === 1) {
+      body.innerHTML = `
+        <h3>La cadena de coherencia</h3>
+
+        <div class="chain-diagram">
+          <div class="chain-box">PROBLEMA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">BRECHA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">PREGUNTA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">PRETENSIÓN DE CONOCIMIENTO</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">OBJETIVO GENERAL</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">OBJETIVOS ESPECÍFICOS</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">EVIDENCIA NECESARIA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">DISEÑO</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">UNIDADES / PARTICIPANTES / CORPUS</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">PRODUCCIÓN DE DATOS</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">ANÁLISIS / SÍNTESIS</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">INFERENCIA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box highlight">CONCLUSIÓN</div>
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Cada flecha significa: <strong>"Debe existir una razón para pasar de aquí a aquí."</strong>
+          No es simplemente una secuencia de apartados. Es una cadena de dependencias.
+        </p>
+
+        <h3>Coherencia vertical y horizontal</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Coherencia vertical</h4>
+          <p style="font-size: 0.9rem;">¿Cada decisión se deriva razonablemente de la anterior?</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.4rem; font-style: italic;">Ejemplo: Pregunta → objetivo → diseño.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Coherencia horizontal</h4>
+          <p style="font-size: 0.9rem;">¿Los elementos situados en distintas secciones siguen describiendo el mismo objeto y la misma pretensión de conocimiento?</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.4rem; font-style: italic;">Ejemplo: pregunta, instrumento, análisis y conclusión deberían seguir apuntando al mismo propósito.</p>
+        </div>
+
+        <h3>Verificación</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Qué tipo de coherencia se rompe en el caso inicial?
+        </p>
+
+        <div class="options-list" id="coherenceOptions">
+          <div class="option-card ${state.station1.selected === 'vertical' ? 'selected' : ''}" data-value="vertical">
+            <span class="option-marker">A</span>
+            <span>Solo vertical: la pregunta y el objetivo no se derivan uno del otro.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'horizontal' ? 'selected' : ''}" data-value="horizontal">
+            <span class="option-marker">B</span>
+            <span>Solo horizontal: los componentes usan palabras similares pero apuntan a objetos distintos.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'ambas' ? 'selected' : ''}" data-value="ambas">
+            <span class="option-marker">C</span>
+            <span>Ambas: la ruptura vertical entre pregunta y objetivo genera también rupturas horizontales entre objetivo, instrumento y conclusión.</span>
+          </div>
+        </div>
+
+        <div id="coherenceReflection" style="display: ${state.station1.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> La ruptura vertical entre pregunta y objetivo (buscar comprender versus estimar)
+            genera también rupturas horizontales: el instrumento, el análisis y la conclusión siguen apuntando al
+            nuevo objetivo, no al problema original.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station1.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#coherenceReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station1.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(2));
+      return;
+    }
+
+    /* ============ ESTACIÓN 2 ============ */
+    if (num === 2) {
+      body.innerHTML = `
+        <h3>¿Qué promete realmente una pregunta?</h3>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Una pregunta no contiene únicamente: tema + población. Contiene una <strong>operación epistemológica</strong>.
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Describir</h4>
+          <p style="font-size: 0.9rem;">¿Cuál es la frecuencia de X?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Comparar</h4>
+          <p style="font-size: 0.9rem;">¿Existen diferencias en X entre A y B?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Relacionar</h4>
+          <p style="font-size: 0.9rem;">¿Qué asociación existe entre X e Y?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Predecir</h4>
+          <p style="font-size: 0.9rem;">¿En qué medida X permite anticipar Y?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--rose);">
+          <h4 style="color: var(--rose);">Comprender</h4>
+          <p style="font-size: 0.9rem;">¿Cómo experimentan las personas X?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">Evaluar</h4>
+          <p style="font-size: 0.9rem;">¿Qué cambios produce determinada intervención?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Sintetizar</h4>
+          <p style="font-size: 0.9rem;">¿Qué muestra la evidencia disponible sobre X?</p>
+        </div>
+
+        <h3>La prueba de sustitución de la pregunta</h3>
+
+        <div class="callout warning">
+          Proyecto que utiliza: 300 participantes, dos escalas, correlación.<br><br>
+          Pregunta original: "¿Existe relación entre X e Y?"<br><br>
+          Sustituimos la pregunta por: "¿Cómo experimentan los estudiantes X?"
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          Si se mantiene exactamente el mismo diseño, instrumentos y análisis, ¿podríamos responder la nueva pregunta?
+        </p>
+
+        <div class="options-list" id="substitutionOptions">
+          <div class="option-card ${state.station2.selected === 'si' ? 'selected' : ''}" data-value="si">
+            <span class="option-marker">Sí</span>
+            <span>Sí, la evidencia producida permitiría responder la nueva pregunta.</span>
+          </div>
+          <div class="option-card ${state.station2.selected === 'no' ? 'selected' : ''}" data-value="no">
+            <span class="option-marker">No</span>
+            <span>No, los datos producidos no permitirían responder la nueva pregunta.</span>
+          </div>
+          <div class="option-card ${state.station2.selected === 'depende' ? 'selected' : ''}" data-value="depende">
+            <span class="option-marker">?</span>
+            <span>Depende de si se ajustan los análisis y las mediciones.</span>
+          </div>
+        </div>
+
+        <div id="substitutionReflection" style="display: ${state.station2.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> No, los datos producidos no permitirían responder la nueva pregunta.
+            La pregunta original no estaba guiando la metodología. Ésta es la prueba de sustitución: si la
+            pregunta se puede cambiar sin afectar el diseño, probablemente el diseño respondía a otra cosa.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station2.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#substitutionReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station2.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(3));
+      return;
+    }
+
+    /* ============ ESTACIÓN 3 ============ */
+    if (num === 3) {
+      const verbs = [
+        { id: 'identificar', name: 'Identificar', desc: 'Promete localizar/reconocer determinados elementos.' },
+        { id: 'caracterizar', name: 'Caracterizar', desc: 'Promete representar atributos relevantes.' },
+        { id: 'comparar', name: 'Comparar', desc: 'Promete establecer semejanzas o diferencias.' },
+        { id: 'analizar', name: 'Analizar', desc: 'Promete descomponer, relacionar o examinar patrones.' },
+        { id: 'evaluar', name: 'Evaluar', desc: 'Promete producir un juicio mediante criterios.' },
+        { id: 'disenar', name: 'Diseñar', desc: 'Promete construir algo nuevo.' }
+      ];
+
+      body.innerHTML = `
+        <h3>Objetivos y Bloom: auditoría cognitiva</h3>
+
+        <div class="callout error">
+          <strong>Advertencia inicial:</strong> Bloom no es un diccionario de verbos para decorar objetivos.
+        </div>
+
+        <h3>El verbo como promesa</h3>
+
+        ${verbs.map(v => `
+          <div class="card" style="border-left-color: var(--accent);">
+            <h4 style="color: var(--accent);">${v.name}</h4>
+            <p style="font-size: 0.9rem; margin: 0;">${v.desc}</p>
+          </div>
+        `).join('')}
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          No son intercambiables. Cambiar <em>describir</em> por <em>explicar</em> puede alterar significativamente
+          la arquitectura metodológica necesaria.
+        </p>
+
+        <h3>La inflación cognitiva</h3>
+
+        <div class="callout warning">
+          <strong>Ejemplo 1:</strong> Pregunta: "¿Cuál es la frecuencia de X?" · Objetivo: "Explicar las causas de X."<br><br>
+          <strong>Diagnóstico:</strong> inflación cognitiva. La pregunta solicitaba descripción; el objetivo promete explicación.
+        </div>
+
+        <div class="callout warning">
+          <strong>Ejemplo 2:</strong> Pregunta: "¿Cómo experimentan X los participantes?" · Objetivo: "Diseñar una intervención para solucionar X."<br><br>
+          <strong>Diagnóstico:</strong> salto hacia creación/intervención.
+        </div>
+
+        <h3>Complejidad cognitiva no equivale a calidad</h3>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <p style="font-size: 0.9rem; margin: 0;">Un objetivo "Describir la prevalencia de X" puede ser <strong>excelente</strong> si la brecha exige descripción.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--error);">
+          <p style="font-size: 0.9rem; margin: 0;">Un objetivo "Diseñar un modelo integral para transformar X" puede ser <strong>pésimo</strong> si el estudio no posee fundamento ni evidencia suficientes.</p>
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          <strong>El mejor verbo es el que expresa exactamente la operación necesaria, no el más alto de Bloom.</strong>
+        </p>
+
+        <h3>La prueba Bloom</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca al menos 3 pasos de la prueba Bloom que aplicarías a cada objetivo:
+        </p>
+
+        <div class="checkbox-list" id="bloomSteps">
+          <div class="checkbox-card ${state.station3.marked.includes('op') ? 'selected' : ''}" data-bloom="op" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>¿Qué operación cognitiva promete el verbo?</span>
+          </div>
+          <div class="checkbox-card ${state.station3.marked.includes('pregunta') ? 'selected' : ''}" data-bloom="pregunta" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>¿La pregunta demanda esa operación?</span>
+          </div>
+          <div class="checkbox-card ${state.station3.marked.includes('datos') ? 'selected' : ''}" data-bloom="datos" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>¿Los datos propuestos permiten realizarla?</span>
+          </div>
+          <div class="checkbox-card ${state.station3.marked.includes('analisis') ? 'selected' : ''}" data-bloom="analisis" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>¿El análisis permitirá completarla?</span>
+          </div>
+          <div class="checkbox-card ${state.station3.marked.includes('conclusion') ? 'selected' : ''}" data-bloom="conclusion" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>¿La conclusión prevista respeta ese alcance?</span>
+          </div>
+        </div>
+
+        <div id="bloomReflection" style="display: ${state.station3.marked.length >= 3 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Idea central:</strong> Ésta es la aplicación realmente metodológica de Bloom.
+            No se trata de elegir el verbo "más alto", sino de verificar la congruencia entre objetivo,
+            pregunta, datos, análisis y conclusión.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station3.marked.length >= 3 ? '' : 'disabled'}>
+          ${state.station3.marked.length >= 3 ? 'Continuar →' : `Marca al menos 3 pasos (${state.station3.marked.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#bloomReflection');
+
+      body.querySelectorAll('#bloomSteps .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const id = this.dataset.bloom;
+          if (state.station3.marked.includes(id)) {
+            state.station3.marked = state.station3.marked.filter(x => x !== id);
+          } else {
+            state.station3.marked.push(id);
+          }
+          saveState();
+          const count = state.station3.marked.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 3 pasos (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(4));
+      return;
+    }
+
+    /* ============ ESTACIÓN 4 ============ */
+    if (num === 4) {
+      body.innerHTML = `
+        <h3>La evidencia necesaria</h3>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          Antes de hablar de técnicas, preguntamos:
+          <strong>¿Qué tendría que observar, conocer o disponer para responder esta pregunta?</strong>
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Pregunta descriptiva</h4>
+          <p style="font-size: 0.9rem;"><em>¿Cuál es la frecuencia de X?</em></p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem;">Evidencia necesaria: observaciones que permitan estimar la distribución de X en la población pertinente.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Pregunta relacional</h4>
+          <p style="font-size: 0.9rem;"><em>¿Qué relación existe entre X e Y?</em></p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem;">Evidencia necesaria: información comparable sobre X e Y en las unidades pertinentes.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Pregunta comprensiva</h4>
+          <p style="font-size: 0.9rem;"><em>¿Cómo experimentan X determinadas personas?</em></p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem;">Evidencia necesaria: evidencia suficientemente rica para reconstruir experiencias, significados y contexto.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Pregunta de síntesis</h4>
+          <p style="font-size: 0.9rem;"><em>¿Qué indica la evidencia mundial sobre X?</em></p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem;">Evidencia necesaria: corpus de investigaciones pertinente, seleccionado mediante procedimientos apropiados.</p>
+        </div>
+
+        <div class="callout error">
+          <strong>Durante esta estación queda prohibido escribir:</strong> encuesta, entrevista, escala, focus group, SPSS, Scopus, cuestionario, Excel.<br><br>
+          Solo puedes describir <strong>qué evidencia necesitas</strong>.
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          Esta prohibición obliga a separar:
+        </p>
+
+        <div class="highlight-box">
+          <p style="font-size: 0.95rem;">NECESIDAD EPISTEMOLÓGICA ≠ PROCEDIMIENTO INSTRUMENTAL</p>
+        </div>
+
+        <h3>Verificación</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Si la pregunta es "¿Cómo experimentan los estudiantes las barreras para buscar ayuda?",
+          ¿qué evidencia se necesita?
+        </p>
+
+        <div class="options-list" id="evidenciaNeededOptions">
+          <div class="option-card ${state.station4.selected === 'distribucion' ? 'selected' : ''}" data-value="distribucion">
+            <span class="option-marker">A</span>
+            <span>Observaciones que permitan estimar la distribución de un atributo en la población.</span>
+          </div>
+          <div class="option-card ${state.station4.selected === 'comparable' ? 'selected' : ''}" data-value="comparable">
+            <span class="option-marker">B</span>
+            <span>Información comparable sobre dos o más variables en las unidades pertinentes.</span>
+          </div>
+          <div class="option-card ${state.station4.selected === 'rica' ? 'selected' : ''}" data-value="rica">
+            <span class="option-marker">C</span>
+            <span>Evidencia suficientemente rica para reconstruir experiencias, significados y contexto.</span>
+          </div>
+        </div>
+
+        <div id="evidenciaNeededReflection" style="display: ${state.station4.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> La evidencia necesaria es del tipo C. La pregunta busca comprender
+            experiencias, no estimar distribuciones ni establecer asociaciones.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station4.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#evidenciaNeededReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station4.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(5));
+      return;
+    }
+
+    /* ============ ESTACIÓN 5 ============ */
+    if (num === 5) {
+      const elements = [
+        { id: 'entrevista', name: 'Entrevista', category: 'tecnica' },
+        { id: 'fenomenologia', name: 'Fenomenología', category: 'diseno' },
+        { id: 'escala', name: 'Escala', category: 'instrumento' },
+        { id: 'transversal', name: 'Transversal', category: 'diseno' },
+        { id: 'temático', name: 'Análisis temático', category: 'analisis' },
+        { id: 'estudiantes', name: 'Estudiantes', category: 'unidades' },
+        { id: 'correlacional', name: 'Correlacional', category: 'diseno' },
+        { id: 'cuestionario', name: 'Cuestionario', category: 'instrumento' },
+        { id: 'regresion', name: 'Regresión', category: 'analisis' },
+        { id: 'mixto', name: 'Método mixto', category: 'enfoque' },
+        { id: 'grupofocal', name: 'Grupo focal', category: 'tecnica' },
+        { id: 'sistematica', name: 'Revisión sistemática', category: 'diseno' }
+      ];
+
+      const categories = [
+        { id: 'enfoque', label: 'Enfoque / lógica general' },
+        { id: 'diseno', label: 'Diseño' },
+        { id: 'unidades', label: 'Participantes / unidades / corpus' },
+        { id: 'tecnica', label: 'Técnica' },
+        { id: 'instrumento', label: 'Instrumento / recurso' },
+        { id: 'analisis', label: 'Análisis' }
+      ];
+
+      body.innerHTML = `
+        <h3>Diseño ≠ técnica ≠ instrumento</h3>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Seis niveles metodológicos que suelen confundirse:
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">1. Enfoque / lógica general</h4>
+          <p style="font-size: 0.88rem; margin: 0;">Cuantitativo, cualitativo, mixto.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">2. Diseño</h4>
+          <p style="font-size: 0.88rem; margin: 0;">Arquitectura general mediante la que produciremos evidencia.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">3. Participantes / unidades / corpus</h4>
+          <p style="font-size: 0.88rem; margin: 0;">De quién o de qué provendrá la evidencia.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">4. Técnica</h4>
+          <p style="font-size: 0.88rem; margin: 0;">Cómo produciremos u obtendremos información.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--rose);">
+          <h4 style="color: var(--rose);">5. Instrumento / recurso</h4>
+          <p style="font-size: 0.88rem; margin: 0;">Herramienta concreta.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">6. Análisis</h4>
+          <p style="font-size: 0.88rem; margin: 0;">Cómo transformaremos datos en una respuesta.</p>
+        </div>
+
+        <h3>El juego de las tarjetas</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Clasifica cada tarjeta en la categoría correcta. Haz clic para ir rotando entre categorías.
+        </p>
+
+        <div id="classifyList">
+          ${elements.map(e => {
+            const current = state.station5.classifications[e.id];
+            const currentLabel = current ? categories.find(c => c.id === current)?.label : 'Sin clasificar';
+            return `
+              <div class="card" style="border-left-color: ${current ? 'var(--accent)' : 'var(--border)'}; margin: 0.5rem 0; padding: 0.9rem 1.1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                  <div>
+                    <strong style="color: var(--accent); font-size: 0.95rem;">${e.name}</strong>
+                    <div style="font-size: 0.8rem; color: var(--text-soft); margin-top: 0.2rem;">Clasificado como: ${currentLabel}</div>
+                  </div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+                    ${categories.map(c => `
+                      <button class="triage-option ${current === c.id ? 'selected' : ''}" data-element="${e.id}" data-cat="${c.id}" style="font-size: 0.72rem; padding: 0.3rem 0.6rem;">
+                        ${c.label}
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div id="classifyReflection" style="display: ${Object.keys(state.station5.classifications).length >= 6 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Tres afirmaciones que deben desaparecer:</strong><br>
+            ❌ "Mi diseño es una encuesta" — encuesta no especifica la arquitectura completa.<br>
+            ❌ "Mi metodología es SPSS" — software ≠ análisis ≠ diseño.<br>
+            ❌ "Mi investigación es cualitativa porque hago entrevistas" — la técnica no determina la lógica metodológica.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station5.classifications).length >= 6 ? '' : 'disabled'}>
+          ${Object.keys(state.station5.classifications).length >= 6 ? 'Continuar →' : `Clasifica al menos 6 tarjetas (${Object.keys(state.station5.classifications).length}/6)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#classifyReflection');
+
+      body.querySelectorAll('[data-element]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const elementId = this.dataset.element;
+          const cat = this.dataset.cat;
+          state.station5.classifications[elementId] = cat;
+          saveState();
+          renderStation(5);
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(6));
+      return;
+    }
+
+    /* ============ ESTACIÓN 6 ============ */
+    if (num === 6) {
+      body.innerHTML = `
+        <h3>La deuda inferencial</h3>
+
+        <div class="highlight-box warning">
+          <p style="font-size: 1rem;">Cada decisión metodológica establece un techo de inferencia.</p>
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          El proyecto solo puede afirmar aquello para lo cual su evidencia y estrategia proporcionan sustento razonable.
+        </p>
+
+        <h3>La escalera de inferencias</h3>
+
+        <div class="chain-diagram">
+          <div class="chain-box">DESCRIBIR</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">COMPARAR</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">RELACIONAR</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">PREDECIR</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">EXPLICAR</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box highlight">ATRIBUIR EFECTOS</div>
+        </div>
+
+        <div class="callout warning">
+          <strong>Advertencia:</strong> No es una escalera que todo proyecto deba ascender. Significa que las
+          afirmaciones se vuelven progresivamente más exigentes en términos de evidencia.
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Existe otra trayectoria legítima:
+        </p>
+
+        <div class="chain-diagram">
+          <div class="chain-box">EXPLORAR</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">COMPRENDER</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box highlight">INTERPRETAR</div>
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.9rem;">
+          No está por debajo de la cuantitativa. Son pretensiones distintas.
+        </p>
+
+        <h3>Laboratorio de conclusiones</h3>
+
+        <div class="callout info">
+          <strong>Diseño:</strong> transversal correlacional.<br>
+          <strong>Resultado:</strong> X e Y presentan asociación.
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Cuál es la conclusión más ambiciosa que este diseño permite sostener?
+        </p>
+
+        <div class="options-list" id="inferenceOptions">
+          <div class="option-card ${state.station6.selected === 'asociacion' ? 'selected' : ''}" data-value="asociacion">
+            <span class="option-marker">A</span>
+            <span>X e Y mostraron asociación en la población estudiada.</span>
+          </div>
+          <div class="option-card ${state.station6.selected === 'predice' ? 'selected' : ''}" data-value="predice">
+            <span class="option-marker">B</span>
+            <span>X predice estadísticamente Y.</span>
+          </div>
+          <div class="option-card ${state.station6.selected === 'produce' ? 'selected' : ''}" data-value="produce">
+            <span class="option-marker">C</span>
+            <span>X produce Y.</span>
+          </div>
+          <div class="option-card ${state.station6.selected === 'reducir' ? 'selected' : ''}" data-value="reducir">
+            <span class="option-marker">D</span>
+            <span>Reducir X disminuirá Y.</span>
+          </div>
+        </div>
+
+        <div id="inferenceReflection" style="display: ${state.station6.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> La opción A es la única compatible con un diseño transversal correlacional.
+            Las opciones C y D afirman causalidad que el diseño no puede establecer. La opción B exige precisión
+            adicional sobre el significado de "predice".
+          </div>
+          <div class="highlight-box warning" style="margin-top: 1rem;">
+            <p style="font-size: 0.95rem;">Cada verbo del objetivo es una promesa que el diseño tendrá que pagar.</p>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station6.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#inferenceReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station6.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(7));
+      return;
+    }
+
+    /* ============ ESTACIÓN 7 ============ */
+    if (num === 7) {
+      const sindromes = [
+        { id: 's1', num: '1', title: 'Síndrome del instrumento primero', desc: '"Tengo esta escala, ¿qué puedo investigar?"' },
+        { id: 's2', num: '2', title: 'Síndrome del verbo elegante', desc: '"Analizar" aparece porque suena académico.' },
+        { id: 's3', num: '3', title: 'Síndrome del objetivo mutante', desc: 'La pregunta investiga A, el objetivo termina investigando B.' },
+        { id: 's4', num: '4', title: 'Síndrome del método decorativo', desc: 'Se etiqueta "mixto" sin verdadera integración.' },
+        { id: 's5', num: '5', title: 'Síndrome del objetivo-tarea', desc: 'Aplicar, tabular, encuestar.' },
+        { id: 's6', num: '6', title: 'Síndrome de la muestra disponible', desc: 'La población deriva del acceso y no del problema.' },
+        { id: 's7', num: '7', title: 'Síndrome de la causalidad espontánea', desc: 'Asociación → "impacta", "influye", "causa".' },
+        { id: 's8', num: '8', title: 'Síndrome del proyecto maximalista', desc: 'Una investigación descriptiva promete transformar una problemática social completa.' },
+        { id: 's9', num: '9', title: 'Síndrome del método prestigioso', desc: 'Se elige una técnica compleja porque parece más científica.' },
+        { id: 's10', num: '10', title: 'Síndrome de la conclusión nueva', desc: 'Aparece al final una afirmación que nunca estuvo en la pregunta.' }
+      ];
+
+      body.innerHTML = `
+        <h3>Errores que se propagan</h3>
+
+        <div class="callout info">
+          <strong>Ejemplo de propagación:</strong><br>
+          Error inicial: pregunta causal demasiado ambiciosa.<br>
+          ↓ Consecuencia: objetivo causal.<br>
+          ↓ Consecuencia: diseño observacional incapaz de sostenerlo.<br>
+          ↓ Consecuencia: análisis de asociación.<br>
+          ↓ Consecuencia: conclusión causal.
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          El problema no son cinco errores independientes. Es <strong>un error inicial que genera una cascada</strong>.
+        </p>
+
+        <div class="chain-diagram">
+          <div class="chain-box">RUPTURA TEMPRANA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">CAMBIA EL OBJETIVO</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">CAMBIA LA EVIDENCIA NECESARIA</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">EL DISEÑO YA NO RESPONDE</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">EL ANÁLISIS COMPENSA ARTIFICIALMENTE</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box highlight">LA CONCLUSIÓN EXAGERA</div>
+        </div>
+
+        <h3>Los diez "síndromes" del proyecto roto</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca al menos 3 síndromes que reconozcas como frecuentes en proyectos que hayas visto:
+        </p>
+
+        <div id="sindromesList">
+          ${sindromes.map(s => `
+            <div class="sindrome-card ${state.station7.selected.includes(s.id) ? 'selected' : ''}" data-sid="${s.id}" tabindex="0" role="button">
+              <div class="sic-num">Síndrome ${s.num}</div>
+              <div class="sic-title">${s.title}</div>
+              <div class="sic-desc">${s.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="sindromesReflection" style="display: ${state.station7.selected.length >= 3 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Idea central:</strong> La sofisticación analítica al final no puede compensar una
+            incoherencia conceptual al principio.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station7.selected.length >= 3 ? '' : 'disabled'}>
+          ${state.station7.selected.length >= 3 ? 'Continuar →' : `Marca al menos 3 síndromes (${state.station7.selected.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#sindromesReflection');
+
+      body.querySelectorAll('.sindrome-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const sid = this.dataset.sid;
+          if (state.station7.selected.includes(sid)) {
+            state.station7.selected = state.station7.selected.filter(x => x !== sid);
+            this.classList.remove('selected');
+          } else {
+            state.station7.selected.push(sid);
+            this.classList.add('selected');
+          }
+          saveState();
+          const count = state.station7.selected.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 3 síndromes (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(8));
+      return;
+    }
+
+    /* ============ ESTACIÓN 8 ============ */
+    if (num === 8) {
+      body.innerHTML = `
+        <h3>Cirugía metodológica</h3>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          Ya no basta detectar errores. Tienes que reparar el proyecto. Pero con una restricción:
+          <strong>realiza el mínimo número de cambios</strong>.
+        </p>
+
+        <div class="callout warning">
+          Esto evita que simplemente escribas otra propuesta desde cero. La reparación debe preservar
+          la mayor parte del proyecto original.
+        </div>
+
+        <h3>Tres estrategias quirúrgicas</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Cirugía A · Conservar la pregunta</h4>
+          <p style="font-size: 0.9rem;">Entonces deben cambiar: objetivo, evidencia, diseño, procedimientos, análisis.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Cirugía B · Conservar el diseño</h4>
+          <p style="font-size: 0.9rem;">Entonces quizá tenemos que reducir o modificar: pregunta, objetivos, inferencias.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Cirugía C · Conservar la contribución</h4>
+          <p style="font-size: 0.9rem;">Podemos modificar diferentes componentes, siempre que preservemos el conocimiento que justificó inicialmente el proyecto.</p>
+        </div>
+
+        <h3>Restricciones de convocatoria</h3>
+
+        <div class="callout info">
+          <strong>Escenario 1:</strong> Solo disponen de 12 semanas.<br>
+          <strong>Escenario 2:</strong> No tendrán acceso a participantes clínicos.<br>
+          <strong>Escenario 3:</strong> La escala prevista tiene problemas de validez para esta población.<br>
+          <strong>Escenario 4:</strong> Se descubre una revisión reciente que cambia la brecha.
+        </div>
+
+        <h3>Decisión</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Qué estrategia produce el proyecto científicamente más coherente con menos modificaciones?
+        </p>
+
+        <div class="options-list" id="cirugiaOptions">
+          <div class="option-card ${state.station8.strategy === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Conservar la pregunta y ajustar todo lo demás.</span>
+          </div>
+          <div class="option-card ${state.station8.strategy === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>Conservar el diseño y reducir las promesas de la pregunta/objetivos.</span>
+          </div>
+          <div class="option-card ${state.station8.strategy === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">C</span>
+            <span>Conservar la contribución y modificar componentes según convenga.</span>
+          </div>
+        </div>
+
+        <div id="cirugiaReflection" style="display: ${state.station8.strategy ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Reflexión:</strong> La respuesta correcta depende de qué se considere más valioso
+            preservar. Si la pregunta es sólida, la Cirugía A es adecuada. Si el diseño es lo único viable,
+            la Cirugía B. La Cirugía C es la más estratégica cuando lo que importa es el conocimiento,
+            no los componentes específicos.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station8.strategy ? '' : 'disabled'}>Continuar al desafío final →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#cirugiaReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station8.strategy = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(9));
+      return;
+    }
+
+    /* ============ ESTACIÓN 9: SALA DE URGENCIAS ============ */
+    if (num === 9) {
+      const pacientes = [
+        {
+          id: 'P1',
+          title: 'Paciente 1 · "Parece coherente"',
+          text: 'Tema, pregunta, objetivo y método utilizan las mismas palabras. Pero la evidencia producida no puede responder la pregunta.',
+        },
+        {
+          id: 'P2',
+          title: 'Paciente 2 · "Bloom descontrolado"',
+          text: 'Pregunta descriptiva. Objetivos: analizar, evaluar, diseñar, transformar. Inflación cognitiva.',
+        },
+        {
+          id: 'P3',
+          title: 'Paciente 3 · "Método primero"',
+          text: 'Proyecto diseñado alrededor de una herramienta disponible. La necesidad de conocimiento es secundaria.',
+        },
+        {
+          id: 'P4',
+          title: 'Paciente 4 · "Conclusión sobredimensionada"',
+          text: 'Todo funciona hasta la interpretación final. La inferencia excede lo que el diseño permite.',
+        }
+      ];
+
+      const triages = [
+        { id: 'estable', label: '🟢 ESTABLE' },
+        { id: 'herida', label: '🟡 HERIDA LOCAL' },
+        { id: 'cascada', label: '🟠 FALLA EN CASCADA' },
+        { id: 'mayor', label: '🔴 RECONSTRUCCIÓN MAYOR' }
+      ];
+
+      body.innerHTML = `
+        <h3>Sala de urgencias de proyectos</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Cuatro proyectos dañados de maneras diferentes. Asigna un triaje y justifica.
+        </p>
+
+        <div id="pacientesList">
+          ${pacientes.map(p => {
+            const triage = state.station9.triages[p.id];
+            return `
+              <div class="patient-card ${triage ? 'evaluated' : ''}" data-pat="${p.id}">
+                <div class="pat-header">
+                  <span class="pat-label">${p.title}</span>
+                </div>
+                <div class="pat-text">${p.text}</div>
+                <div class="triage-options">
+                  ${triages.map(t => `
+                    <button class="triage-option ${triage === t.id ? 'selected' : ''}" data-pat-id="${p.id}" data-triage="${t.id}">
+                      ${t.label}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="callout info">
+          <strong>Protocolo de triaje:</strong> No basta asignar color. Debe identificar la <strong>primera ruptura</strong>.
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station9.triages).length >= 4 ? '' : 'disabled'}>
+          ${Object.keys(state.station9.triages).length >= 4 ? 'Completar autopsia →' : `Triaje los 4 pacientes (${Object.keys(state.station9.triages).length}/4)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+
+      body.querySelectorAll('.triage-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const patId = this.dataset.patId;
+          const triage = this.dataset.triage;
+          state.station9.triages[patId] = triage;
+          saveState();
+
+          const parent = this.closest('.patient-card');
+          parent.querySelectorAll('.triage-option').forEach(t => t.classList.remove('selected'));
+          this.classList.add('selected');
+          parent.classList.add('evaluated');
+
+          const count = Object.keys(state.station9.triages).length;
+          if (count >= 4) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Completar autopsia →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Triaje los 4 pacientes (${count}/4)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        document.getElementById('stationContent').style.display = 'none';
+        document.getElementById('stationsNav').style.display = 'none';
+        document.getElementById('autopsia').style.display = 'block';
+        document.getElementById('autopsia').scrollIntoView({ behavior: 'smooth' });
+        stationBtns.forEach(b => b.classList.add('completed'));
+      });
+      return;
+    }
+  }
+
+  /* ============================================================
+     INICIO
+     ============================================================ */
+  document.getElementById('btnStartLab').addEventListener('click', function() {
+    state.labStarted = true;
+    saveState();
+    this.disabled = true;
+    this.textContent = '⏱️ Auditoría en curso...';
+    this.style.opacity = '0.5';
+
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+
+    goToStation(state.station >= 0 ? state.station : 0);
+  });
+
+  /* ============================================================
+     AUTOPSIA
+     ============================================================ */
+  const autopsiaFields = ['autopsia1','autopsia2','autopsia3','autopsia4','autopsia5','autopsia6','autopsia7','autopsia8','autopsia9','autopsia10'];
+  autopsiaFields.forEach(field => {
+    const el = document.getElementById(field);
+    if (!el) return;
+    try {
+      const saved = localStorage.getItem('lab04_' + field);
+      if (saved) el.value = saved;
+    } catch (e) {}
+    el.addEventListener('input', function() {
+      try {
+        localStorage.setItem('lab04_' + field, this.value);
+      } catch (e) {}
+    });
+  });
+
+  document.getElementById('btnGuardarAutopsia').addEventListener('click', function() {
+    const filled = autopsiaFields.filter(f => {
+      const el = document.getElementById(f);
+      return el && el.value.trim().length > 15;
+    }).length;
+
+    const verdict = document.getElementById('autopsiaVerdict');
+    if (filled >= 8) {
+      verdict.innerHTML = '<div class="highlight-box success"><p>🟢 Autopsia completa — Guárdala para el resto del curso</p></div>';
+    } else if (filled >= 5) {
+      verdict.innerHTML = '<div class="highlight-box warning"><p>🟡 Autopsia parcial — Desarrolla más cada sección</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box error"><p>🔴 Autopsia incompleta — Necesitas desarrollar más el análisis</p></div>';
+    }
+
+    document.getElementById('pruebaExtrema').style.display = 'block';
+    document.getElementById('pruebaExtrema').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  const inversaFields = ['inversa1','inversa2','inversa3','inversa4','inversa5','inversa6'];
+  inversaFields.forEach(field => {
+    const el = document.getElementById(field);
+    if (!el) return;
+    try {
+      const saved = localStorage.getItem('lab04_' + field);
+      if (saved) el.value = saved;
+    } catch (e) {}
+    el.addEventListener('input', function() {
+      try {
+        localStorage.setItem('lab04_' + field, this.value);
+      } catch (e) {}
+    });
+  });
+
+  document.getElementById('btnIrMetacognicion').addEventListener('click', function() {
+    document.getElementById('pruebaExtrema').style.display = 'none';
+    document.getElementById('autopsia').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'block';
+    document.getElementById('metacognicion').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnCierre').addEventListener('click', function() {
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'block';
+    document.getElementById('cierre').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+  function reiniciar() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus decisiones.')) return;
+    localStorage.removeItem('lab04_proyecto_roto_v1');
+    autopsiaFields.forEach(f => localStorage.removeItem('lab04_' + f));
+    inversaFields.forEach(f => localStorage.removeItem('lab04_' + f));
+    location.reload();
+  }
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciar);
+
+  /* ============================================================
+     RESTAURAR
+     ============================================================ */
+  if (state.labStarted) {
+    document.getElementById('btnStartLab').disabled = true;
+    document.getElementById('btnStartLab').textContent = '⏱️ Auditoría en curso...';
+    document.getElementById('btnStartLab').style.opacity = '0.5';
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+    goToStation(state.station >= 0 ? state.station : 0);
+  }
+
+})();
+</script>
+</body>
+</html>

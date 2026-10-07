@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartografía de la salud mental · Exploración guiada</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Cartografía de la salud mental">
+<meta name="jc-descripcion" content="Exploración conceptual guiada sobre salud mental como constructo multidimensional, dinámico y contextual, con bienestar emocional, psicológico y social, dos continuos, determinantes, riesgo, protección y trayectorias.">
+<meta name="jc-tipo" content="Artefacto educativo interactivo">
+<meta name="jc-etiquetas" content="Salud mental, Constructo, Bienestar psicológico, Bienestar social, Bienestar emocional, Dos continuos, Keyes, Ryff, Determinantes sociales, Riesgo y protección, Trayectorias, Conceptualización">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  /* ============================================================
+     VARIABLES Y RESET
+     ============================================================ */
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --bg-subtle: #f8f9fb;
+    --bg-tint: #f0f4f8;
+    --accent: #1a5276;
+    --accent-light: #2980b9;
+    --accent-soft: rgba(26, 82, 118, 0.08);
+    --text: #1a1a2e;
+    --text-body: #2c3e50;
+    --text-soft: #5d6d7e;
+    --text-dim: #85929e;
+    --border: #d5dbdb;
+    --border-light: #eaecee;
+    --success: #1e8449;
+    --warning: #b7950b;
+    --error: #c0392b;
+    --info: #2471a3;
+    --violet: #6c3483;
+    --rose: #a93226;
+    --teal: #148f77;
+    --font-display: 'Georgia', 'Times New Roman', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --font-mono: 'SF Mono', Consolas, 'Liberation Mono', monospace;
+    --max-width: 1080px;
+    --radius: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 19px;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text-body);
+    line-height: 1.75;
+    font-size: 1.05rem;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     BARRA DE PROGRESO
+     ============================================================ */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--accent);
+    z-index: 1000;
+    transition: width 0.4s ease;
+  }
+
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0.75rem 2rem;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .site-header__title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+
+  .site-header__meta {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* ============================================================
+     NAVEGACIÓN DE RUTA
+     ============================================================ */
+  .route-nav {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    background: rgba(248,249,251,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0.5rem 2rem;
+    z-index: 850;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .route-nav::-webkit-scrollbar { height: 3px; }
+  .route-nav::-webkit-scrollbar-track { background: transparent; }
+  .route-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .route-nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    min-width: max-content;
+  }
+
+  .route-step {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.25s;
+    border: 1px solid transparent;
+    cursor: pointer;
+    min-width: 62px;
+  }
+
+  .route-step__num {
+    display: block;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+    margin-bottom: 0.1rem;
+    font-weight: 600;
+  }
+
+  .route-step:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-color: var(--border);
+  }
+
+  .route-step.active {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .route-step.active .route-step__num { opacity: 0.85; }
+
+  .route-step.visited {
+    color: var(--success);
+    border-color: rgba(30,132,73,0.25);
+  }
+
+  .route-sep {
+    width: 10px;
+    height: 1px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     MAIN
+     ============================================================ */
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 7.5rem 2rem 4rem;
+  }
+
+  section {
+    margin-bottom: 5rem;
+    scroll-margin-top: 115px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============================================================
+     TIPOGRAFÍA
+     ============================================================ */
+  h1 {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  h2 .act-badge {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    background: var(--bg-tint);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 2rem 0 0.8rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1.2rem;
+    max-width: 720px;
+  }
+
+  .lede {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-soft);
+    line-height: 1.8;
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  em {
+    color: var(--text-soft);
+  }
+
+  /* ============================================================
+     ELEMENTOS DE CIERRE DE SECCIÓN
+     ============================================================ */
+  .next-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 2rem;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .next-btn:hover {
+    background: var(--accent-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .next-btn::after {
+    content: '→';
+    font-size: 1rem;
+    transition: transform 0.25s;
+  }
+
+  .next-btn:hover::after {
+    transform: translateX(3px);
+  }
+
+  /* ============================================================
+     NOTAS PARA EXPERTOS
+     ============================================================ */
+  .expert-note {
+    background: var(--bg-subtle);
+    border-left: 3px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 2rem 0;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    line-height: 1.8;
+    max-width: 760px;
+  }
+
+  .expert-note::before {
+    content: '◎ Nota para el explorador experto';
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .expert-note strong {
+    color: var(--accent);
+  }
+
+  /* ============================================================
+     REFERENCIAS CITADAS
+     ============================================================ */
+  .citation {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-style: italic;
+    vertical-align: super;
+    cursor: help;
+    border-bottom: 1px dotted var(--text-dim);
+    margin-left: 0.1rem;
+  }
+
+  .ref-list {
+    max-width: 760px;
+    margin: 1.5rem 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .ref-list li {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-light);
+    line-height: 1.6;
+    text-indent: -1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .ref-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* ============================================================
+     ACTO 0 · INTERRUPTOR
+     ============================================================ */
+  .switch-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  .switch-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+
+  .switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .switch-side {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 600;
+    transition: color 0.4s;
+  }
+
+  .switch-side.broken {
+    color: var(--error);
+  }
+
+  .switch-control {
+    width: 86px;
+    height: 44px;
+    border-radius: 24px;
+    background: var(--bg-tint);
+    border: 2px solid var(--border);
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s;
+    user-select: none;
+  }
+
+  .switch-control__knob {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    top: 4px;
+    left: 4px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .switch-control.on {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+
+  .switch-control.on .switch-control__knob {
+    left: 46px;
+    background: var(--accent);
+    box-shadow: 0 0 16px rgba(26,82,118,0.4);
+  }
+
+  .switch-control.broken {
+    border-color: var(--error);
+    background: rgba(192,57,43,0.08);
+  }
+
+  .switch-control.shake {
+    animation: shake 0.5s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    20% { transform: translateX(-5px) rotate(-1.5deg); }
+    40% { transform: translateX(5px) rotate(1.5deg); }
+    60% { transform: translateX(-3px) rotate(-0.8deg); }
+    80% { transform: translateX(3px) rotate(0.8deg); }
+  }
+
+  .particle-field {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    height: 420px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s;
+  }
+
+  .particle-field.active { opacity: 1; }
+
+  .particle {
+    position: absolute;
+    font-size: 0.75rem;
+    color: var(--text-body);
+    opacity: 0;
+    white-space: nowrap;
+    animation: floatOut 3s ease-out forwards;
+    font-weight: 500;
+    background: var(--bg);
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @keyframes floatOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+    25% { opacity: 1; transform: translate(calc(-50% + var(--tx)*0.4), calc(-50% + var(--ty)*0.4)) scale(1); }
+    100% { opacity: 0.5; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1); }
+  }
+
+  .switch-reveal {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--text-soft);
+    max-width: 580px;
+    line-height: 1.8;
+    opacity: 0;
+    transition: opacity 1s 0.4s;
+  }
+
+  .switch-reveal.show { opacity: 1; }
+
+  /* ============================================================
+     ESFERA EMOCIONAL
+     ============================================================ */
+  .emotion-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
+    padding: 2rem 1rem;
+  }
+
+  .emotion-orb {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 32%, #2980b9, #1a5276 45%, #0e2f44 100%);
+    box-shadow: 0 0 60px rgba(41,128,185,0.35);
+    transition: background 1.6s ease, box-shadow 1.6s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .emotion-orb::after {
+    content: '';
+    position: absolute;
+    inset: 12%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 68% 68%, rgba(255,255,255,0.25), transparent 55%);
+    opacity: 0.5;
+  }
+
+  .emotion-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--text);
+    min-height: 2rem;
+    transition: opacity 0.5s ease;
+  }
+
+  /* ============================================================
+     CONSTELACIÓN PSICOLÓGICA
+     ============================================================ */
+  .constellation-stage {
+    padding: 1rem 0;
+  }
+
+  .constellation-svg {
+    width: 100%;
+    max-width: 680px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .const-node {
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .const-node circle {
+    transition: all 0.3s;
+  }
+
+  .const-node:hover circle {
+    filter: drop-shadow(0 0 12px rgba(26,82,118,0.5));
+  }
+
+  .const-node.active circle {
+    fill: var(--accent);
+  }
+
+  .const-label {
+    font-family: var(--font-body);
+    font-size: 10px;
+    fill: var(--text-body);
+    text-anchor: middle;
+    font-weight: 500;
+    pointer-events: none;
+  }
+
+  .const-desc {
+    max-width: 620px;
+    margin: 1.5rem auto 0;
+    padding: 1.2rem 1.4rem;
+    background: var(--bg-subtle);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ============================================================
+     RED SOCIAL
+     ============================================================ */
+  .social-stage {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-svg {
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .social-line {
+    stroke: var(--border);
+    stroke-width: 1;
+    fill: none;
+    transition: all 1s ease;
+  }
+
+  .social-line.strong {
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .social-line.weak {
+    stroke: var(--border-light);
+    stroke-width: 0.5;
+  }
+
+  .social-caption {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    text-align: center;
+    max-width: 620px;
+    margin-top: 1.5rem;
+    line-height: 1.8;
+  }
+
+  /* ============================================================
+     BARRAS DE FUNCIONAMIENTO
+     ============================================================ */
+  .function-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 640px;
+    margin: 1.5rem auto;
+  }
+
+  .function-row {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .function-row__label {
+    min-width: 155px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    text-align: right;
+    font-weight: 500;
+  }
+
+  .function-row__track {
+    flex: 1;
+    height: 12px;
+    background: var(--bg-tint);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .function-row__fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 6px;
+    transition: width 1.6s ease;
+  }
+
+  .function-row__fill.c1 { background: linear-gradient(90deg, #1a5276, #2980b9); }
+  .function-row__fill.c2 { background: linear-gradient(90deg, #6c3483, #a569bd); }
+  .function-row__fill.c3 { background: linear-gradient(90deg, #a93226, #e74c3c); }
+  .function-row__fill.c4 { background: linear-gradient(90deg, #148f77, #1abc9c); }
+  .function-row__fill.c5 { background: linear-gradient(90deg, #b7950b, #f1c40f); }
+
+  .function-row__value {
+    min-width: 36px;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+  }
+
+  /* ============================================================
+     DOS CONTINUOS
+     ============================================================ */
+  .continua-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+
+  .single-axis {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.1rem 1.8rem;
+    background: var(--bg-subtle);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: all 1s ease;
+  }
+
+  .single-axis__label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  .single-axis__bar {
+    width: 260px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--error), var(--warning), var(--success));
+    border-radius: 2px;
+  }
+
+  .single-axis.dimmed {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+
+  .dual-axes {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.4rem;
+    max-width: 480px;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .dual-axes.show { opacity: 1; }
+
+  .axis-tag {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .axes-canvas {
+    grid-column: 2;
+    grid-row: 2;
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .axes-canvas::before,
+  .axes-canvas::after {
+    content: '';
+    position: absolute;
+    background: var(--border);
+  }
+
+  .axes-canvas::before {
+    top: 0; bottom: 0; left: 50%; width: 1px;
+  }
+
+  .axes-canvas::after {
+    left: 0; right: 0; top: 50%; height: 1px;
+  }
+
+  .quad {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 0.5rem;
+    line-height: 1.3;
+    transition: all 0.3s;
+  }
+
+  .quad:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .q-tl { top: 0; left: 0; }
+  .q-tr { top: 0; right: 0; }
+  .q-bl { bottom: 0; left: 0; }
+  .q-br { bottom: 0; right: 0; }
+
+  /* ============================================================
+     CONTEXTO MULTINIVEL
+     ============================================================ */
+  .context-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .context-svg {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .ctx-layer {
+    transition: opacity 0.9s ease;
+    opacity: 0;
+  }
+
+  .ctx-layer.revealed { opacity: 1; }
+
+  /* ============================================================
+     RIESGO Y PROTECCIÓN
+     ============================================================ */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 700px) {
+    .risk-grid { grid-template-columns: 1fr; }
+  }
+
+  .risk-panel {
+    padding: 1.3rem;
+    border-radius: var(--radius);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+  }
+
+  .risk-panel.vuln { border-top: 4px solid var(--error); }
+  .risk-panel.prot { border-top: 4px solid var(--success); }
+
+  .risk-panel__title {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .risk-panel.vuln .risk-panel__title { color: var(--error); }
+  .risk-panel.prot .risk-panel__title { color: var(--success); }
+
+  .risk-item {
+    padding: 0.5rem 0.8rem;
+    background: var(--bg);
+    border-radius: 5px;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-body);
+    transition: all 0.25s;
+    border: 1px solid var(--border-light);
+  }
+
+  .risk-item:hover {
+    background: var(--bg-tint);
+    transform: translateX(3px);
+  }
+
+  /* ============================================================
+     TRAYECTORIAS
+     ============================================================ */
+  .trajectory-stage {
+    padding: 1rem 0;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .trajectory-svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .traj-line {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .traj-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+  }
+
+  .traj-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-soft);
+  }
+
+  .traj-legend__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     MAPA ORBITAL
+     ============================================================ */
+  .orbit-stage {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .orbit-svg {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .orbit-ring {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+  }
+
+  .orbit-ring--1 { animation: orbitSpin 55s linear infinite; transform-origin: 350px 300px; }
+  .orbit-ring--2 { animation: orbitSpin 75s linear infinite reverse; transform-origin: 350px 300px; }
+  .orbit-ring--3 { animation: orbitSpin 95s linear infinite; transform-origin: 350px 300px; }
+
+  @keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .orbit-core {
+    fill: var(--accent);
+  }
+
+  .orbit-sat circle {
+    transition: all 0.3s;
+  }
+
+  .orbit-sat:hover circle {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+
+  .orbit-sat text {
+    font-family: var(--font-body);
+    font-size: 9px;
+    fill: var(--text-soft);
+    text-anchor: middle;
+    font-weight: 500;
+    pointer-events: none;
+  }
+
+  /* ============================================================
+     MITOS
+     ============================================================ */
+  .myth-stack {
+    display: grid;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+    max-width: 780px;
+  }
+
+  .myth-card {
+    padding: 1.1rem 1.3rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--text-dim);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+
+  .myth-card:hover {
+    border-left-color: var(--error);
+    background: var(--bg-subtle);
+    transform: translateX(3px);
+  }
+
+  .myth-card__text {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    transition: all 0.4s ease;
+  }
+
+  .myth-card.collapsed .myth-card__text {
+    text-decoration: line-through;
+    opacity: 0.35;
+  }
+
+  .myth-card__reveal {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease, opacity 0.45s ease, padding 0.45s ease, margin 0.45s ease;
+    opacity: 0;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+  }
+
+  .myth-card.collapsed .myth-card__reveal {
+    max-height: 400px;
+    opacity: 1;
+    border-top: 1px solid var(--border-light);
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  /* ============================================================
+     CIERRE
+     ============================================================ */
+  .closing-stage {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .closing-stage__question {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
+  }
+
+  .closing-stage__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .closing-stage__list p {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--accent);
+    margin: 0;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .closing-stage__list p:nth-child(1) { animation-delay: 0.3s; }
+  .closing-stage__list p:nth-child(2) { animation-delay: 0.7s; }
+  .closing-stage__list p:nth-child(3) { animation-delay: 1.1s; }
+  .closing-stage__list p:nth-child(4) { animation-delay: 1.5s; }
+  .closing-stage__list p:nth-child(5) { animation-delay: 1.9s; }
+  .closing-stage__list p:nth-child(6) { animation-delay: 2.3s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .closing-stage__final {
+    margin-top: 3rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    line-height: 2;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 900px) {
+    html { font-size: 17px; }
+    .route-step { min-width: 54px; padding: 0.25rem 0.5rem; }
+    .route-step { font-size: 0.68rem; }
+  }
+
+  @media (max-width: 700px) {
+    main { padding: 7rem 1.2rem 3rem; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    .lede { font-size: 1.05rem; }
+    .emotion-orb { width: 150px; height: 150px; }
+    .single-axis { flex-direction: column; gap: 0.6rem; padding: 0.9rem; }
+    .single-axis__bar { width: 180px; }
+    .switch-control { width: 70px; height: 36px; }
+    .switch-control__knob { width: 26px; height: 26px; }
+    .switch-control.on .switch-control__knob { left: 36px; }
+    .closing-stage__question { font-size: 1.5rem; }
+    .closing-stage__list p { font-size: 1rem; }
+    .site-header { padding: 0.6rem 1.2rem; }
+    .route-nav { padding: 0.4rem 1.2rem; }
+  }
+
+  /* ============================================================
+     ACCESIBILIDAD
+     ============================================================ */
+  button:focus-visible,
+  a:focus-visible,
+  .myth-card:focus-visible,
+  .switch-control:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ============================================================
+     UTILIDADES
+     ============================================================ */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 1.5rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- BARRA DE PROGRESO -->
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de exploración"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <span class="site-header__title">Cartografía de la salud mental</span>
+  <span class="site-header__meta">Exploración guiada · Juan Carlos Valderrama Cardenas</span>
+</header>
+
+<!-- NAVEGACIÓN DE RUTA -->
+<nav class="route-nav" id="routeNav" aria-label="Ruta de exploración">
+  <div class="route-nav__inner">
+    <a href="#inicio" class="route-step active" data-route="inicio">
+      <span class="route-step__num">Inicio</span>
+      Portada
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto0" class="route-step" data-route="acto0">
+      <span class="route-step__num">Acto 0</span>
+      Romper el binario
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto1" class="route-step" data-route="acto1">
+      <span class="route-step__num">Acto 1</span>
+      Sentirme
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto2" class="route-step" data-route="acto2">
+      <span class="route-step__num">Acto 2</span>
+      Ser
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto3" class="route-step" data-route="acto3">
+      <span class="route-step__num">Acto 3</span>
+      Pertenecer
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto4" class="route-step" data-route="acto4">
+      <span class="route-step__num">Acto 4</span>
+      Funcionar
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto5" class="route-step" data-route="acto5">
+      <span class="route-step__num">Acto 5</span>
+      Dos continuos
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto6" class="route-step" data-route="acto6">
+      <span class="route-step__num">Acto 6</span>
+      Contexto
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto7" class="route-step" data-route="acto7">
+      <span class="route-step__num">Acto 7</span>
+      Riesgo/protección
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto8" class="route-step" data-route="acto8">
+      <span class="route-step__num">Acto 8</span>
+      Tiempo
+    </a>
+    <span class="route-sep"></span>
+    <a href="#acto9" class="route-step" data-route="acto9">
+      <span class="route-step__num">Acto 9</span>
+      Mapa final
+    </a>
+    <span class="route-sep"></span>
+    <a href="#mitos" class="route-step" data-route="mitos">
+      <span class="route-step__num">Cierre</span>
+      Mitos
+    </a>
+    <span class="route-sep"></span>
+    <a href="#cierre" class="route-step" data-route="cierre">
+      <span class="route-step__num">Fin</span>
+      Contemplación
+    </a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============================================================
+       PORTADA
+       ============================================================ -->
+  <section id="inicio">
+    <h1>Cartografía de la salud mental</h1>
+    <p class="lede">
+      Una exploración conceptual sobre la arquitectura del constructo "salud mental".
+      Diez actos que articulan modelos, evidencia empírica y debates contemporáneos
+      para visualizar por qué una representación binaria resulta insuficiente.
+    </p>
+
+    <div class="expert-note">
+      Este artefacto está dirigido a público experto: profesionales de salud mental, investigadores,
+      docentes y estudiantes avanzados. No es un test, no produce diagnóstico ni evalúa al usuario.
+      Es un recorrido conceptual respaldado por la literatura. Puedes navegar libremente con el mapa
+      superior o seguir el orden propuesto con el botón "siguiente acto".
+    </div>
+
+    <p>
+      La Organización Mundial de la Salud define la salud mental como un estado de bienestar
+      que permite afrontar las tensiones de la vida, desarrollar capacidades, aprender, trabajar
+      y contribuir a la comunidad. Se trata de un continuo complejo, influido por factores
+      individuales, familiares, comunitarios y estructurales.
+    </p>
+
+    <p>
+      Sin embargo, esta definición, siendo necesaria, no es suficiente para capturar la
+      complejidad del constructo. A lo largo de este recorrido exploraremos las principales
+      tradiciones de investigación que han intentado modelar el bienestar psicológico,
+      el bienestar social, las trayectorias de salud mental y los determinantes que las configuran.
+    </p>
+
+    <h3>Recorrido</h3>
+    <p>
+      El recorrido se organiza en diez actos breves, predominantemente visuales, cada uno
+      articulado alrededor de una transición conceptual. Las animaciones se activan una sola
+      vez cuando su sección entra al viewport. Las notas para el explorador experto introducen
+      matices y referencias adicionales.
+    </p>
+
+    <a href="#acto0" class="next-btn">Comenzar exploración</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 0 · ROMPER EL BINARIO
+       ============================================================ -->
+  <section id="acto0">
+    <h2><span class="act-badge">Acto 0</span>Romper el binario</h2>
+
+    <div class="switch-stage">
+      <div class="switch-label">Salud mental</div>
+      <div class="switch-wrapper">
+        <span class="switch-side" id="sideOff">Mal</span>
+        <div class="switch-control" id="switchControl" role="button" tabindex="0"
+             aria-label="Interruptor de salud mental. Actívalo para romper el binario.">
+          <div class="switch-control__knob"></div>
+        </div>
+        <span class="switch-side" id="sideOn">Bien</span>
+        <div class="particle-field" id="particleField"></div>
+      </div>
+      <div class="switch-reveal" id="switchReveal">
+        <p>La salud mental no funciona como un interruptor.</p>
+        <p>La Organización Mundial de la Salud la caracteriza como un continuo complejo
+          que puede ser experimentado de manera diferente por distintas personas.</p>
+      </div>
+    </div>
+
+    <div class="expert-note">
+      El binario "sano/enfermo" es una simplificación que la evidencia empírica no sostiene.
+      Los modelos dimensionales y los modelos de dos continuos han mostrado que la experiencia
+      de salud mental y la psicopatología no se organizan como opuestos de un único eje.
+      Esta ruptura conceptual inicial condiciona todo el recorrido posterior.
+    </div>
+
+    <p>
+      La distinción entre salud mental positiva y enfermedad mental como dimensiones
+      relacionadas pero no idénticas ha sido desarrollada extensamente por Corey L. M. Keyes
+      en su modelo de los dos continuos.<span class="citation" title="Keyes, C. L. M. (2002). The mental health continuum: From languishing to flourishing in life. Journal of Health and Social Behavior, 43(2), 207-222.">1</span>
+      Este modelo propone que una persona puede experimentar simultáneamente
+      síntomas de psicopatología y niveles razonables de bienestar, o puede no cumplir
+      criterios diagnósticos y, sin embargo, reportar un bienestar bajo.
+    </p>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Keyes, C. L. M. (2002). The mental health continuum: From languishing to flourishing in life. <em>Journal of Health and Social Behavior, 43</em>(2), 207-222.</li>
+      <li>Keyes, C. L. M. (2005). Mental illness and/or mental health? Investigating axioms of the complete state model of health. <em>Journal of Consulting and Clinical Psychology, 73</em>(3), 539-548.</li>
+      <li>Westerhof, G. J., & Keyes, C. L. M. (2010). Mental illness and mental health: The two continua model across the lifespan. <em>Journal of Adult Development, 17</em>(2), 110-119.</li>
+    </ul>
+
+    <a href="#acto1" class="next-btn">Siguiente: Acto 1</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 1 · SENTIRME
+       ============================================================ -->
+  <section id="acto1">
+    <h2><span class="act-badge">Acto 1</span>Sentirme</h2>
+    <p class="lede">
+      La dimensión emocional no es una línea recta ni un semáforo. Es una esfera que cambia.
+    </p>
+
+    <div class="emotion-stage">
+      <div class="emotion-orb" id="emotionOrb"></div>
+      <div class="emotion-name" id="emotionName">Alegría</div>
+    </div>
+
+    <p>
+      En los modelos de salud mental positiva, el <strong>bienestar emocional</strong> constituye
+      una dimensión diferenciable junto al bienestar psicológico y social. Comprende afecto positivo,
+      satisfacción vital y la experiencia subjetiva de bienestar.
+    </p>
+
+    <h3>Bienestar hedónico y eudaimónico</h3>
+    <p>
+      La tradición hedónica, asociada al trabajo de Ed Diener, define el bienestar en términos
+      de satisfacción vital y balance afectivo: la presencia relativa de afecto positivo y la
+      ausencia relativa de afecto negativo.<span class="citation" title="Diener, E. (1984). Subjective well-being. Psychological Bulletin, 95(3), 542-575.">2</span>
+      La tradición eudaimónica, en cambio, se pregunta por el funcionamiento óptimo
+      y la realización del potencial humano.
+    </p>
+
+    <p>
+      La distinción no es una jerarquía. Estudios factoriales encuentran correlaciones
+      altas pero no perfectas entre ambas dimensiones, lo que apoya su distinción
+      conceptual y empírica.<span class="citation" title="Keyes, C. L. M., Shmotkin, D., & Ryff, C. D. (2002). Optimizing well-being: The empirical encounter of two traditions. Journal of Personality and Social Psychology, 82(6), 1007-1022.">3</span>
+      Para una persona concreta, el bienestar hedónico y el eudaimónico pueden
+      disociarse transitoriamente.
+    </p>
+
+    <div class="expert-note">
+      Es importante no confundir bienestar emocional con "sentirse bien todo el tiempo".
+      La investigación contemporánea distingue la valencia afectiva de la frecuencia,
+      intensidad y contexto de la experiencia. Una persona puede experimentar tristeza
+      intensa en un momento de pérdida sin que ello constituya, por sí solo, indicador
+      de mala salud mental. Lo que se evalúa son dimensiones como duración, intensidad,
+      contexto, capacidad de regulación, interferencia funcional y sufrimiento asociado.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Diener, E. (1984). Subjective well-being. <em>Psychological Bulletin, 95</em>(3), 542-575.</li>
+      <li>Diener, E., Suh, E. M., Lucas, R. E., & Smith, H. L. (1999). Subjective well-being: Three decades of progress. <em>Psychological Bulletin, 125</em>(2), 276-302.</li>
+      <li>Keyes, C. L. M., Shmotkin, D., & Ryff, C. D. (2002). Optimizing well-being: The empirical encounter of two traditions. <em>Journal of Personality and Social Psychology, 82</em>(6), 1007-1022.</li>
+    </ul>
+
+    <a href="#acto2" class="next-btn">Siguiente: Acto 2</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 2 · SER
+       ============================================================ -->
+  <section id="acto2">
+    <h2><span class="act-badge">Acto 2</span>Ser</h2>
+    <p class="lede">
+      La dimensión psicológica se explora como una constelación: seis territorios
+      que pueden iluminarse en distintas configuraciones.
+    </p>
+
+    <div class="constellation-stage">
+      <svg class="constellation-svg" viewBox="0 0 700 480" id="constellationSvg">
+        <g id="constLines"></g>
+        <g id="constNodes"></g>
+      </svg>
+      <div class="const-desc" id="constDesc">
+        <span style="color: var(--text-dim); font-style: italic;">
+          Pasa el cursor o haz clic en cada punto para explorar los territorios
+          del funcionamiento psicológico.
+        </span>
+      </div>
+    </div>
+
+    <p>
+      El <strong>bienestar psicológico</strong>, en la tradición eudaimónica, no se reduce
+      a sentirse bien. Carol D. Ryff desarrolló un modelo multidimensional que integra
+      tradiciones clínicas, del desarrollo, existenciales y humanistas para proponer
+      seis dimensiones de funcionamiento positivo.<span class="citation" title="Ryff, C. D. (1989). Happiness is everything, or is it? Explorations on the meaning of psychological well-being. Journal of Personality and Social Psychology, 57(6), 1069-1081.">4</span>
+    </p>
+
+    <p>
+      Estas dimensiones no son requisitos de una persona "sana". Son territorios de
+      funcionamiento que pueden adoptar configuraciones diferentes según la persona,
+      el contexto y el momento vital.
+    </p>
+
+    <div class="expert-note">
+      La distinción hedónico/eudaimónico no es una jerarquía. Ambos capturan aspectos
+      legítimos del bienestar. Los estudios factoriales suelen encontrar correlaciones
+      altas pero no perfectas entre ambas dimensiones, lo que apoya su distinción
+      conceptual y empírica. Ryan y Deci, desde la teoría de la autodeterminación,
+      añaden que la satisfacción de las necesidades psicológicas básicas
+      (autonomía, competencia y relación) es un nutriente esencial para el crecimiento
+      psicológico y el bienestar.<span class="citation" title="Ryan, R. M., & Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. American Psychologist, 55(1), 68-78.">5</span>
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Ryff, C. D. (1989). Happiness is everything, or is it? Explorations on the meaning of psychological well-being. <em>Journal of Personality and Social Psychology, 57</em>(6), 1069-1081.</li>
+      <li>Ryff, C. D., & Keyes, C. L. M. (1995). The structure of psychological well-being revisited. <em>Journal of Personality and Social Psychology, 69</em>(4), 719-727.</li>
+      <li>Ryan, R. M., & Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. <em>American Psychologist, 55</em>(1), 68-78.</li>
+    </ul>
+
+    <a href="#acto3" class="next-btn">Siguiente: Acto 3</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 3 · PERTENECER
+       ============================================================ -->
+  <section id="acto3">
+    <h2><span class="act-badge">Acto 3</span>Pertenecer</h2>
+    <p class="lede">
+      La dimensión social se explora visualmente: ¿qué distingue conexión de cantidad?
+    </p>
+
+    <div class="social-stage">
+      <svg class="social-svg" viewBox="0 0 700 420" id="socialSvg">
+        <g id="socialLines"></g>
+        <g id="socialNodes"></g>
+      </svg>
+      <div class="social-caption">
+        Tener muchas conexiones no significa necesariamente sentirse conectado.
+        Aislamiento social y soledad son fenómenos distintos: el primero es una
+        condición objetiva de la red de relaciones; el segundo, una experiencia
+        subjetiva de desconexión.
+      </div>
+    </div>
+
+    <p>
+      El <strong>bienestar social</strong> involucra pertenencia, integración, contribución
+      percibida, aceptación social, sentido de comunidad y comprensión del mundo social.
+      Corey L. M. Keyes articuló cinco dimensiones del bienestar social: integración social,
+      aceptación social, contribución social, actualización social y coherencia social.<span class="citation" title="Keyes, C. L. M. (1998). Social well-being. Social Psychology Quarterly, 61(2), 121-140.">6</span>
+    </p>
+
+    <h3>Soledad y aislamiento social</h3>
+    <p>
+      La evidencia contemporánea distingue con creciente precisión entre aislamiento
+      social (una condición objetiva de falta de relaciones) y soledad (una experiencia
+      subjetiva de desconexión).<span class="citation" title="Cacioppo, J. T., & Cacioppo, S. (2014). Social relationships and health: The toxic effects of perceived social isolation. Social and Personality Psychology Compass, 8(2), 58-72.">7</span>
+      Intervenciones que aumentan la cantidad de contacto social pueden no reducir
+      la soledad subjetiva. Los estudios longitudinales sugieren que la soledad
+      persistente predice desenlaces de salud mental con independencia del tamaño
+      de la red.
+    </p>
+
+    <div class="expert-note">
+      Revisiones sistemáticas y meta-análisis recientes muestran que el aislamiento
+      social se asocia con un riesgo significativamente mayor de depresión
+      (OR 1.46, IC 95% 1.21–1.77).<span class="citation" title="Revisión sistemática y meta-análisis, 2025.">8</span>
+      La prevalencia estimada de aislamiento social objetivo en personas con
+      trastornos mentales graves alcanza el 63%. La distinción conceptual entre
+      soledad y aislamiento es esencial para el diseño de intervenciones.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Keyes, C. L. M. (1998). Social well-being. <em>Social Psychology Quarterly, 61</em>(2), 121-140.</li>
+      <li>Cacioppo, J. T., & Cacioppo, S. (2014). Social relationships and health: The toxic effects of perceived social isolation. <em>Social and Personality Psychology Compass, 8</em>(2), 58-72.</li>
+      <li>Holt-Lunstad, J., Smith, T. B., & Layton, J. B. (2010). Social relationships and mortality risk: A meta-analytic review. <em>PLoS Medicine, 7</em>(7), e1000316.</li>
+    </ul>
+
+    <a href="#acto4" class="next-btn">Siguiente: Acto 4</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 4 · FUNCIONAR
+       ============================================================ -->
+  <section id="acto4">
+    <h2><span class="act-badge">Acto 4</span>Funcionar</h2>
+    <p class="lede">
+      ¿Podemos sentirnos mal y seguir funcionando? ¿Podemos sentirnos relativamente
+      bien y no funcionar bien?
+    </p>
+
+    <div class="function-stack" id="functionStack">
+      <div class="function-row">
+        <span class="function-row__label">Bienestar emocional</span>
+        <div class="function-row__track"><div class="function-row__fill c1" data-val="65"></div></div>
+        <span class="function-row__value">0</span>
+      </div>
+      <div class="function-row">
+        <span class="function-row__label">Propósito</span>
+        <div class="function-row__track"><div class="function-row__fill c2" data-val="80"></div></div>
+        <span class="function-row__value">0</span>
+      </div>
+      <div class="function-row">
+        <span class="function-row__label">Relaciones</span>
+        <div class="function-row__track"><div class="function-row__fill c3" data-val="40"></div></div>
+        <span class="function-row__value">0</span>
+      </div>
+      <div class="function-row">
+        <span class="function-row__label">Funcionamiento</span>
+        <div class="function-row__track"><div class="function-row__fill c4" data-val="70"></div></div>
+        <span class="function-row__value">0</span>
+      </div>
+      <div class="function-row">
+        <span class="function-row__label">Energía</span>
+        <div class="function-row__track"><div class="function-row__fill c5" data-val="50"></div></div>
+        <span class="function-row__value">0</span>
+      </div>
+    </div>
+
+    <p class="social-caption">
+      Podemos encontrarnos en lugares diferentes de distintas dimensiones al mismo tiempo.
+      Esto no es incoherencia: es la condición habitual de la vida psíquica.
+    </p>
+
+    <p>
+      La conceptualización contemporánea de la salud mental de la Organización Mundial
+      de la Salud incorpora explícitamente capacidades para afrontar las tensiones
+      ordinarias de la vida, aprender, trabajar y contribuir a la comunidad. Es decir,
+      el funcionamiento no es un añadido: es parte del constructo.
+    </p>
+
+    <div class="expert-note">
+      El funcionamiento cotidiano no es un indicador redundante del bienestar subjetivo.
+      La literatura clínica y epidemiológica ha mostrado que el funcionamiento psicosocial
+      y el bienestar subjetivo correlacionan pero no se solapan. Una persona con
+      sintomatología depresiva subclínica puede mantener un funcionamiento laboral
+      adecuado y, sin embargo, reportar un bienestar subjetivo bajo. La dirección
+      inversa también ocurre.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>World Health Organization. (2022). <em>World mental health report: Transforming mental health for all</em>. WHO.</li>
+      <li>Keyes, C. L. M. (2007). Promoting and protecting mental health as flourishing. <em>American Psychologist, 62</em>(2), 95-108.</li>
+    </ul>
+
+    <a href="#acto5" class="next-btn">Siguiente: Acto 5</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 5 · DOS CONTINUOS
+       ============================================================ -->
+  <section id="acto5">
+    <h2><span class="act-badge">Acto 5</span>Bienestar y malestar</h2>
+    <p class="lede">
+      ¿Son opuestos? La respuesta corta es no. La respuesta larga se despliega en dos ejes.
+    </p>
+
+    <div class="continua-stage">
+      <div class="single-axis" id="singleAxis">
+        <span class="single-axis__label">Trastorno</span>
+        <div class="single-axis__bar"></div>
+        <span class="single-axis__label">Salud</span>
+      </div>
+
+      <div class="dual-axes" id="dualAxes">
+        <div class="axis-tag" style="grid-column: 2; grid-row: 1;">Mayor bienestar</div>
+        <div class="axis-tag" style="grid-column: 1; grid-row: 2; writing-mode: vertical-rl; transform: rotate(180deg);">Mayor malestar</div>
+        <div class="axes-canvas">
+          <div class="quad q-tl">Alto bienestar<br>Alta dificultad</div>
+          <div class="quad q-tr">Alto bienestar<br>Baja dificultad</div>
+          <div class="quad q-bl">Bajo bienestar<br>Alta dificultad</div>
+          <div class="quad q-br">Bajo bienestar<br>Baja dificultad</div>
+        </div>
+        <div class="axis-tag" style="grid-column: 3; grid-row: 2; writing-mode: vertical-rl;">Menor malestar</div>
+        <div class="axis-tag" style="grid-column: 2; grid-row: 3;">Menor bienestar</div>
+      </div>
+    </div>
+
+    <p>
+      La conceptualización de los <strong>dos continuos</strong>, asociada al trabajo de
+      Corey L. M. Keyes, plantea que la salud mental positiva y la enfermedad mental
+      están relacionadas pero no son extremos opuestos de una única dimensión.
+    </p>
+
+    <p>
+      Cuando esta distinción se hace operativa, emergen dos conceptos:
+      <strong>flourishing</strong> (niveles elevados de bienestar emocional, psicológico
+      y social) y <strong>languishing</strong> (niveles bajos de salud mental positiva,
+      sin que ello equivalga automáticamente a un trastorno mental).<span class="citation" title="Keyes, C. L. M. (2002). The mental health continuum: From languishing to flourishing in life. Journal of Health and Social Behavior, 43(2), 207-222.">1</span>
+      Son regiones del mapa, no cajas diagnósticas.
+    </p>
+
+    <h3>El modelo PERMA</h3>
+    <p>
+      Martin Seligman propuso un modelo complementario de florecimiento humano
+      articulado en cinco elementos: emociones positivas, compromiso, relaciones,
+      significado y logro.<span class="citation" title="Seligman, M. E. P. (2011). Flourish: A visionary new understanding of happiness and well-being. Free Press.">9</span>
+      El modelo PERMA se ha utilizado ampliamente en investigación aplicada
+      y en intervenciones de psicología positiva.
+    </p>
+
+    <div class="expert-note">
+      El modelo de dos continuos no implica independencia estadística. La evidencia
+      epidemiológica muestra correlaciones moderadas y bidireccionales entre psicopatología
+      y bienestar positivo. Lo que el modelo rechaza es la reducción de ambas dimensiones
+      a un único eje. Las implicaciones clínicas son relevantes: tratar la psicopatología
+      y promover el bienestar positivo son objetivos complementarios, no intercambiables.
+      Sin embargo, investigaciones recientes han cuestionado la superioridad empírica
+      del modelo de dos continuos frente a modelos unidimensionales en algunos contextos
+      específicos, como los síntomas de trastornos alimentarios.<span class="citation" title="British Journal of Clinical Psychology, 2023.">10</span>
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Keyes, C. L. M. (2002). The mental health continuum: From languishing to flourishing in life. <em>Journal of Health and Social Behavior, 43</em>(2), 207-222.</li>
+      <li>Seligman, M. E. P. (2011). <em>Flourish: A visionary new understanding of happiness and well-being</em>. Free Press.</li>
+      <li>Westerhof, G. J., & Keyes, C. L. M. (2010). Mental illness and mental health: The two continua model across the lifespan. <em>Journal of Adult Development, 17</em>(2), 110-119.</li>
+    </ul>
+
+    <a href="#acto6" class="next-btn">Siguiente: Acto 6</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 6 · CONTEXTO
+       ============================================================ -->
+  <section id="acto6">
+    <h2><span class="act-badge">Acto 6</span>El contexto entra en escena</h2>
+    <p class="lede">
+      La salud mental ocurre en personas. Pero las personas no viven aisladas.
+    </p>
+
+    <div class="context-stage">
+      <svg class="context-svg" viewBox="0 0 600 500" id="contextSvg">
+        <circle class="ctx-layer" data-layer="1" cx="300" cy="250" r="220" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text class="ctx-layer" data-layer="1" x="300" y="40" text-anchor="middle" font-family="system-ui" font-size="11" fill="#c0392b" font-weight="600" letter-spacing="0.1em">ESTRUCTURA</text>
+
+        <circle class="ctx-layer" data-layer="2" cx="300" cy="250" r="170" fill="none" stroke="#6c3483" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text class="ctx-layer" data-layer="2" x="300" y="95" text-anchor="middle" font-family="system-ui" font-size="11" fill="#6c3483" font-weight="600" letter-spacing="0.1em">COMUNIDAD</text>
+
+        <circle class="ctx-layer" data-layer="3" cx="300" cy="250" r="120" fill="none" stroke="#2471a3" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text class="ctx-layer" data-layer="3" x="300" y="150" text-anchor="middle" font-family="system-ui" font-size="11" fill="#2471a3" font-weight="600" letter-spacing="0.1em">RELACIONES</text>
+
+        <circle class="ctx-layer" data-layer="4" cx="300" cy="250" r="60" fill="rgba(26,82,118,0.12)" stroke="#1a5276" stroke-width="2"/>
+        <text class="ctx-layer" data-layer="4" x="300" y="255" text-anchor="middle" font-family="system-ui" font-size="13" fill="#1a5276" font-weight="700">PERSONA</text>
+      </svg>
+    </div>
+
+    <p>
+      Los <strong>determinantes sociales de la salud mental</strong> incluyen condiciones
+      económicas, sociales y físicas que operan a lo largo del curso de vida. Las
+      desigualdades sociales se asocian con diferencias sistemáticas en el riesgo de
+      problemas de salud mental, no solo por su efecto directo sino por su acumulación
+      diferencial a través del tiempo.
+    </p>
+
+    <p>
+      La Organización Mundial de la Salud señala que la exposición a circunstancias
+      sociales, económicas, geopolíticas y ambientales desfavorables —como la pobreza,
+      la violencia, la desigualdad y la degradación del medio ambiente— aumenta el riesgo
+      de sufrir problemas de salud mental.<span class="citation" title="Organización Mundial de la Salud, 2024.">11</span>
+      Los entornos laborales seguros y saludables, por el contrario, pueden actuar
+      como factor protector.
+    </p>
+
+    <div class="expert-note">
+      El giro de los determinantes sociales no es una negación de los factores individuales.
+      Es un cambio de nivel de análisis. La pregunta relevante ya no es "¿qué le pasa a
+      esta persona?" sino "¿qué configuración de condiciones personales, relacionales,
+      comunitarias y estructurales hace más probable que esta persona experimente este
+      sufrimiento?". Los marcos actuales de la OMS enfatizan la interacción multinivel,
+      no la sustitución de un nivel por otro.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>World Health Organization. (2022). <em>World mental health report: Transforming mental health for all</em>. WHO.</li>
+      <li>World Health Organization. (2024). <em>Mental health of adolescents</em>. WHO.</li>
+      <li>Marmot, M., & Wilkinson, R. G. (Eds.). (2006). <em>Social determinants of health</em> (2nd ed.). Oxford University Press.</li>
+    </ul>
+
+    <a href="#acto7" class="next-btn">Siguiente: Acto 7</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 7 · RIESGO Y PROTECCIÓN
+       ============================================================ -->
+  <section id="acto7">
+    <h2><span class="act-badge">Acto 7</span>Riesgo y protección</h2>
+    <p class="lede">
+      No hay un factor único que prediga de manera fiable los desenlaces de salud mental.
+    </p>
+
+    <div class="risk-grid">
+      <div class="risk-panel vuln">
+        <div class="risk-panel__title">Factores que pueden aumentar vulnerabilidad</div>
+        <div class="risk-item">Inseguridad económica</div>
+        <div class="risk-item">Exposición a violencia</div>
+        <div class="risk-item">Discriminación y exclusión</div>
+        <div class="risk-item">Aislamiento social</div>
+        <div class="risk-item">Acontecimientos vitales adversos</div>
+        <div class="risk-item">Barreras de acceso a servicios</div>
+        <div class="risk-item">Condiciones laborales precarias</div>
+      </div>
+
+      <div class="risk-panel prot">
+        <div class="risk-panel__title">Factores que pueden proporcionar protección</div>
+        <div class="risk-item">Vínculos significativos</div>
+        <div class="risk-item">Apoyo social percibido</div>
+        <div class="risk-item">Recursos personales y habilidades</div>
+        <div class="risk-item">Acceso a servicios oportunos</div>
+        <div class="risk-item">Sentido de propósito</div>
+        <div class="risk-item">Entornos seguros y predecibles</div>
+        <div class="risk-item">Comunidad y pertenencia</div>
+      </div>
+    </div>
+
+    <p>
+      La Organización Mundial de la Salud señala que no existe un único factor
+      capaz de predecir de manera fiable los desenlaces de salud mental. Las
+      personas pueden estar expuestas a múltiples factores de riesgo sin desarrollar
+      un problema, y también pueden experimentar dificultades sin un factor conocido único.
+    </p>
+
+    <h3>Resiliencia y sentido de coherencia</h3>
+    <p>
+      Aaron Antonovsky propuso el modelo salutogénico para explicar por qué algunas
+      personas sometidas a factores estresantes mantienen un buen estado de salud.
+      El constructo central es el <strong>sentido de coherencia</strong>: una orientación
+      global que expresa la medida en que una persona tiene un sentimiento de confianza
+      interiorizado en que los estímulos del entorno son estructurados, predecibles
+      y explicables.<span class="citation" title="Antonovsky, A. (1987). Unraveling the mystery of health: How people manage stress and stay well. Jossey-Bass.">12</span>
+    </p>
+
+    <p>
+      Revisiones paraguas recientes sobre resiliencia tras la adversidad identifican
+      factores protectores como la capacidad cognitiva, la cohesión comunitaria,
+      la autopercepción positiva y la implicación religiosa o espiritual.<span class="citation" title="Umbrella review, Frontiers in Psychiatry, 2024.">13</span>
+      La resiliencia no es un rasgo fijo: es un proceso dinámico de adaptación.
+    </p>
+
+    <div class="expert-note">
+      La evidencia sobre resiliencia ha matizado progresivamente la metáfora de la balanza.
+      No se trata de un balance mecánico entre dos columnas, sino de procesos dinámicos
+      en los que los factores de protección pueden compensar, mitigar o incluso
+      transformar el efecto de factores adversos, pero también pueden agotarse,
+      y esta capacidad varía según el contexto y el momento del curso de vida.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Antonovsky, A. (1987). <em>Unraveling the mystery of health: How people manage stress and stay well</em>. Jossey-Bass.</li>
+      <li>Abate, B. B., et al. (2024). Resilience after adversity: An umbrella review of adversity protective factors and resilience-promoting interventions. <em>Frontiers in Psychiatry, 15</em>, 1391312.</li>
+      <li>Masten, A. S. (2014). Global perspectives on resilience in children and youth. <em>Child Development, 85</em>(1), 6-20.</li>
+    </ul>
+
+    <a href="#acto8" class="next-btn">Siguiente: Acto 8</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 8 · TIEMPO
+       ============================================================ -->
+  <section id="acto8">
+    <h2><span class="act-badge">Acto 8</span>El tiempo</h2>
+    <p class="lede">
+      La salud mental se mueve. Y no se mueve en línea recta.
+    </p>
+
+    <div class="trajectory-stage">
+      <svg class="trajectory-svg" viewBox="0 0 800 350">
+        <line x1="60" y1="300" x2="760" y2="300" stroke="#d5dbdb" stroke-width="1"/>
+        <line x1="60" y1="50" x2="60" y2="300" stroke="#d5dbdb" stroke-width="1"/>
+        <text x="410" y="335" text-anchor="middle" font-family="system-ui" font-size="11" fill="#85929e" letter-spacing="0.1em">TIEMPO</text>
+        <text x="28" y="175" text-anchor="middle" font-family="system-ui" font-size="11" fill="#85929e" letter-spacing="0.1em" transform="rotate(-90, 28, 175)">BIENESTAR</text>
+
+        <path class="traj-line" d="M 60 175 Q 150 140, 240 180 T 420 160 T 600 190 T 760 165" stroke="#1a5276"/>
+        <path class="traj-line" d="M 60 200 Q 150 230, 240 280 T 420 290 T 600 200 T 760 130" stroke="#2471a3"/>
+        <path class="traj-line" d="M 60 120 Q 150 110, 240 115 T 420 110 T 500 260 T 600 130 T 760 115" stroke="#1e8449"/>
+        <path class="traj-line" d="M 60 230 Q 150 240, 240 250 T 420 235 T 600 245 T 760 230" stroke="#6c3483"/>
+      </svg>
+
+      <div class="traj-legend">
+        <div class="traj-legend__item">
+          <span class="traj-legend__dot" style="background:#1a5276;"></span>
+          Fluctuaciones moderadas
+        </div>
+        <div class="traj-legend__item">
+          <span class="traj-legend__dot" style="background:#2471a3;"></span>
+          Dificultad y recuperación
+        </div>
+        <div class="traj-legend__item">
+          <span class="traj-legend__dot" style="background:#1e8449;"></span>
+          Bienestar con crisis puntual
+        </div>
+        <div class="traj-legend__item">
+          <span class="traj-legend__dot" style="background:#6c3483;"></span>
+          Dificultad persistente con áreas positivas
+        </div>
+      </div>
+    </div>
+
+    <p class="social-caption">
+      Tu posición actual no es tu identidad. La conceptualización actual de la
+      Organización Mundial de la Salud presenta la salud mental como un continuo
+      dinámico influido por factores que pueden operar en distintas etapas vitales.
+    </p>
+
+    <p>
+      La investigación longitudinal ha mostrado que las clasificaciones transversales
+      estabilizan artificialmente lo que en la vida de las personas son procesos.
+      Un estudio de cinco años identificó tres clases de trayectoria en personas con
+      distrés moderado o severo: recuperación (51.5%), persistencia moderada (41.6%)
+      y progresión severa (6.9%).<span class="citation" title="Estudio longitudinal de cinco años, 2026.">14</span>
+      En adolescentes, entre el 69% y el 80% siguen trayectorias de bajo problema
+      estable, mientras que entre el 11% y el 23% presentan trayectorias de alto
+      problema estable.<span class="citation" title="MYRIAD trial, 2025.">15</span>
+    </p>
+
+    <div class="expert-note">
+      La investigación sobre trayectorias ha mostrado que las clasificaciones
+      transversales (flourishing/languishing en un único punto temporal) estabilizan
+      artificialmente lo que en la vida de las personas son procesos. Los estudios
+      longitudinales identifican trayectorias heterogéneas que no se reducen a una
+      progresión lineal ni a una estabilidad permanente.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>Estudio longitudinal de cinco años sobre trayectorias de distrés psicológico, 2026.</li>
+      <li>MYRIAD trial. (2025). Adolescents' trajectories of mental health. <em>Journal of Child Psychology and Psychiatry</em>.</li>
+      <li>Australian Longitudinal Study on Women's Health. (2023). Trajectories of mental health over 16 years.</li>
+    </ul>
+
+    <a href="#acto9" class="next-btn">Siguiente: Acto 9</a>
+  </section>
+
+  <!-- ============================================================
+       ACTO 9 · MAPA FINAL
+       ============================================================ -->
+  <section id="acto9">
+    <h2><span class="act-badge">Acto 9</span>El mapa completo</h2>
+    <p class="lede">
+      Ningún componente permanece fijo. La salud mental es una configuración dinámica.
+    </p>
+
+    <div class="orbit-stage">
+      <svg class="orbit-svg" viewBox="0 0 700 600">
+        <circle class="orbit-ring orbit-ring--1" cx="350" cy="300" r="90"/>
+        <circle class="orbit-ring orbit-ring--2" cx="350" cy="300" r="150"/>
+        <circle class="orbit-ring orbit-ring--3" cx="350" cy="300" r="220"/>
+
+        <circle class="orbit-core" cx="350" cy="300" r="22"/>
+        <text x="350" y="305" text-anchor="middle" font-family="system-ui" font-size="10" fill="#fff" font-weight="700">YO</text>
+
+        <g class="orbit-sat" style="color:#1a5276;">
+          <circle cx="350" cy="210" r="9" fill="#1a5276"/>
+          <text x="350" y="196">Sentir</text>
+        </g>
+        <g class="orbit-sat" style="color:#6c3483;">
+          <circle cx="440" cy="300" r="9" fill="#6c3483"/>
+          <text x="462" y="304">Ser</text>
+        </g>
+        <g class="orbit-sat" style="color:#a93226;">
+          <circle cx="350" cy="390" r="9" fill="#a93226"/>
+          <text x="350" y="414">Pertenecer</text>
+        </g>
+        <g class="orbit-sat" style="color:#148f77;">
+          <circle cx="260" cy="300" r="9" fill="#148f77"/>
+          <text x="238" y="304" style="text-anchor:end;">Funcionar</text>
+        </g>
+        <g class="orbit-sat" style="color:#c0392b;">
+          <circle cx="350" cy="150" r="9" fill="#c0392b"/>
+          <text x="350" y="136">Atravesar dificultades</text>
+        </g>
+        <g class="orbit-sat" style="color:#1e8449;">
+          <circle cx="500" cy="300" r="9" fill="#1e8449"/>
+          <text x="522" y="304">Relacionarse</text>
+        </g>
+        <g class="orbit-sat" style="color:#b7950b;">
+          <circle cx="350" cy="450" r="9" fill="#b7950b"/>
+          <text x="350" y="474">Habitar contexto</text>
+        </g>
+        <g class="orbit-sat" style="color:#2980b9;">
+          <circle cx="200" cy="300" r="9" fill="#2980b9"/>
+          <text x="178" y="304" style="text-anchor:end;">Cambiar en el tiempo</text>
+        </g>
+      </svg>
+    </div>
+
+    <p>
+      Cuando los distintos componentes se disponen simultáneamente, el constructo
+      adquiere su forma característica: una red de dimensiones en movimiento,
+      no una escala única.
+    </p>
+
+    <div class="expert-note">
+      Los marcos integradores actuales convergen en la misma dirección: la salud
+      mental es un fenómeno multidimensional, dinámico y contextualmente situado.
+      Las clasificaciones operativas —para uso clínico o epidemiológico— son
+      necesariamente reduccionistas, pero esa reducción es una elección instrumental,
+      no una descripción del fenómeno.
+    </div>
+
+    <h3>Referencias del acto</h3>
+    <ul class="ref-list">
+      <li>World Health Organization. (2022). <em>World mental health report: Transforming mental health for all</em>. WHO.</li>
+      <li>Keyes, C. L. M. (2007). Promoting and protecting mental health as flourishing. <em>American Psychologist, 62</em>(2), 95-108.</li>
+      <li>Ryff, C. D., & Singer, B. H. (2008). Know thyself and become what you are: A eudaimonic approach to psychological well-being. <em>Journal of Happiness Studies, 9</em>(1), 13-39.</li>
+    </ul>
+
+    <a href="#mitos" class="next-btn">Siguiente: Mitos</a>
+  </section>
+
+  <!-- ============================================================
+       MITOS
+       ============================================================ -->
+  <section id="mitos">
+    <h2><span class="act-badge">Cierre</span>Mitos que colapsan al tocarlos</h2>
+    <p class="lede">
+      Cada afirmación se fragmenta al activarla. Debajo, la aclaración conceptual.
+    </p>
+
+    <div class="myth-stack">
+      <div class="myth-card" tabindex="0" role="button">
+        <div class="myth-card__text">"Salud mental significa estar feliz."</div>
+        <div class="myth-card__reveal">
+          El bienestar emocional es solo una dimensión entre varias. La salud mental
+          incluye también funcionamiento psicológico, bienestar social, funcionamiento
+          cotidiano y ausencia o presencia de psicopatología, dimensiones que pueden
+          disociarse del afecto positivo.
+        </div>
+      </div>
+
+      <div class="myth-card" tabindex="0" role="button">
+        <div class="myth-card__text">"Si no tengo un trastorno, tengo buena salud mental."</div>
+        <div class="myth-card__reveal">
+          El modelo de dos continuos distingue salud mental positiva y enfermedad
+          mental como dimensiones relacionadas pero diferentes. La ausencia de
+          criterios diagnósticos no garantiza niveles elevados de bienestar positivo.
+        </div>
+      </div>
+
+      <div class="myth-card" tabindex="0" role="button">
+        <div class="myth-card__text">"La salud mental está dentro de cada individuo."</div>
+        <div class="myth-card__reveal">
+          Factores familiares, comunitarios y estructurales también protegen o
+          deterioran la salud mental. Reducir el constructo al plano individual
+          omite niveles de análisis cuya evidencia empírica es robusta.
+        </div>
+      </div>
+
+      <div class="myth-card" tabindex="0" role="button">
+        <div class="myth-card__text">"Sentir tristeza significa estar mal psicológicamente."</div>
+        <div class="myth-card__reveal">
+          La experiencia emocional negativa forma parte de la vida humana. Su
+          significado requiere considerar intensidad, persistencia, contexto,
+          interferencia funcional y capacidad de regulación, no su mera presencia.
+        </div>
+      </div>
+
+      <div class="myth-card" tabindex="0" role="button">
+        <div class="myth-card__text">"Tener un diagnóstico borra el bienestar."</div>
+        <div class="myth-card__reveal">
+          El modelo de dos continuos permite distinguir la presencia de enfermedad
+          mental de los niveles de salud mental positiva. Una persona con un
+          diagnóstico puede mantener áreas significativas de bienestar, vínculos
+          y funcionamiento.
+        </div>
+      </div>
+
+      <div class="myth-card" tabindex="0" role="button">
+        <div class="myth-card__text">"La salud mental depende principalmente de la actitud."</div>
+        <div class="myth-card__reveal">
+          Los determinantes económicos, sociales y ambientales desempeñan un papel
+          sustantivo. La actitud individual importa, pero no sustituye condiciones
+          estructurales que operan a lo largo del curso de vida.
+        </div>
+      </div>
+    </div>
+
+    <a href="#cierre" class="next-btn">Ir al cierre</a>
+  </section>
+
+  <!-- ============================================================
+       CIERRE
+       ============================================================ -->
+  <section id="cierre">
+    <div class="closing-stage">
+      <div class="closing-stage__question">¿Cómo está tu salud mental?</div>
+
+      <div class="closing-stage__list">
+        <p>¿Cómo estoy sintiendo?</p>
+        <p>¿Cómo estoy funcionando?</p>
+        <p>¿Qué sentido encuentro?</p>
+        <p>¿Cómo están mis vínculos?</p>
+        <p>¿Qué condiciones me rodean?</p>
+        <p>¿Qué está cambiando?</p>
+      </div>
+
+      <div class="closing-stage__final">
+        <p>La salud mental no es un estado único.</p>
+        <p>Es una configuración dinámica.</p>
+        <p style="margin-top:1.5rem; color:var(--accent);">
+          No existe una única manera de experimentar bienestar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer style="padding: 2.5rem 2rem; text-align: center; border-top: 1px solid #eaecee; margin-top: 3rem;">
+  <p style="font-family: var(--font-display); font-style: italic; color: var(--text-soft); max-width: 680px; margin: 0 auto 1.2rem; line-height: 2; font-size: 0.95rem;">
+    No somos solamente lo que sentimos.<br>
+    No somos solamente nuestras dificultades.<br>
+    No somos solamente nuestras capacidades.<br>
+    No existimos separados de nuestros vínculos y contextos.
+  </p>
+  <p style="font-family: var(--font-display); font-style: italic; color: var(--accent); max-width: 680px; margin: 0 auto 1.5rem; line-height: 2; font-size: 0.95rem;">
+    Salud mental es sentir, funcionar, vincularse, encontrar sentido<br>
+    y atravesar la vida dentro de un contexto que también nos transforma.
+  </p>
+  <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 1.5rem;">
+    Cartografía de la salud mental · Exploración guiada<br>
+    Autor: Juan Carlos Valderrama Cardenas · 2025
+  </p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     BARRA DE PROGRESO
+     ============================================================ */
+  window.addEventListener('scroll', function() {
+    var st = window.scrollY;
+    var dh = document.documentElement.scrollHeight - window.innerHeight;
+    var p = dh > 0 ? (st / dh) * 100 : 0;
+    document.getElementById('progressBar').style.width = p + '%';
+  });
+
+  /* ============================================================
+     REVEAL CONTROLADO
+     ============================================================ */
+  var sections = document.querySelectorAll('section');
+  var sectionObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+        entry.target.classList.add('visible');
+        triggerAnimation(entry.target.id);
+      }
+    });
+  }, { threshold: 0.15 });
+  sections.forEach(function(s) { sectionObserver.observe(s); });
+
+  /* ============================================================
+     RUTA ACTIVA
+     ============================================================ */
+  var routeSteps = document.querySelectorAll('.route-step');
+  var routeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        routeSteps.forEach(function(step) {
+          var active = step.dataset.route === id;
+          step.classList.toggle('active', active);
+          if (active) {
+            step.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+          if (step.dataset.route === id && id !== 'inicio') {
+            step.classList.add('visited');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+  sections.forEach(function(s) { routeObserver.observe(s); });
+
+  /* ============================================================
+     ESTADO DE ANIMACIONES
+     ============================================================ */
+  var animDone = {};
+  function triggerAnimation(id) {
+    if (animDone[id]) return;
+    animDone[id] = true;
+    if (id === 'acto4') animateBars();
+    if (id === 'acto5') animateAxes();
+    if (id === 'acto6') animateContext();
+  }
+
+  /* ============================================================
+     ACTO 0: INTERRUPTOR
+     ============================================================ */
+  var switchEl = document.getElementById('switchControl');
+  var sideOff = document.getElementById('sideOff');
+  var sideOn = document.getElementById('sideOn');
+  var particleField = document.getElementById('particleField');
+  var switchReveal = document.getElementById('switchReveal');
+  var broken = false;
+
+  var words = [
+    'emociones', 'relaciones', 'propósito', 'autonomía', 'funcionamiento',
+    'apoyo', 'contexto', 'malestar', 'recursos', 'dificultades',
+    'vínculos', 'sentido', 'crecimiento', 'aceptación'
+  ];
+
+  function breakSwitch() {
+    if (broken) return;
+    broken = true;
+    switchEl.classList.add('on');
+
+    setTimeout(function() {
+      switchEl.classList.add('shake');
+      sideOff.classList.add('broken');
+      sideOn.classList.add('broken');
+
+      setTimeout(function() {
+        switchEl.classList.remove('shake');
+        switchEl.classList.add('broken');
+      }, 500);
+
+      particleField.classList.add('active');
+      words.forEach(function(w, i) {
+        var el = document.createElement('span');
+        el.className = 'particle';
+        el.textContent = w;
+        var angle = (i / words.length) * Math.PI * 2;
+        var r = 90 + Math.random() * 130;
+        var tx = Math.cos(angle) * r;
+        var ty = Math.sin(angle) * r;
+        el.style.setProperty('--tx', tx + 'px');
+        el.style.setProperty('--ty', ty + 'px');
+        el.style.left = '50%';
+        el.style.top = '50%';
+        el.style.animationDelay = (i * 0.04) + 's';
+        particleField.appendChild(el);
+      });
+
+      setTimeout(function() {
+        switchReveal.classList.add('show');
+      }, 1000);
+    }, 450);
+  }
+
+  switchEl.addEventListener('click', breakSwitch);
+  switchEl.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      breakSwitch();
+    }
+  });
+
+  /* ============================================================
+     ACTO 1: ESFERA EMOCIONAL
+     ============================================================ */
+  var orb = document.getElementById('emotionOrb');
+  var orbName = document.getElementById('emotionName');
+
+  var emotions = [
+    { name: 'Alegría', bg: 'radial-gradient(circle at 32% 32%, #f1c40f, #d4ac0d 45%, #9a7d0a 100%)', glow: 'rgba(241,196,15,0.35)' },
+    { name: 'Preocupación', bg: 'radial-gradient(circle at 32% 32%, #a569bd, #7d3c98 45%, #4a235a 100%)', glow: 'rgba(165,105,189,0.35)' },
+    { name: 'Tranquilidad', bg: 'radial-gradient(circle at 32% 32%, #48c9b0, #1abc9c 45%, #0e6251 100%)', glow: 'rgba(72,201,176,0.35)' },
+    { name: 'Tristeza', bg: 'radial-gradient(circle at 32% 32%, #2980b9, #1a5276 45%, #0e2f44 100%)', glow: 'rgba(41,128,185,0.35)' },
+    { name: 'Entusiasmo', bg: 'radial-gradient(circle at 32% 32%, #e74c3c, #a93226 45%, #641e16 100%)', glow: 'rgba(231,76,60,0.35)' },
+    { name: 'Cansancio', bg: 'radial-gradient(circle at 32% 32%, #85929e, #5d6d7e 45%, #2c3e50 100%)', glow: 'rgba(133,146,158,0.3)' }
+  ];
+
+  var emIdx = 0;
+  var emTimer = null;
+
+  function cycleEmotion() {
+    var e = emotions[emIdx % emotions.length];
+    orb.style.background = e.bg;
+    orb.style.boxShadow = '0 0 60px ' + e.glow;
+    orbName.style.opacity = '0';
+    setTimeout(function() {
+      orbName.textContent = e.name;
+      orbName.style.opacity = '1';
+    }, 300);
+    emIdx++;
+  }
+
+  var emObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.target.id === 'acto1') {
+        if (entry.isIntersecting) {
+          if (!emTimer) {
+            cycleEmotion();
+            emTimer = setInterval(cycleEmotion, 3000);
+          }
+        } else {
+          if (emTimer) { clearInterval(emTimer); emTimer = null; }
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(function(s) { emObserver.observe(s); });
+
+  /* ============================================================
+     ACTO 2: CONSTELACIÓN
+     ============================================================ */
+  var constData = [
+    { id: 'auto', label: 'Autoaceptación', x: 150, y: 120,
+      desc: '¿Cómo me relaciono conmigo mismo? La autoaceptación involucra una actitud positiva hacia el self, incluyendo la conciencia de los propios límites.' },
+    { id: 'auto2', label: 'Autonomía', x: 550, y: 120,
+      desc: '¿Hasta qué punto puedo orientar mis elecciones? La autonomía se refiere a la capacidad de autorregularse conforme a criterios propios.' },
+    { id: 'prop', label: 'Propósito', x: 350, y: 90,
+      desc: '¿Experimento dirección y sentido? El propósito involucra la percepción de que la propia vida tiene dirección y significado.' },
+    { id: 'crec', label: 'Crecimiento', x: 200, y: 320,
+      desc: '¿Percibo posibilidades de desarrollo? El crecimiento personal se refiere a la percepción de desarrollo continuo y realización del propio potencial.' },
+    { id: 'manejo', label: 'Manejo del entorno', x: 500, y: 320,
+      desc: '¿Puedo desenvolverme razonablemente en mis condiciones vitales? El manejo del entorno se refiere a la capacidad de elegir o crear contextos favorables.' },
+    { id: 'rel', label: 'Relaciones positivas', x: 350, y: 400,
+      desc: '¿Puedo construir vínculos significativos? Esta dimensión involucra relaciones cálidas, de confianza y con capacidad de empatía.' }
+  ];
+
+  var constNodesEl = document.getElementById('constNodes');
+  var constLinesEl = document.getElementById('constLines');
+  var constDescEl = document.getElementById('constDesc');
+
+  function buildConstellation() {
+    if (!constNodesEl || constNodesEl.children.length > 0) return;
+    var cx = 350, cy = 240;
+
+    constData.forEach(function(n) {
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', n.x); line.setAttribute('y2', n.y);
+      line.setAttribute('stroke', 'rgba(26,82,118,0.12)');
+      line.setAttribute('stroke-width', '1');
+      line.setAttribute('stroke-dasharray', '2 4');
+      constLinesEl.appendChild(line);
+    });
+
+    constData.forEach(function(n) {
+      var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'const-node');
+      g.setAttribute('data-id', n.id);
+      g.setAttribute('tabindex', '0');
+      g.setAttribute('role', 'button');
+      g.setAttribute('aria-label', n.label);
+
+      var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', n.x); c.setAttribute('cy', n.y);
+      c.setAttribute('r', '16');
+      c.setAttribute('fill', '#fff');
+      c.setAttribute('stroke', '#1a5276');
+      c.setAttribute('stroke-width', '2');
+      g.appendChild(c);
+
+      var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t.setAttribute('class', 'const-label');
+      t.setAttribute('x', n.x); t.setAttribute('y', n.y + 36);
+      t.textContent = n.label;
+      g.appendChild(t);
+
+      g.addEventListener('click', function() { activateConst(n.id); });
+      g.addEventListener('mouseenter', function() {
+        constDescEl.innerHTML = '<div><strong style="color:#1a5276;">' + n.label + '</strong><br><span style="color:#5d6d7e;">' + n.desc + '</span></div>';
+      });
+      g.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateConst(n.id); }
+      });
+
+      constNodesEl.appendChild(g);
+    });
+  }
+
+  function activateConst(id) {
+    var n = constData.find(function(d) { return d.id === id; });
+    if (!n) return;
+    document.querySelectorAll('.const-node').forEach(function(g) { g.classList.remove('active'); });
+    var el = document.querySelector('.const-node[data-id="' + id + '"]');
+    if (el) el.classList.add('active');
+    constDescEl.innerHTML = '<div><strong style="color:#1a5276;">' + n.label + '</strong><br><span style="color:#5d6d7e;">' + n.desc + '</span></div>';
+  }
+
+  buildConstellation();
+
+  /* ============================================================
+     ACTO 3: RED SOCIAL
+     ============================================================ */
+  var socialNodesEl = document.getElementById('socialNodes');
+  var socialLinesEl = document.getElementById('socialLines');
+
+  function buildSocial() {
+    if (!socialNodesEl || socialNodesEl.children.length > 0) return;
+    var cx = 350, cy = 210;
+
+    var people = [
+      { x: 150, y: 100, strong: true },
+      { x: 250, y: 80, strong: false },
+      { x: 450, y: 80, strong: true },
+      { x: 550, y: 100, strong: false },
+      { x: 100, y: 250, strong: false },
+      { x: 600, y: 250, strong: false },
+      { x: 200, y: 340, strong: true },
+      { x: 500, y: 340, strong: true },
+      { x: 350, y: 380, strong: false }
+    ];
+
+    people.forEach(function(p) {
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', p.x); line.setAttribute('y2', p.y);
+      line.setAttribute('class', 'social-line ' + (p.strong ? 'strong' : 'weak'));
+      socialLinesEl.appendChild(line);
+    });
+
+    people.forEach(function(p) {
+      var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', p.x); c.setAttribute('cy', p.y);
+      c.setAttribute('r', p.strong ? '13' : '9');
+      c.setAttribute('fill', p.strong ? '#1a5276' : '#d5dbdb');
+      c.setAttribute('opacity', p.strong ? '0.9' : '0.6');
+      socialNodesEl.appendChild(c);
+    });
+
+    var me = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    me.setAttribute('cx', cx); me.setAttribute('cy', cy);
+    me.setAttribute('r', '20');
+    me.setAttribute('fill', '#2471a3');
+    socialNodesEl.appendChild(me);
+
+    var mt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    mt.setAttribute('x', cx); mt.setAttribute('y', cy + 4);
+    mt.setAttribute('text-anchor', 'middle');
+    mt.setAttribute('font-family', 'system-ui');
+    mt.setAttribute('font-size', '10');
+    mt.setAttribute('fill', '#fff');
+    mt.setAttribute('font-weight', '700');
+    mt.textContent = 'YO';
+    socialNodesEl.appendChild(mt);
+  }
+
+  buildSocial();
+
+  /* ============================================================
+     ACTO 4: BARRAS
+     ============================================================ */
+  function animateBars() {
+    document.querySelectorAll('.function-row__fill').forEach(function(f, i) {
+      var target = parseInt(f.dataset.val);
+      setTimeout(function() {
+        f.style.width = target + '%';
+        var valEl = f.closest('.function-row').querySelector('.function-row__value');
+        if (valEl) {
+          var cur = 0;
+          var step = target / 28;
+          var iv = setInterval(function() {
+            cur += step;
+            if (cur >= target) { cur = target; clearInterval(iv); }
+            valEl.textContent = Math.round(cur);
+          }, 55);
+        }
+      }, i * 240);
+    });
+  }
+
+  /* ============================================================
+     ACTO 5: DOS CONTINUOS
+     ============================================================ */
+  function animateAxes() {
+    var single = document.getElementById('singleAxis');
+    var dual = document.getElementById('dualAxes');
+    if (!single || !dual) return;
+    setTimeout(function() { single.classList.add('dimmed'); }, 500);
+    setTimeout(function() { dual.classList.add('show'); }, 1500);
+  }
+
+  /* ============================================================
+     ACTO 6: CONTEXTO
+     ============================================================ */
+  function animateContext() {
+    document.querySelectorAll('.ctx-layer').forEach(function(l, i) {
+      setTimeout(function() { l.classList.add('revealed'); }, i * 320);
+    });
+  }
+
+  /* ============================================================
+     MITOS
+     ============================================================ */
+  document.querySelectorAll('.myth-card').forEach(function(card) {
+    card.addEventListener('click', function() { this.classList.toggle('collapsed'); });
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.classList.toggle('collapsed');
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

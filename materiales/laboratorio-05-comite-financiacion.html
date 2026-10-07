@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio 05 · Comité de Financiación: decidir bajo incertidumbre</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Comité de Financiación: decidir bajo incertidumbre">
+<meta name="jc-descripcion" content="Laboratorio de evaluación de proyectos en una convocatoria simulada de salud mental, centrado en prioridad científica, rigor, ética, viabilidad, defectos críticos, costo de oportunidad, incertidumbre y juicio de financiación.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Evaluación de proyectos, Financiación, Convocatoria de investigación, Juicio científico, Prioridad, Rigor, Ética, Viabilidad, Costo de oportunidad, Incertidumbre, Salud mental, Toma de decisiones">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --orange: #fb923c;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1150px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.3s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '⚖️'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+
+  section { margin-bottom: 3rem; scroll-margin-top: 100px; }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.8rem; color: #ffffff; }
+  h4 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--accent); }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.35rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+
+  /* ---- BARRA PRESUPUESTO ---- */
+  .budget-bar-container {
+    position: fixed;
+    top: 75px; left: 0; right: 0;
+    z-index: 850;
+    display: none;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: rgba(10, 22, 40, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .budget-bar-container.show { display: flex; }
+  .budget-bar {
+    max-width: 700px;
+    width: 100%;
+    background: var(--bg-mid);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .budget-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    flex-shrink: 0;
+  }
+  .budget-bar-track {
+    flex: 1;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .budget-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), var(--accent));
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 6px;
+  }
+  .budget-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  main.with-budget {
+    padding-top: 4.5rem;
+  }
+
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: sticky;
+    top: 140px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) { .stations-nav { position: static; grid-template-columns: 1fr 1fr; } }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover:not(.locked) { border-color: var(--accent); transform: translateY(-2px); }
+  .station-btn.active { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .station-btn.completed { border-color: var(--success); color: var(--success); }
+  .station-btn.locked { opacity: 0.35; cursor: not-allowed; }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  .station-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+  }
+
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .station-header .sh-num {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .station-header .sh-title { font-weight: 600; color: var(--text-main); font-size: 1rem; }
+  .station-header .sh-time { margin-left: auto; font-size: 0.78rem; color: var(--text-soft); font-style: italic; }
+
+  .options-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1.3rem 0; }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+  .option-card:hover { border-color: var(--accent); background: var(--bg-soft); transform: translateX(4px); }
+  .option-card.selected { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 20px rgba(240, 180, 41, 0.25); }
+  .option-card .option-marker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+
+  .checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.2rem 0; }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .checkbox-card:hover { border-color: var(--accent); background: var(--bg-soft); }
+  .checkbox-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .checkbox-card .checkbox-marker {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.3rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.3rem 0;
+    font-size: 0.96rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info { background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04)); border-left-color: var(--info); }
+  .callout.info strong { color: var(--info); }
+  .callout.success { background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04)); border-left-color: var(--success); }
+  .callout.success strong { color: var(--success); }
+  .callout.violet { background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04)); border-left-color: var(--violet); }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error { background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04)); border-left-color: var(--error); }
+  .callout.error strong { color: var(--error); }
+  .callout.warning { background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04)); border-left-color: var(--warning); }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.3rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin: 0; }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-next { width: 100%; margin-top: 1.2rem; padding: 0.9rem; font-size: 0.95rem; }
+  .btn-small {
+    background: var(--accent);
+    color: #0a1628;
+    border: none;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+  }
+  .btn-small:hover { background: #ffd97a; }
+
+  .response-field { margin: 1rem 0; }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15); }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.7rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.7rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  .chain-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #060f1c;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .chain-box {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 280px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .chain-box:hover { border-color: var(--accent); transform: scale(1.02); }
+  .chain-box.highlight { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .chain-arrow { color: var(--accent); font-size: 1.1rem; line-height: 1; }
+
+  /* ---- TARJETAS DE PROYECTOS ---- */
+  .project-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    margin: 1rem 0;
+    transition: all 0.3s;
+  }
+  .project-card:hover { border-color: var(--accent); }
+  .project-card.funded { border-color: var(--success); background: rgba(74, 222, 128, 0.04); }
+  .project-card.conditional { border-color: var(--warning); background: rgba(251, 191, 36, 0.04); }
+  .project-card.rejected { border-color: var(--error); background: rgba(248, 113, 113, 0.04); opacity: 0.7; }
+
+  .project-card .pc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .project-card .pc-id {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.25rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+  }
+  .project-card.funded .pc-id { background: var(--success); }
+  .project-card.conditional .pc-id { background: var(--warning); }
+  .project-card.rejected .pc-id { background: var(--error); }
+  .project-card .pc-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.4rem;
+  }
+  .project-card .pc-desc {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    line-height: 1.55;
+    margin-bottom: 0.8rem;
+  }
+  .project-card .pc-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+    font-size: 0.82rem;
+  }
+  .project-card .pc-meta-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+  }
+  .project-card .pc-meta-item .pcm-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-soft);
+    margin-bottom: 0.2rem;
+  }
+  .project-card .pc-meta-item .pcm-value { color: var(--text-main); font-weight: 500; }
+
+  /* ---- ESCALAS DE EVALUACIÓN ---- */
+  .eval-scale {
+    display: flex;
+    gap: 0.4rem;
+    margin: 0.6rem 0;
+    flex-wrap: wrap;
+  }
+  .eval-btn {
+    flex: 1;
+    min-width: 60px;
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+  .eval-btn:hover { border-color: var(--accent); }
+  .eval-btn.selected { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .eval-btn[data-level="5"].selected { background: var(--success); border-color: var(--success); }
+  .eval-btn[data-level="4"].selected { background: #86efac; border-color: #86efac; color: #0a1628; }
+  .eval-btn[data-level="3"].selected { background: var(--warning); border-color: var(--warning); color: #0a1628; }
+  .eval-btn[data-level="2"].selected { background: var(--orange); border-color: var(--orange); color: #0a1628; }
+  .eval-btn[data-level="1"].selected { background: var(--error); border-color: var(--error); color: #0a1628; }
+
+  /* ---- DICTÁMENES ---- */
+  .dictamen-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+  .dictamen-option {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-weight: 600;
+  }
+  .dictamen-option:hover { border-color: var(--accent); background: var(--bg-mid); }
+  .dictamen-option.selected { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .dictamen-option[data-dictamen="financiar"].selected { background: var(--success); border-color: var(--success); }
+  .dictamen-option[data-dictamen="condicional"].selected { background: var(--warning); border-color: var(--warning); }
+  .dictamen-option[data-dictamen="aprobable"].selected { background: var(--text-soft); border-color: var(--text-soft); color: #0a1628; }
+  .dictamen-option[data-dictamen="reformular"].selected { background: var(--orange); border-color: var(--orange); }
+  .dictamen-option[data-dictamen="nofinanciar"].selected { background: var(--error); border-color: var(--error); }
+
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.8rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 { margin-top: 0; color: var(--accent); text-align: center; }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  .final-message { text-align: center; margin: 2rem 0; }
+  .final-message .fm-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+  .final-message .fm-subtitle { font-size: 0.98rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 1.3rem; }
+
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    margin: 1.8rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .personal-protocol ol { margin-left: 1.4rem; color: var(--text-main); }
+  .personal-protocol li { margin-bottom: 0.6rem; font-size: 0.94rem; line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    main { padding: 1.2rem 1rem 4rem; }
+    main.with-budget { padding-top: 5.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+    .chain-box { min-width: 100%; font-size: 0.85rem; }
+    .budget-bar-container { padding: 0.4rem; }
+    .budget-bar { flex-direction: column; gap: 0.4rem; padding: 0.5rem; }
+  }
+
+  button:focus-visible, .option-card:focus-visible, .checkbox-card:focus-visible,
+  .station-btn:focus-visible, .eval-btn:focus-visible, .dictamen-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  .shake { animation: shake 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Laboratorio 05 · Comité de Financiación</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<!-- BARRA DE PRESUPUESTO -->
+<div class="budget-bar-container" id="budgetBar">
+  <div class="budget-bar">
+    <span class="budget-label">Presupuesto</span>
+    <div class="budget-bar-track">
+      <div class="budget-bar-fill" id="budgetFill"></div>
+    </div>
+    <span class="budget-value" id="budgetValue">$0 / $100M</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada">
+    <span class="badge">Laboratorio de evaluación · Complejidad máxima</span>
+    <h1>Decidir bajo incertidumbre: el Comité de Financiación</h1>
+    <p style="font-size: 1.1rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Formas parte del Comité Evaluador de una convocatoria competitiva de investigación en salud mental.
+      Hay buenos proyectos. Pero no hay recursos para financiarlos todos. Tendrás que priorizar,
+      asumir costos de oportunidad y justificar por qué financiar una propuesta implica no financiar otra.
+    </p>
+
+    <div class="card">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 50-60 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Acta del Comité de Financiación + dictámenes argumentados</p>
+      <p><strong>Contexto:</strong> Convocatoria simulada de investigación en salud mental</p>
+    </div>
+
+    <div class="callout">
+      <strong>Pregunta central:</strong> Si todos estos proyectos tienen méritos y solo podemos financiar
+      algunos, ¿cómo justificamos científicamente nuestra decisión?
+    </div>
+
+    <div class="highlight-box warning" style="margin: 1.5rem 0;">
+      <p style="font-size: 1rem;">¿Qué estamos sacrificando cuando seleccionamos un proyecto en lugar de otro?</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" id="btnStartLab">▶ Entrar al Comité</button>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN DE ESTACIONES -->
+  <div class="stations-nav" id="stationsNav" style="display: none;">
+    <button class="station-btn active" data-station="0"><span class="st-num">Esc.</span><span>Escenario</span></button>
+    <button class="station-btn" data-station="1"><span class="st-num">Est. 1</span><span>¿Prioritario?</span></button>
+    <button class="station-btn" data-station="2"><span class="st-num">Est. 2</span><span>¿Debería hacerse?</span></button>
+    <button class="station-btn" data-station="3"><span class="st-num">Est. 3</span><span>¿Bien hecho?</span></button>
+    <button class="station-btn" data-station="4"><span class="st-num">Est. 4</span><span>Ética</span></button>
+    <button class="station-btn" data-station="5"><span class="st-num">Est. 5</span><span>Viabilidad</span></button>
+    <button class="station-btn" data-station="6"><span class="st-num">Est. 6</span><span>Defectos</span></button>
+    <button class="station-btn" data-station="7"><span class="st-num">Est. 7</span><span>Comparar</span></button>
+    <button class="station-btn" data-station="8"><span class="st-num">Est. 8</span><span>Costo oport.</span></button>
+    <button class="station-btn" data-station="9"><span class="st-num">Est. 9</span><span>Nueva info.</span></button>
+    <button class="station-btn" data-station="10"><span class="st-num">Final</span><span>Acta</span></button>
+  </div>
+
+  <!-- CONTENIDO DE ESTACIONES -->
+  <section id="stationContent" style="display: none;">
+    <div class="station-panel" id="stationPanel"></div>
+  </section>
+
+  <!-- ACTA FINAL -->
+  <section id="acta" style="display: none;">
+    <h2>Acta del Comité de Financiación</h2>
+
+    <div class="diagnostic-box">
+      <h3>Acta de la sesión</h3>
+      <p style="text-align: center; color: var(--text-soft); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Documenta tu decisión final como evaluador. Este documento cierra el ciclo de los cinco laboratorios.
+      </p>
+
+      <div class="response-field">
+        <label>A. Cartera seleccionada · ¿Qué proyectos financiaste y por qué monto?</label>
+        <textarea class="response-input" id="actaA" placeholder="Proyecto X: $XX M · Proyecto Y: $XX M · Total: $XX M" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>B. Orden de mérito · Del 1 al 5</label>
+        <textarea class="response-input" id="actaB" placeholder="1º Proyecto __ · 2º Proyecto __ · 3º Proyecto __ · 4º Proyecto __ · 5º Proyecto __" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>C. Justificación de cartera · ¿Por qué esta combinación maximiza el valor de la convocatoria?</label>
+        <textarea class="response-input" id="actaC" placeholder="La cartera seleccionada maximiza..." style="min-height: 100px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>D. Proyecto fronterizo · ¿Cuál fue el más difícil de excluir o incluir?</label>
+        <textarea class="response-input" id="actaD" placeholder="El proyecto más difícil fue..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>E. Costo de oportunidad · ¿Qué conocimiento valioso queda sin financiar?</label>
+        <textarea class="response-input" id="actaE" placeholder="Al no financiar los proyectos X, Y, Z, renunciamos a..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>F. Riesgo aceptado · ¿Qué debilidad estamos dispuestos a tolerar?</label>
+        <textarea class="response-input" id="actaF" placeholder="Aceptamos el riesgo de..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>G. Riesgo inaceptable · ¿Qué debilidad no estamos dispuestos a tolerar?</label>
+        <textarea class="response-input" id="actaG" placeholder="No financiamos proyectos con..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>H. Incertidumbre · ¿Qué información podría cambiar nuestra decisión?</label>
+        <textarea class="response-input" id="actaH" placeholder="Nuestra decisión cambiaría si supiéramos..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div id="actaVerdict" style="margin-top: 1.5rem;"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGuardarActa">🔄 Guardar acta</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir</button>
+      <button class="btn btn-outline" id="btnReiniciar">↻ Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- METACOGNICIÓN -->
+  <section id="metacognicion" style="display: none;">
+    <h2>Metacognición final del evaluador</h2>
+
+    <div class="card">
+      <div class="response-field">
+        <label>1. ¿Financiaste el proyecto que más te gustaba o el que mejor respondió a los criterios?</label>
+        <textarea class="response-input" id="meta1" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. ¿Castigaste demasiado un proyecto por una debilidad fácil de reparar?</label>
+        <textarea class="response-input" id="meta2" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. ¿Perdonaste una debilidad grave porque el tema te parecía importante?</label>
+        <textarea class="response-input" id="meta3" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. ¿Confundiste innovación con calidad?</label>
+        <textarea class="response-input" id="meta4" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. ¿Qué información nueva produjo el cambio más grande en tu decisión?</label>
+        <textarea class="response-input" id="meta5" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>6. Si tu propio proyecto apareciera mañana dentro de esta convocatoria, ¿cuál sería la razón más fuerte para NO financiarlo?</label>
+        <textarea class="response-input" id="meta6" placeholder="La razón más fuerte para no financiarlo sería..." style="min-height: 90px;"></textarea>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="btn" id="btnCierre">Ver cierre del laboratorio →</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" style="display: none;">
+    <div class="final-message">
+      <div class="fm-title">No evaluamos si elegiste el mismo proyecto que nosotros. Evaluamos la calidad de tu juicio científico.</div>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Las cinco preguntas del comité:</strong>
+      </div>
+
+      <div class="chain-diagram">
+        <div class="chain-box">¿DEBERÍA HACERSE? · Importancia + contribución</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">¿PUEDE HACERSE BIEN? · Rigor + coherencia</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">¿PUEDE HACERSE AQUÍ Y AHORA? · Viabilidad + recursos</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">¿ES ÉTICAMENTE ACEPTABLE? · Riesgo + protección + integridad</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box highlight">¿HAY DEFECTOS CRÍTICOS?</div>
+      </div>
+
+      <div class="highlight-box success" style="margin: 2rem 0;">
+        <p>No financiar no significa que un proyecto sea malo. Puede significar que otro tiene mayor prioridad.</p>
+      </div>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Los cinco laboratorios como sistema:</strong>
+      </div>
+
+      <table class="matrix-table" style="margin-top: 1.5rem;">
+        <thead>
+          <tr>
+            <th>Laboratorio</th>
+            <th>Capacidad central</th>
+            <th>Pregunta instalada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>Precisión conceptual</td>
+            <td>¿Qué significa exactamente lo que afirmo que estudio?</td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td>Problematización</td>
+            <td>¿Por qué esto merece convertirse en investigación?</td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td>Juicio sobre evidencia</td>
+            <td>¿Cómo sé que realmente falta conocimiento?</td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td>Coherencia metodológica</td>
+            <td>¿Mi estrategia puede producir el conocimiento que prometo?</td>
+          </tr>
+          <tr>
+            <td>05</td>
+            <td>Juicio científico</td>
+            <td>Si varias propuestas son defendibles, ¿cuál merece prioridad y por qué?</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Progresión:</strong><br><br>
+        Conceptualizar → Problematizar → Dudar → Auditar → Juzgar
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Laboratorio 05 · Decidir bajo incertidumbre: el Comité de Financiación</strong></p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Formulación de proyectos de investigación en Psicología · 2025</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const state = {
+    station: -1,
+    labStarted: false,
+    budget: { total: 100, allocated: 0, projects: [] },
+    station0: { selected: null },
+    station1: { selected: null },
+    station2: { evaluations: {} },
+    station3: { selected: null },
+    station4: { selected: null },
+    station5: { selected: null },
+    station6: { marked: [] },
+    station7: { selected: null },
+    station8: { funded: [], order: [] },
+    station9: { decisions: {}, events: {} },
+    acta: {},
+    meta: {}
+  };
+
+  const PROJECTS = [
+    { id: 'A', title: 'A · Importante pero metodológicamente vulnerable', budget: 50, desc: 'Muy importante para el campo, pero su diseño metodológico es vulnerable y podría no alcanzar el objetivo.' },
+    { id: 'B', title: 'B · Muy riguroso pero incremental', budget: 40, desc: 'Rigurosamente construido, alta probabilidad de éxito, pero su contribución es incremental.' },
+    { id: 'C', title: 'C · Innovador pero de alto riesgo', budget: 55, desc: 'Muy innovador y con alto potencial, pero con alta incertidumbre de ejecución y viabilidad.' },
+    { id: 'D', title: 'D · Relevante pero con tensión ética', budget: 45, desc: 'Relevante y viable, pero con tensión ética significativa que debe resolverse.' },
+    { id: 'E', title: 'E · Menos novedoso pero muy coherente', budget: 50, desc: 'Menos novedoso, pero con fuerte brecha identificada y diseño metodológico muy coherente.' }
+  ];
+
+  try {
+    const saved = localStorage.getItem('lab05_comite_v1');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('lab05_comite_v1', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  const stationNames = {
+    0: 'El escenario',
+    1: '¿Buen proyecto o prioritario?',
+    2: '¿Debería hacerse?',
+    3: '¿Puede hacerse bien?',
+    4: 'Ética: criterios que no se compensan',
+    5: 'Viabilidad y riesgo científico',
+    6: 'Defectos críticos vs. menores',
+    7: 'Comparar proyectos inconmensurables',
+    8: 'Presupuesto y costo de oportunidad',
+    9: 'Nueva evidencia: ¿cambia tu decisión?',
+    10: 'Acta del Comité'
+  };
+
+  const stationTimes = {
+    0: '4 min', 1: '5 min', 2: '5 min', 3: '5 min',
+    4: '6 min', 5: '5 min', 6: '5 min', 7: '5 min', 8: '6 min', 9: '6 min', 10: '4 min'
+  };
+
+  const stationBtns = document.querySelectorAll('.station-btn');
+
+  function getMaxUnlockedStation() {
+    let max = 0;
+    if (state.station0.selected) max = 1;
+    if (state.station1.selected) max = 2;
+    if (Object.keys(state.station2.evaluations).length >= 3) max = 3;
+    if (state.station3.selected) max = 4;
+    if (state.station4.selected) max = 5;
+    if (state.station5.selected) max = 6;
+    if (state.station6.marked.length >= 3) max = 7;
+    if (state.station7.selected) max = 8;
+    if (state.station8.funded.length >= 1) max = 9;
+    if (Object.keys(state.station9.decisions).length >= 1) max = 10;
+    return max;
+  }
+
+  function goToStation(num) {
+    state.station = num;
+    saveState();
+
+    const maxUnlocked = getMaxUnlockedStation();
+
+    stationBtns.forEach(b => {
+      const n = parseInt(b.dataset.station);
+      b.classList.toggle('active', n === num);
+      b.classList.toggle('completed', n < num);
+      b.classList.toggle('locked', n > maxUnlocked);
+    });
+
+    renderStation(num);
+
+    const progress = ((num + 1) / 11) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+
+    // Ocultar paneles finales
+    document.getElementById('acta').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'none';
+
+    // Mostrar barra de presupuesto a partir de la estación 8
+    if (num >= 8) {
+      document.getElementById('budgetBar').classList.add('show');
+      updateBudgetBar();
+    } else {
+      document.getElementById('budgetBar').classList.remove('show');
+    }
+
+    document.getElementById('stationContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateBudgetBar() {
+    const allocated = state.budget.allocated;
+    const total = state.budget.total;
+    const pct = (allocated / total) * 100;
+    document.getElementById('budgetFill').style.width = Math.min(pct, 100) + '%';
+    document.getElementById('budgetValue').textContent = `$${allocated}M / $${total}M`;
+    
+    if (allocated > total) {
+      document.getElementById('budgetValue').style.color = 'var(--error)';
+    } else if (allocated === total) {
+      document.getElementById('budgetValue').style.color = 'var(--success)';
+    } else {
+      document.getElementById('budgetValue').style.color = 'var(--accent)';
+    }
+  }
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const num = parseInt(this.dataset.station);
+      if (num <= getMaxUnlockedStation()) goToStation(num);
+    });
+  });
+
+  function renderStation(num) {
+    const panel = document.getElementById('stationPanel');
+    if (!panel) return;
+
+    panel.innerHTML = `
+      <div class="station-header">
+        <span class="sh-num">Estación ${num}</span>
+        <span class="sh-title">${stationNames[num]}</span>
+        <span class="sh-time">${stationTimes[num]}</span>
+      </div>
+      <div id="stationBody"></div>
+    `;
+
+    const body = document.getElementById('stationBody');
+
+    /* ============ ESTACIÓN 0 ============ */
+    if (num === 0) {
+      body.innerHTML = `
+        <div class="callout info">
+          <strong>Convocatoria:</strong> Investigación en salud mental · Presupuesto total: $100 millones COP.
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          Llegan cinco proyectos que solicitan en conjunto <strong>$240 millones</strong>. Solo dispones de <strong>$100 millones</strong>.
+        </p>
+
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Proyecto</th>
+              <th>Solicitud</th>
+              <th>Retrato inicial</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${PROJECTS.map(p => `
+              <tr>
+                <td>${p.id}</td>
+                <td>$${p.budget} M</td>
+                <td>${p.desc}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <div class="highlight-box warning">
+          <p style="font-size: 0.95rem;">No podrás escapar diciendo: "Todos deberían financiarse."</p>
+        </div>
+
+        <h3>Tu primera decisión</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Como evaluador, ¿cuál es tu primera reacción?
+        </p>
+
+        <div class="options-list" id="initialReaction">
+          <div class="option-card ${state.station0.selected === 'ranking' ? 'selected' : ''}" data-value="ranking">
+            <span class="option-marker">A</span>
+            <span>Necesito construir un ranking y financiar los primeros hasta agotar el presupuesto.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'individual' ? 'selected' : ''}" data-value="individual">
+            <span class="option-marker">B</span>
+            <span>Necesito evaluar cada proyecto individualmente y luego comparar.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'conjunto' ? 'selected' : ''}" data-value="conjunto">
+            <span class="option-marker">C</span>
+            <span>Necesito pensar en el conjunto: qué combinación de proyectos produce el mayor valor científico con $100M.</span>
+          </div>
+        </div>
+
+        <div id="initialReactionReflection" style="display: ${state.station0.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Enfoque profesional:</strong> La respuesta C es la más sofisticada. Un comité no
+            selecciona proyectos aislados: construye una <em>cartera de inversión científica</em>. Pero
+            llegar a eso requiere primero evaluar individualmente y luego comparar.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station0.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#initialReactionReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station0.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(1));
+      return;
+    }
+
+    /* ============ ESTACIÓN 1 ============ */
+    if (num === 1) {
+      body.innerHTML = `
+        <h3>¿Buen proyecto o proyecto prioritario?</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Calidad</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Está científicamente bien construido?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Importancia</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Qué valor tiene el conocimiento que produciría?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Prioridad</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Merece ser seleccionado por encima de otras alternativas bajo estas condiciones?</p>
+        </div>
+
+        <div class="highlight-box warning">
+          <p style="font-size: 0.95rem;">Un proyecto puede ser bueno + importante + no prioritario.</p>
+        </div>
+
+        <h3>La prueba del éxito total</h3>
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          Supongamos que el proyecto funciona exactamente como sus autores esperan.
+          ¿Qué habremos aprendido?
+        </p>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Aplica esta prueba a cada proyecto. ¿Cuál es el proyecto que, si funciona,
+          produce el mayor valor de conocimiento?
+        </p>
+
+        <div class="options-list" id="successTest">
+          <div class="option-card ${state.station1.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Proyecto A: conocimiento muy importante, pero alta incertidumbre de alcanzarlo.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>Proyecto B: contribución incremental pero casi garantizada.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">C</span>
+            <span>Proyecto C: conocimiento muy innovador, pero baja probabilidad de éxito.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'E' ? 'selected' : ''}" data-value="E">
+            <span class="option-marker">E</span>
+            <span>Proyecto E: menos novedoso, pero alta probabilidad de producir conocimiento valioso sobre una brecha real.</span>
+          </div>
+        </div>
+
+        <div id="successTestReflection" style="display: ${state.station1.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Reflexión:</strong> No hay una única respuesta correcta. La pregunta del "éxito total" obliga
+            a evaluar el <em>valor potencial del conocimiento</em>, no solo la probabilidad de éxito. Un proyecto
+            puede ser muy importante y arriesgado (A, C), otro puede ser modesto y seguro (B), otro puede ser
+            menos llamativo pero muy valioso (E).
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station1.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#successTestReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station1.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(2));
+      return;
+    }
+
+    /* ============ ESTACIÓN 2 ============ */
+    if (num === 2) {
+      body.innerHTML = `
+        <h3>¿Debería hacerse?</h3>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Evalúa cada proyecto en los cuatro subcriterios de importancia.
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">A. Necesidad de conocimiento</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿Existe realmente la brecha? (Reactivamos Lab 03)</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">B. Importancia científica</h4>
+          <p style="font-size: 0.88rem; margin: 0;">Si obtenemos la respuesta, ¿cambia nuestra comprensión?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">C. Relevancia para salud mental</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿La contribución se relaciona con los objetivos de la convocatoria?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">D. Contribución esperada</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿Qué añade concretamente?</p>
+        </div>
+
+        <h3>Evaluación por proyecto</h3>
+
+        <div id="evaluationList">
+          ${PROJECTS.map(p => {
+            const evals = state.station2.evaluations[p.id] || {};
+            const avg = Object.values(evals).length > 0 
+              ? (Object.values(evals).reduce((a,b) => a+b, 0) / Object.values(evals).length).toFixed(1)
+              : '—';
+            return `
+              <div class="project-card">
+                <div class="pc-header">
+                  <span class="pc-id">Proyecto ${p.id}</span>
+                  <span style="font-size: 0.8rem; color: var(--text-soft);">Promedio: ${avg}</span>
+                </div>
+                <div class="pc-desc">${p.desc}</div>
+                <div style="margin-top: 0.8rem;">
+                  <p style="font-size: 0.82rem; color: var(--text-soft); margin-bottom: 0.4rem;">
+                    Evalúa cada subcriterio (1 = bajo, 5 = alto):
+                  </p>
+                  ${['necesidad', 'importancia', 'relevancia', 'contribucion'].map(crit => `
+                    <div style="margin-bottom: 0.5rem;">
+                      <div style="font-size: 0.78rem; color: var(--text-main); margin-bottom: 0.3rem; text-transform: capitalize;">${crit}</div>
+                      <div class="eval-scale">
+                        ${[1,2,3,4,5].map(n => `
+                          <button class="eval-btn ${evals[crit] === n ? 'selected' : ''}" 
+                                  data-project="${p.id}" data-crit="${crit}" data-level="${n}">
+                            ${n}
+                          </button>
+                        `).join('')}
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div id="evaluationReflection" style="display: ${Object.keys(state.station2.evaluations).length >= 3 ? 'block' : 'none'};">
+          <div class="callout warning">
+            <strong>Importante:</strong> No promedies mecánicamente. Una debilidad crítica puede
+            desaparecer dentro de un promedio alto.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station2.evaluations).length >= 3 ? '' : 'disabled'}>
+          ${Object.keys(state.station2.evaluations).length >= 3 ? 'Continuar →' : `Evalúa al menos 3 proyectos (${Object.keys(state.station2.evaluations).length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+
+      body.querySelectorAll('.eval-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const projectId = this.dataset.project;
+          const crit = this.dataset.crit;
+          const level = parseInt(this.dataset.level);
+          if (!state.station2.evaluations[projectId]) state.station2.evaluations[projectId] = {};
+          state.station2.evaluations[projectId][crit] = level;
+          saveState();
+          
+          // Actualizar visuales
+          const parent = this.closest('.eval-scale');
+          parent.querySelectorAll('.eval-btn').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+          
+          // Actualizar promedio
+          const evals = state.station2.evaluations[projectId];
+          const avg = Object.values(evals).length > 0 
+            ? (Object.values(evals).reduce((a,b) => a+b, 0) / Object.values(evals).length).toFixed(1)
+            : '—';
+          const card = this.closest('.project-card');
+          card.querySelector('.pc-header span:last-child').textContent = `Promedio: ${avg}`;
+          
+          const count = Object.keys(state.station2.evaluations).length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            document.getElementById('evaluationReflection').style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Evalúa al menos 3 proyectos (${count}/3)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(3));
+      return;
+    }
+
+    /* ============ ESTACIÓN 3 ============ */
+    if (num === 3) {
+      body.innerHTML = `
+        <h3>¿Puede hacerse bien?</h3>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Ahora evaluamos rigor y factibilidad. Cinco criterios:
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Coherencia</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿Pregunta, objetivo y diseño corresponden? (Lab 04)</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Evidencia</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿El estudio producirá la información necesaria?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Estrategia</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿Los procedimientos son adecuados?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Análisis</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿Puede convertir los datos en una respuesta?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">Inferencia</h4>
+          <p style="font-size: 0.88rem; margin: 0;">¿Las conclusiones previstas respetan los límites del diseño?</p>
+        </div>
+
+        <h3>La paradoja del valor esperado</h3>
+
+        <div class="callout info">
+          <strong>Proyecto A:</strong> Importancia 10/10 · Rigor 4/10<br>
+          <strong>Proyecto B:</strong> Importancia 7/10 · Rigor 9/10
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Cuál financiarías?
+        </p>
+
+        <div class="options-list" id="paradoxOptions">
+          <div class="option-card ${state.station3.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Proyecto A: alto valor potencial, alta incertidumbre.</span>
+          </div>
+          <div class="option-card ${state.station3.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>Proyecto B: valor moderado, alta probabilidad de éxito.</span>
+          </div>
+          <div class="option-card ${state.station3.selected === 'ambos' ? 'selected' : ''}" data-value="ambos">
+            <span class="option-marker">C</span>
+            <span>Ambos podrían ser defendibles: depende de qué tipo de cartera queramos construir.</span>
+          </div>
+        </div>
+
+        <div id="paradoxReflection" style="display: ${state.station3.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Valor esperado ≈ importancia potencial × probabilidad razonable de lograrla.</strong><br><br>
+            Pero tampoco queremos siempre proyectos seguros e incrementales. Por eso el comité debe argumentar
+            la mezcla de la cartera.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station3.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#paradoxReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station3.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(4));
+      return;
+    }
+
+    /* ============ ESTACIÓN 4 ============ */
+    if (num === 4) {
+      body.innerHTML = `
+        <h3>Ética: criterios que no se compensan</h3>
+
+        <div class="highlight-box error">
+          <p style="font-size: 1rem;">La ética no es un criterio compensable.</p>
+        </div>
+
+        <div class="callout error">
+          <strong>No aceptamos:</strong> "Tiene problemas éticos, pero es muy innovador, así que compensa."
+        </div>
+
+        <h3>Caso ético: Proyecto D</h3>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <p style="font-size: 0.92rem;">Investiga una temática altamente sensible de salud mental.</p>
+          <p style="font-size: 0.9rem;">Tiene: excelente pregunta, excelente brecha, diseño adecuado, participantes accesibles, presupuesto razonable.</p>
+          <p style="font-size: 0.9rem; color: var(--warning); margin-top: 0.6rem;">
+            <strong>Pero:</strong> el protocolo no especifica suficientemente cómo gestionará información altamente sensible ni qué salvaguardas acompañarán la recolección y custodia de esos datos.
+          </p>
+        </div>
+
+        <h3>Tres categorías éticas</h3>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Riesgo gestionado</h4>
+          <p style="font-size: 0.9rem;">Existe un riesgo reconocido y una estrategia proporcionada para gestionarlo.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">Riesgo subsanable</h4>
+          <p style="font-size: 0.9rem;">El proyecto necesita modificaciones antes de aprobación.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--error);">
+          <h4 style="color: var(--error);">Problema ético estructural</h4>
+          <p style="font-size: 0.9rem;">La forma propuesta de realizar la investigación no resulta aceptable sin una reconstrucción significativa.</p>
+        </div>
+
+        <h3>Pregunta</h3>
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Puede una puntuación excelente en relevancia compensar la falta de salvaguardas éticas?
+        </p>
+
+        <div class="options-list" id="ethicsOptions">
+          <div class="option-card ${state.station4.selected === 'si' ? 'selected' : ''}" data-value="si">
+            <span class="option-marker">Sí</span>
+            <span>Sí, si la relevancia es muy alta, se puede financiar con la condición de resolver el problema después.</span>
+          </div>
+          <div class="option-card ${state.station4.selected === 'no' ? 'selected' : ''}" data-value="no">
+            <span class="option-marker">No</span>
+            <span>No, el problema debe resolverse antes de la ejecución, independientemente de la relevancia.</span>
+          </div>
+        </div>
+
+        <div id="ethicsReflection" style="display: ${state.station4.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> La opción B. Los problemas éticos estructurales no son compensables
+            por relevancia. Deben resolverse antes de la ejecución. Financiar bajo la promesa de resolverlos
+            después sería aceptar que la producción de conocimiento justifica exponer a participantes a riesgos
+            no gestionados.
+          </div>
+          
+          <div class="callout info">
+            <strong>Además:</strong> Algunos problemas éticos también producen amenazas metodológicas.
+            Si una población está bajo relación de dependencia, eso puede modificar quién acepta participar,
+            cómo responde y qué información omite. La ética afecta la validez.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station4.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#ethicsReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station4.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(5));
+      return;
+    }
+
+    /* ============ ESTACIÓN 5 ============ */
+    if (num === 5) {
+      body.innerHTML = `
+        <h3>Viabilidad no equivale a comodidad</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Proyecto X</h4>
+          <p style="font-size: 0.9rem;">Excelente pregunta, necesita seguimiento de 24 meses. La convocatoria dura 9 meses.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">Proyecto Y</h4>
+          <p style="font-size: 0.9rem;">Pregunta adecuada, requiere acceso a historias institucionales sin autorización previamente viable.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--error);">
+          <h4 style="color: var(--error);">Proyecto Z</h4>
+          <p style="font-size: 0.9rem;">Revisión con una pregunta que recuperará previsiblemente miles de registros para un equipo de dos estudiantes con tiempo muy limitado.</p>
+        </div>
+
+        <h3>La prueba del "día 1"</h3>
+
+        <div class="callout">
+          <strong>Pregunta 1:</strong> El proyecto fue financiado hoy. ¿Qué puede impedir que empiece mañana?<br><br>
+          <strong>Pregunta 2:</strong> ¿Qué puede impedir que termine?
+        </div>
+
+        <h3>Matriz de riesgo científico</h3>
+
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Riesgo</th>
+              <th>Probabilidad</th>
+              <th>Consecuencia</th>
+              <th>Decisión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acceso limitado</td>
+              <td>Alta</td>
+              <td>Crítica</td>
+              <td style="color: var(--error);">Amenaza seria</td>
+            </tr>
+            <tr>
+              <td>Demora menor</td>
+              <td>Media</td>
+              <td>Menor</td>
+              <td style="color: var(--success);">Gestionable</td>
+            </tr>
+            <tr>
+              <td>Herramienta alternativa disponible</td>
+              <td>Baja</td>
+              <td>Menor</td>
+              <td style="color: var(--success);">Tolerable</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout warning">
+          <strong>Importante:</strong> La matriz organiza juicio. No reemplaza juicio.
+        </div>
+
+        <h3>¿Cuál de estos riesgos es el más grave?</h3>
+
+        <div class="options-list" id="riskOptions">
+          <div class="option-card ${state.station5.selected === 'tiempo' ? 'selected' : ''}" data-value="tiempo">
+            <span class="option-marker">A</span>
+            <span>El proyecto X: necesita 24 meses cuando la convocatoria dura 9.</span>
+          </div>
+          <div class="option-card ${state.station5.selected === 'acceso' ? 'selected' : ''}" data-value="acceso">
+            <span class="option-marker">B</span>
+            <span>El proyecto Y: requiere acceso sin autorización viable.</span>
+          </div>
+          <div class="option-card ${state.station5.selected === 'sobrecarga' ? 'selected' : ''}" data-value="sobrecarga">
+            <span class="option-marker">C</span>
+            <span>El proyecto Z: sobrecarga al equipo con miles de registros.</span>
+          </div>
+        </div>
+
+        <div id="riskReflection" style="display: ${state.station5.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Reflexión:</strong> Los tres son graves, pero el B es el más crítico: sin acceso,
+            el proyecto no puede empezar. El A es una restricción temporal estructural. El C es una
+            restricción de recursos. Todos requieren decisiones diferentes.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station5.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#riskReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station5.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(6));
+      return;
+    }
+
+    /* ============ ESTACIÓN 6 ============ */
+    if (num === 6) {
+      const defectTypes = [
+        { id: 'cosmetico', num: '1', title: 'Problema cosmético', desc: 'Redacción, organización, detalle menor. No debería dominar la decisión.', example: 'Ej: el resumen tiene algunas imprecisiones de redacción.' },
+        { id: 'subsanable', num: '2', title: 'Debilidad relevante pero subsanable', desc: 'Puede requerir modificación, pero no destruye el valor del proyecto.', example: 'Ej: criterios de elegibilidad insuficientemente precisos.' },
+        { id: 'critico', num: '3', title: 'Debilidad crítica', desc: 'Afecta sustantivamente el valor del proyecto.', example: 'Ej: el diseño no puede responder la pregunta.' },
+        { id: 'fatal', num: '4', title: 'Defecto fatal', desc: 'La propuesta no puede ejecutarse como está.', example: 'Ej: la brecha dejó de existir / riesgo ético estructural no solucionable.' }
+      ];
+
+      body.innerHTML = `
+        <h3>Defectos críticos y problemas menores</h3>
+
+        <div class="callout info">
+          <strong>Aprendizaje clave:</strong> Un evaluador debe distinguir entre problemas que deberían
+          dominar la decisión y problemas menores que no deberían.
+        </div>
+
+        <div class="error-grid">
+          ${defectTypes.map(d => `
+            <div class="sindrome-card" style="border-left-color: ${d.id === 'fatal' ? 'var(--error)' : d.id === 'critico' ? 'var(--orange)' : d.id === 'subsanable' ? 'var(--warning)' : 'var(--info)'}; background: rgba(0,0,0,0.15);">
+              <div class="sic-num" style="color: ${d.id === 'fatal' ? 'var(--error)' : d.id === 'critico' ? 'var(--orange)' : d.id === 'subsanable' ? 'var(--warning)' : 'var(--info)'};">Tipo ${d.num}</div>
+              <div class="sic-title">${d.title}</div>
+              <div class="sic-desc">${d.desc}</div>
+              <div style="font-size: 0.78rem; color: var(--text-soft); font-style: italic; margin-top: 0.4rem;">${d.example}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <h3>El test del defecto crítico</h3>
+
+        <div class="highlight-box warning">
+          <p style="font-size: 0.95rem;">Si todo lo demás del proyecto funcionara exactamente según lo esperado, ¿esta debilidad seguiría impidiendo alcanzar el propósito principal?</p>
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Si la respuesta es sí, probablemente es crítica.
+        </p>
+
+        <h3>Verificación</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca al menos 3 debilidades que considerarías críticas o fatales (no cosméticas):
+        </p>
+
+        <div class="checkbox-list" id="defectsList">
+          <div class="checkbox-card ${state.station6.marked.includes('d1') ? 'selected' : ''}" data-defect="d1" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>El diseño no puede responder la pregunta principal.</span>
+          </div>
+          <div class="checkbox-card ${state.station6.marked.includes('d2') ? 'selected' : ''}" data-defect="d2" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>La brecha dejó de existir porque una síntesis reciente respondió la pregunta.</span>
+          </div>
+          <div class="checkbox-card ${state.station6.marked.includes('d3') ? 'selected' : ''}" data-defect="d3" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Riesgo ético estructural no solucionable bajo el procedimiento propuesto.</span>
+          </div>
+          <div class="checkbox-card ${state.station6.marked.includes('d4') ? 'selected' : ''}" data-defect="d4" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>El análisis propuesto no puede producir la inferencia prometida.</span>
+          </div>
+          <div class="checkbox-card ${state.station6.marked.includes('d5') ? 'selected' : ''}" data-defect="d5" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>El resumen tiene errores de redacción.</span>
+          </div>
+          <div class="checkbox-card ${state.station6.marked.includes('d6') ? 'selected' : ''}" data-defect="d6" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Falta un diagrama que ilustraría mejor el diseño.</span>
+          </div>
+        </div>
+
+        <div id="defectsReflection" style="display: ${state.station6.marked.length >= 3 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> Los defectos d1, d2, d3 y d4 son críticos o fatales.
+            d5 y d6 son cosméticos: no deberían dominar la decisión de financiación.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station6.marked.length >= 3 ? '' : 'disabled'}>
+          ${state.station6.marked.length >= 3 ? 'Continuar →' : `Marca al menos 3 defectos críticos (${state.station6.marked.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#defectsReflection');
+
+      body.querySelectorAll('#defectsList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const id = this.dataset.defect;
+          if (state.station6.marked.includes(id)) {
+            state.station6.marked = state.station6.marked.filter(x => x !== id);
+          } else {
+            state.station6.marked.push(id);
+          }
+          saveState();
+          const count = state.station6.marked.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 3 defectos críticos (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(7));
+      return;
+    }
+
+    /* ============ ESTACIÓN 7 ============ */
+    if (num === 7) {
+      body.innerHTML = `
+        <h3>Comparar proyectos inconmensurables</h3>
+
+        <div class="callout info">
+          <strong>Proyecto A:</strong> Estudio cualitativo con 25 participantes.<br>
+          <strong>Proyecto B:</strong> Estudio cuantitativo con 500 participantes.<br>
+          <strong>Proyecto C:</strong> Revisión sistemática.
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Cuál tiene "mejor metodología"?
+        </p>
+
+        <div class="options-list" id="incommensurableOptions">
+          <div class="option-card ${state.station7.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">A</span>
+            <span>El proyecto B, porque tiene más participantes.</span>
+          </div>
+          <div class="option-card ${state.station7.selected === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">B</span>
+            <span>El proyecto C, porque las revisiones sistemáticas son el nivel más alto de evidencia.</span>
+          </div>
+          <div class="option-card ${state.station7.selected === 'ninguno' ? 'selected' : ''}" data-value="ninguno">
+            <span class="option-marker">C</span>
+            <span>Ninguno es intrínsecamente mejor: la comparación correcta es qué tan adecuada es la metodología de cada uno respecto de su propia pregunta.</span>
+          </div>
+        </div>
+
+        <div id="incommensurableReflection" style="display: ${state.station7.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Principio crucial:</strong> El comité no debe premiar cuantitativo sobre cualitativo,
+            empírico sobre revisión, muestra grande sobre muestra pequeña, o estadística compleja sobre
+            análisis interpretativo. Debe preguntar: <em>¿La arquitectura metodológica es adecuada para
+            producir la evidencia que el proyecto promete?</em>
+          </div>
+
+          <h3>El sesgo de sofisticación</h3>
+          <div class="callout warning">
+            <strong>Proyecto A:</strong> Modelo estadístico altamente complejo, pero pregunta mal formulada.<br>
+            <strong>Proyecto B:</strong> Análisis descriptivo sencillo, pero responde perfectamente una pregunta descriptiva importante y actualmente no resuelta.<br><br>
+            ¿Quién es más riguroso? Potencialmente B. <strong>Complejidad ≠ rigor.</strong>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station7.selected ? '' : 'disabled'}>Continuar a la decisión de financiación →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#incommensurableReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station7.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(8));
+      return;
+    }
+
+    /* ============ ESTACIÓN 8 ============ */
+    if (num === 8) {
+      const fundedProjects = state.station8.funded || [];
+      const total = fundedProjects.reduce((sum, id) => sum + PROJECTS.find(p => p.id === id).budget, 0);
+      const remaining = 100 - total;
+
+      body.innerHTML = `
+        <h3>Presupuesto y costo de oportunidad</h3>
+
+        <div class="callout info">
+          Tienes <strong>$100 millones COP</strong> disponibles. Los proyectos solicitan en conjunto <strong>$240 millones</strong>.
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          <strong>No financiamos proyectos, financiamos una cartera.</strong>
+          El comité construye una combinación de inversión científica.
+        </p>
+
+        <div class="highlight-box">
+          <p style="font-size: 1rem;">Presupuesto asignado: $${total}M / $100M · Restante: $${remaining}M</p>
+        </div>
+
+        <div id="projectsFunding">
+          ${PROJECTS.map(p => {
+            const isFunded = fundedProjects.includes(p.id);
+            const canAdd = !isFunded && (total + p.budget) <= 100;
+            return `
+              <div class="project-card ${isFunded ? 'funded' : ''}">
+                <div class="pc-header">
+                  <span class="pc-id">Proyecto ${p.id}</span>
+                  <span style="font-size: 0.9rem; font-weight: 700; color: var(--accent);">$${p.budget}M</span>
+                </div>
+                <div class="pc-desc">${p.desc}</div>
+                <div style="margin-top: 0.8rem;">
+                  ${isFunded 
+                    ? `<button class="btn-small" data-remove="${p.id}" style="background: var(--error); color: white;">✕ Quitar de la cartera</button>`
+                    : `<button class="btn-small" data-add="${p.id}" ${!canAdd ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''}>+ Añadir a la cartera</button>`
+                  }
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div id="fundingReflection" style="display: ${fundedProjects.length >= 1 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Cartera seleccionada:</strong> ${fundedProjects.length > 0 ? fundedProjects.map(id => `Proyecto ${id}`).join(' + ') : 'Ninguno aún'}.
+            ${total <= 100 ? `Costo de oportunidad: al no financiar los proyectos ${PROJECTS.filter(p => !fundedProjects.includes(p.id)).map(p => p.id).join(', ')}, renuncias a su conocimiento.` : ''}
+          </div>
+          
+          <div class="response-field">
+            <label>Justifica tu cartera (¿por qué esta combinación maximiza el valor de la convocatoria?)</label>
+            <textarea class="response-input" id="carteraJust" placeholder="La combinación elegida maximiza..." style="min-height: 100px;"></textarea>
+          </div>
+
+          <button class="btn btn-next" id="phaseNextBtn">Continuar a nueva evidencia →</button>
+        </div>
+      `;
+
+      body.querySelectorAll('[data-add]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = this.dataset.add;
+          if (!state.station8.funded) state.station8.funded = [];
+          state.station8.funded.push(id);
+          state.budget.allocated = state.station8.funded.reduce((sum, fid) => sum + PROJECTS.find(p => p.id === fid).budget, 0);
+          saveState();
+          updateBudgetBar();
+          renderStation(8);
+        });
+      });
+
+      body.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = this.dataset.remove;
+          state.station8.funded = state.station8.funded.filter(fid => fid !== id);
+          state.budget.allocated = state.station8.funded.reduce((sum, fid) => sum + PROJECTS.find(p => p.id === fid).budget, 0);
+          saveState();
+          updateBudgetBar();
+          renderStation(8);
+        });
+      });
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => goToStation(9));
+      }
+      return;
+    }
+
+    /* ============ ESTACIÓN 9 ============ */
+    if (num === 9) {
+      const events = [
+        {
+          id: 'ev1',
+          title: 'Evento 1 · Aparece una nueva revisión',
+          desc: 'El Proyecto A afirmaba una brecha. Una revisión publicada recientemente responde buena parte de ella.',
+          question: '¿Mantiene financiación?',
+          options: ['Mantener', 'Quitar', 'Condicionar']
+        },
+        {
+          id: 'ev2',
+          title: 'Evento 2 · Acceso perdido',
+          desc: 'El Proyecto C dependía de un convenio institucional. La institución determina que el acceso tardará aproximadamente seis meses.',
+          question: '¿Sigue siendo viable?',
+          options: ['Sí, es subsanable', 'No, es inviable', 'Condicionar']
+        },
+        {
+          id: 'ev3',
+          title: 'Evento 3 · Problema de instrumento',
+          desc: 'El Proyecto B propone utilizar un instrumento cuya pertinencia para la población objetivo no está suficientemente demostrada.',
+          question: '¿Es subsanable o afecta el núcleo?',
+          options: ['Subsanable', 'Afecta el núcleo', 'Necesito más información']
+        },
+        {
+          id: 'ev4',
+          title: 'Evento 4 · Nueva información ética',
+          desc: 'El Proyecto D implementará un procedimiento adicional de protección que modifica sustantivamente el balance ético.',
+          question: '¿Sube en la prioridad?',
+          options: ['Sí, ahora es financiable', 'No cambia', 'Necesito más información']
+        }
+      ];
+
+      body.innerHTML = `
+        <h3>Nueva evidencia: ¿cambia tu decisión?</h3>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Después de cada evento, revisa obligatoriamente tu decisión.
+        </p>
+
+        <div id="eventsList">
+          ${events.map(e => {
+            const decision = state.station9.decisions[e.id];
+            return `
+              <div class="project-card ${decision ? 'funded' : ''}">
+                <div class="pc-header">
+                  <span class="pc-id">${e.id.toUpperCase()}</span>
+                </div>
+                <div class="pc-title">${e.title}</div>
+                <div class="pc-desc">${e.desc}</div>
+                <p style="font-size: 0.9rem; color: var(--text-main); font-weight: 600; margin-top: 0.8rem;">${e.question}</p>
+                <div class="dictamen-options">
+                  ${e.options.map(opt => `
+                    <button class="dictamen-option ${decision === opt ? 'selected' : ''}" 
+                            data-event="${e.id}" data-decision="${opt}">
+                      ${opt}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div id="eventsReflection" style="display: ${Object.keys(state.station9.decisions).length >= 4 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Aprendizaje clave:</strong> Cambiar de opinión ante nueva evidencia no es inconsistencia.
+            Puede ser señal de buen juicio científico.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station9.decisions).length >= 4 ? '' : 'disabled'}>
+          ${Object.keys(state.station9.decisions).length >= 4 ? 'Ir al Acta del Comité →' : `Responde los 4 eventos (${Object.keys(state.station9.decisions).length}/4)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#eventsReflection');
+
+      body.querySelectorAll('[data-event]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const eventId = this.dataset.event;
+          const decision = this.dataset.decision;
+          state.station9.decisions[eventId] = decision;
+          saveState();
+
+          const parent = this.closest('.project-card');
+          parent.querySelectorAll('.dictamen-option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+          parent.classList.add('funded');
+
+          const count = Object.keys(state.station9.decisions).length;
+          if (count >= 4) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Ir al Acta del Comité →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Responde los 4 eventos (${count}/4)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        document.getElementById('stationContent').style.display = 'none';
+        document.getElementById('stationsNav').style.display = 'none';
+        document.getElementById('budgetBar').classList.remove('show');
+        document.getElementById('acta').style.display = 'block';
+        document.getElementById('acta').scrollIntoView({ behavior: 'smooth' });
+        stationBtns.forEach(b => b.classList.add('completed'));
+      });
+      return;
+    }
+  }
+
+  /* ============================================================
+     INICIO
+     ============================================================ */
+  document.getElementById('btnStartLab').addEventListener('click', function() {
+    state.labStarted = true;
+    saveState();
+    this.disabled = true;
+    this.textContent = '⏱️ Comité en sesión...';
+    this.style.opacity = '0.5';
+
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+
+    goToStation(state.station >= 0 ? state.station : 0);
+  });
+
+  /* ============================================================
+     ACTA
+     ============================================================ */
+  const actaFields = ['actaA','actaB','actaC','actaD','actaE','actaF','actaG','actaH'];
+  actaFields.forEach(field => {
+    const el = document.getElementById(field);
+    if (!el) return;
+    try {
+      const saved = localStorage.getItem('lab05_' + field);
+      if (saved) el.value = saved;
+    } catch (e) {}
+    el.addEventListener('input', function() {
+      try {
+        localStorage.setItem('lab05_' + field, this.value);
+      } catch (e) {}
+    });
+  });
+
+  document.getElementById('btnGuardarActa').addEventListener('click', function() {
+    const filled = actaFields.filter(f => {
+      const el = document.getElementById(f);
+      return el && el.value.trim().length > 15;
+    }).length;
+
+    const verdict = document.getElementById('actaVerdict');
+    if (filled >= 6) {
+      verdict.innerHTML = '<div class="highlight-box success"><p>🟢 Acta completa — Has cerrado el ciclo de los cinco laboratorios</p></div>';
+    } else if (filled >= 3) {
+      verdict.innerHTML = '<div class="highlight-box warning"><p>🟡 Acta parcial — Desarrolla más cada sección</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box error"><p>🔴 Acta incompleta — Necesitas argumentar más tus decisiones</p></div>';
+    }
+
+    document.getElementById('metacognicion').style.display = 'block';
+    document.getElementById('metacognicion').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnCierre').addEventListener('click', function() {
+    document.getElementById('acta').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'block';
+    document.getElementById('cierre').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+  function reiniciar() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus decisiones.')) return;
+    localStorage.removeItem('lab05_comite_v1');
+    actaFields.forEach(f => localStorage.removeItem('lab05_' + f));
+    location.reload();
+  }
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciar);
+
+  /* ============================================================
+     RESTAURAR
+     ============================================================ */
+  if (state.labStarted) {
+    document.getElementById('btnStartLab').disabled = true;
+    document.getElementById('btnStartLab').textContent = '⏱️ Comité en sesión...';
+    document.getElementById('btnStartLab').style.opacity = '0.5';
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+    if (state.budget.allocated > 0) updateBudgetBar();
+    goToStation(state.station >= 0 ? state.station : 0);
+  }
+
+})();
+</script>
+</body>
+</html>
