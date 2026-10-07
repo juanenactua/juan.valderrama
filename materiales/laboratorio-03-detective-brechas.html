@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio 03 · Detective de brechas: ¿realmente necesitamos otra investigación?</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Detective de brechas: ¿realmente necesitamos otra investigación?">
+<meta name="jc-descripcion" content="Laboratorio forense para reconstruir el estado de la evidencia, distinguir brechas genuinas y falsas, analizar inconsistencia, sesgo y comparabilidad, priorizar incertidumbres y decidir qué investigación se necesita.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Brecha de conocimiento, Estado de la evidencia, Revisión de literatura, Incertidumbre, Evidencia científica, Síntesis, Replicación, Brecha metodológica, Priorización, Sesgo, Investigación empírica, Alfabetización científica">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.3s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '🕵'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+
+  section { margin-bottom: 3rem; scroll-margin-top: 100px; }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.8rem; color: #ffffff; }
+  h4 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--accent); }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.35rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) { .stations-nav { position: static; grid-template-columns: 1fr 1fr; } }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover:not(.locked) { border-color: var(--accent); transform: translateY(-2px); }
+  .station-btn.active { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .station-btn.completed { border-color: var(--success); color: var(--success); }
+  .station-btn.locked { opacity: 0.35; cursor: not-allowed; }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  .station-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+  }
+
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .station-header .sh-num {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .station-header .sh-title { font-weight: 600; color: var(--text-main); font-size: 1rem; }
+  .station-header .sh-time { margin-left: auto; font-size: 0.78rem; color: var(--text-soft); font-style: italic; }
+
+  .options-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1.3rem 0; }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+  .option-card:hover { border-color: var(--accent); background: var(--bg-soft); transform: translateX(4px); }
+  .option-card.selected { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 20px rgba(240, 180, 41, 0.25); }
+  .option-card .option-marker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+
+  .checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.2rem 0; }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .checkbox-card:hover { border-color: var(--accent); background: var(--bg-soft); }
+  .checkbox-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .checkbox-card .checkbox-marker {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.3rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.3rem 0;
+    font-size: 0.96rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info { background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04)); border-left-color: var(--info); }
+  .callout.info strong { color: var(--info); }
+  .callout.success { background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04)); border-left-color: var(--success); }
+  .callout.success strong { color: var(--success); }
+  .callout.violet { background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04)); border-left-color: var(--violet); }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error { background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04)); border-left-color: var(--error); }
+  .callout.error strong { color: var(--error); }
+  .callout.warning { background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04)); border-left-color: var(--warning); }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.3rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin: 0; }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-next { width: 100%; margin-top: 1.2rem; padding: 0.9rem; font-size: 0.95rem; }
+
+  .response-field { margin: 1rem 0; }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15); }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.7rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.7rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  .error-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.9rem;
+    margin: 1.3rem 0;
+  }
+  .error-card {
+    background: rgba(248, 113, 113, 0.06);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-left: 4px solid var(--error);
+  }
+  .error-card .ec-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--error);
+    margin-bottom: 0.4rem;
+  }
+  .error-card .ec-title { font-weight: 700; color: var(--text-main); font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .error-card .ec-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; }
+  .error-card .ec-diagnosis { font-size: 0.8rem; color: var(--error); font-style: italic; margin-top: 0.5rem; border-top: 1px solid rgba(248, 113, 113, 0.2); padding-top: 0.5rem; }
+
+  .chain-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #060f1c;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .chain-box {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 280px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .chain-box:hover { border-color: var(--accent); transform: scale(1.02); }
+  .chain-box.highlight { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .chain-arrow { color: var(--accent); font-size: 1.1rem; line-height: 1; }
+
+  .study-card {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.7rem;
+    transition: all 0.3s;
+  }
+  .study-card:hover { border-color: var(--accent); }
+  .study-card.evaluated { border-left: 4px solid var(--accent); }
+  .study-card .sc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .study-card .sc-id {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+  }
+  .study-card .sc-meta {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+  }
+  .study-card .sc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+  }
+  .study-card .sc-grid-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+  }
+  .study-card .sc-grid-item .sg-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-soft);
+    margin-bottom: 0.2rem;
+  }
+  .study-card .sc-grid-item .sg-value { color: var(--text-main); font-weight: 500; }
+
+  .expediente-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    margin: 1rem 0;
+    transition: all 0.3s;
+  }
+  .expediente-card.evaluated { border-color: var(--accent); }
+  .expediente-card .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .expediente-card .exp-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .expediente-card .exp-text {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .verdict-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .verdict-option {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-weight: 600;
+  }
+  .verdict-option:hover { border-color: var(--accent); background: var(--bg-mid); }
+  .verdict-option.selected { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .verdict-option[data-verdict="abrir"].selected { background: var(--success); border-color: var(--success); }
+  .verdict-option[data-verdict="replicar"].selected { background: var(--info); border-color: var(--info); }
+  .verdict-option[data-verdict="revision"].selected { background: var(--violet); border-color: var(--violet); }
+  .verdict-option[data-verdict="reformular"].selected { background: var(--warning); border-color: var(--warning); }
+  .verdict-option[data-verdict="cerrar"].selected { background: var(--error); border-color: var(--error); }
+
+  .ronda-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    margin: 1.3rem 0;
+    transition: all 0.3s;
+  }
+  .ronda-card.active { border-color: var(--accent); }
+  .ronda-card .ronda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .ronda-card .ronda-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .ronda-card .ronda-count {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+  }
+
+  .registro-item {
+    background: rgba(96, 165, 250, 0.06);
+    border-left: 3px solid var(--info);
+    border-radius: 0 8px 8px 0;
+    padding: 0.8rem 1rem;
+    margin: 0.6rem 0;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .registro-item strong { color: var(--info); }
+
+  .confidence-scale {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .confidence-btn {
+    flex: 1;
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font);
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .confidence-btn:hover { border-color: var(--accent); }
+  .confidence-btn.selected { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .confidence-btn[data-conf="baja"].selected { background: var(--error); border-color: var(--error); }
+  .confidence-btn[data-conf="moderada"].selected { background: var(--warning); border-color: var(--warning); }
+  .confidence-btn[data-conf="alta"].selected { background: var(--success); border-color: var(--success); }
+
+  .new-evidence {
+    background: rgba(167, 139, 250, 0.08);
+    border-left: 4px solid var(--violet);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    display: none;
+  }
+  .new-evidence.show { display: block; animation: fadeIn 0.5s ease; }
+  .new-evidence strong { color: var(--violet); }
+
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.8rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 { margin-top: 0; color: var(--accent); text-align: center; }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  .final-message { text-align: center; margin: 2rem 0; }
+  .final-message .fm-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+  .final-message .fm-subtitle { font-size: 0.98rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 1.3rem; }
+
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    margin: 1.8rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .personal-protocol ol { margin-left: 1.4rem; color: var(--text-main); }
+  .personal-protocol li { margin-bottom: 0.6rem; font-size: 0.94rem; line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    main { padding: 1.2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+    .chain-box { min-width: 100%; font-size: 0.85rem; }
+    .confidence-scale { flex-direction: column; }
+  }
+
+  button:focus-visible, .option-card:focus-visible, .checkbox-card:focus-visible,
+  .station-btn:focus-visible, .verdict-option:focus-visible, .confidence-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Laboratorio 03 · Detective de brechas</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada">
+    <span class="badge">Laboratorio forense · Alta complejidad</span>
+    <h1>Detective de brechas: ¿realmente necesitamos otra investigación?</h1>
+    <p style="font-size: 1.1rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Laboratorio forense de evidencia, incertidumbre y necesidad de investigación. Recibirás información
+      incompleta, contradictoria y de diferente calidad. Tendrás que reconstruir qué sabemos realmente
+      y decidir si existe una brecha que justifique investigar.
+    </p>
+
+    <div class="card">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 45-55 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Ficha forense de brecha + decisión sobre tipo de investigación necesaria</p>
+      <p><strong>Aplicable a:</strong> Investigación empírica · Revisiones de literatura</p>
+    </div>
+
+    <div class="callout">
+      <strong>Pregunta central:</strong> ¿Cómo sabemos que realmente existe una brecha de conocimiento
+      y que esa brecha justifica investigar?
+    </div>
+
+    <div class="highlight-box info" style="margin: 1.5rem 0;">
+      <p style="font-size: 1rem;">BRECHA ≠ AUSENCIA DE ARTÍCULOS</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" id="btnStartLab">▶ Comenzar investigación forense</button>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN DE ESTACIONES -->
+  <div class="stations-nav" id="stationsNav" style="display: none;">
+    <button class="station-btn active" data-station="0"><span class="st-num">Caso</span><span>Expediente</span></button>
+    <button class="station-btn" data-station="1"><span class="st-num">Est. 1</span><span>¿Sabemos?</span></button>
+    <button class="station-btn" data-station="2"><span class="st-num">Est. 2</span><span>Patrón</span></button>
+    <button class="station-btn" data-station="3"><span class="st-num">Est. 3</span><span>Anatomía</span></button>
+    <button class="station-btn" data-station="4"><span class="st-num">Est. 4</span><span>Tipología</span></button>
+    <button class="station-btn" data-station="5"><span class="st-num">Est. 5</span><span>Falsas</span></button>
+    <button class="station-btn" data-station="6"><span class="st-num">Est. 6</span><span>Contradictoria</span></button>
+    <button class="station-btn" data-station="7"><span class="st-num">Est. 7</span><span>¿Qué invest.?</span></button>
+    <button class="station-btn" data-station="8"><span class="st-num">Est. 8</span><span>Prioridad</span></button>
+    <button class="station-btn" data-station="9"><span class="st-num">Final</span><span>Consejo</span></button>
+  </div>
+
+  <!-- CONTENIDO DE ESTACIONES -->
+  <section id="stationContent" style="display: none;">
+    <div class="station-panel" id="stationPanel"></div>
+  </section>
+
+  <!-- FICHA FORENSE FINAL -->
+  <section id="fichaForense" style="display: none;">
+    <h2>Ficha forense de brecha</h2>
+
+    <div class="diagnostic-box">
+      <h3>Tu ficha forense</h3>
+      <p style="text-align: center; color: var(--text-soft); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Construye tu caracterización forense de la brecha. Este documento te acompañará durante el curso.
+      </p>
+
+      <div class="response-field">
+        <label>1. Conclusión actualmente sostenible · Con la evidencia disponible podemos afirmar...</label>
+        <textarea class="response-input" id="forense1" placeholder="¿Qué puede afirmarse razonablemente con la evidencia actual?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. Límite · Sin embargo, no podemos establecer...</label>
+        <textarea class="response-input" id="forense2" placeholder="¿Qué no puede establecerse con suficiente confianza?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. Causa del límite · Principalmente porque...</label>
+        <textarea class="response-input" id="forense3" placeholder="¿Por qué no podemos establecerlo? (insuficiencia, inconsistencia, sesgo, diseño limitado, evidencia inadecuada...)" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. Caracterización de la brecha · La brecha se localiza en...</label>
+        <textarea class="response-input" id="forense4" placeholder="¿Dónde exactamente está la incertidumbre?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. Evidencia que la sustenta · Lo sabemos porque...</label>
+        <textarea class="response-input" id="forense5" placeholder="¿Qué evidencia permite sostener la existencia de la brecha?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>6. Relevancia · Resolverla importa porque...</label>
+        <textarea class="response-input" id="forense6" placeholder="¿Por qué importa resolver esa incertidumbre?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>7. Investigación necesaria · La estrategia que más reduciría esta incertidumbre sería...</label>
+        <textarea class="response-input" id="forense7" placeholder="¿Nuevo estudio empírico? ¿Replicación? ¿Nuevo diseño? ¿Revisión de literatura? ¿Ninguna?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>8. Evidencia falsadora · ¿Qué nueva evidencia nos haría concluir que esta brecha ya no existe?</label>
+        <textarea class="response-input" id="forense8" placeholder="Construye una afirmación refutable sobre la necesidad de investigación..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div id="forenseVerdict" style="margin-top: 1.5rem;"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGuardarForense">🔄 Guardar ficha forense</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir</button>
+      <button class="btn btn-outline" id="btnReiniciar">↻ Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- METACOGNICIÓN -->
+  <section id="metacognicion" style="display: none;">
+    <h2>Componente metacognitivo</h2>
+
+    <div class="card">
+      <div class="response-field">
+        <label>1. ¿Buscaste evidencia para descubrir una brecha o para confirmar la brecha que querías encontrar?</label>
+        <textarea class="response-input" id="meta1" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. ¿Qué evidencia contradijo más fuertemente tu interpretación inicial?</label>
+        <textarea class="response-input" id="meta2" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. ¿Cambiaste de opinión durante el expediente? ¿Por qué?</label>
+        <textarea class="response-input" id="meta3" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. ¿Confundiste en algún momento "pocos estudios" con "poco conocimiento"?</label>
+        <textarea class="response-input" id="meta4" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. ¿En qué circunstancias recomendarías NO realizar el proyecto que inicialmente querías hacer?</label>
+        <textarea class="response-input" id="meta5" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="btn" id="btnCierre">Ver cierre del laboratorio →</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" style="display: none;">
+    <div class="final-message">
+      <div class="fm-title">La literatura puede confirmar una brecha, transformarla, revelar una diferente o demostrar que la investigación que queríamos realizar ya no está suficientemente justificada.</div>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Cuatro preguntas que instala este laboratorio:</strong>
+      </div>
+
+      <div class="chain-diagram">
+        <div class="chain-box">¿Qué exactamente significa lo que dices que investigarás?</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">¿Por qué eso constituye un problema que merece investigación?</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box highlight">¿Cómo sabes que realmente falta conocimiento?</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box" style="border-color: var(--violet); color: var(--violet);">Incluso si falta conocimiento, ¿es una investigación nueva la mejor manera de reducir esa incertidumbre?</div>
+      </div>
+
+      <div class="highlight-box success" style="margin: 2rem 0;">
+        <p>Has aprendido algo científicamente honesto: no toda incertidumbre requiere una nueva investigación.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Laboratorio 03 · Detective de brechas</strong></p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Formulación de proyectos de investigación en Psicología · 2025</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const state = {
+    station: -1,
+    labStarted: false,
+    station0: { selected: null },
+    station1: { selected: null },
+    station2: { evaluated: {} },
+    station3: { selected: null },
+    station4: { selected: [] },
+    station5: { selected: [] },
+    station6: { selected: {} },
+    station7: { selected: null },
+    station8: { selected: [] },
+    station9: { verdicts: {} },
+    ronda: 0,
+    rondaRegistros: {},
+    fichaForense: {},
+    meta: {}
+  };
+
+  try {
+    const saved = localStorage.getItem('lab03_brechas_v1');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('lab03_brechas_v1', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  const stationNames = {
+    0: 'El expediente',
+    1: '¿Qué significa "sabemos"?',
+    2: 'Del estudio al patrón',
+    3: 'Anatomía de una brecha',
+    4: 'Tipología funcional de brechas',
+    5: 'Falsas brechas',
+    6: 'Evidencia contradictoria',
+    7: '¿Qué investigación necesita la brecha?',
+    8: 'Brecha ≠ prioridad',
+    9: 'Consejo de investigación'
+  };
+
+  const stationTimes = {
+    0: '3 min', 1: '5 min', 2: '6 min', 3: '5 min',
+    4: '6 min', 5: '5 min', 6: '6 min', 7: '5 min', 8: '5 min', 9: '5 min'
+  };
+
+  const stationBtns = document.querySelectorAll('.station-btn');
+
+  function getMaxUnlockedStation() {
+    let max = 0;
+    if (state.station0.selected) max = 1;
+    if (state.station1.selected) max = 2;
+    if (Object.keys(state.station2.evaluated).length >= 5) max = 3;
+    if (state.station3.selected) max = 4;
+    if (state.station4.selected.length >= 3) max = 5;
+    if (state.station5.selected.length >= 3) max = 6;
+    if (Object.keys(state.station6.selected).length >= 8) max = 7;
+    if (state.station7.selected) max = 8;
+    if (state.station8.selected.length >= 3) max = 9;
+    if (Object.keys(state.station9.verdicts).length >= 5) max = 10;
+    return max;
+  }
+
+  function goToStation(num) {
+    state.station = num;
+    saveState();
+
+    const maxUnlocked = getMaxUnlockedStation();
+
+    stationBtns.forEach(b => {
+      const n = parseInt(b.dataset.station);
+      b.classList.toggle('active', n === num);
+      b.classList.toggle('completed', n < num);
+      b.classList.toggle('locked', n > maxUnlocked);
+    });
+
+    renderStation(num);
+
+    const progress = ((num + 1) / 10) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+
+    document.getElementById('fichaForense').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'none';
+
+    document.getElementById('stationContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const num = parseInt(this.dataset.station);
+      if (num <= getMaxUnlockedStation()) goToStation(num);
+    });
+  });
+
+  function renderStation(num) {
+    const panel = document.getElementById('stationPanel');
+    if (!panel) return;
+
+    panel.innerHTML = `
+      <div class="station-header">
+        <span class="sh-num">Estación ${num}</span>
+        <span class="sh-title">${stationNames[num]}</span>
+        <span class="sh-time">${stationTimes[num]}</span>
+      </div>
+      <div id="stationBody"></div>
+    `;
+
+    const body = document.getElementById('stationBody');
+
+    /* ============ CASO INICIAL ============ */
+    if (num === 0) {
+      body.innerHTML = `
+        <div class="callout error">
+          <strong>Afirmación inicial:</strong> "Existe una importante brecha acerca de la relación entre el uso de redes sociales y el bienestar psicológico de estudiantes universitarios. Por tanto, necesitamos realizar un nuevo estudio."
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4>Evidencia presentada por el equipo</h4>
+          <p style="font-size: 0.92rem;">"Encontramos pocos estudios realizados específicamente con estudiantes de nuestra universidad."</p>
+        </div>
+
+        <h3>¿Autorizaría un nuevo proyecto basándose en este argumento?</h3>
+
+        <div class="options-list" id="initialOptions">
+          <div class="option-card ${state.station0.selected === 'si' ? 'selected' : ''}" data-value="si">
+            <span class="option-marker">A</span>
+            <span>Sí, la brecha está claramente establecida.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'no' ? 'selected' : ''}" data-value="no">
+            <span class="option-marker">B</span>
+            <span>No, el argumento es insuficiente.</span>
+          </div>
+          <div class="option-card ${state.station0.selected === 'nose' ? 'selected' : ''}" data-value="nose">
+            <span class="option-marker">C</span>
+            <span>Todavía no tenemos suficiente información para saberlo.</span>
+          </div>
+        </div>
+
+        <div id="initialReflection" style="display: ${state.station0.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Principio fundamental:</strong> Antes de afirmar que existe una brecha necesitamos
+            reconstruir el estado de la evidencia. La opción metodológicamente más razonable es reconocer
+            que todavía no podemos saberlo.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station0.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#initialReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station0.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(1));
+      return;
+    }
+
+    /* ============ ESTACIÓN 1 ============ */
+    if (num === 1) {
+      body.innerHTML = `
+        <h3>¿Qué significa "sabemos"?</h3>
+
+        <div class="callout info">
+          Un estudiante lee: <em>Estudio A: X está asociado con Y.</em>
+          Y escribe: <em>"Se sabe que X está relacionado con Y."</em>
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Puede una investigación individual justificar esa afirmación general?
+        </p>
+
+        <h3>Tres niveles epistemológicamente diferentes</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Nivel 1 · "Un estudio encontró..."</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Describe una investigación individual.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Nivel 2 · "Varios estudios han encontrado..."</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Describe recurrencia. No garantiza independencia ni calidad.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Nivel 3 · "La evidencia disponible permite sostener..."</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Realiza una afirmación sobre el estado del conocimiento.</p>
+        </div>
+
+        <h3>Evidencia no es acumulación</h3>
+
+        <div class="callout warning">
+          <strong>Estudio A:</strong> asociación positiva.<br>
+          <strong>Estudio B:</strong> asociación positiva.<br>
+          <strong>Estudio C:</strong> asociación positiva.<br><br>
+          ¿Tenemos evidencia sólida?
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Después se revela:
+        </p>
+
+        <ul style="font-size: 0.92rem;">
+          <li>Los tres utilizaron la misma base de datos.</li>
+          <li>Los tres son transversales.</li>
+          <li>Los tres tienen muestras pequeñas.</li>
+          <li>Los tres utilizan una medida problemática.</li>
+        </ul>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Cambia la conclusión?
+        </p>
+
+        <div class="options-list" id="evidenciaOptions">
+          <div class="option-card ${state.station1.selected === 'si' ? 'selected' : ''}" data-value="si">
+            <span class="option-marker">Sí</span>
+            <span>Sí, la conclusión cambia: cantidad no equivale a independencia ni calidad.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'no' ? 'selected' : ''}" data-value="no">
+            <span class="option-marker">No</span>
+            <span>No, tres estudios que coinciden siempre son evidencia sólida.</span>
+          </div>
+        </div>
+
+        <div id="evidenciaReflection" style="display: ${state.station1.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Regla fundamental:</strong> Cantidad de estudios ≠ independencia ni calidad de evidencia.<br><br>
+            Esto evita la lógica ingenua: "Encontré 20 artículos, entonces el tema está muy estudiado".
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station1.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#evidenciaReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station1.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(2));
+      return;
+    }
+
+    /* ============ ESTACIÓN 2 ============ */
+    if (num === 2) {
+      const studies = [
+        { id: 'A', pob: 'Universitarios', dis: 'Transversal', mx: 'Autoinforme', my: 'Bienestar', res: 'Asociación pequeña' },
+        { id: 'B', pob: 'Universitarios', dis: 'Longitudinal', mx: 'Autoinforme', my: 'Bienestar', res: 'Sin asociación' },
+        { id: 'C', pob: 'Adolescentes', dis: 'Longitudinal', mx: 'Registro digital', my: 'Síntomas', res: 'Asociación' },
+        { id: 'D', pob: 'Universitarios', dis: 'Transversal', mx: 'Tiempo total', my: 'Ansiedad', res: 'Asociación' },
+        { id: 'E', pob: 'Universitarios', dis: 'Cualitativo', mx: 'Experiencias', my: 'Bienestar', res: 'Relación ambivalente' },
+        { id: 'F', pob: 'Adultos', dis: 'Transversal', mx: 'Autoinforme', my: 'Satisfacción', res: 'Sin asociación' }
+      ];
+
+      body.innerHTML = `
+        <h3>Del estudio al patrón</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Aquí tienes 6 estudios. No basta con contar positivos y negativos. Debes evaluar cada uno
+          respondiendo <strong>5 preguntas forenses</strong>.
+        </p>
+
+        <div id="studiesList">
+          ${studies.map(s => {
+            const evalData = state.station2.evaluated[s.id] || {};
+            return `
+              <div class="study-card ${Object.keys(evalData).length >= 5 ? 'evaluated' : ''}">
+                <div class="sc-header">
+                  <span class="sc-id">Estudio ${s.id}</span>
+                  <span class="sc-meta">${s.dis} · ${s.pob}</span>
+                </div>
+                <div class="sc-grid">
+                  <div class="sc-grid-item"><div class="sg-label">Población</div><div class="sg-value">${s.pob}</div></div>
+                  <div class="sc-grid-item"><div class="sg-label">Diseño</div><div class="sg-value">${s.dis}</div></div>
+                  <div class="sc-grid-item"><div class="sg-label">Medición X</div><div class="sg-value">${s.mx}</div></div>
+                  <div class="sc-grid-item"><div class="sg-label">Medición Y</div><div class="sg-value">${s.my}</div></div>
+                  <div class="sc-grid-item"><div class="sg-label">Resultado</div><div class="sg-value">${s.res}</div></div>
+                </div>
+                <div style="margin-top: 0.8rem;">
+                  <p style="font-size: 0.82rem; color: var(--text-soft); margin-bottom: 0.5rem;">
+                    ¿Qué preguntó realmente este estudio? Marca los aspectos que consideres que efectivamente indaga:
+                  </p>
+                  <div class="checkbox-list" style="margin: 0;">
+                    <div class="checkbox-card ${evalData.asociacion ? 'selected' : ''}" data-study="${s.id}" data-eval="asociacion" tabindex="0" role="button">
+                      <span class="checkbox-marker"></span>
+                      <span>Asociación entre uso de redes y bienestar/síntomas</span>
+                    </div>
+                    <div class="checkbox-card ${evalData.causalidad ? 'selected' : ''}" data-study="${s.id}" data-eval="causalidad" tabindex="0" role="button">
+                      <span class="checkbox-marker"></span>
+                      <span>Causalidad entre uso y bienestar</span>
+                    </div>
+                    <div class="checkbox-card ${evalData.experiencia ? 'selected' : ''}" data-study="${s.id}" data-eval="experiencia" tabindex="0" role="button">
+                      <span class="checkbox-marker"></span>
+                      <span>Experiencia subjetiva del uso</span>
+                    </div>
+                    <div class="checkbox-card ${evalData.temporal ? 'selected' : ''}" data-study="${s.id}" data-eval="temporal" tabindex="0" role="button">
+                      <span class="checkbox-marker"></span>
+                      <span>Cambio temporal</span>
+                    </div>
+                    <div class="checkbox-card ${evalData.comparabilidad ? 'selected' : ''}" data-study="${s.id}" data-eval="comparabilidad" tabindex="0" role="button">
+                      <span class="checkbox-marker"></span>
+                      <span>Comparabilidad con otros estudios</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="callout info">
+          <strong>Pregunta clave:</strong> ¿Son estos estudios suficientemente comparables para decir
+          que se contradicen? Dos estudios pueden parecer contradictorios y estar respondiendo preguntas diferentes.
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station2.evaluated).length >= 5 ? '' : 'disabled'}>
+          ${Object.keys(state.station2.evaluated).length >= 5 ? 'Continuar →' : `Evalúa al menos 5 estudios (${Object.keys(state.station2.evaluated).length}/5)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+
+      body.querySelectorAll('[data-study]').forEach(card => {
+        card.addEventListener('click', function() {
+          const studyId = this.dataset.study;
+          const evalKey = this.dataset.eval;
+          if (!state.station2.evaluated[studyId]) state.station2.evaluated[studyId] = {};
+          if (state.station2.evaluated[studyId][evalKey]) {
+            delete state.station2.evaluated[studyId][evalKey];
+            this.classList.remove('selected');
+          } else {
+            state.station2.evaluated[studyId][evalKey] = true;
+            this.classList.add('selected');
+          }
+          saveState();
+
+          // Marcar study como evaluado si tiene al menos 1
+          const studyCard = this.closest('.study-card');
+          if (Object.keys(state.station2.evaluated[studyId]).length > 0) {
+            studyCard.classList.add('evaluated');
+          }
+
+          const count = Object.keys(state.station2.evaluated).length;
+          if (count >= 5) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Evalúa al menos 5 estudios (${count}/5)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(3));
+      return;
+    }
+
+    /* ============ ESTACIÓN 3 ============ */
+    if (num === 3) {
+      body.innerHTML = `
+        <h3>Anatomía de una brecha</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Una brecha debe descomponerse en cuatro componentes:
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">A. Estado actual</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Qué sabemos razonablemente?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">B. Incertidumbre</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Qué no podemos establecer con confianza?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">C. Razón de la incertidumbre</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Por qué no podemos establecerlo?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">D. Consecuencia</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Qué limita esa incertidumbre?</p>
+        </div>
+
+        <div class="highlight-box">
+          <p style="font-size: 0.95rem;">BRECHA = incertidumbre específica + razón identificable + consecuencia epistemológica relevante</p>
+        </div>
+
+        <h3>Definición operacional</h3>
+        <div class="callout success">
+          <strong>Existe una brecha cuando</strong> la evidencia disponible es insuficiente, inadecuada o
+          incierta de una manera que limita una conclusión relevante.
+        </div>
+
+        <div class="callout error">
+          <strong>Esto evita definir:</strong> brecha = "tema sin artículos".
+        </div>
+
+        <h3>Verificación de comprensión</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Cuál de las siguientes es la caracterización más adecuada de una brecha?
+        </p>
+
+        <div class="options-list" id="anatomiaOptions">
+          <div class="option-card ${state.station3.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Existen pocos artículos publicados sobre el tema.</span>
+          </div>
+          <div class="option-card ${state.station3.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>Nadie ha estudiado esta población específica.</span>
+          </div>
+          <div class="option-card ${state.station3.selected === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">C</span>
+            <span>La evidencia disponible es insuficiente, inadecuada o incierta de manera que limita una conclusión relevante.</span>
+          </div>
+          <div class="option-card ${state.station3.selected === 'D' ? 'selected' : ''}" data-value="D">
+            <span class="option-marker">D</span>
+            <span>Los autores recomiendan investigaciones futuras.</span>
+          </div>
+        </div>
+
+        <div id="anatomiaReflection" style="display: ${state.station3.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> La definición operacional correcta es la C. Las otras opciones
+            describen situaciones que pueden o no indicar una brecha, pero no la definen por sí mismas.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station3.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#anatomiaReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station3.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(4));
+      return;
+    }
+
+    /* ============ ESTACIÓN 4 ============ */
+    if (num === 4) {
+      const tipos = [
+        { id: 't1', num: '1', title: 'Insuficiencia de evidencia', desc: 'Muy poca información para concluir.', pregunta: '¿La evidencia es demasiado escasa para responder la pregunta?' },
+        { id: 't2', num: '2', title: 'Evidencia inconsistente', desc: 'Investigaciones pertinentes pero resultados que no convergen.', pregunta: '¿La variación puede explicarse por diferencias identificables (población, medición, diseño, contexto)?' },
+        { id: 't3', num: '3', title: 'Evidencia potencialmente sesgada', desc: 'Estudios con resultados consistentes pero con razones para cuestionar (selección, medición, confusión, publicación).', pregunta: '¿La consistencia es real o refleja limitaciones compartidas?' },
+        { id: 't4', num: '4', title: 'Evidencia metodológicamente limitada', desc: 'Estudios suficientes para otras preguntas, pero no para la nuestra.', pregunta: '¿La limitación impide responder una pregunta específica?' },
+        { id: 't5', num: '5', title: 'La evidencia no es la adecuada', desc: 'Muchas investigaciones pero sobre otra población, otro fenómeno u otro desenlace.', pregunta: '¿Tenemos mucha evidencia, pero no la correcta para responder Q?' },
+        { id: 't6', num: '6', title: 'Brecha poblacional o contextual', desc: 'Evidencia de contextos cuyas características relevantes limitan su transferencia.', pregunta: '¿Qué característica varía? ¿Por qué puede modificar el fenómeno?' },
+        { id: 't7', num: '7', title: 'Brecha conceptual o teórica', desc: 'Abundante investigación pero con constructos definidos de manera incompatible.', pregunta: '¿Necesitamos clarificar qué fenómeno estamos estudiando?' },
+        { id: 't8', num: '8', title: 'Brecha de síntesis', desc: 'Muchos estudios, resultados distintos, sin síntesis que responda una pregunta relevante.', pregunta: '¿Necesitamos organizar, evaluar e integrar la evidencia existente?' }
+      ];
+
+      body.innerHTML = `
+        <h3>Tipología funcional de brechas</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          No es una taxonomía para memorizar. Es un diagnóstico. Marca al menos 3 tipos de brecha
+          que reconozcas como relevantes para caracterizar un problema de investigación.
+        </p>
+
+        <div class="error-grid" id="tiposList">
+          ${tipos.map(t => `
+            <div class="error-card ${state.station4.selected.includes(t.id) ? 'selected' : ''}" data-tipo="${t.id}" tabindex="0" role="button" style="${state.station4.selected.includes(t.id) ? 'border-left-color: var(--accent); background: rgba(240, 180, 41, 0.06);' : ''}">
+              <div class="ec-num">Tipo ${t.num}</div>
+              <div class="ec-title">${t.title}</div>
+              <div class="ec-desc">${t.desc}</div>
+              <div class="ec-diagnosis"><strong>Pregunta del detective:</strong> ${t.pregunta}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="tiposReflection" style="display: ${state.station4.selected.length >= 3 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Conclusión:</strong> La tipología funcional permite diagnosticar <em>qué tipo</em> de
+            brecha enfrentamos, lo que a su vez orienta <em>qué tipo</em> de investigación podría reducirla.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station4.selected.length >= 3 ? '' : 'disabled'}>
+          ${state.station4.selected.length >= 3 ? 'Continuar →' : `Marca al menos 3 tipos (${state.station4.selected.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#tiposReflection');
+
+      body.querySelectorAll('#tiposList .error-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const t = this.dataset.tipo;
+          if (state.station4.selected.includes(t)) {
+            state.station4.selected = state.station4.selected.filter(x => x !== t);
+            this.style.borderLeftColor = 'var(--error)';
+            this.style.background = 'rgba(248, 113, 113, 0.06)';
+          } else {
+            state.station4.selected.push(t);
+            this.style.borderLeftColor = 'var(--accent)';
+            this.style.background = 'rgba(240, 180, 41, 0.06)';
+          }
+          saveState();
+          const count = state.station4.selected.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 3 tipos (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(5));
+      return;
+    }
+
+    /* ============ ESTACIÓN 5 ============ */
+    if (num === 5) {
+      const falsas = [
+        { id: 'fa', num: 'A', title: '"No hay estudios en nuestra universidad."', diag: 'Puede ser cierto sin constituir una brecha relevante.' },
+        { id: 'fb', num: 'B', title: '"Hay pocos estudios."', diag: '¿Pocos son insuficientes para qué conclusión?' },
+        { id: 'fc', num: 'C', title: '"Los autores recomiendan nuevas investigaciones."', diag: '¿Esa recomendación sigue vigente?' },
+        { id: 'fd', num: 'D', title: '"Nadie ha relacionado exactamente A+B+C+D."', diag: '¿Por qué debería importar esa combinación?' },
+        { id: 'fe', num: 'E', title: '"El tema es nuevo."', diag: 'Novedad social o tecnológica no equivale automáticamente a brecha.' },
+        { id: 'ff', num: 'F', title: '"Los estudios tienen limitaciones."', diag: 'Todos los estudios tienen limitaciones. ¿La limitación impide una conclusión que necesitamos?' }
+      ];
+
+      body.innerHTML = `
+        <h3>Falsas brechas</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca al menos 3 falsas brechas que reconozcas como tales.
+        </p>
+
+        <div class="error-grid" id="falsasList">
+          ${falsas.map(f => `
+            <div class="error-card ${state.station5.selected.includes(f.id) ? 'selected' : ''}" data-falsa="${f.id}" tabindex="0" role="button" style="${state.station5.selected.includes(f.id) ? 'border-left-color: var(--accent); background: rgba(240, 180, 41, 0.06);' : ''}">
+              <div class="ec-num">Falsa brecha ${f.num}</div>
+              <div class="ec-title">${f.title}</div>
+              <div class="ec-diagnosis"><strong>Diagnóstico:</strong> ${f.diag}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <h3>La prueba decisiva</h3>
+        <div class="callout warning">
+          Para cada supuesta brecha: <strong>¿Qué no podemos concluir actualmente debido exactamente a
+          esta limitación?</strong><br><br>
+          Si no puedes completar la frase: <em>"Debido a X, actualmente no podemos establecer Y con
+          suficiente confianza"</em>, probablemente todavía no has caracterizado adecuadamente la brecha.
+        </div>
+
+        <div id="falsasReflection" style="display: ${state.station5.selected.length >= 3 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Idea central:</strong> Reconocer falsas brechas es tan importante como identificar
+            brechas genuinas. Un proyecto puede estar construido sobre una de estas falsas brechas y no
+            aportar conocimiento relevante.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station5.selected.length >= 3 ? '' : 'disabled'}>
+          ${state.station5.selected.length >= 3 ? 'Continuar →' : `Marca al menos 3 falsas brechas (${state.station5.selected.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#falsasReflection');
+
+      body.querySelectorAll('#falsasList .error-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const f = this.dataset.falsa;
+          if (state.station5.selected.includes(f)) {
+            state.station5.selected = state.station5.selected.filter(x => x !== f);
+            this.style.borderLeftColor = 'var(--error)';
+            this.style.background = 'rgba(248, 113, 113, 0.06)';
+          } else {
+            state.station5.selected.push(f);
+            this.style.borderLeftColor = 'var(--accent)';
+            this.style.background = 'rgba(240, 180, 41, 0.06)';
+          }
+          saveState();
+          const count = state.station5.selected.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 3 falsas brechas (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(6));
+      return;
+    }
+
+    /* ============ ESTACIÓN 6 ============ */
+    if (num === 6) {
+      const contradictions = [
+        { id: 'c1', title: 'Población', desc: '¿Los resultados difieren por edad o contexto?' },
+        { id: 'c2', title: 'Conceptualización', desc: '¿Todos llaman X a lo mismo?' },
+        { id: 'c3', title: 'Medición', desc: '¿Autoinforme versus registro objetivo?' },
+        { id: 'c4', title: 'Desenlace', desc: '¿Bienestar, ansiedad y depresión fueron tratados como "salud mental"?' },
+        { id: 'c5', title: 'Temporalidad', desc: '¿Transversal versus longitudinal?' },
+        { id: 'c6', title: 'Análisis', desc: '¿Se controlaron variables diferentes?' },
+        { id: 'c7', title: 'Contexto', desc: '¿Existen condiciones distintas entre estudios?' },
+        { id: 'c8', title: 'Comparabilidad', desc: '¿Son comparables los estudios para siquiera hablar de contradicción?' }
+      ];
+
+      body.innerHTML = `
+        <h3>Evidencia contradictoria: el expediente difícil</h3>
+
+        <div class="callout info">
+          <strong>12 estudios sobre el mismo fenómeno:</strong><br>
+          · 5 con asociación positiva<br>
+          · 3 con asociación nula<br>
+          · 2 con asociación solo en un subgrupo<br>
+          · 1 con relación curvilínea<br>
+          · 1 con asociación negativa
+        </div>
+
+        <p style="color: var(--text-main); font-size: 0.95rem;">
+          La respuesta ingenua sería: "La literatura es contradictoria". No será suficiente.
+        </p>
+
+        <h3>Autopsia de la contradicción</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Qué dimensiones debes examinar para determinar si realmente hay contradicción o si son
+          estudios que responden preguntas diferentes? Marca todas las relevantes:
+        </p>
+
+        <div class="checkbox-list" id="contradictionsList">
+          ${contradictions.map(c => `
+            <div class="checkbox-card ${state.station6.selected[c.id] ? 'selected' : ''}" data-cont="${c.id}" tabindex="0" role="button">
+              <span class="checkbox-marker"></span>
+              <div>
+                <strong style="color: var(--text-main); font-size: 0.9rem;">${c.title}</strong>
+                <div style="font-size: 0.82rem; color: var(--text-soft); margin-top: 0.2rem;">${c.desc}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="contradictionsReflection" style="display: ${Object.keys(state.station6.selected).length >= 8 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Conclusión:</strong> ¿Tenemos evidencia contradictoria o evidencia para preguntas
+            diferentes que fue agrupada indebidamente? Ese es razonamiento metodológico genuino.
+          </div>
+
+          <div class="highlight-box error" style="margin-top: 1rem;">
+            <p style="font-size: 0.9rem;">Durante esta estación queda prohibido decir "la mayoría de los estudios".</p>
+          </div>
+
+          <div class="callout warning">
+            <strong>¿Por qué?</strong> Porque fuerza a pensar en comparabilidad, rigor, tamaño, precisión
+            y diseño. No queremos "7 votos contra 5". Queremos saber: ¿qué estructura tiene la evidencia?
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station6.selected).length >= 8 ? '' : 'disabled'}>
+          ${Object.keys(state.station6.selected).length >= 8 ? 'Continuar →' : `Marca al menos 8 dimensiones (${Object.keys(state.station6.selected).length}/8)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#contradictionsReflection');
+
+      body.querySelectorAll('#contradictionsList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const id = this.dataset.cont;
+          if (state.station6.selected[id]) {
+            delete state.station6.selected[id];
+          } else {
+            state.station6.selected[id] = true;
+          }
+          saveState();
+          const count = Object.keys(state.station6.selected).length;
+          if (count >= 8) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 8 dimensiones (${count}/8)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(7));
+      return;
+    }
+
+    /* ============ ESTACIÓN 7 ============ */
+    if (num === 7) {
+      body.innerHTML = `
+        <h3>¿Qué investigación necesita la brecha?</h3>
+
+        <p style="color: var(--text-main); font-size: 0.95rem;">
+          Se identifica una brecha. Ahora aparecen cinco rutas posibles. La decisión más valiosa
+          de todo el laboratorio es determinar cuál corresponde.
+        </p>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Ruta A · Nuevo estudio empírico</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Cuando necesitamos nueva evidencia primaria.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Ruta B · Replicación</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Cuando necesitamos saber si un resultado importante puede reproducirse bajo condiciones relevantes.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4 style="color: var(--warning);">Ruta C · Estudio con diseño diferente</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Cuando el obstáculo principal es metodológico.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Ruta D · Revisión de literatura</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Cuando existe evidencia suficiente pero necesita localizarse, organizarse, evaluarse o sintetizarse.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--error);">
+          <h4 style="color: var(--error);">Ruta E · No investigar todavía</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Cuando la supuesta brecha no está suficientemente demostrada, la pregunta ya está razonablemente respondida, la contribución sería trivial, u otra necesidad tiene prioridad.</p>
+        </div>
+
+        <h3>Árbol de decisión</h3>
+
+        <div class="chain-diagram">
+          <div class="chain-box">¿EXISTE INCERTIDUMBRE RELEVANTE?</div>
+          <div class="chain-arrow">↓</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; max-width: 400px;">
+            <div class="chain-box" style="border-color: var(--error); color: var(--error); min-width: auto;">NO → CERRAR EL CASO</div>
+            <div class="chain-box" style="border-color: var(--success); color: var(--success); min-width: auto;">SÍ → ¿POR QUÉ?</div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; width: 100%; max-width: 500px;">
+            <div class="chain-box" style="min-width: auto; font-size: 0.78rem;">Falta evidencia → nuevo estudio</div>
+            <div class="chain-box" style="min-width: auto; font-size: 0.78rem;">Evidencia fragmentada → síntesis/review</div>
+            <div class="chain-box" style="min-width: auto; font-size: 0.78rem;">Diseño limitado → nuevo diseño</div>
+          </div>
+        </div>
+
+        <h3>Decisión</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Frente a una brecha donde la evidencia existente es fragmentada y heterogénea pero hay
+          suficientes estudios, ¿qué ruta es más adecuada?
+        </p>
+
+        <div class="options-list" id="rutaOptions">
+          <div class="option-card ${state.station7.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Nuevo estudio empírico.</span>
+          </div>
+          <div class="option-card ${state.station7.selected === 'D' ? 'selected' : ''}" data-value="D">
+            <span class="option-marker">D</span>
+            <span>Revisión de literatura: sintetizar la evidencia existente.</span>
+          </div>
+          <div class="option-card ${state.station7.selected === 'E' ? 'selected' : ''}" data-value="E">
+            <span class="option-marker">E</span>
+            <span>No investigar todavía.</span>
+          </div>
+        </div>
+
+        <div id="rutaReflection" style="display: ${state.station7.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> Cuando existe evidencia suficiente pero fragmentada, la ruta más
+            adecuada es la revisión de literatura. Producir otro estudio primario sin antes sintetizar
+            lo existente puede ser un error estratégico.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station7.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#rutaReflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station7.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(8));
+      return;
+    }
+
+    /* ============ ESTACIÓN 8 ============ */
+    if (num === 8) {
+      body.innerHTML = `
+        <h3>Brecha ≠ prioridad</h3>
+
+        <p style="color: var(--text-main); font-size: 0.95rem;">
+          Imaginemos que encontramos diez brechas reales. No podemos financiar diez proyectos.
+          ¿Cuál investigamos?
+        </p>
+
+        <div class="callout info">
+          La identificación de necesidades de investigación y su <strong>priorización</strong> son procesos
+          relacionados pero diferentes.
+        </div>
+
+        <h3>Cuatro criterios de priorización</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">1. Magnitud de la incertidumbre</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Cuánto desconocemos?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">2. Importancia de resolverla</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Qué decisiones, teorías o problemas dependen de esa respuesta?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">3. Contribución potencial</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿La investigación puede realmente reducir la incertidumbre?</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">4. Factibilidad</h4>
+          <p style="font-size: 0.9rem; margin: 0;">¿Podemos resolverla razonablemente?</p>
+        </div>
+
+        <h3>La paradoja</h3>
+
+        <div class="callout warning">
+          <strong>Brecha A:</strong> Casi no estudiada. Pero de baja relevancia científica y práctica.<br><br>
+          <strong>Brecha B:</strong> Bastante estudiada. Pero persiste una incertidumbre crítica para tomar decisiones.<br><br>
+          ¿Cuál tiene mayor prioridad?
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          El tamaño aparente del vacío bibliográfico no determina automáticamente su prioridad científica.
+        </p>
+
+        <h3>Verificación</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca los criterios que consideras esenciales para priorizar entre varias brechas identificadas:
+        </p>
+
+        <div class="checkbox-list" id="prioridadList">
+          <div class="checkbox-card ${state.station8.selected.includes('magnitud') ? 'selected' : ''}" data-prio="magnitud" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Magnitud de la incertidumbre</span>
+          </div>
+          <div class="checkbox-card ${state.station8.selected.includes('importancia') ? 'selected' : ''}" data-prio="importancia" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Importancia de resolverla</span>
+          </div>
+          <div class="checkbox-card ${state.station8.selected.includes('contribucion') ? 'selected' : ''}" data-prio="contribucion" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Contribución potencial</span>
+          </div>
+          <div class="checkbox-card ${state.station8.selected.includes('factibilidad') ? 'selected' : ''}" data-prio="factibilidad" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Factibilidad</span>
+          </div>
+          <div class="checkbox-card ${state.station8.selected.includes('novedad') ? 'selected' : ''}" data-prio="novedad" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Que sea un tema nuevo</span>
+          </div>
+          <div class="checkbox-card ${state.station8.selected.includes('numero') ? 'selected' : ''}" data-prio="numero" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Que existan pocos estudios previos</span>
+          </div>
+        </div>
+
+        <div id="prioridadReflection" style="display: ${state.station8.selected.length >= 3 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Conclusión:</strong> Los criterios de priorización incluyen magnitud, importancia,
+            contribución potencial y factibilidad. La novedad o la cantidad de estudios previos no son
+            criterios suficientes por sí mismos.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station8.selected.length >= 3 ? '' : 'disabled'}>
+          ${state.station8.selected.length >= 3 ? 'Continuar al Consejo →' : `Marca al menos 3 criterios (${state.station8.selected.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#prioridadReflection');
+
+      body.querySelectorAll('#prioridadList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const p = this.dataset.prio;
+          if (state.station8.selected.includes(p)) {
+            state.station8.selected = state.station8.selected.filter(x => x !== p);
+          } else {
+            state.station8.selected.push(p);
+          }
+          saveState();
+          const count = state.station8.selected.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar al Consejo →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 3 criterios (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(9));
+      return;
+    }
+
+    /* ============ ESTACIÓN 9: CONSEJO ============ */
+    if (num === 9) {
+      const expedientes = [
+        {
+          id: 'A',
+          title: 'Caso A',
+          text: 'Incertidumbre real sobre un fenómeno poco estudiado. La evidencia disponible es escasa y fragmentaria, pero la pregunta es claramente relevante.',
+        },
+        {
+          id: 'B',
+          title: 'Caso B',
+          text: 'Muchos estudios sobre el fenómeno, pero con fuerte heterogeneidad metodológica y de resultados. Nadie ha sintetizado la evidencia disponible.',
+        },
+        {
+          id: 'C',
+          title: 'Caso C',
+          text: 'Muchos estudios transversales, pero la pregunta central es sobre cambios a lo largo del tiempo.',
+        },
+        {
+          id: 'D',
+          title: 'Caso D',
+          text: 'Ausencia de estudios locales sin razón conceptual clara. El equipo argumenta que "no hay estudios en nuestra universidad".',
+        },
+        {
+          id: 'E',
+          title: 'Caso E',
+          text: 'Evidencia aparentemente suficiente: varios estudios bien diseñados, con resultados convergentes, responden la pregunta. El equipo propone hacer uno más.',
+        }
+      ];
+
+      const verdicts = [
+        { id: 'abrir', label: '🔬 ABRIR INVESTIGACIÓN EMPÍRICA' },
+        { id: 'replicar', label: '🔁 REPLICAR O REDISEÑAR' },
+        { id: 'revision', label: '📚 ABRIR REVISIÓN' },
+        { id: 'reformular', label: '🔧 REFORMULAR LA BRECHA' },
+        { id: 'cerrar', label: '⛔ CERRAR EL CASO' }
+      ];
+
+      body.innerHTML = `
+        <h3>Consejo de investigación: abrir, reformular o cerrar el caso</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Emite un dictamen para cada expediente. Recuerda que la opción "cerrar el caso" debe usarse
+          realmente cuando corresponda.
+        </p>
+
+        <div id="expedientesList">
+          ${expedientes.map(e => {
+            const verdict = state.station9.verdicts[e.id];
+            return `
+              <div class="expediente-card ${verdict ? 'evaluated' : ''}" data-exp="${e.id}">
+                <div class="exp-header">
+                  <span class="exp-label">${e.title}</span>
+                </div>
+                <div class="exp-text">${e.text}</div>
+                <div class="verdict-options">
+                  ${verdicts.map(v => `
+                    <button class="verdict-option ${verdict === v.id ? 'selected' : ''}" data-exp-id="${e.id}" data-verdict="${v.id}">
+                      ${v.label}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station9.verdicts).length >= 5 ? '' : 'disabled'}>
+          ${Object.keys(state.station9.verdicts).length >= 5 ? 'Completar ficha forense →' : `Emite los 5 dictámenes (${Object.keys(state.station9.verdicts).length}/5)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+
+      body.querySelectorAll('.verdict-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const expId = this.dataset.expId;
+          const verdict = this.dataset.verdict;
+          state.station9.verdicts[expId] = verdict;
+          saveState();
+
+          const parent = this.closest('.expediente-card');
+          parent.querySelectorAll('.verdict-option').forEach(v => v.classList.remove('selected'));
+          this.classList.add('selected');
+          parent.classList.add('evaluated');
+
+          const count = Object.keys(state.station9.verdicts).length;
+          if (count >= 5) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Completar ficha forense →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Emite los 5 dictámenes (${count}/5)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        document.getElementById('stationContent').style.display = 'none';
+        document.getElementById('stationsNav').style.display = 'none';
+        document.getElementById('fichaForense').style.display = 'block';
+        document.getElementById('fichaForense').scrollIntoView({ behavior: 'smooth' });
+        stationBtns.forEach(b => b.classList.add('completed'));
+      });
+      return;
+    }
+  }
+
+  /* ============================================================
+     INICIO
+     ============================================================ */
+  document.getElementById('btnStartLab').addEventListener('click', function() {
+    state.labStarted = true;
+    saveState();
+    this.disabled = true;
+    this.textContent = '⏱️ Investigación forense en curso...';
+    this.style.opacity = '0.5';
+
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+
+    goToStation(state.station >= 0 ? state.station : 0);
+  });
+
+  /* ============================================================
+     FICHA FORENSE
+     ============================================================ */
+  const forenseFields = ['forense1', 'forense2', 'forense3', 'forense4', 'forense5', 'forense6', 'forense7', 'forense8'];
+  forenseFields.forEach(field => {
+    const el = document.getElementById(field);
+    if (!el) return;
+    try {
+      const saved = localStorage.getItem('lab03_' + field);
+      if (saved) el.value = saved;
+    } catch (e) {}
+    el.addEventListener('input', function() {
+      try {
+        localStorage.setItem('lab03_' + field, this.value);
+      } catch (e) {}
+    });
+  });
+
+  document.getElementById('btnGuardarForense').addEventListener('click', function() {
+    const filled = forenseFields.filter(f => {
+      const el = document.getElementById(f);
+      return el && el.value.trim().length > 15;
+    }).length;
+
+    const verdict = document.getElementById('forenseVerdict');
+    if (filled >= 7) {
+      verdict.innerHTML = '<div class="highlight-box success"><p>🟢 Ficha forense completa — Guárdala para el resto del curso</p></div>';
+    } else if (filled >= 4) {
+      verdict.innerHTML = '<div class="highlight-box warning"><p>🟡 Ficha forense parcial — Desarrolla más cada sección</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box error"><p>🔴 Ficha forense incompleta — Necesitas desarrollar más el análisis</p></div>';
+    }
+
+    document.getElementById('metacognicion').style.display = 'block';
+    document.getElementById('metacognicion').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnCierre').addEventListener('click', function() {
+    document.getElementById('fichaForense').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'block';
+    document.getElementById('cierre').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+  function reiniciar() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus decisiones.')) return;
+    localStorage.removeItem('lab03_brechas_v1');
+    forenseFields.forEach(f => localStorage.removeItem('lab03_' + f));
+    location.reload();
+  }
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciar);
+
+  /* ============================================================
+     RESTAURAR
+     ============================================================ */
+  if (state.labStarted) {
+    document.getElementById('btnStartLab').disabled = true;
+    document.getElementById('btnStartLab').textContent = '⏱️ Investigación forense en curso...';
+    document.getElementById('btnStartLab').style.opacity = '0.5';
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+    goToStation(state.station >= 0 ? state.station : 0);
+  }
+
+})();
+</script>
+</body>
+</html>

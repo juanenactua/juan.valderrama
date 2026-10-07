@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio 02 · ¿Aquí hay realmente un problema de investigación?</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿Aquí hay realmente un problema de investigación?">
+<meta name="jc-descripcion" content="Laboratorio de problematización para distinguir tema, situación problemática, problema práctico y problema de conocimiento, construir la anatomía del problema, delimitar con sentido y evaluar admisibilidad científica.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Problema de investigación, Problematización, Tema de investigación, Situación problemática, Problema de conocimiento, Delimitación, Incertidumbre, Relevancia, Admisibilidad científica, Metodología de investigación">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.3s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+
+  section { margin-bottom: 3rem; scroll-margin-top: 100px; }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.8rem; color: #ffffff; }
+  h4 { font-size: 1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--accent); }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.35rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) { .stations-nav { position: static; grid-template-columns: 1fr 1fr; } }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover:not(.locked) { border-color: var(--accent); transform: translateY(-2px); }
+  .station-btn.active { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .station-btn.completed { border-color: var(--success); color: var(--success); }
+  .station-btn.locked { opacity: 0.35; cursor: not-allowed; }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  .station-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+  }
+
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .station-header .sh-num {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .station-header .sh-title { font-weight: 600; color: var(--text-main); font-size: 1rem; }
+  .station-header .sh-time { margin-left: auto; font-size: 0.78rem; color: var(--text-soft); font-style: italic; }
+
+  .options-list { display: flex; flex-direction: column; gap: 0.6rem; margin: 1.3rem 0; }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+  .option-card:hover { border-color: var(--accent); background: var(--bg-soft); transform: translateX(4px); }
+  .option-card.selected { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 20px rgba(240, 180, 41, 0.25); }
+  .option-card .option-marker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+
+  .checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.2rem 0; }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .checkbox-card:hover { border-color: var(--accent); background: var(--bg-soft); }
+  .checkbox-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .checkbox-card .checkbox-marker {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker { background: var(--accent); border-color: var(--accent); color: #0a1628; }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.3rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.3rem 0;
+    font-size: 0.96rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info { background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04)); border-left-color: var(--info); }
+  .callout.info strong { color: var(--info); }
+  .callout.success { background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04)); border-left-color: var(--success); }
+  .callout.success strong { color: var(--success); }
+  .callout.violet { background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04)); border-left-color: var(--violet); }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error { background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04)); border-left-color: var(--error); }
+  .callout.error strong { color: var(--error); }
+  .callout.warning { background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04)); border-left-color: var(--warning); }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.3rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; margin: 0; }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45); }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-next { width: 100%; margin-top: 1.2rem; padding: 0.9rem; font-size: 0.95rem; }
+
+  .response-field { margin: 1rem 0; }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15); }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.88rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.8rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  .error-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.9rem;
+    margin: 1.3rem 0;
+  }
+  .error-card {
+    background: rgba(248, 113, 113, 0.06);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-left: 4px solid var(--error);
+  }
+  .error-card .ec-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--error);
+    margin-bottom: 0.4rem;
+  }
+  .error-card .ec-title { font-weight: 700; color: var(--text-main); font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .error-card .ec-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; }
+  .error-card .ec-diagnosis { font-size: 0.8rem; color: var(--error); font-style: italic; margin-top: 0.5rem; border-top: 1px solid rgba(248, 113, 113, 0.2); padding-top: 0.5rem; }
+
+  .success-card {
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-left: 4px solid var(--success);
+  }
+  .success-card .sc-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--success);
+    margin-bottom: 0.4rem;
+  }
+  .success-card .sc-title { font-weight: 700; color: var(--text-main); font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .success-card .sc-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; }
+
+  .chain-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: #060f1c;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .chain-box {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    min-width: 280px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .chain-box:hover { border-color: var(--accent); transform: scale(1.02); }
+  .chain-box.highlight { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .chain-box.alert { border-color: var(--error); color: var(--error); }
+  .chain-arrow { color: var(--accent); font-size: 1.1rem; line-height: 1; }
+
+  .three-planes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .plane-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .plane-card:hover { transform: translateY(-4px); }
+  .plane-card.realidad { border-top: 5px solid var(--info); }
+  .plane-card.conocimiento { border-top: 5px solid var(--accent); }
+  .plane-card.investigacion { border-top: 5px solid var(--success); }
+  .plane-card .plane-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem; }
+  .plane-card.realidad .plane-label { color: var(--info); }
+  .plane-card.conocimiento .plane-label { color: var(--accent); }
+  .plane-card.investigacion .plane-label { color: var(--success); }
+  .plane-card .plane-question { font-weight: 600; color: var(--text-main); font-size: 0.95rem; }
+
+  .anatomia-step {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.7rem;
+    transition: all 0.3s;
+    border-left: 4px solid var(--accent);
+  }
+  .anatomia-step:hover { transform: translateX(6px); box-shadow: 0 4px 16px rgba(240, 180, 41, 0.15); }
+  .anatomia-step .as-num {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    height: fit-content;
+    flex-shrink: 0;
+    min-width: 36px;
+    text-align: center;
+  }
+  .anatomia-step .as-content { flex: 1; }
+  .anatomia-step .as-title { font-weight: 600; color: var(--text-main); margin-bottom: 0.3rem; font-size: 0.95rem; }
+  .anatomia-step .as-desc { font-size: 0.88rem; color: var(--text-soft); line-height: 1.5; }
+
+  .expediente-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    margin: 1rem 0;
+    transition: all 0.3s;
+  }
+  .expediente-card.evaluated { border-color: var(--accent); }
+  .expediente-card .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .expediente-card .exp-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .expediente-card .exp-text {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .verdict-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .verdict-option {
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-weight: 600;
+  }
+  .verdict-option:hover { border-color: var(--accent); background: var(--bg-mid); }
+  .verdict-option.selected { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .verdict-option[data-verdict="admissible"].selected { background: var(--success); border-color: var(--success); }
+  .verdict-option[data-verdict="reservas"].selected { background: var(--warning); border-color: var(--warning); }
+  .verdict-option[data-verdict="reformulacion"].selected { background: var(--info); border-color: var(--info); }
+  .verdict-option[data-verdict="no"].selected { background: var(--error); border-color: var(--error); }
+
+  .new-evidence {
+    background: rgba(167, 139, 250, 0.08);
+    border-left: 4px solid var(--violet);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    display: none;
+  }
+  .new-evidence.show { display: block; animation: fadeIn 0.5s ease; }
+  .new-evidence strong { color: var(--violet); }
+
+  .radiografia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.3rem 0;
+  }
+
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.8rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 { margin-top: 0; color: var(--accent); text-align: center; }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  .final-message { text-align: center; margin: 2rem 0; }
+  .final-message .fm-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+  .final-message .fm-subtitle { font-size: 0.98rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 1.3rem; }
+
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    margin: 1.8rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .personal-protocol ol { margin-left: 1.4rem; color: var(--text-main); }
+  .personal-protocol li { margin-bottom: 0.6rem; font-size: 0.94rem; line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    main { padding: 1.2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+    .chain-box { min-width: 100%; font-size: 0.85rem; }
+    .three-planes { grid-template-columns: 1fr; }
+  }
+
+  button:focus-visible, .option-card:focus-visible, .checkbox-card:focus-visible,
+  .station-btn:focus-visible, .verdict-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Laboratorio 02 · ¿Aquí hay realmente un problema de investigación?</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada">
+    <span class="badge">Laboratorio autónomo · Problematización</span>
+    <h1>¿Aquí hay realmente un problema de investigación?</h1>
+    <p style="font-size: 1.1rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Laboratorio de problematización y construcción del problema científico. Un recorrido para
+      distinguir tema, situación problemática, problema práctico y problema de conocimiento, y para
+      aprender a construir un problema que merezca ser investigado.
+    </p>
+
+    <div class="card">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 35-45 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Radiografía argumentativa de un problema + protocolo metacognitivo</p>
+      <p><strong>Aplicable a:</strong> Investigación empírica · Revisión de literatura · Proyectos cuantitativos, cualitativos y mixtos</p>
+    </div>
+
+    <div class="callout">
+      <strong>Pregunta central:</strong> ¿Cuándo una situación que nos preocupa se convierte realmente
+      en un problema que justifica una investigación?
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" id="btnStartLab">▶ Comenzar laboratorio</button>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN DE ESTACIONES -->
+  <div class="stations-nav" id="stationsNav" style="display: none;">
+    <button class="station-btn active" data-station="0"><span class="st-num">Est. 0</span><span>Expediente</span></button>
+    <button class="station-btn" data-station="1"><span class="st-num">Est. 1</span><span>Tema ≠ probl.</span></button>
+    <button class="station-btn" data-station="2"><span class="st-num">Est. 2</span><span>Situación</span></button>
+    <button class="station-btn" data-station="3"><span class="st-num">Est. 3</span><span>Práctico ≠ conoc.</span></button>
+    <button class="station-btn" data-station="4"><span class="st-num">Est. 4</span><span>Anatomía</span></button>
+    <button class="station-btn" data-station="5"><span class="st-num">Est. 5</span><span>Delimitar</span></button>
+    <button class="station-btn" data-station="6"><span class="st-num">Est. 6</span><span>Falsos</span></button>
+    <button class="station-btn" data-station="7"><span class="st-num">Est. 7</span><span>¿Y qué?</span></button>
+    <button class="station-btn" data-station="8"><span class="st-num">Est. 8</span><span>Reconstruir</span></button>
+    <button class="station-btn" data-station="9"><span class="st-num">Final</span><span>Comité</span></button>
+  </div>
+
+  <!-- CONTENIDO DE ESTACIONES -->
+  <section id="stationContent" style="display: none;">
+    <div class="station-panel" id="stationPanel"></div>
+  </section>
+
+  <!-- RADIOGRAFÍA FINAL -->
+  <section id="radiografia" style="display: none;">
+    <h2>Radiografía argumentativa de tu problema</h2>
+
+    <div class="diagnostic-box">
+      <h3>Construye tu radiografía</h3>
+      <p style="text-align: center; color: var(--text-soft); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Aplica los aprendizajes del laboratorio a un problema de tu interés. Este documento te acompañará durante el curso.
+      </p>
+
+      <div class="response-field">
+        <label>1. Fenómeno · ¿Qué ocurre?</label>
+        <textarea class="response-input" id="radio1" placeholder="Describe la condición o fenómeno que te interesa..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. Conocimiento · ¿Qué sabemos razonablemente?</label>
+        <textarea class="response-input" id="radio2" placeholder="¿Qué evidencia existe sobre el fenómeno?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. Incertidumbre · ¿Qué no podemos establecer todavía?</label>
+        <textarea class="response-input" id="radio3" placeholder="¿Qué permanece incierto o insuficientemente comprendido?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. Consecuencia epistemológica · ¿Qué impide comprender o decidir?</label>
+        <textarea class="response-input" id="radio4" placeholder="¿Qué no podemos hacer o decidir sin resolver esa incertidumbre?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. Relevancia · ¿Por qué importa resolverla?</label>
+        <textarea class="response-input" id="radio5" placeholder="Relevancia científica, práctica, social..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>6. Necesidad de conocimiento · ¿Qué necesitamos conocer?</label>
+        <textarea class="response-input" id="radio6" placeholder="¿Qué conocimiento necesitamos producir?" style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>7. Fronteras · ¿Qué delimitaciones son conceptualmente necesarias?</label>
+        <textarea class="response-input" id="radio7" placeholder="Fronteras conceptuales, poblacionales, contextuales y temporales justificadas..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>8. Antidelimitaciones · ¿Qué límites impondrías solo por conveniencia?</label>
+        <textarea class="response-input" id="radio8" placeholder="Delimitaciones que son conveniencia y no brecha conceptual..." style="min-height: 80px;"></textarea>
+      </div>
+
+      <div id="radiografiaVerdict" style="margin-top: 1.5rem;"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGuardarRadiografia">🔄 Guardar radiografía</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir</button>
+      <button class="btn btn-outline" id="btnReiniciar">↻ Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- METACOGNICIÓN -->
+  <section id="metacognicion" style="display: none;">
+    <h2>Componente metacognitivo</h2>
+
+    <div class="card">
+      <div class="response-field">
+        <label>Pregunta 1 · ¿Comenzaste pensando en un problema o ya llevabas una técnica o instrumento en la cabeza?</label>
+        <textarea class="response-input" id="meta1" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>Pregunta 2 · ¿Qué parte de tu problema es una afirmación sustentada y qué parte es todavía una suposición?</label>
+        <textarea class="response-input" id="meta2" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>Pregunta 3 · Si descubrieras mañana que ya existen numerosas investigaciones sobre tu supuesto vacío, ¿seguiría existiendo tu problema?</label>
+        <textarea class="response-input" id="meta3" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>Pregunta 4 · ¿Qué sería más difícil defender ante un evaluador: que el fenómeno importa o que tu investigación particular es necesaria?</label>
+        <textarea class="response-input" id="meta4" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <button class="btn" id="btnCierre">Ver cierre del laboratorio →</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" style="display: none;">
+    <div class="final-message">
+      <div class="fm-title">¿Comenzaste pensando en un problema o ya llevabas una técnica en la cabeza?</div>
+
+      <div class="fm-subtitle">
+        Si conseguimos que tu primera reacción frente a un tema sea preguntar
+        <strong style="color: var(--accent);">"¿y esto por qué necesitaría ser investigado?"</strong>,
+        el laboratorio habrá instalado una vigilancia argumentativa que te acompañará durante todo el curso.
+      </div>
+
+      <div class="highlight-box success" style="margin: 2rem 0;">
+        <p>Un problema no se justifica porque sepamos cómo investigarlo, sino porque existe una incertidumbre relevante que merece ser resuelta.</p>
+      </div>
+
+      <div class="concept-chain" style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin: 2rem 0; padding: 1.5rem; background: #060f1c; border-radius: var(--radius); border: 1px solid var(--border);">
+        <div class="chain-box">AFIRMACIÓN · "No conocemos X"</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">¿Y QUÉ?</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">CONSECUENCIA EPISTÉMICA · "No podemos establecer Y"</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">¿Y QUÉ?</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box">CONSECUENCIA CIENTÍFICA / PRÁCTICA · "Esto limita Z"</div>
+        <div class="chain-arrow">↓</div>
+        <div class="chain-box highlight">NECESIDAD DE INVESTIGACIÓN · "Necesitamos producir Q"</div>
+      </div>
+
+      <div class="fm-subtitle" style="margin-top: 2rem;">
+        <strong style="color: var(--accent);">Dos preguntas para llevar contigo durante todo el curso:</strong><br><br>
+        ¿Qué exactamente estoy diciendo?<br>
+        ¿Cómo sé que necesitamos investigarlo?
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Laboratorio 02 · ¿Aquí hay realmente un problema de investigación?</strong></p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Formulación de proyectos de investigación en Psicología · 2025</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const state = {
+    station: -1,
+    labStarted: false,
+    station0: { marked: [] },
+    station1: { selected: null },
+    station2: { selected: null },
+    station3: { selected: null, problems: [] },
+    station4: { architecture: null },
+    station5: { conceptual: null, poblacional: null, contextual: null },
+    station6: { marked: [] },
+    station7: { chainAnswers: [] },
+    station8: { steps: {} },
+    station9: { verdicts: {} },
+    radiografia: {},
+    meta: {}
+  };
+
+  try {
+    const saved = localStorage.getItem('lab02_problematizacion_v1');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('lab02_problematizacion_v1', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  const stationNames = {
+    0: 'El expediente rechazado',
+    1: 'Tema no es problema',
+    2: 'Situación problemática',
+    3: 'Problema práctico ≠ problema de conocimiento',
+    4: 'La anatomía de la problematización',
+    5: 'Delimitar sin trivializar',
+    6: 'Los falsos problemas de investigación',
+    7: 'La prueba del "¿y qué?"',
+    8: 'Reconstrucción del problema',
+    9: 'Comité de admisibilidad científica'
+  };
+
+  const stationTimes = {
+    0: '3 min', 1: '4 min', 2: '4 min', 3: '5 min',
+    4: '5 min', 5: '5 min', 6: '5 min', 7: '5 min', 8: '5 min', 9: '5 min'
+  };
+
+  const stationBtns = document.querySelectorAll('.station-btn');
+
+  function getMaxUnlockedStation() {
+    let max = 0;
+    if (state.station0.marked.length >= 4) max = 1;
+    if (state.station1.selected) max = 2;
+    if (state.station2.selected) max = 3;
+    if (state.station3.selected) max = 4;
+    if (state.station4.architecture) max = 5;
+    if (state.station5.conceptual) max = 6;
+    if (state.station6.marked.length >= 5) max = 7;
+    if (state.station7.chainAnswers.length >= 3) max = 8;
+    if (state.station8.steps.step5) max = 9;
+    if (Object.keys(state.station9.verdicts).length >= 6) max = 10;
+    return max;
+  }
+
+  function goToStation(num) {
+    state.station = num;
+    saveState();
+
+    const maxUnlocked = getMaxUnlockedStation();
+
+    stationBtns.forEach(b => {
+      const n = parseInt(b.dataset.station);
+      b.classList.toggle('active', n === num);
+      b.classList.toggle('completed', n < num);
+      b.classList.toggle('locked', n > maxUnlocked);
+    });
+
+    renderStation(num);
+
+    const progress = ((num + 1) / 10) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+
+    document.getElementById('radiografia').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'none';
+
+    document.getElementById('stationContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const num = parseInt(this.dataset.station);
+      if (num <= getMaxUnlockedStation()) goToStation(num);
+    });
+  });
+
+  /* ============================================================
+     RENDERIZADO DE ESTACIONES
+     ============================================================ */
+  function renderStation(num) {
+    const panel = document.getElementById('stationPanel');
+    if (!panel) return;
+
+    panel.innerHTML = `
+      <div class="station-header">
+        <span class="sh-num">Estación ${num}</span>
+        <span class="sh-title">${stationNames[num]}</span>
+        <span class="sh-time">${stationTimes[num]}</span>
+      </div>
+      <div id="stationBody"></div>
+    `;
+
+    const body = document.getElementById('stationBody');
+
+    /* ============ ESTACIÓN 0 ============ */
+    if (num === 0) {
+      const elements = [
+        { id: 'tema', label: 'Tema', present: true },
+        { id: 'poblacion', label: 'Población', present: true },
+        { id: 'fenomenos', label: 'Fenómenos', present: true },
+        { id: 'relacion', label: 'Posible relación', present: true },
+        { id: 'procedimiento', label: 'Procedimiento', present: true },
+        { id: 'necesidad', label: 'Necesidad de conocimiento argumentada', present: false }
+      ];
+
+      body.innerHTML = `
+        <div class="callout info">
+          <strong>Propuesta recibida para la convocatoria:</strong>
+        </div>
+
+        <div class="card" style="border-left-color: var(--warning);">
+          <h4>Título</h4>
+          <p style="font-size: 0.94rem;">Ansiedad y redes sociales en estudiantes universitarios</p>
+
+          <h4 style="margin-top: 1rem;">Problema</h4>
+          <p style="font-size: 0.9rem;">La ansiedad constituye actualmente un importante problema de salud mental entre universitarios. Al mismo tiempo, los jóvenes utilizan de manera frecuente las redes sociales. Por ello, resulta necesario investigar la relación entre redes sociales y ansiedad en estudiantes de Psicología de nuestra universidad.</p>
+
+          <h4 style="margin-top: 1rem;">Procedimiento propuesto</h4>
+          <p style="font-size: 0.9rem;">Se aplicará una escala de ansiedad y un cuestionario sobre uso de redes sociales a 150 estudiantes.</p>
+        </div>
+
+        <div class="highlight-box error" style="margin: 1.5rem 0;">
+          <p style="font-size: 1rem;">DICTAMEN: NO ADMISIBLE</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); font-weight: 400; margin-top: 0.5rem;">Razón: no se ha establecido suficientemente el problema de investigación.</p>
+        </div>
+
+        <h3>¿Por qué fue rechazado si aparentemente tiene tema, población, variables e incluso método?</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca qué elementos <strong>sí tiene</strong> la propuesta:
+        </p>
+
+        <div class="checkbox-list" id="elementsList">
+          ${elements.map(e => `
+            <div class="checkbox-card ${state.station0.marked.includes(e.id) ? 'selected' : ''}" data-el="${e.id}" tabindex="0" role="button">
+              <span class="checkbox-marker"></span>
+              <span>${e.label}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="station0Reflection" style="display: ${state.station0.marked.length >= 4 ? 'block' : 'none'};">
+          <div class="callout warning">
+            <strong>Primer descubrimiento:</strong> Podemos tener casi todos los componentes visibles
+            de un proyecto y seguir sin tener un problema de investigación sólido.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station0.marked.length >= 4 ? '' : 'disabled'}>
+          ${state.station0.marked.length >= 4 ? 'Continuar →' : `Marca al menos 4 elementos (${state.station0.marked.length}/4)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station0Reflection');
+
+      body.querySelectorAll('#elementsList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const id = this.dataset.el;
+          if (state.station0.marked.includes(id)) {
+            state.station0.marked = state.station0.marked.filter(x => x !== id);
+          } else {
+            state.station0.marked.push(id);
+          }
+          saveState();
+          const count = state.station0.marked.length;
+          if (count >= 4) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 4 elementos (${count}/4)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(1));
+      return;
+    }
+
+    /* ============ ESTACIÓN 1 ============ */
+    if (num === 1) {
+      body.innerHTML = `
+        <h3>Cartografía conceptual</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Área temática</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Territorio general de investigación.</p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem; font-style: italic;">Ejemplo: Salud mental.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--accent);">
+          <h4 style="color: var(--accent);">Tema</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Subárea de interés.</p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem; font-style: italic;">Ejemplo: Salud mental de estudiantes universitarios.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Tema más delimitado</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Subárea específica.</p>
+          <p style="font-size: 0.88rem; color: var(--text-soft); margin-top: 0.4rem; font-style: italic;">Ejemplo: Sintomatología ansiosa y utilización de redes sociales entre universitarios.</p>
+        </div>
+
+        <div class="callout warning">
+          Todavía falta responder: <strong>¿Qué exactamente necesitamos conocer sobre ello y por qué?</strong><br><br>
+          Un tema indica <em>dónde</em> queremos investigar. Un problema establece <em>qué incertidumbre</em> dentro de ese territorio merece investigación.
+        </div>
+
+        <h3>La prueba del tema disfrazado</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Cuál de estas expresiones es ya un problema de investigación?
+        </p>
+
+        <div class="options-list" id="temaOptions">
+          <div class="option-card ${state.station1.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Depresión en adolescentes.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>Búsqueda de ayuda psicológica en universitarios.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">C</span>
+            <span>Estrés académico y calidad del sueño.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'D' ? 'selected' : ''}" data-value="D">
+            <span class="option-marker">D</span>
+            <span>Experiencias de docentes universitarios frente a solicitudes de apoyo psicológico estudiantil.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'E' ? 'selected' : ''}" data-value="E">
+            <span class="option-marker">E</span>
+            <span>Ninguna. Todas son principalmente objetos o temas de interés.</span>
+          </div>
+        </div>
+
+        <div id="station1Reflection" style="display: ${state.station1.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> Ninguna de estas expresiones es todavía un problema de investigación.
+            Son objetos o temas de interés. Para transformarlos en problemas hace falta: establecer una situación,
+            conocer qué sabemos, identificar qué no sabemos y justificar por qué esa incertidumbre importa.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station1.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station1Reflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station1.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(2));
+      return;
+    }
+
+    /* ============ ESTACIÓN 2 ============ */
+    if (num === 2) {
+      body.innerHTML = `
+        <h3>Situación problemática ≠ problema de investigación</h3>
+
+        <div class="callout info">
+          <strong>Situación problemática:</strong> Una universidad observa un incremento sostenido de
+          estudiantes que solicitan servicios de apoyo psicológico.
+        </div>
+
+        <h3>¿Cuál sería el paso siguiente correcto?</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          La observación de una situación no contiene automáticamente su explicación.
+        </p>
+
+        <div class="options-list" id="situacionOptions">
+          <div class="option-card ${state.station2.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>Investigar las causas del aumento, asumiendo que hay un aumento real de problemas de salud mental.</span>
+          </div>
+          <div class="option-card ${state.station2.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>Reconocer que el aumento puede deberse a múltiples factores (mayores necesidades, reducción del estigma, mayor conocimiento de los servicios, cambios en oferta, transformaciones en la población, acontecimientos externos) y que necesitamos identificar qué incertidumbre específica merece investigarse.</span>
+          </div>
+          <div class="option-card ${state.station2.selected === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">C</span>
+            <span>Aplicar un cuestionario para medir el aumento.</span>
+          </div>
+        </div>
+
+        <div id="station2Reflection" style="display: ${state.station2.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Idea clave:</strong> La observación de una situación no contiene automáticamente su explicación.
+          </div>
+
+          <div class="callout error" style="margin-top: 1rem;">
+            <strong>Error de "problema = algo malo":</strong> En investigación, un problema puede constituirse
+            alrededor de una incertidumbre científicamente relevante, aunque el fenómeno no sea "negativo".<br><br>
+            No necesitamos encontrar algo malo. Necesitamos identificar algo relevante que requiere conocimiento.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station2.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station2Reflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station2.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(3));
+      return;
+    }
+
+    /* ============ ESTACIÓN 3 ============ */
+    if (num === 3) {
+      body.innerHTML = `
+        <h3>Problema práctico ≠ problema de conocimiento</h3>
+
+        <div class="callout info">
+          <strong>Caso:</strong> Muchos estudiantes que podrían beneficiarse de orientación psicológica
+          no utilizan los servicios disponibles.
+        </div>
+
+        <h3>Dos tipos de problema</h3>
+
+        <div class="card" style="border-left-color: var(--error);">
+          <h4 style="color: var(--error);">Problema práctico</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Queremos cambiar una situación: aumentar el acceso o la utilización apropiada.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Problema de conocimiento</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Necesitamos comprender algo que no sabemos suficientemente: desconocemos qué factores intervienen en la decisión de solicitar o no solicitar ayuda.</p>
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Ambos están relacionados. Pero no son equivalentes.
+        </p>
+
+        <h3>Una misma situación, múltiples problemas de conocimiento</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Frente a la situación de baja utilización de servicios psicológicos, ¿qué tipo de problema de conocimiento podríamos construir?
+        </p>
+
+        <div class="checkbox-list" id="problemsList">
+          <div class="checkbox-card ${state.station3.problems.includes('descriptivo') ? 'selected' : ''}" data-prob="descriptivo" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Descriptivo: no conocemos suficientemente quiénes utilizan y quiénes no utilizan el servicio.</span>
+          </div>
+          <div class="checkbox-card ${state.station3.problems.includes('relacional') ? 'selected' : ''}" data-prob="relacional" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Relacional: no está establecido cuáles factores se relacionan con la utilización.</span>
+          </div>
+          <div class="checkbox-card ${state.station3.problems.includes('comprensivo') ? 'selected' : ''}" data-prob="comprensivo" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Comprensivo: no comprendemos suficientemente cómo experimentan los estudiantes el proceso de decidir buscar ayuda.</span>
+          </div>
+          <div class="checkbox-card ${state.station3.problems.includes('evaluativo') ? 'selected' : ''}" data-prob="evaluativo" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>Evaluativo: no está claro si determinada estrategia institucional mejora el acceso.</span>
+          </div>
+          <div class="checkbox-card ${state.station3.problems.includes('sintesis') ? 'selected' : ''}" data-prob="sintesis" tabindex="0" role="button">
+            <span class="checkbox-marker"></span>
+            <span>De síntesis: existe evidencia dispersa sobre barreras, pero no ha sido suficientemente integrada para responder una pregunta determinada.</span>
+          </div>
+        </div>
+
+        <div id="station3Reflection" style="display: ${state.station3.problems.length >= 2 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Descubrimiento:</strong> Una situación problemática no determina una única investigación.
+            La misma situación puede convertirse en problemas de conocimiento muy distintos según qué
+            incertidumbre específica decidamos abordar.
+          </div>
+
+          <h3>Los tres planos que no deben confundirse</h3>
+          <div class="three-planes">
+            <div class="plane-card realidad">
+              <div class="plane-label">Plano de la realidad</div>
+              <div class="plane-question">¿Qué está ocurriendo?</div>
+            </div>
+            <div class="plane-card conocimiento">
+              <div class="plane-label">Plano del conocimiento</div>
+              <div class="plane-question">¿Qué sabemos y qué necesitamos conocer?</div>
+            </div>
+            <div class="plane-card investigacion">
+              <div class="plane-label">Plano de la investigación</div>
+              <div class="plane-question">¿Qué conocimiento proponemos producir?</div>
+            </div>
+          </div>
+
+          <div class="callout error" style="margin-top: 1rem;">
+            <strong>Error frecuente:</strong> saltar directamente de "algo ocurre" a "aplicaré una encuesta",
+            omitiendo el plano del conocimiento.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station3.problems.length >= 2 ? '' : 'disabled'}>
+          ${state.station3.problems.length >= 2 ? 'Continuar →' : `Marca al menos 2 tipos de problema (${state.station3.problems.length}/2)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station3Reflection');
+
+      body.querySelectorAll('#problemsList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const prob = this.dataset.prob;
+          if (state.station3.problems.includes(prob)) {
+            state.station3.problems = state.station3.problems.filter(p => p !== prob);
+          } else {
+            state.station3.problems.push(prob);
+          }
+          saveState();
+          const count = state.station3.problems.length;
+          if (count >= 2) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 2 tipos de problema (${count}/2)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(4));
+      return;
+    }
+
+    /* ============ ESTACIÓN 4 ============ */
+    if (num === 4) {
+      body.innerHTML = `
+        <h3>La anatomía de una problematización</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Estructura central de cinco componentes:
+        </p>
+
+        <div class="anatomia-step">
+          <div class="as-num">1</div>
+          <div class="as-content">
+            <div class="as-title">Condición o fenómeno</div>
+            <div class="as-desc">¿Qué está ocurriendo o qué fenómeno nos interesa?</div>
+          </div>
+        </div>
+
+        <div class="anatomia-step">
+          <div class="as-num">2</div>
+          <div class="as-content">
+            <div class="as-title">Conocimiento disponible</div>
+            <div class="as-desc">¿Qué sabemos razonablemente acerca de él?</div>
+          </div>
+        </div>
+
+        <div class="anatomia-step">
+          <div class="as-num">3</div>
+          <div class="as-content">
+            <div class="as-title">Incertidumbre</div>
+            <div class="as-desc">¿Qué no sabemos, no comprendemos o no podemos establecer suficientemente?</div>
+          </div>
+        </div>
+
+        <div class="anatomia-step">
+          <div class="as-num">4</div>
+          <div class="as-content">
+            <div class="as-title">Relevancia de la incertidumbre</div>
+            <div class="as-desc">¿Por qué importa no saberlo?</div>
+          </div>
+        </div>
+
+        <div class="anatomia-step">
+          <div class="as-num">5</div>
+          <div class="as-content">
+            <div class="as-title">Necesidad de investigación</div>
+            <div class="as-desc">¿Qué conocimiento necesitamos producir?</div>
+          </div>
+        </div>
+
+        <h3>La estructura lógica</h3>
+        <div class="highlight-box" style="text-align: left; padding: 1.3rem 1.5rem;">
+          <p style="font-size: 0.95rem; line-height: 1.8; color: var(--text-main); font-weight: 400;">
+            Sabemos <strong>X</strong>; sin embargo, desconocemos <strong>Y</strong>; esto importa porque <strong>Z</strong>;
+            por tanto necesitamos investigar <strong>Q</strong>.
+          </p>
+        </div>
+
+        <div class="callout warning">
+          Esto no es una plantilla de escritura. Es una estructura lógica. Puede redactarse de muchísimas
+          maneras. Debes poder reconstruir esos cuatro componentes incluso cuando no aparezcan literalmente
+          las palabras: sabemos, desconocemos, importa, necesitamos.
+        </div>
+
+        <h3>Anatomía de un ejemplo</h3>
+        <div class="card">
+          <h4 style="color: var(--info);">Conocimiento</h4>
+          <p style="font-size: 0.88rem;">Investigaciones previas han identificado diferentes factores asociados con la búsqueda de ayuda psicológica entre universitarios.</p>
+
+          <h4 style="color: var(--warning);">Incertidumbre</h4>
+          <p style="font-size: 0.88rem;">Sin embargo, determinados aspectos del proceso mediante el cual los estudiantes interpretan esas barreras permanecen insuficientemente comprendidos.</p>
+
+          <h4 style="color: var(--success);">Importancia</h4>
+          <p style="font-size: 0.88rem;">Esta incertidumbre dificulta comprender por qué la disponibilidad institucional no necesariamente se traduce en utilización.</p>
+
+          <h4 style="color: var(--violet);">Necesidad</h4>
+          <p style="font-size: 0.88rem;">Resulta por ello pertinente investigar cómo los estudiantes experimentan dichas barreras durante el proceso de decisión.</p>
+        </div>
+
+        <div class="callout error">
+          <strong>Punto crucial:</strong> El estudiante no puede afirmar gratuitamente "nadie sabe...",
+          "nunca se ha investigado...", "no existen estudios...". Un planteamiento sólido debe anclar
+          esas afirmaciones en evidencia. Esa frontera se trabajará en el Laboratorio 3.
+        </div>
+
+        <h3>Verificación de comprensión</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          ¿Cuál de los siguientes componentes es el que suele faltar en las propuestas rechazadas?
+        </p>
+
+        <div class="options-list" id="station4Options">
+          <div class="option-card ${state.station4.architecture === 'fenomeno' ? 'selected' : ''}" data-value="fenomeno">
+            <span class="option-marker">A</span>
+            <span>La descripción del fenómeno.</span>
+          </div>
+          <div class="option-card ${state.station4.architecture === 'conocimiento' ? 'selected' : ''}" data-value="conocimiento">
+            <span class="option-marker">B</span>
+            <span>El conocimiento disponible y la incertidumbre específica.</span>
+          </div>
+          <div class="option-card ${state.station4.architecture === 'necesidad' ? 'selected' : ''}" data-value="necesidad">
+            <span class="option-marker">C</span>
+            <span>La necesidad de investigación.</span>
+          </div>
+        </div>
+
+        <div id="station4Reflection" style="display: ${state.station4.architecture ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Correcto:</strong> Lo que suele faltar es el <strong>conocimiento disponible y la
+            incertidumbre específica</strong>. Sin esos dos componentes, no podemos distinguir entre un tema,
+            una situación problemática y un problema de investigación.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station4.architecture ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station4Reflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station4.architecture = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(5));
+      return;
+    }
+
+    /* ============ ESTACIÓN 5 ============ */
+    if (num === 5) {
+      body.innerHTML = `
+        <h3>Delimitar sin trivializar</h3>
+
+        <div class="callout warning">
+          Los estudiantes aprenden con frecuencia: "Hay que delimitar". Y producen:
+          "Ansiedad en estudiantes de tercer semestre del grupo 401 de Psicología de la Universidad X durante el semestre 2026-2".
+          Es muy específico. Pero ¿es científicamente relevante?
+        </div>
+
+        <h3>Las cuatro fronteras de delimitación</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Frontera conceptual</h4>
+          <p style="font-size: 0.9rem;">¿Qué fenómeno preciso estamos estudiando?</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.4rem;">No: "salud mental". Quizá: determinado componente de bienestar, determinada sintomatología, determinada experiencia.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Frontera poblacional</h4>
+          <p style="font-size: 0.9rem;">¿En quiénes tiene sentido examinar el fenómeno?</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.4rem;">No basta: "porque tenemos acceso a ellos".</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Frontera contextual</h4>
+          <p style="font-size: 0.9rem;">¿Qué características del contexto resultan relevantes para el fenómeno?</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.4rem;">No basta: "porque estudio allí".</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--rose);">
+          <h4 style="color: var(--rose);">Frontera temporal</h4>
+          <p style="font-size: 0.9rem;">¿Existe una razón para que determinado periodo importe?</p>
+          <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: 0.4rem;">No toda investigación necesita convertir la fecha en componente conceptual.</p>
+        </div>
+
+        <h3>La prueba de sustitución</h3>
+
+        <div class="callout info">
+          Reemplazamos la población: "estudiantes de Psicología" por "estudiantes de Administración".
+        </div>
+
+        <p style="font-size: 0.92rem; color: var(--text-main);">
+          ¿Cambiaría la razón científica del estudio?
+        </p>
+
+        <div class="options-list" id="station5Options">
+          <div class="option-card ${state.station5.conceptual === 'no-cambia' ? 'selected' : ''}" data-value="no-cambia">
+            <span class="option-marker">A</span>
+            <span>No cambia sustancialmente. La elección de Psicología responde a factibilidad, no a delimitación teórica.</span>
+          </div>
+          <div class="option-card ${state.station5.conceptual === 'si-cambia' ? 'selected' : ''}" data-value="si-cambia">
+            <span class="option-marker">B</span>
+            <span>Sí cambia. Estudiar Psicología modifica la razón científica del estudio porque los estudiantes de Psicología comparten características relevantes para el fenómeno.</span>
+          </div>
+          <div class="option-card ${state.station5.conceptual === 'depende' ? 'selected' : ''}" data-value="depende">
+            <span class="option-marker">C</span>
+            <span>Depende. Hay que explicitar qué característica de Psicología sería relevante conceptualmente.</span>
+          </div>
+        </div>
+
+        <div id="station5Reflection" style="display: ${state.station5.conceptual ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Distinción clave:</strong> Aprender a verbalizar si una delimitación responde a
+            <em>factibilidad</em> o a <em>pertinencia teórica</em> es fundamental. Ambas pueden ser válidas,
+            pero no deben presentarse como equivalentes.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station5.conceptual ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station5Reflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station5.conceptual = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(6));
+      return;
+    }
+
+    /* ============ ESTACIÓN 6 ============ */
+    if (num === 6) {
+      const falsosProblemas = [
+        { id: 'fp1', num: '1', title: 'Importancia genérica', desc: '"La salud mental es muy importante, por lo que debemos investigar X."', diag: 'Justifica un campo, no necesariamente el estudio particular.' },
+        { id: 'fp2', num: '2', title: 'Problema por actualidad', desc: '"Las redes sociales están creciendo, por tanto debemos estudiar su impacto."', diag: 'La actualidad de un fenómeno no demuestra una incertidumbre científicamente relevante.' },
+        { id: 'fp3', num: '3', title: 'Problema por disponibilidad', desc: '"Estudiaremos estudiantes porque tenemos acceso a ellos."', diag: 'Explica factibilidad, no pertinencia científica.' },
+        { id: 'fp4', num: '4', title: 'Problema por instrumento', desc: '"Disponemos de una escala validada de X, por tanto investigaremos X."', diag: 'La herramienta produjo retrospectivamente la pregunta.' },
+        { id: 'fp5', num: '5', title: 'Problema geográfico automático', desc: '"No encontramos estudios realizados en nuestra universidad."', diag: 'Puede ser cierto y seguir sin constituir una brecha relevante.' },
+        { id: 'fp6', num: '6', title: 'Problema por combinación inédita', desc: '"No encontramos estudios que relacionen A + B + C en población D."', diag: 'Una combinación nueva no es automáticamente una contribución.' },
+        { id: 'fp7', num: '7', title: 'Solucionismo', desc: '"Esta investigación solucionará los problemas de salud mental de los estudiantes."', diag: 'Confunde conocimiento con intervención y sobredimensiona la contribución.' },
+        { id: 'fp8', num: '8', title: 'Problema que ya contiene una causa', desc: '"El uso excesivo de redes sociales está generando ansiedad entre universitarios y necesitamos medirla."', diag: 'La formulación afirma como hecho aquello que debería establecer mediante investigación.' },
+        { id: 'fp9', num: '9', title: 'Problema construido desde una creencia', desc: '"Sabemos que X es perjudicial, así que investigaremos sus consecuencias."', diag: 'Riesgo de confirmación.' },
+        { id: 'fp10', num: '10', title: 'El "nadie ha estudiado"', desc: '"Nunca se ha investigado X."', diag: 'Incluso si fuera verdadero, falta responder: ¿por qué necesitamos investigarlo?' }
+      ];
+
+      body.innerHTML = `
+        <h3>Los falsos problemas de investigación</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca al menos 5 falsos problemas que reconozcas como tales.
+        </p>
+
+        <div class="error-grid" id="falsosList">
+          ${falsosProblemas.map(fp => `
+            <div class="error-card ${state.station6.marked.includes(fp.id) ? 'selected' : ''}" data-fp="${fp.id}" tabindex="0" role="button" style="${state.station6.marked.includes(fp.id) ? 'border-left-color: var(--accent); background: rgba(240, 180, 41, 0.06);' : ''}">
+              <div class="ec-num">Falso problema ${fp.num}</div>
+              <div class="ec-title">${fp.title}</div>
+              <div class="ec-desc">${fp.desc}</div>
+              <div class="ec-diagnosis"><strong>Diagnóstico:</strong> ${fp.diag}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="station6Reflection" style="display: ${state.station6.marked.length >= 5 ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Reconocerlos es parte del aprendizaje:</strong> Los falsos problemas no son errores raros.
+            Son las formas más frecuentes en que un interés personal se disfraza de problema de investigación.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station6.marked.length >= 5 ? '' : 'disabled'}>
+          ${state.station6.marked.length >= 5 ? 'Continuar →' : `Marca al menos 5 falsos problemas (${state.station6.marked.length}/5)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station6Reflection');
+
+      body.querySelectorAll('#falsosList .error-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const fp = this.dataset.fp;
+          if (state.station6.marked.includes(fp)) {
+            state.station6.marked = state.station6.marked.filter(x => x !== fp);
+            this.style.borderLeftColor = 'var(--error)';
+            this.style.background = 'rgba(248, 113, 113, 0.06)';
+          } else {
+            state.station6.marked.push(fp);
+            this.style.borderLeftColor = 'var(--accent)';
+            this.style.background = 'rgba(240, 180, 41, 0.06)';
+          }
+          saveState();
+          const count = state.station6.marked.length;
+          if (count >= 5) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Marca al menos 5 falsos problemas (${count}/5)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(7));
+      return;
+    }
+
+    /* ============ ESTACIÓN 7 ============ */
+    if (num === 7) {
+      body.innerHTML = `
+        <h3>La prueba del "¿y qué?"</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Lo llamamos <strong>Test SO WHAT?</strong> El comité pregunta insistentemente: ¿y qué?
+        </p>
+
+        <div class="callout info">
+          <strong>Ejemplo:</strong> "No existen estudios en estudiantes de primer semestre de nuestra institución."
+          <br><br>
+          <strong>Comité:</strong> ¿Y qué?<br>
+          <strong>Respuesta:</strong> "Porque esta población no ha sido investigada."<br>
+          <strong>Comité:</strong> ¿Y qué?
+        </div>
+
+        <p style="color: var(--text-main); font-size: 0.92rem;">
+          Si el argumento termina ahí, tenemos un problema débil. Para madurar, la cadena debe llegar más lejos.
+        </p>
+
+        <h3>La cadena del "¿y qué?"</h3>
+
+        <div class="chain-diagram">
+          <div class="chain-box">AFIRMACIÓN · "No conocemos X"</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">¿Y QUÉ?</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">CONSECUENCIA EPISTÉMICA · "No podemos establecer Y"</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">¿Y QUÉ?</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">CONSECUENCIA CIENTÍFICA / PRÁCTICA · "Esto limita Z"</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box">¿Y QUÉ?</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-box highlight">NECESIDAD DE INVESTIGACIÓN · "Necesitamos producir Q"</div>
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Cuando un proyecto sobrevive varios niveles de "¿y qué?", generalmente comienza a mostrar una justificación sólida.
+        </p>
+
+        <h3>Relevancia no significa una sola cosa</h3>
+
+        <div class="three-planes">
+          <div class="plane-card conocimiento">
+            <div class="plane-label">Relevancia científica</div>
+            <div class="plane-question">¿Qué cambia en nuestro conocimiento?</div>
+          </div>
+          <div class="plane-card investigacion">
+            <div class="plane-label">Relevancia práctica</div>
+            <div class="plane-question">¿Qué decisión podría beneficiarse de ese conocimiento?</div>
+          </div>
+          <div class="plane-card realidad">
+            <div class="plane-label">Relevancia social</div>
+            <div class="plane-question">¿Por qué importa para personas, instituciones o comunidades?</div>
+          </div>
+        </div>
+
+        <div class="callout error">
+          No exigimos que cada estudio transforme las tres dimensiones por igual. Pero sí que no utilice una
+          para fingir que ha demostrado otra. Alto impacto social del fenómeno no equivale automáticamente
+          a alta novedad científica del proyecto.
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station7.chainAnswers.length >= 3 ? '' : 'disabled'}>
+          ${state.station7.chainAnswers.length >= 3 ? 'Continuar →' : 'Lee la cadena completa para continuar'}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      state.station7.chainAnswers = ['leido', 'leido', 'leido'];
+      saveState();
+      nextBtn.disabled = false;
+
+      nextBtn.addEventListener('click', () => goToStation(8));
+      return;
+    }
+
+    /* ============ ESTACIÓN 8 ============ */
+    if (num === 8) {
+      body.innerHTML = `
+        <h3>Reconstruir sin cambiar de proyecto</h3>
+
+        <div class="callout warning">
+          <strong>Problema defectuoso original:</strong><br><br>
+          "Los estudiantes universitarios tienen altos niveles de ansiedad debido al exceso de redes sociales.
+          Debido a que este es un problema importante y no hay estudios en estudiantes de Psicología de nuestra
+          universidad, aplicaremos dos cuestionarios para determinar el impacto."
+        </div>
+
+        <h3>Cirugía conceptual</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Aplica cada paso para reconstruir el problema:
+        </p>
+
+        <div class="anatomia-step" data-step="step1">
+          <div class="as-num">1</div>
+          <div class="as-content">
+            <div class="as-title">Eliminar lo que se está dando por demostrado</div>
+            <div class="as-desc">"debido al exceso de redes sociales" podría estar presuponiendo un efecto.</div>
+            <button class="btn btn-small" data-step-btn="step1" style="margin-top: 0.5rem; padding: 0.4rem 1rem; font-size: 0.8rem;">Aplicar paso 1</button>
+          </div>
+        </div>
+
+        <div class="anatomia-step" data-step="step2">
+          <div class="as-num">2</div>
+          <div class="as-content">
+            <div class="as-title">Separar importancia y desconocimiento</div>
+            <div class="as-desc">¿Qué evidencia sostiene: importancia del fenómeno, conocimiento existente, incertidumbre?</div>
+            <button class="btn btn-small" data-step-btn="step2" style="margin-top: 0.5rem; padding: 0.4rem 1rem; font-size: 0.8rem;">Aplicar paso 2</button>
+          </div>
+        </div>
+
+        <div class="anatomia-step" data-step="step3">
+          <div class="as-num">3</div>
+          <div class="as-content">
+            <div class="as-title">Examinar la población</div>
+            <div class="as-desc">¿Por qué estudiantes de Psicología? ¿Pertinencia conceptual o conveniencia?</div>
+            <button class="btn btn-small" data-step-btn="step3" style="margin-top: 0.5rem; padding: 0.4rem 1rem; font-size: 0.8rem;">Aplicar paso 3</button>
+          </div>
+        </div>
+
+        <div class="anatomia-step" data-step="step4">
+          <div class="as-num">4</div>
+          <div class="as-content">
+            <div class="as-title">Eliminar el método</div>
+            <div class="as-desc">"aplicaremos dos cuestionarios" todavía no necesitamos esto.</div>
+            <button class="btn btn-small" data-step-btn="step4" style="margin-top: 0.5rem; padding: 0.4rem 1rem; font-size: 0.8rem;">Aplicar paso 4</button>
+          </div>
+        </div>
+
+        <div class="anatomia-step" data-step="step5">
+          <div class="as-num">5</div>
+          <div class="as-content">
+            <div class="as-title">Reconstruir el problema</div>
+            <div class="as-desc">Una formulación que avance hacia: "La evidencia disponible permite establecer X. Sin embargo, permanece incierto Y bajo determinadas condiciones. Resolver esta incertidumbre resulta relevante porque Z. Por consiguiente, es necesario establecer/comprender Q."</div>
+            <button class="btn btn-small" data-step-btn="step5" style="margin-top: 0.5rem; padding: 0.4rem 1rem; font-size: 0.8rem;">Completar reconstrucción</button>
+          </div>
+        </div>
+
+        <div id="step5Output" style="display: none; margin-top: 1rem;">
+          <div class="callout success">
+            <strong>Reconstrucción completada:</strong> Ahora tenemos una arquitectura susceptible de evidencia.
+          </div>
+          <div class="highlight-box info">
+            <p style="font-size: 0.9rem;">Si puedo eliminar el nombre del instrumento y el problema sigue teniendo exactamente el mismo sentido, probablemente voy bien.</p>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" disabled>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const step5Output = body.querySelector('#step5Output');
+
+      body.querySelectorAll('[data-step-btn]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const step = this.dataset.stepBtn;
+          state.station8.steps[step] = true;
+          saveState();
+          this.textContent = '✓ Aplicado';
+          this.style.opacity = '0.6';
+          this.disabled = true;
+
+          if (step === 'step5') {
+            step5Output.style.display = 'block';
+          }
+
+          const completedSteps = Object.keys(state.station8.steps).length;
+          if (completedSteps >= 5) {
+            nextBtn.disabled = false;
+          }
+        });
+      });
+
+      // Restaurar
+      Object.keys(state.station8.steps || {}).forEach(step => {
+        const btn = body.querySelector(`[data-step-btn="${step}"]`);
+        if (btn) {
+          btn.textContent = '✓ Aplicado';
+          btn.style.opacity = '0.6';
+          btn.disabled = true;
+        }
+      });
+      if (Object.keys(state.station8.steps || {}).length >= 5) {
+        nextBtn.disabled = false;
+        step5Output.style.display = 'block';
+      }
+
+      nextBtn.addEventListener('click', () => goToStation(9));
+      return;
+    }
+
+    /* ============ ESTACIÓN 9: COMITÉ ============ */
+    if (num === 9) {
+      const expedientes = [
+        {
+          id: 'A',
+          title: 'Expediente A',
+          text: 'Problema socialmente importante, pero conocimiento requerido sin especificar. Se afirma que la depresión juvenil es un problema grave, pero no se establece qué incertidumbre específica justificaría la investigación.'
+        },
+        {
+          id: 'B',
+          title: 'Expediente B',
+          text: 'Problema científicamente claro, pero de contribución aparentemente modesta. Se especifica bien la incertidumbre, aunque el conocimiento producido tendría un alcance limitado.'
+        },
+        {
+          id: 'C',
+          title: 'Expediente C',
+          text: 'Problema que depende de una supuesta ausencia de estudios locales. El único argumento es "no existen investigaciones en nuestra universidad".'
+        },
+        {
+          id: 'D',
+          title: 'Expediente D',
+          text: 'Problema muy bien delimitado pero metodológicamente predeterminado. La formulación parte de la técnica (aplicar GAD-7) antes que del problema de conocimiento.'
+        },
+        {
+          id: 'E',
+          title: 'Expediente E',
+          text: 'Problema con una brecha plausible, pero consecuencias de la incertidumbre no explicadas. Se identifica qué falta, pero no se explica por qué importa resolverlo.'
+        },
+        {
+          id: 'F',
+          title: 'Expediente F',
+          text: 'Problematización sólida, pero con una delimitación poblacional discutible. El problema está bien construido, pero la población parece elegida por conveniencia.'
+        }
+      ];
+
+      const verdicts = [
+        { id: 'admissible', label: '✅ ADMISIBLE' },
+        { id: 'reservas', label: '⚠️ ADMISIBLE CON RESERVAS' },
+        { id: 'reformulacion', label: '🔧 REFORMULACIÓN MAYOR' },
+        { id: 'no', label: '❌ NO HAY PROBLEMA DEMOSTRADO' }
+      ];
+
+      body.innerHTML = `
+        <h3>Comité de admisibilidad científica</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Emite un dictamen para cada expediente. Debes justificarlo.
+        </p>
+
+        <div id="expedientesList">
+          ${expedientes.map(e => {
+            const verdict = state.station9.verdicts[e.id];
+            return `
+              <div class="expediente-card ${verdict ? 'evaluated' : ''}" data-exp="${e.id}">
+                <div class="exp-header">
+                  <span class="exp-label">${e.title}</span>
+                </div>
+                <div class="exp-text">${e.text}</div>
+                <div class="verdict-options">
+                  ${verdicts.map(v => `
+                    <button class="verdict-option ${verdict === v.id ? 'selected' : ''}" data-exp-id="${e.id}" data-verdict="${v.id}">
+                      ${v.label}
+                    </button>
+                  `).join('')}
+                </div>
+                <div class="new-evidence" id="newEv_${e.id}"></div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="callout info" style="margin-top: 1.5rem;">
+          <strong>Información nueva:</strong> Después del primer dictamen, aparecerán evidencias adicionales
+          que podrían modificar tu decisión.
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station9.verdicts).length >= 6 ? '' : 'disabled'}>
+          ${Object.keys(state.station9.verdicts).length >= 6 ? 'Completar radiografía →' : `Emite los 6 dictámenes (${Object.keys(state.station9.verdicts).length}/6)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+
+      const newEvidence = {
+        'A': 'Nueva evidencia: existe un meta-análisis reciente que ya sintetiza la evidencia sobre depresión juvenil. ¿Sigue siendo necesario el estudio?',
+        'B': 'Nueva evidencia: la población elegida posee una característica teóricamente relevante no indicada inicialmente. ¿Cambia la evaluación de la contribución?',
+        'C': 'Nueva evidencia: existen estudios internacionales pero no locales. ¿Basta la ausencia local para justificar una brecha?',
+        'D': 'Nueva evidencia: existe una escala más adecuada al constructo. ¿Eso modifica el problema o solo el instrumento?',
+        'E': 'Nueva evidencia: un policy brief reciente indica que las decisiones institucionales dependen de ese conocimiento faltante. ¿Cambia la evaluación de la relevancia?',
+        'F': 'Nueva evidencia: la población elegida podría tener características diferenciales relevantes (por ejemplo, mayor exposición a factores específicos). ¿La delimitación deja de parecer arbitraria?'
+      };
+
+      body.querySelectorAll('.verdict-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const expId = this.dataset.expId;
+          const verdict = this.dataset.verdict;
+          state.station9.verdicts[expId] = verdict;
+          saveState();
+
+          const parent = this.closest('.expediente-card');
+          parent.querySelectorAll('.verdict-option').forEach(v => v.classList.remove('selected'));
+          this.classList.add('selected');
+          parent.classList.add('evaluated');
+
+          // Mostrar información nueva
+          const evDiv = document.getElementById(`newEv_${expId}`);
+          evDiv.innerHTML = `<strong>🔍 Información adicional:</strong> ${newEvidence[expId]}`;
+          evDiv.classList.add('show');
+
+          // Actualizar botón
+          const count = Object.keys(state.station9.verdicts).length;
+          if (count >= 6) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Completar radiografía →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Emite los 6 dictámenes (${count}/6)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        document.getElementById('stationContent').style.display = 'none';
+        document.getElementById('stationsNav').style.display = 'none';
+        document.getElementById('radiografia').style.display = 'block';
+        document.getElementById('radiografia').scrollIntoView({ behavior: 'smooth' });
+        stationBtns.forEach(b => b.classList.add('completed'));
+      });
+      return;
+    }
+  }
+
+  /* ============================================================
+     INICIO
+     ============================================================ */
+  document.getElementById('btnStartLab').addEventListener('click', function() {
+    state.labStarted = true;
+    saveState();
+    this.disabled = true;
+    this.textContent = '⏱️ Laboratorio en curso...';
+    this.style.opacity = '0.5';
+
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+
+    goToStation(state.station >= 0 ? state.station : 0);
+  });
+
+  /* ============================================================
+     RADIOGRAFÍA
+     ============================================================ */
+  const radioFields = ['radio1', 'radio2', 'radio3', 'radio4', 'radio5', 'radio6', 'radio7', 'radio8'];
+  radioFields.forEach(field => {
+    const el = document.getElementById(field);
+    if (!el) return;
+    try {
+      const saved = localStorage.getItem('lab02_' + field);
+      if (saved) el.value = saved;
+    } catch (e) {}
+    el.addEventListener('input', function() {
+      try {
+        localStorage.setItem('lab02_' + field, this.value);
+      } catch (e) {}
+    });
+  });
+
+  document.getElementById('btnGuardarRadiografia').addEventListener('click', function() {
+    const filled = radioFields.filter(f => {
+      const el = document.getElementById(f);
+      return el && el.value.trim().length > 15;
+    }).length;
+
+    const verdict = document.getElementById('radiografiaVerdict');
+    if (filled >= 7) {
+      verdict.innerHTML = '<div class="highlight-box success"><p>🟢 Radiografía completa — Guárdala para el resto del curso</p></div>';
+    } else if (filled >= 4) {
+      verdict.innerHTML = '<div class="highlight-box warning"><p>🟡 Radiografía parcial — Desarrolla más cada sección</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box error"><p>🔴 Radiografía incompleta — Necesitas desarrollar más el argumento</p></div>';
+    }
+
+    document.getElementById('metacognicion').style.display = 'block';
+    document.getElementById('metacognicion').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnCierre').addEventListener('click', function() {
+    document.getElementById('radiografia').style.display = 'none';
+    document.getElementById('metacognicion').style.display = 'none';
+    document.getElementById('cierre').style.display = 'block';
+    document.getElementById('cierre').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+  function reiniciar() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus decisiones.')) return;
+    localStorage.removeItem('lab02_problematizacion_v1');
+    radioFields.forEach(f => localStorage.removeItem('lab02_' + f));
+    location.reload();
+  }
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciar);
+
+  /* ============================================================
+     RESTAURAR
+     ============================================================ */
+  if (state.labStarted) {
+    document.getElementById('btnStartLab').disabled = true;
+    document.getElementById('btnStartLab').textContent = '⏱️ Laboratorio en curso...';
+    document.getElementById('btnStartLab').style.opacity = '0.5';
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+    goToStation(state.station >= 0 ? state.station : 0);
+  }
+
+})();
+</script>
+</body>
+</html>

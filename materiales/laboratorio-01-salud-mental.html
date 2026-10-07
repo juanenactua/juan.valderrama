@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio 01 · ¿De qué hablamos cuando hablamos de salud mental?</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿De qué hablamos cuando hablamos de salud mental?">
+<meta name="jc-descripcion" content="Laboratorio autónomo de precisión conceptual para investigar salud mental, diferenciando bienestar, malestar, sintomatología, trastorno, funcionamiento, medición, diagnóstico, contexto y determinantes.">
+<meta name="jc-tipo" content="Laboratorio interactivo">
+<meta name="jc-etiquetas" content="Salud mental, Precisión conceptual, Bienestar, Malestar psicológico, Sintomatología, Trastorno mental, Funcionamiento, Medición, Diagnóstico, Determinantes sociales, Constructos, Investigación en Psicología">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a1628;
+    --bg-mid: #12233d;
+    --bg-soft: #1b2f4d;
+    --accent: #f0b429;
+    --accent-soft: rgba(240, 180, 41, 0.15);
+    --text-main: #eaf0f7;
+    --text-soft: #a8b8cc;
+    --border: rgba(240, 180, 41, 0.25);
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --violet: #a78bfa;
+    --rose: #f472b6;
+    --font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    --max-width: 1100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: radial-gradient(ellipse at top left, #0f2038 0%, var(--bg-deep) 55%, #050c17 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.65;
+    font-size: 1.05rem;
+    min-height: 100vh;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), #ffd97a);
+    z-index: 1000;
+    box-shadow: 0 0 12px rgba(240, 180, 41, 0.6);
+    transition: width 0.3s ease;
+  }
+
+  header {
+    background: rgba(10, 22, 40, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 1.5rem;
+    position: sticky; top: 0; z-index: 900;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .header-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .header-title::before { content: '◈'; font-size: 1.3rem; }
+  .header-author {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    background: rgba(240, 180, 41, 0.1);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 5rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 100px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 650;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  h2::before {
+    content: '';
+    width: 6px; height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(240, 180, 41, 0.5);
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.8rem;
+    color: #ffffff;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.4rem;
+    color: var(--accent);
+  }
+  p { margin-bottom: 1rem; color: var(--text-main); }
+  strong { color: var(--accent); font-weight: 600; }
+  em { color: var(--text-soft); font-style: italic; }
+
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  li { margin-bottom: 0.35rem; }
+
+  .card {
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.7rem;
+    margin: 1.3rem 0;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+  }
+
+  /* ---- NAVEGACIÓN DE ESTACIONES ---- */
+  .stations-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    position: sticky;
+    top: 75px;
+    z-index: 700;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 0.7rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .stations-nav { position: static; grid-template-columns: 1fr 1fr; }
+  }
+
+  .station-btn {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--font);
+    text-align: center;
+  }
+  .station-btn:hover:not(.locked) { border-color: var(--accent); transform: translateY(-2px); }
+  .station-btn.active { background: var(--accent); color: #0a1628; border-color: var(--accent); }
+  .station-btn.completed { border-color: var(--success); color: var(--success); }
+  .station-btn.locked { opacity: 0.35; cursor: not-allowed; }
+  .station-btn .st-num {
+    display: block;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  /* ---- PANEL DE ESTACIÓN ---- */
+  .station-panel {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow);
+  }
+
+  .station-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .station-header .sh-num {
+    background: var(--accent);
+    color: #0a1628;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .station-header .sh-title {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 1rem;
+  }
+  .station-header .sh-time {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-style: italic;
+  }
+
+  /* ---- OPCIONES ---- */
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1.3rem 0;
+  }
+  .option-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+  .option-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-soft);
+    transform: translateX(4px);
+  }
+  .option-card.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 20px rgba(240, 180, 41, 0.25);
+  }
+  .option-card .option-marker {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    transition: all 0.2s;
+  }
+  .option-card.selected .option-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+
+  /* ---- CHECKBOXES ---- */
+  .checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+  }
+  .checkbox-card {
+    background: var(--bg-mid);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .checkbox-card:hover { border-color: var(--accent); background: var(--bg-soft); }
+  .checkbox-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .checkbox-card .checkbox-marker {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .checkbox-card.selected .checkbox-marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a1628;
+  }
+  .checkbox-card.selected .checkbox-marker::after { content: '✓'; font-weight: 700; }
+  .checkbox-card.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  /* ---- ALERTAS ---- */
+  .callout {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.1), rgba(240, 180, 41, 0.04));
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.3rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 1.3rem 0;
+    font-size: 0.96rem;
+    color: var(--text-main);
+  }
+  .callout strong { color: var(--accent); }
+  .callout.info {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(96, 165, 250, 0.04));
+    border-left-color: var(--info);
+  }
+  .callout.info strong { color: var(--info); }
+  .callout.success {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(74, 222, 128, 0.04));
+    border-left-color: var(--success);
+  }
+  .callout.success strong { color: var(--success); }
+  .callout.violet {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+    border-left-color: var(--violet);
+  }
+  .callout.violet strong { color: var(--violet); }
+  .callout.error {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(248, 113, 113, 0.04));
+    border-left-color: var(--error);
+  }
+  .callout.error strong { color: var(--error); }
+  .callout.warning {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.04));
+    border-left-color: var(--warning);
+  }
+  .callout.warning strong { color: var(--warning); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.85rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.8rem;
+  }
+
+  .highlight-box {
+    background: #060f1c;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.3rem 0;
+    box-shadow: 0 0 30px rgba(240, 180, 41, 0.15);
+  }
+  .highlight-box p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .highlight-box.success { border-color: var(--success); box-shadow: 0 0 30px rgba(74, 222, 128, 0.15); }
+  .highlight-box.success p { color: var(--success); }
+  .highlight-box.error { border-color: var(--error); box-shadow: 0 0 30px rgba(248, 113, 113, 0.15); }
+  .highlight-box.error p { color: var(--error); }
+  .highlight-box.info { border-color: var(--info); box-shadow: 0 0 30px rgba(96, 165, 250, 0.15); }
+  .highlight-box.info p { color: var(--info); }
+  .highlight-box.violet { border-color: var(--violet); box-shadow: 0 0 30px rgba(167, 139, 250, 0.15); }
+  .highlight-box.violet p { color: var(--violet); }
+  .highlight-box.warning { border-color: var(--warning); box-shadow: 0 0 30px rgba(251, 191, 36, 0.15); }
+  .highlight-box.warning p { color: var(--warning); }
+
+  /* ---- BOTONES ---- */
+  .btn {
+    background: linear-gradient(135deg, var(--accent), #d99a1a);
+    color: #0a1628;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.98rem;
+    border-radius: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: var(--font);
+    box-shadow: 0 4px 18px rgba(240, 180, 41, 0.3);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(240, 180, 41, 0.45);
+  }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    box-shadow: none;
+  }
+  .btn-outline:hover:not(:disabled) { background: var(--accent-soft); }
+  .btn-next {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  /* ---- CAMPOS ---- */
+  .response-field { margin: 1rem 0; }
+  .response-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .response-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+  .response-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15);
+  }
+  textarea.response-input { min-height: 80px; resize: vertical; }
+
+  /* ---- MATRIZ ---- */
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: var(--bg-mid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.88rem;
+  }
+  .matrix-table th {
+    background: var(--accent);
+    color: #0a1628;
+    padding: 0.8rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .matrix-table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  /* ---- DOS CONTINUOS ---- */
+  .two-continua {
+    background: #060f1c;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+    min-height: 380px;
+  }
+  .continua-axis {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .continua-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    border: 2px solid var(--border);
+  }
+  .continua-cell {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    border: 1px dashed var(--border);
+  }
+  .continua-cell .cc-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .continua-cell .cc-desc {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.4;
+  }
+  .continua-cell.top-left { background: rgba(248, 113, 113, 0.08); }
+  .continua-cell.top-right { background: rgba(74, 222, 128, 0.1); }
+  .continua-cell.bottom-left { background: rgba(248, 113, 113, 0.15); }
+  .continua-cell.bottom-right { background: rgba(251, 191, 36, 0.1); }
+  .continua-cell .cc-label.top-left-color { color: var(--error); }
+  .continua-cell .cc-label.top-right-color { color: var(--success); }
+  .continua-cell .cc-label.bottom-left-color { color: var(--error); }
+  .continua-cell .cc-label.bottom-right-color { color: var(--warning); }
+  .continua-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 600;
+  }
+
+  /* ---- CASOS LÍMITE ---- */
+  .person-cases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.3rem 0;
+  }
+  .person-case {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+  }
+  .person-case .pc-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .person-case .pc-text {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    line-height: 1.55;
+  }
+
+  /* ---- ERRORES / ACIERTOS ---- */
+  .error-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.9rem;
+    margin: 1.3rem 0;
+  }
+  .error-card {
+    background: rgba(248, 113, 113, 0.06);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-left: 4px solid var(--error);
+  }
+  .error-card .ec-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--error);
+    margin-bottom: 0.4rem;
+  }
+  .error-card .ec-title {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+  }
+  .error-card .ec-desc {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+  .success-card {
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-left: 4px solid var(--success);
+  }
+  .success-card .sc-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--success);
+    margin-bottom: 0.4rem;
+  }
+  .success-card .sc-title {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+  }
+  .success-card .sc-desc {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ---- AUDITOR ---- */
+  .auditor-statement {
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin: 0.9rem 0;
+  }
+  .auditor-statement .as-text {
+    font-size: 0.92rem;
+    color: var(--text-main);
+    margin-bottom: 0.9rem;
+    line-height: 1.55;
+  }
+  .auditor-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .auditor-option {
+    background: var(--bg-mid);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-main);
+    font-family: var(--font);
+  }
+  .auditor-option:hover { border-color: var(--accent); background: var(--bg-soft); }
+  .auditor-option.selected {
+    background: var(--accent);
+    color: #0a1628;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .auditor-option.correct { background: var(--success); color: #0a1628; border-color: var(--success); }
+  .auditor-option.incorrect { background: var(--error); color: #0a1628; border-color: var(--error); }
+  .auditor-feedback {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .auditor-feedback.show { display: block; animation: fadeIn 0.4s ease; }
+  .auditor-feedback.correct { background: rgba(74, 222, 128, 0.1); border-left: 3px solid var(--success); color: #b9f5cc; }
+  .auditor-feedback.incorrect { background: rgba(248, 113, 113, 0.1); border-left: 3px solid var(--error); color: #fbc7c7; }
+
+  /* ---- DIAGNÓSTICO ---- */
+  .diagnostic-box {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    margin: 1.8rem 0;
+    box-shadow: var(--shadow);
+  }
+  .diagnostic-box h3 {
+    margin-top: 0;
+    color: var(--accent);
+    text-align: center;
+  }
+  .diagnostic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 1.3rem 0;
+  }
+  .diagnostic-item {
+    background: var(--bg-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem;
+    text-align: center;
+  }
+  .diagnostic-item .di-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    margin-bottom: 0.4rem;
+  }
+  .diagnostic-item .di-status { font-size: 1.4rem; margin-bottom: 0.2rem; }
+  .diagnostic-item .di-desc { font-size: 0.8rem; font-weight: 600; }
+  .diagnostic-item.green .di-desc { color: var(--success); }
+  .diagnostic-item.yellow .di-desc { color: var(--warning); }
+  .diagnostic-item.red .di-desc { color: var(--error); }
+
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+    justify-content: center;
+  }
+
+  /* ---- PROTOCOLO ---- */
+  .personal-protocol {
+    background: linear-gradient(135deg, rgba(240, 180, 41, 0.12), rgba(240, 180, 41, 0.04));
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    margin: 1.8rem 0;
+  }
+  .personal-protocol .pp-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .personal-protocol ol {
+    margin-left: 1.4rem;
+    color: var(--text-main);
+  }
+  .personal-protocol li {
+    margin-bottom: 0.6rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  /* ---- CIERRE ---- */
+  .final-message { text-align: center; margin: 2rem 0; }
+  .final-message .fm-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+  .final-message .fm-subtitle {
+    font-size: 0.98rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+    margin-bottom: 1.3rem;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    main { padding: 1.2rem 1rem 4rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.2rem; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .stations-nav { grid-template-columns: 1fr 1fr; }
+    .continua-grid { grid-template-columns: 1fr; }
+  }
+
+  button:focus-visible, .option-card:focus-visible, .checkbox-card:focus-visible,
+  .station-btn:focus-visible, .auditor-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+<header>
+  <div class="header-inner">
+    <span class="header-title">Laboratorio 01 · ¿De qué hablamos cuando hablamos de salud mental?</span>
+    <span class="header-author">Juan Carlos Valderrama Cardenas</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- PORTADA -->
+  <section id="portada">
+    <span class="badge">Laboratorio autónomo · Precisión conceptual</span>
+    <h1>¿De qué hablamos cuando hablamos de salud mental?</h1>
+    <p style="font-size: 1.1rem; color: var(--text-soft); max-width: 780px; margin-top: 0.8rem;">
+      Laboratorio de precisión conceptual para investigar en salud mental. Un recorrido por los conceptos,
+      modelos y decisiones que debemos tomar antes de formular cualquier pregunta de investigación.
+    </p>
+
+    <div class="card">
+      <p><strong>Autor:</strong> Juan Carlos Valderrama Cardenas</p>
+      <p><strong>Dirigido a:</strong> Estudiantes universitarios de pregrado en Psicología</p>
+      <p><strong>Duración:</strong> 30-40 minutos</p>
+      <p><strong>Modalidad:</strong> Trabajo individual</p>
+      <p><strong>Producto:</strong> Pasaporte conceptual para investigar salud mental</p>
+      <p><strong>Modalidad del curso:</strong> Compatible con investigación empírica y revisión de literatura</p>
+    </div>
+
+    <div class="callout">
+      <strong>Pregunta central:</strong> Cuando un proyecto dice que investigará "salud mental",
+      ¿qué está investigando exactamente?
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" id="btnStartLab">▶ Comenzar laboratorio</button>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN DE ESTACIONES -->
+  <div class="stations-nav" id="stationsNav" style="display: none;">
+    <button class="station-btn active" data-station="0"><span class="st-num">Est. 0</span><span>Problema</span></button>
+    <button class="station-btn" data-station="1"><span class="st-num">Est. 1</span><span>¿Qué es?</span></button>
+    <button class="station-btn" data-station="2"><span class="st-num">Est. 2</span><span>Dimensiones</span></button>
+    <button class="station-btn" data-station="3"><span class="st-num">Est. 3</span><span>Fenómenos</span></button>
+    <button class="station-btn" data-station="4"><span class="st-num">Est. 4</span><span>Medir ≠ diagn.</span></button>
+    <button class="station-btn" data-station="5"><span class="st-num">Est. 5</span><span>Contexto</span></button>
+    <button class="station-btn" data-station="6"><span class="st-num">Est. 6</span><span>Constructo</span></button>
+    <button class="station-btn" data-station="7"><span class="st-num">Est. 7</span><span>Errores</span></button>
+    <button class="station-btn" data-station="8"><span class="st-num">Est. 8</span><span>Auditor</span></button>
+  </div>
+
+  <!-- CONTENIDO DE ESTACIONES -->
+  <section id="stationContent" style="display: none;">
+    <div class="station-panel" id="stationPanel"></div>
+  </section>
+
+  <!-- DIAGNÓSTICO / PASAPORTE -->
+  <section id="diagnostico" style="display: none;">
+    <h2>Tu pasaporte conceptual</h2>
+
+    <div class="diagnostic-box">
+      <h3>Pasaporte conceptual para investigar salud mental</h3>
+      <p style="text-align: center; color: var(--text-soft); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Completa las cinco afirmaciones. Este pasaporte te acompañará durante todo el curso.
+      </p>
+
+      <div class="response-field">
+        <label>1. Cuando utilizo el término "salud mental", debo especificar...</label>
+        <textarea class="response-input" id="passport1" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>2. No puedo asumir que sintomatología significa...</label>
+        <textarea class="response-input" id="passport2" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>3. Un instrumento me permite afirmar... solamente si...</label>
+        <textarea class="response-input" id="passport3" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>4. El contexto debe considerarse porque...</label>
+        <textarea class="response-input" id="passport4" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div class="response-field">
+        <label>5. Antes de afirmar que una población "tiene problemas de salud mental", debo preguntarme...</label>
+        <textarea class="response-input" id="passport5" placeholder="Escribe tu respuesta..." style="min-height: 70px;"></textarea>
+      </div>
+
+      <div id="diagnosticVerdict" style="margin-top: 1.5rem;"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="btnGenerarPasaporte">🔄 Guardar pasaporte</button>
+      <button class="btn btn-outline" id="btnImprimir">🖨️ Imprimir</button>
+      <button class="btn btn-outline" id="btnReiniciar">↻ Reiniciar</button>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section id="cierre" style="display: none;">
+    <div class="final-message">
+      <div class="fm-title">El indicador de éxito de este laboratorio es concreto.</div>
+
+      <div class="fm-subtitle">
+        Antes de realizarlo, un estudiante podría proponer:
+      </div>
+
+      <div class="highlight-box warning" style="margin: 1.3rem 0;">
+        <p style="font-size: 1rem;">"Quiero investigar el impacto de las redes sociales en la salud mental de los universitarios"</p>
+      </div>
+
+      <div class="fm-subtitle">
+        Después del laboratorio, su primera reacción debería ser:
+      </div>
+
+      <div class="highlight-box info" style="margin: 1.3rem 0;">
+        <p style="font-size: 1rem; color: var(--info);">"¿Qué entiendes exactamente por salud mental?"</p>
+      </div>
+
+      <div class="fm-subtitle" style="text-align: left; max-width: 700px; margin: 1.5rem auto;">
+        Y que continúe con preguntas como:
+      </div>
+
+      <ul style="max-width: 700px; margin: 0 auto; text-align: left;">
+        <li>¿Bienestar, malestar, síntomas, funcionamiento o un trastorno específico?</li>
+        <li>¿Cómo lo estás conceptualizando?</li>
+        <li>¿Qué indicador representa ese constructo?</li>
+        <li>¿Tu medida permite realmente realizar esa afirmación?</li>
+        <li>¿Estás midiendo sintomatología o estableciendo un diagnóstico?</li>
+        <li>¿Qué factores contextuales estás ignorando?</li>
+        <li>¿Qué puedes concluir y qué no?</li>
+      </ul>
+
+      <div class="highlight-box success" style="margin-top: 2rem;">
+        <p style="font-size: 1rem;">Habrás instalado un mecanismo de vigilancia conceptual que te acompañará durante toda la formulación de tu proyecto.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Laboratorio 01 · ¿De qué hablamos cuando hablamos de salud mental?</strong></p>
+  <p>Autor: Juan Carlos Valderrama Cardenas</p>
+  <p style="font-size: 0.8rem; color: #6b8299;">Formulación de proyectos de investigación en Psicología · 2025</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ============================================================
+     ESTADO
+     ============================================================ */
+  const state = {
+    station: -1,
+    labStarted: false,
+    station0: { selected: [] },
+    station1: { selected: null },
+    station2: { selected: null, profiles: {} },
+    station3: { selected: {} },
+    station4: { selected: null },
+    station5: { selected: null },
+    station6: { titles: {}, decomposition: null },
+    station7: { errors: [], successes: [] },
+    station8: { answers: {} },
+    passport: {}
+  };
+
+  try {
+    const saved = localStorage.getItem('lab01_salud_mental_v1');
+    if (saved) Object.assign(state, JSON.parse(saved));
+  } catch (e) {}
+
+  function saveState() {
+    try {
+      localStorage.setItem('lab01_salud_mental_v1', JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  /* ============================================================
+     NAVEGACIÓN
+     ============================================================ */
+  const stationNames = {
+    0: 'El problema',
+    1: '¿Qué es salud mental?',
+    2: 'Una dimensión o varias',
+    3: '¿De qué fenómeno hablamos?',
+    4: 'Medir no es diagnosticar',
+    5: 'Salud mental fuera de la persona',
+    6: 'La precisión del constructo',
+    7: 'Errores al investigar salud mental',
+    8: 'Auditor de afirmaciones'
+  };
+
+  const stationTimes = {
+    0: '3 min', 1: '4 min', 2: '5 min', 3: '5 min',
+    4: '5 min', 5: '4 min', 6: '4 min', 7: '5 min', 8: '5 min'
+  };
+
+  const stationBtns = document.querySelectorAll('.station-btn');
+
+  function getMaxUnlockedStation() {
+    let max = 0;
+    if (state.station0.selected.length > 0) max = 1;
+    if (state.station1.selected) max = 2;
+    if (state.station2.selected) max = 3;
+    if (Object.keys(state.station3.selected).length >= 5) max = 4;
+    if (state.station4.selected) max = 5;
+    if (state.station5.selected) max = 6;
+    if (Object.keys(state.station6.titles).length >= 3) max = 7;
+    if (state.station7.errors.length > 0 || state.station7.successes.length > 0) max = 8;
+    if (Object.keys(state.station8.answers).length >= 6) max = 9;
+    return max;
+  }
+
+  function goToStation(num) {
+    state.station = num;
+    saveState();
+
+    const maxUnlocked = getMaxUnlockedStation();
+
+    stationBtns.forEach(b => {
+      const n = parseInt(b.dataset.station);
+      b.classList.toggle('active', n === num);
+      b.classList.toggle('completed', n < num);
+      b.classList.toggle('locked', n > maxUnlocked);
+    });
+
+    renderStation(num);
+
+    const progress = ((num + 1) / 9) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+
+    // Ocultar paneles finales
+    document.getElementById('diagnostico').style.display = 'none';
+    document.getElementById('cierre').style.display = 'none';
+
+    document.getElementById('stationContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  stationBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const num = parseInt(this.dataset.station);
+      if (num <= getMaxUnlockedStation()) {
+        goToStation(num);
+      }
+    });
+  });
+
+  /* ============================================================
+     RENDERIZADO DE ESTACIONES
+     ============================================================ */
+  function renderStation(num) {
+    const panel = document.getElementById('stationPanel');
+    if (!panel) return;
+
+    panel.innerHTML = `
+      <div class="station-header">
+        <span class="sh-num">Estación ${num}</span>
+        <span class="sh-title">${stationNames[num]}</span>
+        <span class="sh-time">${stationTimes[num]}</span>
+      </div>
+      <div id="stationBody"></div>
+    `;
+
+    const body = document.getElementById('stationBody');
+
+    /* ============ ESTACIÓN 0 ============ */
+    if (num === 0) {
+      const dimensions = [
+        'Síntomas de ansiedad',
+        'Síntomas depresivos',
+        'Satisfacción vital',
+        'Funcionamiento académico',
+        'Funcionamiento social',
+        'Diagnóstico de trastorno mental',
+        'Percepción de apoyo',
+        'Experiencias de estrés',
+        'Calidad de relaciones',
+        'Sentido vital',
+        'Condiciones económicas',
+        'Discriminación',
+        'Acceso a servicios',
+        'Estrategias de afrontamiento'
+      ];
+
+      body.innerHTML = `
+        <div class="callout info">
+          <strong>Propuesta inicial:</strong> "Salud mental en estudiantes universitarios". Objetivo: determinar el estado de salud mental de los estudiantes universitarios.
+        </div>
+
+        <h3>¿Qué tendríamos que observar para determinar el "estado de salud mental" de una persona?</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Marca todas las dimensiones que consideres relevantes.
+        </p>
+
+        <div class="checkbox-list" id="dimensionsList">
+          ${dimensions.map((d, i) => `
+            <div class="checkbox-card ${state.station0.selected.includes(d) ? 'selected' : ''}" data-dim="${d}" tabindex="0" role="button">
+              <span class="checkbox-marker"></span>
+              <span>${d}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="station0Reflection" style="display: ${state.station0.selected.length > 0 ? 'block' : 'none'};">
+          <div class="callout warning">
+            <strong>Descubrimiento buscado:</strong> Si todas estas dimensiones pueden ser relevantes, ¿qué significa exactamente afirmar que vamos a "medir salud mental"? No hay una respuesta única. Ese es precisamente el problema.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station0.selected.length >= 3 ? '' : 'disabled'}>
+          ${state.station0.selected.length >= 3 ? 'Continuar →' : `Selecciona al menos 3 dimensiones (${state.station0.selected.length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station0Reflection');
+
+      body.querySelectorAll('#dimensionsList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const dim = this.dataset.dim;
+          if (state.station0.selected.includes(dim)) {
+            state.station0.selected = state.station0.selected.filter(d => d !== dim);
+          } else {
+            state.station0.selected.push(dim);
+          }
+          saveState();
+          const count = state.station0.selected.length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+            reflection.style.display = 'block';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Selecciona al menos 3 dimensiones (${count}/3)`;
+            reflection.style.display = 'none';
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => goToStation(1));
+      return;
+    }
+
+    /* ============ ESTACIÓN 1 ============ */
+    if (num === 1) {
+      body.innerHTML = `
+        <p style="color: var(--text-soft);">
+          Históricamente, es fácil pensar que salud mental equivale a ausencia de enfermedad mental.
+          Pero esta equivalencia es insuficiente.
+        </p>
+
+        <div class="callout">
+          <strong>WHO:</strong> La salud mental es más que la ausencia de enfermedad y constituye parte
+          del bienestar individual y colectivo.
+        </div>
+
+        <h3>La salud mental como constructo positivo</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Tres grandes componentes para comprender el bienestar positivo:
+        </p>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Bienestar emocional</h4>
+          <p style="font-size: 0.92rem; margin: 0;">Emociones positivas, satisfacción vital, experiencia subjetiva de bienestar.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Bienestar psicológico</h4>
+          <p style="font-size: 0.92rem; margin: 0;">Desarrollo personal, propósito, autonomía, funcionamiento psicológico positivo.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Bienestar social</h4>
+          <p style="font-size: 0.92rem; margin: 0;">Integración, contribución, sentido de pertenencia, funcionamiento social.</p>
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.9rem;">
+          Esta diferenciación tiene soporte en el modelo de salud mental positiva desarrollado alrededor
+          del continuo de salud mental (Keyes).
+        </p>
+
+        <h3>Pregunta de cierre de esta estación</h3>
+        <p style="font-size: 0.95rem; color: var(--text-main);">
+          ¿Cuál de estas afirmaciones describe mejor tu comprensión actual de la salud mental?
+        </p>
+
+        <div class="options-list" id="station1Options">
+          <div class="option-card ${state.station1.selected === 'ausencia' ? 'selected' : ''}" data-value="ausencia">
+            <span class="option-marker">A</span>
+            <span>La salud mental es principalmente la ausencia de enfermedad mental.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'positivo' ? 'selected' : ''}" data-value="positivo">
+            <span class="option-marker">B</span>
+            <span>La salud mental incluye dimensiones positivas de bienestar, más allá de la ausencia de enfermedad.</span>
+          </div>
+          <div class="option-card ${state.station1.selected === 'multidimensional' ? 'selected' : ''}" data-value="multidimensional">
+            <span class="option-marker">C</span>
+            <span>La salud mental es un constructo multidimensional que incluye bienestar emocional, psicológico y social.</span>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station1.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station1.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(2));
+      return;
+    }
+
+    /* ============ ESTACIÓN 2 ============ */
+    if (num === 2) {
+      body.innerHTML = `
+        <h3>Modelo unidimensional ingenuo</h3>
+        <div class="highlight-box error" style="margin: 1rem 0;">
+          <p style="font-size: 0.9rem;">TRASTORNO ←─────────────→ SALUD</p>
+        </div>
+
+        <div class="callout error">
+          <strong>Problema:</strong> Si alguien presenta un trastorno, automáticamente quedaría en el extremo
+          "sin salud". Si no presenta trastorno, automáticamente sería "saludable".
+        </div>
+
+        <h3>El modelo de los dos continuos</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Corey L. M. Keyes propone que salud mental positiva y enfermedad mental están relacionadas, pero
+          no constituyen simplemente los extremos opuestos de una única dimensión.
+        </p>
+
+        <div class="two-continua">
+          <div class="continua-grid">
+            <div class="continua-cell top-left">
+              <div class="cc-label top-left-color">Trastorno + bienestar</div>
+              <div class="cc-desc">Persona con diagnóstico que mantiene vínculos, propósito y periodos de bienestar.</div>
+            </div>
+            <div class="continua-cell top-right">
+              <div class="cc-label top-right-color">Sin trastorno + bienestar</div>
+              <div class="cc-desc">Persona sin diagnóstico y con alto bienestar y funcionamiento.</div>
+            </div>
+            <div class="continua-cell bottom-left">
+              <div class="cc-label bottom-left-color">Trastorno + bajo bienestar</div>
+              <div class="cc-desc">Persona con diagnóstico y bajo bienestar.</div>
+            </div>
+            <div class="continua-cell bottom-right">
+              <div class="cc-label bottom-right-color">Sin trastorno + bajo bienestar</div>
+              <div class="cc-desc">Persona sin diagnóstico pero con bajo bienestar y funcionamiento.</div>
+            </div>
+          </div>
+          <div class="continua-labels">
+            <span>← Presencia de trastorno mental</span>
+            <span>Ausencia de trastorno →</span>
+          </div>
+          <div style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-soft);">
+            ↕ Eje vertical: salud mental positiva (alta / baja)
+          </div>
+        </div>
+
+        <h3>Primer desafío complejo</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Se presentan cuatro perfiles ficticios.
+        </p>
+
+        <div class="person-cases">
+          <div class="person-case">
+            <div class="pc-label">Persona A</div>
+            <div class="pc-text">No presenta criterios de un trastorno, pero: bajo sentido de propósito, aislamiento, baja satisfacción, dificultades de funcionamiento.</div>
+          </div>
+          <div class="person-case">
+            <div class="pc-label">Persona B</div>
+            <div class="pc-text">Tiene un diagnóstico clínico, pero: mantiene vínculos, estudia o trabaja, tiene sentido de propósito, dispone de apoyo, experimenta periodos de bienestar.</div>
+          </div>
+          <div class="person-case">
+            <div class="pc-label">Persona C</div>
+            <div class="pc-text">Presenta síntomas elevados recientes relacionados con un acontecimiento vital adverso.</div>
+          </div>
+          <div class="person-case">
+            <div class="pc-label">Persona D</div>
+            <div class="pc-text">Reporta alto bienestar subjetivo, pero también dificultades significativas en una dimensión específica.</div>
+          </div>
+        </div>
+
+        <h3>Pregunta: ¿Cómo los ordenarías de "mejor" a "peor" salud mental?</h3>
+        <div class="options-list">
+          <div class="option-card ${state.station2.selected === 'unica' ? 'selected' : ''}" data-value="unica">
+            <span class="option-marker">A</span>
+            <span>Es posible ordenarlos en una única dimensión de salud mental.</span>
+          </div>
+          <div class="option-card ${state.station2.selected === 'depende' ? 'selected' : ''}" data-value="depende">
+            <span class="option-marker">B</span>
+            <span>Depende de qué dimensión de salud mental definamos primero.</span>
+          </div>
+          <div class="option-card ${state.station2.selected === 'no-posible' ? 'selected' : ''}" data-value="no-posible">
+            <span class="option-marker">C</span>
+            <span>No podemos ordenarlos responsablemente sobre una única dimensión sin definir previamente qué entendemos por salud mental.</span>
+          </div>
+        </div>
+
+        <div id="station2Reflection" style="display: ${state.station2.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>Descubrimiento:</strong> La respuesta sofisticada reconoce que no podemos ordenarlos
+            sin definir antes qué dimensiones estamos comparando. El modelo de dos continuos nos permite
+            ver que cada persona puede ocupar posiciones distintas según la dimensión.
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station2.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station2Reflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station2.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(3));
+      return;
+    }
+
+    /* ============ ESTACIÓN 3 ============ */
+    if (num === 3) {
+      const phenomena = [
+        { id: 'bienestar', name: 'Bienestar', desc: 'Dimensiones positivas de experiencia y funcionamiento.' },
+        { id: 'malestar', name: 'Malestar psicológico', desc: 'Experiencia subjetiva de sufrimiento o distrés.' },
+        { id: 'sintomatologia', name: 'Sintomatología psicológica', desc: 'Manifestaciones específicas evaluadas dimensionalmente.' },
+        { id: 'trastorno', name: 'Trastorno mental', desc: 'Categoría diagnóstica con criterios específicos.' },
+        { id: 'funcionamiento', name: 'Funcionamiento', desc: 'Qué puede hacer la persona en su vida cotidiana.' }
+      ];
+
+      body.innerHTML = `
+        <p style="color: var(--text-soft);">
+          Construyamos una cartografía conceptual. Debes aprender a separar cinco objetos que suelen confundirse.
+        </p>
+
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Constructo</th>
+              <th>Pregunta conceptual</th>
+              <th>NO confundir con</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bienestar</td>
+              <td>¿Cómo se encuentra y funciona positivamente?</td>
+              <td>Ausencia de síntomas</td>
+            </tr>
+            <tr>
+              <td>Malestar</td>
+              <td>¿Qué sufrimiento subjetivo experimenta?</td>
+              <td>Trastorno</td>
+            </tr>
+            <tr>
+              <td>Sintomatología</td>
+              <td>¿Qué manifestaciones específicas presenta?</td>
+              <td>Diagnóstico</td>
+            </tr>
+            <tr>
+              <td>Trastorno mental</td>
+              <td>¿Se cumplen criterios diagnósticos bajo evaluación apropiada?</td>
+              <td>Puntuación elevada aislada</td>
+            </tr>
+            <tr>
+              <td>Funcionamiento</td>
+              <td>¿Cómo se desenvuelve en áreas significativas?</td>
+              <td>Bienestar subjetivo</td>
+            </tr>
+            <tr>
+              <td>Salud mental</td>
+              <td>¿Qué configuración emerge entre múltiples dimensiones?</td>
+              <td>Una variable única universal</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Clasificación de escenarios</h3>
+        <p style="color: var(--text-soft); font-size: 0.92rem;">
+          Para cada escenario, identifica el constructo que mejor corresponde:
+        </p>
+
+        <div class="options-list" id="scenarios">
+          <div class="card" style="border-left-color: var(--info);">
+            <p style="font-size: 0.9rem;"><strong>Escenario A:</strong> Una persona reporta emociones positivas, propósito y buenas relaciones.</p>
+            <div class="options-list" style="margin-top: 0.7rem;">
+              <div class="option-card ${state.station3.selected.A === 'bienestar' ? 'selected' : ''}" data-scenario="A" data-value="bienestar"><span class="option-marker">1</span><span>Bienestar</span></div>
+              <div class="option-card ${state.station3.selected.A === 'malestar' ? 'selected' : ''}" data-scenario="A" data-value="malestar"><span class="option-marker">2</span><span>Malestar psicológico</span></div>
+              <div class="option-card ${state.station3.selected.A === 'sintomatologia' ? 'selected' : ''}" data-scenario="A" data-value="sintomatologia"><span class="option-marker">3</span><span>Sintomatología</span></div>
+              <div class="option-card ${state.station3.selected.A === 'trastorno' ? 'selected' : ''}" data-scenario="A" data-value="trastorno"><span class="option-marker">4</span><span>Trastorno mental</span></div>
+              <div class="option-card ${state.station3.selected.A === 'funcionamiento' ? 'selected' : ''}" data-scenario="A" data-value="funcionamiento"><span class="option-marker">5</span><span>Funcionamiento</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-left-color: var(--warning);">
+            <p style="font-size: 0.9rem;"><strong>Escenario B:</strong> Una persona experimenta sufrimiento subjetivo tras una pérdida reciente.</p>
+            <div class="options-list" style="margin-top: 0.7rem;">
+              <div class="option-card ${state.station3.selected.B === 'bienestar' ? 'selected' : ''}" data-scenario="B" data-value="bienestar"><span class="option-marker">1</span><span>Bienestar</span></div>
+              <div class="option-card ${state.station3.selected.B === 'malestar' ? 'selected' : ''}" data-scenario="B" data-value="malestar"><span class="option-marker">2</span><span>Malestar psicológico</span></div>
+              <div class="option-card ${state.station3.selected.B === 'sintomatologia' ? 'selected' : ''}" data-scenario="B" data-value="sintomatologia"><span class="option-marker">3</span><span>Sintomatología</span></div>
+              <div class="option-card ${state.station3.selected.B === 'trastorno' ? 'selected' : ''}" data-scenario="B" data-value="trastorno"><span class="option-marker">4</span><span>Trastorno mental</span></div>
+              <div class="option-card ${state.station3.selected.B === 'funcionamiento' ? 'selected' : ''}" data-scenario="B" data-value="funcionamiento"><span class="option-marker">5</span><span>Funcionamiento</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-left-color: var(--error);">
+            <p style="font-size: 0.9rem;"><strong>Escenario C:</strong> Una persona obtiene puntuaciones elevadas en una escala de ansiedad.</p>
+            <div class="options-list" style="margin-top: 0.7rem;">
+              <div class="option-card ${state.station3.selected.C === 'bienestar' ? 'selected' : ''}" data-scenario="C" data-value="bienestar"><span class="option-marker">1</span><span>Bienestar</span></div>
+              <div class="option-card ${state.station3.selected.C === 'malestar' ? 'selected' : ''}" data-scenario="C" data-value="malestar"><span class="option-marker">2</span><span>Malestar psicológico</span></div>
+              <div class="option-card ${state.station3.selected.C === 'sintomatologia' ? 'selected' : ''}" data-scenario="C" data-value="sintomatologia"><span class="option-marker">3</span><span>Sintomatología</span></div>
+              <div class="option-card ${state.station3.selected.C === 'trastorno' ? 'selected' : ''}" data-scenario="C" data-value="trastorno"><span class="option-marker">4</span><span>Trastorno mental</span></div>
+              <div class="option-card ${state.station3.selected.C === 'funcionamiento' ? 'selected' : ''}" data-scenario="C" data-value="funcionamiento"><span class="option-marker">5</span><span>Funcionamiento</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-left-color: var(--violet);">
+            <p style="font-size: 0.9rem;"><strong>Escenario D:</strong> Un profesional determina que una persona cumple criterios diagnósticos de depresión mayor.</p>
+            <div class="options-list" style="margin-top: 0.7rem;">
+              <div class="option-card ${state.station3.selected.D === 'bienestar' ? 'selected' : ''}" data-scenario="D" data-value="bienestar"><span class="option-marker">1</span><span>Bienestar</span></div>
+              <div class="option-card ${state.station3.selected.D === 'malestar' ? 'selected' : ''}" data-scenario="D" data-value="malestar"><span class="option-marker">2</span><span>Malestar psicológico</span></div>
+              <div class="option-card ${state.station3.selected.D === 'sintomatologia' ? 'selected' : ''}" data-scenario="D" data-value="sintomatologia"><span class="option-marker">3</span><span>Sintomatología</span></div>
+              <div class="option-card ${state.station3.selected.D === 'trastorno' ? 'selected' : ''}" data-scenario="D" data-value="trastorno"><span class="option-marker">4</span><span>Trastorno mental</span></div>
+              <div class="option-card ${state.station3.selected.D === 'funcionamiento' ? 'selected' : ''}" data-scenario="D" data-value="funcionamiento"><span class="option-marker">5</span><span>Funcionamiento</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-left-color: var(--success);">
+            <p style="font-size: 0.9rem;"><strong>Escenario E:</strong> Una persona mantiene relaciones estables, trabaja y participa en su comunidad.</p>
+            <div class="options-list" style="margin-top: 0.7rem;">
+              <div class="option-card ${state.station3.selected.E === 'bienestar' ? 'selected' : ''}" data-scenario="E" data-value="bienestar"><span class="option-marker">1</span><span>Bienestar</span></div>
+              <div class="option-card ${state.station3.selected.E === 'malestar' ? 'selected' : ''}" data-scenario="E" data-value="malestar"><span class="option-marker">2</span><span>Malestar psicológico</span></div>
+              <div class="option-card ${state.station3.selected.E === 'sintomatologia' ? 'selected' : ''}" data-scenario="E" data-value="sintomatologia"><span class="option-marker">3</span><span>Sintomatología</span></div>
+              <div class="option-card ${state.station3.selected.E === 'trastorno' ? 'selected' : ''}" data-scenario="E" data-value="trastorno"><span class="option-marker">4</span><span>Trastorno mental</span></div>
+              <div class="option-card ${state.station3.selected.E === 'funcionamiento' ? 'selected' : ''}" data-scenario="E" data-value="funcionamiento"><span class="option-marker">5</span><span>Funcionamiento</span></div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station3.selected).length >= 5 ? '' : 'disabled'}>
+          ${Object.keys(state.station3.selected).length >= 5 ? 'Continuar →' : `Clasifica los 5 escenarios (${Object.keys(state.station3.selected).length}/5)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      body.querySelectorAll('[data-scenario]').forEach(card => {
+        card.addEventListener('click', function() {
+          const scenario = this.dataset.scenario;
+          body.querySelectorAll(`[data-scenario="${scenario}"]`).forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station3.selected[scenario] = this.dataset.value;
+          saveState();
+          const count = Object.keys(state.station3.selected).length;
+          if (count >= 5) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Clasifica los 5 escenarios (${count}/5)`;
+          }
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(4));
+      return;
+    }
+
+    /* ============ ESTACIÓN 4 ============ */
+    if (num === 4) {
+      body.innerHTML = `
+        <h3>Caso</h3>
+        <div class="callout info">
+          Un estudio informa: "El 37 % de los estudiantes obtuvo una puntuación superior al punto de corte
+          en una escala de síntomas depresivos."
+        </div>
+
+        <h3>¿Qué podemos escribir?</h3>
+        <div class="options-list" id="station4Options">
+          <div class="option-card ${state.station4.selected === 'A' ? 'selected' : ''}" data-value="A">
+            <span class="option-marker">A</span>
+            <span>El 37 % tiene depresión.</span>
+          </div>
+          <div class="option-card ${state.station4.selected === 'B' ? 'selected' : ''}" data-value="B">
+            <span class="option-marker">B</span>
+            <span>La prevalencia de trastorno depresivo es de 37 %.</span>
+          </div>
+          <div class="option-card ${state.station4.selected === 'C' ? 'selected' : ''}" data-value="C">
+            <span class="option-marker">C</span>
+            <span>El 37 % presentó puntuaciones por encima del punto de corte utilizado para sintomatología depresiva.</span>
+          </div>
+          <div class="option-card ${state.station4.selected === 'D' ? 'selected' : ''}" data-value="D">
+            <span class="option-marker">D</span>
+            <span>El 37 % tiene mala salud mental.</span>
+          </div>
+        </div>
+
+        <div id="station4Reflection" style="display: ${state.station4.selected ? 'block' : 'none'};">
+          <div class="callout success">
+            <strong>La opción C es la formulación más ajustada</strong> si eso es efectivamente lo que midió el estudio.
+            La escala mide sintomatología depresiva, no diagnóstico clínico.
+          </div>
+        </div>
+
+        <h3>La regla de equivalencia prohibida</h3>
+        <div class="highlight-box error" style="text-align: left; padding: 1.3rem 1.5rem;">
+          <p style="font-size: 0.85rem; line-height: 2; margin: 0; color: var(--text-main); font-weight: 400;">
+            ESCALA ≠ CONSTRUCTO COMPLETO<br>
+            PUNTAJE ≠ PERSONA<br>
+            PUNTO DE CORTE ≠ DIAGNÓSTICO AUTOMÁTICO<br>
+            SÍNTOMA ≠ TRASTORNO<br>
+            MALESTAR ≠ PSICOPATOLOGÍA<br>
+            AUSENCIA DE DIAGNÓSTICO ≠ BIENESTAR<br>
+            BIENESTAR ≠ AUSENCIA DE MALESTAR<br>
+            SALUD MENTAL ≠ UNA SOLA VARIABLE
+          </p>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station4.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const reflection = body.querySelector('#station4Reflection');
+
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station4.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+          reflection.style.display = 'block';
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(5));
+      return;
+    }
+
+    /* ============ ESTACIÓN 5 ============ */
+    if (num === 5) {
+      body.innerHTML = `
+        <h3>¿Dónde está la salud mental?</h3>
+
+        <div class="callout">
+          <strong>Respuesta intuitiva:</strong> "En la persona."<br><br>
+          <strong>Respuesta más sofisticada:</strong> La experiencia psicológica ocurre en personas, pero las
+          condiciones que protegen o deterioran la salud mental operan también en relaciones, comunidades,
+          instituciones y estructuras sociales.
+        </div>
+
+        <h3>Modelo multinivel</h3>
+
+        <div class="card" style="border-left-color: var(--info);">
+          <h4 style="color: var(--info);">Nivel 1 · Individual</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Habilidades psicológicas, recursos personales, factores biológicos, comportamientos, experiencias previas.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--success);">
+          <h4 style="color: var(--success);">Nivel 2 · Relacional</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Familia, pares, apoyo, relaciones significativas, dinámicas interpersonales.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--violet);">
+          <h4 style="color: var(--violet);">Nivel 3 · Comunitario / institucional</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Universidad, trabajo, servicios, comunidad, acceso a recursos.</p>
+        </div>
+
+        <div class="card" style="border-left-color: var(--rose);">
+          <h4 style="color: var(--rose);">Nivel 4 · Estructural</h4>
+          <p style="font-size: 0.9rem; margin: 0;">Desigualdad, condiciones económicas, políticas, discriminación, condiciones sociales y ambientales.</p>
+        </div>
+
+        <h3>El error individualista</h3>
+        <div class="callout error">
+          "Los estudiantes sufren ansiedad porque no saben gestionar adecuadamente sus emociones."
+        </div>
+
+        <p style="font-size: 0.92rem; color: var(--text-main);">
+          ¿Qué presupone esta afirmación? Puede estar reduciendo un fenómeno complejo a características personales.
+        </p>
+
+        <h3>¿Cuál es tu posición?</h3>
+        <div class="options-list" id="station5Options">
+          <div class="option-card ${state.station5.selected === 'individual' ? 'selected' : ''}" data-value="individual">
+            <span class="option-marker">A</span>
+            <span>Los factores individuales son los principales determinantes de la salud mental.</span>
+          </div>
+          <div class="option-card ${state.station5.selected === 'multinivel' ? 'selected' : ''}" data-value="multinivel">
+            <span class="option-marker">B</span>
+            <span>La salud mental debe entenderse como un fenómeno multinivel, donde factores individuales, relacionales, comunitarios y estructurales interactúan.</span>
+          </div>
+          <div class="option-card ${state.station5.selected === 'ambos' ? 'selected' : ''}" data-value="ambos">
+            <span class="option-marker">C</span>
+            <span>Ambos tipos de factores importan, pero aún no tengo claro cómo se relacionan.</span>
+          </div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${state.station5.selected ? '' : 'disabled'}>Continuar →</button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      body.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', function() {
+          body.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          state.station5.selected = this.dataset.value;
+          saveState();
+          nextBtn.disabled = false;
+        });
+      });
+      nextBtn.addEventListener('click', () => goToStation(6));
+      return;
+    }
+
+    /* ============ ESTACIÓN 6 ============ */
+    if (num === 6) {
+      const titles = [
+        { id: 'redes', title: 'Redes sociales y salud mental' },
+        { id: 'estres', title: 'Estrés académico y salud mental' },
+        { id: 'ia', title: 'Inteligencia artificial y salud mental' },
+        { id: 'actividad', title: 'Actividad física y salud mental' }
+      ];
+
+      const dimensions = [
+        'bienestar-emocional',
+        'bienestar-psicologico',
+        'bienestar-social',
+        'malestar',
+        'sintomas-ansiosos',
+        'sintomas-depresivos',
+        'funcionamiento',
+        'trastorno-especifico',
+        'determinantes'
+      ];
+
+      body.innerHTML = `
+        <h3>La precisión del constructo</h3>
+        <p style="color: var(--text-soft);">
+          Todos estos títulos parecen investigaciones. Pero ¿qué significa "salud mental" en cada proyecto?
+        </p>
+
+        <p style="font-size: 0.92rem; color: var(--text-main);">
+          Selecciona al menos 3 títulos y descompón qué significa "salud mental" en cada uno.
+        </p>
+
+        <div class="checkbox-list" id="titlesList">
+          ${titles.map(t => `
+            <div class="checkbox-card ${state.station6.titles[t.id] ? 'selected' : ''}" data-title="${t.id}" tabindex="0" role="button">
+              <span class="checkbox-marker"></span>
+              <span>${t.title}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div id="decompositionSection" style="display: ${Object.keys(state.station6.titles).length > 0 ? 'block' : 'none'}; margin-top: 1.5rem;">
+          <h3>Descompón "salud mental" en cada título</h3>
+          <p style="color: var(--text-soft); font-size: 0.9rem;">
+            Marca las dimensiones específicas que podrían estar siendo investigadas:
+          </p>
+
+          <div id="decompositionList"></div>
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station6.titles).length >= 3 ? '' : 'disabled'}>
+          ${Object.keys(state.station6.titles).length >= 3 ? 'Continuar →' : `Selecciona al menos 3 títulos (${Object.keys(state.station6.titles).length}/3)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+      const decompSection = body.querySelector('#decompositionSection');
+      const decompList = body.querySelector('#decompositionList');
+
+      const dimLabels = {
+        'bienestar-emocional': 'Bienestar emocional',
+        'bienestar-psicologico': 'Bienestar psicológico',
+        'bienestar-social': 'Bienestar social',
+        'malestar': 'Malestar',
+        'sintomas-ansiosos': 'Síntomas ansiosos',
+        'sintomas-depresivos': 'Síntomas depresivos',
+        'funcionamiento': 'Funcionamiento',
+        'trastorno-especifico': 'Trastorno específico',
+        'determinantes': 'Determinantes / condiciones'
+      };
+
+      function renderDecomposition() {
+        decompList.innerHTML = '';
+        titles.forEach(t => {
+          if (!state.station6.titles[t.id]) return;
+          const div = document.createElement('div');
+          div.className = 'card';
+          div.style.borderLeftColor = 'var(--info)';
+          div.innerHTML = `
+            <h4 style="color: var(--info);">${t.title}</h4>
+            <div class="checkbox-list" style="margin-top: 0.6rem;">
+              ${dimensions.map(d => {
+                const key = `${t.id}_${d}`;
+                const selected = state.station6.titles[t.id] && state.station6.titles[t.id].includes(d);
+                return `
+                  <div class="checkbox-card ${selected ? 'selected' : ''}" data-title-id="${t.id}" data-dim="${d}" tabindex="0" role="button">
+                    <span class="checkbox-marker"></span>
+                    <span>${dimLabels[d]}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+          decompList.appendChild(div);
+        });
+
+        decompList.querySelectorAll('.checkbox-card').forEach(card => {
+          card.addEventListener('click', function() {
+            this.classList.toggle('selected');
+            const titleId = this.dataset.titleId;
+            const dim = this.dataset.dim;
+            if (!state.station6.titles[titleId]) state.station6.titles[titleId] = [];
+            if (state.station6.titles[titleId].includes(dim)) {
+              state.station6.titles[titleId] = state.station6.titles[titleId].filter(d => d !== dim);
+            } else {
+              state.station6.titles[titleId].push(dim);
+            }
+            saveState();
+          });
+        });
+      }
+
+      body.querySelectorAll('#titlesList .checkbox-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('selected');
+          const titleId = this.dataset.title;
+          if (state.station6.titles[titleId]) {
+            delete state.station6.titles[titleId];
+          } else {
+            state.station6.titles[titleId] = [];
+          }
+          saveState();
+          const count = Object.keys(state.station6.titles).length;
+          if (count >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Continuar →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Selecciona al menos 3 títulos (${count}/3)`;
+          }
+          if (count > 0) {
+            decompSection.style.display = 'block';
+            renderDecomposition();
+          } else {
+            decompSection.style.display = 'none';
+          }
+        });
+      });
+
+      if (Object.keys(state.station6.titles).length > 0) {
+        renderDecomposition();
+      }
+
+      nextBtn.addEventListener('click', () => goToStation(7));
+      return;
+    }
+
+    /* ============ ESTACIÓN 7 ============ */
+    if (num === 7) {
+      const errors = [
+        { title: 'Reduccionismo psicopatológico', desc: 'Salud mental = ausencia de trastorno.' },
+        { title: 'Patologización', desc: 'Interpretar cualquier malestar como enfermedad mental.' },
+        { title: 'Diagnóstico por cuestionario', desc: 'Convertir un punto de corte de screening en diagnóstico.' },
+        { title: 'Hiperconstructo', desc: 'Utilizar "salud mental" sin especificar qué dimensión representa.' },
+        { title: 'Instrumentalismo', desc: '"Utilizaré esta escala, por tanto estoy estudiando el constructo completo."' },
+        { title: 'Causalidad prematura', desc: 'Encontrar una asociación y describirla como causa.' },
+        { title: 'Individualización', desc: 'Explicar fenómenos complejos únicamente mediante características personales.' },
+        { title: 'Homogeneización', desc: '"Los estudiantes con problemas de salud mental..." como si compartieran la misma experiencia.' },
+        { title: 'Lenguaje estigmatizante', desc: 'Convertir una condición en identidad total: "los depresivos", "los ansiosos".' },
+        { title: 'Sobreinterpretación', desc: 'Los datos dicen "puntuación elevada"; la conclusión dice "grave crisis de salud mental".' }
+      ];
+
+      const successes = [
+        { title: 'Definir explícitamente el constructo', desc: 'Cada proyecto debe especificar qué entiende por salud mental.' },
+        { title: 'Distinguir salud mental positiva y psicopatología', desc: 'Son dimensiones relacionadas pero no idénticas.' },
+        { title: 'Diferenciar malestar, síntomas, screening y diagnóstico', desc: 'Son niveles de análisis distintos.' },
+        { title: 'Seleccionar indicadores coherentes con el constructo', desc: 'No cualquier escala mide cualquier constructo.' },
+        { title: 'Interpretar los resultados dentro del alcance real de las medidas', desc: 'Un instrumento no puede afirmar más de lo que mide.' },
+        { title: 'Considerar contexto y determinantes', desc: 'Los fenómenos de salud mental operan en múltiples niveles.' },
+        { title: 'Utilizar lenguaje preciso y no totalizante', desc: 'Centrado en la persona y en el fenómeno observado.' },
+        { title: 'Reconocer explícitamente lo que la investigación no permite concluir', desc: 'La humildad epistémica es parte del rigor.' }
+      ];
+
+      body.innerHTML = `
+        <h3>10 errores frecuentes al investigar salud mental</h3>
+        <div class="error-grid">
+          ${errors.map((e, i) => `
+            <div class="error-card">
+              <div class="ec-num">Error ${i + 1}</div>
+              <div class="ec-title">${e.title}</div>
+              <div class="ec-desc">${e.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <h3 style="margin-top: 2rem;">8 buenas prácticas</h3>
+        <div class="error-grid">
+          ${successes.map((s, i) => `
+            <div class="success-card">
+              <div class="sc-num">Buena práctica ${i + 1}</div>
+              <div class="sc-title">${s.title}</div>
+              <div class="sc-desc">${s.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="callout success" style="margin-top: 1.5rem;">
+          <strong>Reconoce los aciertos:</strong> El laboratorio no es solo un catálogo de errores.
+          También es un mapa de lo que hace robusta una investigación sobre salud mental.
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn">Continuar al auditor final →</button>
+      `;
+
+      body.querySelector('#phaseNextBtn').addEventListener('click', () => goToStation(8));
+      return;
+    }
+
+    /* ============ ESTACIÓN 8 ============ */
+    if (num === 8) {
+      const statements = [
+        { id: 'A', text: '"El 31 % de estudiantes tiene un trastorno de ansiedad."', correct: 'no' },
+        { id: 'B', text: '"El 31 % presentó puntuaciones elevadas de sintomatología ansiosa de acuerdo con el criterio utilizado."', correct: 'si' },
+        { id: 'C', text: '"La alta carga académica causa ansiedad."', correct: 'no' },
+        { id: 'D', text: '"Se observó una asociación entre carga académica reportada y puntuaciones de sintomatología ansiosa."', correct: 'si' },
+        { id: 'E', text: '"La universidad presenta una crisis de salud mental."', correct: 'no' },
+        { id: 'F', text: '"Los resultados describen una dimensión específica de salud mental, pero son insuficientes para caracterizar globalmente la salud mental de los participantes."', correct: 'si' }
+      ];
+
+      const feedbackMap = {
+        'A': 'Convierte un punto de corte de screening en diagnóstico. Ese salto no es válido.',
+        'B': 'Formulación ajustada: describe exactamente lo que el instrumento midió.',
+        'C': 'Afirma causalidad a partir de una asociación. No es válido sin un diseño que permita inferencia causal.',
+        'D': 'Describe una asociación observada, que es lo que los datos permiten sostener.',
+        'E': 'Sobreinterpretación: los datos describen puntuaciones específicas, no una crisis institucional global.',
+        'F': 'Reconoce el alcance limitado de la medida, que es parte del rigor.'
+      };
+
+      body.innerHTML = `
+        <h3>Auditor de afirmaciones</h3>
+        <div class="callout info">
+          <strong>Informe ficticio:</strong> "Se administró una escala de sintomatología ansiosa a 420 estudiantes.
+          El 31 % presentó puntuaciones superiores al punto de corte establecido por el instrumento.
+          Las puntuaciones fueron mayores entre quienes reportaron alta carga académica."
+        </div>
+
+        <p style="color: var(--text-soft); font-size: 0.9rem;">
+          Para cada afirmación, clasifícala como justificada o no justificada según lo que el informe permite concluir.
+        </p>
+
+        <div id="auditorList">
+          ${statements.map(s => {
+            const answer = state.station8.answers[s.id];
+            return `
+              <div class="auditor-statement">
+                <div class="as-text"><strong>${s.id}.</strong> ${s.text}</div>
+                <div class="auditor-options">
+                  <button class="auditor-option ${answer === 'si' ? 'selected' : ''}" data-statement="${s.id}" data-value="si">Justificada</button>
+                  <button class="auditor-option ${answer === 'no' ? 'selected' : ''}" data-statement="${s.id}" data-value="no">No justificada</button>
+                </div>
+                <div class="auditor-feedback ${answer ? 'show ' + (answer === s.correct ? 'correct' : 'incorrect') : ''}" id="fb_${s.id}">
+                  ${answer ? feedbackMap[s.id] : ''}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <button class="btn btn-next" id="phaseNextBtn" ${Object.keys(state.station8.answers).length >= 6 ? '' : 'disabled'}>
+          ${Object.keys(state.station8.answers).length >= 6 ? 'Completar pasaporte →' : `Responde las 6 afirmaciones (${Object.keys(state.station8.answers).length}/6)`}
+        </button>
+      `;
+
+      const nextBtn = body.querySelector('#phaseNextBtn');
+
+      body.querySelectorAll('.auditor-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const statementId = this.dataset.statement;
+          const value = this.dataset.value;
+          state.station8.answers[statementId] = value;
+          saveState();
+
+          const parent = this.closest('.auditor-statement');
+          parent.querySelectorAll('.auditor-option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+
+          const statement = statements.find(s => s.id === statementId);
+          const isCorrect = value === statement.correct;
+          const fb = document.getElementById(`fb_${statementId}`);
+          fb.textContent = feedbackMap[statementId];
+          fb.className = `auditor-feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+
+          // Actualizar botón
+          const count = Object.keys(state.station8.answers).length;
+          if (count >= 6) {
+            nextBtn.disabled = false;
+            nextBtn.textContent = 'Completar pasaporte →';
+          } else {
+            nextBtn.disabled = true;
+            nextBtn.textContent = `Responde las 6 afirmaciones (${count}/6)`;
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        document.getElementById('stationContent').style.display = 'none';
+        document.getElementById('stationsNav').style.display = 'none';
+        document.getElementById('diagnostico').style.display = 'block';
+        document.getElementById('diagnostico').scrollIntoView({ behavior: 'smooth' });
+        stationBtns.forEach(b => b.classList.add('completed'));
+      });
+      return;
+    }
+  }
+
+  /* ============================================================
+     INICIO
+     ============================================================ */
+  document.getElementById('btnStartLab').addEventListener('click', function() {
+    state.labStarted = true;
+    saveState();
+    this.disabled = true;
+    this.textContent = '⏱️ Laboratorio en curso...';
+    this.style.opacity = '0.5';
+
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+
+    goToStation(state.station >= 0 ? state.station : 0);
+  });
+
+  /* ============================================================
+     PASAPORTE
+     ============================================================ */
+  const passportFields = ['passport1', 'passport2', 'passport3', 'passport4', 'passport5'];
+  passportFields.forEach(field => {
+    const el = document.getElementById(field);
+    if (!el) return;
+    // Restaurar
+    try {
+      const saved = localStorage.getItem('lab01_' + field);
+      if (saved) el.value = saved;
+    } catch (e) {}
+    el.addEventListener('input', function() {
+      try {
+        localStorage.setItem('lab01_' + field, this.value);
+      } catch (e) {}
+    });
+  });
+
+  document.getElementById('btnGenerarPasaporte').addEventListener('click', function() {
+    const filled = passportFields.filter(f => {
+      const el = document.getElementById(f);
+      return el && el.value.trim().length > 10;
+    }).length;
+
+    const verdict = document.getElementById('diagnosticVerdict');
+    if (filled === 5) {
+      verdict.innerHTML = '<div class="highlight-box success"><p>🟢 Pasaporte completo — Guárdalo para el resto del curso</p></div>';
+    } else if (filled >= 3) {
+      verdict.innerHTML = '<div class="highlight-box warning"><p>🟡 Pasaporte parcial — Completa las afirmaciones restantes</p></div>';
+    } else {
+      verdict.innerHTML = '<div class="highlight-box error"><p>🔴 Pasaporte incompleto — Necesitas desarrollar más las afirmaciones</p></div>';
+    }
+
+    // Mostrar cierre
+    document.getElementById('cierre').style.display = 'block';
+    document.getElementById('cierre').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+  function reiniciar() {
+    if (!confirm('¿Reiniciar todo el laboratorio? Se perderán tus decisiones.')) return;
+    localStorage.removeItem('lab01_salud_mental_v1');
+    passportFields.forEach(f => localStorage.removeItem('lab01_' + f));
+    location.reload();
+  }
+
+  document.getElementById('btnReiniciar').addEventListener('click', reiniciar);
+
+  /* ============================================================
+     RESTAURAR
+     ============================================================ */
+  if (state.labStarted) {
+    document.getElementById('btnStartLab').disabled = true;
+    document.getElementById('btnStartLab').textContent = '⏱️ Laboratorio en curso...';
+    document.getElementById('btnStartLab').style.opacity = '0.5';
+    document.getElementById('stationsNav').style.display = 'grid';
+    document.getElementById('stationContent').style.display = 'block';
+    goToStation(state.station >= 0 ? state.station : 0);
+  }
+
+})();
+</script>
+</body>
+</html>
