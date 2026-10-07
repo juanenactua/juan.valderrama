@@ -319,6 +319,28 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Detective de brechas: ¿realmente necesitamos otra investigación?",
+    "descripcion": "Laboratorio forense para reconstruir el estado de la evidencia, distinguir brechas genuinas y falsas, analizar inconsistencia, sesgo y comparabilidad, priorizar incertidumbres y decidir qué investigación se necesita.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-03-detective-brechas.html",
+    "etiquetas": [
+      "Brecha de conocimiento",
+      "Estado de la evidencia",
+      "Revisión de literatura",
+      "Incertidumbre",
+      "Evidencia científica",
+      "Síntesis",
+      "Replicación",
+      "Brecha metodológica",
+      "Priorización",
+      "Sesgo",
+      "Investigación empírica",
+      "Alfabetización científica"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Diseña la interacción, no solo la pregunta",
     "descripcion": "Laboratorio individual de 50 minutos para diseñar prompts académicos con contexto, tarea, restricciones, criterios y formato de salida, evaluando ambigüedad, función de la IA y agencia del estudiante.",
     "tipo": "Laboratorio interactivo",
@@ -795,6 +817,26 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "¿Aquí hay realmente un problema de investigación?",
+    "descripcion": "Laboratorio de problematización para distinguir tema, situación problemática, problema práctico y problema de conocimiento, construir la anatomía del problema, delimitar con sentido y evaluar admisibilidad científica.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-02-problema-investigacion.html",
+    "etiquetas": [
+      "Problema de investigación",
+      "Problematización",
+      "Tema de investigación",
+      "Situación problemática",
+      "Problema de conocimiento",
+      "Delimitación",
+      "Incertidumbre",
+      "Relevancia",
+      "Admisibilidad científica",
+      "Metodología de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "¿Cómo sabemos qué sabemos? De la búsqueda de artículos a la revisión de literatura",
     "descripcion": "Recurso autónomo sobre búsqueda bibliográfica, revisión narrativa y sistemática, PRISMA, criterios de elegibilidad, síntesis de evidencia y trazabilidad, con actividades y autoevaluación.",
     "tipo": "Artefacto educativo interactivo",
@@ -830,6 +872,28 @@
       "Síntesis",
       "Trazabilidad",
       "Metodología de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "¿De qué hablamos cuando hablamos de salud mental?",
+    "descripcion": "Laboratorio autónomo de precisión conceptual para investigar salud mental, diferenciando bienestar, malestar, sintomatología, trastorno, funcionamiento, medición, diagnóstico, contexto y determinantes.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-01-salud-mental.html",
+    "etiquetas": [
+      "Salud mental",
+      "Precisión conceptual",
+      "Bienestar",
+      "Malestar psicológico",
+      "Sintomatología",
+      "Trastorno mental",
+      "Funcionamiento",
+      "Medición",
+      "Diagnóstico",
+      "Determinantes sociales",
+      "Constructos",
+      "Investigación en Psicología"
     ],
     "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
