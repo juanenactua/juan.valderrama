@@ -22,6 +22,28 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Cartografía de la salud mental",
+    "descripcion": "Exploración conceptual guiada sobre salud mental como constructo multidimensional, dinámico y contextual, con bienestar emocional, psicológico y social, dos continuos, determinantes, riesgo, protección y trayectorias.",
+    "tipo": "Artefacto educativo interactivo",
+    "archivo": "materiales/cartografia-salud-mental.html",
+    "etiquetas": [
+      "Salud mental",
+      "Constructo",
+      "Bienestar psicológico",
+      "Bienestar social",
+      "Bienestar emocional",
+      "Dos continuos",
+      "Keyes",
+      "Ryff",
+      "Determinantes sociales",
+      "Riesgo y protección",
+      "Trayectorias",
+      "Conceptualización"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Caso Andrés: laboratorio ABC interactivo",
     "descripcion": "Laboratorio grupal sobre el modelo ABC a partir del caso Andrés, con clasificación de acontecimientos, creencias y consecuencias, experimento contrafactual, transferencia, debate y autoevaluación.",
     "tipo": "Laboratorio interactivo",
@@ -125,6 +147,28 @@
       "Cultura"
     ],
     "curso": "Enfoque Cognitivo",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Comité de Financiación: decidir bajo incertidumbre",
+    "descripcion": "Laboratorio de evaluación de proyectos en una convocatoria simulada de salud mental, centrado en prioridad científica, rigor, ética, viabilidad, defectos críticos, costo de oportunidad, incertidumbre y juicio de financiación.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-05-comite-financiacion.html",
+    "etiquetas": [
+      "Evaluación de proyectos",
+      "Financiación",
+      "Convocatoria de investigación",
+      "Juicio científico",
+      "Prioridad",
+      "Rigor",
+      "Ética",
+      "Viabilidad",
+      "Costo de oportunidad",
+      "Incertidumbre",
+      "Salud mental",
+      "Toma de decisiones"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
@@ -347,6 +391,28 @@
       "Coherencia metodológica"
     ],
     "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "El proyecto roto: laboratorio de coherencia investigativa",
+    "descripcion": "Laboratorio de auditoría metodológica para identificar y reparar rupturas entre problema, pregunta, objetivos, evidencia, diseño, técnicas, análisis e inferencias mediante estaciones, autopsia y reconstrucción inversa.",
+    "tipo": "Laboratorio interactivo",
+    "archivo": "materiales/laboratorio-04-proyecto-roto.html",
+    "etiquetas": [
+      "Coherencia investigativa",
+      "Coherencia metodológica",
+      "Pregunta de investigación",
+      "Objetivos",
+      "Taxonomía de Bloom",
+      "Evidencia",
+      "Diseño metodológico",
+      "Técnicas",
+      "Instrumentos",
+      "Inferencia",
+      "Causalidad",
+      "Auditoría metodológica"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
