@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Encuentro sincrónico 5 · Revisar también es investigar</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Revisar también es investigar">
+<meta name="jc-descripcion" content="Encuentro sincrónico sobre diseño de revisiones de literatura, diferenciando búsqueda, revisión narrativa, sistemática y de alcance, protocolo, PRISMA, PICO, PCC, elegibilidad, selección, extracción y síntesis.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Revisión de literatura, Revisión sistemática, Revisión de alcance, Scoping review, PRISMA, PICO, PCC, Protocolo, Búsqueda bibliográfica, Criterios de elegibilidad, Síntesis de evidencia">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     ESTILOS
+     Formato magistral para encuentro sincrónico de 45 minutos.
+     Fondo azul oscuro, diapositivas en tarjetas claras.
+     Sin interacción con el estudiante.
+     Índice lateral plegable. Indicador de progresión discreto.
+     ============================================================ -->
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EC;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --crema:#FBF8F1;
+    --sombra:0 16px 42px rgba(0,0,0,.35);
+    --radio:18px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--azul-oscuro); color:var(--texto);
+    font-size:30px; line-height:1.5; overflow:hidden;
+  }
+
+  .fondo{
+    position:fixed; inset:0; z-index:0;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(231,200,115,.10) 0%, transparent 42%),
+      radial-gradient(circle at 88% 82%, rgba(19,83,138,.35) 0%, transparent 55%),
+      linear-gradient(150deg,#0B2545 0%,#13315C 55%,#0B2545 100%);
+  }
+
+  .titulo-encuentro{
+    position:fixed; top:22px; left:28px; z-index:65;
+    font-size:15px; color:var(--dorado); font-weight:600;
+    letter-spacing:.6px; text-transform:uppercase; opacity:.85;
+  }
+  .titulo-encuentro::before{
+    content:"●"; color:var(--dorado); margin-right:10px; font-size:13px;
+  }
+
+  .toggle-indice{
+    position:fixed; top:18px; right:24px; z-index:65;
+    background:var(--dorado); color:var(--azul-oscuro);
+    border:none; border-radius:24px; padding:10px 22px;
+    font-size:15px; font-weight:700; letter-spacing:.4px;
+    cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.25);
+    transition:background .2s, transform .15s;
+  }
+  .toggle-indice:hover{background:#F0D48F; transform:scale(1.04);}
+
+  .indice-panel{
+    position:fixed; top:0; right:0; bottom:0; width:400px;
+    background:linear-gradient(180deg,#071A33 0%,#0B2545 100%);
+    color:var(--blanco);
+    padding:80px 24px 30px; overflow-y:auto;
+    transform:translateX(100%); transition:transform .35s ease;
+    z-index:75; box-shadow:-12px 0 40px rgba(0,0,0,.5);
+    border-left:1px solid rgba(231,200,115,.25);
+  }
+  .indice-panel.open{transform:translateX(0);}
+  .indice-panel h2{
+    color:var(--dorado); font-size:19px; margin:0 0 22px;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  }
+  .indice-panel ol{list-style:none; margin:0; padding:0;}
+  .indice-panel li{
+    font-size:15px; padding:9px 14px; border-radius:8px;
+    cursor:pointer; margin-bottom:3px; color:#C9D6E8;
+    line-height:1.35; transition:background .2s, color .2s;
+  }
+  .indice-panel li:hover{background:rgba(231,200,115,.15); color:var(--blanco);}
+  .indice-panel li.active{background:var(--azul-acento); color:var(--blanco); font-weight:600;}
+
+  .stage{
+    position:absolute; inset:0; z-index:10;
+    display:flex; align-items:center; justify-content:center;
+    padding:70px 90px 130px;
+    overflow-y:auto;
+  }
+
+  .slide{
+    max-width:1320px; width:100%;
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:var(--sombra);
+    padding:60px 70px;
+    opacity:0; visibility:hidden;
+    position:absolute; left:90px; right:90px; top:70px;
+    transition:opacity .4s ease, transform .4s ease, visibility .4s;
+    transform:translateY(20px);
+    border-top:8px solid var(--dorado);
+  }
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  h1{font-size:56px; color:var(--azul-oscuro); margin:0 0 16px; line-height:1.1;}
+  h2{font-size:42px; color:var(--azul-oscuro); margin:0 0 26px; line-height:1.15;}
+  h3{font-size:28px; color:var(--azul-medio); margin:0 0 12px;}
+  p, li{font-size:26px; color:var(--texto);}
+  .lead{font-size:28px; color:var(--texto-suave);}
+  .subtitulo{font-size:30px; color:var(--azul-acento); font-weight:600; margin-bottom:10px;}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{padding-left:38px; position:relative; margin-bottom:10px;}
+  ul.clean li::before{
+    content:"›"; position:absolute; left:8px; top:-3px;
+    color:var(--dorado); font-size:36px; font-weight:700;
+  }
+
+  .card{
+    background:var(--gris-calido); border-left:8px solid var(--azul-acento);
+    border-radius:14px; padding:22px 26px; margin:14px 0;
+    box-shadow:0 4px 14px rgba(11,37,69,.06);
+  }
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB;}
+  .card.azul{background:#EAF1F8; border-left-color:var(--azul-medio);}
+  .card.verde{background:#E4F3E6; border-left-color:var(--verde);}
+  .card.rojo{background:#FBE9E7; border-left-color:var(--rojo);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+
+  .pill{
+    display:inline-block; background:var(--azul-oscuro); color:var(--blanco);
+    border-radius:40px; padding:8px 22px; font-size:19px; font-weight:700;
+    letter-spacing:.5px; margin-bottom:18px; text-transform:uppercase;
+  }
+  .pill.dorado{background:var(--dorado); color:var(--azul-oscuro);}
+  .pill.verde{background:var(--verde); color:var(--blanco);}
+  .pill.rojo{background:var(--rojo); color:var(--blanco);}
+
+  .portada{
+    text-align:center; padding-top:50px;
+    background:linear-gradient(150deg,#FFFFFF 0%,#F4F1EC 100%);
+  }
+  .portada h1{font-size:50px; margin-bottom:20px; line-height:1.15;}
+  .portada .linea{
+    width:140px; height:6px; background:var(--dorado);
+    margin:26px auto; border-radius:3px;
+  }
+  .portada .autor{font-size:32px; color:var(--azul-oscuro); font-weight:700; margin-top:14px;}
+  .portada .contexto{font-size:22px; color:var(--texto-suave); margin-top:8px;}
+
+  .ra-lista{display:flex; flex-direction:column; gap:12px;}
+  .ra-item{
+    display:grid; grid-template-columns:70px 1fr; gap:18px;
+    background:var(--crema); border-radius:12px;
+    padding:18px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--dorado); align-items:center;
+  }
+  .ra-num{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-radius:50%; width:54px; height:54px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; font-weight:700;
+  }
+  .ra-texto{font-size:22px; line-height:1.4;}
+  .ra-texto strong{color:var(--azul-medio);}
+
+  .desafio{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:28px 34px; margin:20px 0;
+    box-shadow:0 10px 30px rgba(11,37,69,.25);
+  }
+  .desafio h3{color:var(--dorado); margin:0 0 12px; font-size:26px;}
+  .desafio p{color:var(--blanco); font-size:25px; margin:6px 0; line-height:1.5;}
+
+  .interrogante{
+    background:#FBF7EB; border-left:10px solid var(--dorado);
+    border-radius:14px; padding:20px 26px; margin:18px 0;
+    font-size:26px; font-weight:600; color:var(--azul-oscuro);
+    line-height:1.45;
+  }
+  .interrogante::before{
+    content:"?"; display:inline-block;
+    background:var(--dorado); color:var(--azul-oscuro);
+    width:42px; height:42px; border-radius:50%;
+    text-align:center; line-height:42px; font-weight:900;
+    margin-right:16px; font-size:26px; vertical-align:middle;
+  }
+
+  /* ---------- Provocación con 4 propuestas ---------- */
+  .propuestas{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
+  .prop{
+    background:var(--crema); border:3px solid var(--azul-medio);
+    border-radius:12px; padding:18px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06);
+    display:grid; grid-template-columns:56px 1fr; gap:16px;
+    align-items:center; font-size:20px; line-height:1.4;
+  }
+  .prop .letra{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-radius:50%; width:48px; height:48px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:700;
+  }
+  .prop.destacada{
+    background:#E4F3E6; border-color:var(--verde);
+  }
+  .prop.destacada .letra{background:var(--verde); color:var(--blanco);}
+
+  /* ---------- Tabla comparativa ---------- */
+  .tabla{
+    background:var(--crema); border-radius:14px;
+    padding:14px 18px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px; overflow-x:auto;
+  }
+  .tabla table{width:100%; border-collapse:collapse; font-size:17px;}
+  .tabla th{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:12px 14px; text-align:left; font-size:15px; font-weight:700;
+  }
+  .tabla td{
+    padding:12px 14px; border-bottom:1px solid #D6DEE9;
+    color:var(--texto); line-height:1.4;
+  }
+  .tabla td:first-child{font-weight:700; color:var(--azul-medio);}
+
+  /* ---------- Cadena ---------- */
+  .cadena{
+    display:flex; align-items:center; justify-content:center;
+    flex-wrap:wrap; gap:10px; margin-top:18px;
+  }
+  .cadena .eslabon{
+    background:var(--crema); border:3px solid var(--azul-medio);
+    border-radius:12px; padding:12px 18px; font-size:18px;
+    font-weight:700; color:var(--azul-medio);
+  }
+  .cadena .eslabon.resaltado{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-color:var(--azul-oscuro);
+  }
+  .cadena .flecha-min{color:var(--dorado); font-size:24px; font-weight:900;}
+
+  /* ---------- Flujo de revisión vertical ---------- */
+  .flujo-vertical{
+    background:var(--crema); border-radius:14px;
+    padding:22px 28px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px;
+  }
+  .flujo-vertical .nodo{
+    background:var(--blanco); border-left:6px solid var(--azul-acento);
+    border-radius:10px; padding:12px 18px;
+    font-size:19px; font-weight:600; color:var(--azul-medio);
+    margin:6px 0; text-align:center;
+  }
+  .flujo-vertical .flecha-v{
+    text-align:center; color:var(--dorado); font-size:22px; font-weight:900;
+    margin:2px 0;
+  }
+
+  /* ---------- Rutas paralelas ---------- */
+  .rutas{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:16px;
+  }
+  .ruta{
+    background:var(--crema); border-radius:14px;
+    padding:22px 26px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:8px solid var(--azul-acento);
+  }
+  .ruta.rev{border-top-color:var(--dorado);}
+  .ruta h3{font-size:22px; margin:0 0 14px;}
+  .ruta .p{
+    background:var(--blanco); border-radius:8px;
+    padding:10px 14px; margin:6px 0; font-size:18px;
+    color:var(--azul-medio); font-weight:600;
+  }
+
+  /* ---------- Tabla de decisión ---------- */
+  .decision-tabla{
+    background:var(--crema); border-radius:14px;
+    padding:14px 18px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px;
+  }
+  .decision-tabla table{width:100%; border-collapse:collapse; font-size:17px;}
+  .decision-tabla th{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:12px 14px; text-align:left; font-size:15px;
+  }
+  .decision-tabla td{
+    padding:12px 14px; border-bottom:1px solid #D6DEE9;
+    line-height:1.4;
+  }
+  .decision-tabla td:first-child{font-weight:700; color:var(--azul-medio);}
+
+  /* ---------- Errores ---------- */
+  .errores{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+  .error-card{
+    background:var(--crema); border-left:6px solid var(--rojo);
+    border-radius:12px; padding:18px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06);
+  }
+  .error-card .num{
+    display:inline-block; background:var(--rojo); color:var(--blanco);
+    border-radius:20px; padding:3px 14px; font-size:16px; font-weight:700;
+    margin-bottom:10px;
+  }
+  .error-card .cita{
+    font-size:19px; font-style:italic; color:var(--texto-suave);
+    margin:0 0 10px; line-height:1.4;
+  }
+  .error-card .diag{
+    font-size:17px; font-weight:700; color:var(--rojo);
+    margin:0; line-height:1.35;
+  }
+
+  /* ---------- Criterios de elegibilidad ---------- */
+  .fronteras{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:16px;}
+  .frontera{
+    background:var(--crema); border-radius:12px;
+    padding:16px 20px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--dorado);
+  }
+  .frontera .preg{font-size:20px; font-weight:700; color:var(--azul-medio); margin-bottom:8px;}
+  .frontera .opciones{font-size:18px; color:var(--texto-suave); line-height:1.5;}
+
+  /* ---------- Bases de datos ---------- */
+  .bases{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+  .base{
+    background:var(--crema); border-radius:14px;
+    padding:18px 22px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:6px solid var(--azul-acento);
+  }
+  .base h4{font-size:20px; color:var(--azul-medio); margin:0 0 8px;}
+  .base p{font-size:18px; color:var(--texto-suave); line-height:1.4; margin:0;}
+
+  /* ---------- PRISMA card ---------- */
+  .prisma-card{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:26px 32px; margin:20px 0;
+    box-shadow:0 10px 30px rgba(11,37,69,.25);
+  }
+  .prisma-card h3{color:var(--dorado); margin:0 0 12px; font-size:26px;}
+  .prisma-card p{color:var(--blanco); font-size:23px; margin:6px 0; line-height:1.5;}
+
+  /* ---------- Matriz de extracción ---------- */
+  .matriz-ext{
+    background:var(--crema); border-radius:14px;
+    padding:14px 18px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px;
+  }
+  .matriz-ext table{width:100%; border-collapse:collapse; font-size:17px;}
+  .matriz-ext th{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:10px 14px; text-align:left; font-size:15px;
+  }
+  .matriz-ext td{
+    padding:10px 14px; border-bottom:1px solid #D6DEE9;
+    line-height:1.4;
+  }
+  .matriz-ext td:first-child{font-weight:700; color:var(--azul-medio);}
+
+  /* ---------- Artefacto ---------- */
+  .artefacto{
+    background:var(--crema); border-radius:14px;
+    padding:22px 26px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px; border-top:8px solid var(--dorado);
+  }
+  .artefacto ol{
+    counter-reset:item; list-style:none; padding:0; margin:0;
+  }
+  .artefacto li{
+    counter-increment:item; display:grid;
+    grid-template-columns:44px 1fr; gap:14px;
+    padding:10px 0; border-bottom:1px dashed #D6DEE9;
+    font-size:19px; line-height:1.4;
+  }
+  .artefacto li:last-child{border-bottom:none;}
+  .artefacto li::before{
+    content:counter(item);
+    background:var(--azul-oscuro); color:var(--dorado);
+    width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:15px;
+  }
+
+  /* ---------- Comité ---------- */
+  .comite{
+    background:var(--crema); border-radius:14px;
+    padding:20px 26px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px;
+  }
+  .comite ol{list-style:none; padding:0; margin:0; counter-reset:c;}
+  .comite li{
+    counter-increment:c; padding:10px 0 10px 44px;
+    position:relative; font-size:19px; line-height:1.4;
+    border-bottom:1px dashed #D6DEE9;
+  }
+  .comite li:last-child{border-bottom:none;}
+  .comite li::before{
+    content:counter(c);
+    position:absolute; left:0; top:9px;
+    width:30px; height:30px; border-radius:50%;
+    background:var(--azul-oscuro); color:var(--dorado);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; font-weight:700;
+  }
+
+  /* ---------- Verdicto ---------- */
+  .verdicto{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+    margin-top:20px;
+  }
+  .verdicto-item{
+    border-radius:14px; padding:18px 20px;
+    text-align:center; box-shadow:0 3px 10px rgba(11,37,69,.06);
+  }
+  .verdicto-item.verde{background:#E4F3E6; color:#1F5A2A;}
+  .verdicto-item.amarillo{background:#FFF4D6; color:#7A5A0A;}
+  .verdicto-item.rojo{background:#FBE9E7; color:#7A2E1C;}
+  .verdicto-item .emoji{font-size:34px; display:block; margin-bottom:8px;}
+  .verdicto-item .t{font-size:19px; font-weight:700; line-height:1.35;}
+
+  /* ---------- Frases para reemplazar ---------- */
+  .reemplazar{display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px;}
+  .reemplazar .antes{
+    background:#FBE9E7; border-left:6px solid var(--rojo);
+    border-radius:12px; padding:16px 22px;
+    font-size:20px; color:#7A2E1C; line-height:1.4;
+    font-style:italic;
+  }
+  .reemplazar .despues{
+    background:#E4F3E6; border-left:6px solid var(--verde);
+    border-radius:12px; padding:16px 22px;
+    font-size:20px; color:#1F5A2A; line-height:1.4;
+    font-weight:600;
+  }
+
+  /* ---------- Puente ---------- */
+  .puente{
+    background:linear-gradient(135deg,#13538A 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:30px 36px; margin:20px 0;
+    box-shadow:0 10px 30px rgba(19,83,138,.25);
+    text-align:center;
+  }
+  .puente .flecha{font-size:42px; color:var(--dorado); margin:0 0 12px;}
+  .puente p{color:var(--blanco); font-size:25px; margin:8px 0; line-height:1.5;}
+  .puente .destino{
+    display:inline-block; background:var(--dorado); color:var(--azul-oscuro);
+    padding:10px 24px; border-radius:30px; font-size:21px; font-weight:700;
+    margin-top:12px;
+  }
+
+  /* ---------- Cinco encuentros articulados ---------- */
+  .cinco-encuentros{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:12px;
+    margin-top:20px;
+  }
+  .enc-bloque{
+    background:var(--crema); border-radius:12px;
+    padding:14px 14px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:6px solid var(--azul-acento); text-align:center;
+  }
+  .enc-bloque.dos{border-top-color:var(--dorado);}
+  .enc-bloque.tres{border-top-color:var(--verde);}
+  .enc-bloque.cuatro{border-top-color:var(--rojo);}
+  .enc-bloque.cinco{border-top-color:#8A6FBF;}
+  .enc-bloque h4{
+    font-size:14px; color:var(--azul-medio); margin:0 0 6px;
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .enc-bloque .pregunta{
+    font-size:14px; font-weight:700; color:var(--azul-oscuro);
+    line-height:1.4; margin:6px 0;
+  }
+
+  /* ---------- Indicador de progresión ---------- */
+  .progresion{
+    position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+    z-index:65; display:flex; align-items:center; gap:8px;
+    padding:10px 20px; border-radius:30px;
+    background:rgba(7,26,51,.65); backdrop-filter:blur(6px);
+    box-shadow:0 4px 16px rgba(0,0,0,.25);
+    border:1px solid rgba(231,200,115,.2);
+    flex-wrap:wrap; justify-content:center; max-width:70%;
+  }
+  .progresion .punto{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(201,214,232,.35);
+    transition:background .25s ease, transform .25s ease;
+  }
+  .progresion .punto.activo{
+    background:var(--dorado); transform:scale(1.5);
+    box-shadow:0 0 10px rgba(231,200,115,.7);
+  }
+  .progresion .punto.hecho{background:rgba(231,200,115,.55);}
+
+  .progress{
+    position:fixed; top:0; left:0; height:3px;
+    background:var(--dorado); width:0%;
+    transition:width .3s ease; z-index:80;
+  }
+
+  .nav-bottom{
+    position:fixed; bottom:22px; right:24px; z-index:65;
+    display:flex; align-items:center; gap:10px;
+    opacity:.4; transition:opacity .25s ease;
+  }
+  .nav-bottom:hover{opacity:1;}
+  .nav-btn{
+    background:var(--dorado); color:var(--azul-oscuro); border:none;
+    border-radius:50%; width:48px; height:48px; font-size:24px;
+    font-weight:700; cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.3);
+    transition:background .2s, transform .15s;
+  }
+  .nav-btn:hover{background:#F0D48F; transform:scale(1.06);}
+  .nav-btn:disabled{opacity:.3; cursor:default; transform:none;}
+
+  @media (max-width:1100px){
+    body{font-size:20px;}
+    h1{font-size:34px;} h2{font-size:28px;} h3{font-size:22px;}
+    p, li{font-size:20px;} .lead{font-size:21px;}
+    .portada h1{font-size:28px;}
+    .portada .autor{font-size:22px;}
+    .portada .contexto{font-size:17px;}
+    .pill{font-size:14px; padding:6px 16px;}
+    .grid-2, .grid-3, .propuestas, .errores, .fronteras,
+    .bases, .rutas, .cinco-encuentros, .verdicto{grid-template-columns:1fr;}
+    .stage{padding:80px 22px 130px;}
+    .slide{left:22px; right:22px; top:80px; padding:36px 30px;}
+    .ra-texto{font-size:17px;}
+    .ra-num{width:44px; height:44px; font-size:17px;}
+    .desafio h3{font-size:20px;}
+    .desafio p{font-size:18px;}
+    .interrogante{font-size:18px;}
+    .prop{font-size:17px;}
+    .titulo-encuentro{font-size:12px; top:16px; left:16px;}
+    .toggle-indice{font-size:12px; padding:7px 14px; top:14px; right:14px;}
+    .indice-panel{width:290px;}
+    .progresion{padding:8px 14px; gap:5px; bottom:16px; max-width:85%;}
+    .progresion .punto{width:6px; height:6px;}
+    .nav-bottom{bottom:16px; right:14px;}
+    .nav-btn{width:40px; height:40px; font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo"></div>
+
+<div class="titulo-encuentro">Formulación de proyectos de investigación en Psicología · Encuentro sincrónico 5</div>
+<button class="toggle-indice" id="toggleIndice" aria-label="Mostrar índice">☰ Índice</button>
+
+<nav class="indice-panel" id="indicePanel">
+  <h2>ÍNDICE DEL ENCUENTRO</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<div class="progress" id="progress"></div>
+
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada active" data-title="Portada">
+    <span class="pill dorado">Encuentro sincrónico 5</span>
+    <h1>Revisar también es investigar</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">Diseño de revisiones de literatura</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">Formulación de proyectos de investigación en Psicología · Convocatoria simulada de salud mental</p>
+  </section>
+
+  <!-- ===== 2. RESULTADOS DE APRENDIZAJE ===== -->
+  <section class="slide" data-title="Resultados de aprendizaje">
+    <span class="pill">Resultados de aprendizaje</span>
+    <h2>Al terminar el encuentro podrás…</h2>
+    <div class="ra-lista">
+      <div class="ra-item">
+        <div class="ra-num">RA1</div>
+        <div class="ra-texto"><strong>Diferenciar</strong> búsqueda bibliográfica, revisión narrativa, revisión de alcance y revisión sistemática según su propósito de conocimiento.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA2</div>
+        <div class="ra-texto"><strong>Seleccionar y justificar</strong> qué modalidad de revisión es coherente con una pregunta y una brecha determinadas.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA3</div>
+        <div class="ra-texto"><strong>Diseñar</strong> los componentes de un protocolo: pregunta, criterios, fuentes, búsqueda, selección, extracción y síntesis.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA4</div>
+        <div class="ra-texto"><strong>Evaluar</strong> la transparencia, reproducibilidad y coherencia interna de una propuesta de revisión.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. AGENDA ===== -->
+  <section class="slide" data-title="Agenda">
+    <span class="pill">Agenda</span>
+    <h2>Recorrido del encuentro</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Provocación: ¿cuál de estas es una investigación?</li>
+        <li>Buscar no es revisar</li>
+        <li>La revisión tiene datos</li>
+        <li>Tipos de revisión: narrativa, sistemática, alcance</li>
+        <li>PRISMA no es un método</li>
+      </ul>
+      <ul class="clean">
+        <li>PICO y PCC como marcos</li>
+        <li>El protocolo: decidir antes de conocer</li>
+        <li>Criterios de elegibilidad, búsqueda, selección</li>
+        <li>Extracción, evaluación crítica, síntesis</li>
+        <li>Límites inferenciales y errores frecuentes</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      <p><strong>Idea nuclear:</strong> una revisión de literatura no consiste en encontrar artículos sobre un tema. Consiste en construir un procedimiento explícito para responder una pregunta usando investigaciones existentes como evidencia.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4. PROVOCACIÓN INICIAL ===== -->
+  <section class="slide" data-title="Provocación inicial">
+    <span class="pill rojo">Provocación inicial</span>
+    <h2>¿Cuál de estas cuatro propuestas es una investigación?</h2>
+
+    <div class="propuestas">
+      <div class="prop">
+        <div class="letra">A</div>
+        <div>“Buscar diez artículos recientes sobre ansiedad en universitarios.”</div>
+      </div>
+      <div class="prop">
+        <div class="letra">B</div>
+        <div>“Hacer un resumen de investigaciones sobre ansiedad.”</div>
+      </div>
+      <div class="prop">
+        <div class="letra">C</div>
+        <div>“Revisar qué dice la literatura sobre salud mental.”</div>
+      </div>
+      <div class="prop destacada">
+        <div class="letra">D</div>
+        <div>“Identificar y sintetizar sistemáticamente la evidencia existente sobre las barreras asociadas con la búsqueda de ayuda psicológica profesional entre estudiantes universitarios.”</div>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:22px;">
+      <p>D nos permite reconocer: <strong>objeto de investigación, pregunta implícita, corpus de evidencia, procedimiento potencialmente sistemático y producto de conocimiento</strong>.</p>
+      <p class="lead">Las otras podrían ser actividades académicas legítimas, pero no constituyen diseños de investigación.</p>
+    </div>
+  </section>
+
+  <!-- ===== 5. BUSCAR NO ES REVISAR ===== -->
+  <section class="slide" data-title="Buscar no es revisar">
+    <span class="pill">Distinción fundamental</span>
+    <h2>Buscar no es lo mismo que revisar</h2>
+
+    <div class="card rojo">
+      <p><strong>Buscar literatura</strong> es una operación dentro de algunas revisiones. No es la revisión completa.</p>
+    </div>
+
+    <p class="lead">Una búsqueda puede servir para:</p>
+
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Construir antecedentes</li>
+        <li>Elaborar un marco conceptual</li>
+        <li>Encontrar fuentes para un ensayo</li>
+      </ul>
+      <ul class="clean">
+        <li>Explorar una temática</li>
+        <li>Diseñar una investigación</li>
+        <li>Ejecutar una revisión propiamente dicha</li>
+      </ul>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Lo que distingue una revisión como investigación</h3>
+      <p>No es “encontré muchos artículos”. Es la existencia de una <strong>arquitectura metodológica</strong> que relaciona: pregunta → reglas de búsqueda → reglas de selección → corpus → extracción → análisis/síntesis → respuesta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 6. LA REVISIÓN TIENE DATOS ===== -->
+  <section class="slide" data-title="La revisión tiene datos">
+    <span class="pill">Concepto clave</span>
+    <h2>La revisión tiene datos</h2>
+
+    <div class="interrogante">
+      ¿Dónde están los datos en una revisión?
+    </div>
+
+    <div class="card rojo">
+      <p><strong>Respuesta ingenua:</strong> “En los artículos”.</p>
+    </div>
+
+    <div class="card verde">
+      <p><strong>Refinamiento:</strong> los documentos o estudios incluidos constituyen <strong>fuentes de evidencia</strong>. De ellos extraemos datos como:</p>
+    </div>
+
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Características de poblaciones</li>
+        <li>Tamaños muestrales</li>
+        <li>Diseños</li>
+      </ul>
+      <ul class="clean">
+        <li>Constructos e instrumentos</li>
+        <li>Intervenciones</li>
+        <li>Resultados y medidas de efecto</li>
+      </ul>
+      <ul class="clean">
+        <li>Categorías y contextos</li>
+        <li>Limitaciones metodológicas</li>
+      </ul>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>La revisión transforma un conjunto de estudios en un <strong>corpus estructurado</strong> susceptible de análisis y síntesis. Estamos investigando.</p>
+    </div>
+  </section>
+
+  <!-- ===== 7. ANALOGÍA CON LA INVESTIGACIÓN EMPÍRICA ===== -->
+  <section class="slide" data-title="Analogía con empírica">
+    <span class="pill">Paralelo con el Encuentro 4</span>
+    <h2>La analogía con la investigación empírica</h2>
+
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Investigación empírica</th>
+            <th>Revisión de literatura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Pregunta</td><td>Pregunta</td></tr>
+          <tr><td>Participantes / unidades</td><td>Estudios / documentos</td></tr>
+          <tr><td>Población</td><td>Universo de evidencia pertinente</td></tr>
+          <tr><td>Criterios de inclusión</td><td>Criterios de elegibilidad</td></tr>
+          <tr><td>Reclutamiento</td><td>Búsqueda y selección</td></tr>
+          <tr><td>Instrumentos / procedimientos</td><td>Formularios / procedimientos de extracción</td></tr>
+          <tr><td>Datos</td><td>Información extraída de las fuentes</td></tr>
+          <tr><td>Análisis</td><td>Síntesis de evidencia</td></tr>
+          <tr><td>Resultados</td><td>Hallazgos integrados</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>En ambos casos tomamos decisiones sobre <strong>qué constituye evidencia válida</strong> para responder una pregunta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 8. TIPOS DE REVISIÓN ===== -->
+  <section class="slide" data-title="Tipos de revisión">
+    <span class="pill">Panorama</span>
+    <h2>No todas las revisiones responden la misma pregunta</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>¿Funciona la intervención X para reducir Y?</h3>
+        <p>Pregunta de efectividad.</p>
+      </div>
+      <div class="card azul">
+        <h3>¿Cómo ha sido estudiado el fenómeno X?</h3>
+        <p>Pregunta sobre el estado y extensión de la evidencia.</p>
+      </div>
+      <div class="card azul">
+        <h3>¿Qué factores han sido asociados con X?</h3>
+        <p>Pregunta sobre asociaciones descritas.</p>
+      </div>
+      <div class="card azul">
+        <h3>¿Cómo se conceptualiza X en la literatura?</h3>
+        <p>Pregunta conceptual o teórica.</p>
+      </div>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Principio</h3>
+      <p>El <strong>tipo de revisión</strong> se deriva del propósito de conocimiento. Es la misma lógica que usamos para elegir diseños empíricos.</p>
+    </div>
+  </section>
+
+  <!-- ===== 9. REVISIÓN NARRATIVA ===== -->
+  <section class="slide" data-title="Revisión narrativa">
+    <span class="pill">Modalidad</span>
+    <h2>Revisión narrativa: no es sinónimo de “mala revisión”</h2>
+
+    <div class="card azul">
+      <p>Puede ser valiosa cuando el propósito es construir una interpretación amplia o discutir conceptualmente un campo.</p>
+    </div>
+
+    <div class="card rojo">
+      <p><strong>El problema no es que sea narrativa.</strong> Es utilizarla para hacer afirmaciones que requieren búsqueda y selección sistemáticas sin explicitar cómo se construyó la evidencia.</p>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Principio</h3>
+      <p>Diferentes revisiones tienen <strong>diferentes pretensiones de conocimiento</strong> y <strong>diferentes exigencias de transparencia</strong>.</p>
+      <p>Para nuestra convocatoria exigimos diseños suficientemente estructurados para poder ser evaluados como proyectos de investigación.</p>
+    </div>
+  </section>
+
+  <!-- ===== 10. REVISIÓN SISTEMÁTICA ===== -->
+  <section class="slide" data-title="Revisión sistemática">
+    <span class="pill">Modalidad</span>
+    <h2>Revisión sistemática</h2>
+
+    <p class="lead">Parte de una pregunta previamente especificada y utiliza procedimientos explícitos para identificar, seleccionar, evaluar y sintetizar evidencia pertinente.</p>
+
+    <div class="card dorado" style="margin-top:16px;">
+      <p><strong>Ejemplo:</strong> ¿Qué evidencia existe acerca de la efectividad de intervenciones psicológicas breves para reducir X en determinada población?</p>
+    </div>
+
+    <p class="lead">Aquí necesitamos establecer anticipadamente:</p>
+
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Qué intervenciones cuentan</li>
+        <li>Qué poblaciones</li>
+        <li>Qué comparaciones</li>
+      </ul>
+      <ul class="clean">
+        <li>Qué resultados</li>
+        <li>Qué tipos de estudio</li>
+        <li>Qué fuentes</li>
+      </ul>
+      <ul class="clean">
+        <li>Cómo seleccionaremos</li>
+        <li>Qué información extraeremos</li>
+        <li>Cómo sintetizaremos</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 11. PRISMA NO ES UN MÉTODO ===== -->
+  <section class="slide" data-title="PRISMA: aclaración">
+    <span class="pill rojo">Aclaración fundamental</span>
+    <h2>PRISMA no es “el método para hacer una revisión sistemática”</h2>
+
+    <div class="prisma-card">
+      <h3>PRISMA 2020</h3>
+      <p><strong>Preferred Reporting Items for Systematic Reviews and Meta-Analyses.</strong></p>
+      <p>Es principalmente una <strong>guía de reporte</strong> orientada a mejorar la transparencia con la que se comunica por qué se realizó una revisión, qué métodos se emplearon y qué se encontró.</p>
+      <p>Incluye 27 ítems y diagramas de flujo actualizados.</p>
+    </div>
+
+    <div class="card rojo">
+      <p><strong>Evitar escribir:</strong> “La metodología utilizada será PRISMA.”</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Qué metodología de revisión utilizarán y qué guía de reporte emplearán para comunicarla transparentemente?
+    </div>
+  </section>
+
+  <!-- ===== 12. REVISIÓN DE ALCANCE ===== -->
+  <section class="slide" data-title="Revisión de alcance">
+    <span class="pill">Modalidad</span>
+    <h2>Revisión de alcance o scoping review</h2>
+
+    <div class="card azul">
+      <p>Puede ser apropiada cuando queremos <strong>mapear la extensión, características o naturaleza</strong> de la evidencia disponible, más que responder una pregunta estrecha sobre efectividad.</p>
+    </div>
+
+    <div class="card dorado">
+      <p><strong>Ejemplo:</strong> ¿Cómo ha sido estudiado el estigma asociado con la búsqueda de ayuda psicológica entre universitarios?</p>
+    </div>
+
+    <p class="lead">Podríamos interesarnos por:</p>
+
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Conceptos empleados</li>
+        <li>Poblaciones</li>
+        <li>Países</li>
+      </ul>
+      <ul class="clean">
+        <li>Diseños</li>
+        <li>Instrumentos</li>
+        <li>Tipos de barreras</li>
+      </ul>
+      <ul class="clean">
+        <li>Áreas con evidencia</li>
+        <li>Vacíos</li>
+      </ul>
+    </div>
+
+    <div class="card verde" style="margin-top:20px;">
+      <p><strong>PRISMA-ScR</strong> (extensión para revisiones de alcance) contempla 20 ítems esenciales y 2 opcionales para su reporte.</p>
+    </div>
+  </section>
+
+  <!-- ===== 13. SISTEMÁTICA VS ALCANCE ===== -->
+  <section class="slide" data-title="Sistemática vs alcance">
+    <span class="pill">Decisión</span>
+    <h2>Sistemática y alcance no son “mejor o peor”</h2>
+
+    <div class="card rojo">
+      <p><strong>No:</strong> sistemática = mejor. Alcance = más sencilla.</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Qué conocimiento necesitamos producir?
+    </div>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>¿Qué efecto tiene X sobre Y?</h3>
+        <p>Revisión sistemática de efectos, según la evidencia.</p>
+      </div>
+      <div class="card dorado">
+        <h3>¿Qué se ha estudiado, cómo, dónde?</h3>
+        <p>Revisión de alcance.</p>
+      </div>
+      <div class="card verde">
+        <h3>¿Campo conceptual amplio?</h3>
+        <p>Otras modalidades pertinentes.</p>
+      </div>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Clave</h3>
+      <p>La etiqueta no decide. <strong>Pregunta ↔ tipo de síntesis.</strong></p>
+    </div>
+  </section>
+
+  <!-- ===== 14. PICO Y PCC ===== -->
+  <section class="slide" data-title="PICO y PCC">
+    <span class="pill">Marcos de formulación</span>
+    <h2>PICO y PCC como marcos, no como recetas</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>PICO</h3>
+        <p><strong>P</strong>oblación · <strong>I</strong>ntervención · <strong>C</strong>omparación · <strong>O</strong>utcome</p>
+        <p class="lead" style="margin-top:12px;">Ejemplo: en estudiantes universitarios con elevados niveles de estrés académico (P), ¿las intervenciones basadas en X (I), comparadas con condición control u otras intervenciones (C), reducen X (O)?</p>
+      </div>
+      <div class="card dorado">
+        <h3>PCC</h3>
+        <p><strong>P</strong>oblación · <strong>C</strong>oncepto · <strong>C</strong>ontexto</p>
+        <p class="lead" style="margin-top:12px;">Especialmente útil para revisiones de alcance. JBI estructura los criterios de inclusión de sus plantillas de scoping review mediante PCC, conectando objetivo, pregunta y criterios.</p>
+      </div>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p><strong>No escogemos PICO o PCC primero</strong> y buscamos después una pregunta que encaje. Primero definimos qué necesitamos conocer.</p>
+    </div>
+  </section>
+
+  <!-- ===== 15. EL PROTOCOLO ===== -->
+  <section class="slide" data-title="El protocolo">
+    <span class="pill">Contenido fundamental</span>
+    <h2>El protocolo: decidir antes de conocer el resultado</h2>
+
+    <div class="card azul">
+      <p><strong>¿Qué es un protocolo?</strong> El conjunto <strong>anticipado</strong> de decisiones que define cómo realizaremos nuestra revisión.</p>
+    </div>
+
+    <div class="card rojo">
+      <p><strong>Veamos el problema que resuelve.</strong> Imagine este procedimiento:</p>
+      <ul class="clean" style="margin-top:12px;">
+        <li>Busco artículos</li>
+        <li>Leo cuáles me gustan</li>
+        <li>Decido cuáles incluir</li>
+        <li>Modifico mis criterios</li>
+        <li>Elimino estudios que dificultan mi argumento</li>
+        <li>Redacto una conclusión</li>
+      </ul>
+      <p class="lead" style="margin-top:12px;">Tenemos enorme libertad para producir la conclusión que queríamos.</p>
+    </div>
+
+    <div class="card verde">
+      <p>El protocolo limita ese problema. La metodología de scoping reviews de JBI considera el protocolo <em>a priori</em> un paso importante para una síntesis rigurosa, transparente y planificada.</p>
+    </div>
+  </section>
+
+  <!-- ===== 16. PROTOCOLO COMO COMPROMISO ===== -->
+  <section class="slide" data-title="Protocolo como compromiso">
+    <span class="pill">Analogía</span>
+    <h2>El protocolo como compromiso metodológico</h2>
+
+    <div class="desafio">
+      <h3>Analogía</h3>
+      <p>El protocolo es una <strong>promesa</strong> que hacemos antes de conocer qué resultados nos favorecen.</p>
+    </div>
+
+    <p class="lead">Define:</p>
+
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Qué buscamos</li>
+        <li>Dónde</li>
+        <li>Con qué criterios</li>
+        <li>Qué aceptamos</li>
+      </ul>
+      <ul class="clean">
+        <li>Qué excluimos</li>
+        <li>Qué información extraemos</li>
+        <li>Cómo la organizaremos</li>
+        <li>Cómo la sintetizaremos</li>
+      </ul>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Si posteriormente debemos modificar algo, la regla es: <strong>documentar y justificar la modificación</strong>.</p>
+      <p class="lead">JBI reconoce que en revisiones de alcance puede existir un componente iterativo, pero las desviaciones del protocolo deben hacerse transparentes en el reporte final.</p>
+    </div>
+  </section>
+
+  <!-- ===== 17. CRITERIOS DE ELEGIBILIDAD ===== -->
+  <section class="slide" data-title="Criterios de elegibilidad">
+    <span class="pill">Fronteras de la evidencia</span>
+    <h2>Criterios de elegibilidad: construir las fronteras</h2>
+
+    <div class="card azul">
+      <p><strong>Pregunta:</strong> ¿Qué barreras para buscar ayuda psicológica han sido identificadas en estudiantes universitarios?</p>
+    </div>
+
+    <div class="fronteras">
+      <div class="frontera">
+        <div class="preg">¿Quiénes cuentan como universitarios?</div>
+        <div class="opciones">Pregrado · Posgrado · Ambos</div>
+      </div>
+      <div class="frontera">
+        <div class="preg">¿Qué cuenta como ayuda psicológica?</div>
+        <div class="opciones">Psicoterapia · Psiquiatría · Servicios universitarios · Líneas de ayuda</div>
+      </div>
+      <div class="frontera">
+        <div class="preg">¿Qué entendemos por barrera?</div>
+        <div class="opciones">Actitud · Estigma · Costo · Accesibilidad · Intención</div>
+      </div>
+      <div class="frontera">
+        <div class="preg">¿Qué fuentes admitiremos?</div>
+        <div class="opciones">Cuantitativos · Cualitativos · Mixtos</div>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Cada decisión transforma qué evidencia puede entrar a la revisión. Los criterios <strong>operacionalizan la pregunta</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 18. INCLUIR Y EXCLUIR CON RAZÓN ===== -->
+  <section class="slide" data-title="Incluir con razón">
+    <span class="pill">Regla</span>
+    <h2>Incluir y excluir debe tener una razón</h2>
+
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Afirmación ingenua</h3>
+        <p>“Solo artículos de los últimos cinco años.”</p>
+        <p class="lead"><strong>Pregunta:</strong> ¿por qué cinco?</p>
+      </div>
+      <div class="card rojo">
+        <h3>Afirmación ingenua</h3>
+        <p>“Solo estudios en inglés y español.”</p>
+        <p class="lead"><strong>Pregunta:</strong> ¿es decisión conceptual o restricción logística?</p>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Una limitación práctica puede ser legítima en un proyecto formativo. Pero debemos distinguir:</p>
+      <p style="text-align:center; font-size:24px; font-weight:600; margin:14px 0;">
+        decisión metodológica ideal &nbsp; ≠ &nbsp; restricción de factibilidad
+      </p>
+      <p>La transparencia importa más que disfrazar una limitación como si fuera una decisión teórica.</p>
+    </div>
+  </section>
+
+  <!-- ===== 19. DÓNDE BUSCAMOS ===== -->
+  <section class="slide" data-title="Dónde buscamos">
+    <span class="pill">Fuentes</span>
+    <h2>¿Dónde buscamos la evidencia?</h2>
+
+    <p class="lead">En psicología y salud mental pueden ser pertinentes, según la pregunta:</p>
+
+    <div class="bases">
+      <div class="base">
+        <h4>APA PsycINFO</h4>
+        <p>Base especializada en psicología y ciencias del comportamiento.</p>
+      </div>
+      <div class="base">
+        <h4>PubMed / MEDLINE</h4>
+        <p>Literatura biomédica y de salud mental, especialmente clínica.</p>
+      </div>
+      <div class="base">
+        <h4>Scopus</h4>
+        <p>Multidisciplinaria, con métricas de citación y cobertura amplia.</p>
+      </div>
+      <div class="base">
+        <h4>Web of Science</h4>
+        <p>Multidisciplinaria, con filtros por área y tipo de documento.</p>
+      </div>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p><strong>La base no se elige porque “es conocida”</strong>. Se elige porque indexa una parte pertinente de la evidencia que buscamos.</p>
+    </div>
+
+    <div class="card azul" style="margin-top:14px;">
+      <p><strong>Ejercicio mental:</strong></p>
+      <p><strong>Equipo A:</strong> busca únicamente en Google Scholar.</p>
+      <p><strong>Equipo B:</strong> usa solamente PubMed.</p>
+      <p><strong>Equipo C:</strong> selecciona fuentes según la naturaleza de su pregunta y explica qué cobertura espera de cada una.</p>
+      <p class="lead" style="margin-top:10px;">¿Cuál tiene mejor argumentación metodológica? Naturalmente, C.</p>
+    </div>
+  </section>
+
+  <!-- ===== 20. ESTRATEGIA DE BÚSQUEDA ===== -->
+  <section class="slide" data-title="Estrategia de búsqueda">
+    <span class="pill">Traducción de la pregunta</span>
+    <h2>La búsqueda es una traducción de la pregunta</h2>
+
+    <div class="card azul">
+      <p>Partimos de la <strong>pregunta conceptual</strong> y debemos transformarla en <strong>conceptos recuperables</strong> en bases de datos.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card dorado">
+        <h3>Población</h3>
+        <p>Estudiantes universitarios</p>
+      </div>
+      <div class="card dorado">
+        <h3>Concepto</h3>
+        <p>Búsqueda de ayuda</p>
+      </div>
+      <div class="card dorado">
+        <h3>Concepto relacionado</h3>
+        <p>Salud mental</p>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:16px;">Después identificamos términos, sinónimos, variantes y vocabularios controlados, y establecemos relaciones mediante operadores.</p>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Principio</h3>
+      <p>La búsqueda no empieza escribiendo palabras en Scopus. Empieza <strong>descomponiendo conceptualmente la pregunta</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 21. SENSIBILIDAD Y PRECISIÓN ===== -->
+  <section class="slide" data-title="Sensibilidad y precisión">
+    <span class="pill">Equilibrio</span>
+    <h2>Sensibilidad y precisión</h2>
+
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Búsqueda demasiado estrecha</h3>
+        <p>Encuentra pocos resultados.</p>
+        <p class="lead">Parece manejable. Pero puede perder estudios relevantes.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Búsqueda excesivamente amplia</h3>
+        <p>Encuentra miles de registros irrelevantes.</p>
+        <p class="lead">Alta carga de selección.</p>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Diseñar la búsqueda implica equilibrar:</p>
+      <p style="text-align:center; font-size:24px; font-weight:600; margin:12px 0;">
+        recuperar suficiente evidencia relevante sin ahogarnos innecesariamente en ruido.
+      </p>
+    </div>
+
+    <p class="lead">No profundizamos todavía en técnicas avanzadas de búsqueda: este es un encuentro sobre <strong>diseño de revisión</strong>, no un taller especializado.</p>
+  </section>
+
+  <!-- ===== 22. SELECCIÓN DE ESTUDIOS ===== -->
+  <section class="slide" data-title="Selección">
+    <span class="pill">Fase</span>
+    <h2>La selección de estudios</h2>
+
+    <div class="flujo-vertical">
+      <div class="nodo">Identificación</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Registros recuperados</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Eliminación de duplicados</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Cribado por título / resumen</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Evaluación de texto completo</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo" style="background:#E4F3E6; border-left-color:var(--verde);">Estudios incluidos</div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>El diagrama de flujo de <strong>PRISMA 2020</strong> está orientado a transparentar el flujo de registros desde su identificación hasta la inclusión final.</p>
+    </div>
+
+    <div class="interrogante">
+      Cada exclusión debe depender de criterios previamente definidos, no de si nos gustan los resultados del estudio.
+    </div>
+  </section>
+
+  <!-- ===== 23. EXTRACCIÓN DE DATOS ===== -->
+  <section class="slide" data-title="Extracción">
+    <span class="pill">Corpus estructurado</span>
+    <h2>¿Qué significa extraer datos?</h2>
+
+    <div class="card azul">
+      <p>Supongamos que finalmente tenemos 35 estudios incluidos. ¿Ahora qué?</p>
+      <p class="lead">No podemos simplemente “leerlos”. Debemos convertirlos en un <strong>corpus estructurado</strong>.</p>
+    </div>
+
+    <div class="matriz-ext">
+      <table>
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Información</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Identificación</td><td>Autor, año</td></tr>
+          <tr><td>Contexto</td><td>País / entorno</td></tr>
+          <tr><td>Participantes</td><td>Características</td></tr>
+          <tr><td>Diseño</td><td>Tipo de estudio</td></tr>
+          <tr><td>Variables / fenómenos</td><td>Qué se estudió</td></tr>
+          <tr><td>Instrumentos</td><td>Cómo se estudió</td></tr>
+          <tr><td>Hallazgos</td><td>Qué encontraron</td></tr>
+          <tr><td>Limitaciones</td><td>Qué reportan</td></tr>
+          <tr><td>Información específica</td><td>Según nuestra pregunta</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card dorado" style="margin-top:18px;">
+      <p>La matriz debe diseñarse <strong>en función de la pregunta</strong>. No extraemos todo lo que dice un artículo. Extraemos aquello que necesitamos para responder nuestra pregunta de revisión.</p>
+    </div>
+  </section>
+
+  <!-- ===== 24. EVALUACIÓN CRÍTICA ===== -->
+  <section class="slide" data-title="Evaluación crítica">
+    <span class="pill">Diferenciación</span>
+    <h2>Evaluación crítica: no siempre la misma exigencia</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Revisiones sistemáticas</h3>
+        <p>La evaluación crítica o riesgo de sesgo puede ser <strong>fundamental</strong> para interpretar la confiabilidad de la evidencia.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Revisiones de alcance</h3>
+        <p>Su propósito puede ser distinto. La evaluación crítica no es necesariamente un requisito universal.</p>
+        <p class="lead">PRISMA-ScR contempla el reporte de la evaluación crítica si se realiza.</p>
+      </div>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p><strong>Evitar:</strong> “Toda revisión debe utilizar obligatoriamente una escala de calidad.”</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Necesitamos evaluar críticamente las fuentes para responder adecuadamente nuestra pregunta y sostener nuestras conclusiones?
+    </div>
+  </section>
+
+  <!-- ===== 25. SÍNTESIS ===== -->
+  <section class="slide" data-title="Síntesis">
+    <span class="pill">Producción de conocimiento</span>
+    <h2>La síntesis: donde producimos conocimiento</h2>
+
+    <div class="card azul">
+      <p>Tenemos estudios incluidos y datos extraídos. Ahora la pregunta es: <strong>¿qué patrón emerge al considerar el conjunto?</strong></p>
+    </div>
+
+    <p class="lead">La síntesis puede implicar, según el diseño:</p>
+
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Descripción estructurada</li>
+        <li>Comparación</li>
+        <li>Categorización</li>
+      </ul>
+      <ul class="clean">
+        <li>Síntesis narrativa</li>
+        <li>Síntesis temática</li>
+        <li>Síntesis cuantitativa</li>
+      </ul>
+      <ul class="clean">
+        <li>Meta-análisis, cuando corresponda metodológica y estadísticamente</li>
+      </ul>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Aclaración</h3>
+      <p>Meta-análisis <strong>no</strong> es sinónimo de revisión sistemática. Una revisión sistemática puede no incorporar meta-análisis si la evidencia no permite combinar resultados apropiadamente.</p>
+      <p style="margin-top:12px;">El método de síntesis responde a: naturaleza de la pregunta + características de la evidencia incluida.</p>
+    </div>
+  </section>
+
+  <!-- ===== 26. LÍMITES INFERENCIALES ===== -->
+  <section class="slide" data-title="Límites inferenciales">
+    <span class="pill">Principio transversal</span>
+    <h2>El mismo principio del Encuentro 4: límite inferencial</h2>
+
+    <div class="card azul">
+      <p>Así como dijimos “un diseño transversal no permite afirmar cualquier cosa”, ahora diremos:</p>
+      <p class="lead" style="margin-top:12px;"><strong>Una revisión tampoco permite concluir más de lo que su corpus y metodología sostienen.</strong></p>
+    </div>
+
+    <p class="lead">Si nuestra búsqueda:</p>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Consultó fuentes limitadas</li>
+        <li>Excluyó idiomas</li>
+        <li>Abarcó determinados años</li>
+      </ul>
+      <ul class="clean">
+        <li>Incluyó ciertos tipos de estudio</li>
+        <li>Presenta evidencia heterogénea</li>
+      </ul>
+    </div>
+
+    <p class="lead">Todo ello afecta el alcance de nuestras conclusiones.</p>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Nuevamente tendremos</h3>
+      <p>Podemos concluir… &nbsp;·&nbsp; Podemos sugerir… &nbsp;·&nbsp; No podemos concluir…</p>
+      <p style="margin-top:8px;">Exactamente la misma lógica científica.</p>
+    </div>
+  </section>
+
+  <!-- ===== 27. ERROR: CONTAR VOTOS ===== -->
+  <section class="slide" data-title="Error: contar votos">
+    <span class="pill rojo">Error peligroso</span>
+    <h2>Un error peligroso: contar votos</h2>
+
+    <div class="card rojo">
+      <p>“De 20 estudios, 14 encontraron relación. Por lo tanto, existe evidencia del 70 % a favor.”</p>
+    </div>
+
+    <p class="lead">No. Los estudios pueden diferir en:</p>
+
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Tamaño muestral</li>
+        <li>Diseño</li>
+        <li>Calidad</li>
+      </ul>
+      <ul class="clean">
+        <li>Medición</li>
+        <li>Precisión</li>
+        <li>Población</li>
+      </ul>
+      <ul class="clean">
+        <li>Sesgos</li>
+      </ul>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Principio</h3>
+      <p>Una síntesis rigurosa no debería reducirse a una votación: 14 contra 6. Importa <strong>ponderar críticamente qué clase de evidencia estamos integrando</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 28. ERROR: BUSCAR HASTA ENCONTRAR APOYO ===== -->
+  <section class="slide" data-title="Error: buscar apoyo">
+    <span class="pill rojo">Error frecuente</span>
+    <h2>Otro error: buscar hasta encontrar apoyo</h2>
+
+    <div class="card azul">
+      <p>Un equipo cree que <em>“las redes sociales deterioran la salud mental”</em>.</p>
+      <p>Busca estudios. Encuentra:</p>
+      <ul class="clean" style="margin-top:10px;">
+        <li>7 que apoyan su hipótesis</li>
+        <li>5 con resultados mixtos</li>
+        <li>4 sin asociación</li>
+      </ul>
+      <p class="lead" style="margin-top:10px;">Decide incluir únicamente los primeros siete.</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Están revisando la evidencia o construyendo evidencia para confirmar su creencia?
+    </div>
+
+    <div class="card dorado">
+      <p>Ahí aparece la importancia de:</p>
+      <div class="grid-2" style="margin-top:10px;">
+        <ul class="clean">
+          <li>Pregunta neutral</li>
+          <li>Criterios a priori</li>
+        </ul>
+        <ul class="clean">
+          <li>Búsqueda transparente</li>
+          <li>Protocolo y reglas de selección</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 29. CADENA DE COHERENCIA ===== -->
+  <section class="slide" data-title="Cadena de revisión">
+    <span class="pill">Arquitectura</span>
+    <h2>La cadena de coherencia de una revisión</h2>
+
+    <div class="flujo-vertical">
+      <div class="nodo">Problema</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Brecha</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Pregunta de revisión</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Tipo de revisión</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Criterios de elegibilidad</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Fuentes de información</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Estrategia de búsqueda</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Selección</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Corpus final</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Extracción</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Síntesis</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo" style="background:#E4F3E6; border-left-color:var(--verde);">Conclusiones</div>
+    </div>
+
+    <div class="card dorado" style="margin-top:18px;">
+      <p>Una revisión mal formulada puede romperse en cualquiera de estos puntos.</p>
+    </div>
+  </section>
+
+  <!-- ===== 30. LAS DOS RUTAS DEL CURSO ===== -->
+  <section class="slide" data-title="Dos rutas comparables">
+    <span class="pill">Equivalencia</span>
+    <h2>Las dos rutas del curso son comparables</h2>
+
+    <div class="rutas">
+      <div class="ruta">
+        <h3>Ruta empírica</h3>
+        <div class="p">Pregunta</div>
+        <div class="p">Evidencia necesaria</div>
+        <div class="p">Diseño</div>
+        <div class="p">Participantes</div>
+        <div class="p">Producción de datos</div>
+        <div class="p">Análisis</div>
+        <div class="p">Inferencia</div>
+      </div>
+      <div class="ruta rev">
+        <h3>Ruta de revisión</h3>
+        <div class="p">Pregunta</div>
+        <div class="p">Evidencia necesaria</div>
+        <div class="p">Diseño de revisión</div>
+        <div class="p">Criterios</div>
+        <div class="p">Búsqueda / selección</div>
+        <div class="p">Extracción / síntesis</div>
+        <div class="p">Inferencia</div>
+      </div>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Conclusión</h3>
+      <p>Ambas rutas poseen una <strong>arquitectura comparable</strong>.</p>
+      <p style="margin-top:8px;">La empírica produce nueva evidencia primaria. La revisión produce nuevo conocimiento mediante identificación, organización, evaluación y síntesis de evidencia existente.</p>
+    </div>
+  </section>
+
+  <!-- ===== 31. MATRIZ DE DECISIÓN ===== -->
+  <section class="slide" data-title="Matriz de decisión">
+    <span class="pill">Orientación</span>
+    <h2>¿Cuál revisión elegiríamos en la convocatoria?</h2>
+
+    <div class="decision-tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Si queremos…</th>
+            <th>Posible diseño</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Examinar rigurosamente una pregunta específica</td><td>Revisión sistemática</td></tr>
+          <tr><td>Examinar efectos de una intervención</td><td>Revisión sistemática con síntesis apropiada</td></tr>
+          <tr><td>Mapear qué evidencia existe</td><td>Revisión de alcance</td></tr>
+          <tr><td>Examinar cómo ha sido estudiado un campo emergente</td><td>Revisión de alcance</td></tr>
+          <tr><td>Clarificar conceptos y vacíos de un campo amplio</td><td>Revisión de alcance</td></tr>
+          <tr><td>Discutir e integrar conceptualmente un área</td><td>Revisión narrativa / integrativa, según propósito</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card dorado" style="margin-top:18px;">
+      <p>La palabra esencial es <strong>posible</strong>. No queremos convertir esta tabla en un algoritmo rígido.</p>
+    </div>
+  </section>
+
+  <!-- ===== 32. ARTEFACTO 05 ===== -->
+  <section class="slide" data-title="Artefacto 05">
+    <span class="pill">Trabajo autónomo</span>
+    <h2>Artefacto 05: diseñe el protocolo antes de conocer la respuesta</h2>
+
+    <div class="artefacto">
+      <ol>
+        <li><strong>El problema.</strong> En máximo tres frases: ¿qué sabemos? ¿qué no sabemos? ¿por qué una revisión ayudaría?</li>
+        <li><strong>La pregunta.</strong> Formular una única pregunta principal y qué conocimiento esperamos producir.</li>
+        <li><strong>El test decisivo.</strong> ¿Por qué una revisión y no un nuevo estudio empírico?</li>
+        <li><strong>Selección del diseño de revisión.</strong> Sistemática, alcance u otra modalidad. Completar: “Elegimos una revisión ______ porque necesitamos…”</li>
+        <li><strong>Fronteras de la evidencia.</strong> Población, concepto, contexto, tipos de estudios, periodo, idioma, otros. Por cada límite: ¿por qué?</li>
+        <li><strong>Fuentes.</strong> Qué fuentes consultarían y por qué.</li>
+        <li><strong>Conceptualización de la búsqueda.</strong> Concepto 1 → sinónimos; concepto 2 → sinónimos; concepto 3 → sinónimos.</li>
+        <li><strong>Selección.</strong> ¿Cómo sabremos que un artículo entra? ¿Cómo que debe excluirse? ¿Qué registrar durante la selección?</li>
+        <li><strong>Extracción.</strong> Diseñar las columnas de la matriz. Por cada una: ¿para qué necesitamos este dato?</li>
+        <li><strong>Síntesis.</strong> Completar: “Cuando tengamos todos los estudios, podremos responder nuestra pregunta mediante…”</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 33. COMITÉ Y VEREDICTO ===== -->
+  <section class="slide" data-title="Comité">
+    <span class="pill">Evaluación cruzada</span>
+    <h2>Auditoría del protocolo</h2>
+
+    <p class="lead">Otro equipo asume el comité evaluador. Debe intentar romper la revisión antes de que comience.</p>
+
+    <div class="comite">
+      <ol>
+        <li>¿La pregunta justifica realmente una revisión?</li>
+        <li>¿El tipo de revisión corresponde a la pregunta?</li>
+        <li>¿Los criterios de elegibilidad operacionalizan adecuadamente la pregunta?</li>
+        <li>¿Las fuentes seleccionadas podrían recuperar la evidencia relevante?</li>
+        <li>¿La extracción permitirá responder la pregunta?</li>
+        <li>¿La síntesis propuesta es compatible con el tipo de evidencia?</li>
+        <li>¿Existen decisiones arbitrarias que podrían sesgar el resultado?</li>
+      </ol>
+    </div>
+
+    <div class="verdicto">
+      <div class="verdicto-item verde">
+        <span class="emoji">🟢</span>
+        <div class="t">Protocolo coherente</div>
+      </div>
+      <div class="verdicto-item amarillo">
+        <span class="emoji">🟡</span>
+        <div class="t">Viable con modificaciones</div>
+      </div>
+      <div class="verdicto-item rojo">
+        <span class="emoji">🔴</span>
+        <div class="t">La arquitectura no permite responder la pregunta</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 34. METACOGNITIVA Y PUENTE ===== -->
+  <section class="slide" data-title="Metacognitiva y puente">
+    <span class="pill">Cierre</span>
+    <h2>La pregunta metacognitiva y el puente</h2>
+
+    <div class="interrogante">
+      Si ya supieras qué conclusión quieres encontrar, ¿tu protocolo permitiría que la evidencia te demostrara que estás equivocado?
+    </div>
+
+    <div class="card azul">
+      <p>Si la respuesta es <strong>no</strong>, tenemos un problema. Un buen procedimiento debe permitir <strong>confirmar, matizar, contradecir o complicar</strong> nuestras expectativas iniciales.</p>
+    </div>
+
+    <p class="lead" style="margin-top:20px;">Al terminar, deberíamos haber reemplazado expresiones como…</p>
+
+    <div class="reemplazar">
+      <div class="antes">“Voy a hacer una revisión porque es más fácil.”</div>
+      <div class="antes">“Voy a buscar 30 artículos.”</div>
+      <div class="antes">“Aplicaremos PRISMA.”</div>
+      <div class="antes">“Revisaremos qué dicen diferentes autores.”</div>
+    </div>
+
+    <p class="lead">…por algo metodológicamente mucho más maduro:</p>
+
+    <div class="reemplazar">
+      <div class="despues">“Nuestra brecha requiere sintetizar la evidencia existente. Esta pregunta demanda este tipo de revisión. Hemos definido anticipadamente qué contará como evidencia, dónde la buscaremos, cómo la seleccionaremos, qué información extraeremos y cómo la sintetizaremos para responder la pregunta.”</div>
+    </div>
+
+    <div class="puente" style="margin-top:24px;">
+      <div class="flecha">↓</div>
+      <p>Las dos rutas ya poseen una arquitectura comparable.</p>
+      <p style="font-size:26px; font-weight:600;">La última sesión adopta plenamente la lógica de la convocatoria: relevancia, viabilidad, ética, integridad, coherencia global y evaluación por pares.</p>
+      <div class="destino">Encuentro sincrónico 6 · Si fuéramos el comité: ¿financiaríamos este proyecto y por qué?</div>
+    </div>
+
+    <div class="card">
+      <h3>Referencias base (APA 7)</h3>
+      <p style="font-size:18px; line-height:1.5;">
+        Arksey, H., &amp; O'Malley, L. (2005). Scoping studies: Towards a methodological framework. <em>International Journal of Social Research Methodology, 8</em>(1), 19–32.<br><br>
+        Levac, D., Colquhoun, H., &amp; O'Brien, K. K. (2010). Scoping studies: Advancing the methodology. <em>Implementation Science, 5</em>, 69.<br><br>
+        Page, M. J., et al. (2021). The PRISMA 2020 statement: An updated guideline for reporting systematic reviews. <em>BMJ, 372</em>, n71.<br><br>
+        Peters, M. D. J., et al. (2020). Updated methodological guidance for the conduct of scoping reviews. <em>JBI Evidence Synthesis, 18</em>(10), 2119–2126.<br><br>
+        Tricco, A. C., et al. (2018). PRISMA extension for scoping reviews (PRISMA-ScR): Checklist and explanation. <em>Annals of Internal Medicine, 169</em>(7), 467–473.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="progresion" id="progresion"></div>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progresion = document.getElementById('progresion');
+let current = 0;
+
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  li.addEventListener('click', () => {
+    goTo(i);
+    document.getElementById('indicePanel').classList.remove('open');
+  });
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+slides.forEach((s, i) => {
+  const punto = document.createElement('div');
+  punto.className = 'punto';
+  punto.title = s.dataset.title;
+  punto.addEventListener('click', () => goTo(i));
+  punto.style.cursor = 'pointer';
+  progresion.appendChild(punto);
+});
+const puntos = Array.from(progresion.children);
+
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+  updateUI();
+}
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+  puntos.forEach((p, i) => {
+    p.classList.remove('activo','hecho');
+    if (i < current) p.classList.add('hecho');
+    if (i === current) p.classList.add('activo');
+  });
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+  if (e.key === 'Escape') document.getElementById('indicePanel').classList.remove('open');
+});
+document.getElementById('toggleIndice').addEventListener('click', () => {
+  document.getElementById('indicePanel').classList.toggle('open');
+});
+</script>
+</body>
+</html>

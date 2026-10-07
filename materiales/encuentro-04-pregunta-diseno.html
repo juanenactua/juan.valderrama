@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Encuentro sincrónico 4 · De la pregunta al diseño</title>
+
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="De la pregunta al diseño">
+<meta name="jc-descripcion" content="Encuentro sincrónico sobre cómo derivar la evidencia necesaria desde la pregunta y construir una estrategia metodológica coherente, diferenciando enfoque, diseño, técnicas, temporalidad, métodos mixtos e inferencias.">
+<meta name="jc-tipo" content="Presentación interactiva">
+<meta name="jc-etiquetas" content="Diseño metodológico, Pregunta de investigación, Evidencia, Enfoque cuantitativo, Enfoque cualitativo, Métodos mixtos, Coherencia metodológica, Inferencia, Temporalidad, Diseño de investigación">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<!-- ============================================================
+     ESTILOS
+     Formato magistral para encuentro sincrónico de 45 minutos.
+     Fondo azul oscuro, diapositivas en tarjetas claras.
+     Sin interacción con el estudiante.
+     Índice lateral plegable. Indicador de progresión discreto.
+     ============================================================ -->
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --gris-calido:#F4F1EC;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --crema:#FBF8F1;
+    --sombra:0 16px 42px rgba(0,0,0,.35);
+    --radio:18px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--azul-oscuro); color:var(--texto);
+    font-size:30px; line-height:1.5; overflow:hidden;
+  }
+
+  .fondo{
+    position:fixed; inset:0; z-index:0;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(231,200,115,.10) 0%, transparent 42%),
+      radial-gradient(circle at 88% 82%, rgba(19,83,138,.35) 0%, transparent 55%),
+      linear-gradient(150deg,#0B2545 0%,#13315C 55%,#0B2545 100%);
+  }
+
+  .titulo-encuentro{
+    position:fixed; top:22px; left:28px; z-index:65;
+    font-size:15px; color:var(--dorado); font-weight:600;
+    letter-spacing:.6px; text-transform:uppercase; opacity:.85;
+  }
+  .titulo-encuentro::before{
+    content:"●"; color:var(--dorado); margin-right:10px; font-size:13px;
+  }
+
+  .toggle-indice{
+    position:fixed; top:18px; right:24px; z-index:65;
+    background:var(--dorado); color:var(--azul-oscuro);
+    border:none; border-radius:24px; padding:10px 22px;
+    font-size:15px; font-weight:700; letter-spacing:.4px;
+    cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.25);
+    transition:background .2s, transform .15s;
+  }
+  .toggle-indice:hover{background:#F0D48F; transform:scale(1.04);}
+
+  .indice-panel{
+    position:fixed; top:0; right:0; bottom:0; width:400px;
+    background:linear-gradient(180deg,#071A33 0%,#0B2545 100%);
+    color:var(--blanco);
+    padding:80px 24px 30px; overflow-y:auto;
+    transform:translateX(100%); transition:transform .35s ease;
+    z-index:75; box-shadow:-12px 0 40px rgba(0,0,0,.5);
+    border-left:1px solid rgba(231,200,115,.25);
+  }
+  .indice-panel.open{transform:translateX(0);}
+  .indice-panel h2{
+    color:var(--dorado); font-size:19px; margin:0 0 22px;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  }
+  .indice-panel ol{list-style:none; margin:0; padding:0;}
+  .indice-panel li{
+    font-size:15px; padding:9px 14px; border-radius:8px;
+    cursor:pointer; margin-bottom:3px; color:#C9D6E8;
+    line-height:1.35; transition:background .2s, color .2s;
+  }
+  .indice-panel li:hover{background:rgba(231,200,115,.15); color:var(--blanco);}
+  .indice-panel li.active{background:var(--azul-acento); color:var(--blanco); font-weight:600;}
+
+  .stage{
+    position:absolute; inset:0; z-index:10;
+    display:flex; align-items:center; justify-content:center;
+    padding:70px 90px 130px;
+    overflow-y:auto;
+  }
+
+  .slide{
+    max-width:1320px; width:100%;
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:var(--sombra);
+    padding:60px 70px;
+    opacity:0; visibility:hidden;
+    position:absolute; left:90px; right:90px; top:70px;
+    transition:opacity .4s ease, transform .4s ease, visibility .4s;
+    transform:translateY(20px);
+    border-top:8px solid var(--dorado);
+  }
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  h1{font-size:58px; color:var(--azul-oscuro); margin:0 0 16px; line-height:1.1;}
+  h2{font-size:42px; color:var(--azul-oscuro); margin:0 0 26px; line-height:1.15;}
+  h3{font-size:28px; color:var(--azul-medio); margin:0 0 12px;}
+  p, li{font-size:26px; color:var(--texto);}
+  .lead{font-size:28px; color:var(--texto-suave);}
+  .subtitulo{font-size:30px; color:var(--azul-acento); font-weight:600; margin-bottom:10px;}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{padding-left:38px; position:relative; margin-bottom:10px;}
+  ul.clean li::before{
+    content:"›"; position:absolute; left:8px; top:-3px;
+    color:var(--dorado); font-size:36px; font-weight:700;
+  }
+
+  .card{
+    background:var(--gris-calido); border-left:8px solid var(--azul-acento);
+    border-radius:14px; padding:22px 26px; margin:14px 0;
+    box-shadow:0 4px 14px rgba(11,37,69,.06);
+  }
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB;}
+  .card.azul{background:#EAF1F8; border-left-color:var(--azul-medio);}
+  .card.verde{background:#E4F3E6; border-left-color:var(--verde);}
+  .card.rojo{background:#FBE9E7; border-left-color:var(--rojo);}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+
+  .pill{
+    display:inline-block; background:var(--azul-oscuro); color:var(--blanco);
+    border-radius:40px; padding:8px 22px; font-size:19px; font-weight:700;
+    letter-spacing:.5px; margin-bottom:18px; text-transform:uppercase;
+  }
+  .pill.dorado{background:var(--dorado); color:var(--azul-oscuro);}
+  .pill.verde{background:var(--verde); color:var(--blanco);}
+  .pill.rojo{background:var(--rojo); color:var(--blanco);}
+
+  .portada{
+    text-align:center; padding-top:50px;
+    background:linear-gradient(150deg,#FFFFFF 0%,#F4F1EC 100%);
+  }
+  .portada h1{font-size:52px; margin-bottom:20px; line-height:1.15;}
+  .portada .linea{
+    width:140px; height:6px; background:var(--dorado);
+    margin:26px auto; border-radius:3px;
+  }
+  .portada .autor{font-size:32px; color:var(--azul-oscuro); font-weight:700; margin-top:14px;}
+  .portada .contexto{font-size:22px; color:var(--texto-suave); margin-top:8px;}
+
+  .ra-lista{display:flex; flex-direction:column; gap:12px;}
+  .ra-item{
+    display:grid; grid-template-columns:70px 1fr; gap:18px;
+    background:var(--crema); border-radius:12px;
+    padding:18px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--dorado); align-items:center;
+  }
+  .ra-num{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-radius:50%; width:54px; height:54px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; font-weight:700;
+  }
+  .ra-texto{font-size:22px; line-height:1.4;}
+  .ra-texto strong{color:var(--azul-medio);}
+
+  .desafio{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:28px 34px; margin:20px 0;
+    box-shadow:0 10px 30px rgba(11,37,69,.25);
+  }
+  .desafio h3{color:var(--dorado); margin:0 0 12px; font-size:26px;}
+  .desafio p{color:var(--blanco); font-size:25px; margin:6px 0; line-height:1.5;}
+
+  .interrogante{
+    background:#FBF7EB; border-left:10px solid var(--dorado);
+    border-radius:14px; padding:20px 26px; margin:18px 0;
+    font-size:26px; font-weight:600; color:var(--azul-oscuro);
+    line-height:1.45;
+  }
+  .interrogante::before{
+    content:"?"; display:inline-block;
+    background:var(--dorado); color:var(--azul-oscuro);
+    width:42px; height:42px; border-radius:50%;
+    text-align:center; line-height:42px; font-weight:900;
+    margin-right:16px; font-size:26px; vertical-align:middle;
+  }
+
+  /* ---------- Frases prohibidas ---------- */
+  .frases{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
+  .frase{
+    background:var(--crema); border-left:6px solid var(--rojo);
+    border-radius:12px; padding:18px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06);
+    font-size:22px; font-style:italic; color:var(--texto-suave);
+    line-height:1.4;
+  }
+
+  /* ---------- Cadena ---------- */
+  .cadena{
+    display:flex; align-items:center; justify-content:center;
+    flex-wrap:wrap; gap:10px; margin-top:18px;
+  }
+  .cadena .eslabon{
+    background:var(--crema); border:3px solid var(--azul-medio);
+    border-radius:12px; padding:12px 18px; font-size:18px;
+    font-weight:700; color:var(--azul-medio);
+  }
+  .cadena .eslabon.resaltado{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-color:var(--azul-oscuro);
+  }
+  .cadena .flecha-min{color:var(--dorado); font-size:24px; font-weight:900;}
+
+  /* ---------- Cuatro necesidades de evidencia ---------- */
+  .necesidades{display:flex; flex-direction:column; gap:12px; margin-top:16px;}
+  .necesidad{
+    display:grid; grid-template-columns:180px 1fr;
+    gap:20px; align-items:center;
+    background:var(--crema); border-radius:12px;
+    padding:16px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--dorado);
+  }
+  .necesidad .preg{font-size:20px; font-weight:700; color:var(--azul-medio); line-height:1.35;}
+  .necesidad .desc{font-size:20px; line-height:1.4; color:var(--texto-suave);}
+
+  /* ---------- Árbol de decisión ---------- */
+  .arbol{
+    background:var(--crema); border-radius:14px;
+    padding:26px 30px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px;
+  }
+  .arbol .nodo{
+    background:var(--blanco); border-left:6px solid var(--azul-acento);
+    border-radius:10px; padding:14px 20px;
+    font-size:20px; font-weight:600; color:var(--azul-medio);
+    margin:10px 0;
+  }
+  .arbol .rama{
+    margin-left:30px; padding-left:20px;
+    border-left:3px dashed var(--dorado);
+  }
+  .arbol .hoja{
+    background:#FBF7EB; border-radius:10px; padding:12px 18px;
+    font-size:19px; color:var(--texto); margin:8px 0;
+    border-left:6px solid var(--dorado);
+  }
+
+  /* ---------- Decisión ---------- */
+  .decisiones{display:flex; flex-direction:column; gap:14px; margin-top:16px;}
+  .decision{
+    background:var(--crema); border-radius:14px;
+    padding:20px 26px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--azul-acento);
+  }
+  .decision h4{font-size:22px; color:var(--azul-medio); margin:0 0 10px;}
+  .decision p{font-size:20px; line-height:1.4; margin:6px 0;}
+
+  /* ---------- Tabla Bloom-research ---------- */
+  .tabla{
+    background:var(--crema); border-radius:14px;
+    padding:14px 18px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px; overflow-x:auto;
+  }
+  .tabla table{width:100%; border-collapse:collapse; font-size:17px;}
+  .tabla th{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:12px 14px; text-align:left; font-size:15px; font-weight:700;
+  }
+  .tabla td{
+    padding:12px 14px; border-bottom:1px solid #D6DEE9;
+    color:var(--texto); line-height:1.4;
+  }
+  .tabla td:first-child{font-weight:700; color:var(--azul-medio);}
+
+  /* ---------- Cinco capas ---------- */
+  .capas{display:flex; flex-direction:column; gap:10px; margin-top:16px;}
+  .capa{
+    display:grid; grid-template-columns:180px 1fr;
+    gap:22px; align-items:center;
+    background:var(--crema); border-radius:12px;
+    padding:16px 22px;
+    box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:8px solid var(--azul-acento);
+  }
+  .capa .nombre{
+    font-size:20px; font-weight:700; color:var(--azul-medio);
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .capa .preg{font-size:20px; line-height:1.4; color:var(--texto);}
+
+  /* ---------- Mixtos ---------- */
+  .mixtos{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px;}
+  .mixto{
+    background:var(--crema); border-radius:14px;
+    padding:20px 22px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:6px solid var(--verde); text-align:center;
+  }
+  .mixto h4{font-size:20px; color:var(--azul-medio); margin:0 0 12px;}
+  .mixto .flujo-mixto{
+    font-size:18px; font-weight:700; color:var(--azul-oscuro);
+    margin:8px 0;
+  }
+  .mixto p{font-size:18px; line-height:1.4; color:var(--texto-suave);}
+
+  /* ---------- Límites ---------- */
+  .limites{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+  .limite{
+    background:var(--crema); border-radius:14px;
+    padding:20px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:6px solid var(--rojo);
+  }
+  .limite h4{font-size:21px; color:var(--azul-medio); margin:0 0 10px;}
+  .limite .permite{font-size:19px; margin:6px 0; color:var(--verde); font-weight:600;}
+  .limite .nolimita{font-size:19px; margin:6px 0; color:var(--rojo); font-weight:600;}
+  .limite .detalle{font-size:18px; line-height:1.4; color:var(--texto-suave); margin:4px 0;}
+
+  /* ---------- Tres frases ---------- */
+  .tres-frases{
+    display:grid; grid-template-columns:1fr; gap:14px; margin-top:16px;
+  }
+  .tres-frases .f{
+    background:var(--crema); border-radius:12px;
+    padding:18px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-left:6px solid var(--dorado);
+    font-size:22px; font-weight:600; color:var(--azul-oscuro);
+    line-height:1.45;
+  }
+
+  /* ---------- Artefacto ---------- */
+  .artefacto{
+    background:var(--crema); border-radius:14px;
+    padding:24px 28px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px; border-top:8px solid var(--dorado);
+  }
+  .artefacto ol{
+    counter-reset:item; list-style:none; padding:0; margin:0;
+  }
+  .artefacto li{
+    counter-increment:item; display:grid;
+    grid-template-columns:44px 1fr; gap:14px;
+    padding:12px 0; border-bottom:1px dashed #D6DEE9;
+    font-size:20px; line-height:1.4;
+  }
+  .artefacto li:last-child{border-bottom:none;}
+  .artefacto li::before{
+    content:counter(item);
+    background:var(--azul-oscuro); color:var(--dorado);
+    width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:15px;
+  }
+
+  /* ---------- Auditoría de inferencias ---------- */
+  .auditoria{
+    display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px;
+  }
+  .aud-frase{
+    background:var(--crema); border-radius:12px;
+    padding:18px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    font-size:20px; line-height:1.4;
+  }
+  .aud-frase.verde{border-left:6px solid var(--verde);}
+  .aud-frase.amarillo{border-left:6px solid var(--amarillo);}
+  .aud-frase.rojo{border-left:6px solid var(--rojo);}
+  .aud-frase strong{color:var(--azul-medio);}
+
+  /* ---------- Comité ---------- */
+  .comite{
+    background:var(--crema); border-radius:14px;
+    padding:22px 26px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    margin-top:16px;
+  }
+  .comite table{width:100%; border-collapse:collapse; font-size:18px;}
+  .comite th{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:12px 14px; text-align:left; font-size:16px;
+  }
+  .comite td{
+    padding:12px 14px; border-bottom:1px solid #D6DEE9;
+    line-height:1.4;
+  }
+  .comite td:first-child{font-weight:700; color:var(--azul-medio);}
+
+  /* ---------- Cuatro proyectos mismo tema ---------- */
+  .cuatro-proy{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;
+  }
+  .proy{
+    background:var(--crema); border-radius:14px;
+    padding:20px 24px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:6px solid var(--azul-acento);
+  }
+  .proy h4{font-size:20px; color:var(--azul-medio); margin:0 0 10px;}
+  .proy p{font-size:19px; margin:6px 0; line-height:1.4;}
+  .proy .diseno{
+    background:var(--blanco); border-radius:8px; padding:10px 14px;
+    margin-top:10px; font-size:17px; color:var(--azul-medio);
+    font-weight:700;
+  }
+
+  /* ---------- Puente ---------- */
+  .puente{
+    background:linear-gradient(135deg,#13538A 0%,#13315C 100%);
+    color:var(--blanco); border-radius:14px;
+    padding:30px 36px; margin:20px 0;
+    box-shadow:0 10px 30px rgba(19,83,138,.25);
+    text-align:center;
+  }
+  .puente .flecha{font-size:42px; color:var(--dorado); margin:0 0 12px;}
+  .puente p{color:var(--blanco); font-size:25px; margin:8px 0; line-height:1.5;}
+  .puente .destino{
+    display:inline-block; background:var(--dorado); color:var(--azul-oscuro);
+    padding:10px 24px; border-radius:30px; font-size:21px; font-weight:700;
+    margin-top:12px;
+  }
+
+  /* ---------- Cuatro encuentros articulados ---------- */
+  .cuatro-encuentros{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    margin-top:20px;
+  }
+  .enc-bloque{
+    background:var(--crema); border-radius:12px;
+    padding:18px 18px; box-shadow:0 3px 10px rgba(11,37,69,.06);
+    border-top:6px solid var(--azul-acento); text-align:center;
+  }
+  .enc-bloque.dos{border-top-color:var(--dorado);}
+  .enc-bloque.tres{border-top-color:var(--verde);}
+  .enc-bloque.cuatro{border-top-color:var(--rojo);}
+  .enc-bloque h4{
+    font-size:16px; color:var(--azul-medio); margin:0 0 8px;
+    text-transform:uppercase; letter-spacing:.4px;
+  }
+  .enc-bloque .pregunta{
+    font-size:16px; font-weight:700; color:var(--azul-oscuro);
+    line-height:1.4; margin:8px 0;
+  }
+  .enc-bloque .verbo{
+    font-size:14px; color:var(--texto-suave); font-style:italic;
+  }
+
+  /* ---------- Indicador de progresión ---------- */
+  .progresion{
+    position:fixed; bottom:22px; left:50%; transform:translateX(-50%);
+    z-index:65; display:flex; align-items:center; gap:8px;
+    padding:10px 20px; border-radius:30px;
+    background:rgba(7,26,51,.65); backdrop-filter:blur(6px);
+    box-shadow:0 4px 16px rgba(0,0,0,.25);
+    border:1px solid rgba(231,200,115,.2);
+    flex-wrap:wrap; justify-content:center; max-width:70%;
+  }
+  .progresion .punto{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(201,214,232,.35);
+    transition:background .25s ease, transform .25s ease;
+  }
+  .progresion .punto.activo{
+    background:var(--dorado); transform:scale(1.5);
+    box-shadow:0 0 10px rgba(231,200,115,.7);
+  }
+  .progresion .punto.hecho{background:rgba(231,200,115,.55);}
+
+  .progress{
+    position:fixed; top:0; left:0; height:3px;
+    background:var(--dorado); width:0%;
+    transition:width .3s ease; z-index:80;
+  }
+
+  .nav-bottom{
+    position:fixed; bottom:22px; right:24px; z-index:65;
+    display:flex; align-items:center; gap:10px;
+    opacity:.4; transition:opacity .25s ease;
+  }
+  .nav-bottom:hover{opacity:1;}
+  .nav-btn{
+    background:var(--dorado); color:var(--azul-oscuro); border:none;
+    border-radius:50%; width:48px; height:48px; font-size:24px;
+    font-weight:700; cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.3);
+    transition:background .2s, transform .15s;
+  }
+  .nav-btn:hover{background:#F0D48F; transform:scale(1.06);}
+  .nav-btn:disabled{opacity:.3; cursor:default; transform:none;}
+
+  @media (max-width:1100px){
+    body{font-size:20px;}
+    h1{font-size:34px;} h2{font-size:28px;} h3{font-size:22px;}
+    p, li{font-size:20px;} .lead{font-size:21px;}
+    .portada h1{font-size:30px;}
+    .portada .autor{font-size:22px;}
+    .portada .contexto{font-size:17px;}
+    .pill{font-size:14px; padding:6px 16px;}
+    .grid-2, .grid-3, .frases, .mixtos, .limites,
+    .cuatro-proy, .cuatro-encuentros{grid-template-columns:1fr;}
+    .stage{padding:80px 22px 130px;}
+    .slide{left:22px; right:22px; top:80px; padding:36px 30px;}
+    .ra-texto{font-size:17px;}
+    .ra-num{width:44px; height:44px; font-size:17px;}
+    .desafio h3{font-size:20px;}
+    .desafio p{font-size:18px;}
+    .interrogante{font-size:18px;}
+    .necesidad{grid-template-columns:1fr;}
+    .capa{grid-template-columns:1fr;}
+    .titulo-encuentro{font-size:12px; top:16px; left:16px;}
+    .toggle-indice{font-size:12px; padding:7px 14px; top:14px; right:14px;}
+    .indice-panel{width:290px;}
+    .progresion{padding:8px 14px; gap:5px; bottom:16px; max-width:85%;}
+    .progresion .punto{width:6px; height:6px;}
+    .nav-bottom{bottom:16px; right:14px;}
+    .nav-btn{width:40px; height:40px; font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo"></div>
+
+<div class="titulo-encuentro">Formulación de proyectos de investigación en Psicología · Encuentro sincrónico 4</div>
+<button class="toggle-indice" id="toggleIndice" aria-label="Mostrar índice">☰ Índice</button>
+
+<nav class="indice-panel" id="indicePanel">
+  <h2>ÍNDICE DEL ENCUENTRO</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<div class="progress" id="progress"></div>
+
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada active" data-title="Portada">
+    <span class="pill dorado">Encuentro sincrónico 4</span>
+    <h1>De la pregunta al diseño</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">Construir una estrategia metodológica</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">Formulación de proyectos de investigación en Psicología · Convocatoria simulada de salud mental</p>
+  </section>
+
+  <!-- ===== 2. RESULTADOS DE APRENDIZAJE ===== -->
+  <section class="slide" data-title="Resultados de aprendizaje">
+    <span class="pill">Resultados de aprendizaje</span>
+    <h2>Al terminar el encuentro podrás…</h2>
+    <div class="ra-lista">
+      <div class="ra-item">
+        <div class="ra-num">RA1</div>
+        <div class="ra-texto"><strong>Derivar</strong> la clase de evidencia que necesita una investigación a partir de su pregunta y objetivos, evitando empezar por instrumentos o técnicas.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA2</div>
+        <div class="ra-texto"><strong>Diferenciar</strong> las lógicas de los diseños cuantitativos, cualitativos y mixtos, y qué tipo de evidencia produce cada uno.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA3</div>
+        <div class="ra-texto"><strong>Justificar</strong> un diseño coherente con la pregunta, considerando temporalidad, manipulación, unidades y naturaleza de los datos.</div>
+      </div>
+      <div class="ra-item">
+        <div class="ra-num">RA4</div>
+        <div class="ra-texto"><strong>Evaluar</strong> los alcances y límites inferenciales del diseño: qué podrá afirmarse y qué no.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. AGENDA ===== -->
+  <section class="slide" data-title="Agenda">
+    <span class="pill">Agenda</span>
+    <h2>Recorrido del encuentro</h2>
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Punto de partida: prohibido elegir el método</li>
+        <li>Qué evidencia necesita cada pregunta</li>
+        <li>La gran decisión: enfoque cuantitativo, cualitativo o mixto</li>
+        <li>Enfoque ≠ diseño</li>
+        <li>Diseños cuantitativos mediante decisiones</li>
+      </ul>
+      <ul class="clean">
+        <li>Diseños cualitativos mediante el fenómeno</li>
+        <li>Técnica ≠ diseño</li>
+        <li>Las cinco capas de la estrategia metodológica</li>
+        <li>Métodos mixtos con integración real</li>
+        <li>El diseño establece lo que NO podremos saber</li>
+      </ul>
+    </div>
+    <div class="card dorado">
+      <p><strong>Idea nuclear:</strong> un diseño no se elige porque nos guste una metodología. Se construye para producir la evidencia que necesitamos para responder una pregunta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 4. PROHIBIDO ELEGIR EL MÉTODO ===== -->
+  <section class="slide" data-title="Prohibido elegir el método">
+    <span class="pill rojo">Punto de partida</span>
+    <h2>Prohibido elegir el método</h2>
+
+    <p class="lead">Observemos estas cuatro frases con las que suelen iniciar los proyectos:</p>
+
+    <div class="frases">
+      <div class="frase">“Quiero hacer una encuesta.”</div>
+      <div class="frase">“Voy a realizar entrevistas.”</div>
+      <div class="frase">“Mi investigación será cualitativa.”</div>
+      <div class="frase">“Queremos aplicar una escala de ansiedad.”</div>
+    </div>
+
+    <div class="interrogante">
+      ¿Cuál es el problema común?
+    </div>
+
+    <div class="card rojo">
+      <p>Todas comenzaron la investigación por una <strong>decisión metodológica</strong>. Todavía desconocemos qué quieren saber, cuál es su pregunta, qué evidencia necesitan, qué conclusión esperan producir.</p>
+    </div>
+
+    <div class="desafio">
+      <h3>Principio</h3>
+      <p>La herramienta debe estar al servicio de la pregunta, no la pregunta al servicio de la herramienta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 5. RECUPERAMOS LA CADENA ===== -->
+  <section class="slide" data-title="Cadena del Encuentro 3">
+    <span class="pill">Recuperando el Encuentro 3</span>
+    <h2>Terminamos en la evidencia necesaria</h2>
+
+    <div class="cadena">
+      <span class="eslabon">Brecha</span>
+      <span class="flecha-min">→</span>
+      <span class="eslabon">Pregunta</span>
+      <span class="flecha-min">→</span>
+      <span class="eslabon">Pretensión</span>
+      <span class="flecha-min">→</span>
+      <span class="eslabon">Objetivos</span>
+      <span class="flecha-min">→</span>
+      <span class="eslabon resaltado">Evidencia necesaria</span>
+    </div>
+
+    <p class="lead" style="margin-top:24px;">Este encuentro comienza exactamente con el último elemento:</p>
+
+    <div class="interrogante">
+      ¿Qué evidencia necesitamos producir para responder la pregunta?
+    </div>
+
+    <p class="lead">Veamos cuatro preguntas sobre un mismo campo temático.</p>
+  </section>
+
+  <!-- ===== 6. CUATRO PREGUNTAS, CUATRO EVIDENCIAS ===== -->
+  <section class="slide" data-title="Cuatro evidencias">
+    <span class="pill">Derivar la evidencia</span>
+    <h2>Cuatro preguntas, cuatro necesidades de evidencia</h2>
+
+    <div class="necesidades">
+      <div class="necesidad">
+        <div class="preg">A. ¿Cuál es la frecuencia de X?</div>
+        <div class="desc">Datos que permitan estimar la ocurrencia o distribución de X.</div>
+      </div>
+      <div class="necesidad">
+        <div class="preg">B. ¿Existe relación entre X e Y?</div>
+        <div class="desc">Evidencia que permita examinar conjuntamente X e Y.</div>
+      </div>
+      <div class="necesidad">
+        <div class="preg">C. ¿Cómo experimentan las personas X?</div>
+        <div class="desc">Evidencia capaz de representar experiencias, significados, procesos o perspectivas.</div>
+      </div>
+      <div class="necesidad">
+        <div class="preg">D. ¿Qué efecto produce X sobre Y?</div>
+        <div class="desc">Evidencia que permita sostener una inferencia causal sobre el efecto de X en Y.</div>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Mismo campo temático, diferentes necesidades de evidencia. La pregunta modifica lo que debe producirse.</p>
+    </div>
+  </section>
+
+  <!-- ===== 7. ENFOQUE CUANTITATIVO ===== -->
+  <section class="slide" data-title="Enfoque cuantitativo">
+    <span class="pill">Enfoque</span>
+    <h2>Investigación cuantitativa</h2>
+
+    <p class="lead">Resulta pertinente cuando el problema demanda trabajar con:</p>
+
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Magnitud</li>
+        <li>Frecuencia</li>
+        <li>Distribución</li>
+        <li>Diferencias</li>
+      </ul>
+      <ul class="clean">
+        <li>Relaciones entre variables</li>
+        <li>Predicción</li>
+        <li>Estimación de efectos, cuando el diseño lo permite</li>
+      </ul>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p><strong>Su lógica fundamental no es:</strong> “utilizar números”.</p>
+    </div>
+
+    <div class="card verde">
+      <p><strong>Su lógica es:</strong> representar determinados fenómenos mediante variables susceptibles de medición y analizar su variación o relación.</p>
+    </div>
+  </section>
+
+  <!-- ===== 8. ENFOQUE CUALITATIVO ===== -->
+  <section class="slide" data-title="Enfoque cualitativo">
+    <span class="pill">Enfoque</span>
+    <h2>Investigación cualitativa</h2>
+
+    <p class="lead">Puede ser pertinente cuando necesitamos abordar:</p>
+
+    <div class="grid-3">
+      <ul class="clean">
+        <li>Experiencias</li>
+        <li>Significados</li>
+        <li>Percepciones</li>
+      </ul>
+      <ul class="clean">
+        <li>Interpretaciones</li>
+        <li>Procesos</li>
+        <li>Prácticas</li>
+      </ul>
+      <ul class="clean">
+        <li>Construcción social de fenómenos</li>
+        <li>Fenómenos poco comprendidos desde la experiencia de participantes</li>
+      </ul>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p><strong>Su lógica no es:</strong> “hacer entrevistas”. Podemos hacer entrevistas muy malas y seguir sin tener una investigación cualitativa coherente.</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Nuestro problema requiere comprender el fenómeno desde experiencias, significados, procesos o contextos que no pueden reducirse adecuadamente a un conjunto predeterminado de variables?
+    </div>
+  </section>
+
+  <!-- ===== 9. ENFOQUE MIXTO ===== -->
+  <section class="slide" data-title="Enfoque mixto">
+    <span class="pill">Enfoque</span>
+    <h2>Investigación mixta</h2>
+
+    <div class="card rojo">
+      <p><strong>Definición insuficiente:</strong> “mezclar cuantitativo y cualitativo”.</p>
+      <p>Un proyecto no se vuelve mixto porque aplique una encuesta y luego algunas entrevistas.</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Qué obtenemos al integrar ambas fuentes que no podríamos obtener utilizando solo una?
+    </div>
+
+    <div class="card dorado">
+      <p>Los estándares JARS-Mixed de la APA exigen explicitar <strong>los componentes cualitativo y cuantitativo</strong> y <strong>la lógica de su integración</strong>. Los objetivos mixtos deben describir dónde ocurre esa combinación.</p>
+    </div>
+
+    <div class="desafio">
+      <h3>Criterio del curso</h3>
+      <p><strong>Cuantitativo + cualitativo ≠ automáticamente mixto.</strong></p>
+      <p>Para hablar de métodos mixtos necesitamos: componente cuantitativo + componente cualitativo + <strong>integración justificada</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 10. ÁRBOL DE DECISIÓN ===== -->
+  <section class="slide" data-title="Árbol de decisión">
+    <span class="pill">Mapa orientador</span>
+    <h2>Primera gran decisión metodológica</h2>
+
+    <div class="arbol">
+      <div class="nodo">¿Qué necesito conocer?</div>
+      <div class="rama">
+        <div class="hoja">Magnitud, frecuencia, diferencia, relación → <strong>evidencia cuantificable</strong></div>
+        <div class="hoja">Experiencia, significado, proceso → <strong>evidencia cualitativa</strong></div>
+        <div class="hoja">El problema exige ambas → <strong>evidencia múltiple</strong> → integración de resultados</div>
+      </div>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p><strong>Advertencia:</strong> esto es un mapa orientador, no una máquina automática para elegir diseños. Una pregunta compleja puede admitir estrategias diferentes. Lo metodológicamente importante será <strong>la justificación</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 11. ENFOQUE ≠ DISEÑO ===== -->
+  <section class="slide" data-title="Enfoque ≠ diseño">
+    <span class="pill">Distinción fundamental</span>
+    <h2>Enfoque y diseño no son sinónimos</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Enfoque</h3>
+        <p>Establece una <strong>lógica general</strong> de investigación.</p>
+        <p class="lead">Cuantitativo, cualitativo, mixto.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Diseño</h3>
+        <p>Establece la <strong>arquitectura</strong> mediante la cual produciremos evidencia.</p>
+        <p class="lead">Observacional transversal, longitudinal, experimental, fenomenológico, teoría fundamentada…</p>
+      </div>
+    </div>
+
+    <div class="card rojo" style="margin-top:20px;">
+      <p>Decir “mi investigación es cuantitativa” todavía nos dice relativamente poco sobre cómo producirá evidencia. Del mismo modo, “mi estudio es cualitativo” no constituye todavía una estrategia suficientemente definida.</p>
+    </div>
+  </section>
+
+  <!-- ===== 12. DECISIÓN 1 CUANTITATIVA: INTERVENIR O NO ===== -->
+  <section class="slide" data-title="Decisión 1: intervenir">
+    <span class="pill">Diseños cuantitativos</span>
+    <h2>Decisión 1. ¿Vamos a intervenir deliberadamente?</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>No</h3>
+        <p>Lógica <strong>observacional</strong>.</p>
+        <p>Observamos los fenómenos sin manipular deliberadamente una exposición o intervención.</p>
+      </div>
+      <div class="card verde">
+        <h3>Sí</h3>
+        <p>Lógica <strong>experimental</strong> o de intervención, según cómo se estructuren asignación, control y comparación.</p>
+      </div>
+    </div>
+
+    <div class="interrogante">
+      Esto cambia fundamentalmente lo que posteriormente podremos inferir.
+    </div>
+  </section>
+
+  <!-- ===== 13. DECISIÓN 2 CUANTITATIVA: TEMPORALIDAD ===== -->
+  <section class="slide" data-title="Decisión 2: temporalidad">
+    <span class="pill">Diseños cuantitativos</span>
+    <h2>Decisión 2. ¿Cuántos momentos necesitamos observar?</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Un momento</h3>
+        <p>Diseño <strong>transversal</strong>.</p>
+        <p class="lead">Puede ser apropiado para objetivos descriptivos o relacionales.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Varios momentos</h3>
+        <p>Diseño <strong>longitudinal</strong>.</p>
+        <p class="lead">Permite examinar cambio, trayectoria, secuencia temporal, incidencia y evolución.</p>
+      </div>
+    </div>
+
+    <div class="interrogante">
+      ¿Por qué usarían un diseño longitudinal si la pregunta puede responderse transversalmente?
+    </div>
+
+    <div class="desafio">
+      <h3>Principio</h3>
+      <p>Metodología rigurosa no significa seleccionar el diseño más complejo. Significa utilizar el diseño <strong>adecuado y suficiente</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 14. DECISIÓN 3 CUANTITATIVA: QUÉ QUEREMOS AFIRMAR ===== -->
+  <section class="slide" data-title="Decisión 3: qué afirmar">
+    <span class="pill">Diseños cuantitativos</span>
+    <h2>Decisión 3. ¿Qué queremos afirmar?</h2>
+
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Pretensión</th>
+            <th>Necesidad general del diseño</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Describir</td><td>Obtener evidencia adecuada sobre distribución o características</td></tr>
+          <tr><td>Comparar</td><td>Construir comparaciones justificables</td></tr>
+          <tr><td>Relacionar</td><td>Observar conjuntamente variables pertinentes</td></tr>
+          <tr><td>Predecir</td><td>Modelar información con capacidad predictiva apropiada</td></tr>
+          <tr><td>Examinar cambios</td><td>Incorporar temporalidad</td></tr>
+          <tr><td>Evaluar intervención</td><td>Comparaciones y diseño adecuados a la inferencia de efecto</td></tr>
+          <tr><td>Argumentar causalidad</td><td>Exigencias adicionales de diseño e inferencia</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Regla</h3>
+      <p>No podemos comprar una conclusión causal con un análisis estadístico sofisticado si el diseño no permite sostenerla.</p>
+    </div>
+  </section>
+
+  <!-- ===== 15. EJEMPLO: MISMA VARIABLE, CUATRO DISEÑOS ===== -->
+  <section class="slide" data-title="Misma variable, cuatro diseños">
+    <span class="pill">Ejemplo</span>
+    <h2>Misma variable, cuatro diseños</h2>
+
+    <p class="lead">Uso de redes sociales y sintomatología ansiosa.</p>
+
+    <div class="cuatro-proy">
+      <div class="proy">
+        <h4>Proyecto 1</h4>
+        <p>¿Cuál es la frecuencia de sintomatología ansiosa…?</p>
+        <div class="diseno">Observacional descriptivo transversal</div>
+      </div>
+      <div class="proy">
+        <h4>Proyecto 2</h4>
+        <p>¿Existe relación entre ciertos patrones de utilización y sintomatología ansiosa…?</p>
+        <div class="diseno">Observacional analítico / correlacional</div>
+      </div>
+      <div class="proy">
+        <h4>Proyecto 3</h4>
+        <p>¿Cómo cambian ambas variables durante el primer año universitario?</p>
+        <div class="diseno">Requiere incorporar longitudinalidad</div>
+      </div>
+      <div class="proy">
+        <h4>Proyecto 4</h4>
+        <p>¿Una intervención de reducción de determinado comportamiento produce cambios en X?</p>
+        <div class="diseno">Intervención + comparación + temporalidad</div>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Una misma temática no determina el diseño. <strong>La pregunta sí modifica las exigencias del diseño.</strong></p>
+    </div>
+  </section>
+
+  <!-- ===== 16. CORRELACIÓN DISFRAZADA DE CAUSALIDAD ===== -->
+  <section class="slide" data-title="Correlación disfrazada">
+    <span class="pill rojo">El gran enemigo</span>
+    <h2>Correlación disfrazada de causalidad</h2>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Diseño</h3>
+        <p>Encuesta transversal.</p>
+      </div>
+      <div class="card azul">
+        <h3>Resultado</h3>
+        <p>X e Y muestran asociación estadística.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Conclusión</h3>
+        <p>“X provoca Y.”</p>
+      </div>
+    </div>
+
+    <div class="interrogante">
+      ¿En qué momento del estudio demostramos que X ocurrió antes que Y?
+    </div>
+
+    <div class="card rojo">
+      <p>No podemos resolver causalidad únicamente porque encontramos una asociación. Los estudios observacionales pueden abordar preguntas causales mediante estrategias específicas, pero con supuestos, control de sesgos y modelamiento explícito.</p>
+    </div>
+
+    <div class="desafio">
+      <h3>Regla del curso</h3>
+      <p>Asociación ≠ causalidad. Pero no basta con memorizar la frase. Necesitamos <strong>comprender por qué</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 17. DISEÑOS CUALITATIVOS ===== -->
+  <section class="slide" data-title="Diseños cualitativos">
+    <span class="pill">Diseños cualitativos</span>
+    <h2>Los diseños cualitativos también se eligen según la pregunta</h2>
+
+    <p class="lead">No comenzamos con la lista de diseños. Comenzamos con una pregunta:</p>
+
+    <div class="interrogante">
+      ¿Qué tratamos de comprender?
+    </div>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Experiencias vividas</h3>
+        <p>Pueden ser pertinentes aproximaciones <strong>fenomenológicas</strong>.</p>
+        <p class="lead">¿Cómo experimentan los estudiantes…?</p>
+      </div>
+      <div class="card azul">
+        <h3>Procesos</h3>
+        <p>La <strong>teoría fundamentada</strong> puede resultar pertinente para desarrollar explicación teórica sobre procesos o interacciones.</p>
+        <p class="lead">¿Cómo se desarrolla el proceso mediante el cual…?</p>
+      </div>
+      <div class="card azul">
+        <h3>Prácticas y cultura compartida</h3>
+        <p>Puede justificarse una aproximación <strong>etnográfica</strong>.</p>
+        <p class="lead">¿Cómo se configuran determinadas prácticas y significados en…?</p>
+      </div>
+      <div class="card azul">
+        <h3>Caso delimitado</h3>
+        <p>Puede resultar pertinente un <strong>estudio de caso</strong>.</p>
+        <p class="lead">¿Cómo funciona un caso específico…?</p>
+      </div>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Lógica</h3>
+      <p>Fenómeno que necesito comprender → tradición/diseño adecuado. <strong>No:</strong> “quiero hacer fenomenología, ¿qué puedo investigar?”</p>
+    </div>
+  </section>
+
+  <!-- ===== 18. TÉCNICA ≠ DISEÑO ===== -->
+  <section class="slide" data-title="Técnica ≠ diseño">
+    <span class="pill rojo">Confusión frecuente</span>
+    <h2>Técnica no equivale a diseño</h2>
+
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Entrevista</h3>
+        <p>No es sinónimo de investigación cualitativa. Puede usarse bajo diferentes aproximaciones.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Encuesta</h3>
+        <p>No es un diseño. Es una estrategia de producción de información.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Escala</h3>
+        <p>No es un diseño. Es un instrumento de medición.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Grupo focal</h3>
+        <p>No es un diseño cualitativo. Es una técnica de producción de información.</p>
+      </div>
+    </div>
+
+    <div class="desafio">
+      <h3>Principio</h3>
+      <p><strong>Diseño ≠ técnica ≠ instrumento ≠ análisis.</strong> Confundir estas capas produce proyectos metodológicamente desordenados.</p>
+    </div>
+  </section>
+
+  <!-- ===== 19. LAS CINCO CAPAS ===== -->
+  <section class="slide" data-title="Cinco capas">
+    <span class="pill">Estructura clara</span>
+    <h2>Las cinco capas de una estrategia metodológica</h2>
+
+    <div class="capas">
+      <div class="capa">
+        <div class="nombre">Capa 1 · Pregunta</div>
+        <div class="preg">¿Qué queremos conocer?</div>
+      </div>
+      <div class="capa">
+        <div class="nombre">Capa 2 · Diseño</div>
+        <div class="preg">¿Qué arquitectura de investigación puede responderla?</div>
+      </div>
+      <div class="capa">
+        <div class="nombre">Capa 3 · Unidades / participantes</div>
+        <div class="preg">¿De quién o de qué necesitamos evidencia?</div>
+      </div>
+      <div class="capa">
+        <div class="nombre">Capa 4 · Producción de datos</div>
+        <div class="preg">¿Qué procedimiento permite obtener esa evidencia?</div>
+      </div>
+      <div class="capa">
+        <div class="nombre">Capa 5 · Análisis</div>
+        <div class="preg">¿Cómo transformaremos esos datos en una respuesta?</div>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Esta será la base conceptual de la sección metodológica de la propuesta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 20. A QUIÉN ESTUDIAR ===== -->
+  <section class="slide" data-title="A quién estudiar">
+    <span class="pill">Participantes</span>
+    <h2>¿A quién necesitamos estudiar?</h2>
+
+    <div class="card rojo">
+      <p><strong>La pregunta inicial no es:</strong> “¿cuántos participantes necesito?”</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Quiénes pueden proporcionar la evidencia necesaria para responder nuestra pregunta?
+    </div>
+
+    <div class="grid-2">
+      <ul class="clean">
+        <li>Población o universo</li>
+        <li>Unidad de análisis</li>
+        <li>Características pertinentes</li>
+        <li>Criterios de inclusión</li>
+      </ul>
+      <ul class="clean">
+        <li>Criterios de exclusión</li>
+        <li>Acceso a participantes</li>
+        <li>Representatividad, cuando corresponda</li>
+        <li>Pertinencia del caso o participante en cualitativa</li>
+      </ul>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>No profundizamos todavía en cálculo muestral: el foco de este encuentro es <strong>diseño</strong>, no muestreo.</p>
+    </div>
+  </section>
+
+  <!-- ===== 21. ACCESIBILIDAD ≠ POBLACIÓN ===== -->
+  <section class="slide" data-title="Accesibilidad ≠ población">
+    <span class="pill rojo">Advertencia</span>
+    <h2>La accesibilidad no puede definir la población</h2>
+
+    <div class="card rojo">
+      <p>“Estudiaremos estudiantes de Psicología porque son los participantes a los que tenemos acceso.”</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Eso explica</h3>
+        <p>Por qué podemos reclutarlos.</p>
+      </div>
+      <div class="card verde">
+        <h3>Pero no explica</h3>
+        <p>Por qué son la población adecuada para responder la pregunta.</p>
+      </div>
+    </div>
+
+    <div class="desafio">
+      <h3>Principio</h3>
+      <p>La población debe derivarse del problema. El acceso es un problema de factibilidad, posterior.</p>
+    </div>
+  </section>
+
+  <!-- ===== 22. TEMPORALIDAD COMO DECISIÓN CONCEPTUAL ===== -->
+  <section class="slide" data-title="Temporalidad">
+    <span class="pill">Decisión conceptual</span>
+    <h2>La temporalidad como decisión conceptual</h2>
+
+    <div class="card rojo">
+      <p><strong>No elegimos transversal porque:</strong> “tenemos poco tiempo”.</p>
+      <p>Eso puede afectar la factibilidad, pero la pregunta correcta es otra.</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Necesito observar cambio o secuencia temporal para responder mi pregunta?
+    </div>
+
+    <div class="card azul">
+      <p>Si la respuesta es sí y solo disponemos de un corte transversal, tenemos un <strong>conflicto</strong> entre pregunta y factibilidad.</p>
+    </div>
+
+    <p class="lead">Entonces quizás debamos:</p>
+    <ul class="clean">
+      <li>modificar la pregunta;</li>
+      <li>reconsiderar el diseño;</li>
+      <li>reconocer explícitamente las limitaciones.</li>
+    </ul>
+
+    <div class="card dorado" style="margin-top:16px;">
+      <p>Lo que no podemos hacer es conservar una pregunta longitudinal y responderla con evidencia transversal como si fueran equivalentes.</p>
+    </div>
+  </section>
+
+  <!-- ===== 23. MÉTODOS MIXTOS CON JUSTIFICACIÓN REAL ===== -->
+  <section class="slide" data-title="Mixtos: ejemplo">
+    <span class="pill">Métodos mixtos</span>
+    <h2>Métodos mixtos: cuándo sí</h2>
+
+    <p class="lead">Problema: queremos comprender la baja utilización de un servicio psicológico universitario.</p>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>Componente cuantitativo</h3>
+        <p>¿Qué proporción utiliza el servicio y qué factores se relacionan con su utilización?</p>
+      </div>
+      <div class="card dorado">
+        <h3>Componente cualitativo</h3>
+        <p>¿Cómo experimentan los estudiantes el proceso de decidir si buscan ayuda?</p>
+      </div>
+      <div class="card verde">
+        <h3>Integración</h3>
+        <p>¿Cómo ayudan las experiencias narradas a explicar los patrones cuantitativos observados?</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <p>Los estándares JARS-Mixed contemplan diseños secuenciales en los que resultados cuantitativos pueden ser explicados posteriormente mediante evidencia cualitativa, y exigen declarar el objetivo específicamente mixto de esa integración.</p>
+    </div>
+  </section>
+
+  <!-- ===== 24. TRES DISEÑOS MIXTOS BÁSICOS ===== -->
+  <section class="slide" data-title="Tres diseños mixtos">
+    <span class="pill">Diseños mixtos básicos</span>
+    <h2>Tres lógicas mixtas para este nivel</h2>
+
+    <div class="mixtos">
+      <div class="mixto">
+        <h4>Convergente</h4>
+        <p class="flujo-mixto">Cuanti + Cuali (paralelo)</p>
+        <p>¿Qué muestran ambas perspectivas conjuntamente?</p>
+      </div>
+      <div class="mixto">
+        <h4>Secuencial explicativo</h4>
+        <p class="flujo-mixto">Cuanti → Cuali</p>
+        <p>¿Cómo ayuda la segunda fase a comprender los resultados de la primera?</p>
+      </div>
+      <div class="mixto">
+        <h4>Secuencial exploratorio</h4>
+        <p class="flujo-mixto">Cuali → Cuanti</p>
+        <p>¿Cómo orientan los hallazgos iniciales una fase posterior de medición?</p>
+      </div>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Lo esencial</h3>
+      <p>El punto no es recordar los nombres. Es comprender <strong>dónde y por qué ocurre la integración</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 25. LO QUE EL DISEÑO NO PERMITE SABER ===== -->
+  <section class="slide" data-title="Lo que no permite saber">
+    <span class="pill">Límites del diseño</span>
+    <h2>El diseño también establece lo que NO podremos saber</h2>
+
+    <p class="lead">Todo diseño abre posibilidades y simultáneamente impone límites.</p>
+
+    <div class="limites">
+      <div class="limite">
+        <h4>Transversal correlacional</h4>
+        <p class="permite">✓ Permite: describir, estimar asociaciones, comparar grupos.</p>
+        <p class="nolimita">✗ No permite: establecer temporalidad, atribuir causalidad.</p>
+      </div>
+      <div class="limite">
+        <h4>Cualitativo interpretativo</h4>
+        <p class="permite">✓ Permite: comprensión profunda, significados, procesos, patrones interpretativos.</p>
+        <p class="nolimita">✗ No debería evaluarse como si buscara estimaciones poblacionales de prevalencia.</p>
+      </div>
+      <div class="limite">
+        <h4>Experimental</h4>
+        <p class="permite">✓ Fortalece inferencias causales con control y asignación adecuados.</p>
+        <p class="nolimita">✗ Desafíos: factibilidad, contexto, generalización, restricciones éticas.</p>
+      </div>
+      <div class="card dorado">
+        <p><strong>Metodología rigurosa</strong> significa reconocer estos intercambios, no pretender que existe un diseño perfecto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 26. LAS TRES FRASES ===== -->
+  <section class="slide" data-title="Tres frases">
+    <span class="pill">Regla del curso</span>
+    <h2>La frase que todo proyecto debería incluir</h2>
+
+    <div class="tres-frases">
+      <div class="f">“Elegimos este diseño porque…”</div>
+      <div class="f">“Este diseño nos permitirá concluir…”</div>
+      <div class="f">“Este diseño <strong>no</strong> nos permitirá concluir…”</div>
+    </div>
+
+    <div class="interrogante">
+      La tercera frase puede ser incluso más importante que la primera.
+    </div>
+
+    <div class="desafio">
+      <h3>Principio</h3>
+      <p>Un investigador competente no solo conoce la potencia de su estrategia. <strong>Conoce sus límites.</strong></p>
+    </div>
+  </section>
+
+  <!-- ===== 27. VOLVEMOS A BLOOM ===== -->
+  <section class="slide" data-title="Volvemos a Bloom">
+    <span class="pill">Conexión con el Encuentro 3</span>
+    <h2>Volvemos a Bloom: la deuda metodológica del verbo</h2>
+
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Si el objetivo usa…</th>
+            <th>El diseño debe…</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Describir</td><td>Permitir descripción adecuada</td></tr>
+          <tr><td>Analizar relaciones</td><td>Generar datos apropiados para examinar dichas relaciones</td></tr>
+          <tr><td>Comprender</td><td>Generar evidencia capaz de conservar experiencia, significado y contexto</td></tr>
+          <tr><td>Evaluar</td><td>Precisar qué se evalúa y contra qué referente</td></tr>
+          <tr><td>Explicar</td><td>Justificar el grado de explicación prometido</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="desafio" style="margin-top:20px;">
+      <h3>Idea clave</h3>
+      <p>El verbo del objetivo adquirió una <strong>deuda metodológica</strong>. En el Encuentro 3 prometimos una operación cognitiva. En el Encuentro 4 debemos demostrar que el diseño puede pagar esa deuda.</p>
+    </div>
+  </section>
+
+  <!-- ===== 28. LA CADENA COMPLETA ===== -->
+  <section class="slide" data-title="Cadena completa">
+    <span class="pill">Arquitectura</span>
+    <h2>La cadena de coherencia vuelve a crecer</h2>
+
+    <div class="arbol">
+      <div class="nodo">Problema</div>
+      <div class="nodo">Brecha</div>
+      <div class="nodo">Pregunta</div>
+      <div class="nodo">Pretensión de conocimiento</div>
+      <div class="nodo">Objetivos</div>
+      <div class="nodo">Evidencia necesaria</div>
+      <div class="nodo" style="background:#EAF1F8; border-left-color:var(--azul-medio);">Enfoque</div>
+      <div class="nodo" style="background:#EAF1F8; border-left-color:var(--azul-medio);">Diseño</div>
+      <div class="nodo" style="background:#EAF1F8; border-left-color:var(--azul-medio);">Participantes / unidades</div>
+      <div class="nodo" style="background:#EAF1F8; border-left-color:var(--azul-medio);">Producción de datos</div>
+      <div class="nodo" style="background:#EAF1F8; border-left-color:var(--azul-medio);">Análisis</div>
+      <div class="nodo" style="background:#E4F3E6; border-left-color:var(--verde);">Inferencias posibles</div>
+    </div>
+
+    <div class="card dorado" style="margin-top:20px;">
+      <p>Esto es exactamente lo que queremos que aprendan a <strong>defender ante el comité</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 29. CASO COMPLETO ===== -->
+  <section class="slide" data-title="Caso completo">
+    <span class="pill">Caso para la convocatoria</span>
+    <h2>Un caso completo: búsqueda de ayuda psicológica</h2>
+
+    <div class="card azul">
+      <p><strong>Brecha:</strong> la evidencia permite reconocer barreras para la búsqueda de ayuda, pero existe insuficiente comprensión sobre cómo esas barreras intervienen en la decisión de solicitar atención en determinado contexto.</p>
+    </div>
+
+    <div class="card dorado">
+      <p><strong>Pregunta:</strong> ¿cómo experimentan los estudiantes universitarios las barreras presentes durante su decisión de solicitar ayuda psicológica profesional?</p>
+    </div>
+
+    <div class="card verde">
+      <p><strong>Objetivo general:</strong> comprender las experiencias de estudiantes universitarios respecto de las barreras…</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Evidencia necesaria:</strong> relatos suficientemente ricos acerca de experiencias, significados, decisiones y contexto.</p>
+    </div>
+
+    <div class="interrogante">
+      ¿Sería suficiente aplicar únicamente una escala cerrada de actitudes?
+    </div>
+
+    <div class="card rojo">
+      <p>Existe una <strong>tensión de coherencia</strong>: hemos prometido comprender experiencia y significado, pero diseñamos una estrategia que restringe de antemano las respuestas a categorías predeterminadas.</p>
+      <p class="lead">No significa que las escalas sean malas. Pueden ser <strong>inadecuadas para esa pregunta específica</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 30. ARTEFACTO 04: PRIMERA PARTE ===== -->
+  <section class="slide" data-title="Artefacto 04 · parte 1">
+    <span class="pill">Trabajo autónomo</span>
+    <h2>Artefacto 04: laboratorio de decisiones metodológicas</h2>
+
+    <div class="artefacto">
+      <ol>
+        <li><strong>Recuperar la cadena.</strong> Brecha → pregunta → objetivo general → evidencia necesaria. Todavía sin método.</li>
+        <li><strong>Inventario de evidencia.</strong> “Para responder nuestra pregunta necesitamos evidencia sobre…”. Describir información, no instrumentos.</li>
+        <li><strong>Primera decisión: enfoque.</strong> Cuantitativo, cualitativo o mixto. “Una estrategia ______ resulta pertinente porque nuestra pregunta requiere…”</li>
+        <li><strong>Segunda decisión: diseño.</strong> Observacional transversal, longitudinal, experimental, cuasiexperimental, fenomenológico, teoría fundamentada, estudio de caso, mixto convergente, secuencial explicativo, secuencial exploratorio. <em>¿Por qué este diseño y no otro?</em></li>
+        <li><strong>Participantes o unidades.</strong> ¿Quién o qué puede producir la evidencia necesaria? ¿Por qué es conceptualmente pertinente? ¿Estrategia de acceso? ¿Limitaciones anticipadas?</li>
+        <li><strong>Producción de datos.</strong> Escalas, cuestionarios, entrevistas, observación, registros, tareas, grupos focales. Cada una responde: <em>¿qué parte de la evidencia necesaria produce esta herramienta?</em></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 31. AUDITORÍA DE INFERENCIAS ===== -->
+  <section class="slide" data-title="Auditoría de inferencias">
+    <span class="pill">Prueba central</span>
+    <h2>La prueba más importante: auditoría de inferencias</h2>
+
+    <div class="auditoria">
+      <div class="aud-frase verde">
+        <strong>Nuestro estudio permitirá afirmar:</strong> …
+      </div>
+      <div class="aud-frase amarillo">
+        <strong>Nuestro estudio permitirá sugerir, con cautela:</strong> …
+      </div>
+      <div class="aud-frase rojo">
+        <strong>Nuestro estudio NO permitirá afirmar:</strong> …
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:22px;">
+      <p>Esta pequeña actividad es extraordinariamente formativa. <strong>Obliga a anticipar las futuras conclusiones antes de recoger los datos.</strong></p>
+    </div>
+  </section>
+
+  <!-- ===== 32. COMITÉ METODOLÓGICO ===== -->
+  <section class="slide" data-title="Comité metodológico">
+    <span class="pill">Evaluación cruzada</span>
+    <h2>Comité metodológico: cinco criterios</h2>
+
+    <div class="comite">
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Pregunta del evaluador</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Derivación</td><td>¿El diseño surge realmente de la pregunta?</td></tr>
+          <tr><td>Adecuación</td><td>¿Produce la evidencia necesaria?</td></tr>
+          <tr><td>Coherencia</td><td>¿Objetivos, diseño y producción de datos apuntan al mismo conocimiento?</td></tr>
+          <tr><td>Factibilidad</td><td>¿La estrategia podría ejecutarse razonablemente?</td></tr>
+          <tr><td>Inferencia</td><td>¿Las conclusiones prometidas son compatibles con el diseño?</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lead" style="margin-top:20px;">Y cada evaluador debe identificar:</p>
+
+    <div class="grid-3">
+      <div class="card verde">
+        <h3>Lo más sólido</h3>
+        <p>La decisión metodológica más sólida.</p>
+      </div>
+      <div class="card rojo">
+        <h3>Lo más vulnerable</h3>
+        <p>La decisión metodológica más vulnerable.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Lo no sostenible</h3>
+        <p>Una afirmación que el diseño no permitiría realizar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 33. RESULTADO CONCEPTUAL Y PUENTE ===== -->
+  <section class="slide" data-title="Resultado y puente">
+    <span class="pill">Cierre y transición</span>
+    <h2>El resultado conceptual del Encuentro 4</h2>
+
+    <p class="lead">Al terminar, deberíamos poder dejar de decir:</p>
+
+    <div class="frases" style="grid-template-columns:1fr;">
+      <div class="frase" style="border-left-color:var(--rojo);">“Mi proyecto es cuantitativo porque voy a usar una encuesta.”</div>
+      <div class="frase" style="border-left-color:var(--rojo);">“Mi proyecto es cualitativo porque voy a realizar entrevistas.”</div>
+      <div class="frase" style="border-left-color:var(--rojo);">“Mi proyecto es mixto porque voy a utilizar encuesta y entrevistas.”</div>
+    </div>
+
+    <p class="lead" style="margin-top:18px;">Y poder decir algo metodológicamente mucho más maduro:</p>
+
+    <div class="card verde">
+      <p>“Nuestra pregunta requiere este tipo de evidencia. Para producirla necesitamos esta arquitectura metodológica. Por ello seleccionamos este diseño. Estas técnicas nos permitirán obtener la información necesaria. Como consecuencia, podremos sostener determinadas conclusiones, pero otras excederían las capacidades de nuestro diseño.”</p>
+    </div>
+
+    <div class="puente" style="margin-top:22px;">
+      <div class="flecha">↓</div>
+      <p>La próxima sesión comienza en una frontera clara.</p>
+      <p style="font-size:26px; font-weight:600;">No basta con buscar artículos. Una revisión también tiene pregunta, unidades de análisis, diseño, reglas de selección, producción de datos, análisis e inferencias.</p>
+      <div class="destino">Encuentro sincrónico 5 · La revisión de literatura como investigación con arquitectura metodológica propia</div>
+    </div>
+
+    <div class="card">
+      <h3>Referencias base (APA 7)</h3>
+      <p style="font-size:18px; line-height:1.5;">
+        American Psychological Association. (2020). <em>Publication manual of the American Psychological Association</em> (7th ed.). APA.<br><br>
+        Creswell, J. W., &amp; Creswell, J. D. (2018). <em>Research design: Qualitative, quantitative, and mixed methods approaches</em> (5th ed.). SAGE.<br><br>
+        Creswell, J. W., &amp; Plano Clark, V. L. (2018). <em>Designing and conducting mixed methods research</em> (3rd ed.). SAGE.<br><br>
+        Levitt, H. M., et al. (2018). Journal article reporting standards for qualitative primary, qualitative meta-analytic, and mixed methods research in psychology. <em>American Psychologist, 73</em>(1), 26–46.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="progresion" id="progresion"></div>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+/* ============================================================
+   1. NAVEGACIÓN
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progresion = document.getElementById('progresion');
+let current = 0;
+
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  li.addEventListener('click', () => {
+    goTo(i);
+    document.getElementById('indicePanel').classList.remove('open');
+  });
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+slides.forEach((s, i) => {
+  const punto = document.createElement('div');
+  punto.className = 'punto';
+  punto.title = s.dataset.title;
+  punto.addEventListener('click', () => goTo(i));
+  punto.style.cursor = 'pointer';
+  progresion.appendChild(punto);
+});
+const puntos = Array.from(progresion.children);
+
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+  updateUI();
+}
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+  puntos.forEach((p, i) => {
+    p.classList.remove('activo','hecho');
+    if (i < current) p.classList.add('hecho');
+    if (i === current) p.classList.add('activo');
+  });
+}
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+  if (e.key === 'Escape') document.getElementById('indicePanel').classList.remove('open');
+});
+document.getElementById('toggleIndice').addEventListener('click', () => {
+  document.getElementById('indicePanel').classList.toggle('open');
+});
+</script>
+</body>
+</html>
