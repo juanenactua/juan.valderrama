@@ -300,6 +300,47 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "De la pregunta al diseño",
+    "descripcion": "Encuentro sincrónico sobre cómo derivar la evidencia necesaria desde la pregunta y construir una estrategia metodológica coherente, diferenciando enfoque, diseño, técnicas, temporalidad, métodos mixtos e inferencias.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/encuentro-04-pregunta-diseno.html",
+    "etiquetas": [
+      "Diseño metodológico",
+      "Pregunta de investigación",
+      "Evidencia",
+      "Enfoque cuantitativo",
+      "Enfoque cualitativo",
+      "Métodos mixtos",
+      "Coherencia metodológica",
+      "Inferencia",
+      "Temporalidad",
+      "Diseño de investigación"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "De proyecto académico a propuesta defendible",
+    "descripcion": "Encuentro sincrónico de cierre sobre evaluación y defensa de propuestas, integrando importancia, coherencia, rigor, viabilidad, ética, integridad científica, contribución, evaluación por pares y dictamen de financiación.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/encuentro-06-propuesta-defendible.html",
+    "etiquetas": [
+      "Evaluación de proyectos",
+      "Defensa de propuesta",
+      "Coherencia científica",
+      "Rigor",
+      "Viabilidad",
+      "Ética de investigación",
+      "Integridad científica",
+      "Evaluación por pares",
+      "Financiación",
+      "Salud mental",
+      "Contribución científica"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Del tema al problema de investigación",
     "descripcion": "Recurso autónomo para distinguir tema, situación problemática, problema de conocimiento, vacíos de literatura, delimitación y pregunta de investigación, con actividades y autoevaluación.",
     "tipo": "Artefacto educativo interactivo",
@@ -718,6 +759,27 @@
       "Diseño de investigación"
     ],
     "curso": "Introducción a la Investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Revisar también es investigar",
+    "descripcion": "Encuentro sincrónico sobre diseño de revisiones de literatura, diferenciando búsqueda, revisión narrativa, sistemática y de alcance, protocolo, PRISMA, PICO, PCC, elegibilidad, selección, extracción y síntesis.",
+    "tipo": "Presentación interactiva",
+    "archivo": "materiales/encuentro-05-revisar-investigar.html",
+    "etiquetas": [
+      "Revisión de literatura",
+      "Revisión sistemática",
+      "Revisión de alcance",
+      "Scoping review",
+      "PRISMA",
+      "PICO",
+      "PCC",
+      "Protocolo",
+      "Búsqueda bibliográfica",
+      "Criterios de elegibilidad",
+      "Síntesis de evidencia"
+    ],
+    "curso": "Formulación de Proyectos de Investigación en Psicología",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
