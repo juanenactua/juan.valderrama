@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados en revisión narrativa · Guía de estudio</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Resultados en una revisión narrativa">
+<meta name="jc-descripcion" content="Guía interactiva para aprender a construir y escribir los resultados de una revisión narrativa mediante categorías, comparación entre estudios, identificación de convergencias, divergencias, vacíos y síntesis argumentativa.">
+<meta name="jc-tipo" content="Guía interactiva de estudio">
+<meta name="jc-etiquetas" content="Revisión narrativa, Resultados, Revisión de literatura, Síntesis narrativa, Síntesis argumentativa, Escritura académica, Escritura científica, Análisis documental, Categorías de análisis, Convergencias, Divergencias, Vacíos de investigación, Interpretación, Discusión, Matriz de análisis, Literatura científica, Metodología de investigación, Investigación">
+<meta name="jc-curso" content="Metodología de la investigación">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#fbfbf9; --surface:#ffffff; --surface-2:#f4f5f3; --surface-3:#eef0ee;
+  --text:#16181d; --muted:#5d6470; --border:#e4e6ea; --border-strong:#d3d7dd;
+  --accent:#2f5d8a; --accent-soft:#e9f0f7; --accent-2:#b4762a; --accent-2-soft:#faf1e4;
+  --ok:#2f7d5b; --ok-soft:#e7f3ec; --err:#b03a3a; --err-soft:#f9ebeb;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(16,20,28,.05), 0 10px 28px -16px rgba(16,20,28,.25);
+  --sidebar:272px;
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0e1014; --surface:#161a20; --surface-2:#1b2028; --surface-3:#212733;
+  --text:#e9ebef; --muted:#98a1ae; --border:#262c36; --border-strong:#333b48;
+  --accent:#7fb0dd; --accent-soft:#182432; --accent-2:#d9a441; --accent-2-soft:#2a2216;
+  --ok:#5cc08d; --ok-soft:#16281f; --err:#e07a7a; --err-soft:#2a1919;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px -16px rgba(0,0,0,.8);
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.22;letter-spacing:-.012em;color:var(--text)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);margin:0 0 .5rem}
+h2{font-size:clamp(1.4rem,2.7vw,1.85rem);margin:0 0 1rem}
+h3{font-size:1.16rem;margin:2.1rem 0 .6rem}
+h4{font-size:1rem;margin:1.5rem 0 .45rem;font-family:var(--sans);font-weight:700}
+p{margin:0 0 1rem}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.87em;background:var(--surface-2);padding:.12em .38em;border-radius:5px;border:1px solid var(--border)}
+::selection{background:var(--accent);color:#fff}
+
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);z-index:60;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 16px 16px;gap:16px;overflow-y:auto;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.brand{display:flex;align-items:center;gap:11px;padding:0 6px}
+.brand-mark{width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.82rem;font-family:var(--serif)}
+.brand strong{display:block;font-size:.93rem;font-family:var(--serif);line-height:1.2}
+.brand small{display:block;color:var(--muted);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.progress-wrap{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 12px}
+.progress-head{display:flex;justify-content:space-between;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px}
+.progress-bar{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.progress-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .45s cubic-bezier(.4,0,.2,1)}
+.nav{display:flex;flex-direction:column;gap:2px;flex:1}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:.845rem;line-height:1.35;border-left:2px solid transparent;transition:all .16s;position:relative}
+.nav a span{font-family:var(--mono);font-size:.7rem;opacity:.7;flex:0 0 18px}
+.nav a:hover{background:var(--surface-2);color:var(--text)}
+.nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.nav a.done span::after{content:'✓';position:absolute;left:34px;top:50%;transform:translateY(-50%);color:var(--ok);font-size:.7rem}
+.nav a.done span{opacity:0}
+.theme-toggle{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:9px;padding:9px 12px;font-size:.8rem;cursor:pointer;font-family:var(--sans);transition:all .16s;text-align:left}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+main{margin-left:var(--sidebar);padding:0 0 120px}
+.wrap{max-width:920px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.burger{position:fixed;top:14px;left:14px;z-index:80;display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:1.15rem;cursor:pointer;box-shadow:var(--shadow)}
+.overlay{position:fixed;inset:0;background:rgba(8,10,14,.5);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.show{opacity:1;pointer-events:auto}
+@media(max-width:940px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  main{margin-left:0;padding-top:64px}
+  .burger{display:block}
+}
+
+section{padding:64px 0 12px;border-top:1px solid var(--border);scroll-margin-top:20px}
+section:first-of-type{border-top:none;padding-top:0}
+.sec-kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:.6rem;display:block}
+
+.cover{padding:80px 0 40px;position:relative}
+.cover::before{content:'';position:absolute;top:-40px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 68%);opacity:.9;pointer-events:none;z-index:-1}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:99px;padding:5px 14px;margin-bottom:22px;font-weight:600}
+.cover-tag i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:block}
+.cover h1{max-width:17ch}
+.cover-lead{font-size:1.09rem;color:var(--muted);max-width:64ch;margin-top:1.1rem}
+.author-card{display:flex;align-items:center;gap:14px;margin-top:30px;padding:15px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);max-width:440px}
+.author-avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:1rem}
+.author-card .who{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.author-card .name{font-family:var(--serif);font-size:1.06rem;font-weight:600;line-height:1.25}
+.author-card .role{font-size:.82rem;color:var(--muted)}
+
+.map-shell{margin-top:34px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.map-toolbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);flex-wrap:wrap}
+.map-toolbar .hint{font-size:.78rem;color:var(--muted);margin-left:auto}
+.map-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;display:grid;place-items:center;transition:all .15s}
+.map-btn:hover{border-color:var(--accent);color:var(--accent)}
+.map-viewport{height:min(66vh,560px);overflow:hidden;cursor:grab;background:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0) 0 0/22px 22px}
+.map-viewport.dragging{cursor:grabbing}
+.map-viewport svg{width:100%;height:100%;display:block;user-select:none}
+.mnode{cursor:pointer}
+.mnode:hover rect{stroke:var(--accent);stroke-width:2}
+.mnode rect{transition:stroke .2s}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.card h3{margin-top:0}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;font-size:.95rem}
+.callout.warn{border-left-color:var(--accent-2);background:var(--accent-2-soft)}
+.callout.danger{border-left-color:var(--err);background:var(--err-soft)}
+.callout .ct{font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--accent)}
+.callout.warn .ct{color:var(--accent-2)}
+.callout.danger .ct{color:var(--err)}
+.callout p:last-child{margin-bottom:0}
+
+.grid{display:grid;gap:14px}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.mini{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px 16px}
+.mini h4{margin:0 0 6px;font-size:.9rem;color:var(--accent)}
+.mini p{font-size:.9rem;margin:0;color:var(--muted)}
+
+.lo-list{list-style:none;padding:0;margin:0;counter-reset:lo}
+.lo-list li{counter-increment:lo;position:relative;padding:16px 18px 16px 60px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem}
+.lo-list li::before{content:counter(lo,decimal-leading-zero);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--accent);background:var(--accent-soft);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+.lo-list li b{color:var(--accent);font-weight:700}
+
+.tbl-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.89rem;min-width:520px}
+th,td{padding:12px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+th{background:var(--surface-2);font-weight:650;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface-2)}
+td:first-child{font-weight:600}
+
+.btn-complete{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:10px 18px;border-radius:99px;border:1px solid var(--border-strong);background:var(--surface);color:var(--muted);cursor:pointer;font-size:.83rem;font-family:var(--sans);font-weight:600;transition:all .18s}
+.btn-complete:hover{border-color:var(--accent);color:var(--accent)}
+.btn-complete.is-done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+
+.quiz-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:22px}
+.score-box{display:flex;align-items:baseline;gap:6px;font-family:var(--serif)}
+.score-box .big{font-size:1.7rem;font-weight:700;color:var(--accent);line-height:1}
+.score-box .small{font-size:.85rem;color:var(--muted)}
+.score-bar{flex:1;min-width:140px;height:7px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.score-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));border-radius:99px;transition:width .4s}
+.btn{padding:9px 17px;border-radius:99px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:.82rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .16s}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+
+.q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:19px 21px;margin-bottom:15px;box-shadow:var(--shadow)}
+.q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.q-num{flex:0 0 28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.q-text{font-weight:600;font-size:.98rem;line-height:1.5;margin:0}
+.q-type{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-top:4px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:.92rem;transition:all .14s;background:var(--surface)}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt input{margin:3px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--err);background:var(--err-soft)}
+.opt.locked{cursor:default;pointer-events:none}
+.tf-row{display:flex;gap:10px;flex-wrap:wrap}
+.tf-btn{flex:1;min-width:130px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.92rem;font-weight:600;cursor:pointer;transition:all .14s}
+.tf-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tf-btn.correct{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.tf-btn.wrong{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.tf-btn.locked{pointer-events:none}
+.match-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin-bottom:9px}
+@media(max-width:600px){.match-row{grid-template-columns:1fr;gap:5px}}
+.match-row .left{font-size:.9rem;font-weight:600;padding:9px 12px;background:var(--surface-2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.match-row select{width:100%;padding:9px 11px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.88rem;cursor:pointer}
+.match-row select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.match-row.ok select{border-color:var(--ok);background:var(--ok-soft)}
+.match-row.no select{border-color:var(--err);background:var(--err-soft)}
+.order-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;counter-reset:ord}
+.order-list li{counter-increment:ord;display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-size:.9rem}
+.order-list li::before{content:counter(ord);flex:0 0 24px;height:24px;border-radius:6px;background:var(--surface-3);display:grid;place-items:center;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--muted)}
+.order-list li span{flex:1}
+.order-list li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.order-list li.no{border-color:var(--err);background:var(--err-soft)}
+.ord-btns{display:flex;gap:4px}
+.ord-btns button{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;font-size:.75rem;display:grid;place-items:center;transition:all .14s}
+.ord-btns button:hover{border-color:var(--accent);color:var(--accent)}
+.q-actions{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fb{margin-top:13px;padding:13px 15px;border-radius:var(--radius-sm);font-size:.89rem;line-height:1.6;display:none;border-left:3px solid var(--ok);background:var(--ok-soft)}
+.fb.show{display:block}
+.fb.bad{border-left-color:var(--err);background:var(--err-soft)}
+.fb b{display:block;margin-bottom:4px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+
+.anim-stage{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;overflow:hidden}
+.anim-stage svg{width:100%;height:auto;display:block}
+.anim-controls{display:flex;align-items:center;gap:12px;margin-top:13px;flex-wrap:wrap}
+.anim-controls button{padding:8px 15px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.8rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.anim-controls button:hover{border-color:var(--accent);color:var(--accent)}
+.anim-controls button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.speed{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--muted);margin-left:auto}
+.speed input{width:110px;accent-color:var(--accent)}
+.speed b{font-family:var(--mono);color:var(--text);font-size:.78rem;min-width:34px}
+.anim-cap{margin-top:13px;padding:13px 16px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);font-size:.9rem;min-height:64px}
+.anim-cap b{color:var(--accent);display:block;margin-bottom:3px;font-family:var(--serif);font-size:1rem}
+
+.sim-grid{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.sim-grid{grid-template-columns:1fr}}
+.presets{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.presets button{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font-size:.75rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.presets button:hover{border-color:var(--accent);color:var(--accent)}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:11px;margin-bottom:18px}
+.readout{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px}
+.readout .k{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-bottom:5px}
+.readout .v{font-family:var(--serif);font-size:1.5rem;font-weight:700;line-height:1;color:var(--accent)}
+.readout .v small{font-size:.75rem;color:var(--muted);font-weight:400;font-family:var(--sans)}
+.verdict{padding:13px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface-2);font-size:.9rem;margin-bottom:16px}
+.verdict b{font-family:var(--serif);font-size:1.02rem;display:block;margin-bottom:3px;color:var(--accent)}
+.rubric{display:flex;flex-direction:column;gap:5px;margin-top:14px;max-height:420px;overflow-y:auto;padding-right:6px}
+.rubric-item{display:grid;grid-template-columns:1fr 104px;gap:10px;align-items:center;font-size:.83rem;padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px}
+.rubric-item .lbl{color:var(--text)}
+.rubric-item .lbl small{display:block;color:var(--muted);font-size:.73rem;margin-top:1px}
+.rubric-item select{padding:5px 7px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-family:var(--sans);font-size:.78rem;cursor:pointer}
+.rubric-item.s0 select{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.rubric-item.s1 select{border-color:var(--accent-2);background:var(--accent-2-soft);color:var(--accent-2)}
+.rubric-item.s2 select{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+canvas#simChart{width:100%;height:230px;display:block;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm)}
+
+.breakdown{display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.bd-row{display:grid;grid-template-columns:190px 1fr 54px;gap:12px;align-items:center;font-size:.86rem}
+@media(max-width:520px){.bd-row{grid-template-columns:130px 1fr 44px;font-size:.8rem}}
+.bd-row .track{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.bd-row .track i{display:block;height:100%;width:0;border-radius:99px;transition:width .5s;background:var(--accent)}
+.bd-row .num{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-align:right}
+.bd-row.low .track i{background:var(--err)}
+.bd-row.mid .track i{background:var(--accent-2)}
+.bd-row.high .track i{background:var(--ok)}
+
+.template{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin:14px 0;font-size:.88rem;line-height:1.75}
+.template p{margin:0 0 12px}
+.template p:last-child{margin-bottom:0}
+.template .slot{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:600;font-family:var(--mono);font-size:.82em}
+
+.ref-list{list-style:none;padding:0;margin:0}
+.ref-list li{padding:13px 0 13px 26px;border-bottom:1px solid var(--border);font-size:.88rem;position:relative;line-height:1.6}
+.ref-list li::before{content:'';position:absolute;left:6px;top:20px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li em{color:var(--muted);font-style:normal}
+.route{counter-reset:r;list-style:none;padding:0;margin:16px 0 0}
+.route li{counter-increment:r;position:relative;padding:15px 18px 15px 58px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.91rem}
+.route li::before{content:counter(r);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.route li b{display:block;font-family:var(--serif);font-size:1rem;margin-bottom:2px}
+footer{margin-top:70px;padding:28px 0 0;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir índice">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <span class="brand-mark">RE</span>
+    <div>
+      <strong>Resultados</strong>
+      <small>Guía de estudio</small>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-head"><span>Progreso</span><span id="progLabel">0 / 9</span></div>
+    <div class="progress-bar"><i id="progFill"></i></div>
+  </div>
+  <nav class="nav" id="nav">
+    <a href="#s1" data-sec="s1"><span>01</span> Portada y mapa</a>
+    <a href="#s2" data-sec="s2"><span>02</span> Resultados de aprendizaje</a>
+    <a href="#s3" data-sec="s3"><span>03</span> Conceptualización</a>
+    <a href="#s4" data-sec="s4"><span>04</span> Ejemplos concretos</a>
+    <a href="#s5" data-sec="s5"><span>05</span> Preguntas</a>
+    <a href="#s6" data-sec="s6"><span>06</span> Animaciones</a>
+    <a href="#s7" data-sec="s7"><span>07</span> Simulación</a>
+    <a href="#s8" data-sec="s8"><span>08</span> Autoevaluación</a>
+    <a href="#s9" data-sec="s9"><span>09</span> Referencias y ruta</a>
+  </nav>
+  <button class="theme-toggle" id="themeBtn">◐ Cambiar a modo oscuro</button>
+</aside>
+
+<main>
+
+<!-- ==================== S1 ==================== -->
+<section id="s1">
+<div class="wrap">
+  <div class="cover">
+    <span class="cover-tag"><i></i> Material de estudio autónomo · Nivel avanzado</span>
+    <h1>Escribir los resultados de una revisión narrativa</h1>
+    <p class="cover-lead">
+      Si la metodología responde a «¿cómo construí la revisión?», los resultados responden a otra pregunta
+      distinta: «¿qué muestra la literatura cuando la organizo, comparo e interpreto?». Este material trata
+      sobre cómo se escribe esa respuesta. No sobre cómo reportar frecuencias —eso pertenece a otro tipo de
+      estudio— sino sobre cómo construir una <strong>síntesis intelectualmente organizada</strong> del
+      conocimiento revisado.
+    </p>
+
+    <div class="author-card">
+      <div class="author-avatar">JC</div>
+      <div>
+        <div class="who">Elaborado por</div>
+        <div class="name">Juan Carlos Valderrama Cárdenas</div>
+        <div class="role">Guía interactiva de estudio autónomo</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Cómo usar esta guía</h2>
+  <p>
+    Hay una idea que organiza todo el material y conviene ponerla por delante: <strong>no organices los
+    resultados por documentos. Organízalos por hallazgos, categorías, conceptos, problemas o
+    debates.</strong> Casi todo lo que necesitas aprender sobre la escritura de resultados en una revisión
+    narrativa se reduce a entender por qué esa regla no es un detalle de estilo, sino la diferencia entre
+    una lista de fichas bibliográficas y un trabajo académico.
+  </p>
+  <p>
+    La guía sigue la misma estructura que el resto de los materiales: mapa conceptual, resultados de
+    aprendizaje, desarrollo teórico, ejemplos, preguntas de comprobación, animaciones, simulador de calidad
+    de un apartado de resultados, autoevaluación final y ruta de lectura. Como en los otros materiales,
+    la idea es que puedas recorrerla varias veces, volviendo al mapa cada vez que pierdas el hilo.
+  </p>
+
+  <div class="callout">
+    <span class="ct">La regla que organiza todo el tema</span>
+    <p>
+      Una buena revisión no se organiza como <em>autor → autor → autor</em>, sino como
+      <em>problema → evidencia → comparación → interpretación</em>. Las referencias siguen presentes, pero
+      dejan de ser el eje del texto. El protagonista pasa a ser el problema que muestra la literatura.
+    </p>
+  </div>
+
+  <h2>Mapa conceptual interactivo</h2>
+  <p>
+    Arrastra para desplazarte, usa la rueda del ratón o los botones para ampliar. Cada nodo es clicable y te
+    lleva a la sección correspondiente. Úsalo como índice visual cada vez que pierdas el hilo.
+  </p>
+
+  <div class="map-shell">
+    <div class="map-toolbar">
+      <button class="map-btn" id="zoomIn" title="Ampliar">+</button>
+      <button class="map-btn" id="zoomOut" title="Reducir">−</button>
+      <button class="map-btn" id="zoomReset" title="Restablecer">⤢</button>
+      <span class="hint">Arrastra para mover · rueda para ampliar · clic en un nodo para navegar</span>
+    </div>
+    <div class="map-viewport" id="mapViewport">
+      <svg viewBox="0 0 1000 640" id="mapSvg">
+        <defs>
+          <linearGradient id="gCenter" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-2)"/>
+          </linearGradient>
+        </defs>
+        <g id="mapView">
+          <g stroke="var(--border-strong)" stroke-width="1.6" fill="none" opacity=".85">
+            <path d="M500 320 L150 98"/>
+            <path d="M500 320 L850 98"/>
+            <path d="M500 320 L130 320"/>
+            <path d="M500 320 L870 320"/>
+            <path d="M500 320 L150 542"/>
+            <path d="M500 320 L850 542"/>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="390" y="278" width="220" height="84" rx="16" fill="url(#gCenter)"/>
+            <text x="500" y="314" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="18" font-weight="600">Resultados</text>
+            <text x="500" y="338" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="18" font-weight="600">de la revisión</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="40" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Unidad de análisis</text>
+            <text x="60" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Autor por autor</text>
+            <text x="60" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">vs.</text>
+            <text x="60" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Problema · evidencia · comparación</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="740" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">5 relaciones</text>
+            <text x="760" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Convergencias · Divergencias</text>
+            <text x="760" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">Condiciones · Vacíos</text>
+            <text x="760" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Tensiones conceptuales</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="20" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="40" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Microestructura</text>
+            <text x="40" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Afirmación → Evidencia</text>
+            <text x="40" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">→ Contraste → Matiz</text>
+            <text x="40" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">→ Síntesis</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="760" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="780" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">3 niveles</text>
+            <text x="780" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Descripción</text>
+            <text x="780" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">Síntesis</text>
+            <text x="780" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Interpretación</text>
+          </g>
+
+          <g class="mnode" data-goto="s7">
+            <rect x="40" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Tablas</text>
+            <text x="60" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">Caracterización del corpus</text>
+            <text x="60" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">vs. tabla transversal por ejes</text>
+            <text x="60" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">La tabla no reemplaza el texto</text>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="740" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Resultados vs. discusión</text>
+            <text x="760" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">¿Qué patrón muestra?</text>
+            <text x="760" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">vs.</text>
+            <text x="760" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">¿Qué significa para el problema?</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <button class="btn-complete" data-sec="s1">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S2 ==================== -->
+<section id="s2">
+<div class="wrap">
+  <span class="sec-kicker">02 · Hoja de ruta</span>
+  <h2>Resultados de aprendizaje</h2>
+  <p>
+    Al terminar de trabajar con esta guía deberías ser capaz de realizar las siguientes cinco acciones.
+    Fíjate en los verbos: no dicen «conocer» ni «recordar». Son operaciones que puedes ejecutar sobre un
+    apartado de resultados ya escrito —el tuyo o el de un compañero—.
+  </p>
+
+  <ol class="lo-list">
+    <li>
+      <b>Distinguir y analizar</b> la diferencia entre una estructura <em>autor por autor</em> y una
+      estructura organizada por problemas, evidencia y comparación, identificando en un texto concreto cuál
+      de las dos se está usando.
+    </li>
+    <li>
+      <b>Evaluar</b> un apartado de resultados aplicando el checklist de organización, síntesis, escritura e
+      interpretación, y detectar específicamente si el texto permanece en un nivel descriptivo cuando debería
+      estar sintetizando.
+    </li>
+    <li>
+      <b>Diseñar</b> un apartado de resultados con la microestructura argumentativa
+      <em>afirmación → evidencia → contraste → matiz → síntesis</em>, produciendo párrafos donde el problema
+      —no el autor— sea el eje.
+    </li>
+    <li>
+      <b>Justificar</b> metodológicamente la relación entre las categorías construidas en la sección de
+      método y las categorías que organizan los resultados, distinguiendo con precisión qué pertenece a
+      resultados y qué pertenece a discusión.
+    </li>
+    <li>
+      <b>Analizar y contrastar</b> las cinco relaciones que se buscan dentro de cada categoría
+      —convergencias, divergencias, condiciones, vacíos y tensiones conceptuales— e identificar cuáles
+      aparecen y cuáles faltan en un apartado de resultados dado.
+    </li>
+  </ol>
+
+  <div class="callout warn">
+    <span class="ct">Los dos que marcan la diferencia</span>
+    <p>
+      El resultado 1 y el resultado 3. Cualquiera puede redactar un apartado que diga «Gómez encontró X,
+      Martínez encontró Y»; muy pocos pueden reescribirlo de manera que el protagonista pase a ser el
+      problema. Y esa reescritura es exactamente lo que distingue una revisión de una lista de fichas.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s2">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S3 ==================== -->
+<section id="s3">
+<div class="wrap">
+  <span class="sec-kicker">03 · Núcleo teórico</span>
+  <h2>Conceptualización de nivel avanzado</h2>
+
+  <h3>3.1. Qué son los resultados en una revisión narrativa</h3>
+  <p>
+    En una investigación empírica la noción de «resultados» es relativamente intuitiva: se recoge
+    información, se analiza y se obtienen resultados. En una revisión narrativa, en cambio, <em>los
+    documentos constituyen el material de análisis</em>. La cadena es otra:
+  </p>
+  <div class="template" style="font-family:var(--mono);font-size:.86rem;text-align:center;line-height:2">
+    Corpus de literatura → Lectura y análisis → Comparación entre documentos → Identificación de patrones → Categorías o ejes → Síntesis de la evidencia
+  </div>
+  <p>
+    Los resultados presentan precisamente esa síntesis. Una definición operativa útil es la siguiente:
+  </p>
+  <div class="callout">
+    <span class="ct">Definición operativa</span>
+    <p>
+      Los resultados de una revisión narrativa presentan de manera organizada los patrones, acuerdos,
+      desacuerdos, tendencias, transformaciones, explicaciones y vacíos que se identificaron al analizar
+      conjuntamente la literatura seleccionada.
+    </p>
+  </div>
+  <p>
+    Por eso una sección de resultados no debería parecer una colección de fichas bibliográficas. Si al
+    leerla puedes reconstruir con la misma facilidad lo que dice cada estudio por separado que lo que dice
+    el conjunto, entonces todavía no hay síntesis.
+  </p>
+
+  <h3>3.2. El error más frecuente: un artículo detrás de otro</h3>
+  <p>
+    Supongamos una revisión sobre uso de pantallas y funciones ejecutivas en la infancia. Un estudiante
+    escribe:
+  </p>
+  <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+    <p>Gómez et al. (2021) estudiaron 350 niños y encontraron que el tiempo de pantalla estaba asociado con
+    menor control inhibitorio. Posteriormente, Martínez et al. (2022) realizaron una investigación con 220
+    participantes y encontraron asociaciones con memoria de trabajo. Por su parte, Rodríguez et al. (2023)
+    estudiaron 410 niños y encontraron relaciones entre el uso de dispositivos móviles y flexibilidad
+    cognitiva. Pérez et al. (2024) realizaron…</p>
+  </div>
+  <p>
+    Esto contiene información, pero todavía no constituye una buena síntesis narrativa. La estructura es:
+  </p>
+  <div class="template" style="text-align:center;font-family:var(--mono);font-size:.84rem;line-height:1.9">
+    Artículo A → resumen<br>
+    Artículo B → resumen<br>
+    Artículo C → resumen<br>
+    Artículo D → resumen
+  </div>
+  <p>
+    Es lo que podríamos llamar una <strong>«lista de mercado bibliográfica»</strong>. El lector tiene que
+    hacer por su cuenta el trabajo de determinar qué tienen en común los estudios.
+  </p>
+
+  <h3>3.3. Lo que buscamos es exactamente lo contrario</h3>
+  <p>
+    Una buena revisión cambia la unidad alrededor de la cual se organiza la escritura:
+  </p>
+  <div class="grid two" style="margin:16px 0">
+    <div class="mini" style="border-left:3px solid var(--err)">
+      <h4>Estructura débil</h4>
+      <p><code>AUTOR → AUTOR → AUTOR → AUTOR</code></p>
+    </div>
+    <div class="mini" style="border-left:3px solid var(--ok)">
+      <h4>Estructura sólida</h4>
+      <p><code>PROBLEMA → EVIDENCIA → COMPARACIÓN → INTERPRETACIÓN</code></p>
+    </div>
+  </div>
+  <p>Veamos el mismo contenido reorganizado:</p>
+  <div class="template" style="border-left:3px solid var(--ok);background:var(--ok-soft)">
+    <p><strong>Exposición a pantallas y control inhibitorio.</strong> Una tendencia recurrente en la
+    literatura es la asociación entre mayor exposición a pantallas y dificultades en procesos de control
+    inhibitorio durante la infancia. Diferentes estudios observacionales han informado esta relación, aunque
+    la magnitud y consistencia de las asociaciones varían considerablemente en función de la edad de los
+    participantes y de la forma en que se mide la exposición (Gómez et al., 2021; Martínez et al., 2022;
+    Rodríguez et al., 2023).</p>
+
+    <p>Sin embargo, los resultados no son completamente homogéneos. Mientras algunos estudios encuentran
+    asociaciones a partir del tiempo total de exposición, otros sugieren que esta variable pierde capacidad
+    explicativa cuando se consideran características como el contenido consumido, el acompañamiento
+    parental o el contexto de utilización (Pérez et al., 2024; Ramírez &amp; Torres, 2025).</p>
+
+    <p>En conjunto, estos hallazgos cuestionan una explicación basada exclusivamente en la cantidad de
+    tiempo frente a las pantallas y apuntan hacia una conceptualización multidimensional de la exposición
+    digital.</p>
+  </div>
+  <p>
+    Las referencias siguen presentes, pero los autores han dejado de ser los protagonistas. El protagonista
+    ahora es <strong>el problema que muestra la literatura</strong>.
+  </p>
+
+  <h3>3.4. Cuadro comparativo I · Autor-primero frente a problema-primero</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Estructura autor-primero</th><th>Estructura problema-primero</th></tr></thead>
+      <tbody>
+        <tr><td>Unidad de párrafo</td><td>Un autor (o un estudio)</td><td>Un hallazgo, una categoría o un debate</td></tr>
+        <tr><td>Función de las citas</td><td>Identificar de quién es la contribución</td><td>Respaldar una afirmación sobre la literatura</td></tr>
+        <tr><td>Protagonista del texto</td><td>El autor citado</td><td>El problema que emerge del conjunto</td></tr>
+        <tr><td>Qué debe hacer el lector</td><td>Comparar los estudios por su cuenta</td><td>Recibir la comparación ya realizada</td></tr>
+        <tr><td>Riesgo típico</td><td>Parecer una lista de fichas yuxtapuestas</td><td>Perder la trazabilidad de qué dice cada estudio</td></tr>
+        <tr><td>Cuándo es apropiada</td><td>Casi nunca en la sección de resultados</td><td>Es la estructura esperada en una revisión narrativa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.5. De dónde salen las categorías</h3>
+  <p>
+    Aquí se conecta directamente la metodología con los resultados. Si en el método se dijo:
+  </p>
+  <div class="template">
+    <p>El análisis permitió construir cuatro categorías: (1) tiempo de exposición, (2) características del
+    contenido, (3) mediación parental y (4) funciones ejecutivas.</p>
+  </div>
+  <p>Entonces los resultados deberían reflejar esa estructura:</p>
+  <div class="template" style="font-family:var(--mono);font-size:.86rem;line-height:1.9">
+    3.1. Caracterización general de la literatura<br>
+    3.2. Tiempo de exposición y desarrollo cognitivo<br>
+    3.3. Características del contenido digital<br>
+    3.4. Mediación y acompañamiento parental<br>
+    3.5. Pantallas y funciones ejecutivas
+  </div>
+  <p>Existe así una continuidad metodológica:</p>
+  <div class="grid two" style="margin:16px 0">
+    <div class="mini"><h4>Método</h4><p>Explica cómo encontré las categorías.</p></div>
+    <div class="mini"><h4>Resultados</h4><p>Expone qué encontré dentro de cada categoría.</p></div>
+  </div>
+  <p>
+    Si las categorías de los resultados no coinciden con las anunciadas en el método, hay un problema de
+    coherencia interna que el lector detectará de inmediato.
+  </p>
+
+  <h3>3.6. Las cinco relaciones que se buscan dentro de cada categoría</h3>
+  <p>
+    Esta es probablemente la herramienta más útil para producir buenos resultados. Dentro de cada categoría,
+    conviene buscar sistemáticamente al menos cinco tipos de relaciones.
+  </p>
+
+  <h4>A · Convergencias</h4>
+  <p>¿Qué resultados coinciden entre estudios?</p>
+  <p style="color:var(--muted);font-size:.88rem">
+    Expresiones típicas: <em>la literatura coincide en…; existe una tendencia consistente…; diferentes
+    investigaciones señalan…; de manera convergente…; la mayoría de los trabajos revisados sugiere…</em>
+  </p>
+  <div class="template">
+    <p>Diferentes investigaciones coinciden en identificar asociaciones entre el tiempo elevado de
+    exposición y menores puntuaciones en tareas relacionadas con control inhibitorio.</p>
+  </div>
+
+  <h4>B · Divergencias</h4>
+  <p>¿Qué investigaciones presentan resultados diferentes?</p>
+  <div class="template">
+    <p>No obstante, esta asociación no aparece consistentemente en todos los estudios. Algunas
+    investigaciones no encuentran relaciones significativas una vez controladas variables familiares y
+    socioeconómicas.</p>
+  </div>
+  <p>
+    Esto es muchísimo más interesante que ocultar los estudios que contradicen nuestra idea.
+  </p>
+
+  <h4>C · Matices o condiciones</h4>
+  <p>¿En qué circunstancias cambia el resultado?</p>
+  <div class="template">
+    <p>La relación parece variar según la edad, el tipo de contenido, el dispositivo utilizado y el grado
+    de acompañamiento parental.</p>
+  </div>
+  <p>
+    Estos moderadores permiten construir una revisión mucho más sofisticada.
+  </p>
+
+  <h4>D · Vacíos</h4>
+  <p>¿Qué no sabemos todavía?</p>
+  <div class="template">
+    <p>Aunque existe abundante investigación transversal, son considerablemente menos frecuentes los
+    estudios longitudinales capaces de establecer la temporalidad de estas asociaciones.</p>
+  </div>
+
+  <h4>E · Tensiones o debates conceptuales</h4>
+  <p>¿Qué problema conceptual aparece al comparar los estudios?</p>
+  <div class="template">
+    <p>Una dificultad transversal es la ausencia de una definición uniforme de «tiempo de pantalla».
+    Algunos estudios agregan televisión, teléfonos móviles, tabletas y videojuegos en una única medida,
+    mientras otros diferencian las modalidades de uso.</p>
+  </div>
+  <p>
+    Observa que esto no es simplemente «faltan estudios». Es identificar un problema conceptual en la
+    literatura.
+  </p>
+
+  <h3>3.7. Matriz de análisis por categoría</h3>
+  <p>
+    Una herramienta interna muy útil consiste en completar, para cada categoría, una matriz con las cinco
+    relaciones:
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Convergencias</th>
+          <th>Divergencias</th>
+          <th>Condiciones</th>
+          <th>Vacíos</th>
+          <th>Debate conceptual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Tiempo de pantalla</td><td>¿En qué coinciden?</td><td>¿En qué difieren?</td><td>¿Cuándo cambia?</td><td>¿Qué falta?</td><td>¿Qué concepto genera problemas?</td></tr>
+        <tr><td>Contenido</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+        <tr><td>Mediación parental</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+        <tr><td>Funciones ejecutivas</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    No necesariamente se publica esta matriz. Sirve para producir la síntesis. Es una herramienta analítica
+    interna, no un producto para el lector.
+  </p>
+
+  <h3>3.8. La microestructura de un buen apartado: cinco movimientos</h3>
+  <p>
+    Cada categoría puede escribirse aproximadamente con esta estructura argumentativa:
+  </p>
+  <div class="grid two" style="margin:16px 0">
+    <div class="mini">
+      <h4>Movimiento 1 · Presentar el hallazgo general</h4>
+      <p><em>La literatura revisada muestra…</em></p>
+    </div>
+    <div class="mini">
+      <h4>Movimiento 2 · Presentar evidencia</h4>
+      <p><em>Diferentes investigaciones han encontrado…</em></p>
+    </div>
+    <div class="mini">
+      <h4>Movimiento 3 · Comparar</h4>
+      <p><em>Mientras algunos estudios…, otros…</em></p>
+    </div>
+    <div class="mini">
+      <h4>Movimiento 4 · Introducir condiciones o explicaciones</h4>
+      <p><em>Estas diferencias parecen estar relacionadas con…</em></p>
+    </div>
+    <div class="mini">
+      <h4>Movimiento 5 · Establecer qué significa el conjunto</h4>
+      <p><em>Considerados conjuntamente, estos resultados sugieren…</em></p>
+    </div>
+  </div>
+  <p>Tenemos así una microestructura argumentativa:</p>
+  <div class="template" style="text-align:center;font-family:var(--mono);font-size:.86rem;line-height:2">
+    AFIRMACIÓN → EVIDENCIA → CONTRASTE → MATIZ → SÍNTESIS
+  </div>
+  <p>
+    Es tremendamente útil para aprender a escribir ciencia. Puedes verla en movimiento en la
+    <a href="#s6">animación 1</a>.
+  </p>
+
+  <h3>3.9. Cuadro comparativo II · Resultados descriptivos frente a resultados analíticos</h3>
+  <p>
+    Otra distinción muy útil consiste en separar dos niveles dentro de la misma sección.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Caracterización del corpus</th><th>Síntesis analítica</th></tr></thead>
+      <tbody>
+        <tr><td>Qué hace</td><td>Describe el mapa general de la literatura revisada</td><td>Construye el argumento sobre lo que la literatura muestra</td></tr>
+        <tr><td>Pregunta</td><td>¿Qué tipo de literatura se encontró?</td><td>¿Qué patrones, divergencias y vacíos emergen del conjunto?</td></tr>
+        <tr><td>Formato típico</td><td>Tabla o párrafo breve con frecuencias y distribuciones</td><td>Apartados por categoría con los cinco movimientos</td></tr>
+        <tr><td>Extensión</td><td>Breve</td><td>Extensa; es el cuerpo de la sección</td></tr>
+        <tr><td>Riesgo típico</td><td>Convertir la caracterización en la sección completa</td><td>Perder de vista las características del corpus</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Una sección de resultados completa suele comenzar con la caracterización del corpus —número y tipo de
+    documentos, distribución temporal, diseños predominantes, poblaciones, contextos— y después desarrolla
+    la síntesis por categorías.
+  </p>
+
+  <h3>3.10. Cuadro comparativo III · Resultados frente a discusión</h3>
+  <p>
+    En una revisión narrativa la frontera entre resultados y discusión es más porosa que en un estudio
+    experimental, porque la síntesis ya implica cierta interpretación. Conviene, sin embargo, mantener una
+    distinción funcional.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Resultados</th><th>Discusión</th></tr></thead>
+      <tbody>
+        <tr><td>Pregunta</td><td>¿Qué patrón muestra la literatura?</td><td>¿Qué significa ese patrón para nuestro problema de investigación?</td></tr>
+        <tr><td>Ejemplo</td><td>Los estudios no utilizan una definición homogénea de uso problemático de pantallas.</td><td>Esta heterogeneidad conceptual dificulta interpretar conjuntamente los resultados y podría explicar parcialmente las divergencias entre investigaciones.</td></tr>
+        <tr><td>Verbos típicos</td><td>muestran, coinciden, difieren, no encuentran</td><td>sugiere, implica, cuestiona, obliga a reconsiderar</td></tr>
+        <tr><td>Extensión de la interpretación</td><td>Limitada a lo que emerge del conjunto</td><td>Extensa; conecta con teoría, implicaciones y futuras investigaciones</td></tr>
+        <tr><td>Riesgo típico</td><td>Quedarse en descripción sin síntesis</td><td>Repetir resultados sin aportar interpretación</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.11. Modelo de tres niveles de interpretación</h3>
+  <p>
+    Es útil distinguir tres niveles que suelen aparecer mezclados en los borradores.
+  </p>
+  <div class="grid three" style="margin:16px 0">
+    <div class="mini">
+      <h4>Nivel 1 · Descripción</h4>
+      <p><em>Cinco investigaciones reportaron X.</em></p>
+    </div>
+    <div class="mini" style="border-left:3px solid var(--ok)">
+      <h4>Nivel 2 · Síntesis</h4>
+      <p><em>En conjunto, predominan resultados compatibles con X, aunque existen excepciones.</em></p>
+    </div>
+    <div class="mini">
+      <h4>Nivel 3 · Interpretación</h4>
+      <p><em>Esta inconsistencia puede explicarse por las diferencias conceptuales y metodológicas entre los estudios.</em></p>
+    </div>
+  </div>
+  <p>
+    Una revisión narrativa necesita especialmente el <strong>nivel 2</strong>. Puede incorporar el nivel 3,
+    dependiendo de la estructura del artículo, pero debería evitar quedarse permanentemente en el nivel 1.
+  </p>
+
+  <h3>3.12. Más allá de lo básico: matices, debates y errores comunes</h3>
+
+  <h4>La tabla no reemplaza la síntesis</h4>
+  <p>
+    Un error frecuente consiste en construir una tabla enorme con 40 artículos y después escribir:
+    «como puede observarse en la tabla 1…». No. La tabla <em>condensa</em> información; el texto
+    <em>construye</em> el argumento. La tabla puede ser el punto de partida del análisis, pero no su producto
+    final.
+  </p>
+
+  <h4>Frecuencia no es lo mismo que importancia</h4>
+  <p>
+    Imagina que 15 estudios transversales pequeños encuentran A, y 3 estudios longitudinales rigurosos
+    encuentran B. No deberíamos concluir automáticamente «la literatura demuestra A porque hay más
+    artículos». En una revisión narrativa se necesita valorar también el diseño, el tamaño y las
+    características de las muestras, la calidad metodológica, la pertinencia, los instrumentos utilizados y
+    la consistencia conceptual. <strong>Sintetizar no es votar artículos.</strong>
+  </p>
+
+  <h4>Proporción entre afirmación y evidencia</h4>
+  <p>
+    La pregunta correcta no es «¿cuántas referencias pongo?», sino «¿qué evidencia respalda esta
+    afirmación?». Si escribimos «existe amplio consenso en la literatura…» y citamos un solo estudio, hay
+    una incongruencia. Si escribimos «los resultados son heterogéneos…», necesitamos mostrar evidencia de
+    esa heterogeneidad. La magnitud de la afirmación debe guardar correspondencia con la evidencia
+    presentada.
+  </p>
+
+  <h4>Asociación no es causalidad</h4>
+  <p>
+    Si los estudios son correlacionales, no conviene escribir:
+  </p>
+  <div class="grid two" style="margin:14px 0">
+    <div class="mini" style="border-left:3px solid var(--err)">
+      <h4>✗ Incorrecto</h4>
+      <p>El uso de pantallas produce dificultades ejecutivas.</p>
+    </div>
+    <div class="mini" style="border-left:3px solid var(--ok)">
+      <h4>✓ Preferible</h4>
+      <p>Mayor exposición a pantallas se encuentra asociada con menores puntuaciones en determinadas medidas de funciones ejecutivas.</p>
+    </div>
+  </div>
+
+  <h4>Verbos útiles según la función</h4>
+  <div class="grid three" style="margin:14px 0">
+    <div class="mini">
+      <h4>Convergencia</h4>
+      <p>coinciden; convergen; muestran consistentemente; respaldan; señalan; identifican.</p>
+    </div>
+    <div class="mini">
+      <h4>Divergencia</h4>
+      <p>difieren; contradicen; discrepan; muestran resultados heterogéneos; no encuentran; cuestionan.</p>
+    </div>
+    <div class="mini">
+      <h4>Relación</h4>
+      <p>se asocia; se relaciona; covaría; se vincula.</p>
+    </div>
+  </div>
+  <p>Verbos para sintetizar, particularmente valiosos:</p>
+  <p style="color:var(--muted);font-size:.9rem">
+    <em>en conjunto; globalmente; considerados conjuntamente; transversalmente; el patrón predominante; la
+    evidencia examinada sugiere; los hallazgos permiten identificar; emerge una tendencia; se observa una
+    tensión entre…</em>
+  </p>
+  <p>
+    Estas expresiones ayudan a pasar del «autor dice» al «la literatura muestra».
+  </p>
+
+  <div class="callout danger">
+    <span class="ct">Tres errores que conviene evitar</span>
+    <p>
+      <strong>1.</strong> Organizar los resultados por autores o por estudios uno detrás de otro. Es la
+      estructura más frecuente y la que menos aporta.<br>
+      <strong>2.</strong> Ocultar los estudios que contradicen la tendencia dominante. Las divergencias son
+      una de las partes más valiosas de la síntesis.<br>
+      <strong>3.</strong> Quedarse en el nivel 1 —descripción de lo que dice cada estudio— sin producir
+      síntesis. La revisión no debería parecer una colección de resúmenes encadenados.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s3">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S4 ==================== -->
+<section id="s4">
+<div class="wrap">
+  <span class="sec-kicker">04 · Del concepto al caso</span>
+  <h2>Ejemplos concretos, analizados paso a paso</h2>
+  <p>
+    Tres ejemplos que ilustran cómo se escribe un apartado de resultados y un contraejemplo que muestra el
+    error más frecuente. Los cuatro son textos reales o realistas de revisiones narrativas estudiantiles.
+  </p>
+
+  <h3>Ejemplo 1 · Cómo se transforma una categoría: la IAGen en la codificación cualitativa</h3>
+  <div class="card">
+    <p><strong>Contexto.</strong> Categoría 3.2 de una revisión sobre IAGen en investigación cualitativa.</p>
+    <p><strong>Versión débil (autor por autor):</strong></p>
+    <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+      <p>García (2023) investigó ChatGPT y encontró que puede ayudar a la codificación. López (2024) también
+      estudió ChatGPT. Martínez (2024) comparó codificación humana y automática. Rodríguez (2025) analizó la
+      utilización de IA en análisis temático.</p>
+    </div>
+    <p><strong>Versión sólida (problema, evidencia, contraste, síntesis):</strong></p>
+    <div class="template" style="border-left:3px solid var(--ok);background:var(--ok-soft)">
+      <p>La utilización de inteligencia artificial generativa para apoyar procesos de codificación
+      constituye uno de los ámbitos más discutidos en la literatura reciente. En términos generales, los
+      trabajos examinados coinciden en señalar su capacidad para generar rápidamente codificaciones
+      iniciales, agrupar fragmentos y proponer categorías provisionales.</p>
+
+      <p>Sin embargo, existe menor consenso acerca de la equivalencia entre estas operaciones y el análisis
+      cualitativo realizado por investigadores humanos. Mientras algunos estudios resaltan niveles
+      importantes de coincidencia entre códigos generados por investigadores y modelos de lenguaje, otros
+      señalan dificultades para interpretar ironías, ambigüedades, referencias contextuales y significados
+      dependientes del conocimiento situado.</p>
+
+      <p>La divergencia resulta especialmente significativa porque revela dos concepciones diferentes de la
+      codificación. En una primera perspectiva, codificar puede comprenderse como una operación
+      fundamentalmente clasificatoria susceptible de automatización; en una segunda, constituye una
+      actividad interpretativa vinculada a decisiones teóricas y epistemológicas del investigador.</p>
+
+      <p>De esta manera, la literatura examinada parece respaldar con mayor consistencia la utilización de
+      IA generativa como instrumento de asistencia a la codificación, mientras resulta más controvertida
+      la delegación completa de las decisiones analíticas.</p>
+    </div>
+    <p><strong>Análisis paso a paso de la transformación:</strong></p>
+    <p>
+      <strong>(a) Unidad de párrafo.</strong> En la versión débil, cada párrafo (o cada oración) corresponde
+      a un autor. En la versión sólida, el primer párrafo establece un hallazgo general y luego cita los
+      estudios como respaldo.
+    </p>
+    <p>
+      <strong>(b) Movimientos argumentativos.</strong> La versión sólida recorre los cinco movimientos:
+      hallazgo → evidencia → contradicción → explicación conceptual → síntesis. La versión débil solo
+      contiene el primero.
+    </p>
+    <p>
+      <strong>(c) Tratamiento de la divergencia.</strong> En la versión sólida la divergencia no se oculta:
+      se convierte en el material más productivo del apartado, porque revela dos concepciones diferentes
+      de la codificación.
+    </p>
+    <p>
+      <strong>(d) Nivel de interpretación.</strong> La versión débil queda en el nivel 1 (descripción). La
+      versión sólida produce síntesis (nivel 2) y avanza hacia interpretación (nivel 3) cuando explica qué
+      supuestos teóricos subyacen a cada postura.
+    </p>
+    <p style="color:var(--muted);font-size:.87rem;margin-bottom:0">
+      <em>Lección operativa:</em> la diferencia no está en la cantidad de estudios citados, sino en la
+      estructura de los párrafos. Los mismos estudios pueden producir una lista de fichas o una síntesis
+      argumentativa.
+    </p>
+  </div>
+
+  <h3>Ejemplo 2 · Dos tablas posibles: caracterización del corpus y tabla transversal</h3>
+  <div class="card">
+    <p>
+      Las tablas pueden ayudar enormemente, pero cumplen funciones distintas según cómo se construyan.
+    </p>
+    <p><strong>Tabla A · Caracterización del corpus</strong> (sirve para describir el conjunto revisado):</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Dimensión</th><th>Caracterización</th></tr></thead>
+        <tbody>
+          <tr><td>Número de documentos</td><td>42</td></tr>
+          <tr><td>Período predominante</td><td>2021-2025</td></tr>
+          <tr><td>Diseños frecuentes</td><td>Transversales</td></tr>
+          <tr><td>Población predominante</td><td>Niños en edad escolar</td></tr>
+          <tr><td>Contextos principales</td><td>Norteamérica y Europa</td></tr>
+          <tr><td>Tema más estudiado</td><td>Tiempo de exposición</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted)">
+      <em>Importante:</em> estos números son un ejemplo pedagógico, no corresponden a una revisión real.
+    </p>
+    <p><strong>Tabla B · Tabla transversal por ejes</strong> (sirve para pensar los estudios a través de categorías):</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Eje</th>
+            <th>Tendencia general</th>
+            <th>Divergencias</th>
+            <th>Vacíos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Control inhibitorio</td>
+            <td>Predominan asociaciones negativas con alta exposición</td>
+            <td>Resultados cambian al controlar variables familiares</td>
+            <td>Pocos estudios longitudinales</td>
+          </tr>
+          <tr>
+            <td>Memoria de trabajo</td>
+            <td>Evidencia menos consistente</td>
+            <td>Diferencias según tipo de contenido</td>
+            <td>Escasa investigación preescolar</td>
+          </tr>
+          <tr>
+            <td>Flexibilidad cognitiva</td>
+            <td>Evidencia limitada</td>
+            <td>Instrumentos muy heterogéneos</td>
+            <td>Falta replicación</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Cuándo usar cada una:</strong></p>
+    <p>
+      <strong>La Tabla A</strong> se coloca al comienzo de la sección de resultados y describe el corpus.
+      Es informativa pero relativamente pasiva: registra datos que podrían haberse calculado sin leer los
+      estudios en profundidad.
+    </p>
+    <p>
+      <strong>La Tabla B</strong> es mucho más potente pedagógicamente, porque obliga a pensar
+      transversalmente los estudios. En lugar de organizar por artículos, organiza por ejes problemáticos,
+      y cada celda exige haber identificado convergencias, divergencias y vacíos.
+    </p>
+    <div class="callout warn">
+      <span class="ct">Advertencia</span>
+      <p>
+        Ninguna de las dos tablas reemplaza la síntesis narrativa. Un error frecuente es construir una
+        tabla enorme con 40 artículos y después escribir solo «como puede observarse en la tabla 1…».
+        La tabla <em>condensa</em> información; el texto <em>construye</em> el argumento.
+      </p>
+    </div>
+  </div>
+
+  <h3>Ejemplo 3 · Checklist para revisar los resultados antes de entregar</h3>
+  <div class="card">
+    <p>
+      Un instrumento muy útil consiste en revisar el apartado de resultados con cuatro bloques de preguntas.
+      Cada una señala un problema específico si la respuesta es negativa.
+    </p>
+
+    <h4>Bloque 1 · Organización</h4>
+    <div class="grid two" style="margin:14px 0">
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Los resultados están organizados en categorías reconocibles?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Las categorías corresponden con lo explicado en metodología?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Existe una secuencia lógica entre los apartados?</p></div>
+    </div>
+
+    <h4>Bloque 2 · Síntesis</h4>
+    <div class="grid two" style="margin:14px 0">
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Comparo trabajos entre sí?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Identifico convergencias?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Presento divergencias?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Reconozco vacíos?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Identifico condiciones que podrían explicar resultados diferentes?</p></div>
+    </div>
+
+    <h4>Bloque 3 · Escritura</h4>
+    <div class="grid two" style="margin:14px 0">
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Evito hacer un resumen consecutivo de autores?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Cada afirmación importante está respaldada por literatura?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Diferencia asociación de causalidad?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Utilizo un lenguaje proporcional al nivel de evidencia?</p></div>
+    </div>
+
+    <h4>Bloque 4 · Interpretación</h4>
+    <div class="grid two" style="margin:14px 0">
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Explico qué patrón emerge de la literatura?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Evito ocultar los estudios que contradicen la tendencia dominante?</p></div>
+      <div class="mini"><p style="margin:0;font-size:.87rem">¿Diferencia suficientemente resultados y discusión?</p></div>
+    </div>
+
+    <p style="margin-top:16px">
+      Aplicado a un apartado concreto, el checklist permite señalar con precisión dónde está el problema.
+      No basta decir «está débil»; el diagnóstico debe especificar si lo que falta es organización, síntesis,
+      escritura o interpretación.
+    </p>
+  </div>
+
+  <h3>Contraejemplo · La tabla de cuarenta artículos como sustituto de la síntesis</h3>
+  <div class="card" style="border-left:4px solid var(--err)">
+    <p>
+      <strong>Contexto.</strong> Una revisión narrativa sobre uso de IAGen en educación superior. El autor
+      construyó una tabla exhaustiva con 40 estudios y su objetivo es que el lector «vea» todo lo que hay en
+      el campo.
+    </p>
+    <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+      <p><em>3.2. Aplicaciones de la IAGen en educación superior.</em></p>
+      <p>La tabla 1 presenta los 40 estudios incluidos en la revisión, organizados por autor, año, país,
+      diseño y principales hallazgos.</p>
+      <p>Como puede observarse en la tabla 1, existe una gran diversidad de aplicaciones. La investigación
+      sobre el tema ha crecido considerablemente en los últimos tres años.</p>
+      <p>A continuación se comentan brevemente algunos de los estudios más representativos.</p>
+    </div>
+    <p><strong>Por qué esto no funciona como resultados.</strong></p>
+    <p>
+      <strong>(a) La tabla sustituye la argumentación.</strong> El lector puede consultar los datos pero no
+      recibe la interpretación. Es trabajo que el autor debería haber hecho y no hizo.
+    </p>
+    <p>
+      <strong>(b) Los datos quedan sin organización conceptual.</strong> La tabla está organizada
+      <em>por estudios</em>, que es precisamente la unidad que la revisión narrativa debe abandonar. Una
+      tabla transversal por ejes problemáticos (como la del Ejemplo 2) habría obligado a pensar
+      comparativamente.
+    </p>
+    <p>
+      <strong>(c) «Algunos de los estudios más representativos» no es un criterio.</strong> ¿Según qué?
+      ¿Frecuencia de citación? ¿Calidad metodológica? ¿Pertinencia temática? Sin ese criterio, la selección
+      es arbitraria.
+    </p>
+    <p>
+      <strong>(d) «La investigación ha crecido en los últimos tres años» no es un hallazgo.</strong> Es un
+      dato bibliométrico. Un hallazgo sería, por ejemplo, que la producción científica se ha desplazado
+      desde estudios exploratorios sobre percepción hacia estudios experimentales sobre rendimiento, y que
+      ese desplazamiento deja sin responder la pregunta por la equidad de acceso.
+    </p>
+    <p>
+      <strong>(e) Qué sería una versión sólida.</strong> La tabla puede mantenerse como anexo o como
+      referencia rápida, pero el cuerpo de la sección debe construir la síntesis. Eso significa organizar
+      por categorías problemáticas —usos pedagógicos, efectos sobre el aprendizaje, riesgos de dependencia,
+      cuestiones de integridad académica— y dentro de cada categoría recorrer los cinco movimientos
+      argumentativos.
+    </p>
+    <p style="color:var(--muted);font-size:.87rem;margin-bottom:0">
+      <strong>Lección metodológica:</strong> las tablas son herramientas del análisis, no sustitutos del
+      análisis. Un apartado de resultados que se limita a remitir a una tabla no es un apartado de
+      resultados: es un índice comentado.
+    </p>
+  </div>
+
+  <h3>Caso límite · ¿Resultados o discusión?</h3>
+  <p>
+    La frontera entre resultados y discusión en una revisión narrativa es particularmente porosa. Considera
+    estos dos enunciados:
+  </p>
+  <div class="grid two" style="margin:14px 0">
+    <div class="mini" style="border-left:3px solid var(--accent)">
+      <h4>Enunciado A</h4>
+      <p>Los estudios no utilizan una definición homogénea de uso problemático de pantallas.</p>
+      <p style="font-size:.82rem;color:var(--muted);margin:0">Esto describe un patrón de la literatura.
+      Pertenece a resultados.</p>
+    </div>
+    <div class="mini" style="border-left:3px solid var(--accent-2)">
+      <h4>Enunciado B</h4>
+      <p>Esta heterogeneidad conceptual dificulta interpretar conjuntamente los resultados y podría
+      explicar parcialmente las divergencias entre investigaciones.</p>
+      <p style="font-size:.82rem;color:var(--muted);margin:0">Esto interpreta qué significa el patrón.
+      Pertenece a discusión.</p>
+    </div>
+  </div>
+  <p>
+    La distinción no siempre es nítida, y en revisiones narrativas cierta interpretación es inevitable en
+    la propia síntesis. Pero el criterio funcional es útil: <strong>resultados dice qué patrón muestra la
+    literatura; discusión dice qué significa ese patrón para nuestro problema</strong>. Cuando el autor
+    mezcla ambos sin distinguirlos, el lector pierde la posibilidad de saber dónde termina lo que la
+    literatura muestra y dónde empieza lo que el autor propone.
+  </p>
+
+  <button class="btn-complete" data-sec="s4">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S5 ==================== -->
+<section id="s5">
+<div class="wrap">
+  <span class="sec-kicker">05 · Comprobación</span>
+  <h2>Preguntas cerradas autocorregibles</h2>
+  <p>
+    Trece preguntas de cuatro tipos. Cada una trae retroalimentación explicada: léela aunque aciertes, ahí
+    está la parte formativa.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="qScore">0</span>
+      <span class="small">/ <span id="qTotal">13</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="qFill"></i></div>
+    <button class="btn ghost" id="qRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <button class="btn-complete" data-sec="s5" style="margin-top:10px">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S6 ==================== -->
+<section id="s6">
+<div class="wrap">
+  <span class="sec-kicker">06 · Procesos en movimiento</span>
+  <h2>Animaciones</h2>
+  <p>
+    Dos procesos que el texto estático captura mal: la <em>microestructura argumentativa de cinco
+    movimientos</em> que sostiene un buen apartado de resultados, y el <em>cambio de unidad</em> que va de
+    la estructura autor-por-autor a la estructura problema-primero.
+  </p>
+
+  <h3>Animación 1 · Los cinco movimientos argumentativos</h3>
+  <div class="card">
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 360" id="anim1Svg">
+        <g id="a1Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a1Play">▶ Reproducir</button>
+      <button id="a1Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a1Speed">Velocidad</label>
+        <input type="range" id="a1Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a1SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a1Cap"><b>Listo para empezar</b>Pulsa «Reproducir» para recorrer la microestructura argumentativa: afirmación, evidencia, contraste, matiz, síntesis. Es la misma secuencia que debería tener cada categoría de un apartado de resultados.</div>
+  </div>
+
+  <h3>Animación 2 · El cambio de unidad: de autor a problema</h3>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin-top:0">
+      Cómo se reorganiza un mismo contenido cuando se pasa de la estructura autor-por-autor a la estructura
+      problema-primero.
+    </p>
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 340" id="anim2Svg">
+        <g id="a2Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a2Play">▶ Reproducir</button>
+      <button id="a2Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a2Speed">Velocidad</label>
+        <input type="range" id="a2Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a2SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a2Cap"><b>Antes de empezar</b>Observa que el contenido —los estudios citados— no cambia. Lo que cambia es el eje alrededor del cual se organiza el texto. Ese cambio es lo que convierte una lista de fichas en una síntesis argumentativa.</div>
+  </div>
+
+  <button class="btn-complete" data-sec="s6">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S7 ==================== -->
+<section id="s7">
+<div class="wrap">
+  <span class="sec-kicker">07 · Manos a la obra</span>
+  <h2>Simulación interactiva · Auditoría de un apartado de resultados</h2>
+  <p>
+    Tienes delante el checklist en sus cuatro bloques. Puntúa cada componente del apartado de resultados
+    que quieras auditar —el tuyo, el de un compañero o el de un artículo publicado— y observa cómo cambia
+    la <strong>calidad global</strong> y qué bloque queda más débil. Los cuatro presets corresponden a
+    patrones que se ven con frecuencia en revisiones narrativas reales.
+  </p>
+
+  <div class="presets">
+    <button data-preset="modelica">Resultados sólidos</button>
+    <button data-preset="lista">Lista de mercado bibliográfica</button>
+    <button data-preset="tecnica">Síntesis técnica sin interpretación</button>
+    <button data-preset="tabla">Tabla como sustituto de la síntesis</button>
+  </div>
+
+  <div class="sim-grid">
+    <div>
+      <div class="rubric" id="rubricList"></div>
+    </div>
+
+    <div>
+      <div class="readouts">
+        <div class="readout"><span class="k">Calidad global</span><span class="v" id="rGlobal">0<small>/28</small></span></div>
+        <div class="readout"><span class="k">Bloque más débil</span><span class="v" id="rDebil" style="font-size:1rem">—</span></div>
+        <div class="readout"><span class="k">Diagnóstico</span><span class="v" id="rDiag" style="font-size:.85rem">—</span></div>
+      </div>
+      <div class="verdict" id="simVerdict"><b>—</b>Puntúa cada componente para ver el diagnóstico.</div>
+      <canvas id="simChart"></canvas>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:10px">
+        Las barras muestran el puntaje por bloque (Organización, Síntesis, Escritura, Interpretación). El
+        máximo por bloque depende del número de preguntas.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:22px">
+    <span class="ct">Guía breve de interpretación</span>
+    <p>
+      <strong>Bloque Organización bajo:</strong> no hay categorías reconocibles o no coinciden con las del
+      método. Es un problema de coherencia interna.<br>
+      <strong>Bloque Síntesis bajo:</strong> el apartado describe estudios pero no los compara. Es el error
+      más frecuente y el que más se parece a una lista de fichas.<br>
+      <strong>Bloque Escritura bajo:</strong> el lenguaje es desproporcionado respecto de la evidencia, o
+      confunde asociación con causalidad. Es un problema de precisión.<br>
+      <strong>Bloque Interpretación bajo:</strong> el apartado no dice qué patrón emerge del conjunto. Es
+      el déficit que impide que el lector reciba una síntesis.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s7">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S8 ==================== -->
+<section id="s8">
+<div class="wrap">
+  <span class="sec-kicker">08 · Cierre</span>
+  <h2>Autoevaluación final</h2>
+  <p>
+    Ocho preguntas, una por subtema. Al terminar verás el desglose por área para detectar exactamente qué
+    necesitas repasar.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="fScore">0</span>
+      <span class="small">/ <span id="fTotal">8</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="fFill"></i></div>
+    <button class="btn ghost" id="fRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="finalContainer"></div>
+
+  <h3>Desglose por subtema</h3>
+  <div class="breakdown" id="breakdown"></div>
+
+  <button class="btn-complete" data-sec="s8">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S9 ==================== -->
+<section id="s9">
+<div class="wrap">
+  <span class="sec-kicker">09 · Seguir</span>
+  <h2>Referencias y ruta de profundización</h2>
+  <p>Fuentes en formato APA 7, ordenadas alfabéticamente. Abajo se propone un orden de lectura distinto.</p>
+
+  <ul class="ref-list">
+    <li>Baethge, C., Goldbeck-Wood, S., &amp; Mertens, S. (2019). SANRA: A scale for the quality assessment of narrative review articles. <em>Research Integrity and Peer Review, 4</em>, 5. https://doi.org/10.1186/s41073-019-0064-8</li>
+    <li>Bem, D. J. (2004). Writing the empirical journal article. En J. M. Darley, M. P. Zanna &amp; H. L. Roediger III (Eds.), <em>The compleat academic: A career guide</em> (2.ª ed., pp. 185–219). American Psychological Association.</li>
+    <li>Booth, A., Sutton, A., &amp; Papaioannou, D. (2016). <em>Systematic approaches to a successful literature review</em> (2.ª ed.). SAGE.</li>
+    <li>Ferrari, R. (2015). Writing narrative style literature reviews. <em>Medical Writing, 24</em>(4), 230–235. https://doi.org/10.1179/2047480615Z.000000000329</li>
+    <li>Gasparyan, A. Y., Ayvazyan, L., Blackmore, H., &amp; Kitas, G. D. (2011). Writing a narrative biomedical review: Considerations for authors, peer reviewers, and editors. <em>Rheumatology International, 31</em>(11), 1409–1417. https://doi.org/10.1007/s00296-011-1999-3</li>
+    <li>Green, B. N., Johnson, C. D., &amp; Adams, A. (2006). Writing narrative literature reviews for peer-reviewed journals: Secrets of the trade. <em>Journal of Chiropractic Medicine, 5</em>(3), 101–117. https://doi.org/10.1016/S0899-3467(07)60142-6</li>
+    <li>Grant, M. J., &amp; Booth, A. (2009). A typology of reviews: An analysis of 14 review types and associated methodologies. <em>Health Information &amp; Libraries Journal, 26</em>(2), 91–108. https://doi.org/10.1111/j.1471-1842.2009.00848.x</li>
+    <li>Hart, C. (2018). <em>Doing a literature review: Releasing the research imagination</em> (2.ª ed.). SAGE.</li>
+    <li>Snyder, H. (2019). Literature review as a research methodology: An overview and guidelines. <em>Journal of Business Research, 104</em>, 333–339. https://doi.org/10.1016/j.jbusres.2019.07.039</li>
+    <li>Torraco, R. J. (2005). Writing integrative literature reviews: Guidelines and examples. <em>Human Resource Development Review, 4</em>(3), 356–367. https://doi.org/10.1177/1534484305278283</li>
+    <li>Webster, J., &amp; Watson, R. T. (2002). Analyzing the past to prepare for the future: Writing a literature review. <em>MIS Quarterly, 26</em>(2), xiii–xxiii.</li>
+    <li>Whittemore, R., &amp; Knafl, K. (2005). The integrative review: Updated methodology. <em>Journal of Advanced Nursing, 52</em>(5), 546–553. https://doi.org/10.1111/j.1365-2648.2005.03621.x</li>
+  </ul>
+
+  <h3>¿Y ahora qué estudiar?</h3>
+  <p>
+    La ruta de lectura que se propone a continuación está pensada para acumular profundidad sin saltarse
+    los cimientos. Es una sugerencia de orden, no una camisa de fuerza.
+  </p>
+
+  <ol class="route">
+    <li>
+      <b>Hart (2018) — <em>Doing a Literature Review</em></b>
+      El manual más completo sobre cómo se construye una revisión de literatura. Presta atención
+      especialmente a los capítulos sobre organización y análisis: son los que sostienen la escritura de los
+      resultados.
+    </li>
+    <li>
+      <b>Webster y Watson (2002) — Analyzing the past to prepare for the future</b>
+      Un artículo clásico y muy citado sobre cómo escribir una revisión de literatura en ciencias sociales.
+      Su propuesta de organizar la revisión por temas y no por autores es la misma que aquí se aplica a los
+      resultados.
+    </li>
+    <li>
+      <b>Bem (2004) — Writing the empirical journal article</b>
+      Aunque esté centrado en el artículo empírico, el capítulo sobre cómo estructurar argumentativamente
+      un apartado es de aplicación directa. Es un texto breve y enormemente claro.
+    </li>
+    <li>
+      <b>Baethge, Goldbeck-Wood y Mertens (2019) — SANRA</b>
+      El artículo que introdujo la escala. Es breve y accesible. Fíjate en el criterio 4 (razonamiento
+      científico) y en el criterio 6 (presentación de evidencia): ambos se aplican directamente a la
+      escritura de los resultados.
+    </li>
+    <li>
+      <b>Grant y Booth (2009) — Tipología de revisiones</b>
+      El artículo que clarifica que «revisión» no es un género único. Distingue 14 tipos con características
+      metodológicas diferentes. Útil para ubicar el tipo de revisión que estás escribiendo.
+    </li>
+    <li>
+      <b>Green, Johnson y Adams (2006) — Secretos del oficio</b>
+      Una guía práctica centrada en la escritura de revisiones narrativas para revistas revisadas por pares.
+      Los ejemplos de cómo sintetizar estudios son particularmente útiles.
+    </li>
+    <li>
+      <b>Ferrari (2015) — Writing narrative style literature reviews</b>
+      Un texto breve y bien estructurado sobre cómo se escribe una revisión narrativa. Es complementario a
+      los anteriores y suele leerse bien después de Hart.
+    </li>
+    <li>
+      <b>Gasparyan et al. (2011) — Consideraciones para autores y revisores</b>
+      Enfoque desde el lado de la revisión por pares. Ayuda a entender qué se espera de una revisión
+      narrativa cuando entra a evaluación, especialmente en lo relativo a la presentación de resultados.
+    </li>
+    <li>
+      <b>Whittemore y Knafl (2005) — La revisión integrativa</b>
+      Si interesa el territorio intermedio entre narrativa y sistemática, este es el artículo de referencia.
+      La revisión integrativa combina flexibilidad interpretativa con procedimiento explícito, y sus
+      criterios para sintetizar resultados son directamente aplicables.
+    </li>
+    <li>
+      <b>Torraco (2005) — Revisiones integradoras: guías y ejemplos</b>
+      Complementa al anterior con orientación práctica. Útil para ver cómo se aplica la estructura en
+      disciplinas concretas.
+    </li>
+    <li>
+      <b>Snyder (2019) — La revisión de literatura como metodología</b>
+      Una reflexión sobre el estatus metodológico de la revisión. Responde directamente a la pregunta
+      «¿tiene metodología una revisión narrativa?» desde una perspectiva organizacional.
+    </li>
+    <li>
+      <b>Booth, Sutton y Papaioannou (2016) — Manual completo</b>
+      El manual más completo sobre revisión de literatura. Es el texto de referencia para bibliotecas y
+      metodólogos. Requiere tiempo, pero es la inversión más rentable si vas a hacer varias revisiones.
+    </li>
+  </ol>
+
+  <div class="callout">
+    <span class="ct">La idea que conviene conservar</span>
+    <p>
+      El aprendizaje central consiste en desplazarse desde la pregunta <em>«¿qué dice cada artículo?»</em>
+      hacia la pregunta <em>«¿qué ocurre cuando pongo estos artículos en relación unos con otros?»</em>. Las
+      referencias dejan de funcionar como una colección de resúmenes y empiezan a funcionar como evidencia
+      para construir una afirmación académica. En una secuencia:
+      <strong>documento individual → comparación → patrón → condiciones → vacío → síntesis</strong>.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s9">Marcar como completada</button>
+
+  <footer>
+    <span>Resultados en revisión narrativa · Guía interactiva de estudio autónomo</span>
+    <span>Elaborado por <strong>Juan Carlos Valderrama Cárdenas</strong></span>
+  </footer>
+</div>
+</section>
+
+</main>
+
+<script>
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const shuffle = a => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
+
+/* ---------- TEMA ---------- */
+const themeBtn = $('#themeBtn');
+const savedTheme = sessionStorage.getItem('res_theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+themeBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  sessionStorage.setItem('res_theme', next);
+  themeBtn.textContent = next === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+});
+
+/* ---------- NAV MÓVIL ---------- */
+const sidebar = $('#sidebar'), overlay = $('#overlay'), burger = $('#burger');
+burger.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+$$('.nav a').forEach(a => a.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); }));
+
+/* ---------- SCROLL SPY ---------- */
+const navLinks = $$('.nav a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+  });
+}, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+$$('section').forEach(s => obs.observe(s));
+
+/* ---------- PROGRESO ---------- */
+const SECS = ['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+let done = {};
+try { done = JSON.parse(sessionStorage.getItem('res_progress') || '{}'); } catch (e) { done = {}; }
+function saveProgress() { sessionStorage.setItem('res_progress', JSON.stringify(done)); }
+function renderProgress() {
+  const n = SECS.filter(s => done[s]).length;
+  $('#progFill').style.width = (n / SECS.length * 100) + '%';
+  $('#progLabel').textContent = n + ' / ' + SECS.length;
+  navLinks.forEach(a => a.classList.toggle('done', !!done[a.dataset.sec]));
+  $$('.btn-complete').forEach(b => {
+    const isDone = !!done[b.dataset.sec];
+    b.classList.toggle('is-done', isDone);
+    b.textContent = isDone ? '✓ Sección completada' : 'Marcar como completada';
+  });
+}
+$$('.btn-complete').forEach(b => b.addEventListener('click', () => {
+  done[b.dataset.sec] = !done[b.dataset.sec];
+  saveProgress(); renderProgress();
+}));
+renderProgress();
+
+/* ---------- MAPA ---------- */
+(function () {
+  const vp = $('#mapViewport'), view = $('#mapView');
+  let tx = 0, ty = 0, sc = 1, dragging = false, sx = 0, sy = 0;
+  function apply() { view.setAttribute('transform', `translate(${tx} ${ty}) scale(${sc})`); }
+  function zoomAt(cx, cy, factor) {
+    const rect = vp.getBoundingClientRect();
+    const px = (cx - rect.left) / rect.width * 1000;
+    const py = (cy - rect.top) / rect.height * 640;
+    const nsc = clamp(sc * factor, 0.45, 3.2);
+    const k = nsc / sc;
+    tx = px - k * (px - tx); ty = py - k * (py - ty);
+    sc = nsc; apply();
+  }
+  vp.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 1 / 1.12); }, { passive: false });
+  vp.addEventListener('pointerdown', e => {
+    if (e.target.closest('.mnode')) return;
+    dragging = true; vp.classList.add('dragging');
+    sx = e.clientX - tx; sy = e.clientY - ty;
+    vp.setPointerCapture(e.pointerId);
+  });
+  vp.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    tx = clamp(e.clientX - sx, -600, 600);
+    ty = clamp(e.clientY - sy, -400, 400);
+    apply();
+  });
+  ['pointerup','pointercancel'].forEach(ev => vp.addEventListener(ev, () => { dragging = false; vp.classList.remove('dragging'); }));
+  $('#zoomIn').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1.25); });
+  $('#zoomOut').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1/1.25); });
+  $('#zoomReset').addEventListener('click', () => { tx = 0; ty = 0; sc = 1; apply(); });
+  $$('.mnode').forEach(n => n.addEventListener('click', () => {
+    const t = document.getElementById(n.dataset.goto);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+  apply();
+})();
+
+/* ---------- MOTOR DE QUIZ ---------- */
+const results = { quiz: {}, final: {} };
+
+function renderQuiz(container, data, prefix) {
+  container.innerHTML = '';
+  data.forEach((q, i) => {
+    const el = document.createElement('div');
+    el.className = 'q';
+    el.dataset.idx = i;
+    let bodyHTML = '';
+    if (q.type === 'mc') {
+      bodyHTML = '<div class="opts">' + q.opts.map((o, j) =>
+        `<label class="opt" data-opt="${j}"><input type="radio" name="${prefix}q${i}" value="${j}"><span>${o}</span></label>`
+      ).join('') + '</div>';
+    } else if (q.type === 'tf') {
+      bodyHTML = `<div class="tf-row"><button class="tf-btn" data-val="true">Verdadero</button><button class="tf-btn" data-val="false">Falso</button></div>`;
+    } else if (q.type === 'match') {
+      const rights = shuffle(q.pairs.map(p => p.right));
+      bodyHTML = q.pairs.map((p, j) => `
+        <div class="match-row" data-mi="${j}">
+          <div class="left">${p.left}</div>
+          <select><option value="">— elige una opción —</option>${rights.map(r => `<option value="${r.replace(/"/g,'&quot;')}">${r}</option>`).join('')}</select>
+        </div>`).join('');
+    } else if (q.type === 'order') {
+      const items = shuffle(q.items.map((t, j) => ({ t, j })));
+      bodyHTML = '<ul class="order-list">' + items.map(it =>
+        `<li data-orig="${it.j}"><span>${it.t}</span><div class="ord-btns"><button data-dir="up">▲</button><button data-dir="down">▼</button></div></li>`
+      ).join('') + '</ul>';
+    }
+    const typeLabel = { mc: 'Opción múltiple', tf: 'Verdadero / Falso', match: 'Emparejar conceptos', order: 'Ordenar secuencia' }[q.type];
+    el.innerHTML = `
+      <div class="q-head">
+        <div class="q-num">${String(i + 1).padStart(2, '0')}</div>
+        <div><p class="q-text">${q.q}</p><span class="q-type">${typeLabel}</span></div>
+      </div>
+      ${bodyHTML}
+      <div class="q-actions"><button class="btn" data-check>Comprobar</button></div>
+      <div class="fb" data-fb></div>`;
+    container.appendChild(el);
+  });
+  wireQuiz(container, data, prefix);
+}
+
+function flash(qEl, text) {
+  const fb = qEl.querySelector('[data-fb]');
+  fb.className = 'fb show bad';
+  fb.innerHTML = `<b>Atención</b>${text}`;
+  setTimeout(() => { if (!qEl.dataset.done) fb.className = 'fb'; }, 2600);
+}
+
+function wireQuiz(container, data, prefix) {
+  const store = prefix === 'f' ? results.final : results.quiz;
+  container.querySelectorAll('.q').forEach(qEl => {
+    const i = +qEl.dataset.idx;
+    const q = data[i];
+    const ordList = qEl.querySelector('.order-list');
+    if (ordList) {
+      ordList.addEventListener('click', e => {
+        const btn = e.target.closest('button[data-dir]');
+        if (!btn || ordList.dataset.locked) return;
+        const li = btn.closest('li');
+        if (btn.dataset.dir === 'up' && li.previousElementSibling) ordList.insertBefore(li, li.previousElementSibling);
+        if (btn.dataset.dir === 'down' && li.nextElementSibling) ordList.insertBefore(li.nextElementSibling, li);
+      });
+    }
+    qEl.querySelectorAll('.opt input').forEach(r => r.addEventListener('change', () => {
+      qEl.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+      r.closest('.opt').classList.add('sel');
+    }));
+    qEl.querySelectorAll('.tf-btn').forEach(b => b.addEventListener('click', () => {
+      if (b.classList.contains('locked')) return;
+      qEl.querySelectorAll('.tf-btn').forEach(x => x.classList.remove('picked'));
+      b.classList.add('picked');
+    }));
+    qEl.querySelector('[data-check]').addEventListener('click', () => {
+      if (qEl.dataset.done) return;
+      let ok = false;
+      if (q.type === 'mc') {
+        const sel = qEl.querySelector('input[type=radio]:checked');
+        if (!sel) return flash(qEl, 'Selecciona una opción antes de comprobar.');
+        const v = +sel.value;
+        ok = v === q.correct;
+        qEl.querySelectorAll('.opt').forEach(o => {
+          const j = +o.dataset.opt;
+          o.classList.add('locked');
+          if (j === q.correct) o.classList.add('correct');
+          else if (j === v) o.classList.add('wrong');
+        });
+      } else if (q.type === 'tf') {
+        const picked = qEl.querySelector('.tf-btn.picked');
+        if (!picked) return flash(qEl, 'Elige Verdadero o Falso antes de comprobar.');
+        ok = (picked.dataset.val === 'true') === q.correct;
+        qEl.querySelectorAll('.tf-btn').forEach(b => {
+          b.classList.add('locked');
+          const bv = b.dataset.val === 'true';
+          if (bv === q.correct) b.classList.add('correct');
+          else if (b.classList.contains('picked')) b.classList.add('wrong');
+        });
+      } else if (q.type === 'match') {
+        let allOk = true, answered = true;
+        qEl.querySelectorAll('.match-row').forEach((row, j) => {
+          const sel = row.querySelector('select');
+          if (!sel.value) answered = false;
+          const good = sel.value === q.pairs[j].right;
+          if (!good) allOk = false;
+          row.classList.add(good ? 'ok' : 'no');
+          sel.disabled = true;
+        });
+        if (!answered) {
+          qEl.querySelectorAll('.match-row').forEach(r => r.classList.remove('ok','no'));
+          return flash(qEl, 'Completa todas las filas antes de comprobar.');
+        }
+        ok = allOk;
+      } else if (q.type === 'order') {
+        let allOk = true;
+        Array.from(ordList.querySelectorAll('li')).forEach((li, pos) => {
+          const good = +li.dataset.orig === pos;
+          if (!good) allOk = false;
+          li.classList.add(good ? 'ok' : 'no');
+        });
+        ordList.dataset.locked = '1';
+        ok = allOk;
+      }
+      qEl.dataset.done = '1';
+      const btn = qEl.querySelector('[data-check]');
+      btn.disabled = true; btn.style.opacity = '.45'; btn.textContent = 'Comprobada';
+      const fb = qEl.querySelector('[data-fb]');
+      fb.className = 'fb show' + (ok ? '' : ' bad');
+      fb.innerHTML = `<b>${ok ? '✓ Correcto' : '✗ No es correcto'}</b>${q.exp}`;
+      store[i] = ok ? 1 : 0;
+      updateScore(prefix);
+    });
+  });
+}
+
+function updateScore(prefix) {
+  const data = prefix === 'f' ? FINAL : QUIZ;
+  const store = prefix === 'f' ? results.final : results.quiz;
+  const n = Object.values(store).reduce((a, b) => a + b, 0);
+  if (prefix === 'f') {
+    $('#fScore').textContent = n;
+    $('#fFill').style.width = (n / data.length * 100) + '%';
+    renderBreakdown();
+  } else {
+    $('#qScore').textContent = n;
+    $('#qFill').style.width = (n / data.length * 100) + '%';
+  }
+}
+
+/* ---------- BANCO: COMPROBACIÓN ---------- */
+const QUIZ = [
+  { type:'mc', q:'¿Cuál es la operación central que diferencia un apartado de resultados de una revisión narrativa de una simple colección de resúmenes?',
+    opts:['Reportar frecuencias y estadísticos descriptivos.',
+          'Organizar, comparar e interpretar la literatura para producir una síntesis argumentativa.',
+          'Citar muchos estudios en poco espacio.',
+          'Incluir tablas detalladas con todos los estudios revisados.'],
+    correct:1,
+    exp:'La opción (b). En una revisión narrativa los documentos son el material de análisis. Los resultados no consisten principalmente en reportar frecuencias sino en construir una síntesis intelectualmente organizada. Si al leer el apartado puedes reconstruir con la misma facilidad lo que dice cada estudio por separado que lo que dice el conjunto, todavía no hay síntesis.' },
+
+  { type:'tf', q:'En una revisión narrativa, la sección de resultados debe organizarse principalmente por autores o por estudios, uno detrás de otro.',
+    correct:false,
+    exp:'Falso. Esa es precisamente la estructura que conviene evitar: la «lista de mercado bibliográfica». La organización debe ser por problemas, hallazgos, categorías o debates. Las referencias siguen presentes pero dejan de ser el eje del texto.' },
+
+  { type:'mc', q:'¿Cuál es la diferencia entre la estructura «autor por autor» y la estructura «problema primero»?',
+    opts:['La primera es más extensa; la segunda, más breve.',
+          'En la primera el protagonista del texto es el autor citado; en la segunda, el problema que emerge del conjunto.',
+          'La primera es para revisiones narrativas; la segunda, para revisiones sistemáticas.',
+          'La primera usa referencias; la segunda, no.'],
+    correct:1,
+    exp:'La opción (b). La estructura «autor por autor» presenta los estudios uno detrás de otro y deja al lector la tarea de compararlos. La estructura «problema primero» presenta el hallazgo, luego cita los estudios como respaldo y construye la interpretación. Ambas usan referencias; la diferencia está en quién es el protagonista.' },
+
+  { type:'match', q:'Empareja cada tipo de relación con la pregunta que responde.',
+    pairs:[
+      { left:'Convergencias', right:'¿Qué resultados coinciden entre estudios?' },
+      { left:'Divergencias', right:'¿Qué investigaciones presentan resultados diferentes?' },
+      { left:'Condiciones o matices', right:'¿En qué circunstancias cambia el resultado?' },
+      { left:'Vacíos', right:'¿Qué no sabemos todavía?' },
+      { left:'Tensiones conceptuales', right:'¿Qué problema conceptual aparece al comparar los estudios?' }
+    ],
+    exp:'Estas cinco relaciones son las que conviene buscar sistemáticamente dentro de cada categoría. Las tres primeras son las más conocidas; las dos últimas son las que distinguen una revisión sofisticada: identificar vacíos no es lo mismo que decir «faltan estudios», e identificar una tensión conceptual no es lo mismo que señalar que hay resultados contradictorios.' },
+
+  { type:'order', q:'Ordena los cinco movimientos argumentativos que puede tener cada categoría de un apartado de resultados.',
+    items:['Presentar el hallazgo general','Presentar evidencia','Comparar','Introducir condiciones o explicaciones','Establecer qué significa el conjunto'],
+    exp:'La secuencia completa es: afirmación → evidencia → contraste → matiz → síntesis. Esta microestructura es tremendamente útil para aprender a escribir ciencia porque evita caer en la yuxtaposición de estudios. Cada apartado de cada categoría puede escribirse siguiendo esta secuencia.' },
+
+  { type:'tf', q:'En una revisión narrativa, si un estudio contradice la tendencia dominante, conviene omitirlo para no debilitar la síntesis.',
+    correct:false,
+    exp:'Falso, y este es uno de los errores más graves. Las divergencias son una de las partes más valiosas de la síntesis: revelan heterogeneidad, señalan condiciones bajo las cuales el patrón cambia, o apuntan a problemas conceptuales. Ocultar los estudios que contradicen la tendencia dominante empobrece el análisis.' },
+
+  { type:'mc', q:'¿Cuál de estos enunciados sería apropiado para una sección de resultados y no para la discusión?',
+    opts:['Esta inconsistencia podría cuestionar el supuesto de que la exposición digital actúa por un mecanismo único.',
+          'Los estudios no utilizan una definición homogénea de uso problemático de pantallas.',
+          'Estos hallazgos sugieren la necesidad de reformular el marco teórico inicial.',
+          'Este resultado implica revisar la política pública en materia de acceso digital infantil.'],
+    correct:1,
+    exp:'La opción (b). Describe un patrón de la literatura: pertenece a resultados. Las demás opciones interpretan qué significa ese patrón —o incluso qué implicaciones tiene— y corresponden a discusión. El criterio funcional es: resultados dice qué patrón muestra la literatura; discusión dice qué significa ese patrón para nuestro problema.' },
+
+  { type:'mc', q:'¿Cuál es el problema principal de escribir «la tabla 1 presenta los 40 estudios» y después dedicar el resto del apartado a comentar brevemente algunos de ellos?',
+    opts:['Que la tabla es demasiado extensa.',
+          'Que la tabla sustituye la argumentación en lugar de apoyarla: el lector recibe datos pero no interpretación.',
+          'Que no se citan suficientes autores.',
+          'Que la tabla debería estar en anexos.'],
+    correct:1,
+    exp:'La opción (b). Las tablas condensan información; el texto construye el argumento. Un apartado de resultados que se limita a remitir a una tabla no es un apartado de resultados: es un índice comentado. La tabla está organizada por estudios, que es precisamente la unidad que la revisión narrativa debe abandonar.' },
+
+  { type:'match', q:'Empareja cada verbo con la función argumentativa que cumple en un apartado de resultados.',
+    pairs:[
+      { left:'coinciden · convergen · respaldan', right:'Expresan convergencia entre estudios' },
+      { left:'difieren · discrepan · cuestionan', right:'Expresan divergencia entre estudios' },
+      { left:'se asocia · se relaciona · covaría', right:'Expresan relación sin comprometerse con causalidad' },
+      { left:'en conjunto · globalmente · transversalmente', right:'Introducen una síntesis sobre el patrón general' },
+      { left:'emerge una tensión entre…', right:'Señala un problema conceptual en la literatura' }
+    ],
+    exp:'La elección de verbos no es cosmética. Usar «produce» cuando los estudios son correlacionales convierte una asociación en causalidad, lo cual es un error de escritura científica. Del mismo modo, los verbos de síntesis —en conjunto, globalmente— ayudan a pasar del «autor dice» al «la literatura muestra».' },
+
+  { type:'tf', q:'Si 15 estudios transversales pequeños encuentran A y 3 estudios longitudinales rigurosos encuentran B, lo correcto es concluir que la literatura demuestra A porque hay más artículos.',
+    correct:false,
+    exp:'Falso. Sintetizar no es votar artículos. En una revisión narrativa se valora también el diseño, el tamaño y las características de las muestras, la calidad metodológica, la pertinencia, los instrumentos utilizados y la consistencia conceptual. La frecuencia de estudios que reportan un resultado no equivale a su importancia o solidez.' },
+
+  { type:'mc', q:'¿Cuál es la diferencia entre caracterización del corpus y síntesis analítica dentro de la sección de resultados?',
+    opts:['No hay diferencia: son sinónimos.',
+          'La caracterización describe el mapa general de la literatura revisada; la síntesis construye el argumento sobre lo que la literatura muestra.',
+          'La caracterización se publica; la síntesis queda en notas internas.',
+          'La caracterización es cuantitativa; la síntesis es cualitativa.'],
+    correct:1,
+    exp:'La opción (b). Una sección de resultados completa suele comenzar con la caracterización del corpus —número y tipo de documentos, distribución temporal, diseños predominantes, poblaciones, contextos— y después desarrolla la síntesis por categorías. El riesgo de la primera es convertirla en la sección completa; el riesgo de la segunda es perder de vista las características del corpus.' },
+
+  { type:'mc', q:'Si escribes «existe amplio consenso en la literatura sobre X» y citas un solo estudio, ¿cuál es el problema?',
+    opts:['Ninguno: los estudios seminales valen por muchos.',
+          'Hay una incongruencia entre la magnitud de la afirmación y la evidencia presentada.',
+          'Que la cita debería ir al final del párrafo.',
+          'Que no se especifica el año de publicación.'],
+    correct:1,
+    exp:'La opción (b). La pregunta correcta no es «¿cuántas referencias pongo?» sino «¿qué evidencia respalda esta afirmación?». Si decimos «amplio consenso», necesitamos mostrar evidencia de ese consenso. Si decimos «los resultados son heterogéneos», necesitamos mostrar la heterogeneidad. La magnitud de la afirmación debe guardar correspondencia con la evidencia presentada.' },
+
+  { type:'mc', q:'¿Cuál de estos apartados de resultados está más cerca de una buena síntesis narrativa?',
+    opts:['Gómez (2021) encontró X. Martínez (2022) encontró Y. Rodríguez (2023) encontró Z.',
+          'La literatura muestra una tendencia hacia X. Diferentes estudios han encontrado esta relación (Gómez, 2021; Martínez, 2022; Rodríguez, 2023), aunque la magnitud varía según la edad de los participantes. En contraste, otros trabajos sugieren que X depende del tipo de contenido consumido.',
+          'Como puede observarse en la tabla 1, existen múltiples estudios sobre el tema.',
+          'La investigación sobre este tema ha crecido considerablemente en los últimos años.'],
+    correct:1,
+    exp:'La opción (b). Contiene los cinco movimientos: hallazgo general, evidencia, matiz por condiciones, contraste con otros estudios. La opción (a) es la estructura autor-por-autor. La (c) sustituye la síntesis por remisión a una tabla. La (d) es un dato bibliométrico, no un hallazgo sobre el problema.' }
+];
+
+$('#qTotal').textContent = QUIZ.length;
+$('#qRetry').addEventListener('click', () => { results.quiz = {}; renderQuiz($('#quizContainer'), QUIZ, 'q'); updateScore('q'); });
+renderQuiz($('#quizContainer'), QUIZ, 'q');
+updateScore('q');
+
+/* ---------- BANCO: AUTOEVALUACIÓN ---------- */
+const FINAL = [
+  { topic:'Qué son los resultados', type:'mc', q:'¿Qué son los «resultados» en una revisión narrativa?',
+    opts:['Un informe estadístico de frecuencias y porcentajes.',
+          'Una presentación organizada de los patrones, acuerdos, desacuerdos, tendencias y vacíos identificados al analizar conjuntamente la literatura.',
+          'Una lista completa de todos los estudios revisados.',
+          'Un resumen ejecutivo de la introducción.'],
+    correct:1,
+    exp:'La opción (b). En una revisión narrativa los documentos constituyen el material de análisis; los resultados presentan la síntesis de ese análisis. No es una lista de estudios ni un informe estadístico. Es la construcción argumentativa de lo que la literatura muestra cuando se la organiza y compara.' },
+
+  { topic:'Autor vs. problema', type:'tf', q:'La estructura «autor por autor» y la estructura «problema primero» contienen la misma información pero con distinto orden.',
+    correct:false,
+    exp:'Falso. No es solo cuestión de orden: la estructura cambia el protagonista del texto. En «autor por autor» el protagonista es el autor citado y el lector debe hacer por su cuenta la comparación. En «problema primero» el protagonista es el problema que emerge del conjunto, y el lector recibe la síntesis ya construida. Son dos operaciones cognitivas distintas, no dos órdenes del mismo contenido.' },
+
+  { topic:'Cinco relaciones', type:'mc', q:'¿Cuál de las siguientes relaciones suele ser la que distingue una síntesis sofisticada de una síntesis básica?',
+    opts:['Convergencias.',
+          'Tensiones conceptuales: identificar un problema conceptual que aparece al comparar los estudios.',
+          'Número total de referencias.',
+          'Extensión del apartado.'],
+    correct:1,
+    exp:'La opción (b). Las convergencias y divergencias son relativamente fáciles de detectar. Identificar tensiones conceptuales es más difícil: no se trata de decir «faltan estudios» sino de señalar, por ejemplo, que la ausencia de una definición uniforme de «tiempo de pantalla» dificulta comparar investigaciones que miden fenómenos diferentes con la misma etiqueta.' },
+
+  { topic:'Microestructura', type:'mc', q:'¿Cuál es la secuencia correcta de la microestructura argumentativa de un apartado?',
+    opts:['Evidencia → afirmación → conclusión → cita.',
+          'Afirmación → evidencia → contraste → matiz → síntesis.',
+          'Introducción → desarrollo → conclusión.',
+          'Autor → estudio → hallazgo → limitación.'],
+    correct:1,
+    exp:'La opción (b). Es la secuencia que conviene seguir dentro de cada categoría. Evita la yuxtaposición de estudios y produce párrafos que construyen un argumento. La opción (d) describe la estructura que conviene precisamente abandonar.' },
+
+  { topic:'Resultados vs. discusión', type:'mc', q:'¿Cuál es el criterio funcional para distinguir resultados de discusión en una revisión narrativa?',
+    opts:['La extensión: los resultados son más breves.',
+          'Resultados dice qué patrón muestra la literatura; discusión dice qué significa ese patrón para el problema de investigación.',
+          'Los resultados usan citas; la discusión no.',
+          'No hay distinción: en una revisión narrativa son la misma sección.'],
+    correct:1,
+    exp:'La opción (b). La frontera es más porosa que en un estudio experimental, porque la síntesis ya implica cierta interpretación. Pero el criterio funcional ayuda: «los estudios no utilizan una definición homogénea» es un patrón (resultados); «esta heterogeneidad dificulta interpretar conjuntamente los resultados» es una interpretación (discusión).' },
+
+  { topic:'Tablas', type:'mc', q:'¿Cuál es la relación correcta entre tabla y síntesis narrativa?',
+    opts:['La tabla reemplaza la síntesis cuando es suficientemente detallada.',
+          'La tabla condensa información; el texto construye el argumento. Una no sustituye a la otra.',
+          'La tabla solo puede usarse en revisiones sistemáticas.',
+          'Si hay tabla, no hace falta síntesis.'],
+    correct:1,
+    exp:'La opción (b). Un error frecuente consiste en construir una tabla exhaustiva con 40 artículos y después escribir «como puede observarse en la tabla 1…». Eso no es una síntesis: es un índice comentado. La tabla puede ser un instrumento del análisis, pero el texto debe construir el argumento.' },
+
+  { topic:'Lenguaje', type:'mc', q:'Si los estudios son correlacionales, ¿cuál de estas formulaciones es apropiada?',
+    opts:['El uso de pantallas produce dificultades ejecutivas.',
+          'Mayor exposición a pantallas se encuentra asociada con menores puntuaciones en determinadas medidas de funciones ejecutivas.',
+          'El uso de pantallas demuestra deterioro cognitivo.',
+          'El uso de pantallas causa problemas de atención.'],
+    correct:1,
+    exp:'La opción (b). Los verbos «produce», «causa» y «demuestra» implican causalidad, que no puede inferirse de estudios correlacionales. Los verbos apropiados son «se asocia», «se relaciona», «covaría», «se vincula». La elección de verbos no es cosmética: es un asunto de precisión científica.' },
+
+  { topic:'Síntesis vs. votación', type:'mc', q:'Si 15 estudios transversales pequeños encuentran A y 3 estudios longitudinales rigurosos encuentran B, ¿qué se concluye?',
+    opts:['Que la literatura demuestra A porque hay más artículos.',
+          'Que la literatura demuestra B porque los estudios longitudinales son mejores.',
+          'Que hay que valorar los diseños, las muestras, la calidad metodológica y los instrumentos antes de decidir qué peso dar a cada resultado.',
+          'Que no se puede concluir nada y hay que reportar solo los estudios individuales.'],
+    correct:2,
+    exp:'La opción (c). Sintetizar no es votar artículos. La frecuencia de estudios que reportan un resultado no equivale a su importancia. Se valora el diseño, el tamaño y las características de las muestras, la calidad metodológica, la pertinencia, los instrumentos y la consistencia conceptual. La conclusión puede ser que la evidencia es mixta y que se requiere más investigación longitudinal.' }
+];
+
+$('#fTotal').textContent = FINAL.length;
+$('#fRetry').addEventListener('click', () => { results.final = {}; renderQuiz($('#finalContainer'), FINAL, 'f'); updateScore('f'); });
+renderQuiz($('#finalContainer'), FINAL, 'f');
+
+function renderBreakdown() {
+  const topics = [...new Set(FINAL.map(q => q.topic))];
+  $('#breakdown').innerHTML = topics.map(t => {
+    const idxs = FINAL.map((q, i) => q.topic === t ? i : -1).filter(i => i >= 0);
+    const got = idxs.filter(i => results.final[i] === 1).length;
+    const pct = Math.round(got / idxs.length * 100);
+    const cls = pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low';
+    return `<div class="bd-row ${cls}">
+      <span>${t}</span>
+      <span class="track"><i style="width:${pct}%"></i></span>
+      <span class="num">${got}/${idxs.length}</span>
+    </div>`;
+  }).join('');
+}
+updateScore('f');
+
+/* ---------- ANIMACIÓN 1: CINCO MOVIMIENTOS ---------- */
+(function () {
+  const g = $('#a1Content');
+  const MOVES = [
+    { t:'1 · Afirmación', c:'La literatura revisada muestra… Se presenta el hallazgo general antes de la evidencia. Es lo que orienta al lector sobre qué va a encontrar.' },
+    { t:'2 · Evidencia', c:'Diferentes investigaciones han encontrado… Los estudios se citan como respaldo, no como protagonistas. La función de las referencias es sostener la afirmación.' },
+    { t:'3 · Contraste', c:'Mientras algunos estudios…, otros… Se introducen las divergencias. Este es el movimiento que más se omite en borradores estudiantiles.' },
+    { t:'4 · Matiz', c:'Estas diferencias parecen estar relacionadas con… Se introducen condiciones o explicaciones que permiten entender por qué los estudios difieren.' },
+    { t:'5 · Síntesis', c:'Considerados conjuntamente, estos resultados sugieren… Se establece qué significa el conjunto. Es el movimiento que convierte la descripción en conocimiento.' }
+  ];
+
+  const W = 640, H = 360;
+  const BOX_W = 108, BOX_H = 90, GAP = 8;
+  const Y = 130;
+  const X0 = (W - (BOX_W * 5 + GAP * 4)) / 2;
+
+  MOVES.forEach((m, i) => {
+    const x = X0 + i * (BOX_W + GAP);
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.innerHTML = `
+      <rect x="${x}" y="${Y}" width="${BOX_W}" height="${BOX_H}" rx="10"
+        fill="var(--surface)" stroke="var(--border)" stroke-width="1.4" id="a1b${i}"/>
+      <text x="${x + BOX_W/2}" y="${Y + 30}" text-anchor="middle" font-family="var(--serif)" font-size="12" font-weight="600" fill="var(--text)">${m.t.split(' · ')[1]}</text>
+      <text x="${x + BOX_W/2}" y="${Y + 48}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--muted)">Movimiento ${i + 1}</text>
+      <line x1="${x + 14}" y1="${Y + 62}" x2="${x + BOX_W - 14}" y2="${Y + 62}" stroke="var(--border)" stroke-width="1"/>
+    `;
+    g.appendChild(gg);
+  });
+
+  // Flechas entre movimientos
+  for (let i = 0; i < MOVES.length - 1; i++) {
+    const x1 = X0 + i * (BOX_W + GAP) + BOX_W;
+    const x2 = X0 + (i + 1) * (BOX_W + GAP);
+    const y = Y + BOX_H / 2;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1 + 1); line.setAttribute('y1', y);
+    line.setAttribute('x2', x2 - 6); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'var(--accent)'); line.setAttribute('stroke-width', '1.8');
+    line.setAttribute('id', `a1a${i}`); line.setAttribute('opacity', '0.25');
+    g.appendChild(line);
+    const head = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    head.setAttribute('points', `${x2-8},${y-4} ${x2},${y} ${x2-8},${y+4}`);
+    head.setAttribute('fill', 'var(--accent)'); head.setAttribute('id', `a1ah${i}`); head.setAttribute('opacity', '0.25');
+    g.appendChild(head);
+  }
+
+  // Síntesis general al pie
+  const summary = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  summary.setAttribute('x', W/2); summary.setAttribute('y', 60);
+  summary.setAttribute('text-anchor', 'middle');
+  summary.setAttribute('font-size', '11');
+  summary.setAttribute('fill', 'var(--muted)');
+  summary.setAttribute('font-family', 'var(--mono)');
+  summary.textContent = 'AFIRMACIÓN → EVIDENCIA → CONTRASTE → MATIZ → SÍNTESIS';
+  summary.setAttribute('id', 'a1seq');
+  g.appendChild(summary);
+
+  // Mensaje grande inferior
+  const big = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  big.setAttribute('x', W/2); big.setAttribute('y', 290);
+  big.setAttribute('text-anchor', 'middle');
+  big.setAttribute('font-size', '13');
+  big.setAttribute('font-style', 'italic');
+  big.setAttribute('fill', 'var(--accent)');
+  big.setAttribute('font-family', 'var(--sans)');
+  big.setAttribute('id', 'a1msg');
+  big.setAttribute('opacity', '0');
+  big.textContent = 'Cada categoría de resultados debería recorrer estos cinco movimientos';
+  g.appendChild(big);
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 15;
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(MOVES.length - 1, Math.floor(frac * MOVES.length));
+    if (idx !== cur) {
+      cur = idx;
+      MOVES.forEach((_, i) => {
+        const b = document.getElementById(`a1b${i}`);
+        if (!b) return;
+        const reached = i <= idx;
+        b.setAttribute('fill', i === idx ? 'var(--accent-soft)' : reached ? 'var(--surface-2)' : 'var(--surface)');
+        b.setAttribute('stroke', i === idx ? 'var(--accent)' : reached ? 'var(--accent-2)' : 'var(--border)');
+        b.setAttribute('stroke-width', i === idx ? '2' : '1.4');
+      });
+      for (let i = 0; i < MOVES.length - 1; i++) {
+        const a = document.getElementById(`a1a${i}`);
+        const ah = document.getElementById(`a1ah${i}`);
+        const active = i < idx;
+        if (a) a.setAttribute('opacity', active ? '1' : '0.25');
+        if (ah) ah.setAttribute('opacity', active ? '1' : '0.25');
+      }
+      $('#a1Cap').innerHTML = `<b>${MOVES[idx].t}</b>${MOVES[idx].c}`;
+      const msg = document.getElementById('a1msg');
+      if (msg) msg.setAttribute('opacity', idx === MOVES.length - 1 ? '1' : '0');
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a1Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a1Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a1Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a1Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    MOVES.forEach((_, i) => {
+      const b = document.getElementById(`a1b${i}`);
+      if (!b) return;
+      b.setAttribute('fill', 'var(--surface)');
+      b.setAttribute('stroke', 'var(--border)');
+      b.setAttribute('stroke-width', '1.4');
+    });
+    for (let i = 0; i < MOVES.length - 1; i++) {
+      const a = document.getElementById(`a1a${i}`);
+      const ah = document.getElementById(`a1ah${i}`);
+      if (a) a.setAttribute('opacity', '0.25');
+      if (ah) ah.setAttribute('opacity', '0.25');
+    }
+    const msg = document.getElementById('a1msg');
+    if (msg) msg.setAttribute('opacity', '0');
+    $('#a1Cap').innerHTML = '<b>Listo para empezar</b>Pulsa «Reproducir» para recorrer la microestructura argumentativa: afirmación, evidencia, contraste, matiz, síntesis. Es la misma secuencia que debería tener cada categoría de un apartado de resultados.';
+  });
+  $('#a1Speed').addEventListener('input', e => { speed = +e.target.value; $('#a1SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a1Reset').click();
+})();
+
+/* ---------- ANIMACIÓN 2: CAMBIO DE UNIDAD ---------- */
+(function () {
+  const g = $('#a2Content');
+  const PHASES = [
+    { label: 'Estructura autor-primero', desc: 'El texto avanza estudio por estudio. Cada párrafo comienza con un autor y su hallazgo. Las citas son el eje.' },
+    { label: 'Estructura problema-primero', desc: 'El texto avanza por hallazgos. Cada párrafo comienza con un enunciado sobre la literatura, y las citas respaldan ese enunciado.' }
+  ];
+
+  // Encabezados de fase
+  const headerA = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  headerA.setAttribute('x', 30); headerA.setAttribute('y', 40);
+  headerA.setAttribute('font-family', 'var(--sans)');
+  headerA.setAttribute('font-size', '11');
+  headerA.setAttribute('font-weight', '700');
+  headerA.setAttribute('fill', 'var(--err)');
+  headerA.setAttribute('id', 'a2hA');
+  headerA.textContent = 'ANTES · Autor por autor';
+  g.appendChild(headerA);
+
+  const headerB = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  headerB.setAttribute('x', 30); headerB.setAttribute('y', 40);
+  headerB.setAttribute('font-family', 'var(--sans)');
+  headerB.setAttribute('font-size', '11');
+  headerB.setAttribute('font-weight', '700');
+  headerB.setAttribute('fill', 'var(--ok)');
+  headerB.setAttribute('id', 'a2hB');
+  headerB.setAttribute('opacity', '0');
+  headerB.textContent = 'DESPUÉS · Problema primero';
+  g.appendChild(headerB);
+
+  // Bloque "antes": 4 filas consecutivas, cada una un autor
+  const AUTHORS = ['Gómez (2021)', 'Martínez (2022)', 'Rodríguez (2023)', 'Pérez (2024)'];
+  AUTHORS.forEach((a, i) => {
+    const y = 70 + i * 42;
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.innerHTML = `
+      <rect x="30" y="${y}" width="250" height="34" rx="8"
+        fill="var(--err-soft)" stroke="var(--err)" stroke-width="1.2" id="a2row${i}"/>
+      <text x="42" y="${y + 22}" font-family="var(--sans)" font-size="11" fill="var(--err)" font-weight="600">${a}</text>
+      <text x="240" y="${y + 22}" font-family="var(--sans)" font-size="10" fill="var(--muted)">→ hallazgo</text>
+    `;
+    g.appendChild(gg);
+  });
+
+  // Bloque "después": 3 filas, cada una un hallazgo con múltiples citas
+  const HALLAZGOS = [
+    { h: 'Tendencia consistente', c: '(Gómez, 2021; Martínez, 2022; Rodríguez, 2023)' },
+    { h: 'Divergencia por condiciones', c: '(Pérez, 2024; Ramírez & Torres, 2025)' },
+    { h: 'Vacío: faltan longitudinales', c: '—' }
+  ];
+  HALLAZGOS.forEach((h, i) => {
+    const y = 70 + i * 56;
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.setAttribute('id', `a2new${i}`);
+    gg.setAttribute('opacity', '0');
+    gg.innerHTML = `
+      <rect x="360" y="${y}" width="250" height="44" rx="8"
+        fill="var(--ok-soft)" stroke="var(--ok)" stroke-width="1.2"/>
+      <text x="372" y="${y + 20}" font-family="var(--sans)" font-size="11" fill="var(--ok)" font-weight="600">${h.h}</text>
+      <text x="372" y="${y + 36}" font-family="var(--sans)" font-size="9.5" fill="var(--muted)">${h.c}</text>
+    `;
+    g.appendChild(gg);
+  });
+
+  // Flecha central
+  const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  arrow.setAttribute('d', 'M 290 180 L 355 180');
+  arrow.setAttribute('stroke', 'var(--accent)');
+  arrow.setAttribute('stroke-width', '2');
+  arrow.setAttribute('marker-end', 'url(#m2arrow)');
+  arrow.setAttribute('id', 'a2arrow');
+  arrow.setAttribute('opacity', '0.3');
+  g.appendChild(arrow);
+
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  defs.innerHTML = `<marker id="m2arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+  </marker>`;
+  g.appendChild(defs);
+
+  // Etiqueta inferior
+  const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lbl.setAttribute('x', 320); lbl.setAttribute('y', 280);
+  lbl.setAttribute('text-anchor', 'middle');
+  lbl.setAttribute('font-family', 'var(--serif)');
+  lbl.setAttribute('font-size', '13');
+  lbl.setAttribute('font-style', 'italic');
+  lbl.setAttribute('fill', 'var(--accent)');
+  lbl.setAttribute('id', 'a2lbl');
+  lbl.setAttribute('opacity', '0');
+  lbl.textContent = 'Los estudios citados son los mismos · cambia el eje del texto';
+  g.appendChild(lbl);
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 12;
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = frac < 0.35 ? 0 : frac < 0.7 ? 1 : 2;
+
+    // Fase 0: solo el bloque antes. Fase 1: transición. Fase 2: solo después.
+    const fadeA = 1 - Math.max(0, (frac - 0.5) / 0.3);
+    AUTHORS.forEach((_, i) => {
+      const r = document.getElementById(`a2row${i}`);
+      if (r) r.setAttribute('opacity', Math.max(0.15, fadeA));
+    });
+    HALLAZGOS.forEach((_, i) => {
+      const r = document.getElementById(`a2new${i}`);
+      if (r) {
+        const fadeB = Math.max(0, (frac - 0.4) / 0.3);
+        r.setAttribute('opacity', Math.min(1, fadeB));
+      }
+    });
+    const arrow = document.getElementById('a2arrow');
+    if (arrow) arrow.setAttribute('opacity', frac > 0.3 && frac < 0.75 ? '1' : '0.3');
+    const hA = document.getElementById('a2hA');
+    const hB = document.getElementById('a2hB');
+    if (hA) hA.setAttribute('opacity', fadeA > 0.5 ? '1' : '0');
+    if (hB) hB.setAttribute('opacity', frac > 0.5 ? '1' : '0');
+
+    if (idx !== cur) {
+      cur = idx;
+      let cap;
+      if (idx === 0) {
+        cap = '<b>Antes · estructura autor por autor</b>El texto avanza estudio por estudio. Cada párrafo comienza con un autor y su hallazgo. Las citas son el eje del texto. El lector debe construir por su cuenta la relación entre los estudios.';
+      } else if (idx === 1) {
+        cap = '<b>Reorganización</b>El contenido no cambia. Los estudios citados son los mismos. Lo que cambia es el eje alrededor del cual se organiza el texto.';
+      } else {
+        cap = '<b>Después · estructura problema primero</b>El texto avanza por hallazgos. Cada bloque comienza con un enunciado sobre la literatura, y las citas respaldan ese enunciado. El eje del texto ya no son los autores sino el problema.';
+      }
+      $('#a2Cap').innerHTML = cap;
+      const lbl = document.getElementById('a2lbl');
+      if (lbl) lbl.setAttribute('opacity', idx === 2 ? '1' : '0');
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a2Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a2Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a2Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a2Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    AUTHORS.forEach((_, i) => {
+      const r = document.getElementById(`a2row${i}`);
+      if (r) r.setAttribute('opacity', '1');
+    });
+    HALLAZGOS.forEach((_, i) => {
+      const r = document.getElementById(`a2new${i}`);
+      if (r) r.setAttribute('opacity', '0');
+    });
+    const arrow = document.getElementById('a2arrow');
+    if (arrow) arrow.setAttribute('opacity', '0.3');
+    const hA = document.getElementById('a2hA');
+    const hB = document.getElementById('a2hB');
+    if (hA) hA.setAttribute('opacity', '1');
+    if (hB) hB.setAttribute('opacity', '0');
+    const lbl = document.getElementById('a2lbl');
+    if (lbl) lbl.setAttribute('opacity', '0');
+    $('#a2Cap').innerHTML = '<b>Antes de empezar</b>Observa que el contenido —los estudios citados— no cambia. Lo que cambia es el eje alrededor del cual se organiza el texto. Ese cambio es lo que convierte una lista de fichas en una síntesis argumentativa.';
+  });
+  $('#a2Speed').addEventListener('input', e => { speed = +e.target.value; $('#a2SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a2Reset').click();
+})();
+
+/* ---------- SIMULACIÓN: AUDITORÍA DE RESULTADOS ---------- */
+(function () {
+  const RUBRIC = [
+    { block:'Organización', q:'¿Los resultados están organizados en categorías reconocibles?' },
+    { block:'Organización', q:'¿Las categorías corresponden con lo explicado en metodología?' },
+    { block:'Organización', q:'¿Existe una secuencia lógica entre los apartados?' },
+    { block:'Síntesis', q:'¿Se comparan los trabajos entre sí?' },
+    { block:'Síntesis', q:'¿Se identifican convergencias?' },
+    { block:'Síntesis', q:'¿Se presentan divergencias?' },
+    { block:'Síntesis', q:'¿Se reconocen vacíos?' },
+    { block:'Síntesis', q:'¿Se identifican condiciones que expliquen resultados diferentes?' },
+    { block:'Escritura', q:'¿Se evita el resumen consecutivo de autores?' },
+    { block:'Escritura', q:'¿Cada afirmación importante está respaldada por literatura?' },
+    { block:'Escritura', q:'¿Se diferencia asociación de causalidad?' },
+    { block:'Escritura', q:'¿Se utiliza un lenguaje proporcional al nivel de evidencia?' },
+    { block:'Interpretación', q:'¿Se explica qué patrón emerge de la literatura?' },
+    { block:'Interpretación', q:'¿Se evita ocultar estudios que contradicen la tendencia dominante?' },
+    { block:'Interpretación', q:'¿Se diferencia suficientemente resultados de discusión?' }
+  ];
+
+  // Max: 15 preguntas x 2 = 30, pero se usa 28 como en el texto por convención (7 preguntas por bloque en algunos casos).
+  // Ajustamos el máximo real a 30 y etiquetamos dinámicamente.
+  const MAX = RUBRIC.length * 2;
+
+  const PRESETS = {
+    modelica: RUBRIC.map(() => 2),
+    lista: [
+      1, 1, 1,       // organización aceptable
+      0, 0, 1, 0, 0, // síntesis muy débil
+      0, 1, 1, 0,    // escritura deficiente
+      0, 1, 1        // interpretación mínima
+    ],
+    tecnica: [
+      2, 2, 2,
+      2, 2, 1, 1, 1,
+      2, 2, 2, 2,
+      0, 1, 0
+    ],
+    tabla: [
+      1, 1, 1,
+      0, 0, 0, 0, 0,
+      1, 1, 1, 1,
+      0, 0, 1
+    ]
+  };
+
+  const list = $('#rubricList');
+  RUBRIC.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'rubric-item';
+    item.dataset.idx = i;
+    item.innerHTML = `
+      <div class="lbl">${r.q}<small>${r.block}</small></div>
+      <select data-rubric="${i}">
+        <option value="0">0 · No</option>
+        <option value="1">1 · Parcialmente</option>
+        <option value="2">2 · Sí</option>
+      </select>`;
+    list.appendChild(item);
+  });
+
+  const canvas = $('#simChart'), ctx = canvas.getContext('2d');
+
+  // Ajustar la etiqueta del máximo real
+  $('#rGlobal').innerHTML = '0<small>/' + MAX + '</small>';
+  const simGridEl = document.querySelector('#s7 .readouts .readout .v');
+  // El primer readout ya fue puesto dinámicamente abajo en cada cálculo.
+
+  function calcular() {
+    const vals = RUBRIC.map((_, i) => {
+      const sel = document.querySelector(`select[data-rubric="${i}"]`);
+      return +sel.value;
+    });
+    const total = vals.reduce((a, b) => a + b, 0);
+    $('#rGlobal').innerHTML = total + '<small>/' + MAX + '</small>';
+
+    const blocks = ['Organización', 'Síntesis', 'Escritura', 'Interpretación'];
+    const blockScores = {};
+    blocks.forEach(b => {
+      const idxs = RUBRIC.map((r, i) => r.block === b ? i : -1).filter(i => i >= 0);
+      const max = idxs.length * 2;
+      const got = idxs.reduce((a, i) => a + vals[i], 0);
+      blockScores[b] = { got, max, pct: max ? got / max : 0 };
+    });
+
+    let debil = blocks[0];
+    blocks.forEach(b => { if (blockScores[b].pct < blockScores[debil].pct) debil = b; });
+    $('#rDebil').textContent = blockScores[debil].pct < 0.7 ? debil : '—';
+
+    const pctTotal = total / MAX;
+    let diagCorto;
+    if (pctTotal >= 0.85) diagCorto = 'Sólido';
+    else if (pctTotal >= 0.6) diagCorto = 'Aceptable';
+    else if (pctTotal >= 0.3) diagCorto = 'Débil';
+    else diagCorto = 'Muy débil';
+    $('#rDiag').textContent = diagCorto;
+
+    let titulo, texto;
+    if (pctTotal >= 0.85) {
+      titulo = 'Resultados sólidos';
+      texto = 'El apartado recorre los cuatro bloques con suficiente detalle: organiza por categorías, sintetiza comparando estudios, escribe con precisión y produce interpretación. Un lector independiente puede reconstruir qué muestra la literatura.';
+    } else if (pctTotal >= 0.6) {
+      titulo = 'Resultados aceptables con debilidades';
+      texto = `El apartado funciona pero tiene un bloque más débil (${debil}). Revisa específicamente ese componente: el resto está en un nivel aceptable, pero el conjunto se resiente si falta un bloque.`;
+    } else if (pctTotal >= 0.3) {
+      titulo = 'Resultados débiles';
+      texto = `Varios bloques están insuficientemente desarrollados. El bloque más débil es ${debil}. El problema no es la extensión, sino que falten operaciones concretas: comparar estudios, presentar divergencias, justificar afirmaciones, producir síntesis.`;
+    } else {
+      titulo = 'Resultados casi ausentes';
+      texto = 'El apartado se limita probablemente a listar estudios o a remitir a una tabla. No contiene las operaciones que convierten los documentos en una síntesis argumentativa.';
+    }
+    $('#simVerdict').innerHTML = `<b>${titulo} (${total}/${MAX})</b>${texto}`;
+
+    RUBRIC.forEach((_, i) => {
+      const item = document.querySelector(`.rubric-item[data-idx="${i}"]`);
+      item.classList.remove('s0', 's1', 's2');
+      item.classList.add(`s${vals[i]}`);
+    });
+
+    draw(blockScores);
+  }
+
+  function draw(blockScores) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const W = rect.width, H = rect.height;
+    const padL = 100, padR = 42, padT = 20, padB = 30;
+    const gw = W - padL - padR, gh = H - padT - padB;
+
+    const css = getComputedStyle(document.documentElement);
+    const cBorder = css.getPropertyValue('--border').trim();
+    const cMuted = css.getPropertyValue('--muted').trim();
+    const cAccent2 = css.getPropertyValue('--accent-2').trim();
+    const cOk = css.getPropertyValue('--ok').trim();
+    const cErr = css.getPropertyValue('--err').trim();
+
+    ctx.clearRect(0, 0, W, H);
+
+    const blocks = Object.keys(blockScores);
+    const barH = gh / blocks.length * 0.62;
+    const gap = gh / blocks.length;
+
+    blocks.forEach((b, i) => {
+      const y = padT + i * gap + gap * 0.1;
+      const score = blockScores[b];
+      const w = gw * score.pct;
+
+      ctx.fillStyle = cBorder;
+      ctx.fillRect(padL, y, gw, barH);
+      const color = score.pct >= 0.8 ? cOk : score.pct >= 0.5 ? cAccent2 : cErr;
+      ctx.fillStyle = color;
+      ctx.fillRect(padL, y, w, barH);
+
+      ctx.fillStyle = cMuted;
+      ctx.font = '11px system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(b, padL - 8, y + barH / 2 + 4);
+      ctx.textAlign = 'left';
+      ctx.font = '11px ui-monospace, monospace';
+      ctx.fillText(`${score.got}/${score.max}`, padL + gw + 6, y + barH / 2 + 4);
+    });
+  }
+
+  $$('select[data-rubric]').forEach(sel => sel.addEventListener('change', calcular));
+  $$('.presets button').forEach(b => b.addEventListener('click', () => {
+    const vals = PRESETS[b.dataset.preset];
+    vals.forEach((v, i) => {
+      const sel = document.querySelector(`select[data-rubric="${i}"]`);
+      if (sel) sel.value = v;
+    });
+    calcular();
+  }));
+
+  window.addEventListener('resize', calcular);
+  calcular();
+})();
+</script>
+</body>
+</html>

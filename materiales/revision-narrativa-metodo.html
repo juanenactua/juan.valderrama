@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revisión narrativa · Guía de estudio</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Revisión narrativa">
+<meta name="jc-descripcion" content="Guía interactiva para comprender, diseñar y evaluar una revisión narrativa de literatura, desde la búsqueda y selección documental hasta el análisis, la categorización y la síntesis argumentativa.">
+<meta name="jc-tipo" content="Guía interactiva de estudio">
+<meta name="jc-etiquetas" content="Revisión narrativa, Revisión de literatura, Metodología de investigación, Investigación, Búsqueda bibliográfica, Búsqueda documental, Selección de literatura, Criterios de inclusión, Criterios de exclusión, Análisis documental, Síntesis narrativa, Síntesis argumentativa, Categorización, Matriz de análisis, SANRA, Revisión sistemática, Literatura científica, Escritura académica, Investigación cualitativa">
+<meta name="jc-curso" content="Metodología de la investigación">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#fbfbf9; --surface:#ffffff; --surface-2:#f4f5f3; --surface-3:#eef0ee;
+  --text:#16181d; --muted:#5d6470; --border:#e4e6ea; --border-strong:#d3d7dd;
+  --accent:#2f5d8a; --accent-soft:#e9f0f7; --accent-2:#b4762a; --accent-2-soft:#faf1e4;
+  --ok:#2f7d5b; --ok-soft:#e7f3ec; --err:#b03a3a; --err-soft:#f9ebeb;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(16,20,28,.05), 0 10px 28px -16px rgba(16,20,28,.25);
+  --sidebar:272px;
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0e1014; --surface:#161a20; --surface-2:#1b2028; --surface-3:#212733;
+  --text:#e9ebef; --muted:#98a1ae; --border:#262c36; --border-strong:#333b48;
+  --accent:#7fb0dd; --accent-soft:#182432; --accent-2:#d9a441; --accent-2-soft:#2a2216;
+  --ok:#5cc08d; --ok-soft:#16281f; --err:#e07a7a; --err-soft:#2a1919;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px -16px rgba(0,0,0,.8);
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.22;letter-spacing:-.012em;color:var(--text)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);margin:0 0 .5rem}
+h2{font-size:clamp(1.4rem,2.7vw,1.85rem);margin:0 0 1rem}
+h3{font-size:1.16rem;margin:2.1rem 0 .6rem}
+h4{font-size:1rem;margin:1.5rem 0 .45rem;font-family:var(--sans);font-weight:700}
+p{margin:0 0 1rem}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.87em;background:var(--surface-2);padding:.12em .38em;border-radius:5px;border:1px solid var(--border)}
+::selection{background:var(--accent);color:#fff}
+
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);z-index:60;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 16px 16px;gap:16px;overflow-y:auto;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.brand{display:flex;align-items:center;gap:11px;padding:0 6px}
+.brand-mark{width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.82rem;font-family:var(--serif)}
+.brand strong{display:block;font-size:.93rem;font-family:var(--serif);line-height:1.2}
+.brand small{display:block;color:var(--muted);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.progress-wrap{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 12px}
+.progress-head{display:flex;justify-content:space-between;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px}
+.progress-bar{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.progress-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .45s cubic-bezier(.4,0,.2,1)}
+.nav{display:flex;flex-direction:column;gap:2px;flex:1}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:.845rem;line-height:1.35;border-left:2px solid transparent;transition:all .16s;position:relative}
+.nav a span{font-family:var(--mono);font-size:.7rem;opacity:.7;flex:0 0 18px}
+.nav a:hover{background:var(--surface-2);color:var(--text)}
+.nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.nav a.done span::after{content:'✓';position:absolute;left:34px;top:50%;transform:translateY(-50%);color:var(--ok);font-size:.7rem}
+.nav a.done span{opacity:0}
+.theme-toggle{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:9px;padding:9px 12px;font-size:.8rem;cursor:pointer;font-family:var(--sans);transition:all .16s;text-align:left}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+main{margin-left:var(--sidebar);padding:0 0 120px}
+.wrap{max-width:920px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.burger{position:fixed;top:14px;left:14px;z-index:80;display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:1.15rem;cursor:pointer;box-shadow:var(--shadow)}
+.overlay{position:fixed;inset:0;background:rgba(8,10,14,.5);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.show{opacity:1;pointer-events:auto}
+@media(max-width:940px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  main{margin-left:0;padding-top:64px}
+  .burger{display:block}
+}
+
+section{padding:64px 0 12px;border-top:1px solid var(--border);scroll-margin-top:20px}
+section:first-of-type{border-top:none;padding-top:0}
+.sec-kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:.6rem;display:block}
+
+.cover{padding:80px 0 40px;position:relative}
+.cover::before{content:'';position:absolute;top:-40px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 68%);opacity:.9;pointer-events:none;z-index:-1}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:99px;padding:5px 14px;margin-bottom:22px;font-weight:600}
+.cover-tag i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:block}
+.cover h1{max-width:15ch}
+.cover-lead{font-size:1.09rem;color:var(--muted);max-width:64ch;margin-top:1.1rem}
+.author-card{display:flex;align-items:center;gap:14px;margin-top:30px;padding:15px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);max-width:440px}
+.author-avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:1rem}
+.author-card .who{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.author-card .name{font-family:var(--serif);font-size:1.06rem;font-weight:600;line-height:1.25}
+.author-card .role{font-size:.82rem;color:var(--muted)}
+
+.map-shell{margin-top:34px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.map-toolbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);flex-wrap:wrap}
+.map-toolbar .hint{font-size:.78rem;color:var(--muted);margin-left:auto}
+.map-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;display:grid;place-items:center;transition:all .15s}
+.map-btn:hover{border-color:var(--accent);color:var(--accent)}
+.map-viewport{height:min(66vh,560px);overflow:hidden;cursor:grab;background:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0) 0 0/22px 22px}
+.map-viewport.dragging{cursor:grabbing}
+.map-viewport svg{width:100%;height:100%;display:block;user-select:none}
+.mnode{cursor:pointer}
+.mnode:hover rect{stroke:var(--accent);stroke-width:2}
+.mnode rect{transition:stroke .2s}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.card h3{margin-top:0}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;font-size:.95rem}
+.callout.warn{border-left-color:var(--accent-2);background:var(--accent-2-soft)}
+.callout.danger{border-left-color:var(--err);background:var(--err-soft)}
+.callout .ct{font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--accent)}
+.callout.warn .ct{color:var(--accent-2)}
+.callout.danger .ct{color:var(--err)}
+.callout p:last-child{margin-bottom:0}
+
+.grid{display:grid;gap:14px}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.mini{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px 16px}
+.mini h4{margin:0 0 6px;font-size:.9rem;color:var(--accent)}
+.mini p{font-size:.9rem;margin:0;color:var(--muted)}
+
+.lo-list{list-style:none;padding:0;margin:0;counter-reset:lo}
+.lo-list li{counter-increment:lo;position:relative;padding:16px 18px 16px 60px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem}
+.lo-list li::before{content:counter(lo,decimal-leading-zero);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--accent);background:var(--accent-soft);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+.lo-list li b{color:var(--accent);font-weight:700}
+
+.tbl-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.89rem;min-width:520px}
+th,td{padding:12px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+th{background:var(--surface-2);font-weight:650;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface-2)}
+td:first-child{font-weight:600}
+
+.btn-complete{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:10px 18px;border-radius:99px;border:1px solid var(--border-strong);background:var(--surface);color:var(--muted);cursor:pointer;font-size:.83rem;font-family:var(--sans);font-weight:600;transition:all .18s}
+.btn-complete:hover{border-color:var(--accent);color:var(--accent)}
+.btn-complete.is-done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+
+.quiz-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:22px}
+.score-box{display:flex;align-items:baseline;gap:6px;font-family:var(--serif)}
+.score-box .big{font-size:1.7rem;font-weight:700;color:var(--accent);line-height:1}
+.score-box .small{font-size:.85rem;color:var(--muted)}
+.score-bar{flex:1;min-width:140px;height:7px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.score-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));border-radius:99px;transition:width .4s}
+.btn{padding:9px 17px;border-radius:99px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:.82rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .16s}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+
+.q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:19px 21px;margin-bottom:15px;box-shadow:var(--shadow)}
+.q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.q-num{flex:0 0 28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.q-text{font-weight:600;font-size:.98rem;line-height:1.5;margin:0}
+.q-type{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-top:4px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:.92rem;transition:all .14s;background:var(--surface)}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt input{margin:3px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--err);background:var(--err-soft)}
+.opt.locked{cursor:default;pointer-events:none}
+.tf-row{display:flex;gap:10px;flex-wrap:wrap}
+.tf-btn{flex:1;min-width:130px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.92rem;font-weight:600;cursor:pointer;transition:all .14s}
+.tf-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tf-btn.correct{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.tf-btn.wrong{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.tf-btn.locked{pointer-events:none}
+.match-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin-bottom:9px}
+@media(max-width:600px){.match-row{grid-template-columns:1fr;gap:5px}}
+.match-row .left{font-size:.9rem;font-weight:600;padding:9px 12px;background:var(--surface-2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.match-row select{width:100%;padding:9px 11px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.88rem;cursor:pointer}
+.match-row select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.match-row.ok select{border-color:var(--ok);background:var(--ok-soft)}
+.match-row.no select{border-color:var(--err);background:var(--err-soft)}
+.order-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;counter-reset:ord}
+.order-list li{counter-increment:ord;display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-size:.9rem}
+.order-list li::before{content:counter(ord);flex:0 0 24px;height:24px;border-radius:6px;background:var(--surface-3);display:grid;place-items:center;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--muted)}
+.order-list li span{flex:1}
+.order-list li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.order-list li.no{border-color:var(--err);background:var(--err-soft)}
+.ord-btns{display:flex;gap:4px}
+.ord-btns button{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;font-size:.75rem;display:grid;place-items:center;transition:all .14s}
+.ord-btns button:hover{border-color:var(--accent);color:var(--accent)}
+.q-actions{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fb{margin-top:13px;padding:13px 15px;border-radius:var(--radius-sm);font-size:.89rem;line-height:1.6;display:none;border-left:3px solid var(--ok);background:var(--ok-soft)}
+.fb.show{display:block}
+.fb.bad{border-left-color:var(--err);background:var(--err-soft)}
+.fb b{display:block;margin-bottom:4px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+
+.anim-stage{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;overflow:hidden}
+.anim-stage svg{width:100%;height:auto;display:block}
+.anim-controls{display:flex;align-items:center;gap:12px;margin-top:13px;flex-wrap:wrap}
+.anim-controls button{padding:8px 15px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.8rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.anim-controls button:hover{border-color:var(--accent);color:var(--accent)}
+.anim-controls button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.speed{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--muted);margin-left:auto}
+.speed input{width:110px;accent-color:var(--accent)}
+.speed b{font-family:var(--mono);color:var(--text);font-size:.78rem;min-width:34px}
+.anim-cap{margin-top:13px;padding:13px 16px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);font-size:.9rem;min-height:64px}
+.anim-cap b{color:var(--accent);display:block;margin-bottom:3px;font-family:var(--serif);font-size:1rem}
+
+.sim-grid{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.sim-grid{grid-template-columns:1fr}}
+.slider-row{margin-bottom:16px}
+.slider-row label{display:flex;justify-content:space-between;font-size:.83rem;font-weight:600;margin-bottom:6px;gap:10px}
+.slider-row label span{font-family:var(--mono);color:var(--accent);font-size:.8rem}
+.slider-row input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
+.slider-row small{display:block;font-size:.75rem;color:var(--muted);margin-top:3px;line-height:1.45}
+.presets{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.presets button{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font-size:.75rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.presets button:hover{border-color:var(--accent);color:var(--accent)}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:11px;margin-bottom:18px}
+.readout{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px}
+.readout .k{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-bottom:5px}
+.readout .v{font-family:var(--serif);font-size:1.5rem;font-weight:700;line-height:1;color:var(--accent)}
+.readout .v small{font-size:.75rem;color:var(--muted);font-weight:400;font-family:var(--sans)}
+.verdict{padding:13px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface-2);font-size:.9rem;margin-bottom:16px}
+.verdict b{font-family:var(--serif);font-size:1.02rem;display:block;margin-bottom:3px;color:var(--accent)}
+.rubric{display:flex;flex-direction:column;gap:5px;margin-top:14px;max-height:340px;overflow-y:auto;padding-right:6px}
+.rubric-item{display:grid;grid-template-columns:1fr 104px;gap:10px;align-items:center;font-size:.83rem;padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px}
+.rubric-item .lbl{color:var(--text)}
+.rubric-item .lbl small{display:block;color:var(--muted);font-size:.73rem;margin-top:1px}
+.rubric-item select{padding:5px 7px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-family:var(--sans);font-size:.78rem;cursor:pointer}
+.rubric-item.s0 select{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.rubric-item.s1 select{border-color:var(--accent-2);background:var(--accent-2-soft);color:var(--accent-2)}
+.rubric-item.s2 select{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+canvas#simChart{width:100%;height:220px;display:block;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm)}
+
+.breakdown{display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.bd-row{display:grid;grid-template-columns:170px 1fr 54px;gap:12px;align-items:center;font-size:.86rem}
+@media(max-width:520px){.bd-row{grid-template-columns:120px 1fr 44px;font-size:.8rem}}
+.bd-row .track{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.bd-row .track i{display:block;height:100%;width:0;border-radius:99px;transition:width .5s;background:var(--accent)}
+.bd-row .num{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-align:right}
+.bd-row.low .track i{background:var(--err)}
+.bd-row.mid .track i{background:var(--accent-2)}
+.bd-row.high .track i{background:var(--ok)}
+
+.template{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin:14px 0;font-size:.88rem;line-height:1.75}
+.template p{margin:0 0 12px}
+.template p:last-child{margin-bottom:0}
+.template .slot{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:600;font-family:var(--mono);font-size:.82em}
+
+.ref-list{list-style:none;padding:0;margin:0}
+.ref-list li{padding:13px 0 13px 26px;border-bottom:1px solid var(--border);font-size:.88rem;position:relative;line-height:1.6}
+.ref-list li::before{content:'';position:absolute;left:6px;top:20px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li em{color:var(--muted);font-style:normal}
+.route{counter-reset:r;list-style:none;padding:0;margin:16px 0 0}
+.route li{counter-increment:r;position:relative;padding:15px 18px 15px 58px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.91rem}
+.route li::before{content:counter(r);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.route li b{display:block;font-family:var(--serif);font-size:1rem;margin-bottom:2px}
+footer{margin-top:70px;padding:28px 0 0;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir índice">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <span class="brand-mark">RN</span>
+    <div>
+      <strong>Revisión narrativa</strong>
+      <small>Guía de estudio</small>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-head"><span>Progreso</span><span id="progLabel">0 / 9</span></div>
+    <div class="progress-bar"><i id="progFill"></i></div>
+  </div>
+  <nav class="nav" id="nav">
+    <a href="#s1" data-sec="s1"><span>01</span> Portada y mapa</a>
+    <a href="#s2" data-sec="s2"><span>02</span> Resultados de aprendizaje</a>
+    <a href="#s3" data-sec="s3"><span>03</span> Conceptualización</a>
+    <a href="#s4" data-sec="s4"><span>04</span> Ejemplos concretos</a>
+    <a href="#s5" data-sec="s5"><span>05</span> Preguntas</a>
+    <a href="#s6" data-sec="s6"><span>06</span> Animaciones</a>
+    <a href="#s7" data-sec="s7"><span>07</span> Simulación</a>
+    <a href="#s8" data-sec="s8"><span>08</span> Autoevaluación</a>
+    <a href="#s9" data-sec="s9"><span>09</span> Referencias y ruta</a>
+  </nav>
+  <button class="theme-toggle" id="themeBtn">◐ Cambiar a modo oscuro</button>
+</aside>
+
+<main>
+
+<!-- ==================== S1 ==================== -->
+<section id="s1">
+<div class="wrap">
+  <div class="cover">
+    <span class="cover-tag"><i></i> Material de estudio autónomo · Nivel avanzado</span>
+    <h1>La revisión narrativa</h1>
+    <p class="cover-lead">
+      Una revisión narrativa no es «leer varios artículos y resumirlos». Es un trabajo académico de búsqueda,
+      selección, organización, interpretación crítica y síntesis argumentativa. Este material te acompaña por
+      todo el proceso: qué es exactamente, en qué se diferencia de una revisión sistemática, cómo se escribe
+      su sección metodológica, y —lo más importante— cómo se pasa de leer 40 documentos a producir una
+      síntesis que no estaba en ninguno de ellos.
+    </p>
+
+    <div class="author-card">
+      <div class="author-avatar">JC</div>
+      <div>
+        <div class="who">Elaborado por</div>
+        <div class="name">Juan Carlos Valderrama Cárdenas</div>
+        <div class="role">Guía interactiva de estudio autónomo</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Cómo usar esta guía</h2>
+  <p>
+    Hay una idea que recorre todo el material y conviene ponerla por delante: <strong>buscar no es analizar.
+    Seleccionar no es sintetizar. Resumir no es revisar.</strong> Casi todo lo que necesitas aprender sobre
+    metodología de revisión narrativa se reduce a entender por qué esas tres distinciones no son matices
+    retóricos, sino la diferencia entre una lista de estudios y un trabajo académico.
+  </p>
+  <p>
+    La guía está organizada como una secuencia: primero el mapa conceptual, después los resultados de
+    aprendizaje que orientan el estudio, luego el desarrollo teórico, los ejemplos, las preguntas de
+    comprobación, las animaciones, el simulador de auditoría, la autoevaluación final y una ruta de lectura
+    para seguir profundizando. No es un texto para leer de corrido: abre el mapa, elige una rama, sigue los
+    conceptos, y vuelve al mapa para ver cómo se conecta lo que acabas de estudiar con el resto.
+  </p>
+
+  <div class="callout">
+    <span class="ct">La regla que organiza todo el tema</span>
+    <p>
+      Una buena revisión narrativa no intenta demostrar que encontró absolutamente todo lo publicado. Debe
+      demostrar que buscó de manera razonada, seleccionó con criterios comprensibles, examinó críticamente la
+      literatura y <strong>puede explicar cómo pasó de los documentos individuales a una síntesis
+      académica</strong>. La flexibilidad metodológica no exime de la transparencia metodológica.
+    </p>
+  </div>
+
+  <h2>Mapa conceptual interactivo</h2>
+  <p>
+    Arrastra para desplazarte, usa la rueda del ratón o los botones para ampliar. Cada nodo es clicable y te
+    lleva a la sección correspondiente. Úsalo como índice visual cada vez que pierdas el hilo.
+  </p>
+
+  <div class="map-shell">
+    <div class="map-toolbar">
+      <button class="map-btn" id="zoomIn" title="Ampliar">+</button>
+      <button class="map-btn" id="zoomOut" title="Reducir">−</button>
+      <button class="map-btn" id="zoomReset" title="Restablecer">⤢</button>
+      <span class="hint">Arrastra para mover · rueda para ampliar · clic en un nodo para navegar</span>
+    </div>
+    <div class="map-viewport" id="mapViewport">
+      <svg viewBox="0 0 1000 640" id="mapSvg">
+        <defs>
+          <linearGradient id="gCenter" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-2)"/>
+          </linearGradient>
+        </defs>
+        <g id="mapView">
+          <g stroke="var(--border-strong)" stroke-width="1.6" fill="none" opacity=".85">
+            <path d="M500 320 L150 98"/>
+            <path d="M500 320 L850 98"/>
+            <path d="M500 320 L130 320"/>
+            <path d="M500 320 L870 320"/>
+            <path d="M500 320 L150 542"/>
+            <path d="M500 320 L850 542"/>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="390" y="278" width="220" height="84" rx="16" fill="url(#gCenter)"/>
+            <text x="500" y="314" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="18" font-weight="600">Revisión</text>
+            <text x="500" y="338" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="18" font-weight="600">narrativa</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="40" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Qué es</text>
+            <text x="60" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Resumen vs. síntesis</text>
+            <text x="60" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">Síntesis argumentativa</text>
+            <text x="60" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Organización conceptual</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="740" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Narrativa vs. sistemática</text>
+            <text x="760" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Flexibilidad</text>
+            <text x="760" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">Transparencia</text>
+            <text x="760" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">SANRA</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="20" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="40" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Cadena</text>
+            <text x="40" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Propósito → Búsqueda</text>
+            <text x="40" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">Selección → Corpus</text>
+            <text x="40" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Análisis → Categorías → Síntesis</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="760" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="780" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Criterios</text>
+            <text x="780" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Inclusión · Exclusión</text>
+            <text x="780" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">Pertinencia conceptual</text>
+            <text x="780" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Seminales</text>
+          </g>
+
+          <g class="mnode" data-goto="s7">
+            <rect x="40" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Análisis</text>
+            <text x="60" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">Matriz · Comparación</text>
+            <text x="60" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">Convergencias · Divergencias</text>
+            <text x="60" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">Vacíos · Explicaciones</text>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="740" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Rúbrica</text>
+            <text x="760" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">10 preguntas</text>
+            <text x="760" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">3 bloques</text>
+            <text x="760" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">0-1-2 · Máx. 20</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <button class="btn-complete" data-sec="s1">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S2 ==================== -->
+<section id="s2">
+<div class="wrap">
+  <span class="sec-kicker">02 · Hoja de ruta</span>
+  <h2>Resultados de aprendizaje</h2>
+  <p>
+    Al terminar de trabajar con esta guía deberías ser capaz de realizar las siguientes cinco acciones.
+    Fíjate en los verbos: no dicen «conocer» ni «recordar». Son operaciones que puedes ejecutar frente a un
+    texto, un borrador propio o el trabajo de un compañero.
+  </p>
+
+  <ol class="lo-list">
+    <li>
+      <b>Distinguir y analizar</b> la diferencia entre resumir literatura y construir una síntesis
+      argumentativa, y diferenciar con precisión una revisión narrativa de una revisión sistemática sin caer
+      en la falsa dicotomía «rigurosa vs. libre».
+    </li>
+    <li>
+      <b>Evaluar</b> la calidad metodológica de una revisión narrativa —propia o ajena— aplicando los seis
+      criterios de SANRA y una rúbrica de diez preguntas organizada en torno a cuatro bloques: diseño,
+      búsqueda, selección y análisis.
+    </li>
+    <li>
+      <b>Diseñar</b> una metodología de revisión narrativa que haga reconstruible la cadena completa de
+      decisiones: propósito, búsqueda, criterios de selección, conformación del corpus y análisis.
+    </li>
+    <li>
+      <b>Justificar</b> metodológicamente decisiones que suelen quedar implícitas: la inclusión de documentos
+      seminales fuera del período, la elección de las bases de datos, y el origen —deductivo, inductivo o
+      mixto— de las categorías de análisis.
+    </li>
+    <li>
+      <b>Diseñar y aplicar</b> una matriz de análisis que registre objetivos, diseños, poblaciones, conceptos,
+      resultados y limitaciones de cada documento, y explicar cómo esa matriz conduce a la síntesis mediante
+      la identificación de convergencias, divergencias y vacíos.
+    </li>
+  </ol>
+
+  <div class="callout warn">
+    <span class="ct">Los dos que marcan la diferencia</span>
+    <p>
+      El resultado 3 y el resultado 4. Cualquiera puede decir «hice una revisión narrativa»; muy pocos pueden
+      explicar cómo pasaron de 127 registros a 41 documentos y luego a cuatro categorías sin inventarlas
+      después de leer los resultados. Si dominas esos dos, el resto viene solo.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s2">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S3 ==================== -->
+<section id="s3">
+<div class="wrap">
+  <span class="sec-kicker">03 · Núcleo teórico</span>
+  <h2>Conceptualización de nivel avanzado</h2>
+
+  <h3>3.1. Qué es una revisión narrativa</h3>
+  <p>
+    Una revisión narrativa de literatura es una modalidad de producción académica cuyo propósito es
+    <strong>examinar, organizar, interpretar y sintetizar críticamente el conocimiento existente</strong>
+    alrededor de un problema, fenómeno, concepto o campo de investigación. Su producto no es una lista de
+    estudios. Es una síntesis argumentativa.
+  </p>
+  <p>La diferencia se ve mejor con un contraste. Esto es solamente resumen:</p>
+  <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+    <p>Rodríguez (2020) encontró una relación entre uso de redes sociales y ansiedad. Pérez (2021) encontró
+    resultados similares. Martínez (2023) analizó adolescentes y encontró mayores niveles de ansiedad entre
+    quienes utilizaban redes sociales durante más tiempo.</p>
+  </div>
+  <p>Tres estudios puestos uno detrás de otro. Ahora esto, que empieza a ser revisión:</p>
+  <div class="template" style="border-left:3px solid var(--ok);background:var(--ok-soft)">
+    <p>La literatura disponible muestra una asociación relativamente consistente entre uso intensivo de redes
+    sociales y síntomas de ansiedad. Sin embargo, esta relación parece depender de la forma de
+    operacionalización del uso: mientras algunos estudios utilizan tiempo de exposición, otros consideran uso
+    problemático, comparación social o interacción pasiva. Esta heterogeneidad conceptual dificulta determinar
+    si el tiempo de exposición constituye por sí mismo el mecanismo relevante.</p>
+  </div>
+  <p>
+    La literatura está siendo comparada, organizada e interpretada. Eso es el corazón de una revisión narrativa.
+  </p>
+
+  <h3>3.2. Qué tiene de «narrativa»</h3>
+  <p>
+    El término confunde. «Narrativa» no significa escribir libremente sobre el tema, ni expresar la opinión
+    del autor. Se denomina así porque <strong>el investigador construye una síntesis argumentativa del estado
+    del conocimiento</strong>, organizando la literatura según categorías conceptuales, debates, perspectivas
+    teóricas, transformaciones históricas, resultados o problemas.
+  </p>
+  <p>
+    Una revisión narrativa sobre uso de inteligencia artificial generativa en investigación cualitativa podría
+    organizarse, por ejemplo, alrededor de cuatro núcleos:
+  </p>
+  <div class="grid two" style="margin:16px 0">
+    <div class="mini"><h4>Núcleo 1</h4><p>IAGen como apoyo para la búsqueda y organización documental.</p></div>
+    <div class="mini"><h4>Núcleo 2</h4><p>IAGen en codificación y análisis cualitativo.</p></div>
+    <div class="mini"><h4>Núcleo 3</h4><p>Problemas epistemológicos asociados a la interpretación automatizada.</p></div>
+    <div class="mini"><h4>Núcleo 4</h4><p>Problemas éticos: privacidad, transparencia, sesgo y autoría.</p></div>
+  </div>
+  <p>
+    Esa estructura no viene dada por los artículos. Surge del trabajo analítico de quien revisa.
+  </p>
+
+  <h3>3.3. Cuadro comparativo I · Revisión narrativa frente a revisión sistemática</h3>
+  <p>
+    Esta distinción es pedagógicamente fundamental. Exigirle a una revisión narrativa que «se comporte como
+    una revisión sistemática pequeña» es un error, pero afirmar «como es narrativa no necesita explicar cómo
+    buscó» es igualmente problemático.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Aspecto</th><th>Revisión narrativa</th><th>Revisión sistemática</th></tr></thead>
+      <tbody>
+        <tr><td>Pregunta</td><td>Puede ser amplia, conceptual o interpretativa</td><td>Normalmente muy delimitada</td></tr>
+        <tr><td>Búsqueda</td><td>Estructurada, pero admite flexibilidad</td><td>Altamente protocolizada</td></tr>
+        <tr><td>Bases de datos</td><td>Seleccionadas según el propósito</td><td>Exhaustividad planificada</td></tr>
+        <tr><td>Estrategia</td><td>Puede evolucionar durante la revisión</td><td>Definida previamente</td></tr>
+        <tr><td>Selección</td><td>Criterios explícitos pero potencialmente flexibles</td><td>Criterios preestablecidos y sistemáticos</td></tr>
+        <tr><td>Evaluación</td><td>Predomina valoración crítica y conceptual</td><td>Suele utilizar instrumentos formales</td></tr>
+        <tr><td>Síntesis</td><td>Interpretativa, conceptual y argumentativa</td><td>Sistemática; puede incluir metaanálisis</td></tr>
+        <tr><td>Reproducibilidad</td><td>Deseable parcialmente</td><td>Central</td></tr>
+        <tr><td>Resultado</td><td>Comprensión y organización de un campo</td><td>Respuesta sistemática a una pregunta definida</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <span class="ct">La fórmula pedagógica</span>
+    <p>
+      <strong>La revisión narrativa tiene flexibilidad metodológica, pero requiere transparencia
+      metodológica.</strong> SANRA identifica la descripción de la búsqueda de literatura como uno de sus seis
+      criterios y otorga su máxima valoración cuando se presentan detalladamente la búsqueda, los términos y
+      los criterios de inclusión.
+    </p>
+  </div>
+
+  <h3>3.4. ¿Una revisión narrativa tiene metodología?</h3>
+  <p>
+    Sí, y este es probablemente el concepto más importante de todo el tema. Una revisión narrativa tiene un
+    procedimiento metodológico que responde, como mínimo, a cinco preguntas:
+  </p>
+  <div class="grid two" style="margin:16px 0">
+    <div class="mini"><h4>1 · ¿Qué queríamos revisar?</h4><p>Propósito y alcance.</p></div>
+    <div class="mini"><h4>2 · ¿Dónde buscamos?</h4><p>Fuentes de información.</p></div>
+    <div class="mini"><h4>3 · ¿Cómo buscamos?</h4><p>Estrategia de búsqueda.</p></div>
+    <div class="mini"><h4>4 · ¿Cómo decidimos qué utilizar?</h4><p>Criterios de selección.</p></div>
+    <div class="mini"><h4>5 · ¿Qué hicimos con los documentos?</h4><p>Procedimiento de análisis y síntesis.</p></div>
+  </div>
+  <p>
+    Y conviene fijar una distinción clave: <strong>la metodología no describe el tema investigado; describe
+    cómo se construyó la revisión</strong>.
+  </p>
+
+  <h3>3.5. La cadena metodológica</h3>
+  <p>
+    La secuencia de decisiones que convierte un universo amplio de literatura en un corpus determinado y ese
+    corpus en una interpretación sigue este orden:
+  </p>
+  <div class="template" style="font-family:var(--mono);font-size:.86rem;text-align:center;line-height:2">
+    Propósito → Búsqueda → Selección → Organización del corpus → Lectura y análisis → Categorización → Comparación → Síntesis narrativa → Interpretación
+  </div>
+  <p>
+    Puedes ver esta cadena en movimiento en la <a href="#s6">animación 1</a>. Lo importante es notar que
+    cada eslabón es una <em>decisión</em>, no una etapa automática. Y la metodología de la revisión debe
+    poder explicar cada uno.
+  </p>
+
+  <h3>3.6. El error más frecuente en la sección de metodología</h3>
+  <p>Un estudiante escribe:</p>
+  <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+    <p><em>Metodología.</em> Se realizó una revisión narrativa sobre depresión y redes sociales. Se revisaron
+    diferentes investigaciones relacionadas con el tema, buscando información relevante en bases de datos
+    académicas. Posteriormente, se seleccionaron los estudios más importantes y se analizaron sus principales
+    hallazgos.</p>
+  </div>
+  <p>A primera vista parece una metodología. En realidad dice muy poco. No sabemos:</p>
+  <div class="grid three" style="margin:14px 0">
+    <div class="mini"><p style="margin:0;font-size:.85rem">qué buscó · dónde buscó · cuándo buscó</p></div>
+    <div class="mini"><p style="margin:0;font-size:.85rem">con qué términos · qué años cubrió</p></div>
+    <div class="mini"><p style="margin:0;font-size:.85rem">qué consideró «relevante»</p></div>
+    <div class="mini"><p style="margin:0;font-size:.85rem">qué aceptó · qué excluyó</p></div>
+    <div class="mini"><p style="margin:0;font-size:.85rem">cómo analizó los textos</p></div>
+    <div class="mini"><p style="margin:0;font-size:.85rem">cómo construyó las categorías</p></div>
+  </div>
+  <p>
+    La diferencia entre una metodología débil y una sólida está fundamentalmente en la
+    <strong>trazabilidad de las decisiones</strong>.
+  </p>
+
+  <h3>3.7. Cuadro comparativo II · Qué va en metodología y qué va en resultados</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Metodología</th><th>Resultados / Desarrollo</th></tr></thead>
+      <tbody>
+        <tr><td>Pregunta</td><td>¿Cómo obtuve y organicé la evidencia?</td><td>¿Qué encontré al hacerlo?</td></tr>
+        <tr><td>Ejemplo sobre categorías</td><td>«Los hallazgos fueron organizados en tres categorías: factores individuales, familiares y contextuales, construidas mediante comparación transversal de los estudios.»</td><td>«La primera categoría corresponde a factores individuales. Los estudios muestran que…»</td></tr>
+        <tr><td>Sobre la búsqueda</td><td>Bases, términos, operadores, período, idiomas</td><td>No aplica: la búsqueda no es un resultado</td></tr>
+        <tr><td>Sobre los criterios</td><td>Inclusión, exclusión, tratamiento de seminales</td><td>No aplica</td></tr>
+        <tr><td>Riesgo típico</td><td>Confundir metodología con marco teórico</td><td>Confundir resultados con resumen de cada estudio</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout danger">
+    <span class="ct">Error frecuente</span>
+    <p>
+      «Se establecieron cuatro categorías». La pregunta inmediata es: ¿cómo? Ese <em>cómo</em> pertenece a la
+      metodología. Las categorías no deberían aparecer mágicamente en el paso del corpus a la síntesis.
+    </p>
+  </div>
+
+  <h3>3.8. Cuadro comparativo III · Categorías deductivas, inductivas y mixtas</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Tipo</th><th>Origen</th><th>Ejemplo</th><th>Cuándo usarlo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Deductivas</td>
+          <td>Definidas previamente desde un modelo teórico</td>
+          <td>Funciones ejecutivas: memoria de trabajo, control inhibitorio, flexibilidad cognitiva</td>
+          <td>Cuando existe un marco teórico claro que estructura el campo</td>
+        </tr>
+        <tr>
+          <td>Inductivas</td>
+          <td>Emergen durante el examen de la literatura</td>
+          <td>Reiteraciones sobre transparencia, sesgo, privacidad, autoría</td>
+          <td>Cuando el campo es emergente o conceptualmente heterogéneo</td>
+        </tr>
+        <tr>
+          <td>Mixtas</td>
+          <td>Combinación: se parte de categorías teóricas y se permiten emergentes</td>
+          <td>Categorías teóricas de funciones ejecutivas + categorías emergentes sobre contexto familiar</td>
+          <td>Es la estrategia recomendada para revisiones narrativas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.9. Más allá de lo básico: matices, debates abiertos y errores comunes</h3>
+
+  <h4>Debate 1 · La falsa dicotomía «sistemática = rigurosa, narrativa = libre»</h4>
+  <p>
+    Es una mala manera de entenderlas. Más apropiadamente: la revisión sistemática maximiza sistematicidad,
+    exhaustividad, reproducibilidad y control explícito; la revisión narrativa privilegia integración
+    conceptual, interpretación, construcción argumentativa y flexibilidad analítica. Pero una revisión
+    narrativa académicamente sólida sigue necesitando claridad, justificación, transparencia y razonamiento
+    científico. SANRA fue desarrollada precisamente porque las revisiones narrativas son frecuentes pero su
+    calidad metodológica varía considerablemente.
+  </p>
+
+  <h4>Debate 2 · ¿Hasta dónde es exigible la ecuación de búsqueda?</h4>
+  <p>
+    Aquí conviene evitar convertir artificialmente la revisión narrativa en una revisión sistemática. No
+    necesariamente hace falta presentar complejas ecuaciones reproducibles para cada base. Pero sí es
+    recomendable informar suficientemente: conceptos buscados, términos principales, combinaciones
+    utilizadas, bases consultadas, idiomas y período temporal. Esto fortalece la transparencia y responde
+    directamente al criterio 3 de SANRA.
+  </p>
+
+  <h4>Debate 3 · La pertinencia conceptual frente a los filtros bibliométricos</h4>
+  <p>
+    Una revisión narrativa sobre mente extendida con delimitación temporal 2015-2026 dejaría fuera precisamente
+    a Clark y Chalmers (1998). Eso sería metodológicamente absurdo. La solución no es abandonar el límite
+    temporal, sino justificar explícitamente su excepción:
+  </p>
+  <div class="template" style="border-left:3px solid var(--accent);background:var(--accent-soft)">
+    <p>Aunque la búsqueda priorizó publicaciones correspondientes al período 2015-2026, se incorporaron
+    adicionalmente trabajos seminales anteriores que resultaban necesarios para reconstruir los antecedentes
+    conceptuales de las perspectivas analizadas.</p>
+  </div>
+  <p>Un solo párrafo puede mejorar considerablemente una metodología.</p>
+
+  <div class="callout danger">
+    <span class="ct">Tres errores que conviene evitar</span>
+    <p>
+      <strong>1.</strong> Enumerar bases de datos sin justificar por qué se eligieron. «Busqué en Scopus y
+      WoS» no es una decisión metodológica: es una lista.<br>
+      <strong>2.</strong> Inventar criterios después de revisar los resultados para justificar los artículos
+      que terminaron gustando. Los criterios deben poder reconstruirse como decisiones previas o
+      justificadas.<br>
+      <strong>3.</strong> Omitir el nivel 3 —el análisis— y saltar directamente de la búsqueda a las
+      categorías. Es el error más frecuente y el más grave, porque es donde está el trabajo intelectual.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s3">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S4 ==================== -->
+<section id="s4">
+<div class="wrap">
+  <span class="sec-kicker">04 · Del concepto al caso</span>
+  <h2>Ejemplos concretos, analizados paso a paso</h2>
+  <p>
+    Tres casos que ilustran el método y uno que lo limita desde dentro. El cuarto —el párrafo que parece
+    metodología pero no lo es— es probablemente el más útil para tus propios borradores.
+  </p>
+
+  <h3>Ejemplo 1 · Metodología completa de una revisión narrativa sobre IAGen en investigación cualitativa</h3>
+  <div class="card">
+    <p><strong>Contexto.</strong> Tema: «Uso de inteligencia artificial generativa en investigación
+    cualitativa: posibilidades, desafíos metodológicos y problemas éticos».</p>
+    <p><strong>Metodología escrita paso a paso:</strong></p>
+    <div class="template">
+      <p>Se realizó una revisión narrativa de literatura orientada a examinar los principales usos de la
+      inteligencia artificial generativa en diferentes fases de la investigación cualitativa, así como las
+      discusiones metodológicas y éticas derivadas de su incorporación. Se seleccionó una aproximación
+      narrativa debido al carácter emergente y conceptualmente heterogéneo del campo y al interés por integrar
+      trabajos metodológicos, investigaciones empíricas y discusiones teóricas.</p>
+
+      <p>La búsqueda documental se realizó en Scopus, Web of Science y Google Scholar, utilizando combinaciones
+      de términos en inglés y español relacionados con <em>generative artificial intelligence</em>,
+      <em>large language models</em>, <em>ChatGPT</em>, <em>qualitative research</em>,
+      <em>qualitative analysis</em>, <em>coding</em> y <em>thematic analysis</em>. Se priorizaron
+      publicaciones comprendidas entre 2022 y 2026 debido a la expansión reciente de las aplicaciones de
+      inteligencia artificial generativa basadas en modelos de lenguaje.</p>
+
+      <p>Se incluyeron artículos académicos y trabajos metodológicos que abordaran explícitamente la
+      utilización de herramientas de inteligencia artificial generativa en alguna etapa de la investigación
+      cualitativa o que discutieran sus implicaciones epistemológicas, metodológicas o éticas. Se excluyeron
+      publicaciones centradas exclusivamente en aprendizaje automático tradicional, análisis cuantitativo
+      automatizado o aplicaciones educativas que no establecieran relación con los procesos de investigación
+      cualitativa.</p>
+
+      <p>Los documentos seleccionados fueron organizados mediante una matriz de análisis que registró
+      características bibliográficas, propósito del trabajo, aplicación de la inteligencia artificial, etapa
+      del proceso investigativo involucrada, ventajas identificadas, limitaciones, riesgos metodológicos y
+      consideraciones éticas. Posteriormente se realizó una comparación transversal orientada a identificar
+      convergencias, divergencias y problemas recurrentes. Este proceso permitió organizar la síntesis
+      narrativa alrededor de cuatro categorías: apoyo a la organización y exploración del corpus, utilización
+      de IA generativa durante la codificación y el análisis, implicaciones epistemológicas de la
+      interpretación asistida y desafíos relacionados con transparencia, privacidad y autoría.</p>
+    </div>
+    <p><strong>Cadena lógica reconstruida:</strong></p>
+    <div class="template" style="font-family:var(--mono);font-size:.84rem;line-height:2;text-align:center">
+      qué hice → por qué → dónde busqué → cómo busqué → qué acepté → qué descarté → cómo analicé → cómo construí los resultados
+    </div>
+    <p style="color:var(--muted);font-size:.87rem;margin-bottom:0"><em>Por qué funciona:</em> cada decisión es
+    explícita y encadenada. No hay saltos ni «aparecen cuatro categorías».</p>
+  </div>
+
+  <h3>Ejemplo 2 · Del resumen a la síntesis: el mismo tema en dos párrafos</h3>
+  <div class="card">
+    <p><strong>Contexto.</strong> Tema: uso de redes sociales y ansiedad en adolescentes.</p>
+    <p><strong>Párrafo A · Resumen (lo que no se debe hacer):</strong></p>
+    <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+      <p>Rodríguez (2020) encontró una relación entre uso de redes sociales y ansiedad. Pérez (2021) encontró
+      resultados similares. Martínez (2023) analizó adolescentes y encontró mayores niveles de ansiedad entre
+      quienes utilizaban redes sociales durante más tiempo.</p>
+    </div>
+    <p><strong>Párrafo B · Comienzo de una revisión:</strong></p>
+    <div class="template" style="border-left:3px solid var(--ok);background:var(--ok-soft)">
+      <p>La literatura disponible muestra una asociación relativamente consistente entre uso intensivo de redes
+      sociales y síntomas de ansiedad. Sin embargo, esta relación parece depender de la forma de
+      operacionalización del uso: mientras algunos estudios utilizan tiempo de exposición, otros consideran uso
+      problemático, comparación social o interacción pasiva. Esta heterogeneidad conceptual dificulta
+      determinar si el tiempo de exposición constituye por sí mismo el mecanismo relevante.</p>
+    </div>
+    <p><strong>Análisis de la diferencia paso a paso:</strong></p>
+    <p><strong>(a) Operación cognitiva.</strong> El párrafo A aplica la operación <em>yuxtaponer</em>. El
+    párrafo B aplica <em>comparar, agrupar y problematizar</em>. Son operaciones distintas, no niveles de
+    detalle.</p>
+    <p><strong>(b) Presencia del autor.</strong> En A el autor está ausente: los estudios hablan. En B el
+    autor interpreta: la literatura muestra, sin embargo, parece depender.</p>
+    <p><strong>(c) Qué aporta cada uno al conocimiento del campo.</strong> El párrafo A no aporta nada que no
+    estuviera en los tres artículos originales. El párrafo B aporta una observación que ningún estudio
+    individual formula: que la heterogeneidad de operacionalización dificulta identificar el mecanismo.</p>
+    <p><strong>(d) Consecuencia práctica.</strong> Si el lector lee el párrafo A, debe hacer él mismo el trabajo
+    de comparación. Si lee el B, recibe el trabajo ya hecho. Una revisión narrativa se escribe para hacer el
+    segundo.</p>
+    <p style="color:var(--muted);font-size:.87rem;margin-bottom:0"><em>Regla operativa:</em> si puedes reemplazar
+    el párrafo por los abstracts concatenados sin perder información, no es una revisión. Es un resumen.</p>
+  </div>
+
+  <h3>Ejemplo 3 · La rúbrica de 10 preguntas aplicada a una metodología real</h3>
+  <div class="card">
+    <p><strong>Contexto.</strong> Coevaluar la sección metodológica de una revisión narrativa sobre «Uso
+    problemático de pantallas y funciones ejecutivas en primera infancia».</p>
+    <p><strong>La rúbrica:</strong></p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Bloque</th><th>Pregunta</th><th>Puntaje</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2">Diseño</td><td>1. ¿Identifica el trabajo como revisión narrativa?</td><td>0–2</td></tr>
+          <tr><td>2. ¿Explica por qué este tipo de revisión resulta apropiado?</td><td>0–2</td></tr>
+          <tr><td rowspan="3">Búsqueda</td><td>3. ¿Indica dónde buscó?</td><td>0–2</td></tr>
+          <tr><td>4. ¿Describe términos o conceptos utilizados?</td><td>0–2</td></tr>
+          <tr><td>5. ¿Explica delimitaciones temporales o lingüísticas?</td><td>0–2</td></tr>
+          <tr><td rowspan="2">Selección</td><td>6. ¿Presenta criterios de inclusión?</td><td>0–2</td></tr>
+          <tr><td>7. ¿Presenta criterios de exclusión?</td><td>0–2</td></tr>
+          <tr><td rowspan="3">Análisis</td><td>8. ¿Explica cómo organizó la información?</td><td>0–2</td></tr>
+          <tr><td>9. ¿Explica cómo comparó o analizó los documentos?</td><td>0–2</td></tr>
+          <tr><td>10. ¿Explica cómo surgieron las categorías utilizadas?</td><td>0–2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px">
+      Escala: <strong>0 = ausente · 1 = mencionado pero insuficiente · 2 = suficientemente descrito</strong>.
+      Puntaje máximo: 20 puntos. No es una escala metodológica validada, sino una rúbrica didáctica. Para
+      evaluación formal de la calidad de artículos narrativos puede utilizarse <strong>SANRA</strong>, que
+      contempla seis dimensiones y puntúa cada una de 0 a 2, para un máximo de 12 puntos.
+    </p>
+    <p><strong>Aplicación.</strong> Coevaluemos la metodología del ejemplo 1 (IAGen).</p>
+    <div class="grid two" style="margin:14px 0">
+      <div class="mini"><h4>Diseño</h4><p>Pregunta 1: 2 (identifica explícitamente). Pregunta 2: 2 (justifica por carácter emergente y heterogéneo del campo). Subtotal: 4/4.</p></div>
+      <div class="mini"><h4>Búsqueda</h4><p>Pregunta 3: 2 (Scopus, WoS, Google Scholar). Pregunta 4: 2 (términos en inglés y español listados). Pregunta 5: 2 (2022-2026, ambos idiomas). Subtotal: 6/6.</p></div>
+      <div class="mini"><h4>Selección</h4><p>Pregunta 6: 2 (inclusión explícita). Pregunta 7: 2 (exclusión explícita). Subtotal: 4/4.</p></div>
+      <div class="mini"><h4>Análisis</h4><p>Pregunta 8: 2 (matriz detallada). Pregunta 9: 2 (comparación transversal explícita). Pregunta 10: 2 (cuatro categorías con origen). Subtotal: 6/6.</p></div>
+    </div>
+    <p style="margin-bottom:0">
+      <strong>Total: 20/20.</strong> La metodología del ejemplo 1 es modélica según esta rúbrica. Si la
+      aplicáramos al párrafo-resumen del ejemplo de «depresión y redes sociales», obtendríamos aproximadamente
+      3 o 4 puntos sobre 20, y podríamos señalar específicamente dónde están los vacíos.
+    </p>
+  </div>
+
+  <h3>Contraejemplo · El párrafo que parece metodología pero no lo es</h3>
+  <div class="card" style="border-left:4px solid var(--err)">
+    <p><strong>Contexto.</strong> Una sección de metodología que a primera vista luce aceptable.</p>
+    <div class="template" style="border-left:3px solid var(--err);background:var(--err-soft)">
+      <p><em>Metodología.</em> Se realizó una revisión narrativa sobre depresión y redes sociales. Se revisaron
+      diferentes investigaciones relacionadas con el tema, buscando información relevante en bases de datos
+      académicas. Posteriormente, se seleccionaron los estudios más importantes y se analizaron sus principales
+      hallazgos.</p>
+    </div>
+    <p><strong>Por qué no es una metodología (aunque lo parezca).</strong></p>
+    <p>
+      <strong>(a) Usa el vocabulario correcto sin las decisiones.</strong> Dice «revisión narrativa», «bases de
+      datos académicas», «estudios más importantes», «principales hallazgos». Todas esas expresiones son
+      correctas. Ninguna es una decisión reconstruible.
+    </p>
+    <p>
+      <strong>(b) Oculto tras el lenguaje técnico.</strong> «Bases de datos académicas» no identifica ninguna.
+      «Estudios más importantes» no dice según qué criterio. «Analizaron sus principales hallazgos» no describe
+      qué operación cognitiva se aplicó a los textos.
+    </p>
+    <p>
+      <strong>(c) Saltos argumentativos.</strong> Hay al menos tres saltos grandes: de la intención a la
+      búsqueda (¿con qué términos?); de la búsqueda a la selección (¿qué criterios?); de la selección al
+      análisis (¿cómo se pasó de leer a sintetizar?).
+    </p>
+    <p>
+      <strong>(d) El criterio diagnóstico.</strong> Aplicar la pregunta: <em>¿podría un lector independiente
+      reconstruir la lógica que llevó de 127 documentos potenciales a las categorías finales?</em> En este
+      caso, no. Y esa imposibilidad es exactamente el criterio que distingue una metodología fuerte de una débil.
+    </p>
+    <p>
+      <strong>(e) Una reescritura mínima.</strong> El mismo contenido puede mejorarse sustancialmente
+      especificando bases, términos, período, criterios de inclusión y exclusión, y al menos una frase sobre
+      cómo se organizó el análisis. No hace falta convertirlo en una revisión sistemática: hace falta hacer
+      visibles las decisiones.
+    </p>
+    <p style="color:var(--muted);font-size:.87rem;margin-bottom:0"><strong>Lección metodológica:</strong>
+    una metodología no se juzga por el vocabulario que usa, sino por las decisiones que hace reconstruibles.
+    El lenguaje técnico puede ocultar la ausencia de método.</p>
+  </div>
+
+  <h3>Caso límite · La plantilla que se copia sin pensar</h3>
+  <p>
+    Existe una plantilla que puede servir como punto de partida para escribir una metodología:
+  </p>
+  <div class="template">
+    <p>Se realizó una revisión narrativa de literatura cuyo propósito fue <span class="slot">__________</span>.
+    Se seleccionó este tipo de revisión debido a <span class="slot">__________</span>.</p>
+    <p>La búsqueda de literatura se realizó en <span class="slot">__________</span>, durante
+    <span class="slot">__________</span>. Se utilizaron términos relacionados con
+    <span class="slot">__________</span>, combinados mediante <span class="slot">__________</span>. La
+    búsqueda comprendió publicaciones correspondientes al período <span class="slot">__________</span> y
+    documentos escritos en <span class="slot">__________</span>.</p>
+    <p>Se incluyeron publicaciones que <span class="slot">__________</span>. Se excluyeron trabajos que
+    <span class="slot">__________</span>. Adicionalmente, se incorporaron documentos anteriores al período
+    establecido cuando <span class="slot">__________</span>.</p>
+    <p>Los documentos identificados fueron inicialmente examinados mediante <span class="slot">__________</span>.
+    Posteriormente <span class="slot">__________</span>. Como resultado de este proceso se conformó un corpus
+    de <span class="slot">_____</span> publicaciones.</p>
+    <p>Los documentos seleccionados fueron organizados mediante <span class="slot">__________</span>,
+    registrando información relacionada con <span class="slot">__________</span>. El análisis se orientó a
+    identificar convergencias, divergencias, tendencias y vacíos en la literatura. A partir de este
+    procedimiento se construyeron <span class="slot">_____</span> categorías de análisis:
+    <span class="slot">__________</span>. Estas categorías permitieron estructurar la síntesis narrativa y
+    realizar una interpretación integrada de la literatura examinada.</p>
+  </div>
+  <p>
+    Es una plantilla, no un texto para copiar mecánicamente. Y aquí está el caso límite: una plantilla sin
+    decisiones reales produce un texto que <em>parece</em> una metodología y no lo es. Cumple con la forma
+    pero no con la función. La diferencia entre llenar huecos y tomar decisiones metodológicas es exactamente
+    lo que la rúbrica de 10 preguntas permite detectar: los huecos se llenan con expresiones genéricas
+    («bases de datos académicas»); las decisiones se llenan con nombres, términos, criterios y operaciones
+    específicas.
+  </p>
+
+  <button class="btn-complete" data-sec="s4">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S5 ==================== -->
+<section id="s5">
+<div class="wrap">
+  <span class="sec-kicker">05 · Comprobación</span>
+  <h2>Preguntas cerradas autocorregibles</h2>
+  <p>
+    Trece preguntas de cuatro tipos. Cada una trae retroalimentación explicada: léela aunque aciertes, ahí
+    está la parte formativa.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="qScore">0</span>
+      <span class="small">/ <span id="qTotal">13</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="qFill"></i></div>
+    <button class="btn ghost" id="qRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <button class="btn-complete" data-sec="s5" style="margin-top:10px">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S6 ==================== -->
+<section id="s6">
+<div class="wrap">
+  <span class="sec-kicker">06 · Procesos en movimiento</span>
+  <h2>Animaciones</h2>
+  <p>
+    Dos procesos que el texto estático captura mal: la <em>cadena metodológica de 9 eslabones</em> y el
+    <em>embudo de selección</em> que convierte 127 registros en 41 documentos y luego en cuatro categorías.
+  </p>
+
+  <h3>Animación 1 · La cadena metodológica</h3>
+  <div class="card">
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 360" id="anim1Svg">
+        <g id="a1Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a1Play">▶ Reproducir</button>
+      <button id="a1Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a1Speed">Velocidad</label>
+        <input type="range" id="a1Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a1SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a1Cap"><b>Listo para empezar</b>Pulsa «Reproducir» para recorrer los nueve eslabones de la cadena. Cada uno es una decisión metodológica, no una etapa automática.</div>
+  </div>
+
+  <h3>Animación 2 · El embudo de selección</h3>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin-top:0">
+      Cómo se pasa de 127 registros identificados a 41 documentos en la síntesis, con los criterios aplicados
+      en cada etapa.
+    </p>
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 380" id="anim2Svg">
+        <g id="a2Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a2Play">▶ Reproducir</button>
+      <button id="a2Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a2Speed">Velocidad</label>
+        <input type="range" id="a2Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a2SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a2Cap"><b>Antes de empezar</b>Observa que cada nivel del embudo corresponde a un criterio explícito, no a una impresión de relevancia. La trazabilidad es lo que convierte una selección en una decisión metodológica.</div>
+  </div>
+
+  <button class="btn-complete" data-sec="s6">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S7 ==================== -->
+<section id="s7">
+<div class="wrap">
+  <span class="sec-kicker">07 · Manos a la obra</span>
+  <h2>Simulación interactiva · Auditoría de una metodología</h2>
+  <p>
+    Tienes delante la rúbrica de 10 preguntas. Puntúa cada componente de la metodología que quieras auditar
+    —la tuya, la de un compañero o la de un artículo publicado— y observa cómo cambia la
+    <strong>calidad metodológica global</strong> y qué bloque queda más débil. Los cuatro presets corresponden
+    a patrones que se ven con frecuencia en revisiones narrativas reales.
+  </p>
+
+  <div class="presets">
+    <button data-preset="modelica">Metodología modélica</button>
+    <button data-preset="debil">Metodología débil</button>
+    <button data-preset="tecnica">Lenguaje técnico sin decisiones</button>
+    <button data-preset="sistematica">Narrativa disfrazada de sistemática</button>
+  </div>
+
+  <div class="sim-grid">
+    <div>
+      <div class="rubric" id="rubricList"></div>
+    </div>
+
+    <div>
+      <div class="readouts">
+        <div class="readout"><span class="k">Calidad global</span><span class="v" id="rGlobal">0<small>/20</small></span></div>
+        <div class="readout"><span class="k">Bloque más débil</span><span class="v" id="rDebil" style="font-size:1rem">—</span></div>
+        <div class="readout"><span class="k">Diagnóstico</span><span class="v" id="rDiag" style="font-size:.85rem">—</span></div>
+      </div>
+      <div class="verdict" id="simVerdict"><b>—</b>Puntúa cada componente para ver el diagnóstico.</div>
+      <canvas id="simChart"></canvas>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:10px">
+        Las barras muestran el puntaje por bloque (Diseño, Búsqueda, Selección, Análisis). El máximo por bloque
+        depende del número de preguntas.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:22px">
+    <span class="ct">Guía breve de interpretación</span>
+    <p>
+      <strong>Bloque Diseño bajo:</strong> no se identifica el tipo de revisión o no se justifica su elección.
+      Es un problema de encuadre inicial.<br>
+      <strong>Bloque Búsqueda bajo:</strong> no se indican bases, términos o período. Es el criterio SANRA que
+      más se descuida en la práctica.<br>
+      <strong>Bloque Selección bajo:</strong> no hay criterios de inclusión/exclusión o son vagos. Suele indicar
+      que los criterios se inventaron después de leer los resultados.<br>
+      <strong>Bloque Análisis bajo:</strong> es el más grave. Significa que el paso del corpus a las categorías
+      no es reconstruible. Es donde está el trabajo intelectual y donde más se falla.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s7">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S8 ==================== -->
+<section id="s8">
+<div class="wrap">
+  <span class="sec-kicker">08 · Cierre</span>
+  <h2>Autoevaluación final</h2>
+  <p>
+    Ocho preguntas, una por subtema. Al terminar verás el desglose por área para detectar exactamente qué
+    necesitas repasar.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="fScore">0</span>
+      <span class="small">/ <span id="fTotal">8</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="fFill"></i></div>
+    <button class="btn ghost" id="fRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="finalContainer"></div>
+
+  <h3>Desglose por subtema</h3>
+  <div class="breakdown" id="breakdown"></div>
+
+  <button class="btn-complete" data-sec="s8">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S9 ==================== -->
+<section id="s9">
+<div class="wrap">
+  <span class="sec-kicker">09 · Seguir</span>
+  <h2>Referencias y ruta de profundización</h2>
+  <p>Fuentes en formato APA 7, ordenadas alfabéticamente. Abajo se propone un orden de lectura distinto.</p>
+
+  <ul class="ref-list">
+    <li>Baethge, C., Goldbeck-Wood, S., &amp; Mertens, S. (2019). SANRA: A scale for the quality assessment of narrative review articles. <em>Research Integrity and Peer Review, 4</em>, 5. https://doi.org/10.1186/s41073-019-0064-8</li>
+    <li>Booth, A., Sutton, A., &amp; Papaioannou, D. (2016). <em>Systematic approaches to a successful literature review</em> (2.ª ed.). SAGE.</li>
+    <li>Ferrari, R. (2015). Writing narrative style literature reviews. <em>Medical Writing, 24</em>(4), 230–235. https://doi.org/10.1179/2047480615Z.000000000329</li>
+    <li>Gasparyan, A. Y., Ayvazyan, L., Blackmore, H., &amp; Kitas, G. D. (2011). Writing a narrative biomedical review: Considerations for authors, peer reviewers, and editors. <em>Rheumatology International, 31</em>(11), 1409–1417. https://doi.org/10.1007/s00296-011-1999-3</li>
+    <li>Green, B. N., Johnson, C. D., &amp; Adams, A. (2006). Writing narrative literature reviews for peer-reviewed journals: Secrets of the trade. <em>Journal of Chiropractic Medicine, 5</em>(3), 101–117. https://doi.org/10.1016/S0899-3467(07)60142-6</li>
+    <li>Grant, M. J., &amp; Booth, A. (2009). A typology of reviews: An analysis of 14 review types and associated methodologies. <em>Health Information &amp; Libraries Journal, 26</em>(2), 91–108. https://doi.org/10.1111/j.1471-1842.2009.00848.x</li>
+    <li>Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I., Hoffmann, T. C., Mulrow, C. D., … Moher, D. (2021). The PRISMA 2020 statement: An updated guideline for reporting systematic reviews. <em>BMJ, 372</em>, n71. https://doi.org/10.1136/bmj.n71</li>
+    <li>Snyder, H. (2019). Literature review as a research methodology: An overview and guidelines. <em>Journal of Business Research, 104</em>, 333–339. https://doi.org/10.1016/j.jbusres.2019.07.039</li>
+    <li>Torraco, R. J. (2005). Writing integrative literature reviews: Guidelines and examples. <em>Human Resource Development Review, 4</em>(3), 356–367. https://doi.org/10.1177/1534484305278283</li>
+    <li>Whittemore, R., &amp; Knafl, K. (2005). The integrative review: Updated methodology. <em>Journal of Advanced Nursing, 52</em>(5), 546–553. https://doi.org/10.1111/j.1365-2648.2005.03621.x</li>
+  </ul>
+
+  <h3>¿Y ahora qué estudiar?</h3>
+  <p>
+    La ruta de lectura que se propone a continuación está pensada para acumular profundidad sin saltarse los
+    cimientos. Es una sugerencia de orden, no una camisa de fuerza.
+  </p>
+
+  <ol class="route">
+    <li>
+      <b>Baethge, Goldbeck-Wood y Mertens (2019) — SANRA</b>
+      El artículo que introdujo la escala. Es breve y accesible. Presta atención especialmente al criterio 3
+      (descripción de la búsqueda): es el que más discusiones genera y el que más revisiones narrativas
+      incumplen.
+    </li>
+    <li>
+      <b>Grant y Booth (2009) — Tipología de revisiones</b>
+      El artículo que clarifica que «revisión» no es un género único. Distingue 14 tipos. Es útil para saber
+      exactamente qué modalidad estás escribiendo antes de justificarla en la metodología.
+    </li>
+    <li>
+      <b>Green, Johnson y Adams (2006) — Secretos del oficio</b>
+      Una guía práctica centrada en la escritura de revisiones narrativas para revistas revisadas por pares.
+      Los ejemplos son claros y aplicables.
+    </li>
+    <li>
+      <b>Ferrari (2015) — Writing narrative style literature reviews</b>
+      Un texto breve y bien estructurado sobre cómo se escribe una revisión narrativa. Útil para la fase de
+      redacción posterior a la metodología.
+    </li>
+    <li>
+      <b>Gasparyan et al. (2011) — Consideraciones para autores y revisores</b>
+      Enfoque desde el lado de la revisión por pares. Ayuda a entender qué se espera de una revisión narrativa
+      cuando entra a evaluación.
+    </li>
+    <li>
+      <b>Snyder (2019) — La revisión de literatura como metodología</b>
+      Una reflexión sobre el estatus metodológico de la revisión. Responde directamente a la pregunta
+      «¿tiene metodología una revisión narrativa?» desde una perspectiva organizacional y de gestión del
+      conocimiento.
+    </li>
+    <li>
+      <b>Whittemore y Knafl (2005) — La revisión integrativa</b>
+      Si interesa el territorio intermedio entre narrativa y sistemática, este es el artículo de referencia.
+      La revisión integrativa combina flexibilidad interpretativa con procedimiento explícito.
+    </li>
+    <li>
+      <b>Torraco (2005) — Revisiones integradoras: guías y ejemplos</b>
+      Complementa al anterior con orientación práctica. Útil para ver cómo se aplica la estructura en
+      disciplinas concretas.
+    </li>
+    <li>
+      <b>Page et al. (2021) — PRISMA 2020</b>
+      El estándar para revisiones sistemáticas. No se aplica a la narrativa, pero leerlo ayuda a entender qué
+      se exige cuando sí se aplica. El contraste clarifica las fronteras.
+    </li>
+    <li>
+      <b>Booth, Sutton y Papaioannou (2016) — Manual completo</b>
+      El manual más completo sobre revisión de literatura. Es el texto de referencia para bibliotecas y
+      metodólogos. Requiere tiempo, pero es la inversión más rentable si vas a hacer varias revisiones.
+    </li>
+  </ol>
+
+  <div class="callout">
+    <span class="ct">La idea que conviene conservar</span>
+    <p>
+      <strong>Buscar no es analizar. Seleccionar no es sintetizar. Resumir no es revisar.</strong> El auténtico
+      trabajo intelectual comienza cuando eres capaz de establecer relaciones entre los documentos: compararlos,
+      encontrar contradicciones, explicar diferencias, detectar vacíos y construir categorías interpretativas.
+      La metodología existe para hacer reconstruible ese trabajo.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s9">Marcar como completada</button>
+
+  <footer>
+    <span>Revisión narrativa · Guía interactiva de estudio autónomo</span>
+    <span>Elaborado por <strong>Juan Carlos Valderrama Cárdenas</strong></span>
+  </footer>
+</div>
+</section>
+
+</main>
+
+<script>
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const shuffle = a => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
+
+/* ---------- TEMA ---------- */
+const themeBtn = $('#themeBtn');
+const savedTheme = sessionStorage.getItem('rn_theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+themeBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  sessionStorage.setItem('rn_theme', next);
+  themeBtn.textContent = next === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+});
+
+/* ---------- NAV MÓVIL ---------- */
+const sidebar = $('#sidebar'), overlay = $('#overlay'), burger = $('#burger');
+burger.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+$$('.nav a').forEach(a => a.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); }));
+
+/* ---------- SCROLL SPY ---------- */
+const navLinks = $$('.nav a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+  });
+}, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+$$('section').forEach(s => obs.observe(s));
+
+/* ---------- PROGRESO ---------- */
+const SECS = ['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+let done = {};
+try { done = JSON.parse(sessionStorage.getItem('rn_progress') || '{}'); } catch (e) { done = {}; }
+function saveProgress() { sessionStorage.setItem('rn_progress', JSON.stringify(done)); }
+function renderProgress() {
+  const n = SECS.filter(s => done[s]).length;
+  $('#progFill').style.width = (n / SECS.length * 100) + '%';
+  $('#progLabel').textContent = n + ' / ' + SECS.length;
+  navLinks.forEach(a => a.classList.toggle('done', !!done[a.dataset.sec]));
+  $$('.btn-complete').forEach(b => {
+    const isDone = !!done[b.dataset.sec];
+    b.classList.toggle('is-done', isDone);
+    b.textContent = isDone ? '✓ Sección completada' : 'Marcar como completada';
+  });
+}
+$$('.btn-complete').forEach(b => b.addEventListener('click', () => {
+  done[b.dataset.sec] = !done[b.dataset.sec];
+  saveProgress(); renderProgress();
+}));
+renderProgress();
+
+/* ---------- MAPA ---------- */
+(function () {
+  const vp = $('#mapViewport'), view = $('#mapView');
+  let tx = 0, ty = 0, sc = 1, dragging = false, sx = 0, sy = 0;
+  function apply() { view.setAttribute('transform', `translate(${tx} ${ty}) scale(${sc})`); }
+  function zoomAt(cx, cy, factor) {
+    const rect = vp.getBoundingClientRect();
+    const px = (cx - rect.left) / rect.width * 1000;
+    const py = (cy - rect.top) / rect.height * 640;
+    const nsc = clamp(sc * factor, 0.45, 3.2);
+    const k = nsc / sc;
+    tx = px - k * (px - tx); ty = py - k * (py - ty);
+    sc = nsc; apply();
+  }
+  vp.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 1 / 1.12); }, { passive: false });
+  vp.addEventListener('pointerdown', e => {
+    if (e.target.closest('.mnode')) return;
+    dragging = true; vp.classList.add('dragging');
+    sx = e.clientX - tx; sy = e.clientY - ty;
+    vp.setPointerCapture(e.pointerId);
+  });
+  vp.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    tx = clamp(e.clientX - sx, -600, 600);
+    ty = clamp(e.clientY - sy, -400, 400);
+    apply();
+  });
+  ['pointerup','pointercancel'].forEach(ev => vp.addEventListener(ev, () => { dragging = false; vp.classList.remove('dragging'); }));
+  $('#zoomIn').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1.25); });
+  $('#zoomOut').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1/1.25); });
+  $('#zoomReset').addEventListener('click', () => { tx = 0; ty = 0; sc = 1; apply(); });
+  $$('.mnode').forEach(n => n.addEventListener('click', () => {
+    const t = document.getElementById(n.dataset.goto);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+  apply();
+})();
+
+/* ---------- MOTOR DE QUIZ ---------- */
+const results = { quiz: {}, final: {} };
+
+function renderQuiz(container, data, prefix) {
+  container.innerHTML = '';
+  data.forEach((q, i) => {
+    const el = document.createElement('div');
+    el.className = 'q';
+    el.dataset.idx = i;
+    let bodyHTML = '';
+    if (q.type === 'mc') {
+      bodyHTML = '<div class="opts">' + q.opts.map((o, j) =>
+        `<label class="opt" data-opt="${j}"><input type="radio" name="${prefix}q${i}" value="${j}"><span>${o}</span></label>`
+      ).join('') + '</div>';
+    } else if (q.type === 'tf') {
+      bodyHTML = `<div class="tf-row"><button class="tf-btn" data-val="true">Verdadero</button><button class="tf-btn" data-val="false">Falso</button></div>`;
+    } else if (q.type === 'match') {
+      const rights = shuffle(q.pairs.map(p => p.right));
+      bodyHTML = q.pairs.map((p, j) => `
+        <div class="match-row" data-mi="${j}">
+          <div class="left">${p.left}</div>
+          <select><option value="">— elige una opción —</option>${rights.map(r => `<option value="${r.replace(/"/g,'&quot;')}">${r}</option>`).join('')}</select>
+        </div>`).join('');
+    } else if (q.type === 'order') {
+      const items = shuffle(q.items.map((t, j) => ({ t, j })));
+      bodyHTML = '<ul class="order-list">' + items.map(it =>
+        `<li data-orig="${it.j}"><span>${it.t}</span><div class="ord-btns"><button data-dir="up">▲</button><button data-dir="down">▼</button></div></li>`
+      ).join('') + '</ul>';
+    }
+    const typeLabel = { mc: 'Opción múltiple', tf: 'Verdadero / Falso', match: 'Emparejar conceptos', order: 'Ordenar secuencia' }[q.type];
+    el.innerHTML = `
+      <div class="q-head">
+        <div class="q-num">${String(i + 1).padStart(2, '0')}</div>
+        <div><p class="q-text">${q.q}</p><span class="q-type">${typeLabel}</span></div>
+      </div>
+      ${bodyHTML}
+      <div class="q-actions"><button class="btn" data-check>Comprobar</button></div>
+      <div class="fb" data-fb></div>`;
+    container.appendChild(el);
+  });
+  wireQuiz(container, data, prefix);
+}
+
+function flash(qEl, text) {
+  const fb = qEl.querySelector('[data-fb]');
+  fb.className = 'fb show bad';
+  fb.innerHTML = `<b>Atención</b>${text}`;
+  setTimeout(() => { if (!qEl.dataset.done) fb.className = 'fb'; }, 2600);
+}
+
+function wireQuiz(container, data, prefix) {
+  const store = prefix === 'f' ? results.final : results.quiz;
+  container.querySelectorAll('.q').forEach(qEl => {
+    const i = +qEl.dataset.idx;
+    const q = data[i];
+    const ordList = qEl.querySelector('.order-list');
+    if (ordList) {
+      ordList.addEventListener('click', e => {
+        const btn = e.target.closest('button[data-dir]');
+        if (!btn || ordList.dataset.locked) return;
+        const li = btn.closest('li');
+        if (btn.dataset.dir === 'up' && li.previousElementSibling) ordList.insertBefore(li, li.previousElementSibling);
+        if (btn.dataset.dir === 'down' && li.nextElementSibling) ordList.insertBefore(li.nextElementSibling, li);
+      });
+    }
+    qEl.querySelectorAll('.opt input').forEach(r => r.addEventListener('change', () => {
+      qEl.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+      r.closest('.opt').classList.add('sel');
+    }));
+    qEl.querySelectorAll('.tf-btn').forEach(b => b.addEventListener('click', () => {
+      if (b.classList.contains('locked')) return;
+      qEl.querySelectorAll('.tf-btn').forEach(x => x.classList.remove('picked'));
+      b.classList.add('picked');
+    }));
+    qEl.querySelector('[data-check]').addEventListener('click', () => {
+      if (qEl.dataset.done) return;
+      let ok = false;
+      if (q.type === 'mc') {
+        const sel = qEl.querySelector('input[type=radio]:checked');
+        if (!sel) return flash(qEl, 'Selecciona una opción antes de comprobar.');
+        const v = +sel.value;
+        ok = v === q.correct;
+        qEl.querySelectorAll('.opt').forEach(o => {
+          const j = +o.dataset.opt;
+          o.classList.add('locked');
+          if (j === q.correct) o.classList.add('correct');
+          else if (j === v) o.classList.add('wrong');
+        });
+      } else if (q.type === 'tf') {
+        const picked = qEl.querySelector('.tf-btn.picked');
+        if (!picked) return flash(qEl, 'Elige Verdadero o Falso antes de comprobar.');
+        ok = (picked.dataset.val === 'true') === q.correct;
+        qEl.querySelectorAll('.tf-btn').forEach(b => {
+          b.classList.add('locked');
+          const bv = b.dataset.val === 'true';
+          if (bv === q.correct) b.classList.add('correct');
+          else if (b.classList.contains('picked')) b.classList.add('wrong');
+        });
+      } else if (q.type === 'match') {
+        let allOk = true, answered = true;
+        qEl.querySelectorAll('.match-row').forEach((row, j) => {
+          const sel = row.querySelector('select');
+          if (!sel.value) answered = false;
+          const good = sel.value === q.pairs[j].right;
+          if (!good) allOk = false;
+          row.classList.add(good ? 'ok' : 'no');
+          sel.disabled = true;
+        });
+        if (!answered) {
+          qEl.querySelectorAll('.match-row').forEach(r => r.classList.remove('ok','no'));
+          return flash(qEl, 'Completa todas las filas antes de comprobar.');
+        }
+        ok = allOk;
+      } else if (q.type === 'order') {
+        let allOk = true;
+        Array.from(ordList.querySelectorAll('li')).forEach((li, pos) => {
+          const good = +li.dataset.orig === pos;
+          if (!good) allOk = false;
+          li.classList.add(good ? 'ok' : 'no');
+        });
+        ordList.dataset.locked = '1';
+        ok = allOk;
+      }
+      qEl.dataset.done = '1';
+      const btn = qEl.querySelector('[data-check]');
+      btn.disabled = true; btn.style.opacity = '.45'; btn.textContent = 'Comprobada';
+      const fb = qEl.querySelector('[data-fb]');
+      fb.className = 'fb show' + (ok ? '' : ' bad');
+      fb.innerHTML = `<b>${ok ? '✓ Correcto' : '✗ No es correcto'}</b>${q.exp}`;
+      store[i] = ok ? 1 : 0;
+      updateScore(prefix);
+    });
+  });
+}
+
+function updateScore(prefix) {
+  const data = prefix === 'f' ? FINAL : QUIZ;
+  const store = prefix === 'f' ? results.final : results.quiz;
+  const n = Object.values(store).reduce((a, b) => a + b, 0);
+  if (prefix === 'f') {
+    $('#fScore').textContent = n;
+    $('#fFill').style.width = (n / data.length * 100) + '%';
+    renderBreakdown();
+  } else {
+    $('#qScore').textContent = n;
+    $('#qFill').style.width = (n / data.length * 100) + '%';
+  }
+}
+
+/* ---------- BANCO: COMPROBACIÓN ---------- */
+const QUIZ = [
+  { type:'mc', q:'¿Qué diferencia a una revisión narrativa de un simple resumen de literatura?',
+    opts:['La cantidad de artículos incluidos.',
+          'Que construye una síntesis argumentativa comparando, organizando e interpretando los documentos.',
+          'Que usa un lenguaje más académico.',
+          'Que incluye más citas bibliográficas.'],
+    correct:1,
+    exp:'La opción (b). La diferencia no está en el volumen ni en el estilo, sino en la operación cognitiva: resumir yuxtapone; revisar compara, agrupa, problematiza e interpreta. Si puedes reemplazar tu párrafo por los abstracts concatenados sin perder información, no es una revisión.' },
+
+  { type:'tf', q:'Que una revisión sea narrativa significa que el autor puede escribir libremente sobre el tema sin justificar sus decisiones.',
+    correct:false,
+    exp:'Falso. «Narrativa» no significa escritura libre ni opinión del autor. Significa que el investigador construye una síntesis argumentativa organizando la literatura según categorías, debates y problemas. La flexibilidad metodológica no exime de la transparencia: SANRA identifica la descripción de la búsqueda como uno de sus seis criterios.' },
+
+  { type:'mc', q:'¿Qué significa la fórmula «la revisión narrativa tiene flexibilidad metodológica, pero requiere transparencia metodológica»?',
+    opts:['Que puede omitir la sección metodológica si lo justifica.',
+          'Que puede adaptar su estrategia durante el proceso, pero debe explicar suficientemente qué buscó, dónde y con qué criterios.',
+          'Que solo necesita indicar las bases de datos utilizadas.',
+          'Que la metodología es opcional si la revisión tiene calidad argumentativa.'],
+    correct:1,
+    exp:'La opción (b). La flexibilidad es real: la estrategia puede evolucionar, las bases se seleccionan según el propósito, los criterios admiten matices. Pero el lector debe poder reconstruir la lógica de las decisiones. La flexibilidad no es excusa para la opacidad.' },
+
+  { type:'match', q:'Empareja cada aspecto con su caracterización en revisión narrativa vs. sistemática.',
+    pairs:[
+      { left:'Pregunta (narrativa)', right:'Puede ser amplia, conceptual o interpretativa' },
+      { left:'Búsqueda (narrativa)', right:'Estructurada pero admite flexibilidad' },
+      { left:'Búsqueda (sistemática)', right:'Altamente protocolizada, definida previamente' },
+      { left:'Síntesis (sistemática)', right:'Sistemática; puede incluir metaanálisis' },
+      { left:'Reproducibilidad', right:'Central en la sistemática; deseable parcialmente en la narrativa' }
+    ],
+    exp:'La distinción clave no es «rigurosa vs. libre». Es una diferencia de énfasis: la sistemática maximiza exhaustividad, reproducibilidad y control explícito; la narrativa privilegia integración conceptual, interpretación y flexibilidad analítica. Ambas pueden ser rigurosas.' },
+
+  { type:'order', q:'Ordena la cadena metodológica que convierte un universo amplio de literatura en una síntesis.',
+    items:['Propósito','Búsqueda','Selección','Organización del corpus','Lectura y análisis','Categorización','Comparación','Síntesis narrativa','Interpretación'],
+    exp:'Cada eslabón es una decisión metodológica, no una etapa automática. Los tres niveles que suelen distinguirse pedagógicamente son: recuperación (¿cómo encontraste?), selección (¿por qué unos y no otros?) y análisis (¿cómo transformaste los documentos en conocimiento?). Los estudiantes describen bien el nivel 1, a veces el 2, casi nunca el 3.' },
+
+  { type:'tf', q:'En una revisión narrativa no es necesario describir la búsqueda si el tema es conceptual.',
+    correct:false,
+    exp:'Falso. SANRA identifica la descripción de la búsqueda de literatura como uno de sus seis criterios y otorga su máxima valoración cuando se presentan detalladamente la búsqueda, los términos y los criterios de inclusión. La revisión narrativa no necesita ecuaciones reproducibles para cada base, pero sí informar los conceptos buscados, los términos principales, las combinaciones, las bases, los idiomas y el período.' },
+
+  { type:'mc', q:'¿Cuál de las siguientes afirmaciones es una descripción metodológica suficiente de la búsqueda?',
+    opts:['«Se buscó en bases de datos académicas información relevante sobre el tema.»',
+          '«Se realizó una búsqueda en Scopus, Web of Science y PsycINFO con términos relacionados con pantallas y funciones ejecutivas, para publicaciones entre 2015 y 2026 en español o inglés.»',
+          '«Se revisaron diferentes investigaciones relacionadas con el tema.»',
+          '«Se consultaron las principales fuentes del área.»'],
+    correct:1,
+    exp:'La opción (b). Identifica bases concretas, tipos de términos, período y restricciones lingüísticas. Las demás opciones usan un lenguaje que parece técnico pero no hace reconstruible ninguna decisión. La pregunta diagnóstica es: ¿podría un lector independiente replicar aproximadamente esta búsqueda?' },
+
+  { type:'mc', q:'¿Por qué puede ser metodológicamente necesaria la inclusión de documentos anteriores al período establecido?',
+    opts:['Porque siempre son más importantes.',
+          'Por pertinencia conceptual: ciertos trabajos seminales son imprescindibles para reconstruir los antecedentes conceptuales.',
+          'Porque aumentan el número de referencias.',
+          'Porque las bases de datos no permiten filtrar por fecha.'],
+    correct:1,
+    exp:'La opción (b). Una revisión sobre mente extendida con delimitación 2015-2026 dejaría fuera a Clark y Chalmers (1998). Sería metodológicamente absurdo. La solución no es eliminar el límite temporal, sino justificar la excepción: «aunque la búsqueda priorizó publicaciones del período X, se incorporaron trabajos seminales anteriores necesarios para reconstruir los antecedentes».' },
+
+  { type:'mc', q:'¿Qué es la «matriz de análisis» en una revisión narrativa?',
+    opts:['Un instrumento estadístico para calcular el tamaño del efecto.',
+          'Una herramienta analítica interna que registra por documento: objetivo, población, método, conceptos, resultados y limitaciones.',
+          'Una tabla obligatoria que debe aparecer completa en el artículo publicado.',
+          'Un tipo de ecuación de búsqueda.'],
+    correct:1,
+    exp:'La opción (b). La matriz no necesariamente aparece completa en el artículo: es una herramienta analítica de los investigadores. Su función es hacer posible la comparación transversal que conduce a las categorías. Es la operación que convierte 41 documentos leídos en conocimiento organizado.' },
+
+  { type:'tf', q:'Las categorías de una revisión narrativa pueden ser deductivas, inductivas o mixtas, y la metodología debe indicar cómo surgió cada una.',
+    correct:true,
+    exp:'Verdadero. Deductivas: definidas previamente desde un modelo teórico. Inductivas: emergen durante el examen de la literatura. Mixtas: combinación de ambas —la estrategia más recomendada para revisiones narrativas. La frase «se establecieron cuatro categorías» no es metodología hasta que se explica cómo se construyeron.' },
+
+  { type:'match', q:'Empareja cada operación analítica con la pregunta que responde.',
+    pairs:[
+      { left:'Convergencias', right:'¿Qué dicen varios estudios de manera relativamente consistente?' },
+      { left:'Divergencias', right:'¿Dónde se contradice la literatura?' },
+      { left:'Vacíos', right:'¿Qué todavía no sabemos?' },
+      { left:'Explicación de divergencias', right:'¿Por qué pueden diferir los resultados entre estudios?' },
+      { left:'Pertinencia conceptual', right:'¿Qué documento es imprescindible aunque no cumpla los filtros formales?' }
+    ],
+    exp:'Las tres primeras operaciones son las clásicas; la cuarta convierte el análisis en síntesis crítica. La quinta es el criterio que permite justificar la inclusión de documentos seminales fuera del período. Sin estas operaciones, el análisis se queda en extracción de datos sin interpretación.' },
+
+  { type:'mc', q:'¿Cuál de estos es el error más grave en la sección metodológica de una revisión narrativa?',
+    opts:['No incluir una ecuación de búsqueda completa por base.',
+          'No explicar cómo se pasó del corpus documental a las categorías de la síntesis.',
+          'No incluir un diagrama PRISMA.',
+          'No indicar el factor de impacto de las revistas consultadas.'],
+    correct:1,
+    exp:'La opción (b). Es el nivel 3 —el análisis— y es donde está el trabajo intelectual. Buscar artículos es recuperación de información; el análisis es la operación que convierte la recuperación en conocimiento. Un diagrama PRISMA (c) no es exigible en narrativa. La ecuación completa (a) es recomendable pero no imprescindible si hay información suficiente.' },
+
+  { type:'tf', q:'Una metodología que usa vocabulario técnico correcto pero no describe decisiones concretas es metodológicamente sólida.',
+    correct:false,
+    exp:'Falso. Es exactamente el contraejemplo del material. Decir «se revisaron bases de datos académicas» y «se seleccionaron los estudios más importantes» usa el vocabulario correcto pero no hace reconstruible ninguna decisión. Una metodología no se juzga por el vocabulario, sino por las decisiones que hace reconstruibles. El lenguaje técnico puede ocultar la ausencia de método.' },
+
+  { type:'mc', q:'Según la rúbrica de 10 preguntas, ¿qué bloque tiende a estar más descuidado en las revisiones narrativas?',
+    opts:['Diseño.',
+          'Búsqueda.',
+          'Selección.',
+          'Análisis.'],
+    correct:3,
+    exp:'La opción (d). Los estudiantes suelen describir razonablemente la búsqueda (bases y términos), a veces la selección (criterios de inclusión y exclusión), pero casi nunca el análisis: cómo se extrajo la información, cómo se compararon los documentos y cómo se construyeron las categorías. Es el bloque donde está el trabajo intelectual y donde más se falla.' }
+];
+
+$('#qTotal').textContent = QUIZ.length;
+$('#qRetry').addEventListener('click', () => { results.quiz = {}; renderQuiz($('#quizContainer'), QUIZ, 'q'); updateScore('q'); });
+renderQuiz($('#quizContainer'), QUIZ, 'q');
+updateScore('q');
+
+/* ---------- BANCO: AUTOEVALUACIÓN ---------- */
+const FINAL = [
+  { topic:'Qué es una revisión narrativa', type:'mc', q:'¿Cuál es la operación cognitiva central que distingue una revisión de un resumen?',
+    opts:['Citar más artículos.',
+          'Comparar, organizar e interpretar la literatura para producir una síntesis argumentativa.',
+          'Usar un lenguaje más formal.',
+          'Incluir más tablas y figuras.'],
+    correct:1,
+    exp:'La opción (b). El resumen yuxtapone estudios; la revisión los compara, agrupa y problematiza. El producto de la revisión es conocimiento que no estaba en ningún artículo individual: la observación sobre el patrón, la tensión, el vacío o la heterogeneidad. Eso es lo que el autor aporta.' },
+
+  { topic:'Narrativa vs sistemática', type:'tf', q:'La revisión narrativa es «menos rigurosa» que la revisión sistemática.',
+    correct:false,
+    exp:'Falso. La distinción no es rigurosa vs. libre. Son dos modalidades con énfasis distintos: la sistemática maximiza exhaustividad, reproducibilidad y control explícito; la narrativa privilegia integración conceptual, interpretación y flexibilidad analítica. Ambas pueden ser rigurosas. SANRA existe precisamente para evaluar la calidad de las narrativas.' },
+
+  { topic:'SANRA', type:'mc', q:'¿Cuál de los seis criterios de SANRA suele ser el más descuidado y a la vez el más exigido?',
+    opts:['La importancia del tema para la audiencia.',
+          'La descripción de la búsqueda de literatura, incluyendo términos y criterios de inclusión.',
+          'La presentación de datos en tablas.',
+          'El número de referencias bibliográficas.'],
+    correct:1,
+    exp:'La opción (b). SANRA otorga su máxima valoración cuando se presentan detalladamente la búsqueda, los términos y los criterios de inclusión. Es el criterio que más se descuida en la práctica porque muchos autores asumen que «narrativa» exime de esa descripción. No la exime.' },
+
+  { topic:'Cadena metodológica', type:'mc', q:'¿Cuáles son los tres niveles que suelen distinguirse mal al escribir una metodología?',
+    opts:['Introducción, desarrollo y conclusión.',
+          'Recuperación, selección y análisis.',
+          'Búsqueda, lectura y escritura.',
+          'Diseño, ejecución y publicación.'],
+    correct:1,
+    exp:'La opción (b). Nivel 1 — Recuperación: ¿cómo encontraste la literatura? Nivel 2 — Selección: ¿por qué unos documentos entraron y otros no? Nivel 3 — Análisis: ¿cómo transformaste esos documentos en conocimiento? Los estudiantes suelen describir razonablemente el 1, a veces el 2, casi nunca el 3 suficientemente. Y el 3 es donde está el trabajo intelectual.' },
+
+  { topic:'Criterios de selección', type:'mc', q:'¿Por qué la pertinencia conceptual puede justificar la inclusión de un documento fuera del período establecido?',
+    opts:['Porque las bases de datos lo recomiendan.',
+          'Porque ciertos trabajos seminales son imprescindibles para reconstruir los antecedentes conceptuales del campo.',
+          'Porque aumenta el prestigio de la revisión.',
+          'Porque los revisores suelen exigirlo.'],
+    correct:1,
+    exp:'La opción (b). El ejemplo clásico: una revisión sobre mente extendida con límite temporal 2015-2026 dejaría fuera a Clark y Chalmers (1998), que son la fuente fundacional. La metodología debe justificar la excepción explícitamente, no dejar que el lector la descubra.' },
+
+  { topic:'Análisis y categorías', type:'mc', q:'¿Cuál es la diferencia entre categorías deductivas e inductivas?',
+    opts:['Las deductivas son más rigurosas; las inductivas, más flexibles.',
+          'Las deductivas vienen de un modelo teórico previo; las inductivas emergen durante el examen de la literatura.',
+          'Las deductivas se usan en revisiones sistemáticas; las inductivas en narrativas.',
+          'Las deductivas requieren más documentos que las inductivas.'],
+    correct:1,
+    exp:'La opción (b). Las deductivas están definidas previamente desde la teoría (p. ej., funciones ejecutivas: memoria de trabajo, control inhibitorio, flexibilidad cognitiva). Las inductivas emergen del examen de los documentos (p. ej., transparencia, sesgo, privacidad, autoría). Las mixtas combinan ambas y son la estrategia más recomendada para revisiones narrativas.' },
+
+  { topic:'Rúbrica', type:'mc', q:'En la rúbrica de 10 preguntas, ¿qué puntaje corresponde a «mencionado pero insuficiente»?',
+    opts:['0', '1', '2', '3'],
+    correct:1,
+    exp:'La opción (b). Escala: 0 = ausente, 1 = mencionado pero insuficiente, 2 = suficientemente descrito. Puntaje máximo: 20 puntos. No es una escala metodológica validada, sino una rúbrica didáctica. Para evaluación formal de la calidad de artículos narrativos puede utilizarse SANRA, que contempla seis dimensiones y puntúa cada una de 0 a 2, con máximo de 12 puntos.' },
+
+  { topic:'Escritura de la metodología', type:'mc', q:'¿Qué pregunta conviene hacerse al terminar de escribir una sección metodológica?',
+    opts:['¿Tiene suficiente extensión?',
+          '¿Podría un lector independiente reconstruir la lógica que llevó de los documentos iniciales a las categorías finales?',
+          '¿Incluye al menos diez referencias?',
+          '¿Usa un vocabulario suficientemente técnico?'],
+    correct:1,
+    exp:'La opción (b). Es el criterio fundamental: trazabilidad. Si el lector no puede reconstruir la cadena de decisiones —de un universo amplio de literatura a un corpus determinado, y de ese corpus a una interpretación—, la metodología es débil aunque use el vocabulario correcto. El lenguaje técnico puede ocultar la ausencia de método.' }
+];
+
+$('#fTotal').textContent = FINAL.length;
+$('#fRetry').addEventListener('click', () => { results.final = {}; renderQuiz($('#finalContainer'), FINAL, 'f'); updateScore('f'); });
+renderQuiz($('#finalContainer'), FINAL, 'f');
+
+function renderBreakdown() {
+  const topics = [...new Set(FINAL.map(q => q.topic))];
+  $('#breakdown').innerHTML = topics.map(t => {
+    const idxs = FINAL.map((q, i) => q.topic === t ? i : -1).filter(i => i >= 0);
+    const got = idxs.filter(i => results.final[i] === 1).length;
+    const pct = Math.round(got / idxs.length * 100);
+    const cls = pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low';
+    return `<div class="bd-row ${cls}">
+      <span>${t}</span>
+      <span class="track"><i style="width:${pct}%"></i></span>
+      <span class="num">${got}/${idxs.length}</span>
+    </div>`;
+  }).join('');
+}
+updateScore('f');
+
+/* ---------- ANIMACIÓN 1: CADENA METODOLÓGICA ---------- */
+(function () {
+  const g = $('#a1Content');
+  const STEPS = [
+    { t:'Propósito', c:'¿Qué queremos revisar? Se define el alcance: conceptual, poblacional, contextual, temporal. Aquí se decide también por qué una revisión narrativa es apropiada para esta pregunta.' },
+    { t:'Búsqueda', c:'¿Dónde y cómo buscamos? Bases de datos, términos, operadores, período, idiomas. Cada elección es una decisión metodológica que debe poder justificarse.' },
+    { t:'Selección', c:'¿Qué aceptamos y qué descartamos? Criterios de inclusión y exclusión explícitos. Además, la justificación de documentos seminales que quedan fuera del período pero son imprescindibles.' },
+    { t:'Organización del corpus', c:'¿Cómo se gestiona el material? Se construye una matriz de análisis que registra por documento: objetivo, población, método, conceptos, resultados, limitaciones.' },
+    { t:'Lectura y análisis', c:'¿Qué hacemos con los textos? Comparación transversal orientada a convergencias, divergencias y vacíos. Es el nivel que suele omitirse.' },
+    { t:'Categorización', c:'¿Cómo surgen las categorías? Pueden ser deductivas (vienen de la teoría), inductivas (emergen de la lectura) o mixtas. La metodología debe indicarlo.' },
+    { t:'Comparación', c:'¿Cómo se relacionan los estudios entre sí? No se yuxtaponen: se agrupan por categoría, se contrastan resultados, se explican las divergencias.' },
+    { t:'Síntesis narrativa', c:'¿Cómo se integra todo? Se produce una síntesis argumentativa donde la literatura deja de ser una lista y se convierte en una interpretación organizada.' },
+    { t:'Interpretación', c:'¿Qué significa este conjunto para el campo? Se identifican aportes, problemas abiertos y direcciones futuras. El producto final es conocimiento, no resumen.' }
+  ];
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 22;
+
+  STEPS.forEach((s, i) => {
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = 40 + col * 200, y = 50 + row * 105;
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.innerHTML = `
+      <rect x="${x}" y="${y}" width="170" height="78" rx="11"
+        fill="var(--surface)" stroke="var(--border)" stroke-width="1.4" id="a1b${i}"/>
+      <text x="${x + 14}" y="${y + 24}" font-family="var(--mono)" font-size="10" fill="var(--accent-2)" font-weight="700">${String(i + 1).padStart(2, '0')}</text>
+      <text x="${x + 14}" y="${y + 46}" font-family="var(--serif)" font-size="14" font-weight="600" fill="var(--text)">${s.t}</text>
+      <line x1="${x + 14}" y1="${y + 58}" x2="${x + 156}" y2="${y + 58}" stroke="var(--border)" stroke-width="1"/>
+    `;
+    g.appendChild(gg);
+  });
+
+  for (let i = 0; i < STEPS.length - 1; i++) {
+    const ci = i % 3, ri = Math.floor(i / 3);
+    const nj = (i + 1) % 3, nr = Math.floor((i + 1) / 3);
+    if (ri === nr) {
+      const x1 = 40 + ci * 200 + 170;
+      const x2 = 40 + nj * 200;
+      const y = 50 + ri * 105 + 39;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1); line.setAttribute('y1', y);
+      line.setAttribute('x2', x2 - 6); line.setAttribute('y2', y);
+      line.setAttribute('stroke', 'var(--accent)'); line.setAttribute('stroke-width', '1.6');
+      line.setAttribute('id', `a1a${i}`); line.setAttribute('opacity', '0.2');
+      g.appendChild(line);
+      const head = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      head.setAttribute('points', `${x2-8},${y-4} ${x2},${y} ${x2-8},${y+4}`);
+      head.setAttribute('fill', 'var(--accent)'); head.setAttribute('id', `a1ah${i}`); head.setAttribute('opacity', '0.2');
+      g.appendChild(head);
+    } else {
+      const x = 40 + ci * 200 + 85;
+      const y1 = 50 + ri * 105 + 78;
+      const y2 = 50 + nr * 105;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      line.setAttribute('d', `M ${x} ${y1} Q ${x} ${(y1+y2)/2} 40 ${(y1+y2)/2} T ${40 + nj * 200 + 85} ${y2 - 6}`);
+      line.setAttribute('fill', 'none');
+      line.setAttribute('stroke', 'var(--accent)'); line.setAttribute('stroke-width', '1.6');
+      line.setAttribute('id', `a1a${i}`); line.setAttribute('opacity', '0.2');
+      g.appendChild(line);
+    }
+  }
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(STEPS.length - 1, Math.floor(frac * STEPS.length));
+    if (idx !== cur) {
+      cur = idx;
+      STEPS.forEach((_, i) => {
+        const b = document.getElementById(`a1b${i}`);
+        if (!b) return;
+        const reached = i <= idx;
+        b.setAttribute('fill', i === idx ? 'var(--accent-soft)' : reached ? 'var(--surface-2)' : 'var(--surface)');
+        b.setAttribute('stroke', i === idx ? 'var(--accent)' : reached ? 'var(--accent-2)' : 'var(--border)');
+        b.setAttribute('stroke-width', i === idx ? '2' : '1.4');
+      });
+      for (let i = 0; i < STEPS.length - 1; i++) {
+        const a = document.getElementById(`a1a${i}`);
+        const ah = document.getElementById(`a1ah${i}`);
+        const active = i < idx;
+        if (a) a.setAttribute('opacity', active ? '1' : '0.2');
+        if (ah) ah.setAttribute('opacity', active ? '1' : '0.2');
+      }
+      $('#a1Cap').innerHTML = `<b>Paso ${idx + 1} de ${STEPS.length} · ${STEPS[idx].t}</b>${STEPS[idx].c}`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a1Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a1Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a1Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a1Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    STEPS.forEach((_, i) => {
+      const b = document.getElementById(`a1b${i}`);
+      if (!b) return;
+      b.setAttribute('fill', 'var(--surface)');
+      b.setAttribute('stroke', 'var(--border)');
+      b.setAttribute('stroke-width', '1.4');
+    });
+    for (let i = 0; i < STEPS.length - 1; i++) {
+      const a = document.getElementById(`a1a${i}`);
+      const ah = document.getElementById(`a1ah${i}`);
+      if (a) a.setAttribute('opacity', '0.2');
+      if (ah) ah.setAttribute('opacity', '0.2');
+    }
+    $('#a1Cap').innerHTML = '<b>Listo para empezar</b>Pulsa «Reproducir» para recorrer los nueve eslabones de la cadena. Cada uno es una decisión metodológica, no una etapa automática.';
+  });
+  $('#a1Speed').addEventListener('input', e => { speed = +e.target.value; $('#a1SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a1Reset').click();
+})();
+
+/* ---------- ANIMACIÓN 2: EMBUDO DE SELECCIÓN ---------- */
+(function () {
+  const g = $('#a2Content');
+  const STAGES = [
+    { label:'127 registros identificados', sub:'Resultado inicial de la búsqueda en bases de datos', width:480, color:'var(--surface-2)', stroke:'var(--border-strong)' },
+    { label:'89 tras eliminar duplicados', sub:'Criterio: registros repetidos en más de una base', width:390, color:'var(--surface-2)', stroke:'var(--border-strong)' },
+    { label:'64 examinados (título y resumen)', sub:'Criterio: pertinencia temática preliminar', width:310, color:'var(--accent-soft)', stroke:'var(--accent)' },
+    { label:'52 con lectura integral', sub:'Criterio: acceso al texto completo disponible', width:240, color:'var(--accent-soft)', stroke:'var(--accent)' },
+    { label:'41 incorporados a la síntesis', sub:'Criterio: responden al objetivo de la revisión', width:180, color:'var(--ok-soft)', stroke:'var(--ok)' }
+  ];
+
+  STAGES.forEach((s, i) => {
+    const y = 30 + i * 68;
+    const x = (640 - s.width) / 2;
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.innerHTML = `
+      <rect x="${x}" y="${y}" width="${s.width}" height="52" rx="9"
+        fill="${s.color}" stroke="${s.stroke}" stroke-width="1.4" id="a2r${i}" opacity="0.35"/>
+      <text x="320" y="${y + 22}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--text)" font-family="var(--sans)" id="a2t${i}" opacity="0.35">${s.label}</text>
+      <text x="320" y="${y + 40}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="var(--sans)" id="a2s${i}" opacity="0.35">${s.sub}</text>
+    `;
+    g.appendChild(gg);
+  });
+
+  for (let i = 0; i < STAGES.length - 1; i++) {
+    const y1 = 30 + i * 68 + 52;
+    const y2 = 30 + (i + 1) * 68;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', 320); line.setAttribute('y1', y1);
+    line.setAttribute('x2', 320); line.setAttribute('y2', y2);
+    line.setAttribute('stroke', 'var(--accent)'); line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('id', `a2ln${i}`); line.setAttribute('opacity', '0.2');
+    g.appendChild(line);
+  }
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 14;
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(STAGES.length - 1, Math.floor(frac * STAGES.length));
+    if (idx !== cur) {
+      cur = idx;
+      STAGES.forEach((_, i) => {
+        const r = document.getElementById(`a2r${i}`);
+        const tx = document.getElementById(`a2t${i}`);
+        const sx = document.getElementById(`a2s${i}`);
+        const reached = i <= idx;
+        if (r) r.setAttribute('opacity', reached ? (i === idx ? '1' : '0.85') : '0.35');
+        if (tx) tx.setAttribute('opacity', reached ? '1' : '0.35');
+        if (sx) sx.setAttribute('opacity', reached ? '1' : '0.35');
+      });
+      for (let i = 0; i < STAGES.length - 1; i++) {
+        const ln = document.getElementById(`a2ln${i}`);
+        if (ln) ln.setAttribute('opacity', i < idx ? '1' : '0.2');
+      }
+      $('#a2Cap').innerHTML = `<b>Etapa ${idx + 1} de ${STAGES.length} · ${STAGES[idx].label}</b>${STAGES[idx].sub}. Cada nivel corresponde a un criterio explícito, no a una impresión de relevancia.`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a2Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a2Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a2Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a2Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    STAGES.forEach((_, i) => {
+      const r = document.getElementById(`a2r${i}`);
+      const tx = document.getElementById(`a2t${i}`);
+      const sx = document.getElementById(`a2s${i}`);
+      if (r) r.setAttribute('opacity', '0.35');
+      if (tx) tx.setAttribute('opacity', '0.35');
+      if (sx) sx.setAttribute('opacity', '0.35');
+    });
+    for (let i = 0; i < STAGES.length - 1; i++) {
+      const ln = document.getElementById(`a2ln${i}`);
+      if (ln) ln.setAttribute('opacity', '0.2');
+    }
+    $('#a2Cap').innerHTML = '<b>Antes de empezar</b>Observa que cada nivel del embudo corresponde a un criterio explícito, no a una impresión de relevancia. La trazabilidad es lo que convierte una selección en una decisión metodológica.';
+  });
+  $('#a2Speed').addEventListener('input', e => { speed = +e.target.value; $('#a2SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a2Reset').click();
+})();
+
+/* ---------- SIMULACIÓN: AUDITORÍA DE METODOLOGÍA ---------- */
+(function () {
+  const RUBRIC = [
+    { block:'Diseño',  q:'¿Identifica el trabajo como revisión narrativa?' },
+    { block:'Diseño',  q:'¿Explica por qué este tipo de revisión resulta apropiado?' },
+    { block:'Búsqueda', q:'¿Indica dónde buscó?' },
+    { block:'Búsqueda', q:'¿Describe términos o conceptos utilizados?' },
+    { block:'Búsqueda', q:'¿Explica delimitaciones temporales o lingüísticas?' },
+    { block:'Selección', q:'¿Presenta criterios de inclusión?' },
+    { block:'Selección', q:'¿Presenta criterios de exclusión?' },
+    { block:'Análisis', q:'¿Explica cómo organizó la información?' },
+    { block:'Análisis', q:'¿Explica cómo comparó o analizó los documentos?' },
+    { block:'Análisis', q:'¿Explica cómo surgieron las categorías utilizadas?' }
+  ];
+
+  const PRESETS = {
+    modelica:    [2,2,2,2,2,2,2,2,2,2],
+    debil:       [1,0,1,0,0,0,0,0,0,0],
+    tecnica:     [1,0,1,0,0,1,0,0,0,0],
+    sistematica: [2,2,2,2,2,2,2,2,2,2]
+  };
+
+  const list = $('#rubricList');
+  RUBRIC.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'rubric-item';
+    item.dataset.idx = i;
+    item.innerHTML = `
+      <div class="lbl">${r.q}<small>${r.block}</small></div>
+      <select data-rubric="${i}">
+        <option value="0">0 · Ausente</option>
+        <option value="1">1 · Insuficiente</option>
+        <option value="2">2 · Suficiente</option>
+      </select>`;
+    list.appendChild(item);
+  });
+
+  const canvas = $('#simChart'), ctx = canvas.getContext('2d');
+
+  function calcular() {
+    const vals = RUBRIC.map((_, i) => {
+      const sel = document.querySelector(`select[data-rubric="${i}"]`);
+      return +sel.value;
+    });
+    const total = vals.reduce((a, b) => a + b, 0);
+    $('#rGlobal').innerHTML = total + '<small>/20</small>';
+
+    const blocks = ['Diseño', 'Búsqueda', 'Selección', 'Análisis'];
+    const blockScores = {};
+    blocks.forEach(b => {
+      const idxs = RUBRIC.map((r, i) => r.block === b ? i : -1).filter(i => i >= 0);
+      const max = idxs.length * 2;
+      const got = idxs.reduce((a, i) => a + vals[i], 0);
+      blockScores[b] = { got, max, pct: max ? got / max : 0 };
+    });
+
+    let debil = blocks[0];
+    blocks.forEach(b => { if (blockScores[b].pct < blockScores[debil].pct) debil = b; });
+    $('#rDebil').textContent = blockScores[debil].pct < 0.7 ? debil : '—';
+
+    let diagCorto;
+    if (total >= 17) diagCorto = 'Sólida';
+    else if (total >= 12) diagCorto = 'Aceptable';
+    else if (total >= 6) diagCorto = 'Débil';
+    else diagCorto = 'Ausente';
+    $('#rDiag').textContent = diagCorto;
+
+    let titulo, texto;
+    if (total >= 17) {
+      titulo = 'Metodología sólida';
+      texto = 'Todos los bloques están suficientemente descritos. Un lector independiente puede reconstruir la lógica de las decisiones. Cumple con los criterios de transparencia metodológica exigibles a una revisión narrativa.';
+    } else if (total >= 12) {
+      titulo = 'Metodología aceptable con debilidades';
+      texto = `La metodología funciona pero tiene un bloque más débil (${debil}). Revisa específicamente ese componente: el resto está en un nivel aceptable, pero la trazabilidad global se resiente si falta un eslabón.`;
+    } else if (total >= 6) {
+      titulo = 'Metodología débil';
+      texto = `Varios bloques están insuficientemente descritos. El bloque más débil es ${debil}. El problema no es la extensión del texto, sino la falta de decisiones reconstruibles: bases concretas, términos explícitos, criterios nombrados, operaciones descritas.`;
+    } else {
+      titulo = 'Metodología casi ausente';
+      texto = 'La sección no describe decisiones metodológicas. Puede parecer una metodología por su vocabulario, pero no permite reconstruir la lógica que llevó de los documentos a la síntesis.';
+    }
+    $('#simVerdict').innerHTML = `<b>${titulo} (${total}/20)</b>${texto}`;
+
+    RUBRIC.forEach((_, i) => {
+      const item = document.querySelector(`.rubric-item[data-idx="${i}"]`);
+      item.classList.remove('s0', 's1', 's2');
+      item.classList.add(`s${vals[i]}`);
+    });
+
+    draw(blockScores);
+  }
+
+  function draw(blockScores) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const W = rect.width, H = rect.height;
+    const padL = 66, padR = 34, padT = 20, padB = 30;
+    const gw = W - padL - padR, gh = H - padT - padB;
+
+    const css = getComputedStyle(document.documentElement);
+    const cBorder = css.getPropertyValue('--border').trim();
+    const cMuted = css.getPropertyValue('--muted').trim();
+    const cAccent2 = css.getPropertyValue('--accent-2').trim();
+    const cOk = css.getPropertyValue('--ok').trim();
+    const cErr = css.getPropertyValue('--err').trim();
+
+    ctx.clearRect(0, 0, W, H);
+
+    const blocks = Object.keys(blockScores);
+    const barH = gh / blocks.length * 0.62;
+    const gap = gh / blocks.length;
+
+    blocks.forEach((b, i) => {
+      const y = padT + i * gap + gap * 0.1;
+      const score = blockScores[b];
+      const w = gw * score.pct;
+
+      ctx.fillStyle = cBorder;
+      ctx.fillRect(padL, y, gw, barH);
+      const color = score.pct >= 0.8 ? cOk : score.pct >= 0.5 ? cAccent2 : cErr;
+      ctx.fillStyle = color;
+      ctx.fillRect(padL, y, w, barH);
+
+      ctx.fillStyle = cMuted;
+      ctx.font = '11px system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(b, padL - 8, y + barH / 2 + 4);
+      ctx.textAlign = 'left';
+      ctx.font = '11px ui-monospace, monospace';
+      ctx.fillText(`${score.got}/${score.max}`, padL + gw + 6, y + barH / 2 + 4);
+    });
+  }
+
+  $$('select[data-rubric]').forEach(sel => sel.addEventListener('change', calcular));
+  $$('.presets button').forEach(b => b.addEventListener('click', () => {
+    const vals = PRESETS[b.dataset.preset];
+    vals.forEach((v, i) => {
+      const sel = document.querySelector(`select[data-rubric="${i}"]`);
+      if (sel) sel.value = v;
+    });
+    calcular();
+  }));
+
+  window.addEventListener('resize', calcular);
+  calcular();
+})();
+</script>
+</body>
+</html>
