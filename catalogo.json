@@ -822,6 +822,34 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Resultados en una revisión narrativa",
+    "descripcion": "Guía interactiva para aprender a construir y escribir los resultados de una revisión narrativa mediante categorías, comparación entre estudios, identificación de convergencias, divergencias, vacíos y síntesis argumentativa.",
+    "tipo": "Guía interactiva de estudio",
+    "archivo": "materiales/resultados-revision-narrativa.html",
+    "etiquetas": [
+      "Revisión narrativa",
+      "Resultados",
+      "Revisión de literatura",
+      "Síntesis narrativa",
+      "Síntesis argumentativa",
+      "Escritura académica",
+      "Escritura científica",
+      "Análisis documental",
+      "Categorías de análisis",
+      "Convergencias",
+      "Divergencias",
+      "Vacíos de investigación",
+      "Interpretación",
+      "Discusión",
+      "Matriz de análisis",
+      "Literatura científica",
+      "Metodología de investigación",
+      "Investigación"
+    ],
+    "curso": "Metodología de la investigación",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Revisar también es investigar",
     "descripcion": "Encuentro sincrónico sobre diseño de revisiones de literatura, diferenciando búsqueda, revisión narrativa, sistemática y de alcance, protocolo, PRISMA, PICO, PCC, elegibilidad, selección, extracción y síntesis.",
     "tipo": "Presentación interactiva",
@@ -840,6 +868,35 @@
       "Síntesis de evidencia"
     ],
     "curso": "Formulación de Proyectos de Investigación en Psicología",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
+    "titulo": "Revisión narrativa",
+    "descripcion": "Guía interactiva para comprender, diseñar y evaluar una revisión narrativa de literatura, desde la búsqueda y selección documental hasta el análisis, la categorización y la síntesis argumentativa.",
+    "tipo": "Guía interactiva de estudio",
+    "archivo": "materiales/revision-narrativa-metodo.html",
+    "etiquetas": [
+      "Revisión narrativa",
+      "Revisión de literatura",
+      "Metodología de investigación",
+      "Investigación",
+      "Búsqueda bibliográfica",
+      "Búsqueda documental",
+      "Selección de literatura",
+      "Criterios de inclusión",
+      "Criterios de exclusión",
+      "Análisis documental",
+      "Síntesis narrativa",
+      "Síntesis argumentativa",
+      "Categorización",
+      "Matriz de análisis",
+      "SANRA",
+      "Revisión sistemática",
+      "Literatura científica",
+      "Escritura académica",
+      "Investigación cualitativa"
+    ],
+    "curso": "Metodología de la investigación",
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
