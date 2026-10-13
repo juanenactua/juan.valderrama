@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caso Andrés M. · Modelo cognitivo de Beck</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Caso Andrés M. · Modelo cognitivo de Beck">
+<meta name="jc-descripcion" content="Caso clínico ficticio y guía interactiva de estudio autónomo para analizar el modelo cognitivo de Aaron T. Beck mediante pensamientos automáticos, distorsiones cognitivas, creencias intermedias y nucleares, tríada cognitiva, formulación de caso y ciclos de mantenimiento.">
+<meta name="jc-tipo" content="Caso clínico interactivo">
+<meta name="jc-etiquetas" content="Psicología, Psicología clínica, Terapia cognitiva, Terapia cognitivo-conductual, Modelo cognitivo de Beck, Aaron T. Beck, Formulación de caso, Conceptualización cognitiva, Pensamientos automáticos, Distorsiones cognitivas, Creencias intermedias, Creencias nucleares, Esquemas cognitivos, Tríada cognitiva, Ciclos de mantenimiento, Depresión, Caso clínico, Análisis clínico, Evaluación psicológica, Aprendizaje autónomo">
+<meta name="jc-curso" content="Psicología clínica">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#fbfbf9; --surface:#ffffff; --surface-2:#f4f5f3; --surface-3:#eef0ee;
+  --text:#16181d; --muted:#5d6470; --border:#e4e6ea; --border-strong:#d3d7dd;
+  --accent:#2f5d8a; --accent-soft:#e9f0f7; --accent-2:#b4762a; --accent-2-soft:#faf1e4;
+  --ok:#2f7d5b; --ok-soft:#e7f3ec; --err:#b03a3a; --err-soft:#f9ebeb;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(16,20,28,.05), 0 10px 28px -16px rgba(16,20,28,.25);
+  --sidebar:272px;
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0e1014; --surface:#161a20; --surface-2:#1b2028; --surface-3:#212733;
+  --text:#e9ebef; --muted:#98a1ae; --border:#262c36; --border-strong:#333b48;
+  --accent:#7fb0dd; --accent-soft:#182432; --accent-2:#d9a441; --accent-2-soft:#2a2216;
+  --ok:#5cc08d; --ok-soft:#16281f; --err:#e07a7a; --err-soft:#2a1919;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px -16px rgba(0,0,0,.8);
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.22;letter-spacing:-.012em;color:var(--text)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);margin:0 0 .5rem}
+h2{font-size:clamp(1.4rem,2.7vw,1.85rem);margin:0 0 1rem}
+h3{font-size:1.16rem;margin:2.1rem 0 .6rem}
+h4{font-size:1rem;margin:1.5rem 0 .45rem;font-family:var(--sans);font-weight:700}
+p{margin:0 0 1rem}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.87em;background:var(--surface-2);padding:.12em .38em;border-radius:5px;border:1px solid var(--border)}
+::selection{background:var(--accent);color:#fff}
+
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);z-index:60;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 16px 16px;gap:16px;overflow-y:auto;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.brand{display:flex;align-items:center;gap:11px;padding:0 6px}
+.brand-mark{width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.82rem;font-family:var(--serif)}
+.brand strong{display:block;font-size:.93rem;font-family:var(--serif);line-height:1.2}
+.brand small{display:block;color:var(--muted);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.progress-wrap{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 12px}
+.progress-head{display:flex;justify-content:space-between;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px}
+.progress-bar{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.progress-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .45s cubic-bezier(.4,0,.2,1)}
+.nav{display:flex;flex-direction:column;gap:2px;flex:1}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:.845rem;line-height:1.35;border-left:2px solid transparent;transition:all .16s;position:relative}
+.nav a span{font-family:var(--mono);font-size:.7rem;opacity:.7;flex:0 0 18px}
+.nav a:hover{background:var(--surface-2);color:var(--text)}
+.nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.nav a.done span::after{content:'✓';position:absolute;left:34px;top:50%;transform:translateY(-50%);color:var(--ok);font-size:.7rem}
+.nav a.done span{opacity:0}
+.theme-toggle{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:9px;padding:9px 12px;font-size:.8rem;cursor:pointer;font-family:var(--sans);transition:all .16s;text-align:left}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+main{margin-left:var(--sidebar);padding:0 0 120px}
+.wrap{max-width:940px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.burger{position:fixed;top:14px;left:14px;z-index:80;display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:1.15rem;cursor:pointer;box-shadow:var(--shadow)}
+.overlay{position:fixed;inset:0;background:rgba(8,10,14,.5);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.show{opacity:1;pointer-events:auto}
+@media(max-width:940px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  main{margin-left:0;padding-top:64px}
+  .burger{display:block}
+}
+
+section{padding:64px 0 12px;border-top:1px solid var(--border);scroll-margin-top:20px}
+section:first-of-type{border-top:none;padding-top:0}
+.sec-kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:.6rem;display:block}
+
+.cover{padding:80px 0 40px;position:relative}
+.cover::before{content:'';position:absolute;top:-40px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 68%);opacity:.9;pointer-events:none;z-index:-1}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:99px;padding:5px 14px;margin-bottom:22px;font-weight:600}
+.cover-tag i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:block}
+.cover h1{max-width:17ch}
+.cover-lead{font-size:1.09rem;color:var(--muted);max-width:64ch;margin-top:1.1rem}
+.author-card{display:flex;align-items:center;gap:14px;margin-top:30px;padding:15px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);max-width:440px}
+.author-avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:1rem}
+.author-card .who{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.author-card .name{font-family:var(--serif);font-size:1.06rem;font-weight:600;line-height:1.25}
+.author-card .role{font-size:.82rem;color:var(--muted)}
+
+.notice{
+  border-left:3px solid var(--accent-2);background:var(--accent-2-soft);
+  padding:14px 18px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  margin:22px 0;font-size:.9rem;line-height:1.6;
+}
+.notice .ct{font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--accent-2)}
+.notice p:last-child{margin-bottom:0}
+
+.map-shell{margin-top:34px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.map-toolbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);flex-wrap:wrap}
+.map-toolbar .hint{font-size:.78rem;color:var(--muted);margin-left:auto}
+.map-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;display:grid;place-items:center;transition:all .15s}
+.map-btn:hover{border-color:var(--accent);color:var(--accent)}
+.map-viewport{height:min(66vh,560px);overflow:hidden;cursor:grab;background:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0) 0 0/22px 22px}
+.map-viewport.dragging{cursor:grabbing}
+.map-viewport svg{width:100%;height:100%;display:block;user-select:none}
+.mnode{cursor:pointer}
+.mnode:hover rect{stroke:var(--accent);stroke-width:2}
+.mnode rect{transition:stroke .2s}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.card h3{margin-top:0}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;font-size:.95rem}
+.callout.warn{border-left-color:var(--accent-2);background:var(--accent-2-soft)}
+.callout.danger{border-left-color:var(--err);background:var(--err-soft)}
+.callout .ct{font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--accent)}
+.callout.warn .ct{color:var(--accent-2)}
+.callout.danger .ct{color:var(--err)}
+.callout p:last-child{margin-bottom:0}
+
+.grid{display:grid;gap:14px}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.mini{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px 16px}
+.mini h4{margin:0 0 6px;font-size:.9rem;color:var(--accent)}
+.mini p{font-size:.9rem;margin:0;color:var(--muted)}
+
+.lo-list{list-style:none;padding:0;margin:0;counter-reset:lo}
+.lo-list li{counter-increment:lo;position:relative;padding:16px 18px 16px 60px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem}
+.lo-list li::before{content:counter(lo,decimal-leading-zero);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--accent);background:var(--accent-soft);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+.lo-list li b{color:var(--accent);font-weight:700}
+
+.tbl-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.89rem;min-width:520px}
+th,td{padding:12px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+th{background:var(--surface-2);font-weight:650;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface-2)}
+td:first-child{font-weight:600}
+
+.btn-complete{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:10px 18px;border-radius:99px;border:1px solid var(--border-strong);background:var(--surface);color:var(--muted);cursor:pointer;font-size:.83rem;font-family:var(--sans);font-weight:600;transition:all .18s}
+.btn-complete:hover{border-color:var(--accent);color:var(--accent)}
+.btn-complete.is-done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+
+/* Case study specific */
+.case-flow{
+  display:flex;flex-direction:column;gap:12px;margin:22px 0;
+}
+.case-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:15px 18px;position:relative;box-shadow:var(--shadow);
+}
+.case-item .num{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+  color:var(--accent-2);font-weight:700;display:block;margin-bottom:4px;
+}
+.case-item .title{font-family:var(--serif);font-size:1.02rem;font-weight:600;margin:0 0 6px;color:var(--text)}
+.case-item .body{font-size:.92rem;color:var(--text);line-height:1.65;margin:0}
+.case-item .body em{color:var(--muted);font-style:italic}
+.case-item blockquote{
+  margin:10px 0 0;padding:10px 14px;border-left:2px solid var(--accent-2);
+  background:var(--surface-2);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:.9rem;font-style:italic;color:var(--text);
+}
+
+.level-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+.level-card .lh{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.level-card .lh .lnum{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;
+}
+.level-card .lh h4{font-family:var(--serif);font-size:1.08rem;font-weight:600;margin:0;color:var(--text)}
+.level-card p{font-size:.92rem;margin:0 0 .7rem;color:var(--muted)}
+.level-card p:last-child{margin-bottom:0}
+.level-card .q{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:11px 14px;font-size:.87rem;color:var(--text);font-style:italic;
+}
+
+.evidence-tag{
+  display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;
+  padding:2px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent);
+  font-weight:600;margin-right:4px;
+}
+.evidence-tag.warn{background:var(--accent-2-soft);color:var(--accent-2)}
+
+.analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0}
+.analysis-card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px 16px}
+.analysis-card h4{margin:0 0 8px;font-size:.88rem;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+.analysis-card ul{margin:0;padding-left:18px;font-size:.87rem;color:var(--muted)}
+.analysis-card li{margin-bottom:5px}
+.analysis-card li:last-child{margin-bottom:0}
+
+.quiz-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:22px}
+.score-box{display:flex;align-items:baseline;gap:6px;font-family:var(--serif)}
+.score-box .big{font-size:1.7rem;font-weight:700;color:var(--accent);line-height:1}
+.score-box .small{font-size:.85rem;color:var(--muted)}
+.score-bar{flex:1;min-width:140px;height:7px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.score-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));border-radius:99px;transition:width .4s}
+.btn{padding:9px 17px;border-radius:99px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:.82rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .16s}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+
+.q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:19px 21px;margin-bottom:15px;box-shadow:var(--shadow)}
+.q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.q-num{flex:0 0 28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.q-text{font-weight:600;font-size:.98rem;line-height:1.5;margin:0}
+.q-type{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-top:4px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:.92rem;transition:all .14s;background:var(--surface)}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt input{margin:3px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--err);background:var(--err-soft)}
+.opt.locked{cursor:default;pointer-events:none}
+.tf-row{display:flex;gap:10px;flex-wrap:wrap}
+.tf-btn{flex:1;min-width:130px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.92rem;font-weight:600;cursor:pointer;transition:all .14s}
+.tf-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tf-btn.correct{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.tf-btn.wrong{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.tf-btn.locked{pointer-events:none}
+.match-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin-bottom:9px}
+@media(max-width:600px){.match-row{grid-template-columns:1fr;gap:5px}}
+.match-row .left{font-size:.9rem;font-weight:600;padding:9px 12px;background:var(--surface-2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.match-row select{width:100%;padding:9px 11px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.88rem;cursor:pointer}
+.match-row select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.match-row.ok select{border-color:var(--ok);background:var(--ok-soft)}
+.match-row.no select{border-color:var(--err);background:var(--err-soft)}
+.order-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;counter-reset:ord}
+.order-list li{counter-increment:ord;display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-size:.9rem}
+.order-list li::before{content:counter(ord);flex:0 0 24px;height:24px;border-radius:6px;background:var(--surface-3);display:grid;place-items:center;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--muted)}
+.order-list li span{flex:1}
+.order-list li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.order-list li.no{border-color:var(--err);background:var(--err-soft)}
+.ord-btns{display:flex;gap:4px}
+.ord-btns button{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;font-size:.75rem;display:grid;place-items:center;transition:all .14s}
+.ord-btns button:hover{border-color:var(--accent);color:var(--accent)}
+.q-actions{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fb{margin-top:13px;padding:13px 15px;border-radius:var(--radius-sm);font-size:.89rem;line-height:1.6;display:none;border-left:3px solid var(--ok);background:var(--ok-soft)}
+.fb.show{display:block}
+.fb.bad{border-left-color:var(--err);background:var(--err-soft)}
+.fb b{display:block;margin-bottom:4px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+
+.anim-stage{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;overflow:hidden}
+.anim-stage svg{width:100%;height:auto;display:block}
+.anim-controls{display:flex;align-items:center;gap:12px;margin-top:13px;flex-wrap:wrap}
+.anim-controls button{padding:8px 15px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.8rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.anim-controls button:hover{border-color:var(--accent);color:var(--accent)}
+.anim-controls button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.speed{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--muted);margin-left:auto}
+.speed input{width:110px;accent-color:var(--accent)}
+.speed b{font-family:var(--mono);color:var(--text);font-size:.78rem;min-width:34px}
+.anim-cap{margin-top:13px;padding:13px 16px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);font-size:.9rem;min-height:64px}
+.anim-cap b{color:var(--accent);display:block;margin-bottom:3px;font-family:var(--serif);font-size:1rem}
+
+.sim-grid{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.sim-grid{grid-template-columns:1fr}}
+.presets{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.presets button{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font-size:.75rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.presets button:hover{border-color:var(--accent);color:var(--accent)}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:11px;margin-bottom:18px}
+.readout{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px}
+.readout .k{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-bottom:5px}
+.readout .v{font-family:var(--serif);font-size:1.5rem;font-weight:700;line-height:1;color:var(--accent)}
+.readout .v small{font-size:.75rem;color:var(--muted);font-weight:400;font-family:var(--sans)}
+.verdict{padding:13px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface-2);font-size:.9rem;margin-bottom:16px}
+.verdict b{font-family:var(--serif);font-size:1.02rem;display:block;margin-bottom:3px;color:var(--accent)}
+.rubric{display:flex;flex-direction:column;gap:5px;margin-top:14px;max-height:420px;overflow-y:auto;padding-right:6px}
+.rubric-item{display:grid;grid-template-columns:1fr 104px;gap:10px;align-items:center;font-size:.83rem;padding:7px 10px;background:var(--surface);border:1px solid var(--border);border-radius:7px}
+.rubric-item .lbl{color:var(--text)}
+.rubric-item .lbl small{display:block;color:var(--muted);font-size:.73rem;margin-top:1px}
+.rubric-item select{padding:5px 7px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-family:var(--sans);font-size:.78rem;cursor:pointer}
+.rubric-item.s0 select{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.rubric-item.s1 select{border-color:var(--accent-2);background:var(--accent-2-soft);color:var(--accent-2)}
+.rubric-item.s2 select{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+canvas#simChart{width:100%;height:230px;display:block;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm)}
+
+.breakdown{display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.bd-row{display:grid;grid-template-columns:190px 1fr 54px;gap:12px;align-items:center;font-size:.86rem}
+@media(max-width:520px){.bd-row{grid-template-columns:130px 1fr 44px;font-size:.8rem}}
+.bd-row .track{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.bd-row .track i{display:block;height:100%;width:0;border-radius:99px;transition:width .5s;background:var(--accent)}
+.bd-row .num{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-align:right}
+.bd-row.low .track i{background:var(--err)}
+.bd-row.mid .track i{background:var(--accent-2)}
+.bd-row.high .track i{background:var(--ok)}
+
+.template{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin:14px 0;font-size:.88rem;line-height:1.75}
+.template p{margin:0 0 12px}
+.template p:last-child{margin-bottom:0}
+.template .slot{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:600;font-family:var(--mono);font-size:.82em}
+
+.ref-list{list-style:none;padding:0;margin:0}
+.ref-list li{padding:13px 0 13px 26px;border-bottom:1px solid var(--border);font-size:.88rem;position:relative;line-height:1.6}
+.ref-list li::before{content:'';position:absolute;left:6px;top:20px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li em{color:var(--muted);font-style:normal}
+.route{counter-reset:r;list-style:none;padding:0;margin:16px 0 0}
+.route li{counter-increment:r;position:relative;padding:15px 18px 15px 58px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.91rem}
+.route li::before{content:counter(r);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.route li b{display:block;font-family:var(--serif);font-size:1rem;margin-bottom:2px}
+footer{margin-top:70px;padding:28px 0 0;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir índice">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <span class="brand-mark">B</span>
+    <div>
+      <strong>Caso Andrés M.</strong>
+      <small>Modelo cognitivo de Beck</small>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-head"><span>Progreso</span><span id="progLabel">0 / 9</span></div>
+    <div class="progress-bar"><i id="progFill"></i></div>
+  </div>
+  <nav class="nav" id="nav">
+    <a href="#s1" data-sec="s1"><span>01</span> Portada y mapa</a>
+    <a href="#s2" data-sec="s2"><span>02</span> Resultados de aprendizaje</a>
+    <a href="#s3" data-sec="s3"><span>03</span> El caso completo</a>
+    <a href="#s4" data-sec="s4"><span>04</span> Marco de Beck</a>
+    <a href="#s5" data-sec="s5"><span>05</span> Fragmentos para análisis</a>
+    <a href="#s6" data-sec="s6"><span>06</span> Animaciones</a>
+    <a href="#s7" data-sec="s7"><span>07</span> Simulación</a>
+    <a href="#s8" data-sec="s8"><span>08</span> Autoevaluación</a>
+    <a href="#s9" data-sec="s9"><span>09</span> Referencias y ruta</a>
+  </nav>
+  <button class="theme-toggle" id="themeBtn">◐ Cambiar a modo oscuro</button>
+</aside>
+
+<main>
+
+<!-- ==================== S1 ==================== -->
+<section id="s1">
+<div class="wrap">
+  <div class="cover">
+    <span class="cover-tag"><i></i> Material de estudio autónomo · Nivel avanzado</span>
+    <h1>El caso Andrés M.</h1>
+    <p class="cover-lead">
+      Este no es un caso resuelto. Es un caso para <strong>estudiar la perspectiva de Aaron T. Beck</strong>
+      a través de un relato clínico deliberadamente abierto. La información está distribuida como suele
+      estarlo en las primeras entrevistas: dispersa, contradictoria en algunos puntos, con silencios
+      significativos y con evidencia que a veces apoya varias hipótesis al mismo tiempo. La formulación no
+      se entrega hecha: debe ser construida, discutida y defendida con evidencia del propio relato.
+    </p>
+
+    <div class="author-card">
+      <div class="author-avatar">JC</div>
+      <div>
+        <div class="who">Elaborado por</div>
+        <div class="name">Juan Carlos Valderrama Cárdenas</div>
+        <div class="role">Guía interactiva de estudio autónomo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <span class="ct">Nota importante</span>
+    <p>
+      El siguiente caso es <strong>completamente ficticio</strong> y está diseñado para formación en
+      psicología. No constituye la evaluación de una persona real ni pretende sustituir un proceso
+      diagnóstico clínico. Las expresiones del caso que sugieren ideación relacionada con la muerte
+      requieren, en cualquier contexto real, evaluación clínica específica del riesgo y seguimiento
+      independientemente de la formulación cognitiva que se esté construyendo.
+    </p>
+  </div>
+
+  <h2>Cómo usar este material</h2>
+  <p>
+    El material tiene una estructura particular: presenta el caso completo, después el marco teórico de
+    Beck, y luego fragmentos específicos del caso con preguntas que permanecen abiertas. No hay una
+    sección de «solución». El simulador y la autoevaluación no miden si acertaste la formulación de
+    Andrés —porque no existe una única formulación correcta—, sino si tu lectura del caso respeta la
+    arquitectura del modelo de Beck y si justificas tus inferencias con evidencia del propio relato.
+  </p>
+  <p>
+    La idea central es esta: el modelo de Beck no es un ejercicio de etiquetado de distorsiones. Es un
+    modo de preguntar por el significado que un acontecimiento adquiere para una persona, y por el modo
+    en que ese significado se conecta con su historia, con sus reglas, con sus supuestos y con sus
+    conductas actuales. Si al terminar puedes defender una formulación —la tuya— con evidencia del caso
+    y reconocer dónde esa formulación podría estar equivocada, habrás estudiado la perspectiva de Beck.
+  </p>
+
+  <div class="callout">
+    <span class="ct">La pregunta que organiza todo el análisis</span>
+    <p>
+      Si el hecho inicial fue no recibir una promoción laboral, ¿cómo llega ese acontecimiento a
+      convertirse para Andrés en evidencia sobre su valor como trabajador, esposo, padre y persona, y
+      posteriormente en una predicción acerca de su futuro? Responder esa pregunta obliga a conectar
+      historia → esquema → creencia intermedia → acontecimiento activador → pensamiento automático →
+      emoción → conducta → consecuencia → retroalimentación. Y conectarlo, además, con evidencia
+      concreta del relato.
+    </p>
+  </div>
+
+  <h2>Mapa conceptual del modelo</h2>
+  <p>
+    Arrastra para desplazarte, usa la rueda o los botones para ampliar. Cada nodo es clicable y te lleva
+    a la sección donde se desarrolla ese componente del modelo de Beck aplicado al caso.
+  </p>
+
+  <div class="map-shell">
+    <div class="map-toolbar">
+      <button class="map-btn" id="zoomIn" title="Ampliar">+</button>
+      <button class="map-btn" id="zoomOut" title="Reducir">−</button>
+      <button class="map-btn" id="zoomReset" title="Restablecer">⤢</button>
+      <span class="hint">Arrastra para mover · rueda para ampliar · clic en un nodo para navegar</span>
+    </div>
+    <div class="map-viewport" id="mapViewport">
+      <svg viewBox="0 0 1000 640" id="mapSvg">
+        <defs>
+          <linearGradient id="gCenter" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-2)"/>
+          </linearGradient>
+        </defs>
+        <g id="mapView">
+          <g stroke="var(--border-strong)" stroke-width="1.6" fill="none" opacity=".85">
+            <path d="M500 320 L150 98"/>
+            <path d="M500 320 L850 98"/>
+            <path d="M500 320 L130 320"/>
+            <path d="M500 320 L870 320"/>
+            <path d="M500 320 L150 542"/>
+            <path d="M500 320 L850 542"/>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="400" y="278" width="200" height="84" rx="16" fill="url(#gCenter)"/>
+            <text x="500" y="314" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="18" font-weight="600">Modelo</text>
+            <text x="500" y="338" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="18" font-weight="600">de Beck</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="40" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Historia</text>
+            <text x="60" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Padre exigente</text>
+            <text x="60" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">Rol de responsable</text>
+            <text x="60" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Pérdida de materia</text>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="740" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Estructuras</text>
+            <text x="760" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Creencias nucleares</text>
+            <text x="760" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">Reglas y supuestos</text>
+            <text x="760" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Estrategias compensatorias</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="20" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="40" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Activación</text>
+            <text x="40" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Reorganización</text>
+            <text x="40" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">No promoción</text>
+            <text x="40" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Comparación con Sebastián</text>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="760" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="780" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Procesamiento</text>
+            <text x="780" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Pensamientos automáticos</text>
+            <text x="780" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">Distorsiones</text>
+            <text x="780" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Tríada cognitiva</text>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="40" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Mantenimiento</text>
+            <text x="60" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">Evitación</text>
+            <text x="60" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">Aislamiento</text>
+            <text x="60" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">Anhedonia</text>
+          </g>
+
+          <g class="mnode" data-goto="s5">
+            <rect x="740" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Análisis</text>
+            <text x="760" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">Fragmentos</text>
+            <text x="760" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">Preguntas abiertas</text>
+            <text x="760" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">Hipótesis a defender</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <button class="btn-complete" data-sec="s1">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S2 ==================== -->
+<section id="s2">
+<div class="wrap">
+  <span class="sec-kicker">02 · Hoja de ruta</span>
+  <h2>Resultados de aprendizaje</h2>
+  <p>
+    Al terminar de trabajar con este material deberías ser capaz de realizar las siguientes cinco
+    acciones. Fíjate en los verbos: no dicen «conocer» ni «recordar». Son operaciones que puedes
+    ejecutar sobre el caso de Andrés o sobre cualquier otro caso clínico que se te presente.
+  </p>
+
+  <ol class="lo-list">
+    <li>
+      <b>Distinguir y analizar</b> los niveles del modelo cognitivo de Beck —situación, pensamiento
+      automático, distorsión, creencia intermedia, creencia nuclear, tríada cognitiva— y diferenciar
+      claramente una <em>interpretación</em> de una <em>situación objetiva</em> en un relato clínico.
+    </li>
+    <li>
+      <b>Evaluar</b> la calidad de una formulación cognitiva propia o ajena aplicando los criterios de
+      solidez argumentativa: uso de evidencia del relato, distinción entre niveles, consideración de
+      hipótesis alternativas y reconocimiento de los límites de la inferencia.
+    </li>
+    <li>
+      <b>Diseñar</b> ciclos de mantenimiento que muestren, con evidencia extraída del caso, cómo
+      determinadas conductas actuales de Andrés pueden estar retroalimentando las mismas creencias que
+      intentan evitar.
+    </li>
+    <li>
+      <b>Justificar</b> hipótesis sobre creencias intermedias y nucleares conectándolas con experiencias
+      tempranas del relato, y explicitar qué evidencia del caso apoyaría esas hipótesis y qué evidencia
+      podría cuestionarlas.
+    </li>
+    <li>
+      <b>Reconstruir</b> la tríada cognitiva de Beck —visión de sí mismo, del mundo/experiencia y del
+      futuro— como un sistema de cogniciones que se refuerzan mutuamente, no como una lista de
+      afirmaciones negativas.
+    </li>
+  </ol>
+
+  <div class="callout warn">
+    <span class="ct">Los dos que marcan la diferencia</span>
+    <p>
+      El resultado 2 y el resultado 4. Cualquiera puede identificar «pensamientos negativos» en el
+      relato; muy pocos pueden explicar qué evidencia del caso sostiene cada hipótesis y qué evidencia
+      la tensiona. Esa doble operación —defender y a la vez reconocer los límites de la propia
+      formulación— es la que distingue un uso experto del modelo de Beck de un ejercicio de etiquetado.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s2">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S3 ==================== -->
+<section id="s3">
+<div class="wrap">
+  <span class="sec-kicker">03 · El relato clínico</span>
+  <h2>El caso completo</h2>
+  <p>
+    La información está organizada como suele aparecer en las primeras entrevistas: por escenas, por
+    momentos, con datos que el paciente ofrece espontáneamente y con otros que aparecen solo cuando se
+    los pregunta. Léelo dos veces. La primera para familiarizarte con la historia. La segunda buscando
+    específicamente los pasajes donde el significado atribuido a las situaciones no coincide con la
+    situación misma.
+  </p>
+
+  <h3>Identificación y motivo de consulta</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">IDENTIFICACIÓN</span>
+      <p class="title">Andrés M., 38 años</p>
+      <p class="body">
+        Casado desde hace once años. Una hija de ocho años. Profesional universitario con
+        especialización. Coordinador administrativo en una empresa privada donde trabaja desde hace
+        nueve años. Vive en Bogotá. Solicita atención después de que su esposa insistiera durante
+        aproximadamente un mes; él inicialmente consideraba innecesario consultar.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">MOTIVO DE CONSULTA</span>
+      <blockquote>«Ya no encuentro ganas de hacer nada y siento que todo se me salió de las manos».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">PRIMERA ENTREVISTA</span>
+      <blockquote>«No creo que un psicólogo pueda cambiar lo que está pasando. El problema es bastante sencillo: yo no estoy funcionando como debería».</blockquote>
+      <p class="body" style="margin-top:10px">Cuando se le pregunta desde cuándo se siente así:</p>
+      <blockquote>«No sé exactamente. Tal vez unos cuatro o cinco meses. Aunque ahora que lo pienso, creo que empezó antes».</blockquote>
+    </div>
+  </div>
+
+  <h3>Situación laboral reciente</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">CONTEXTO</span>
+      <p class="body">
+        Durante los últimos seis meses la empresa realizó una reorganización administrativa. Su antiguo
+        jefe dejó la organización y fue reemplazado por una directora más joven que modificó varios
+        procedimientos internos.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">ACONTECIMIENTO</span>
+      <p class="title">No recibe la promoción</p>
+      <p class="body">
+        Andrés esperaba ser considerado para una promoción que finalmente recibió otro compañero. La
+        directora le explicó que valoraban positivamente su experiencia, pero habían seleccionado al
+        otro candidato porque tenía mayor trayectoria liderando proyectos digitales.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">REACCIÓN COGNITIVA</span>
+      <p class="body">Andrés recuerda haber pensado inmediatamente:</p>
+      <blockquote>«Claro. Era obvio que no me iban a escoger».</blockquote>
+      <p class="body">Después:</p>
+      <blockquote>«He perdido el tiempo todos estos años».</blockquote>
+      <p class="body">Y unas horas más tarde:</p>
+      <blockquote>«A mi edad ya debería estar mucho más adelante».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">ESA NOCHE</span>
+      <p class="body">
+        Cuando su esposa le preguntó qué había ocurrido, inicialmente respondió:
+      </p>
+      <blockquote>«Nada importante».</blockquote>
+      <p class="body">
+        Permaneció despierto hasta aproximadamente las tres de la mañana. Recuerda haber pensado:
+      </p>
+      <blockquote>«Si realmente fuera bueno en lo que hago, me habrían elegido».</blockquote>
+    </div>
+  </div>
+
+  <h3>Evolución durante los meses siguientes</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">SEMANAS 1-3</span>
+      <p class="body">
+        Continuó trabajando con normalidad. Aproximadamente tres semanas después comenzó a presentar
+        dificultades para concentrarse. Leía varias veces algunos correos antes de responderlos.
+        Actividades que anteriormente resolvía rápidamente empezaron a tomarle mucho más tiempo.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">UN ERROR PEQUEÑO</span>
+      <p class="body">
+        Envió un archivo equivocado a un colega. El compañero respondió:
+      </p>
+      <blockquote>«Creo que adjuntaste la versión anterior».</blockquote>
+      <p class="body">Andrés recuerda haber pensado:</p>
+      <blockquote>«Últimamente no hago una bien».</blockquote>
+      <p class="body">
+        Aunque corrigió inmediatamente el archivo y el compañero no volvió a mencionar el incidente,
+        durante varias horas Andrés continuó pensando en ello. Esa noche recordó otros errores
+        laborales cometidos durante los últimos años. No recordó espontáneamente proyectos exitosos ni
+        reconocimientos recibidos.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">CUANDO SE LE PREGUNTA POR LOS LOGROS</span>
+      <blockquote>«Bueno, sí, ha habido algunos, pero tampoco eran cosas extraordinarias. Era simplemente mi trabajo».</blockquote>
+    </div>
+  </div>
+
+  <h3>Cambios emocionales</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">ESTADO EMOCIONAL</span>
+      <p class="body">
+        Durante los últimos cuatro meses refiere sentirse triste «casi todos los días». Sin embargo,
+        utiliza con mayor frecuencia palabras como: cansado, vacío, decepcionado, frustrado,
+        preocupado, inútil.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">PREGUNTA DE LA TERAPEUTA</span>
+      <p class="body">Cuando se le pregunta cuál de esas emociones considera más difícil, Andrés tarda algunos segundos y responde:</p>
+      <blockquote>«La decepción conmigo mismo».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">ACTIVIDADES PREVIAS</span>
+      <p class="body">
+        Anteriormente disfrutaba cocinar durante los fines de semana, ver partidos de fútbol, escuchar
+        música y salir en bicicleta con dos amigos. Actualmente realiza pocas de estas actividades.
+        Cuando sus amigos lo invitan, frecuentemente responde:
+      </p>
+      <blockquote>«Esta semana estoy complicado. La otra cuadramos».</blockquote>
+      <p class="body">Reconoce que muchas veces realmente no tiene otros compromisos. Sobre esto comenta:</p>
+      <blockquote>«No quiero estar allá fingiendo que todo está bien».</blockquote>
+    </div>
+  </div>
+
+  <h3>Un sábado cualquiera</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">ESCENA</span>
+      <p class="body">
+        Un sábado su esposa propone salir a almorzar con su hija. Andrés responde:
+      </p>
+      <blockquote>«Vayan ustedes. Estoy cansado».</blockquote>
+      <p class="body">
+        Permanece aproximadamente tres horas acostado viendo videos en el teléfono. Después piensa:
+      </p>
+      <blockquote>«Otra vez desperdicié el día».</blockquote>
+      <p class="body">
+        Experimenta culpa. Se levanta e intenta trabajar en una presentación pendiente. Abre el
+        computador, permanece unos veinte minutos mirando el documento y termina cerrándolo. Piensa:
+      </p>
+      <blockquote>«Ni siquiera puedo concentrarme en esto».</blockquote>
+      <p class="body">Luego:</p>
+      <blockquote>«Definitivamente algo está mal conmigo».</blockquote>
+      <p class="body">
+        Regresa a la habitación. Cuando su esposa vuelve y pregunta si avanzó en la presentación,
+        Andrés responde bruscamente:
+      </p>
+      <blockquote>«¿Por qué todo el mundo tiene que estar preguntándome qué estoy haciendo?».</blockquote>
+      <p class="body">
+        Posteriormente se siente culpable por haberle contestado de esa manera. Esa noche piensa:
+      </p>
+      <blockquote>«Ni siquiera estoy siendo un buen esposo».</blockquote>
+    </div>
+  </div>
+
+  <h3>Relaciones familiares</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">PERSPECTIVA DE LA ESPOSA</span>
+      <p class="body">
+        Su esposa lo describe como una persona anteriormente activa, responsable y muy comprometida
+        con su familia. Durante los últimos meses ha observado que participa menos en actividades
+        familiares. Cuando ella intenta hablar con él, frecuentemente responde:
+      </p>
+      <blockquote>«Estoy cansado».<br>«No quiero hablar de trabajo».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">UNA DISCUSIÓN</span>
+      <p class="body">Hace aproximadamente dos meses tuvieron una discusión. Su esposa dijo:</p>
+      <blockquote>«Siento que hace semanas no estás realmente con nosotros».</blockquote>
+      <p class="body">Andrés interpretó el comentario como evidencia de que estaba fallando también en su familia. Pensó:</p>
+      <blockquote>«Tiene razón. Al final termino decepcionando a todo el mundo».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">UNA INFERENCIA SIN EVIDENCIA</span>
+      <p class="body">Durante la entrevista explica:</p>
+      <blockquote>«Ella merece estar con alguien que tenga energía, proyectos, que disfrute las cosas. No con alguien que llega a encerrarse».</blockquote>
+      <p class="body">Sin embargo, cuando se le pregunta si su esposa ha hablado de separarse, responde:</p>
+      <blockquote>«No».</blockquote>
+      <p class="body">La terapeuta pregunta:</p>
+      <blockquote>«Entonces, ¿de dónde proviene la idea de que ella estaría mejor sin usted?».</blockquote>
+      <p class="body">Andrés permanece en silencio. Finalmente dice:</p>
+      <blockquote>«No sé. Me parece lógico».</blockquote>
+    </div>
+  </div>
+
+  <h3>Historia personal</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">FAMILIA DE ORIGEN</span>
+      <p class="body">
+        Andrés es el segundo de tres hermanos. Describe su infancia como «normal». Su padre era
+        contador y su madre trabajaba como secretaria administrativa. Respecto a su padre comenta:
+      </p>
+      <blockquote>«Era buena persona, pero era exigente».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">LA NOTA DE 4,7</span>
+      <p class="body">
+        Cuando Andrés obtenía buenas calificaciones, su padre acostumbraba preguntar:
+      </p>
+      <blockquote>«¿Y quién sacó la nota más alta?».</blockquote>
+      <p class="body">
+        Andrés recuerda orgullosamente haber llegado una vez con una calificación de 4,7 sobre 5. Su
+        padre respondió:
+      </p>
+      <blockquote>«Muy bien. ¿Qué faltó para el 5?».</blockquote>
+      <p class="body">Andrés aclara:</p>
+      <blockquote>«No lo hacía para hacerme sentir mal. Para él uno siempre podía mejorar».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">EL HERMANO CON DIFICULTADES</span>
+      <p class="body">
+        Uno de sus hermanos tenía dificultades académicas y frecuentemente escuchaba a sus padres
+        decir:
+      </p>
+      <blockquote>«Andrés es distinto, con él nunca tenemos que preocuparnos».</blockquote>
+      <p class="body">
+        Durante el colegio comenzó a considerarse «el responsable de la casa».
+      </p>
+    </div>
+  </div>
+
+  <h3>Adolescencia</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">LA MATERIA PERDIDA</span>
+      <p class="body">
+        A los 16 años perdió una materia por primera vez. Recuerda este episodio con bastante claridad.
+        Ocultó la calificación durante varios días. Antes de decírselo a sus padres pensaba:
+      </p>
+      <blockquote>«Van a darse cuenta de que no soy tan inteligente como creen».</blockquote>
+      <p class="body">
+        Finalmente su padre simplemente le indicó que debía estudiar más para recuperarla. Andrés
+        aprobó la materia. Cuando se le pregunta actualmente qué significado tuvo esa experiencia,
+        responde:
+      </p>
+      <blockquote>«Supongo que ninguno. La pasé y listo».</blockquote>
+      <p class="body">
+        Sin embargo, reconoce que posteriormente comenzó a estudiar hasta altas horas de la noche
+        antes de cada examen. Explica:
+      </p>
+      <blockquote>«Prefería estar agotado y saber que había hecho todo lo posible».</blockquote>
+    </div>
+  </div>
+
+  <h3>Vida universitaria y profesional</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">UNIVERSIDAD</span>
+      <p class="body">
+        Obtuvo buenas calificaciones. También refiere elevados niveles de ansiedad antes de presentar
+        trabajos o exámenes. Cuando recibía una calificación alta experimentaba tranquilidad, pero
+        normalmente durante poco tiempo.
+      </p>
+      <blockquote>«Era como quitarme un problema de encima. Después venía la siguiente cosa».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">PRIMEROS AÑOS LABORALES</span>
+      <p class="body">
+        Desarrolló reputación de ser especialmente responsable. Llegaba temprano, revisaba varias
+        veces los documentos antes de entregarlos y raramente rechazaba tareas adicionales. Sobre
+        este comportamiento afirma:
+      </p>
+      <blockquote>«Si uno quiere que lo tengan en cuenta, tiene que demostrar que puede».</blockquote>
+      <p class="body">Cuando se le pregunta qué ocurriría si ocasionalmente no pudiera cumplir con alguna tarea, responde:</p>
+      <blockquote>«Depende».<br>«Supongo que empezarían a darse cuenta de que no soy tan bueno».</blockquote>
+    </div>
+  </div>
+
+  <h3>El episodio de la promoción</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">COMPARACIÓN</span>
+      <p class="body">
+        Su compañero seleccionado, Sebastián, tiene 33 años. Andrés mantiene una relación cordial con
+        él y reconoce:
+      </p>
+      <blockquote>«Sebastián es bueno. No puedo decir que no lo mereciera».</blockquote>
+      <p class="body">Pero inmediatamente añade:</p>
+      <blockquote>«Precisamente por eso. Tiene cinco años menos que yo y ya está donde yo debería estar».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">PREGUNTAS DE LA TERAPEUTA</span>
+      <p class="body">«¿Qué significa para usted estar donde debería estar?».</p>
+      <blockquote>«Que hice las cosas bien».</blockquote>
+      <p class="body">«¿Y qué significaría no estar allí?».</p>
+      <blockquote>«Que tal vez todo lo que hice no sirvió para mucho».</blockquote>
+    </div>
+  </div>
+
+  <h3>Funcionamiento laboral actual</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">DATOS OBJETIVOS</span>
+      <p class="body">
+        Andrés continúa asistiendo regularmente al trabajo. No ha recibido sanciones y sus últimas
+        evaluaciones formales siguen siendo satisfactorias. Sin embargo, está convencido de que su
+        desempeño se ha deteriorado considerablemente.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">INTERPRETACIONES</span>
+      <p class="body">Cuando su directora tarda varias horas en responder un correo, piensa:</p>
+      <blockquote>«Seguramente está revisando lo que envié porque encontró algún problema».</blockquote>
+      <p class="body">Si posteriormente recibe una respuesta neutral como «Gracias, Andrés», ocasionalmente piensa:</p>
+      <blockquote>«Antes me habría dicho que estaba bien».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">EVITACIÓN EN REUNIONES</span>
+      <p class="body">
+        Ha comenzado a evitar expresar opiniones durante algunas reuniones. Explica:
+      </p>
+      <blockquote>«Prefiero no decir nada a decir una estupidez».</blockquote>
+      <p class="body">
+        Esta conducta contrasta con su comportamiento anterior, pues solía intervenir frecuentemente.
+        Después de las reuniones interpreta su silencio como una nueva evidencia:
+      </p>
+      <blockquote>«Antes por lo menos aportaba. Ahora estoy ahí ocupando una silla».</blockquote>
+    </div>
+  </div>
+
+  <h3>Una situación laboral reciente</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">LA REUNIÓN</span>
+      <p class="body">
+        Durante una reunión de ocho personas, Andrés realizó una propuesta sobre la distribución del
+        presupuesto. La directora respondió:
+      </p>
+      <blockquote>«Podría funcionar, aunque tendríamos que revisar los costos».</blockquote>
+      <p class="body">
+        Posteriormente, otro compañero expuso una idea diferente y la directora dijo:
+      </p>
+      <blockquote>«Interesante, revisémosla».</blockquote>
+      <p class="body">Al salir de la reunión Andrés pensó:</p>
+      <blockquote>«Mi propuesta no le gustó».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">VERIFICACIÓN DE LA INFERENCIA</span>
+      <p class="body">La terapeuta pregunta:</p>
+      <blockquote>«¿Qué evidencia tuvo de que no le gustó?».</blockquote>
+      <p class="body">Andrés responde:</p>
+      <blockquote>«Se notaba».</blockquote>
+      <p class="body">Cuando se le pide explicar qué exactamente había observado, dice:</p>
+      <blockquote>«No sé... la forma como respondió».</blockquote>
+      <p class="body">No recuerda el tono exacto ni ninguna expresión facial específica.</p>
+    </div>
+  </div>
+
+  <h3>Cambios conductuales</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">ÚLTIMOS CUATRO MESES</span>
+      <ul style="margin:6px 0 0;padding-left:20px;font-size:.92rem;line-height:1.7">
+        <li>Ha reducido considerablemente sus actividades deportivas.</li>
+        <li>Ve menos a sus amigos.</li>
+        <li>Pasa más tiempo acostado.</li>
+        <li>Aplaza tareas.</li>
+        <li>Participa menos en conversaciones familiares.</li>
+        <li>Ha dejado algunas actividades domésticas que anteriormente realizaba.</li>
+        <li>Evita nuevas responsabilidades laborales.</li>
+        <li>Revisa excesivamente algunos trabajos.</li>
+        <li>Consulta repetidamente correos antes de enviarlos.</li>
+        <li>Toma pocas decisiones que considere «arriesgadas».</li>
+      </ul>
+    </div>
+    <div class="case-item">
+      <span class="num">PARADOJA QUE ÉL MISMO RECONOCE</span>
+      <blockquote>«Mientras menos hago, peor me siento porque siento que no estoy haciendo nada».</blockquote>
+    </div>
+  </div>
+
+  <h3>Sueño, energía y alimentación</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">SUEÑO</span>
+      <p class="body">
+        Anteriormente dormía aproximadamente siete horas. Actualmente presenta dificultades para
+        conciliar el sueño varias noches por semana y en algunas ocasiones despierta temprano. Durante
+        esos periodos suele pensar en problemas laborales.
+      </p>
+    </div>
+    <div class="case-item">
+      <span class="num">ENERGÍA Y APETITO</span>
+      <p class="body">
+        Ha reducido ligeramente su apetito y refiere haber perdido alrededor de cuatro kilos durante
+        los últimos meses sin proponérselo. Describe una disminución considerable de energía. Por las
+        mañanas piensa:
+      </p>
+      <blockquote>«Otro día más».</blockquote>
+      <p class="body">
+        Algunas actividades simples, como ducharse o elegir qué ropa utilizar, ocasionalmente le
+        parecen esfuerzos desproporcionados.
+      </p>
+    </div>
+  </div>
+
+  <h3>Capacidad para experimentar placer</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">UN MOMENTO AISLADO</span>
+      <p class="body">
+        Cuando se le pregunta cuándo fue la última vez que disfrutó genuinamente algo, tarda bastante
+        tiempo en responder. Finalmente recuerda que aproximadamente dos semanas antes vio una película
+        con su hija y se rio varias veces. Inmediatamente añade:
+      </p>
+      <blockquote>«Pero eso fue solamente un rato».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">UN RECONOCIMIENTO</span>
+      <p class="body">
+        Recientemente un antiguo compañero lo llamó para agradecerle algo que Andrés le había enseñado
+        años atrás. Se sintió bien durante algunos minutos. Después pensó:
+      </p>
+      <blockquote>«Él siempre ha sido demasiado agradecido».</blockquote>
+      <p class="body">Al preguntarle si ese reconocimiento podría decir algo acerca de sus capacidades, responde:</p>
+      <blockquote>«No necesariamente».</blockquote>
+    </div>
+  </div>
+
+  <h3>Autovaloración</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">EXPRESIONES RECURRENTES</span>
+      <ul style="margin:6px 0 0;padding-left:20px;font-size:.92rem;line-height:1.8;font-style:italic;color:var(--text)">
+        <li>«Me estoy volviendo mediocre».</li>
+        <li>«Debería poder manejar esto».</li>
+        <li>«Otros tienen problemas mucho más graves».</li>
+        <li>«No tengo ninguna razón para estar así».</li>
+        <li>«Algo que antes podía hacer fácilmente ahora me cuesta».</li>
+        <li>«Todo el mundo sigue avanzando».</li>
+        <li>«Yo me quedé estancado».</li>
+      </ul>
+    </div>
+    <div class="case-item">
+      <span class="num">LA PREGUNTA DE LA TERAPEUTA</span>
+      <p class="body">
+        Cuando se le pregunta qué diría de otra persona que atravesara exactamente las mismas
+        circunstancias, responde:
+      </p>
+      <blockquote>«Probablemente le diría que está pasando por un momento difícil».</blockquote>
+      <p class="body">La terapeuta pregunta:</p>
+      <blockquote>«¿Por qué esa explicación no se aplica a usted?».</blockquote>
+      <p class="body">Andrés responde:</p>
+      <blockquote>«Porque yo debería poder manejarlo».</blockquote>
+    </div>
+  </div>
+
+  <h3>Expectativas frente al futuro</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">PROYECCIÓN</span>
+      <p class="body">
+        Andrés no tiene planes profesionales nuevos. Cuando se le pregunta dónde se imagina dentro de
+        cinco años responde:
+      </p>
+      <blockquote>«No tengo idea».<br>«Probablemente igual».</blockquote>
+      <p class="body">Considera improbable recibir otra promoción:</p>
+      <blockquote>«Si no ocurrió ahora, menos después».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">BÚSQUEDA LABORAL</span>
+      <p class="body">
+        Ha dejado de buscar ofertas laborales. Su esposa le sugirió actualizar su hoja de vida.
+        Andrés respondió:
+      </p>
+      <blockquote>«¿Para qué? Nadie va a contratar a alguien de mi edad para empezar otra vez».</blockquote>
+      <p class="body">
+        No ha investigado ofertas ni enviado solicitudes. Cuando se le señala que no ha comprobado esa
+        posibilidad, responde:
+      </p>
+      <blockquote>«No necesito comprobar todo para saber cómo funcionan las cosas».</blockquote>
+    </div>
+  </div>
+
+  <h3>Ideación relacionada con la muerte</h3>
+  <div class="case-flow">
+    <div class="case-item" style="border-left:3px solid var(--err)">
+      <span class="num" style="color:var(--err)">REQUIERE ATENCIÓN CLÍNICA ESPECÍFICA</span>
+      <p class="body">
+        Durante la evaluación, Andrés niega planes o intenciones de hacerse daño. No obstante, reconoce
+        haber pensado ocasionalmente:
+      </p>
+      <blockquote>«A veces quisiera simplemente apagarme por unos días y no tener que pensar».</blockquote>
+      <p class="body">También refiere haber pensado alguna vez:</p>
+      <blockquote>«Si no estuviera, probablemente varios problemas desaparecerían».</blockquote>
+      <p class="body" style="margin-top:10px">
+        <strong>Estas expresiones requieren evaluación clínica específica del riesgo y seguimiento,
+        independientemente de la formulación cognitiva.</strong> En un contexto real no deberían
+        considerarse simplemente otro ejemplo de «pensamiento negativo».
+      </p>
+    </div>
+  </div>
+
+  <h3>Una contradicción dentro del caso</h3>
+  <div class="case-flow">
+    <div class="case-item">
+      <span class="num">EVALUACIÓN FORMAL</span>
+      <p class="body">
+        La evaluación del último año realizada por la empresa describe a Andrés como responsable,
+        técnicamente competente, colaborativo, organizado y capaz de resolver problemas complejos. Al
+        leerla durante la entrevista, Andrés responde:
+      </p>
+      <blockquote>«Eso fue el año pasado».</blockquote>
+      <p class="body">La terapeuta señala que la evaluación corresponde a ocho meses atrás. Responde:</p>
+      <blockquote>«Precisamente. Muchas cosas pueden cambiar en ocho meses».</blockquote>
+    </div>
+    <div class="case-item">
+      <span class="num">CUANDO SE LE PIDE EVIDENCIA CONCRETA</span>
+      <p class="body">
+        Cuando se le pregunta cuál sería la evidencia concreta de una pérdida significativa de
+        competencia, Andrés menciona principalmente:
+      </p>
+      <ul style="margin:6px 0 0;padding-left:20px;font-size:.92rem;line-height:1.7">
+        <li>No haber conseguido la promoción.</li>
+        <li>Estar cometiendo «muchos errores».</li>
+        <li>Necesitar más tiempo para terminar algunas tareas.</li>
+      </ul>
+      <p class="body" style="margin-top:10px">
+        Cuando se exploran los «muchos errores», puede recordar tres ejemplos durante los últimos dos
+        meses. Ninguno produjo consecuencias importantes.
+      </p>
+    </div>
+  </div>
+
+  <div class="notice">
+    <span class="ct">Lo que el caso no resuelve</span>
+    <p>
+      El caso no proporciona una formulación resuelta. Deliberadamente quedan sin respuesta: qué
+      creencias nucleares específicas operan en Andrés, cuáles son las reglas y supuestos que las
+      conectan con sus conductas, qué distorsiones cognitivas son más relevantes, y por qué este
+      acontecimiento —y no otro— activó el sistema en este momento. Esos elementos deben ser
+      formulados, discutidos y defendidos con evidencia del propio relato en las secciones siguientes.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s3">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S4 ==================== -->
+<section id="s4">
+<div class="wrap">
+  <span class="sec-kicker">04 · El modelo</span>
+  <h2>El marco teórico de Beck</h2>
+  <p>
+    El modelo cognitivo de Beck no es una lista de categorías para clasificar a las personas. Es una
+    forma de preguntar por el <em>significado</em> que un acontecimiento adquiere para alguien, y por el
+    modo en que ese significado se conecta con su historia, con sus reglas, con sus supuestos y con sus
+    conductas actuales. Vamos a recorrer sus niveles.
+  </p>
+
+  <h3>Nivel 1 · Situación</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 1</span><h4>¿Qué ocurrió objetivamente?</h4></div>
+    <p>
+      La situación es el punto de partida, pero no explica por sí sola la secuencia posterior. En el
+      caso de Andrés: no recibe la promoción laboral. Un compañero cinco años menor es seleccionado en
+      su lugar. La directora explica que valoraban su experiencia pero que eligieron al otro por su
+      trayectoria en proyectos digitales.
+    </p>
+    <p>
+      Si el caso se quedara aquí, no habría nada que analizar desde el modelo cognitivo. El interés
+      comienza cuando preguntamos qué <em>significado</em> atribuyó Andrés a lo ocurrido.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿la situación «no recibir la promoción» es objetivamente equivalente a
+      «haber perdido el tiempo todos estos años»? ¿Y a «a mi edad ya debería estar mucho más
+      adelante»? ¿Y a «si realmente fuera bueno en lo que hago, me habrían elegido»?
+    </div>
+  </div>
+
+  <h3>Nivel 2 · Pensamientos automáticos</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 2</span><h4>Valoraciones inmediatas y espontáneas</h4></div>
+    <p>
+      Los pensamientos automáticos son cogniciones que aparecen rápidamente frente a situaciones
+      concretas y que con frecuencia son experimentadas como plausibles o verdaderas sin someterlas
+      inicialmente a examen. No son «pensamientos voluntarios»; aparecen. El trabajo analítico
+      consiste en distinguirlos de la situación que los dispara.
+    </p>
+    <p>
+      Por ejemplo, cuando la directora tarda cuatro horas en responder un correo, la situación
+      objetiva es «tarda cuatro horas». El pensamiento automático es «seguramente está revisando lo
+      que envié porque encontró algún problema». La distinción parece trivial, pero es el eje del
+      modelo: la emoción no sigue a la situación, sigue a la interpretación de la situación.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿cuántos pensamientos automáticos puedes identificar en el caso? ¿En qué
+      situaciones aparecen? ¿Qué emociones están vinculadas con cada uno?
+    </div>
+  </div>
+
+  <h3>Nivel 3 · Distorsiones cognitivas</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 3</span><h4>Cómo se procesa la información</h4></div>
+    <p>
+      En la teoría cognitiva de la depresión se describen sesgos sistemáticos mediante los cuales
+      determinada información adquiere especial relevancia mientras otra puede minimizarse,
+      descartarse o interpretarse según esquemas previamente existentes.
+    </p>
+    <p>Entre las categorías clásicas se encuentran:</p>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>Inferencia arbitraria</h4>
+        <p>Extraer una conclusión sin evidencia suficiente o incluso con evidencia contraria.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Abstracción selectiva</h4>
+        <p>Centrarse en un detalle fuera de contexto y construir la interpretación sobre ese detalle.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Sobregeneralización</h4>
+        <p>Extraer una regla general a partir de un episodio aislado.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Magnificación y minimización</h4>
+        <p>Amplificar la importancia de lo negativo y reducir la de lo positivo.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Personalización</h4>
+        <p>Atribuirse la causa de acontecimientos externos sin base suficiente.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Pensamiento dicotómico</h4>
+        <p>Interpretar en categorías extremas, sin grados intermedios.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Descalificación de lo positivo</h4>
+        <p>Descartar información favorable mediante razones que la neutralizan.</p>
+      </div>
+    </div>
+    <p>
+      La tarea no consiste solamente en encontrar ejemplos. El desafío es establecer qué papel cumple
+      cada operación cognitiva en la preservación de la interpretación depresiva de Andrés.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿en qué pasajes del caso reconoces cada una de estas operaciones? ¿Qué
+      evidencia específica del relato sostiene tu lectura? ¿Qué información positiva aparece en el
+      caso y cómo es tratada por Andrés?
+    </div>
+  </div>
+
+  <h3>Nivel 4 · Creencias intermedias</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 4</span><h4>Reglas, supuestos y actitudes</h4></div>
+    <p>
+      Las creencias intermedias adoptan habitualmente tres formas:
+    </p>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>Reglas</h4>
+        <p><em>«Debo…»<br>«No puedo…»</em></p>
+        <p>Normas rígidas sobre cómo uno mismo, los demás o el mundo deberían funcionar.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Supuestos condicionales</h4>
+        <p><em>«Si ocurre X, entonces significa Y»</em></p>
+        <p>Conexiones que la persona establece entre acontecimientos y significados.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>Actitudes</h4>
+        <p><em>«Es terrible que…»</em></p>
+        <p>Valoraciones sobre la gravedad o tolerabilidad de determinadas situaciones.</p>
+      </div>
+    </div>
+    <p>
+      Aquí algunas frases aparentemente normales del caso adquieren relevancia clínica. Por ejemplo,
+      Andrés dice: «Si uno quiere que lo tengan en cuenta, tiene que demostrar que puede». La pregunta
+      analítica es si se trata simplemente de una opinión sobre el trabajo o si expresa una estructura
+      cognitiva más profunda. El caso no lo resuelve.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿qué reglas del tipo «debo…» pueden inferirse del relato? ¿Qué supuestos
+      del tipo «si… entonces…» podrían estar funcionando? ¿Qué evidencia del caso apoya cada
+      hipótesis?
+    </div>
+  </div>
+
+  <h3>Nivel 5 · Creencias nucleares y esquemas</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 5</span><h4>Estructuras relativamente estables</h4></div>
+    <p>
+      En el modelo cognitivo los esquemas constituyen estructuras relativamente estables mediante las
+      que las personas organizan e interpretan la experiencia. Ayudan a explicar por qué individuos
+      diferentes pueden atribuir significados muy distintos al mismo acontecimiento.
+    </p>
+    <p>El análisis debe desplazarse progresivamente:</p>
+    <div class="template">
+      <p>«No obtuve el ascenso»</p>
+      <p>→ «¿Qué significa para Andrés no haberlo obtenido?»</p>
+      <p>→ «Si eso fuera completamente cierto, ¿qué diría sobre quién es Andrés como persona?»</p>
+    </div>
+    <p>
+      Las posibles creencias nucleares deben ser propuestas por quien analiza el caso, pero no están
+      explicitadas ni resueltas en el relato.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿qué creencias nucleares podrían encontrarse detrás de las reglas
+      identificadas en el nivel anterior? ¿Qué evidencia del caso las apoyaría? ¿Qué evidencia del
+      caso podría cuestionarlas?
+    </div>
+  </div>
+
+  <h3>Nivel 6 · La tríada cognitiva</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 6</span><h4>Yo · Mundo/experiencia · Futuro</h4></div>
+    <p>
+      Uno de los componentes más conocidos del modelo de Beck es la organización de las cogniciones
+      depresivas alrededor de tres dominios:
+    </p>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>A · Visión negativa de sí mismo</h4>
+        <p>La manera en que la persona construye su propia identidad, capacidades y valor.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>B · Visión negativa del mundo o de la experiencia</h4>
+        <p>La realidad cotidiana puede interpretarse predominantemente en términos de obstáculos, pérdidas, rechazo o excesivas demandas.</p>
+      </div>
+      <div class="analysis-card">
+        <h4>C · Visión negativa del futuro</h4>
+        <p>Las dificultades actuales se proyectan hacia adelante y el cambio comienza a parecer improbable o imposible.</p>
+      </div>
+    </div>
+    <p>
+      El caso contiene información correspondiente a las tres dimensiones, pero deliberadamente no
+      está clasificada. La operación interesante consiste en mostrar cómo las tres dimensiones se
+      refuerzan mutuamente, no simplemente enlistarlas.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿qué visión de sí mismo, del mundo y del futuro puedes reconstruir a partir
+      del relato? ¿Cómo se refuerzan mutuamente las tres dimensiones? ¿Qué pasajes del caso muestran
+      esa retroalimentación?
+    </div>
+  </div>
+
+  <h3>Nivel 7 · Vulnerabilidad y acontecimiento activador</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 7</span><h4>Por qué este acontecimiento y no otro</h4></div>
+    <p>
+      El acontecimiento reciente no necesariamente explica por sí mismo la aparición del problema. Un
+      modelo cognitivo completo investiga una secuencia como esta:
+    </p>
+    <div class="template" style="font-family:var(--mono);font-size:.84rem;text-align:center;line-height:2">
+      Experiencias tempranas → Creencias/esquemas → Reglas y supuestos → Estrategias compensatorias → Acontecimiento crítico compatible con la vulnerabilidad → Activación del esquema → Pensamientos automáticos → Cambios emocionales, conductuales y fisiológicos → Consecuencias que refuerzan las cogniciones iniciales
+    </div>
+    <p>
+      Esta estructura es el mapa teórico, no la solución del caso de Andrés. El trabajo consiste en
+      proponer una formulación coherente con el relato, no en rellenar los huecos del esquema con
+      cualquier contenido.
+    </p>
+    <div class="q">
+      Pregunta de trabajo: ¿qué experiencias tempranas del caso parecen relevantes? ¿Qué significado
+      pudo haber adquirido el rendimiento académico? ¿Por qué la promoción —y no otro acontecimiento
+      laboral— parece haber activado el sistema?
+    </div>
+  </div>
+
+  <h3>Nivel 8 · El mantenimiento del problema</h3>
+  <div class="level-card">
+    <div class="lh"><span class="lnum">Nivel 8</span><h4>El circuito que sostiene el malestar</h4></div>
+    <p>
+      Este es probablemente el nivel más interesante del caso. La pregunta es si algunas conductas
+      actualmente utilizadas por Andrés para manejar su malestar podrían terminar fortaleciendo las
+      mismas creencias que intenta evitar. La formulación debe mostrar el mecanismo, no solo afirmar
+      que Andrés «piensa negativamente».
+    </p>
+    <p>
+      Un fenómeno especialmente importante es la paradoja que él mismo reconoce: «mientras menos hago,
+      peor me siento porque siento que no estoy haciendo nada».
+    </p>
+    <div class="template">
+      <p>Pensamiento → Emoción → Conducta → Consecuencia → Nueva interpretación</p>
+    </div>
+    <div class="q">
+      Pregunta de trabajo: ¿qué consecuencias tiene dejar de practicar actividades gratificantes?
+      ¿Qué efecto produce su progresivo aislamiento? ¿Cómo podría interpretar posteriormente esas
+      mismas consecuencias? Construye al menos tres ciclos de mantenimiento completos, cada uno
+      anclado en pasajes concretos del relato.
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <span class="ct">Lo que el modelo no es</span>
+    <p>
+      El modelo de Beck no es un sistema de clasificación de personas. Es una forma de preguntar por el
+      significado que un acontecimiento adquiere para alguien. Cuando se lo reduce a un ejercicio de
+      etiquetado de distorsiones, se pierde precisamente lo que lo hace clínicamente útil: la pregunta
+      por la <em>arquitectura cognitiva</em> que conecta la historia, los esquemas, las reglas, los
+      supuestos, los pensamientos automáticos, las emociones y las conductas en un sistema que se
+      retroalimenta.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s4">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S5 ==================== -->
+<section id="s5">
+<div class="wrap">
+  <span class="sec-kicker">05 · Fragmentos para análisis</span>
+  <h2>Tres fragmentos, tres niveles de análisis</h2>
+  <p>
+    Estos tres fragmentos del caso están presentados sin resolución. Cada uno invita a un tipo distinto
+    de operación analítica. El trabajo consiste en proponer hipótesis <em>ancladas en el relato</em>,
+    no en encontrar «la respuesta correcta».
+  </p>
+
+  <h3>Fragmento 1 · La nota de 4,7</h3>
+  <div class="card">
+    <p><strong>Pasaje del caso.</strong></p>
+    <div class="template" style="border-left:3px solid var(--accent)">
+      <p>Cuando Andrés obtenía buenas calificaciones, su padre acostumbraba preguntar: «¿Y quién sacó
+      la nota más alta?». Andrés recuerda orgullosamente haber llegado una vez con una calificación
+      de 4,7 sobre 5. Su padre respondió: «Muy bien. ¿Qué faltó para el 5?». Andrés aclara: «No lo
+      hacía para hacerme sentir mal. Para él uno siempre podía mejorar».</p>
+    </div>
+
+    <p><strong>Qué invita a analizar este fragmento.</strong></p>
+    <p>
+      Este pasaje es un ejemplo típico de lo que en el modelo de Beck se estudia como «experiencia
+      temprana relevante». Pero su relevancia <em>no está dada por el acontecimiento en sí</em> —
+      muchos padres preguntan por la nota más alta sin producir efectos clínicos—, sino por el
+      significado que esa experiencia pudo haber adquirido para Andrés y por las estrategias que
+      desarrolló a partir de ella.
+    </p>
+
+    <p><strong>Preguntas abiertas.</strong></p>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>Nivel del significado</h4>
+        <ul>
+          <li>¿Qué pudo haber significado para Andrés un 4,7 acompañado de «¿qué faltó para el 5?»?</li>
+          <li>¿Es lo mismo un mensaje de mejora que un mensaje de insuficiencia? ¿Quién decide?</li>
+          <li>¿Cómo se relaciona esto con la frase posterior: «Prefería estar agotado y saber que había hecho todo lo posible»?</li>
+        </ul>
+      </div>
+      <div class="analysis-card">
+        <h4>Nivel de la estructura</h4>
+        <ul>
+          <li>¿Qué regla del tipo «debo…» podría estar operando aquí?</li>
+          <li>¿Qué supuesto del tipo «si… entonces…» se puede inferir?</li>
+          <li>¿Qué creencia nuclear podría estar detrás, y qué evidencia del caso la apoyaría?</li>
+        </ul>
+      </div>
+      <div class="analysis-card">
+        <h4>Nivel de la evidencia</h4>
+        <ul>
+          <li>¿Qué evidencia del caso sostiene tu hipótesis?</li>
+          <li>¿Qué evidencia del caso la tensionaría o la pondría en duda?</li>
+          <li>¿Qué otras lecturas del mismo fragmento serían igualmente plausibles?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="ct">Lo que este fragmento no permite concluir</span>
+      <p>
+        No permite concluir que el padre de Andrés haya sido «el origen» de un esquema de
+        insuficiencia. Eso sería sobreinterpretar. El modelo cognitivo no establece relaciones causales
+        simples entre acontecimientos únicos y esquemas. Trabaja con <em>patrones</em> de experiencia y
+        con el significado que la persona misma atribuye a esos patrones. Aquí el propio Andrés
+        relativiza el episodio: «No lo hacía para hacerme sentir mal».
+      </p>
+    </div>
+  </div>
+
+  <h3>Fragmento 2 · La reunión y la inferencia sobre la directora</h3>
+  <div class="card">
+    <p><strong>Pasaje del caso.</strong></p>
+    <div class="template" style="border-left:3px solid var(--accent)">
+      <p>Durante una reunión de ocho personas, Andrés realizó una propuesta sobre la distribución del
+      presupuesto. La directora respondió: «Podría funcionar, aunque tendríamos que revisar los
+      costos». Posteriormente, otro compañero expuso una idea diferente y la directora dijo:
+      «Interesante, revisémosla». Al salir de la reunión Andrés pensó: «Mi propuesta no le gustó».</p>
+      <p>La terapeuta pregunta: «¿Qué evidencia tuvo de que no le gustó?». Andrés responde: «Se
+      notaba». Cuando se le pide explicar qué exactamente había observado, dice: «No sé... la forma
+      como respondió». No recuerda el tono exacto ni ninguna expresión facial específica.</p>
+    </div>
+
+    <p><strong>Qué invita a analizar este fragmento.</strong></p>
+    <p>
+      Este pasaje permite distinguir con precisión dos operaciones que en el lenguaje cotidiano se
+      confunden: <em>observar</em> y <em>inferir</em>. Andrés no recuerda qué observó, pero sí está
+      seguro de qué significó. Es un caso paradigmático de lo que Beck denomina inferencia arbitraria
+      y, simultáneamente, un ejemplo de cómo una cognición depresiva puede sostenerse sin evidencia
+      disponible para el propio sujeto.
+    </p>
+
+    <p><strong>Preguntas abiertas.</strong></p>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>Sobre la inferencia</h4>
+        <ul>
+          <li>¿Qué se observó exactamente y qué se infirió?</li>
+          <li>¿Qué otra lectura sería compatible con la misma situación?</li>
+          <li>¿Por qué la lectura depresiva parece más plausible a Andrés que otras alternativas?</li>
+        </ul>
+      </div>
+      <div class="analysis-card">
+        <h4>Sobre la estructura</h4>
+        <ul>
+          <li>¿Qué función cumple este pensamiento en el sistema cognitivo de Andrés?</li>
+          <li>¿Cómo se relaciona con la idea de «no ser tan bueno»?</li>
+          <li>¿Qué evidencia del caso apoyaría esa conexión?</li>
+        </ul>
+      </div>
+      <div class="analysis-card">
+        <h4>Sobre la verificación</h4>
+        <ul>
+          <li>¿Qué tipo de evidencia haría falta para verificar o refutar la interpretación?</li>
+          <li>¿Por qué Andrés no la busca espontáneamente?</li>
+          <li>¿Qué dice esto sobre el modo en que funciona un esquema activado?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>Fragmento 3 · El sábado perdido</h3>
+  <div class="card">
+    <p><strong>Pasaje del caso.</strong></p>
+    <div class="template" style="border-left:3px solid var(--accent)">
+      <p>Un sábado su esposa propone salir a almorzar con su hija. Andrés responde: «Vayan ustedes.
+      Estoy cansado». Permanece aproximadamente tres horas acostado viendo videos en el teléfono.
+      Después piensa: «Otra vez desperdicié el día». Experimenta culpa. Se levanta e intenta trabajar
+      en una presentación pendiente. Abre el computador, permanece unos veinte minutos mirando el
+      documento y termina cerrándolo. Piensa: «Ni siquiera puedo concentrarme en esto». Luego:
+      «Definitivamente algo está mal conmigo». Regresa a la habitación.</p>
+    </div>
+
+    <p><strong>Qué invita a analizar este fragmento.</strong></p>
+    <p>
+      Este pasaje es un ejemplo particularmente claro de <em>ciclo de mantenimiento</em>. Contiene la
+      secuencia completa: pensamiento → emoción → conducta → consecuencia → nueva interpretación. La
+      conducta (evitar la salida, permanecer acostado) produce una consecuencia (no cumplir con la
+      presentación pendiente) que a su vez alimenta una nueva interpretación («algo está mal
+      conmigo») que confirma el esquema inicial.
+    </p>
+    <p>
+      Lo interesante es que la conducta de Andrés es una <em>respuesta razonable</em> a su estado
+      interno: si se siente agotado, quedarse en casa parece lo correcto. El problema no es la
+      conducta en sí, sino el hecho de que esa conducta, mantenida en el tiempo, produce exactamente
+      las consecuencias que confirman el esquema. Ese es el corazón del mantenimiento.
+    </p>
+
+    <p><strong>Preguntas abiertas.</strong></p>
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h4>El ciclo completo</h4>
+        <ul>
+          <li>¿Cuál es el pensamiento, cuál la emoción, cuál la conducta, cuál la consecuencia?</li>
+          <li>¿Cómo la consecuencia refuerza el pensamiento inicial?</li>
+          <li>¿Qué otras conductas podrían haber seguido a la misma situación?</li>
+        </ul>
+      </div>
+      <div class="analysis-card">
+        <h4>Las alternativas descartadas</h4>
+        <ul>
+          <li>¿Qué se pierde cuando no se participa de una actividad gratificante?</li>
+          <li>¿Qué información nueva deja de recibir Andrés?</li>
+          <li>¿Cómo podría interpretar posteriormente esa ausencia de información?</li>
+        </ul>
+      </div>
+      <div class="analysis-card">
+        <h4>Otros ciclos</h4>
+        <ul>
+          <li>¿Puedes identificar otros ciclos de mantenimiento en el caso?</li>
+          <li>¿Uno vinculado al trabajo? ¿Uno vinculado a las relaciones familiares?</li>
+          <li>¿Qué tienen en común los tres ciclos?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <span class="ct">Cómo trabajar con estos fragmentos</span>
+    <p>
+      Cada fragmento invita a proponer hipótesis, no a «encontrar la respuesta». La evaluación de una
+      formulación cognitiva no depende de acertar con una etiqueta, sino de cuatro criterios: la
+      distinción entre niveles del modelo, el uso de evidencia del propio relato, la consideración de
+      hipótesis alternativas y el reconocimiento de los límites de la propia inferencia.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s5">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S6 ==================== -->
+<section id="s6">
+<div class="wrap">
+  <span class="sec-kicker">06 · Procesos en movimiento</span>
+  <h2>Animaciones</h2>
+  <p>
+    Dos procesos que el texto estático captura mal: el <em>desplazamiento por los niveles del modelo</em>
+    que va de la situación a la creencia nuclear, y el <em>ciclo de mantenimiento</em> que se cierra
+    sobre sí mismo. Los animo para que puedas pausarlos y observarlos a la velocidad que necesites.
+  </p>
+
+  <h3>Animación 1 · Del acontecimiento al esquema</h3>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin-top:0">
+      El recorrido va de lo observable a lo inferido. Cada paso exige un tipo distinto de operación
+      analítica y una justificación distinta con evidencia del relato.
+    </p>
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 400" id="anim1Svg">
+        <g id="a1Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a1Play">▶ Reproducir</button>
+      <button id="a1Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a1Speed">Velocidad</label>
+        <input type="range" id="a1Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a1SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a1Cap"><b>Listo para empezar</b>Pulsa «Reproducir» para recorrer los siete niveles del modelo de Beck. Observa que cada paso hacia arriba exige más inferencia y descansa sobre menos evidencia directa del relato.</div>
+  </div>
+
+  <h3>Animación 2 · El ciclo de mantenimiento del sábado</h3>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin-top:0">
+      Un ciclo completo extraído del fragmento «el sábado perdido». Cada nodo se conecta con el
+      siguiente, y el último cierra el circuito alimentando al primero.
+    </p>
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 400" id="anim2Svg">
+        <g id="a2Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a2Play">▶ Reproducir</button>
+      <button id="a2Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a2Speed">Velocidad</label>
+        <input type="range" id="a2Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a2SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a2Cap"><b>Antes de empezar</b>Observa que el circuito se cierra: la consecuencia del último paso refuerza el pensamiento del primero. Eso es el mantenimiento. No es que Andrés «piense mal»: es que sus conductas producen las consecuencias que confirman sus pensamientos.</div>
+  </div>
+
+  <button class="btn-complete" data-sec="s6">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S7 ==================== -->
+<section id="s7">
+<div class="wrap">
+  <span class="sec-kicker">07 · Manos a la obra</span>
+  <h2>Simulación interactiva · Auditoría de una formulación cognitiva</h2>
+  <p>
+    Esta simulación no evalúa si acertaste la formulación de Andrés —porque no existe una única
+    formulación correcta—. Evalúa la <strong>solidez argumentativa</strong> de cualquier formulación
+    cognitiva que estés construyendo, propia o ajena. Puntúa cada criterio y observa el perfil
+    resultante. Los cuatro presets corresponden a tipos frecuentes de formulaciones estudiantiles.
+  </p>
+
+  <div class="presets">
+    <button data-preset="solida">Formulación sólida</button>
+    <button data-preset="etiquetado">Etiquetado sin evidencia</button>
+    <button data-preset="sobreinterpretada">Sobreinterpretación desde la historia</button>
+    <button data-preset="plana">Descripción sin arquitectura</button>
+  </div>
+
+  <div class="sim-grid">
+    <div>
+      <div class="rubric" id="rubricList"></div>
+    </div>
+
+    <div>
+      <div class="readouts">
+        <div class="readout"><span class="k">Solidez global</span><span class="v" id="rGlobal">0<small>/30</small></span></div>
+        <div class="readout"><span class="k">Criterio más débil</span><span class="v" id="rDebil" style="font-size:1rem">—</span></div>
+        <div class="readout"><span class="k">Diagnóstico</span><span class="v" id="rDiag" style="font-size:.85rem">—</span></div>
+      </div>
+      <div class="verdict" id="simVerdict"><b>—</b>Puntúa cada criterio para ver el diagnóstico.</div>
+      <canvas id="simChart"></canvas>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:10px">
+        Las barras muestran el puntaje por criterio agrupado (Niveles, Evidencia, Inferencia,
+        Alternativas, Límites). El máximo por criterio depende del número de preguntas.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:22px">
+    <span class="ct">Guía breve de interpretación</span>
+    <p>
+      <strong>Niveles bajo:</strong> la formulación confunde situación con pensamiento, o pensamiento
+      con creencia nuclear. Es el error más básico y el más fácil de corregir.<br>
+      <strong>Evidencia bajo:</strong> se afirman cosas sobre Andrés sin anclar cada afirmación en
+      pasajes del relato. Es el error más frecuente en trabajos estudiantiles.<br>
+      <strong>Inferencia bajo:</strong> se mezclan operaciones que pertenecen a niveles distintos, o
+      se trata la historia como causa directa de los síntomas actuales.<br>
+      <strong>Alternativas bajo:</strong> la formulación no reconoce que el mismo material admite
+      otras lecturas. Produce certeza donde debería haber hipótesis.<br>
+      <strong>Límites bajo:</strong> la formulación no explicita qué evidencia podría refutarla. Sin
+      esa explicitación no es una hipótesis, es una afirmación.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s7">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S8 ==================== -->
+<section id="s8">
+<div class="wrap">
+  <span class="sec-kicker">08 · Cierre</span>
+  <h2>Autoevaluación final</h2>
+  <p>
+    Ocho preguntas, una por componente del modelo. Al terminar verás el desglose por área para detectar
+    exactamente qué necesitas repasar. Las preguntas no evalúan si «acertaste» con Andrés: evalúan si
+    comprendes la arquitectura del modelo de Beck y cómo se aplica.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="fScore">0</span>
+      <span class="small">/ <span id="fTotal">8</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="fFill"></i></div>
+    <button class="btn ghost" id="fRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="finalContainer"></div>
+
+  <h3>Desglose por componente</h3>
+  <div class="breakdown" id="breakdown"></div>
+
+  <button class="btn-complete" data-sec="s8">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S9 ==================== -->
+<section id="s9">
+<div class="wrap">
+  <span class="sec-kicker">09 · Seguir</span>
+  <h2>Referencias y ruta de profundización</h2>
+  <p>
+    Fuentes en formato APA 7, ordenadas alfabéticamente. Abajo se propone un orden de lectura distinto,
+    pensado para acumular profundidad sin saltarse los cimientos.
+  </p>
+
+  <ul class="ref-list">
+    <li>Beck, A. T. (1967). <em>Depression: Clinical, experimental, and theoretical aspects.</em> Harper &amp; Row.</li>
+    <li>Beck, A. T. (1976). <em>Cognitive therapy and the emotional disorders.</em> International Universities Press.</li>
+    <li>Beck, A. T., Rush, A. J., Shaw, B. F., &amp; Emery, G. (1979). <em>Cognitive therapy of depression.</em> Guilford Press.</li>
+    <li>Beck, J. S. (2021). <em>Cognitive behavior therapy: Basics and beyond</em> (3.ª ed.). Guilford Press.</li>
+    <li>Clark, D. A., &amp; Beck, A. T. (2010). Cognitive therapy of anxiety disorders: Science and practice. Guilford Press.</li>
+    <li>Clark, D. M., &amp; Fairburn, C. G. (Eds.). (1997). <em>Science and practice of cognitive behaviour therapy.</em> Oxford University Press.</li>
+    <li>Ellis, A. (1962). <em>Reason and emotion in psychotherapy.</em> Lyle Stuart.</li>
+    <li>Kuyken, W., Padesky, C. A., &amp; Dudley, R. (2009). <em>Collaborative case conceptualization: Working effectively with clients in cognitive-behavioral therapy.</em> Guilford Press.</li>
+    <li>Persons, J. B. (2008). <em>The case formulation approach to cognitive-behavior therapy.</em> Guilford Press.</li>
+    <li>Salkovskis, P. M. (Ed.). (1996). <em>Frontiers of cognitive therapy.</em> Guilford Press.</li>
+    <li>Simons, A. D., &amp; Thase, M. E. (1992). Biological markers, treatment outcome, and recovery from major depression. En S. Roose &amp; A. Glassman (Eds.), <em>Treatment of depression: An update.</em> American Psychiatric Press.</li>
+    <li>Young, J. E., Klosko, J. S., &amp; Weishaar, M. E. (2003). <em>Schema therapy: A practitioner's guide.</em> Guilford Press.</li>
+  </ul>
+
+  <h3>¿Y ahora qué estudiar?</h3>
+  <p>
+    La ruta de lectura está pensada como acumulación progresiva. Es una sugerencia de orden, no una
+    camisa de fuerza.
+  </p>
+
+  <ol class="route">
+    <li>
+      <b>Beck (1976) — <em>Cognitive Therapy and the Emotional Disorders</em></b>
+      El texto original del modelo. Léelo sabiendo que los manuales posteriores sistematizaron mucho
+      más de lo que Beck formuló inicialmente. Fíjate en cómo construye la distinción entre situación
+      y significado.
+    </li>
+    <li>
+      <b>Beck, Rush, Shaw y Emery (1979) — <em>Cognitive Therapy of Depression</em></b>
+      El manual clásico para la depresión. Es donde aparece la tríada cognitiva de forma explícita y
+      donde se articula la relación entre pensamientos automáticos, esquemas y distorsiones.
+    </li>
+    <li>
+      <b>Beck (2021) — <em>Cognitive Behavior Therapy: Basics and Beyond</em></b>
+      El manual contemporáneo escrito por Judith Beck, hija de Aaron Beck. Recorre el proceso completo
+      de conceptualización cognitiva con casos clínicos extensos. Si vas a formular casos reales, este
+      es el texto de trabajo.
+    </li>
+    <li>
+      <b>Kuyken, Padesky y Dudley (2009) — <em>Collaborative Case Conceptualization</em></b>
+      Un desarrollo importante del modelo: la conceptualización como un trabajo colaborativo entre
+      terapeuta y paciente, no como una formulación que el terapeuta elabora en solitario. Es la
+      evolución contemporánea más citada del modelo.
+    </li>
+    <li>
+      <b>Persons (2008) — <em>The Case Formulation Approach to CBT</em></b>
+      Un texto de referencia sobre cómo se construye, se evalúa y se revisa una formulación de caso.
+      Es particularmente útil si el interés es la metodología clínica, no solo el contenido teórico.
+    </li>
+    <li>
+      <b>Young, Klosko y Weishaar (2003) — <em>Schema Therapy</em></b>
+      La evolución del concepto de esquema hacia la terapia centrada en esquemas. Relevante para
+      comprender cómo el modelo original de Beck ha sido reformulado por autores posteriores.
+    </li>
+    <li>
+      <b>Ellis (1962) — <em>Reason and Emotion in Psychotherapy</em></b>
+      La otra tradición cognitiva clínica. Comparar el modelo ABC de Ellis con el modelo de Beck es
+      un ejercicio formativo indispensable para entender qué hay de común y qué de específico en
+      cada tradición.
+    </li>
+    <li>
+      <b>Salkovskis (1996) — <em>Frontiers of Cognitive Therapy</em></b>
+      Un volumen colectivo que mapea las principales aplicaciones y desarrollos del modelo cognitivo
+      más allá de la depresión. Útil para ver hasta dónde llega.
+    </li>
+  </ol>
+
+  <div class="callout">
+    <span class="ct">La idea que conviene conservar</span>
+    <p>
+      El modelo cognitivo de Beck no es un sistema de etiquetado de distorsiones. Es una forma de
+      preguntar por el <strong>significado</strong> que un acontecimiento adquiere para alguien, y por
+      el modo en que ese significado se conecta con su historia, con sus reglas, con sus supuestos y
+      con sus conductas actuales en un sistema que se retroalimenta. Formular un caso es proponer una
+      arquitectura coherente con el relato y defenderla con evidencia, sabiendo dónde esa arquitectura
+      podría estar equivocada.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s9">Marcar como completada</button>
+
+  <footer>
+    <span>Caso Andrés M. · Guía interactiva de estudio autónomo sobre el modelo de Beck</span>
+    <span>Elaborado por <strong>Juan Carlos Valderrama Cárdenas</strong></span>
+  </footer>
+</div>
+</section>
+
+</main>
+
+<script>
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const shuffle = a => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
+
+/* ---------- TEMA ---------- */
+const themeBtn = $('#themeBtn');
+const savedTheme = sessionStorage.getItem('beck_theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+themeBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  sessionStorage.setItem('beck_theme', next);
+  themeBtn.textContent = next === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+});
+
+/* ---------- NAV MÓVIL ---------- */
+const sidebar = $('#sidebar'), overlay = $('#overlay'), burger = $('#burger');
+burger.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+$$('.nav a').forEach(a => a.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); }));
+
+/* ---------- SCROLL SPY ---------- */
+const navLinks = $$('.nav a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+  });
+}, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+$$('section').forEach(s => obs.observe(s));
+
+/* ---------- PROGRESO ---------- */
+const SECS = ['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+let done = {};
+try { done = JSON.parse(sessionStorage.getItem('beck_progress') || '{}'); } catch (e) { done = {}; }
+function saveProgress() { sessionStorage.setItem('beck_progress', JSON.stringify(done)); }
+function renderProgress() {
+  const n = SECS.filter(s => done[s]).length;
+  $('#progFill').style.width = (n / SECS.length * 100) + '%';
+  $('#progLabel').textContent = n + ' / ' + SECS.length;
+  navLinks.forEach(a => a.classList.toggle('done', !!done[a.dataset.sec]));
+  $$('.btn-complete').forEach(b => {
+    const isDone = !!done[b.dataset.sec];
+    b.classList.toggle('is-done', isDone);
+    b.textContent = isDone ? '✓ Sección completada' : 'Marcar como completada';
+  });
+}
+$$('.btn-complete').forEach(b => b.addEventListener('click', () => {
+  done[b.dataset.sec] = !done[b.dataset.sec];
+  saveProgress(); renderProgress();
+}));
+renderProgress();
+
+/* ---------- MAPA ---------- */
+(function () {
+  const vp = $('#mapViewport'), view = $('#mapView');
+  let tx = 0, ty = 0, sc = 1, dragging = false, sx = 0, sy = 0;
+  function apply() { view.setAttribute('transform', `translate(${tx} ${ty}) scale(${sc})`); }
+  function zoomAt(cx, cy, factor) {
+    const rect = vp.getBoundingClientRect();
+    const px = (cx - rect.left) / rect.width * 1000;
+    const py = (cy - rect.top) / rect.height * 640;
+    const nsc = clamp(sc * factor, 0.45, 3.2);
+    const k = nsc / sc;
+    tx = px - k * (px - tx); ty = py - k * (py - ty);
+    sc = nsc; apply();
+  }
+  vp.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 1 / 1.12); }, { passive: false });
+  vp.addEventListener('pointerdown', e => {
+    if (e.target.closest('.mnode')) return;
+    dragging = true; vp.classList.add('dragging');
+    sx = e.clientX - tx; sy = e.clientY - ty;
+    vp.setPointerCapture(e.pointerId);
+  });
+  vp.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    tx = clamp(e.clientX - sx, -600, 600);
+    ty = clamp(e.clientY - sy, -400, 400);
+    apply();
+  });
+  ['pointerup','pointercancel'].forEach(ev => vp.addEventListener(ev, () => { dragging = false; vp.classList.remove('dragging'); }));
+  $('#zoomIn').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1.25); });
+  $('#zoomOut').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1/1.25); });
+  $('#zoomReset').addEventListener('click', () => { tx = 0; ty = 0; sc = 1; apply(); });
+  $$('.mnode').forEach(n => n.addEventListener('click', () => {
+    const t = document.getElementById(n.dataset.goto);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+  apply();
+})();
+
+/* ---------- MOTOR DE QUIZ ---------- */
+const results = { final: {} };
+
+function renderQuiz(container, data, prefix) {
+  container.innerHTML = '';
+  data.forEach((q, i) => {
+    const el = document.createElement('div');
+    el.className = 'q';
+    el.dataset.idx = i;
+    let bodyHTML = '';
+    if (q.type === 'mc') {
+      bodyHTML = '<div class="opts">' + q.opts.map((o, j) =>
+        `<label class="opt" data-opt="${j}"><input type="radio" name="${prefix}q${i}" value="${j}"><span>${o}</span></label>`
+      ).join('') + '</div>';
+    } else if (q.type === 'tf') {
+      bodyHTML = `<div class="tf-row"><button class="tf-btn" data-val="true">Verdadero</button><button class="tf-btn" data-val="false">Falso</button></div>`;
+    } else if (q.type === 'match') {
+      const rights = shuffle(q.pairs.map(p => p.right));
+      bodyHTML = q.pairs.map((p, j) => `
+        <div class="match-row" data-mi="${j}">
+          <div class="left">${p.left}</div>
+          <select><option value="">— elige una opción —</option>${rights.map(r => `<option value="${r.replace(/"/g,'&quot;')}">${r}</option>`).join('')}</select>
+        </div>`).join('');
+    } else if (q.type === 'order') {
+      const items = shuffle(q.items.map((t, j) => ({ t, j })));
+      bodyHTML = '<ul class="order-list">' + items.map(it =>
+        `<li data-orig="${it.j}"><span>${it.t}</span><div class="ord-btns"><button data-dir="up">▲</button><button data-dir="down">▼</button></div></li>`
+      ).join('') + '</ul>';
+    }
+    const typeLabel = { mc: 'Opción múltiple', tf: 'Verdadero / Falso', match: 'Emparejar conceptos', order: 'Ordenar secuencia' }[q.type];
+    el.innerHTML = `
+      <div class="q-head">
+        <div class="q-num">${String(i + 1).padStart(2, '0')}</div>
+        <div><p class="q-text">${q.q}</p><span class="q-type">${typeLabel}</span></div>
+      </div>
+      ${bodyHTML}
+      <div class="q-actions"><button class="btn" data-check>Comprobar</button></div>
+      <div class="fb" data-fb></div>`;
+    container.appendChild(el);
+  });
+  wireQuiz(container, data, prefix);
+}
+
+function flash(qEl, text) {
+  const fb = qEl.querySelector('[data-fb]');
+  fb.className = 'fb show bad';
+  fb.innerHTML = `<b>Atención</b>${text}`;
+  setTimeout(() => { if (!qEl.dataset.done) fb.className = 'fb'; }, 2600);
+}
+
+function wireQuiz(container, data, prefix) {
+  const store = results.final;
+  container.querySelectorAll('.q').forEach(qEl => {
+    const i = +qEl.dataset.idx;
+    const q = data[i];
+    const ordList = qEl.querySelector('.order-list');
+    if (ordList) {
+      ordList.addEventListener('click', e => {
+        const btn = e.target.closest('button[data-dir]');
+        if (!btn || ordList.dataset.locked) return;
+        const li = btn.closest('li');
+        if (btn.dataset.dir === 'up' && li.previousElementSibling) ordList.insertBefore(li, li.previousElementSibling);
+        if (btn.dataset.dir === 'down' && li.nextElementSibling) ordList.insertBefore(li.nextElementSibling, li);
+      });
+    }
+    qEl.querySelectorAll('.opt input').forEach(r => r.addEventListener('change', () => {
+      qEl.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+      r.closest('.opt').classList.add('sel');
+    }));
+    qEl.querySelectorAll('.tf-btn').forEach(b => b.addEventListener('click', () => {
+      if (b.classList.contains('locked')) return;
+      qEl.querySelectorAll('.tf-btn').forEach(x => x.classList.remove('picked'));
+      b.classList.add('picked');
+    }));
+    qEl.querySelector('[data-check]').addEventListener('click', () => {
+      if (qEl.dataset.done) return;
+      let ok = false;
+      if (q.type === 'mc') {
+        const sel = qEl.querySelector('input[type=radio]:checked');
+        if (!sel) return flash(qEl, 'Selecciona una opción antes de comprobar.');
+        const v = +sel.value;
+        ok = v === q.correct;
+        qEl.querySelectorAll('.opt').forEach(o => {
+          const j = +o.dataset.opt;
+          o.classList.add('locked');
+          if (j === q.correct) o.classList.add('correct');
+          else if (j === v) o.classList.add('wrong');
+        });
+      } else if (q.type === 'tf') {
+        const picked = qEl.querySelector('.tf-btn.picked');
+        if (!picked) return flash(qEl, 'Elige Verdadero o Falso antes de comprobar.');
+        ok = (picked.dataset.val === 'true') === q.correct;
+        qEl.querySelectorAll('.tf-btn').forEach(b => {
+          b.classList.add('locked');
+          const bv = b.dataset.val === 'true';
+          if (bv === q.correct) b.classList.add('correct');
+          else if (b.classList.contains('picked')) b.classList.add('wrong');
+        });
+      } else if (q.type === 'match') {
+        let allOk = true, answered = true;
+        qEl.querySelectorAll('.match-row').forEach((row, j) => {
+          const sel = row.querySelector('select');
+          if (!sel.value) answered = false;
+          const good = sel.value === q.pairs[j].right;
+          if (!good) allOk = false;
+          row.classList.add(good ? 'ok' : 'no');
+          sel.disabled = true;
+        });
+        if (!answered) {
+          qEl.querySelectorAll('.match-row').forEach(r => r.classList.remove('ok','no'));
+          return flash(qEl, 'Completa todas las filas antes de comprobar.');
+        }
+        ok = allOk;
+      } else if (q.type === 'order') {
+        let allOk = true;
+        Array.from(ordList.querySelectorAll('li')).forEach((li, pos) => {
+          const good = +li.dataset.orig === pos;
+          if (!good) allOk = false;
+          li.classList.add(good ? 'ok' : 'no');
+        });
+        ordList.dataset.locked = '1';
+        ok = allOk;
+      }
+      qEl.dataset.done = '1';
+      const btn = qEl.querySelector('[data-check]');
+      btn.disabled = true; btn.style.opacity = '.45'; btn.textContent = 'Comprobada';
+      const fb = qEl.querySelector('[data-fb]');
+      fb.className = 'fb show' + (ok ? '' : ' bad');
+      fb.innerHTML = `<b>${ok ? '✓ Correcto' : '✗ No es correcto'}</b>${q.exp}`;
+      store[i] = ok ? 1 : 0;
+      updateScore('f');
+    });
+  });
+}
+
+function updateScore(prefix) {
+  const data = FINAL;
+  const store = results.final;
+  const n = Object.values(store).reduce((a, b) => a + b, 0);
+  $('#fScore').textContent = n;
+  $('#fFill').style.width = (n / data.length * 100) + '%';
+  renderBreakdown();
+}
+
+/* ---------- BANCO: AUTOEVALUACIÓN ---------- */
+const FINAL = [
+  { topic:'Distinción de niveles', type:'mc', q:'¿Cuál es la diferencia entre la <em>situación</em> y el <em>pensamiento automático</em> en el modelo de Beck?',
+    opts:['Son sinónimos: el pensamiento automático es la situación internalizada.',
+          'La situación es lo que objetivamente ocurre; el pensamiento automático es la interpretación inmediata que la persona hace de lo que ocurre.',
+          'La situación es interna; el pensamiento automático es externo.',
+          'El pensamiento automático pertenece al inconsciente y la situación a la conciencia.'],
+    correct:1,
+    exp:'La opción (b). La distinción es central: «la directora tarda cuatro horas en responder» es una situación; «seguramente encontró un problema en mi trabajo» es un pensamiento automático. La emoción no sigue a la situación, sigue a la interpretación de la situación. Sin esta distinción, el modelo se convierte en un ejercicio de etiquetado.' },
+
+  { topic:'Tríada cognitiva', type:'tf', q:'La tríada cognitiva de Beck consiste en una lista de tres afirmaciones negativas que el paciente repite.',
+    correct:false,
+    exp:'Falso. La tríada es un sistema de cogniciones organizadas en tres dominios —visión de sí mismo, del mundo/experiencia y del futuro— que se refuerzan mutuamente. No es una lista, es una arquitectura. La operación clínica relevante no es identificarla sino mostrar cómo se sostiene a sí misma.' },
+
+  { topic:'Creencias intermedias', type:'mc', q:'¿Cuál de las siguientes frases del caso es más probablemente una creencia intermedia del tipo «supuesto condicional»?',
+    opts:['«Ya no encuentro ganas de hacer nada».',
+          '«Si uno quiere que lo tengan en cuenta, tiene que demostrar que puede».',
+          '«Me estoy volviendo mediocre».',
+          '«Tiene cinco años menos que yo».'],
+    correct:1,
+    exp:'La opción (b). Los supuestos condicionales tienen la forma «si X, entonces Y» y conectan acontecimientos con significados. «Si uno quiere que lo tengan en cuenta, tiene que demostrar que puede» expresa una regla operativa que conecta esfuerzo, reconocimiento y valor. La (c) es un pensamiento automático; la (d) es una observación objetiva; la (a) describe un estado.' },
+
+  { topic:'Ciclos de mantenimiento', type:'mc', q:'En el fragmento del sábado, ¿qué cierra el ciclo de mantenimiento?',
+    opts:['Que Andrés vea videos en el teléfono durante tres horas.',
+          'Que la conducta de evitar produce consecuencias que confirman la creencia inicial de que «algo está mal conmigo».',
+          'Que su esposa le pregunte sobre la presentación.',
+          'Que exista una presentación pendiente.'],
+    correct:1,
+    exp:'La opción (b). El ciclo se cierra porque la evitación produce exactamente las consecuencias que confirman el esquema: no cumple con la presentación, y la no realización alimenta la interpretación «definitivamente algo está mal conmigo». No es que Andrés «piense mal»: es que sus conductas producen consecuencias que refuerzan sus pensamientos.' },
+
+  { topic:'Inferencia vs. observación', type:'mc', q:'Cuando Andrés dice que la directora no aprobó su propuesta, ¿qué tipo de problema ilustra el caso?',
+    opts:['Un problema de memoria: olvidó lo que dijo la directora.',
+          'Una inferencia arbitraria: extrae una conclusión sin evidencia disponible para él mismo.',
+          'Una alucinación: escuchó algo que no ocurrió.',
+          'Un problema de atención: no escuchó bien la respuesta.'],
+    correct:1,
+    exp:'La opción (b). La pregunta «¿qué evidencia tuvo?» produce «se notaba», y cuando se le pide precisión dice «no sé… la forma como respondió». No recuerda el tono ni ninguna expresión facial específica. Es un caso paradigmático de inferencia arbitraria: el pensamiento se sostiene sin evidencia accesible para el propio sujeto, y eso es precisamente lo que un esquema activado produce.' },
+
+  { topic:'Experiencia temprana', type:'mc', q:'¿Cuál es la lectura más rigurosa del episodio del padre y la nota de 4,7?',
+    opts:['Es la causa directa del problema actual de Andrés.',
+          'Es un ejemplo de experiencia temprana potencialmente relevante cuyo significado clínico debe ser inferido y justificado con evidencia, no asumido.',
+          'Es irrelevante porque Andrés mismo lo relativiza.',
+          'Es la prueba de que el padre era negligente.'],
+    correct:1,
+    exp:'La opción (b). El modelo cognitivo no establece relaciones causales simples entre un acontecimiento único y un esquema. Trabaja con patrones y con el significado que la persona atribuye. Andrés mismo relativiza el episodio: «No lo hacía para hacerme sentir mal». Eso no lo vuelve irrelevante, pero sí obliga a justificar por qué sería importante y qué evidencia adicional del caso sostiene esa lectura.' },
+
+  { topic:'Uso de evidencia', type:'mc', q:'¿Cuál de estos criterios es el más importante para evaluar la solidez de una formulación cognitiva?',
+    opts:['Que use términos técnicos correctos.',
+          'Que cada afirmación sobre el paciente esté anclada en evidencia extraída del relato.',
+          'Que sea lo más extensa posible.',
+          'Que identifique al menos diez distorsiones cognitivas.'],
+    correct:1,
+    exp:'La opción (b). El criterio decisivo no es el vocabulario ni la extensión, sino la trazabilidad: cada afirmación sobre el paciente debe poder reconstruirse a partir de pasajes concretos del caso. Una formulación que solo usa términos técnicos pero no cita evidencia no es más sólida que una que usa lenguaje común pero sí la cita.' },
+
+  { topic:'Límites de la formulación', type:'tf', q:'Una formulación cognitiva sólida debe incluir qué evidencia del caso podría refutarla o ponerla en duda.',
+    correct:true,
+    exp:'Verdadero. Este es el criterio que separa una hipótesis clínica de una afirmación. Sin explicitación de qué evidencia podría refutarla, la formulación no es contrastable. En el caso de Andrés, por ejemplo, una hipótesis sobre una creencia nuclear de insuficiencia debería poder indicar qué pasajes del caso la tensionan: el reconocimiento de sus logros por parte del compañero, la evaluación laboral favorable, el hecho de que su esposa nunca haya hablado de separarse.' }
+];
+
+$('#fTotal').textContent = FINAL.length;
+$('#fRetry').addEventListener('click', () => { results.final = {}; renderQuiz($('#finalContainer'), FINAL, 'f'); updateScore('f'); });
+renderQuiz($('#finalContainer'), FINAL, 'f');
+
+function renderBreakdown() {
+  const topics = [...new Set(FINAL.map(q => q.topic))];
+  $('#breakdown').innerHTML = topics.map(t => {
+    const idxs = FINAL.map((q, i) => q.topic === t ? i : -1).filter(i => i >= 0);
+    const got = idxs.filter(i => results.final[i] === 1).length;
+    const pct = Math.round(got / idxs.length * 100);
+    const cls = pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low';
+    return `<div class="bd-row ${cls}">
+      <span>${t}</span>
+      <span class="track"><i style="width:${pct}%"></i></span>
+      <span class="num">${got}/${idxs.length}</span>
+    </div>`;
+  }).join('');
+}
+updateScore('f');
+
+/* ---------- ANIMACIÓN 1: DEL ACONTECIMIENTO AL ESQUEMA ---------- */
+(function () {
+  const g = $('#a1Content');
+  const LEVELS = [
+    { t:'Situación', c:'Andrés no recibe la promoción. El compañero seleccionado tiene cinco años menos. La directora explica que eligieron al otro por su experiencia en proyectos digitales.', ev:'Dato objetivo' },
+    { t:'Pensamiento automático', c:'«Claro. Era obvio que no me iban a escoger». Aparece de inmediato, sin examen, como si fuera un hecho.', ev:'Evidencia directa' },
+    { t:'Emoción', c:'Decepción consigo mismo. «La decepción conmigo mismo» es la emoción que él mismo identifica como más difícil.', ev:'Evidencia directa' },
+    { t:'Distorsión cognitiva', c:'Inferencia arbitraria en la reunión («se notaba»). Sobregeneralización («últimamente no hago una bien»). Descalificación de lo positivo («no eran cosas extraordinarias»).', ev:'Evidencia directa' },
+    { t:'Creencia intermedia', c:'«Si uno quiere que lo tengan en cuenta, tiene que demostrar que puede». Regla operativa que conecta esfuerzo, reconocimiento y valor personal.', ev:'Inferencia justificada' },
+    { t:'Creencia nuclear', c:'Hipótesis posible: el valor personal depende del rendimiento y del reconocimiento externo. Debe justificarse con evidencia del relato, no asumirse.', ev:'Inferencia a defender' },
+    { t:'Esquema', c:'Estructura que organiza la interpretación de los acontecimientos y explica por qué este evento —y no otro— activó la cadena completa.', ev:'Inferencia a defender' }
+  ];
+
+  const W = 640;
+  const ROW_H = 50, Y0 = 30;
+
+  LEVELS.forEach((l, i) => {
+    const y = Y0 + i * ROW_H;
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const evColor = l.ev === 'Dato objetivo' ? 'var(--muted)' : l.ev === 'Evidencia directa' ? 'var(--ok)' : l.ev === 'Inferencia justificada' ? 'var(--accent-2)' : 'var(--err)';
+    gg.innerHTML = `
+      <rect x="20" y="${y}" width="${W - 40}" height="${ROW_H - 6}" rx="8"
+        fill="var(--surface)" stroke="var(--border)" stroke-width="1.4" id="a1b${i}"/>
+      <text x="34" y="${y + 18}" font-family="var(--mono)" font-size="9.5" font-weight="700" fill="var(--accent-2)">NIVEL ${i + 1}</text>
+      <text x="34" y="${y + 34}" font-family="var(--serif)" font-size="12" font-weight="600" fill="var(--text)">${l.t}</text>
+      <text x="${W - 34}" y="${y + 26}" text-anchor="end" font-family="var(--sans)" font-size="9.5" font-weight="600" fill="${evColor}">${l.ev}</text>
+    `;
+    g.appendChild(gg);
+  });
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 14;
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(LEVELS.length - 1, Math.floor(frac * LEVELS.length));
+    if (idx !== cur) {
+      cur = idx;
+      LEVELS.forEach((_, i) => {
+        const b = document.getElementById(`a1b${i}`);
+        if (!b) return;
+        const reached = i <= idx;
+        b.setAttribute('fill', i === idx ? 'var(--accent-soft)' : reached ? 'var(--surface-2)' : 'var(--surface)');
+        b.setAttribute('stroke', i === idx ? 'var(--accent)' : reached ? 'var(--accent-2)' : 'var(--border)');
+        b.setAttribute('stroke-width', i === idx ? '2' : '1.4');
+      });
+      $('#a1Cap').innerHTML = `<b>${LEVELS[idx].t}</b>${LEVELS[idx].c} <em style="color:var(--muted);display:block;margin-top:6px">Tipo de evidencia: ${LEVELS[idx].ev}</em>`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a1Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a1Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a1Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a1Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    LEVELS.forEach((_, i) => {
+      const b = document.getElementById(`a1b${i}`);
+      if (!b) return;
+      b.setAttribute('fill', 'var(--surface)');
+      b.setAttribute('stroke', 'var(--border)');
+      b.setAttribute('stroke-width', '1.4');
+    });
+    $('#a1Cap').innerHTML = '<b>Listo para empezar</b>Pulsa «Reproducir» para recorrer los siete niveles del modelo de Beck. Observa que cada paso hacia arriba exige más inferencia y descansa sobre menos evidencia directa del relato.';
+  });
+  $('#a1Speed').addEventListener('input', e => { speed = +e.target.value; $('#a1SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a1Reset').click();
+})();
+
+/* ---------- ANIMACIÓN 2: CICLO DE MANTENIMIENTO ---------- */
+(function () {
+  const g = $('#a2Content');
+  const CX = 320, CY = 200, R = 120;
+
+  const NODES = [
+    { t:'Pensamiento', c:'«Otra vez desperdicié el día»' },
+    { t:'Emoción', c:'Culpa' },
+    { t:'Conducta', c:'Intenta trabajar, no logra concentrarse, cierra el computador' },
+    { t:'Consecuencia', c:'No avanza en la presentación pendiente' },
+    { t:'Nueva interpretación', c:'«Definitivamente algo está mal conmigo»' }
+  ];
+
+  NODES.forEach((n, i) => {
+    const ang = (-90 + i * 72) * Math.PI / 180;
+    const x = CX + R * Math.cos(ang);
+    const y = CY + R * Math.sin(ang);
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.innerHTML = `
+      <circle cx="${x}" cy="${y}" r="42" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4" id="a2c${i}"/>
+      <text x="${x}" y="${y - 4}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text)" font-family="var(--sans)">${n.t}</text>
+      <text x="${x}" y="${y + 10}" text-anchor="middle" font-size="8" fill="var(--muted)" font-family="var(--sans)">${n.c.length > 30 ? n.c.slice(0, 28) + '…' : n.c}</text>
+    `;
+    g.appendChild(gg);
+  });
+
+  // Flechas curvas entre nodos
+  for (let i = 0; i < NODES.length; i++) {
+    const a1 = (-90 + i * 72) * Math.PI / 180;
+    const a2 = (-90 + ((i + 1) % NODES.length) * 72) * Math.PI / 180;
+    const x1 = CX + (R + 42) * Math.cos(a1);
+    const y1 = CY + (R + 42) * Math.sin(a1);
+    const x2 = CX + (R + 42) * Math.cos(a2);
+    const y2 = CY + (R + 42) * Math.sin(a2);
+    const midR = R + 70;
+    const am = (a1 + a2) / 2;
+    const xm = CX + midR * Math.cos(am);
+    const ym = CY + midR * Math.sin(am);
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M ${x1} ${y1} Q ${xm} ${ym} ${x2} ${y2}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'var(--border-strong)');
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('id', `a2arrow${i}`);
+    g.appendChild(path);
+  }
+
+  // Centro
+  const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  center.setAttribute('cx', CX); center.setAttribute('cy', CY); center.setAttribute('r', 48);
+  center.setAttribute('fill', 'var(--surface-2)'); center.setAttribute('stroke', 'var(--border)');
+  g.appendChild(center);
+  const ctText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  ctText.setAttribute('x', CX); ctText.setAttribute('y', CY - 4);
+  ctText.setAttribute('text-anchor', 'middle');
+  ctText.setAttribute('font-size', '10');
+  ctText.setAttribute('font-family', 'var(--sans)');
+  ctText.setAttribute('fill', 'var(--muted)');
+  ctText.textContent = 'Ciclo de';
+  g.appendChild(ctText);
+  const ctText2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  ctText2.setAttribute('x', CX); ctText2.setAttribute('y', CY + 10);
+  ctText2.setAttribute('text-anchor', 'middle');
+  ctText2.setAttribute('font-size', '10');
+  ctText2.setAttribute('font-family', 'var(--sans)');
+  ctText2.setAttribute('fill', 'var(--muted)');
+  ctText2.textContent = 'mantenimiento';
+  g.appendChild(ctText2);
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 15;
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(NODES.length - 1, Math.floor(frac * NODES.length));
+    if (idx !== cur) {
+      cur = idx;
+      NODES.forEach((_, i) => {
+        const c = document.getElementById(`a2c${i}`);
+        if (!c) return;
+        const reached = i <= idx;
+        c.setAttribute('fill', i === idx ? 'var(--accent-soft)' : reached ? 'var(--surface-2)' : 'var(--surface)');
+        c.setAttribute('stroke', i === idx ? 'var(--accent)' : reached ? 'var(--accent-2)' : 'var(--border)');
+        c.setAttribute('stroke-width', i === idx ? '2' : '1.4');
+      });
+      for (let i = 0; i < NODES.length; i++) {
+        const a = document.getElementById(`a2arrow${i}`);
+        if (a) a.setAttribute('stroke', i <= idx ? 'var(--accent)' : 'var(--border-strong)');
+        if (a) a.setAttribute('stroke-width', i === idx ? '2' : '1.5');
+      }
+      $('#a2Cap').innerHTML = `<b>${NODES[idx].t}</b>${NODES[idx].c}`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a2Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a2Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a2Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a2Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    NODES.forEach((_, i) => {
+      const c = document.getElementById(`a2c${i}`);
+      if (!c) return;
+      c.setAttribute('fill', 'var(--surface)');
+      c.setAttribute('stroke', 'var(--border)');
+      c.setAttribute('stroke-width', '1.4');
+    });
+    for (let i = 0; i < NODES.length; i++) {
+      const a = document.getElementById(`a2arrow${i}`);
+      if (a) a.setAttribute('stroke', 'var(--border-strong)');
+      if (a) a.setAttribute('stroke-width', '1.5');
+    }
+    $('#a2Cap').innerHTML = '<b>Antes de empezar</b>Observa que el circuito se cierra: la consecuencia del último paso refuerza el pensamiento del primero. Eso es el mantenimiento. No es que Andrés «piense mal»: es que sus conductas producen las consecuencias que confirman sus pensamientos.';
+  });
+  $('#a2Speed').addEventListener('input', e => { speed = +e.target.value; $('#a2SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a2Reset').click();
+})();
+
+/* ---------- SIMULACIÓN: AUDITORÍA DE FORMULACIÓN ---------- */
+(function () {
+  const RUBRIC = [
+    { crit:'Niveles', q:'¿Distingue situación, pensamiento automático, creencia intermedia y creencia nuclear?' },
+    { crit:'Niveles', q:'¿Evita confundir emoción con pensamiento, o conducta con consecuencia?' },
+    { crit:'Niveles', q:'¿Ubica cada inferencia en el nivel del modelo al que corresponde?' },
+    { crit:'Evidencia', q:'¿Cada afirmación sobre Andrés está anclada en un pasaje concreto del relato?' },
+    { crit:'Evidencia', q:'¿Distingue observación de inferencia?' },
+    { crit:'Evidencia', q:'¿Usa también evidencia que tensiona su propia hipótesis?' },
+    { crit:'Inferencia', q:'¿Las inferencias sobre creencias nucleares están justificadas y no solo enunciadas?' },
+    { crit:'Inferencia', q:'¿Conecta historia, creencias, acontecimiento activador y conducta actual en una secuencia coherente?' },
+    { crit:'Inferencia', q:'¿El ciclo de mantenimiento muestra el mecanismo, no solo la etiqueta?' },
+    { crit:'Alternativas', q:'¿Reconoce que el mismo material admite otras lecturas?' },
+    { crit:'Alternativas', q:'¿Evita presentar una hipótesis como si fuera un hecho establecido?' },
+    { crit:'Alternativas', q:'¿Considera el contexto cultural y familiar sin sobreinterpretarlo?' },
+    { crit:'Límites', q:'¿Explicita qué evidencia del caso podría refutar su formulación?' },
+    { crit:'Límites', q:'¿Reconoce qué aspectos del caso no permiten conclusión (creencias nucleares específicas, origen del esquema)?' },
+    { crit:'Límites', q:'¿Distingue la formulación cognitiva de la evaluación clínica de riesgo?' }
+  ];
+  const MAX = RUBRIC.length * 2;
+
+  const PRESETS = {
+    solida: RUBRIC.map(() => 2),
+    etiquetado: [
+      2, 1, 1,
+      0, 1, 0,
+      0, 0, 1,
+      0, 0, 1,
+      0, 0, 1
+    ],
+    sobreinterpretada: [
+      1, 1, 1,
+      1, 1, 0,
+      0, 1, 1,
+      0, 0, 1,
+      0, 0, 0
+    ],
+    plana: [
+      0, 0, 0,
+      1, 1, 1,
+      0, 0, 0,
+      0, 0, 1,
+      0, 1, 1
+    ]
+  };
+
+  const list = $('#rubricList');
+  RUBRIC.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'rubric-item';
+    item.dataset.idx = i;
+    item.innerHTML = `
+      <div class="lbl">${r.q}<small>${r.crit}</small></div>
+      <select data-rubric="${i}">
+        <option value="0">0 · No</option>
+        <option value="1">1 · Parcialmente</option>
+        <option value="2">2 · Sí</option>
+      </select>`;
+    list.appendChild(item);
+  });
+
+  $('#rGlobal').innerHTML = '0<small>/' + MAX + '</small>';
+
+  const canvas = $('#simChart'), ctx = canvas.getContext('2d');
+
+  function calcular() {
+    const vals = RUBRIC.map((_, i) => +document.querySelector(`select[data-rubric="${i}"]`).value);
+    const total = vals.reduce((a, b) => a + b, 0);
+    $('#rGlobal').innerHTML = total + '<small>/' + MAX + '</small>';
+
+    const crits = ['Niveles', 'Evidencia', 'Inferencia', 'Alternativas', 'Límites'];
+    const critScores = {};
+    crits.forEach(c => {
+      const idxs = RUBRIC.map((r, i) => r.crit === c ? i : -1).filter(i => i >= 0);
+      const max = idxs.length * 2;
+      const got = idxs.reduce((a, i) => a + vals[i], 0);
+      critScores[c] = { got, max, pct: max ? got / max : 0 };
+    });
+
+    let debil = crits[0];
+    crits.forEach(c => { if (critScores[c].pct < critScores[debil].pct) debil = c; });
+    $('#rDebil').textContent = critScores[debil].pct < 0.7 ? debil : '—';
+
+    const pctTotal = total / MAX;
+    let diagCorto;
+    if (pctTotal >= 0.85) diagCorto = 'Sólida';
+    else if (pctTotal >= 0.6) diagCorto = 'Aceptable';
+    else if (pctTotal >= 0.3) diagCorto = 'Débil';
+    else diagCorto = 'Muy débil';
+    $('#rDiag').textContent = diagCorto;
+
+    let titulo, texto;
+    if (pctTotal >= 0.85) {
+      titulo = 'Formulación sólida';
+      texto = 'La formulación recorre los niveles del modelo, ancla cada afirmación en evidencia del relato, reconoce hipótesis alternativas y explicita sus propios límites. Es el tipo de trabajo que se espera en un análisis clínico formativo.';
+    } else if (pctTotal >= 0.6) {
+      titulo = 'Formulación aceptable con debilidades';
+      texto = `La formulación funciona pero tiene un criterio más débil (${debil}). Revisa específicamente ese componente: el resto está en un nivel aceptable, pero el conjunto se resiente si falta un criterio.`;
+    } else if (pctTotal >= 0.3) {
+      titulo = 'Formulación débil';
+      texto = `Varios criterios están insuficientemente desarrollados. El criterio más débil es ${debil}. El problema no es la extensión ni el vocabulario, sino operaciones concretas que faltan: distinguir niveles, citar evidencia, reconocer alternativas o explicitar límites.`;
+    } else {
+      titulo = 'Formulación muy débil';
+      texto = 'La formulación se queda en el nivel del etiquetado. Nombra términos del modelo pero no los articula en una arquitectura defendible con evidencia. Es el patrón del preset «etiquetado sin evidencia».';
+    }
+    $('#simVerdict').innerHTML = `<b>${titulo} (${total}/${MAX})</b>${texto}`;
+
+    RUBRIC.forEach((_, i) => {
+      const item = document.querySelector(`.rubric-item[data-idx="${i}"]`);
+      item.classList.remove('s0', 's1', 's2');
+      item.classList.add(`s${vals[i]}`);
+    });
+
+    draw(critScores);
+  }
+
+  function draw(critScores) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const W = rect.width, H = rect.height;
+    const padL = 100, padR = 42, padT = 20, padB = 30;
+    const gw = W - padL - padR, gh = H - padT - padB;
+
+    const css = getComputedStyle(document.documentElement);
+    const cBorder = css.getPropertyValue('--border').trim();
+    const cMuted = css.getPropertyValue('--muted').trim();
+    const cAccent2 = css.getPropertyValue('--accent-2').trim();
+    const cOk = css.getPropertyValue('--ok').trim();
+    const cErr = css.getPropertyValue('--err').trim();
+
+    ctx.clearRect(0, 0, W, H);
+
+    const crits = Object.keys(critScores);
+    const barH = gh / crits.length * 0.62;
+    const gap = gh / crits.length;
+
+    crits.forEach((c, i) => {
+      const y = padT + i * gap + gap * 0.1;
+      const score = critScores[c];
+      const w = gw * score.pct;
+
+      ctx.fillStyle = cBorder;
+      ctx.fillRect(padL, y, gw, barH);
+      const color = score.pct >= 0.8 ? cOk : score.pct >= 0.5 ? cAccent2 : cErr;
+      ctx.fillStyle = color;
+      ctx.fillRect(padL, y, w, barH);
+
+      ctx.fillStyle = cMuted;
+      ctx.font = '11px system-ui, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(c, padL - 8, y + barH / 2 + 4);
+      ctx.textAlign = 'left';
+      ctx.font = '11px ui-monospace, monospace';
+      ctx.fillText(`${score.got}/${score.max}`, padL + gw + 6, y + barH / 2 + 4);
+    });
+  }
+
+  $$('select[data-rubric]').forEach(sel => sel.addEventListener('change', calcular));
+  $$('.presets button').forEach(b => b.addEventListener('click', () => {
+    const vals = PRESETS[b.dataset.preset];
+    vals.forEach((v, i) => {
+      const sel = document.querySelector(`select[data-rubric="${i}"]`);
+      if (sel) sel.value = v;
+    });
+    calcular();
+  }));
+
+  window.addEventListener('resize', calcular);
+  calcular();
+})();
+</script>
+</body>
+</html>
