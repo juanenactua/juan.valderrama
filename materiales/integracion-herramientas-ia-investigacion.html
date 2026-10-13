@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Integración de herramientas de IA en la investigación</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Integración de herramientas de IA en la investigación">
+<meta name="jc-descripcion" content="Laboratorio técnico interactivo sobre la integración de ChatGPT en investigación cualitativa mediante un flujo controlado de análisis temático asistido, arquitectura de prompts ACTOR, codificación, refinamiento, construcción de temas, interpretación, vinculación teórica y documentación de decisiones humanas.">
+<meta name="jc-tipo" content="Laboratorio técnico interactivo">
+<meta name="jc-etiquetas" content="Inteligencia artificial, IA generativa, ChatGPT, Investigación, Investigación cualitativa, Análisis temático, Análisis cualitativo, Prompt engineering, Arquitectura de prompts, ACTOR, Codificación cualitativa, Códigos, Clusters, Temas, Interpretación, Template Analysis, Embodied cognition, Interocepción, Toma de decisiones, Trazabilidad, Auditoría, Supervisión humana, Bitácora de análisis, Metodología de investigación, Escritura académica">
+<meta name="jc-curso" content="Integración de herramientas de IA en la investigación">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+
+<style>
+  :root{
+    --azul-oscuro:#0B2545;
+    --azul-medio:#13315C;
+    --azul-acento:#13538A;
+    --dorado:#E7C873;
+    --texto:#12203A;
+    --texto-suave:#3E4E68;
+    --blanco:#FFFFFF;
+    --crema:#FBF8F1;
+    --sombra:0 10px 30px rgba(11,37,69,.10);
+    --sombra-suave:0 4px 16px rgba(11,37,69,.07);
+    --sombra-hover:0 18px 40px rgba(11,37,69,.18);
+    --radio:20px;
+    --verde:#3C8C4A;
+    --amarillo:#D9A400;
+    --rojo:#C1543F;
+    --morado:#8A6FBF;
+    --ease-out:cubic-bezier(.22,.85,.35,1);
+    --t-rapida:.28s;
+    --t-media:.45s;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:var(--blanco); color:var(--texto);
+    font-size:34px; line-height:1.45; overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .fondo{position:fixed; inset:0; z-index:0; background:var(--blanco);}
+
+  .titulo-encuentro{
+    position:fixed; top:26px; left:36px; z-index:65;
+    font-size:16px; color:var(--azul-medio); font-weight:700;
+    letter-spacing:1px; text-transform:uppercase;
+    opacity:0; animation:fadeInDown .6s var(--ease-out) .1s forwards;
+  }
+  .titulo-encuentro::before{
+    content:"●"; color:var(--dorado); margin-right:12px; font-size:15px;
+    display:inline-block;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  body.divisor-activo .titulo-encuentro{color:var(--dorado);}
+
+  .toggle-indice{
+    position:fixed; top:20px; right:32px; z-index:65;
+    background:var(--azul-oscuro); color:var(--dorado);
+    border:none; border-radius:26px; padding:14px 28px;
+    font-size:17px; font-weight:800; letter-spacing:.6px;
+    cursor:pointer; box-shadow:var(--sombra-suave);
+    transition:background var(--t-rapida) var(--ease-out),
+               transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+    opacity:0; animation:fadeInDown .6s var(--ease-out) .15s forwards;
+  }
+  .toggle-indice:hover{
+    background:var(--azul-acento); color:var(--blanco);
+    transform:translateY(-2px) scale(1.04);
+    box-shadow:var(--sombra-hover);
+  }
+  body.divisor-activo .toggle-indice{
+    background:var(--dorado); color:var(--azul-oscuro);
+  }
+  body.divisor-activo .toggle-indice:hover{
+    background:var(--blanco); color:var(--azul-oscuro);
+  }
+
+  .indice-panel{
+    position:fixed; top:0; right:0; bottom:0; width:460px;
+    background:var(--blanco); color:var(--texto);
+    padding:90px 28px 30px; overflow-y:auto;
+    transform:translateX(100%); transition:transform .45s var(--ease-out);
+    z-index:75; box-shadow:-12px 0 40px rgba(11,37,69,.15);
+    border-left:1px solid rgba(11,37,69,.12);
+  }
+  .indice-panel.open{transform:translateX(0);}
+  .indice-panel h2{
+    color:var(--azul-medio); font-size:22px; margin:0 0 24px;
+    font-weight:800; letter-spacing:1.5px; text-transform:uppercase;
+  }
+  .indice-panel ol{list-style:none; margin:0; padding:0;}
+  .indice-panel li{
+    font-size:17px; padding:11px 16px; border-radius:10px;
+    cursor:pointer; margin-bottom:4px; color:var(--texto-suave);
+    line-height:1.4;
+    transition:background var(--t-rapida) var(--ease-out),
+               color var(--t-rapida) var(--ease-out),
+               transform var(--t-rapida) var(--ease-out);
+  }
+  .indice-panel li:hover{
+    background:#EAF1F8; color:var(--azul-medio);
+    transform:translateX(6px);
+  }
+  .indice-panel li.active{background:var(--azul-medio); color:var(--blanco); font-weight:700;}
+  .indice-panel li.divisor-item{color:var(--azul-oscuro); font-weight:700;}
+
+  .stage{
+    position:absolute; inset:0; z-index:10;
+    display:flex; align-items:center; justify-content:center;
+    padding:80px 100px 150px;
+    overflow-y:auto;
+    background:var(--blanco);
+    transition:background var(--t-media) var(--ease-out);
+  }
+  body.divisor-activo .stage{background:var(--azul-oscuro);}
+
+  .slide{
+    max-width:1360px; width:100%;
+    background:var(--blanco);
+    border-radius:var(--radio);
+    box-shadow:var(--sombra);
+    padding:60px 72px;
+    opacity:0; visibility:hidden;
+    position:absolute; left:100px; right:100px; top:80px;
+    transition:opacity .45s var(--ease-out),
+               transform .55s var(--ease-out),
+               visibility .45s;
+    transform:translateY(30px) scale(.98);
+    border-top:12px solid var(--dorado);
+    border-left:1px solid #EAF0F6;
+    border-right:1px solid #EAF0F6;
+    border-bottom:1px solid #EAF0F6;
+  }
+  .slide.active{
+    opacity:1; visibility:visible;
+    transform:translateY(0) scale(1);
+  }
+
+  /* ---------- Divisor: diapositiva toda azul ---------- */
+  .divider{
+    background:transparent;
+    box-shadow:none;
+    border:none;
+    border-radius:0;
+    padding:60px 40px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:var(--blanco);
+  }
+  .divider .fase-id{
+    display:inline-block;
+    background:rgba(231,200,115,.18);
+    color:var(--dorado);
+    border:2px solid rgba(231,200,115,.45);
+    padding:10px 30px; border-radius:40px;
+    font-size:20px; font-weight:900; letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:40px;
+    backdrop-filter:blur(6px);
+  }
+  .divider .num{
+    display:inline-block;
+    background:var(--dorado); color:var(--azul-oscuro);
+    border-radius:50%;
+    width:160px; height:160px; line-height:160px;
+    font-size:78px; font-weight:900;
+    margin-bottom:44px;
+    box-shadow:0 12px 40px rgba(231,200,115,.35);
+    animation:popIn .7s cubic-bezier(.34,1.56,.64,1) .1s both;
+  }
+  .divider h1{
+    font-size:120px;
+    color:var(--blanco);
+    margin:0 0 32px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-1px;
+    text-shadow:0 4px 24px rgba(0,0,0,.25);
+  }
+  .divider .preg{
+    font-size:42px;
+    color:var(--dorado);
+    font-style:italic;
+    max-width:1100px;
+    margin:0 auto;
+    line-height:1.35;
+    font-weight:500;
+  }
+  .divider .sub-info{
+    margin-top:40px;
+    font-size:22px;
+    color:rgba(201,214,232,.75);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-weight:700;
+  }
+
+  /* ---------- Animaciones ---------- */
+  .slide .eyebrow,
+  .slide h1,
+  .slide h2,
+  .slide > .lead,
+  .slide > .subtitulo,
+  .slide > .card,
+  .slide > .grid-2,
+  .slide > .grid-3,
+  .slide > .tabla,
+  .slide > .prompt-box,
+  .slide > .cadena-vert,
+  .slide > .componentes,
+  .slide > .comparacion,
+  .slide > .cita-grande,
+  .slide > .principio,
+  .slide > .checklist,
+  .slide > .flujo-grande,
+  .slide > .ciclo,
+  .slide > .interrogante,
+  .slide > .desafio,
+  .slide > .stop-card{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity var(--t-media) var(--ease-out),
+               transform var(--t-media) var(--ease-out);
+  }
+
+  .slide.active .eyebrow,
+  .slide.active h1,
+  .slide.active h2,
+  .slide.active > .lead,
+  .slide.active > .subtitulo,
+  .slide.active > .card,
+  .slide.active > .grid-2,
+  .slide.active > .grid-3,
+  .slide.active > .tabla,
+  .slide.active > .prompt-box,
+  .slide.active > .cadena-vert,
+  .slide.active > .componentes,
+  .slide.active > .comparacion,
+  .slide.active > .cita-grande,
+  .slide.active > .principio,
+  .slide.active > .checklist,
+  .slide.active > .flujo-grande,
+  .slide.active > .ciclo,
+  .slide.active > .interrogante,
+  .slide.active > .desafio,
+  .slide.active > .stop-card{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .slide.active .eyebrow{transition-delay:.05s;}
+  .slide.active h1,
+  .slide.active h2{transition-delay:.12s;}
+  .slide.active > .subtitulo{transition-delay:.22s;}
+  .slide.active > .lead{transition-delay:.2s;}
+  .slide.active > .card:nth-of-type(1),
+  .slide.active > .grid-2:nth-of-type(1),
+  .slide.active > .grid-3:nth-of-type(1),
+  .slide.active > .tabla:nth-of-type(1){transition-delay:.28s;}
+  .slide.active > .card:nth-of-type(2),
+  .slide.active > .grid-3:nth-of-type(2){transition-delay:.36s;}
+  .slide.active > .card:nth-of-type(3){transition-delay:.44s;}
+  .slide.active > .prompt-box{transition-delay:.32s;}
+  .slide.active > .cadena-vert{transition-delay:.3s;}
+  .slide.active > .componentes{transition-delay:.3s;}
+  .slide.active > .comparacion{transition-delay:.3s;}
+  .slide.active > .cita-grande{transition-delay:.32s;}
+  .slide.active > .interrogante{transition-delay:.5s;}
+  .slide.active > .desafio{transition-delay:.3s;}
+  .slide.active > .principio{transition-delay:.32s;}
+  .slide.active > .checklist{transition-delay:.32s;}
+  .slide.active > .flujo-grande{transition-delay:.3s;}
+  .slide.active > .ciclo{transition-delay:.3s;}
+  .slide.active > .stop-card{transition-delay:.35s;}
+
+  /* Divisor: fade simple */
+  .divider .fase-id,
+  .divider h1,
+  .divider .preg,
+  .divider .sub-info{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .6s var(--ease-out), transform .6s var(--ease-out);
+  }
+  .divider.active .fase-id{opacity:1; transform:translateY(0); transition-delay:.1s;}
+  .divider.active .num{opacity:1;}
+  .divider.active h1{opacity:1; transform:translateY(0); transition-delay:.25s;}
+  .divider.active .preg{opacity:1; transform:translateY(0); transition-delay:.4s;}
+  .divider.active .sub-info{opacity:1; transform:translateY(0); transition-delay:.55s;}
+
+  .slide.active .comp-item,
+  .slide.active .paso-card,
+  .slide.active .principio,
+  .slide.active .check-item,
+  .slide.active .comp-card,
+  .slide.active .nivel-card{
+    opacity:0;
+    transform:translateY(18px);
+    animation:fadeSlideUp .55s var(--ease-out) forwards;
+  }
+  .slide.active .comp-item:nth-child(1),
+  .slide.active .paso-card:nth-child(1),
+  .slide.active .check-item:nth-child(1),
+  .slide.active .comp-card:nth-child(1),
+  .slide.active .nivel-card:nth-child(1){animation-delay:.35s;}
+  .slide.active .comp-item:nth-child(2),
+  .slide.active .paso-card:nth-child(2),
+  .slide.active .check-item:nth-child(2),
+  .slide.active .comp-card:nth-child(2),
+  .slide.active .nivel-card:nth-child(2){animation-delay:.45s;}
+  .slide.active .comp-item:nth-child(3),
+  .slide.active .paso-card:nth-child(3),
+  .slide.active .check-item:nth-child(3),
+  .slide.active .comp-card:nth-child(3),
+  .slide.active .nivel-card:nth-child(3){animation-delay:.55s;}
+  .slide.active .comp-item:nth-child(4),
+  .slide.active .check-item:nth-child(4),
+  .slide.active .nivel-card:nth-child(4){animation-delay:.65s;}
+  .slide.active .comp-item:nth-child(5),
+  .slide.active .check-item:nth-child(5){animation-delay:.75s;}
+  .slide.active .check-item:nth-child(6){animation-delay:.85s;}
+
+  .slide.active .cadena-vert .nodo{
+    opacity:0;
+    transform:translateY(14px);
+    animation:fadeSlideUp .5s var(--ease-out) forwards;
+  }
+  .slide.active .cadena-vert .nodo:nth-child(1){animation-delay:.35s;}
+  .slide.active .cadena-vert .nodo:nth-child(3){animation-delay:.45s;}
+  .slide.active .cadena-vert .nodo:nth-child(5){animation-delay:.55s;}
+  .slide.active .cadena-vert .nodo:nth-child(7){animation-delay:.65s;}
+  .slide.active .cadena-vert .nodo:nth-child(9){animation-delay:.75s;}
+  .slide.active .cadena-vert .nodo:nth-child(11){animation-delay:.85s;}
+  .slide.active .cadena-vert .nodo:nth-child(13){animation-delay:.95s;}
+  .slide.active .cadena-vert .nodo:nth-child(15){animation-delay:1.05s;}
+  .slide.active .cadena-vert .nodo:nth-child(17){animation-delay:1.15s;}
+
+  .slide.active .tabla tr:not(:first-child){
+    opacity:0;
+    animation:fadeSlideRight .5s var(--ease-out) forwards;
+  }
+  .slide.active .tabla tr:nth-child(2){animation-delay:.4s;}
+  .slide.active .tabla tr:nth-child(3){animation-delay:.5s;}
+  .slide.active .tabla tr:nth-child(4){animation-delay:.6s;}
+  .slide.active .tabla tr:nth-child(5){animation-delay:.7s;}
+  .slide.active .tabla tr:nth-child(6){animation-delay:.8s;}
+  .slide.active .tabla tr:nth-child(7){animation-delay:.9s;}
+  .slide.active .tabla tr:nth-child(8){animation-delay:1s;}
+
+  .slide.active .prompt-box{
+    animation:revealPrompt .8s var(--ease-out) forwards;
+    transition-delay:0s;
+  }
+
+  @keyframes fadeSlideUp{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes fadeSlideRight{
+    from{opacity:0; transform:translateX(-16px);}
+    to{opacity:1; transform:translateX(0);}
+  }
+  @keyframes fadeInDown{
+    from{opacity:0; transform:translateY(-12px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes popIn{
+    0%{opacity:0; transform:scale(.6);}
+    60%{opacity:1; transform:scale(1.08);}
+    100%{opacity:1; transform:scale(1);}
+  }
+  @keyframes revealPrompt{
+    from{opacity:0; transform:translateY(16px); filter:blur(4px);}
+    to{opacity:1; transform:translateY(0); filter:blur(0);}
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:.6; transform:scale(1.15);}
+  }
+  @keyframes floatSubtle{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-4px);}
+  }
+  @keyframes expandirLinea{
+    from{width:0; opacity:0;}
+    to{width:220px; opacity:1;}
+  }
+  @keyframes shimmer{
+    0%,100%{transform:translateX(-100%);}
+    50%{transform:translateX(100%);}
+  }
+
+  /* ---------- Tipografía ---------- */
+  h1{font-size:88px; color:var(--azul-oscuro); margin:0 0 22px; line-height:1.05; font-weight:800; letter-spacing:-1px;}
+  h2{font-size:68px; color:var(--azul-oscuro); margin:0 0 34px; line-height:1.08; font-weight:800; letter-spacing:-.8px;}
+  h3{font-size:42px; color:var(--azul-medio); margin:0 0 16px; line-height:1.15; font-weight:700;}
+  h4{font-size:32px; color:var(--azul-medio); margin:0 0 12px; font-weight:800;}
+  p, li{font-size:32px; color:var(--texto); line-height:1.5;}
+  .lead{font-size:34px; color:var(--texto-suave); line-height:1.5;}
+  .subtitulo{font-size:40px; color:var(--azul-acento); font-weight:700; margin-bottom:16px; line-height:1.25;}
+
+  .eyebrow{
+    display:inline-block;
+    color:var(--azul-acento); font-size:20px; font-weight:800;
+    letter-spacing:3px; text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .eyebrow.dorado{color:var(--amarillo);}
+  .eyebrow.rojo{color:var(--rojo);}
+  .eyebrow.verde{color:var(--verde);}
+  .eyebrow.morado{color:var(--morado);}
+
+  ul.clean{list-style:none; padding-left:0; margin:0;}
+  ul.clean li{padding-left:48px; position:relative; margin-bottom:16px; font-size:32px;}
+  ul.clean li::before{
+    content:"›"; position:absolute; left:8px; top:-5px;
+    color:var(--dorado); font-size:46px; font-weight:800;
+  }
+
+  .card{
+    background:var(--blanco); border:1px solid #EAF0F6;
+    border-left:12px solid var(--azul-acento);
+    border-radius:18px; padding:30px 36px; margin:18px 0;
+    box-shadow:var(--sombra-suave);
+    transition:transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:var(--sombra-hover);}
+  .card h3{font-size:38px; margin-bottom:12px;}
+  .card p, .card li{font-size:28px;}
+  .card.dorado{border-left-color:var(--dorado); background:#FBF7EB; border-color:#F1E5C0;}
+  .card.azul{background:#F5F9FD; border-left-color:var(--azul-medio); border-color:#DCE7F2;}
+  .card.verde{background:#EFF8F0; border-left-color:var(--verde); border-color:#D7EBD9;}
+  .card.rojo{background:#FCEFEC; border-left-color:var(--rojo); border-color:#F4DCD6;}
+  .card.morado{background:#F3EFF9; border-left-color:var(--morado); border-color:#E0D7EE;}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:30px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+
+  /* ---------- Portada ---------- */
+  .portada{
+    text-align:center; padding-top:60px;
+    background:linear-gradient(150deg,#FFFFFF 0%,#FBF8F1 100%);
+  }
+  .portada h1{font-size:80px; margin-bottom:30px; line-height:1.08;}
+  .portada .linea{
+    width:220px; height:10px; background:var(--dorado);
+    margin:36px auto; border-radius:5px;
+    animation:expandirLinea .8s var(--ease-out) .3s both;
+  }
+  .portada .subtitulo{font-size:40px; max-width:1100px; margin:0 auto; line-height:1.3;}
+  .portada .autor{font-size:38px; color:var(--azul-oscuro); font-weight:800; margin-top:40px;}
+  .portada .contexto{font-size:24px; color:var(--texto-suave); margin-top:12px;}
+
+  /* ---------- Desafío ---------- */
+  .desafio{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:20px;
+    padding:40px 48px; margin:26px 0;
+    box-shadow:var(--sombra);
+    position:relative; overflow:hidden;
+  }
+  .desafio::before{
+    content:"";
+    position:absolute; inset:-2px;
+    background:linear-gradient(120deg,transparent 30%,rgba(231,200,115,.15) 50%,transparent 70%);
+    animation:shimmer 6s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .desafio h3{color:var(--dorado); margin:0 0 18px; font-size:38px; font-weight:800;}
+  .desafio p{color:var(--blanco); font-size:32px; margin:12px 0; line-height:1.5;}
+
+  .interrogante{
+    background:#FBF7EB; border-left:14px solid var(--dorado);
+    border-radius:20px; padding:30px 40px; margin:24px 0;
+    font-size:36px; font-weight:700; color:var(--azul-oscuro);
+    line-height:1.4;
+    border-top:1px solid #F1E5C0;
+    border-right:1px solid #F1E5C0;
+    border-bottom:1px solid #F1E5C0;
+  }
+  .interrogante::before{
+    content:"?"; display:inline-block;
+    background:var(--dorado); color:var(--azul-oscuro);
+    width:58px; height:58px; border-radius:50%;
+    text-align:center; line-height:58px; font-weight:900;
+    margin-right:22px; font-size:36px; vertical-align:middle;
+    animation:floatSubtle 3s ease-in-out infinite;
+  }
+
+  /* ---------- STOP ---------- */
+  .stop-card{
+    background:#FCEFEC;
+    border:4px solid var(--rojo);
+    border-radius:20px;
+    padding:32px 40px;
+    margin:24px 0;
+    position:relative;
+  }
+  .stop-card::before{
+    content:"STOP";
+    position:absolute; top:-22px; left:32px;
+    background:var(--rojo); color:var(--blanco);
+    padding:6px 22px; border-radius:20px;
+    font-size:20px; font-weight:900; letter-spacing:3px;
+  }
+  .stop-card h3{color:var(--rojo); font-size:34px; margin:8px 0 16px;}
+  .stop-card p{font-size:26px; line-height:1.5; margin:10px 0; color:#7A2E1C;}
+  .stop-card ul{list-style:none; padding:0; margin:0;}
+  .stop-card li{font-size:26px; padding:10px 0 10px 40px; position:relative; color:#7A2E1C; line-height:1.45;}
+  .stop-card li::before{content:"→"; position:absolute; left:8px; color:var(--rojo); font-weight:900; font-size:28px;}
+
+  /* ---------- Tabla ---------- */
+  .tabla{
+    background:var(--blanco); border-radius:16px;
+    padding:20px 24px; box-shadow:var(--sombra-suave);
+    margin-top:22px; overflow-x:auto;
+    border:1px solid #EAF0F6;
+  }
+  .tabla table{width:100%; border-collapse:collapse; font-size:22px;}
+  .tabla th{
+    background:var(--azul-medio); color:var(--blanco);
+    padding:16px 20px; text-align:left; font-size:19px; font-weight:800;
+    letter-spacing:.5px;
+  }
+  .tabla td{
+    padding:16px 20px; border-bottom:1px solid #EAF0F6;
+    color:var(--texto); line-height:1.4; font-size:22px;
+    transition:background var(--t-rapida) var(--ease-out);
+  }
+  .tabla tr:hover td{background:#F5F9FD;}
+  .tabla td:first-child{font-weight:800; color:var(--azul-medio);}
+
+  /* ---------- Prompt box ---------- */
+  .prompt-box{
+    background:#0B2545; color:#E7C873;
+    border-radius:20px; padding:30px 38px; margin:22px 0;
+    font-family:'Consolas','Monaco',monospace; font-size:19px;
+    line-height:1.55; overflow-x:auto;
+    box-shadow:var(--sombra);
+    position:relative;
+  }
+  .prompt-box::after{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:20px;
+    border:1px solid rgba(231,200,115,.15);
+    pointer-events:none;
+  }
+  .prompt-box .label{
+    color:#8FA3C0; font-size:15px; text-transform:uppercase;
+    letter-spacing:1px; display:block; margin-bottom:14px;
+    font-family:'Segoe UI',sans-serif; font-weight:800;
+  }
+  .prompt-box .kw{color:#E7C873; font-weight:800;}
+  .prompt-box .val{color:#C9D6E8;}
+  .prompt-box .stop{
+    color:#E07A6B; font-weight:800; display:block;
+    margin-top:14px; padding-top:14px;
+    border-top:1px dashed rgba(231,200,115,.3);
+  }
+
+  /* ---------- Cadena vertical ---------- */
+  .cadena-vert{
+    background:var(--blanco); border-radius:20px;
+    padding:30px 40px; box-shadow:var(--sombra-suave);
+    margin-top:22px;
+    border:1px solid #EAF0F6;
+  }
+  .cadena-vert .nodo{
+    background:#F5F9FD; border-left:10px solid var(--azul-acento);
+    border-radius:14px; padding:18px 26px;
+    font-size:26px; font-weight:700; color:var(--azul-medio);
+    margin:6px 0; text-align:center;
+    border-top:1px solid #DCE7F2;
+    border-right:1px solid #DCE7F2;
+    border-bottom:1px solid #DCE7F2;
+    transition:transform var(--t-rapida) var(--ease-out);
+  }
+  .cadena-vert .nodo:hover{transform:translateX(6px);}
+  .cadena-vert .nodo.dorado{border-left-color:var(--dorado); background:#FBF7EB; color:var(--azul-oscuro); border-color:#F1E5C0;}
+  .cadena-vert .nodo.verde{border-left-color:var(--verde); background:#EFF8F0; color:#1F5A2A; border-color:#D7EBD9;}
+  .cadena-vert .nodo.morado{border-left-color:var(--morado); background:#F3EFF9; color:#4A3A7A; border-color:#E0D7EE;}
+  .cadena-vert .nodo.rojo{border-left-color:var(--rojo); background:#FCEFEC; color:#7A2E1C; border-color:#F4DCD6;}
+  .cadena-vert .flecha-v{
+    text-align:center; color:var(--dorado); font-size:28px; font-weight:900;
+    margin:4px 0;
+  }
+
+  .componentes{display:grid; grid-template-columns:1fr; gap:16px; margin-top:22px;}
+  .comp-item{
+    display:grid; grid-template-columns:auto 1fr; gap:22px;
+    background:var(--blanco); border-radius:16px;
+    padding:24px 30px; box-shadow:var(--sombra-suave);
+    border-left:10px solid var(--dorado);
+    border-top:1px solid #EAF0F6;
+    border-right:1px solid #EAF0F6;
+    border-bottom:1px solid #EAF0F6;
+    align-items:center;
+    transition:transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+  }
+  .comp-item:hover{transform:translateX(6px); box-shadow:var(--sombra-hover);}
+  .comp-item .rol{
+    background:var(--dorado); color:var(--azul-oscuro);
+    border-radius:30px; padding:12px 22px;
+    font-size:22px; font-weight:900; letter-spacing:.5px;
+    text-transform:uppercase;
+    min-width:150px; text-align:center;
+  }
+  .comp-item .desc{font-size:28px; line-height:1.45;}
+  .comp-item .desc strong{color:var(--azul-medio); font-weight:800;}
+
+  .comparacion{
+    display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:24px;
+  }
+  .comp-card{
+    border-radius:20px; padding:30px 36px;
+    box-shadow:var(--sombra-suave);
+    border-top:14px solid var(--rojo);
+    background:var(--blanco);
+    border-left:1px solid #EAF0F6;
+    border-right:1px solid #EAF0F6;
+    border-bottom:1px solid #EAF0F6;
+    transition:transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+  }
+  .comp-card:hover{transform:translateY(-4px); box-shadow:var(--sombra-hover);}
+  .comp-card.verde{border-top-color:var(--verde);}
+  .comp-card h4{font-size:30px; font-weight:900; margin:0 0 18px; letter-spacing:.8px; text-transform:uppercase;}
+  .comp-card.rojo h4{color:var(--rojo);}
+  .comp-card.verde h4{color:var(--verde);}
+  .comp-card p{font-size:24px; line-height:1.5; margin:10px 0;}
+
+  .cita-grande{
+    background:linear-gradient(135deg,#0B2545 0%,#13315C 100%);
+    color:var(--blanco); border-radius:20px;
+    padding:56px 64px; margin:28px 0;
+    box-shadow:var(--sombra);
+    text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .cita-grande::before{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 20%, rgba(231,200,115,.12) 0%, transparent 55%);
+    pointer-events:none;
+  }
+  .cita-grande p{
+    color:var(--blanco); font-size:40px; font-style:italic;
+    margin:0; line-height:1.45; font-weight:700;
+    position:relative;
+  }
+
+  .principio{
+    background:var(--blanco); border-radius:16px;
+    padding:30px 38px; box-shadow:var(--sombra-suave);
+    border-top:12px solid var(--dorado); margin:18px 0;
+    border-left:1px solid #EAF0F6;
+    border-right:1px solid #EAF0F6;
+    border-bottom:1px solid #EAF0F6;
+    transition:transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+  }
+  .principio:hover{transform:translateX(6px); box-shadow:var(--sombra-hover);}
+  .principio h4{
+    font-size:36px; color:var(--azul-medio); margin:0 0 14px;
+    display:flex; align-items:center; gap:20px; font-weight:800;
+  }
+  .principio h4 .num{
+    background:var(--azul-oscuro); color:var(--dorado);
+    width:60px; height:60px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:28px; font-weight:800;
+  }
+  .principio p{font-size:28px; line-height:1.5; margin:0; color:var(--texto);}
+
+  .niveles{display:grid; grid-template-columns:1fr; gap:18px; margin-top:22px;}
+  .nivel-card{
+    background:var(--blanco); border-radius:16px;
+    padding:26px 34px; box-shadow:var(--sombra-suave);
+    border-left:12px solid var(--azul-acento);
+    border-top:1px solid #EAF0F6;
+    border-right:1px solid #EAF0F6;
+    border-bottom:1px solid #EAF0F6;
+    transition:transform var(--t-rapida) var(--ease-out);
+  }
+  .nivel-card:hover{transform:translateX(8px);}
+  .nivel-card.n1{border-left-color:var(--verde);}
+  .nivel-card.n2{border-left-color:var(--amarillo);}
+  .nivel-card.n3{border-left-color:var(--rojo);}
+  .nivel-card .etq{
+    display:inline-block; padding:6px 18px; border-radius:20px;
+    font-size:18px; font-weight:900; letter-spacing:1.5px;
+    text-transform:uppercase; margin-bottom:12px;
+  }
+  .nivel-card.n1 .etq{background:#EFF8F0; color:var(--verde);}
+  .nivel-card.n2 .etq{background:#FFF6DC; color:var(--amarillo);}
+  .nivel-card.n3 .etq{background:#FCEFEC; color:var(--rojo);}
+  .nivel-card h4{font-size:30px; color:var(--azul-medio); margin:0 0 10px; font-weight:800;}
+  .nivel-card p{font-size:26px; margin:0; color:var(--texto); line-height:1.5;}
+
+  .flujo-grande{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:26px;
+    margin-top:26px;
+  }
+  .flujo-col{
+    background:var(--blanco); border-radius:20px;
+    padding:30px 34px; box-shadow:var(--sombra-suave);
+    border:1px solid #EAF0F6;
+    border-top:12px solid var(--azul-acento);
+  }
+  .flujo-col.derecha{border-top-color:var(--dorado);}
+  .flujo-col h4{
+    color:var(--azul-medio); font-size:28px; margin:0 0 18px;
+    font-weight:900; letter-spacing:.5px; text-transform:uppercase;
+  }
+  .flujo-col ul{list-style:none; padding:0; margin:0;}
+  .flujo-col li{
+    font-size:24px; padding:10px 0 10px 38px; position:relative;
+    line-height:1.4; font-weight:600; color:var(--texto);
+  }
+  .flujo-col li::before{
+    content:"↓"; position:absolute; left:10px; top:8px;
+    color:var(--dorado); font-weight:900; font-size:26px;
+  }
+
+  .ciclo{
+    background:var(--crema); border-radius:20px;
+    padding:40px 50px; margin-top:26px;
+    border:1px solid #F1E5C0;
+    display:flex; flex-direction:column; align-items:center;
+    gap:14px;
+  }
+  .ciclo .eslabon{
+    background:var(--blanco); border-radius:14px;
+    padding:18px 34px; font-size:28px; font-weight:700;
+    color:var(--azul-medio); text-align:center;
+    border-left:10px solid var(--azul-acento);
+    border-top:1px solid #DCE7F2;
+    border-right:1px solid #DCE7F2;
+    border-bottom:1px solid #DCE7F2;
+    min-width:520px;
+  }
+  .ciclo .eslabon.actor{
+    background:var(--azul-oscuro); color:var(--dorado);
+    border-color:var(--azul-oscuro);
+  }
+  .ciclo .eslabon.output{
+    background:#FBF7EB; color:var(--azul-oscuro);
+    border-left-color:var(--dorado); border-color:#F1E5C0;
+  }
+  .ciclo .eslabon.decision{
+    background:#FCEFEC; color:#7A2E1C;
+    border-left-color:var(--rojo); border-color:#F4DCD6;
+    display:flex; gap:20px; justify-content:center;
+    flex-wrap:wrap;
+  }
+  .ciclo .eslabon.decision span{
+    background:var(--blanco); padding:8px 18px; border-radius:12px;
+    font-weight:900; font-size:22px;
+  }
+  .ciclo .eslabon.decision span.a{color:var(--verde); border:2px solid var(--verde);}
+  .ciclo .eslabon.decision span.m{color:var(--amarillo); border:2px solid var(--amarillo);}
+  .ciclo .eslabon.decision span.r{color:var(--rojo); border:2px solid var(--rojo);}
+  .ciclo .flecha{
+    color:var(--dorado); font-size:32px; font-weight:900;
+    line-height:1;
+  }
+
+  .checklist{display:grid; grid-template-columns:1fr; gap:12px; margin-top:22px;}
+  .check-item{
+    background:var(--blanco); border-radius:14px;
+    padding:20px 28px; font-size:28px; line-height:1.45;
+    border-left:8px solid var(--azul-acento);
+    border-top:1px solid #EAF0F6;
+    border-right:1px solid #EAF0F6;
+    border-bottom:1px solid #EAF0F6;
+    display:flex; align-items:center; gap:20px;
+    transition:transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+  }
+  .check-item:hover{transform:translateX(6px); box-shadow:var(--sombra-hover);}
+  .check-item::before{
+    content:"☐"; color:var(--azul-acento); font-size:36px;
+    transition:transform var(--t-rapida) var(--ease-out), color var(--t-rapida) var(--ease-out);
+  }
+  .check-item:hover::before{transform:scale(1.2); color:var(--dorado);}
+
+  .progresion{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+    z-index:65; display:flex; align-items:center; gap:6px;
+    padding:12px 24px; border-radius:30px;
+    background:var(--blanco);
+    box-shadow:var(--sombra-suave);
+    border:1px solid #EAF0F6;
+    flex-wrap:wrap; justify-content:center; max-width:82%;
+    transition:background var(--t-media) var(--ease-out), border-color var(--t-media) var(--ease-out);
+  }
+  body.divisor-activo .progresion{
+    background:rgba(11,37,69,.6);
+    border-color:rgba(231,200,115,.35);
+    backdrop-filter:blur(8px);
+  }
+  .progresion .punto{
+    width:7px; height:7px; border-radius:50%;
+    background:#D6DEE9;
+    transition:background .25s var(--ease-out),
+               transform .25s var(--ease-out),
+               box-shadow .25s var(--ease-out);
+    cursor:pointer;
+  }
+  body.divisor-activo .progresion .punto{background:rgba(201,214,232,.35);}
+  .progresion .punto:hover{transform:scale(1.4);}
+  .progresion .punto.activo{
+    background:var(--dorado); transform:scale(1.8);
+    box-shadow:0 0 14px rgba(231,200,115,.85);
+  }
+  .progresion .punto.hecho{background:var(--azul-acento);}
+  body.divisor-activo .progresion .punto.hecho{background:rgba(231,200,115,.6);}
+
+  .progress{
+    position:fixed; top:0; left:0; height:5px;
+    background:var(--dorado); width:0%;
+    transition:width var(--t-media) var(--ease-out); z-index:80;
+  }
+
+  .nav-bottom{
+    position:fixed; bottom:24px; right:32px; z-index:65;
+    display:flex; align-items:center; gap:14px;
+    opacity:.55; transition:opacity var(--t-rapida) var(--ease-out);
+  }
+  .nav-bottom:hover{opacity:1;}
+  .nav-btn{
+    background:var(--azul-oscuro); color:var(--blanco); border:none;
+    border-radius:50%; width:64px; height:64px; font-size:30px;
+    font-weight:800; cursor:pointer;
+    box-shadow:var(--sombra-suave);
+    transition:background var(--t-rapida) var(--ease-out),
+               transform var(--t-rapida) var(--ease-out),
+               box-shadow var(--t-rapida) var(--ease-out);
+  }
+  .nav-btn:hover{background:var(--azul-acento); transform:scale(1.08); box-shadow:var(--sombra-hover);}
+  .nav-btn:disabled{opacity:.3; cursor:default; transform:none;}
+  body.divisor-activo .nav-btn{
+    background:rgba(255,255,255,.15); color:var(--blanco);
+    border:1px solid rgba(231,200,115,.35);
+  }
+  body.divisor-activo .nav-btn:hover{background:var(--dorado); color:var(--azul-oscuro);}
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+    }
+    .slide, .slide.active{transform:none !important;}
+  }
+
+  @media (max-width:1400px){
+    body{font-size:24px;}
+    h1{font-size:60px;} h2{font-size:48px;} h3{font-size:32px;} h4{font-size:26px;}
+    p, li{font-size:24px;} .lead{font-size:26px;} .subtitulo{font-size:30px;}
+    .portada h1{font-size:56px;}
+    .portada .subtitulo{font-size:28px;}
+    .portada .autor{font-size:28px;}
+    .divider h1{font-size:80px;}
+    .divider .num{width:120px; height:120px; line-height:120px; font-size:56px;}
+    .divider .preg{font-size:30px;}
+    .divider .fase-id{font-size:16px;}
+    .prompt-box{font-size:15px; padding:24px 28px;}
+    .cita-grande p{font-size:30px;}
+    .card p, .card li{font-size:22px;}
+    .tabla table{font-size:18px;}
+    .tabla th, .tabla td{font-size:16px; padding:12px 16px;}
+    .check-item{font-size:22px;}
+    .principio h4{font-size:26px;}
+    .principio p{font-size:22px;}
+    .comp-card h4{font-size:24px;}
+    .comp-card p{font-size:20px;}
+    .comp-item .desc{font-size:22px;}
+    .comp-item .rol{font-size:18px; min-width:120px;}
+    .cadena-vert .nodo{font-size:20px;}
+    .flujo-col h4{font-size:22px;}
+    .flujo-col li{font-size:20px;}
+    .ciclo .eslabon{font-size:22px; min-width:400px;}
+    .nivel-card h4{font-size:24px;}
+    .nivel-card p{font-size:20px;}
+    .stop-card h3{font-size:26px;}
+    .stop-card p, .stop-card li{font-size:20px;}
+  }
+  @media (max-width:900px){
+    body{font-size:18px;}
+    h1{font-size:34px;} h2{font-size:28px;} h3{font-size:22px;}
+    p, li{font-size:18px;}
+    .grid-2, .grid-3, .comparacion, .flujo-grande{grid-template-columns:1fr;}
+    .stage{padding:80px 20px 140px;}
+    .slide{left:20px; right:20px; top:80px; padding:28px 24px;}
+    .comp-item{grid-template-columns:1fr;}
+    .titulo-encuentro{font-size:12px; top:16px; left:16px;}
+    .toggle-indice{font-size:13px; padding:10px 18px; top:14px; right:14px;}
+    .indice-panel{width:300px;}
+    .progresion{padding:10px 14px; gap:4px; bottom:16px; max-width:92%;}
+    .progresion .punto{width:5px; height:5px;}
+    .nav-bottom{bottom:16px; right:14px;}
+    .nav-btn{width:44px; height:44px; font-size:20px;}
+    .prompt-box{font-size:13px; padding:18px 20px;}
+    .ciclo .eslabon{min-width:auto; font-size:18px; padding:14px 20px;}
+    .divider h1{font-size:44px;}
+    .divider .num{width:90px; height:90px; line-height:90px; font-size:40px;}
+    .divider .preg{font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo"></div>
+
+<div class="titulo-encuentro">Integración de herramientas de IA en la investigación</div>
+<button class="toggle-indice" id="toggleIndice" aria-label="Mostrar índice">☰ Índice</button>
+
+<nav class="indice-panel" id="indicePanel">
+  <h2>ÍNDICE DE LA SESIÓN</h2>
+  <ol id="indice"></ol>
+</nav>
+
+<div class="progress" id="progress"></div>
+
+<main class="stage" id="stage">
+
+  <!-- ===== 1. PORTADA ===== -->
+  <section class="slide portada active" data-title="Portada">
+    <span class="eyebrow">Laboratorio técnico · 90 minutos</span>
+    <h1>Integración de herramientas de IA en la investigación</h1>
+    <div class="linea"></div>
+    <p class="subtitulo">Laboratorio técnico: uso de ChatGPT para el análisis temático asistido</p>
+    <p class="autor">Juan Carlos Valderrama Cárdenas</p>
+    <p class="contexto">Arquitectura de prompts ACTOR · Caso: sensibilidad interoceptiva y embodied cognition</p>
+  </section>
+
+  <!-- ===== 2. OBJETIVO ===== -->
+  <section class="slide" data-title="Objetivo">
+    <span class="eyebrow">Objetivo</span>
+    <h2>El verbo de esta sesión es <em>ejecutar</em></h2>
+
+    <div class="card azul">
+      <p>Vamos a <strong>construir técnicamente</strong> un flujo completo de análisis temático asistido con ChatGPT: configurarlo, familiarizarnos con los datos, codificar, refinar, agrupar, tematizar, interpretar, vincular teoría y documentar cada decisión.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card dorado">
+        <h3>Configurar</h3>
+        <p>ChatGPT para trabajar de forma controlada.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Ejecutar</h3>
+        <p>El flujo completo, paso por paso.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Iterar</h3>
+        <p>Refinar resultados en lugar de aceptar el primer output.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. LAS DOS CADENAS ===== -->
+  <section class="slide" data-title="Las dos cadenas">
+    <span class="eyebrow">Arquitectura</span>
+    <h2>Hoy vamos a construir dos cosas a la vez</h2>
+
+    <div class="flujo-grande">
+      <div class="flujo-col">
+        <h4>1. El flujo analítico</h4>
+        <ul>
+          <li>Datos</li>
+          <li>Familiarización</li>
+          <li>Códigos iniciales</li>
+          <li>Códigos refinados</li>
+          <li>Clusters</li>
+          <li>Temas candidatos</li>
+          <li>Interpretación</li>
+          <li>Vinculación teórica</li>
+          <li>Relato analítico</li>
+        </ul>
+      </div>
+      <div class="flujo-col derecha">
+        <h4>2. El ciclo de trabajo con IA</h4>
+        <ul>
+          <li>Prompt</li>
+          <li>Output de la IA</li>
+          <li>Revisión humana</li>
+          <li>Decisión: aceptar / modificar / rechazar</li>
+          <li>Siguiente prompt</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cita-grande" style="margin-top:30px;">
+      <p>Prompt → output → evaluar → modificar → documentar → continuar</p>
+    </div>
+  </section>
+
+  <!-- ===== 4. CUATRO COSAS ANTES DE EMPEZAR ===== -->
+  <section class="slide" data-title="Antes de empezar">
+    <span class="eyebrow">Cuatro ideas</span>
+    <h2>Cuatro cosas antes de empezar</h2>
+
+    <div class="principio">
+      <h4><span class="num">1</span> No aprenderemos prompts mágicos</h4>
+      <p>Vamos a aprender a <strong>encadenar operaciones</strong>. Cada prompt es una pieza de un flujo.</p>
+    </div>
+    <div class="principio" style="border-top-color:var(--azul-medio);">
+      <h4><span class="num">2</span> El output de un paso es el input del siguiente</h4>
+      <p>Un error en la codificación se propaga: <strong>mal código → mal cluster → mal tema → mala interpretación</strong>.</p>
+    </div>
+    <div class="principio" style="border-top-color:var(--verde);">
+      <h4><span class="num">3</span> No todos los prompts hacen lo mismo</h4>
+      <p>Distinguiremos familiarización, codificación, refinamiento, agrupación, tematización, interpretación, teorización y escritura.</p>
+    </div>
+    <div class="principio" style="border-top-color:var(--rojo);">
+      <h4><span class="num">4</span> Siempre habrá una puerta humana entre etapas</h4>
+      <p><strong>IA → humano → IA</strong>. Nunca IA → IA → IA → resultado final.</p>
+    </div>
+  </section>
+
+  <!-- ===== 5. LOS CUATRO BLOQUES ===== -->
+  <section class="slide" data-title="Los cuatro bloques">
+    <span class="eyebrow">Estructura</span>
+    <h2>Los cuatro bloques de la sesión</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Fase A · Preparar</h3>
+        <p>Anatomía del flujo. ACTOR. Configuración inicial de ChatGPT.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Fase B · Analizar</h3>
+        <p>Familiarización, codificación abierta, microauditoría y refinamiento.</p>
+      </div>
+      <div class="card verde">
+        <h3>Fase C · Construir</h3>
+        <p>Clusters, temas candidatos e interpretación latente.</p>
+      </div>
+      <div class="card morado">
+        <h3>Fase D · Integrar y documentar</h3>
+        <p>Vinculación teórica, relato analítico y registro de decisiones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. PROTOCOLO DE SEIS PASOS ===== -->
+  <section class="slide" data-title="Protocolo de seis pasos">
+    <span class="eyebrow">Protocolo</span>
+    <h2>Los seis pasos que vamos a ejecutar</h2>
+
+    <div class="cadena-vert">
+      <div class="nodo">1 · Preparar <em>(humano)</em></div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">2 · Definir <em>(humano, apoyo IA opcional)</em></div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">3 · Interactuar <em>(humano + IA)</em></div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">4 · Iterar <em>(humano + IA)</em></div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">5 · Validar <em>(humano)</em></div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo verde">6 · Interpretar <em>(humano)</em></div>
+    </div>
+  </section>
+
+  <!-- ===== 7. REGLA FUNDAMENTAL ===== -->
+  <section class="slide" data-title="Regla fundamental">
+    <span class="eyebrow rojo">Regla fundamental</span>
+    <h2>Puertas humanas entre etapas</h2>
+
+    <div class="cita-grande">
+      <p>IA → <strong>humano</strong> → IA → <strong>humano</strong> → IA</p>
+    </div>
+
+    <div class="card rojo" style="margin-top:34px;">
+      <p>Nunca dejamos que la IA avance en cadena sin intervención humana. Cada operación es revisada, decidida y documentada antes de continuar.</p>
+    </div>
+  </section>
+
+  <!-- ===== 8. DIVIDER FASE A ===== -->
+  <section class="slide divider" data-title="FASE A · Preparar">
+    <span class="fase-id">Fase A · Preparar</span>
+    <div class="num">A</div>
+    <h1>Preparar</h1>
+    <p class="preg">Anatomía del flujo, ACTOR y configuración inicial de ChatGPT</p>
+    <p class="sub-info">Bloque 1 de 4 · Configuración</p>
+  </section>
+
+  <!-- ===== 9. ANATOMÍA DEL FLUJO ===== -->
+  <section class="slide" data-title="Anatomía del flujo">
+    <span class="eyebrow">Anatomía</span>
+    <h2>El flujo completo que vamos a ejecutar</h2>
+
+    <div class="cadena-vert">
+      <div class="nodo">Preparar el corpus</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Configurar ChatGPT · PROMPT 0</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Familiarizar · PROMPT 1</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Codificar · PROMPT 2</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Refinar · PROMPT 3</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Agrupar · PROMPT 4</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Tematizar · PROMPT 5</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Interpretar · PROMPT 6</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Vincular teoría · PROMPT 7</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo verde">Documentar · Registro de decisiones</div>
+    </div>
+  </section>
+
+  <!-- ===== 10. ACTOR PANORAMA ===== -->
+  <section class="slide" data-title="ACTOR: panorama">
+    <span class="eyebrow dorado">Framework</span>
+    <h2>ACTOR: controlar las condiciones de trabajo de la IA</h2>
+
+    <p class="lead">Cinco componentes que traducen decisiones metodológicas en instrucciones explícitas.</p>
+
+    <div class="componentes">
+      <div class="comp-item">
+        <span class="rol">Actor</span>
+        <span class="desc">¿Quién quiero que sea ChatGPT en esta operación?</span>
+      </div>
+      <div class="comp-item">
+        <span class="rol">Context</span>
+        <span class="desc">¿Qué necesita saber sobre la investigación?</span>
+      </div>
+      <div class="comp-item">
+        <span class="rol">Task</span>
+        <span class="desc">¿Qué tiene que hacer exactamente?</span>
+      </div>
+      <div class="comp-item">
+        <span class="rol">Output</span>
+        <span class="desc">¿Cómo quiero recibir el resultado?</span>
+      </div>
+      <div class="comp-item">
+        <span class="rol">Reference</span>
+        <span class="desc">¿Sobre qué información puede trabajar?</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 11. A DE ACTOR ===== -->
+  <section class="slide" data-title="A · Actor">
+    <span class="eyebrow dorado">Componente A</span>
+    <h2>Actor</h2>
+
+    <p class="lead">El rol condiciona el tipo de respuesta que produce la IA.</p>
+
+    <div class="comparacion">
+      <div class="comp-card rojo">
+        <h4>Débil</h4>
+        <p>“Analiza esta entrevista.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;"><strong>Problema:</strong> sin rol, la IA responde como asistente genérico.</p>
+      </div>
+      <div class="comp-card verde">
+        <h4>Fuerte</h4>
+        <p>“Eres un asistente de investigación cualitativa especializado en análisis temático reflexivo y Template Analysis.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;"><strong>Efecto:</strong> responde desde una práctica metodológica específica.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 12. C DE ACTOR ===== -->
+  <section class="slide" data-title="C · Context">
+    <span class="eyebrow dorado">Componente C</span>
+    <h2>Context</h2>
+
+    <p class="lead">Sin contexto, la IA inventa uno.</p>
+
+    <div class="comparacion">
+      <div class="comp-card rojo">
+        <h4>Débil</h4>
+        <p>“Analiza estas entrevistas sobre cuerpo y decisiones.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">La IA supone población, fenómeno y enfoque.</p>
+      </div>
+      <div class="comp-card verde">
+        <h4>Fuerte</h4>
+        <p>“Investigamos cómo las señales interoceptivas participan en la toma de decisiones desde la perspectiva de embodied cognition.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">El análisis queda anclado al fenómeno real.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 13. T DE ACTOR ===== -->
+  <section class="slide" data-title="T · Task">
+    <span class="eyebrow dorado">Componente T</span>
+    <h2>Task</h2>
+
+    <p class="lead">Operación específica, no petición general.</p>
+
+    <div class="comparacion">
+      <div class="comp-card rojo">
+        <h4>Débil</h4>
+        <p>“Dime qué ves en este texto.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">“Ver” puede significar cualquier cosa.</p>
+      </div>
+      <div class="comp-card verde">
+        <h4>Fuerte</h4>
+        <p>“Identifica unidades de significado asociadas a señales corporales durante la decisión. Genera entre 8 y 15 códigos iniciales. No agrupes todavía.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">Operación precisa y verificable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 14. O DE ACTOR ===== -->
+  <section class="slide" data-title="O · Output">
+    <span class="eyebrow dorado">Componente O</span>
+    <h2>Output</h2>
+
+    <p class="lead">El formato define qué podrás auditar después.</p>
+
+    <div class="comparacion">
+      <div class="comp-card rojo">
+        <h4>Débil</h4>
+        <p>“Cuéntame lo que encuentres.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">Prosa continua, sin estructura verificable.</p>
+      </div>
+      <div class="comp-card verde">
+        <h4>Fuerte</h4>
+        <p>“Tabla: Código | Tipo D/I | Definición | Cita textual | Justificación.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">Cada afirmación puede trazarse al fragmento original.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 15. R DE ACTOR ===== -->
+  <section class="slide" data-title="R · Reference">
+    <span class="eyebrow dorado">Componente R</span>
+    <h2>Reference</h2>
+
+    <p class="lead">La IA opera solo sobre la evidencia que le entregamos.</p>
+
+    <div class="comparacion">
+      <div class="comp-card rojo">
+        <h4>Débil</h4>
+        <p>“Analiza esta entrevista sobre interocepción.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">Puede mezclar el texto con conocimiento general.</p>
+      </div>
+      <div class="comp-card verde">
+        <h4>Fuerte</h4>
+        <p>“Utiliza exclusivamente el siguiente extracto. No introduzcas información externa. Si algo no está en el texto, indícalo.”</p>
+        <p style="color:var(--texto-suave); margin-top:16px;">Trazabilidad garantizada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 16. EJERCICIO ACTOR ===== -->
+  <section class="slide" data-title="Ejercicio ACTOR">
+    <span class="eyebrow">Mini ejercicio</span>
+    <h2>Reconstruir un prompt con ACTOR</h2>
+
+    <div class="card rojo">
+      <p style="font-family:monospace; font-size:26px; padding:16px 22px; background:var(--blanco); border-radius:12px; margin:0;">
+        “Analiza esta entrevista.”
+      </p>
+    </div>
+
+    <p class="lead">¿Qué componentes de ACTOR faltan? ¿Y cómo quedaría reconstruido?</p>
+
+    <div class="prompt-box">
+      <span class="label">Reconstrucción ACTOR</span>
+      <span class="kw">[A]</span> <span class="val">Eres un asistente de investigación cualitativa especializado en análisis temático.</span><br><br>
+      <span class="kw">[C]</span> <span class="val">Investigamos cómo la sensibilidad interoceptiva participa en procesos de toma de decisiones.</span><br><br>
+      <span class="kw">[T]</span> <span class="val">Identifica unidades de significado asociadas a señales corporales durante la decisión.</span><br><br>
+      <span class="kw">[O]</span> <span class="val">Tabla: Unidad | Significado manifiesto | Posible relevancia.</span><br><br>
+      <span class="kw">[R]</span> <span class="val">Utiliza exclusivamente el siguiente fragmento: [pegar]</span>
+    </div>
+  </section>
+
+  <!-- ===== 17. CONFIGURACIÓN ===== -->
+  <section class="slide" data-title="Configuración">
+    <span class="eyebrow">PROMPT 0</span>
+    <h2>Configuración inicial de ChatGPT</h2>
+
+    <p class="lead">Todos abren una nueva conversación y pegan este prompt <em>antes</em> de trabajar con los datos.</p>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 0 · Configuración</span>
+      <span class="val">Eres un asistente de investigación cualitativa especializado en análisis temático reflexivo y Template Analysis.</span><br><br>
+      <span class="kw">Durante toda esta conversación debes cumplir estas reglas:</span><br>
+      <span class="val">1. Trabaja exclusivamente con los datos o marcos que te proporcione.</span><br>
+      <span class="val">2. Nunca inventes citas ni contenido que no aparezca en los datos.</span><br>
+      <span class="val">3. Cuando utilices una cita, reprodúcela textualmente e identifica el participante.</span><br>
+      <span class="val">4. Distingue claramente entre: (a) contenido manifiesto/descriptivo; (b) inferencia; (c) interpretación latente.</span><br>
+      <span class="val">5. Si una afirmación es incierta o especulativa, indícalo.</span><br>
+      <span class="val">6. No construyas categorías o temas hasta que te lo solicite.</span><br>
+      <span class="val">7. No modifiques silenciosamente los códigos previamente aceptados.</span><br>
+      <span class="val">8. Responde en español académico claro.</span><br><br>
+      <span class="val">Después de cada etapa, espera mi indicación antes de continuar.</span><br><br>
+      <span class="val">Confirma las reglas y enumera brevemente las restricciones con las que trabajarás.</span>
+    </div>
+  </section>
+
+  <!-- ===== 18. PRIMERA REGLA PROCEDIMENTAL ===== -->
+  <section class="slide" data-title="Primera regla procedimental">
+    <span class="eyebrow dorado">Regla 1</span>
+    <h2>Configurar antes de analizar</h2>
+
+    <div class="cita-grande">
+      <p>No estamos analizando nada todavía. Estamos configurando las condiciones de interacción.</p>
+    </div>
+
+    <div class="card dorado" style="margin-top:32px;">
+      <p>Este prompt configura toda la conversación. Si falla la configuración, falla todo lo que sigue.</p>
+    </div>
+  </section>
+
+  <!-- ===== 19. DIVIDER FASE B ===== -->
+  <section class="slide divider" data-title="FASE B · Analizar">
+    <span class="fase-id">Fase B · Analizar</span>
+    <div class="num">B</div>
+    <h1>Analizar</h1>
+    <p class="preg">Familiarización, codificación, microauditoría y refinamiento</p>
+    <p class="sub-info">Bloque 2 de 4 · Operación analítica</p>
+  </section>
+
+  <!-- ===== 20. FAMILIARIZACIÓN ===== -->
+  <section class="slide" data-title="Familiarización">
+    <span class="eyebrow">PROMPT 1</span>
+    <h2>Familiarización</h2>
+
+    <p class="lead">Trabajamos primero solo con P01. Familiarizarse es leer sin codificar.</p>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 1 · Familiarización</span>
+      <span class="kw">[A]</span> <span class="val">Eres un asistente de investigación cualitativa especializado en análisis temático.</span><br><br>
+      <span class="kw">[C]</span> <span class="val">Investigamos cómo las señales interoceptivas participan en procesos de toma de decisiones desde la embodied cognition. Pregunta preliminar: ¿cómo describen los participantes la participación de las señales corporales internas en sus decisiones?</span><br><br>
+      <span class="kw">[T]</span> <span class="val">Lee el extracto de P01 y realiza cuatro operaciones:</span><br>
+      <span class="val">1. Resume su relato en máximo 150 palabras conservando su perspectiva.</span><br>
+      <span class="val">2. Identifica entre 5 y 7 ideas manifiestas.</span><br>
+      <span class="val">3. Identifica tensiones, contradicciones o ambigüedades internas.</span><br>
+      <span class="val">4. Identifica información contextual que necesitaríamos antes de inferencias profundas.</span><br><br>
+      <span class="val">No generes todavía códigos ni temas.</span><br><br>
+      <span class="kw">[O]</span> <span class="val">Cuatro apartados numerados.</span><br><br>
+      <span class="kw">[R]</span> <span class="val">[PEGAR P01]</span>
+    </div>
+  </section>
+
+  <!-- ===== 21. STOP 1 ===== -->
+  <section class="slide" data-title="STOP 1">
+    <span class="eyebrow rojo">Checkpoint humano</span>
+    <h2>STOP 1 · ¿Reconozco mi dato?</h2>
+
+    <div class="stop-card">
+      <h3>Antes de pasar al siguiente prompt</h3>
+      <p>Cada estudiante responde estas cuatro preguntas sobre el output de la IA:</p>
+      <ul>
+        <li><strong>A.</strong> ¿Omitió algo relevante del relato original?</li>
+        <li><strong>B.</strong> ¿Introdujo algo que no está en el texto?</li>
+        <li><strong>C.</strong> ¿Descontextualizó alguna afirmación?</li>
+        <li><strong>D.</strong> ¿Confundió dato con interpretación?</li>
+      </ul>
+    </div>
+
+    <div class="card rojo" style="margin-top:26px;">
+      <p><strong>Sin este paso no avanzamos.</strong> La puerta humana es lo que convierte el output en input verificable.</p>
+    </div>
+  </section>
+
+  <!-- ===== 22. CODIFICACIÓN ===== -->
+  <section class="slide" data-title="Codificación">
+    <span class="eyebrow">PROMPT 2</span>
+    <h2>Codificación abierta</h2>
+
+    <p class="lead">Ahora sí entramos en la operación técnica de codificar.</p>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 2 · Codificación</span>
+      <span class="kw">[A]</span> <span class="val">Eres un asistente de investigación cualitativa especializado en codificación inicial.</span><br><br>
+      <span class="kw">[C]</span> <span class="val">Continuamos con P01. Un código es una etiqueta analítica breve que identifica una unidad de significado relevante para la pregunta. Diferencia: D = descriptivo/manifiesto; I = interpretativo.</span><br><br>
+      <span class="kw">[T]</span><br>
+      <span class="val">1. Segmenta el extracto en unidades de significado relevantes.</span><br>
+      <span class="val">2. Genera entre 8 y 15 códigos iniciales.</span><br>
+      <span class="val">3. Evita códigos redundantes o excesivamente generales.</span><br>
+      <span class="val">4. No generes clusters, categorías ni temas.</span><br>
+      <span class="val">5. No utilices conceptos teóricos que no aparezcan todavía en los datos.</span><br><br>
+      <span class="kw">[O]</span> <span class="val">Tabla: Código | Tipo D/I | Definición | Cita textual | Justificación.</span><br><br>
+      <span class="kw">[R]</span> <span class="val">Utiliza exclusivamente P01.</span>
+    </div>
+  </section>
+
+  <!-- ===== 23. REGLA NO SOBRECODIFICAR ===== -->
+  <section class="slide" data-title="Regla no sobrecodificar">
+    <span class="eyebrow dorado">Regla 2</span>
+    <h2>No incentivemos la sobrecodificación</h2>
+
+    <div class="grid-2">
+      <div class="card rojo">
+        <h3>Pedir demasiados códigos</h3>
+        <p>Si pedimos 25 códigos para un fragmento corto, forzamos al modelo a generar códigos artificiales, redundantes o triviales.</p>
+      </div>
+      <div class="card verde">
+        <h3>Dejar que la densidad determine</h3>
+        <p>Pidamos 8–15 y dejemos que la densidad de significado real determine el número final. La coherencia importa más que la cantidad.</p>
+      </div>
+    </div>
+
+    <div class="cita-grande" style="margin-top:32px;">
+      <p>La calidad de una codificación no se mide por cuántos códigos produce, sino por cuánto ilumina la pregunta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 24. MICROAUDITORÍA ===== -->
+  <section class="slide" data-title="Microauditoría">
+    <span class="eyebrow rojo">Checkpoint técnico</span>
+    <h2>Microauditoría · prueba 3 × 3</h2>
+
+    <p class="lead">Cada estudiante selecciona tres códigos al azar y verifica manualmente:</p>
+
+    <div class="grid-3">
+      <div class="card azul">
+        <h3>1. Fidelidad</h3>
+        <p>¿La cita existe literalmente en el texto?</p>
+      </div>
+      <div class="card azul">
+        <h3>2. Correspondencia</h3>
+        <p>¿La evidencia sustenta realmente el código?</p>
+      </div>
+      <div class="card azul">
+        <h3>3. Alternativa</h3>
+        <p>¿Puedo codificar el mismo fragmento de otra manera?</p>
+      </div>
+    </div>
+
+    <div class="card dorado" style="margin-top:26px;">
+      <p>Después de verificar, cada estudiante marca: <strong>🟢 aceptar · 🟡 modificar · 🔴 rechazar</strong>. Estas decisiones quedan registradas.</p>
+    </div>
+  </section>
+
+  <!-- ===== 25. REFINAMIENTO ===== -->
+  <section class="slide" data-title="Refinamiento">
+    <span class="eyebrow">PROMPT 3</span>
+    <h2>Refinamiento de códigos</h2>
+
+    <p class="lead">Ya no pedimos “mejora esto”. Le damos nuestras decisiones explícitas.</p>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 3 · Refinamiento</span>
+      <span class="val">He revisado tu codificación.</span><br><br>
+      <span class="kw">ACEPTO:</span> <span class="val">[lista de códigos]</span><br><br>
+      <span class="kw">MODIFICO:</span> <span class="val">Código X → sustituir por "...".</span><br><br>
+      <span class="kw">RECHAZO:</span> <span class="val">[lista de códigos]</span><br><br>
+      <span class="kw">Ahora:</span><br>
+      <span class="val">1. Reconstruye la tabla respetando estas decisiones.</span><br>
+      <span class="val">2. Identifica redundancias restantes.</span><br>
+      <span class="val">3. Sugiere máximo 3 fusiones posibles.</span><br>
+      <span class="val">4. No ejecutes las fusiones todavía.</span><br>
+      <span class="val">5. Explica qué se ganaría y qué se perdería con cada fusión.</span><br><br>
+      <span class="val">No generes clusters ni temas.</span>
+    </div>
+  </section>
+
+  <!-- ===== 26. LECCIÓN DEL REFINAMIENTO ===== -->
+  <section class="slide" data-title="Lección del refinamiento">
+    <span class="eyebrow dorado">Lección procedimental</span>
+    <h2>La IA no decide qué código queda</h2>
+
+    <div class="cita-grande">
+      <p>El refinamiento es donde el investigador toma el control y la IA ejecuta decisiones humanas.</p>
+    </div>
+
+    <div class="card dorado" style="margin-top:32px;">
+      <p>Este cambio —pasar de “mejora esto” a “aplica estas decisiones que ya tomé”— transforma por completo la relación con la herramienta.</p>
+    </div>
+  </section>
+
+  <!-- ===== 27. DIVIDER FASE C ===== -->
+  <section class="slide divider" data-title="FASE C · Construir">
+    <span class="fase-id">Fase C · Construir</span>
+    <div class="num">C</div>
+    <h1>Construir</h1>
+    <p class="preg">Clusters, temas candidatos e interpretación latente</p>
+    <p class="sub-info">Bloque 3 de 4 · Construcción teórica</p>
+  </section>
+
+  <!-- ===== 28. CLUSTERS ===== -->
+  <section class="slide" data-title="Clusters">
+    <span class="eyebrow">PROMPT 4</span>
+    <h2>De códigos a clusters</h2>
+
+    <p class="lead">Ahora incorporamos P02 y P03 y trabajamos con el conjunto consolidado.</p>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 4 · Clustering</span>
+      <span class="kw">[A]</span> <span class="val">Eres un asistente que apoya la organización de códigos cualitativos.</span><br><br>
+      <span class="kw">[C]</span> <span class="val">Disponemos de un conjunto de códigos revisados de P01, P02 y P03. Un cluster es una agrupación intermedia; todavía no es un tema.</span><br><br>
+      <span class="kw">[T]</span><br>
+      <span class="val">1. Propón entre 4 y 7 clusters provisionales.</span><br>
+      <span class="val">2. Explica el criterio que conecta los códigos de cada cluster.</span><br>
+      <span class="val">3. Identifica códigos puente.</span><br>
+      <span class="val">4. Identifica códigos que no encajan adecuadamente.</span><br>
+      <span class="val">5. No fuerces todos los códigos dentro de un cluster.</span><br>
+      <span class="val">6. No conviertas todavía los clusters en temas.</span><br><br>
+      <span class="kw">[O]</span> <span class="val">Por cluster: nombre, definición, códigos, lógica, códigos puente, códigos problemáticos.</span><br><br>
+      <span class="kw">[R]</span> <span class="val">Utiliza exclusivamente nuestra tabla de códigos revisados.</span>
+    </div>
+  </section>
+
+  <!-- ===== 29. CLUSTER ≠ TEMA ===== -->
+  <section class="slide" data-title="Cluster ≠ tema">
+    <span class="eyebrow rojo">Distinción crítica</span>
+    <h2>Cluster no es lo mismo que tema</h2>
+
+    <div class="grid-2">
+      <div class="card dorado">
+        <h3>Cluster</h3>
+        <p style="font-size:34px; font-weight:700; color:var(--azul-medio); margin-bottom:16px;">¿Qué códigos parecen estar relacionados?</p>
+        <p>Agrupación intermedia. Organiza el material sin interpretarlo todavía.</p>
+      </div>
+      <div class="card azul">
+        <h3>Tema</h3>
+        <p style="font-size:34px; font-weight:700; color:var(--azul-medio); margin-bottom:16px;">¿Qué patrón de significado construyen esos códigos respecto de nuestra pregunta?</p>
+        <p>Afirmación interpretativa. No es una etiqueta descriptiva.</p>
+      </div>
+    </div>
+
+    <div class="interrogante">
+      Convertir listas temáticas en “temas” es uno de los errores más frecuentes al trabajar con IA.
+    </div>
+  </section>
+
+  <!-- ===== 30. TEMAS CANDIDATOS ===== -->
+  <section class="slide" data-title="Temas candidatos">
+    <span class="eyebrow">PROMPT 5</span>
+    <h2>Temas candidatos</h2>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 5 · Temas candidatos</span>
+      <span class="kw">[A]</span> <span class="val">Eres un asistente de análisis temático.</span><br><br>
+      <span class="kw">[C]</span> <span class="val">Ahora queremos pasar de clusters a temas candidatos. Un tema NO es simplemente un tópico o una colección de códigos. Debe representar un patrón de significado relevante para nuestra pregunta.</span><br><br>
+      <span class="kw">[T]</span> <span class="val">Propón entre 3 y 5 temas candidatos. Para cada uno:</span><br>
+      <span class="val">1. Propón un nombre.</span><br>
+      <span class="val">2. Formula su idea central en una frase.</span><br>
+      <span class="val">3. Explica el patrón de significado que captura.</span><br>
+      <span class="val">4. Identifica clusters y códigos relacionados.</span><br>
+      <span class="val">5. Proporciona evidencia de al menos dos participantes.</span><br>
+      <span class="val">6. Identifica evidencia que NO encaje completamente.</span><br>
+      <span class="val">7. Clasifica el tema como predominantemente descriptivo o interpretativo.</span><br><br>
+      <span class="kw">[O]</span> <span class="val">Cada tema por separado.</span><br><br>
+      <span class="kw">[R]</span> <span class="val">Utiliza exclusivamente los códigos, clusters y extractos trabajados.</span>
+    </div>
+  </section>
+
+  <!-- ===== 31. EVIDENCIA QUE NO ENCAJA ===== -->
+  <section class="slide" data-title="Evidencia que no encaja">
+    <span class="eyebrow rojo">Regla 3</span>
+    <h2>Pedir evidencia que NO encaja</h2>
+
+    <div class="cita-grande">
+      <p>Si solo pedimos confirmación, la IA siempre nos dará confirmación.</p>
+    </div>
+
+    <div class="card rojo" style="margin-top:32px;">
+      <p>Por eso en cada prompt pedimos explícitamente <strong>evidencia que NO encaje completamente</strong>, <strong>códigos problemáticos</strong>, <strong>tensiones</strong>, <strong>ambigüedades</strong>. Forzamos al modelo a complicar el resultado, no a justificarlo.</p>
+    </div>
+  </section>
+
+  <!-- ===== 32. INTERPRETACIÓN LATENTE ===== -->
+  <section class="slide" data-title="Interpretación latente">
+    <span class="eyebrow">PROMPT 6</span>
+    <h2>Interpretación latente</h2>
+
+    <p class="lead">Aquí es donde más cuidado hay que tener. Vamos a separar explícitamente tres niveles.</p>
+
+    <div class="niveles">
+      <div class="nivel-card n1">
+        <span class="etq">Nivel 1 · Dato</span>
+        <h4>¿Qué dicen explícitamente los participantes?</h4>
+        <p>Evidencia literal, textual, verificable.</p>
+      </div>
+      <div class="nivel-card n2">
+        <span class="etq">Nivel 2 · Inferencia</span>
+        <h4>¿Qué relación puede inferirse razonablemente?</h4>
+        <p>Operación intermedia, apoyada en los datos, sin excederlos.</p>
+      </div>
+      <div class="nivel-card n3">
+        <span class="etq">Nivel 3 · Interpretación</span>
+        <h4>¿Qué significado más amplio podríamos proponer?</h4>
+        <p>Necesariamente especulativa. Debe marcarse como tal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 33. ETIQUETA INTERPRETACIÓN ===== -->
+  <section class="slide" data-title="Etiqueta interpretación">
+    <span class="eyebrow rojo">Regla 4</span>
+    <h2>Etiquetar cada interpretación</h2>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 6 · Profundización</span>
+      <span class="val">Trabajemos sobre los temas candidatos. Para cada tema diferencia tres niveles:</span><br><br>
+      <span class="kw">Nivel 1 — Dato:</span> <span class="val">¿Qué dicen explícitamente los participantes?</span><br>
+      <span class="kw">Nivel 2 — Inferencia:</span> <span class="val">¿Qué relación puede inferirse razonablemente?</span><br>
+      <span class="kw">Nivel 3 — Interpretación:</span> <span class="val">¿Qué significado más amplio podríamos proponer?</span><br><br>
+      <span class="kw">Para el Nivel 3:</span><br>
+      <span class="val">a. Identifica la tensión subyacente.</span><br>
+      <span class="val">b. Explica qué podría estar en juego.</span><br>
+      <span class="val">c. Identifica los supuestos necesarios.</span><br>
+      <span class="val">d. Propón al menos una interpretación alternativa.</span><br>
+      <span class="val">e. Identifica evidencia que podría debilitar nuestra interpretación.</span><br><br>
+      <span class="stop">Usa la etiqueta [INTERPRETACIÓN] cada vez que excedas lo literalmente expresado.</span>
+    </div>
+  </section>
+
+  <!-- ===== 34. DIVIDER FASE D ===== -->
+  <section class="slide divider" data-title="FASE D · Integrar y documentar">
+    <span class="fase-id">Fase D · Integrar y documentar</span>
+    <div class="num">D</div>
+    <h1>Integrar y documentar</h1>
+    <p class="preg">Vinculación teórica, relato analítico y registro de decisiones</p>
+    <p class="sub-info">Bloque 4 de 4 · Cierre metodológico</p>
+  </section>
+
+  <!-- ===== 35. VINCULACIÓN TEÓRICA ===== -->
+  <section class="slide" data-title="Vinculación teórica">
+    <span class="eyebrow">PROMPT 7</span>
+    <h2>Vinculación teórica</h2>
+
+    <p class="lead">Aquí entra embodied cognition. Y aquí hacemos un ajuste fundamental.</p>
+
+    <div class="cita-grande">
+      <p>El investigador proporciona el marco. La IA solo examina ajustes y desajustes.</p>
+    </div>
+  </section>
+
+  <!-- ===== 36. EL MARCO ES HUMANO ===== -->
+  <section class="slide" data-title="El marco es humano">
+    <span class="eyebrow">PROMPT 7 · Detalle</span>
+    <h2>El investigador proporciona el marco</h2>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 7 · Vinculación teórica</span>
+      <span class="kw">[A]</span> <span class="val">Actúa como asistente para contrastar nuestros resultados con un marco conceptual proporcionado por el investigador.</span><br><br>
+      <span class="kw">[C]</span> <span class="val">Ahora queremos examinar nuestros temas a la luz del siguiente marco sobre embodied cognition.</span><br><br>
+      <span class="kw">[R1 — MARCO TEÓRICO]</span> <span class="val">[pegar extracto teórico con su referencia]</span><br><br>
+      <span class="kw">[R2 — DATOS]</span> <span class="val">Utiliza los temas y evidencia construidos anteriormente.</span><br><br>
+      <span class="kw">[T]</span> <span class="val">Para cada tema:</span><br>
+      <span class="val">1. Identifica conceptos del marco que podrían ayudar a interpretarlo.</span><br>
+      <span class="val">2. Explica la conexión.</span><br>
+      <span class="val">3. Identifica evidencia empírica que la sustente.</span><br>
+      <span class="val">4. Identifica dónde la conexión es débil.</span><br>
+      <span class="val">5. Señala datos que el marco no explica adecuadamente.</span><br>
+      <span class="val">6. Identifica posibles tensiones entre teoría y datos.</span><br><br>
+      <span class="kw">[O]</span> <span class="val">Tema · Concepto teórico · Conexión · Evidencia · Limitación · Dato no explicado · Nivel de confianza.</span><br><br>
+      <span class="stop">No incorpores autores ni conceptos externos al marco proporcionado.</span>
+    </div>
+  </section>
+
+  <!-- ===== 37. DEL ANÁLISIS AL RELATO ===== -->
+  <section class="slide" data-title="Del análisis al relato">
+    <span class="eyebrow">PROMPT 8</span>
+    <h2>Del análisis al relato</h2>
+
+    <p class="lead">Primero estructura. Después redacta. Nunca “escribe mis resultados” de golpe.</p>
+
+    <div class="prompt-box">
+      <span class="label">PROMPT 8 · Estructura primero</span>
+      <span class="val">Utilizando exclusivamente los temas que YO he confirmado:</span><br><br>
+      <span class="val">1. Propón tres posibles órdenes argumentativos para presentar los resultados.</span><br>
+      <span class="val">2. Explica qué lógica sigue cada alternativa.</span><br>
+      <span class="val">3. Para cada tema confirmado propón una estructura de párrafo:</span><br>
+      <span class="val">&nbsp;&nbsp;&nbsp;&nbsp;afirmación analítica → evidencia → interpretación → conexión con la pregunta.</span><br><br>
+      <span class="val">No redactes todavía el apartado completo de resultados.</span>
+    </div>
+
+    <div class="card dorado" style="margin-top:24px;">
+      <p>Solo después de elegir el orden, el siguiente prompt pide el borrador. Y siempre con la instrucción de <strong>marcar entre [CORCHETES] cualquier afirmación que requiera una decisión adicional del investigador</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 38. CICLO DE ANÁLISIS ASISTIDO ===== -->
+  <section class="slide" data-title="Ciclo de análisis asistido">
+    <span class="eyebrow morado">Imagen conceptual</span>
+    <h2>El ciclo de análisis asistido</h2>
+
+    <div class="ciclo">
+      <div class="eslabon">Pregunta de investigación</div>
+      <div class="flecha">↓</div>
+      <div class="eslabon actor">ACTOR · controlar las condiciones de trabajo</div>
+      <div class="flecha">↓</div>
+      <div class="eslabon">Prompt</div>
+      <div class="flecha">↓</div>
+      <div class="eslabon">Output de ChatGPT</div>
+      <div class="flecha">↓</div>
+      <div class="eslabon output">Verificar contra el dato</div>
+      <div class="flecha">↓</div>
+      <div class="eslabon decision">
+        <span class="a">Aceptar</span>
+        <span class="m">Modificar</span>
+        <span class="r">Rechazar</span>
+      </div>
+      <div class="flecha">↓</div>
+      <div class="eslabon">Siguiente operación</div>
+    </div>
+  </section>
+
+  <!-- ===== 39. EL CICLO SE REPITE ===== -->
+  <section class="slide" data-title="El ciclo se repite">
+    <span class="eyebrow">Recursividad</span>
+    <h2>El ciclo se repite en cada operación</h2>
+
+    <div class="cadena-vert">
+      <div class="nodo">Familiarización</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Codificación</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Refinamiento</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Clustering</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Tematización</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Interpretación</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo">Vinculación teórica</div>
+      <div class="flecha-v">↓</div>
+      <div class="nodo verde">Escritura</div>
+    </div>
+  </section>
+
+  <!-- ===== 40. CERRAR CHATGPT ===== -->
+  <section class="slide" data-title="Cerrar ChatGPT">
+    <span class="eyebrow rojo">Cierre del laboratorio</span>
+    <h2>Lo último NO lo hace ChatGPT</h2>
+
+    <div class="desafio">
+      <h3>Cerramos la conversación</h3>
+      <p>El producto real de esta sesión no son las respuestas de la IA.</p>
+      <p><strong>Es el registro de decisiones que tomamos sobre cada output.</strong></p>
+    </div>
+  </section>
+
+  <!-- ===== 41. REGISTRO DE DECISIONES ===== -->
+  <section class="slide" data-title="Registro de decisiones">
+    <span class="eyebrow dorado">Producto de la sesión</span>
+    <h2>Registro de decisiones</h2>
+
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>IA propuso</th>
+            <th>Acepté</th>
+            <th>Modifiqué</th>
+            <th>Rechacé</th>
+            <th>Razón</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Familiarización</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Codificación</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Refinamiento</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Clusters</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Temas</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Interpretación</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Teoría</td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card dorado" style="margin-top:22px;">
+      <p>Este registro es el producto real del laboratorio. Se completa <strong>después</strong> de cerrar ChatGPT.</p>
+    </div>
+  </section>
+
+  <!-- ===== 42. LOS DOS RECURSOS ===== -->
+  <section class="slide" data-title="Los dos recursos">
+    <span class="eyebrow dorado">Recursos para llevarse</span>
+    <h2>Dos recursos que se llevan</h2>
+
+    <div class="grid-2">
+      <div class="card azul">
+        <h3>Recurso 1 · Biblioteca de prompts</h3>
+        <p>Una hoja con los nueve prompts del flujo:</p>
+        <ul class="clean" style="margin-top:12px;">
+          <li>P0 Configuración</li>
+          <li>P1 Familiarización</li>
+          <li>P2 Codificación</li>
+          <li>P3 Refinamiento</li>
+          <li>P4 Clusters</li>
+          <li>P5 Temas</li>
+          <li>P6 Interpretación</li>
+          <li>P7 Vinculación teórica</li>
+          <li>P8 Escritura</li>
+        </ul>
+      </div>
+      <div class="card dorado">
+        <h3>Recurso 2 · Bitácora de análisis</h3>
+        <p>Un archivo con seis columnas:</p>
+        <ul class="clean" style="margin-top:12px;">
+          <li>Fecha y hora</li>
+          <li>Prompt utilizado</li>
+          <li>Input</li>
+          <li>Output relevante</li>
+          <li>Decisión humana</li>
+          <li>Justificación</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cita-grande" style="margin-top:30px;">
+      <p>No documentamos solo qué hizo la IA. Documentamos qué hizo el investigador con el resultado de la IA.</p>
+    </div>
+  </section>
+
+  <!-- ===== 43. PREPARACIÓN DEL CORPUS ===== -->
+  <section class="slide" data-title="Preparación del corpus">
+    <span class="eyebrow">Preparación</span>
+    <h2>El corpus que vamos a usar</h2>
+
+    <div class="card azul">
+      <p>Un único archivo: <code style="font-family:monospace; background:var(--blanco); padding:4px 12px; border-radius:6px;">Corpus_interocepcion_clase.docx</code></p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card dorado">
+        <h3>P01</h3>
+        <p>Profesional de la salud · 700–900 palabras</p>
+      </div>
+      <div class="card dorado">
+        <h3>P02</h3>
+        <p>Estudiante de posgrado · 700–900 palabras</p>
+      </div>
+      <div class="card dorado">
+        <h3>P03</h3>
+        <p>Directivo · 700–900 palabras</p>
+      </div>
+    </div>
+
+    <div class="card verde" style="margin-top:24px;">
+      <p><strong>Total:</strong> 2.100–2.700 palabras. Suficiente densidad para un ejercicio real de noventa minutos.</p>
+    </div>
+  </section>
+
+  <!-- ===== 44. LAS TRAMPAS DEL CORPUS ===== -->
+  <section class="slide" data-title="Las trampas del corpus">
+    <span class="eyebrow rojo">Diseño deliberado</span>
+    <h2>Las "trampas" del corpus</h2>
+
+    <p class="lead">El corpus no está diseñado para demostrar la teoría. Está diseñado para complicarla.</p>
+
+    <div class="grid-3">
+      <div class="card rojo">
+        <h3>P01</h3>
+        <p>“A veces también me ha pasado lo contrario: estaba convencido de que algo iba mal y después no ocurrió nada.”</p>
+      </div>
+      <div class="card rojo">
+        <h3>P02</h3>
+        <p>“Todavía no sé si estoy escuchando mi cuerpo o simplemente justificando una decisión que ya había tomado.”</p>
+      </div>
+      <div class="card rojo">
+        <h3>P03</h3>
+        <p>“En algunos contextos, los datos terminan convenciéndome de ignorar la sensación inicial.”</p>
+      </div>
+    </div>
+
+    <div class="desafio" style="margin-top:28px;">
+      <h3>Objetivo de las trampas</h3>
+      <p>Forzar a la IA y a los estudiantes a enfrentarse con <strong>contraejemplos, contradicciones, incertidumbre y límites</strong> de la interocepción como fuente de decisión.</p>
+    </div>
+  </section>
+
+  <!-- ===== 45. CAMBIO PEDAGÓGICO ===== -->
+  <section class="slide" data-title="Cambio pedagógico">
+    <span class="eyebrow morado">Cambio pedagógico</span>
+    <h2>De pensar críticamente a ejecutar rigurosamente</h2>
+
+    <div class="comparacion">
+      <div class="comp-card rojo">
+        <h4>Versión conceptual</h4>
+        <p style="font-size:28px; font-weight:700; color:var(--azul-medio); margin-top:14px;">¿Cómo pensar críticamente la incorporación de IA en investigación cualitativa?</p>
+      </div>
+      <div class="comp-card verde">
+        <h4>Esta versión</h4>
+        <p style="font-size:28px; font-weight:700; color:var(--azul-medio); margin-top:14px;">Si decido incorporar ChatGPT, ¿cómo construyo técnicamente un flujo de trabajo controlado, iterativo, documentado y supervisado?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 46. CHECKLIST ===== -->
+  <section class="slide" data-title="Checklist">
+    <span class="eyebrow dorado">Cierre</span>
+    <h2>Checklist al terminar la sesión</h2>
+
+    <div class="checklist">
+      <div class="check-item">¿Anonimicé el corpus antes de subirlo a ChatGPT?</div>
+      <div class="check-item">¿Configuré la conversación antes de analizar nada?</div>
+      <div class="check-item">¿Diseñé cada prompt con ACTOR?</div>
+      <div class="check-item">¿Verifiqué contra el dato original cada output relevante?</div>
+      <div class="check-item">¿Marqué aceptar, modificar o rechazar en cada operación?</div>
+      <div class="check-item">¿Documenté los prompts y las decisiones en mi bitácora?</div>
+      <div class="check-item">¿Distingo explícitamente dato, inferencia e interpretación?</div>
+      <div class="check-item">¿Declararé el uso de IA en la sección de métodos?</div>
+    </div>
+  </section>
+
+  <!-- ===== 47. CONCLUSIÓN ===== -->
+  <section class="slide" data-title="Conclusión">
+    <span class="eyebrow dorado">Cierre</span>
+    <h2>Qué se llevan de este laboratorio</h2>
+
+    <div class="cita-grande">
+      <p>Un flujo controlado, iterativo, documentado y supervisado<br>para integrar ChatGPT al análisis temático.</p>
+    </div>
+
+    <div class="grid-3" style="margin-top:30px;">
+      <div class="card azul">
+        <h3>Configurar</h3>
+        <p>Antes de analizar.</p>
+      </div>
+      <div class="card dorado">
+        <h3>Ejecutar</h3>
+        <p>Cada operación, con ACTOR.</p>
+      </div>
+      <div class="card verde">
+        <h3>Documentar</h3>
+        <p>Cada decisión humana.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 48. REFERENCIAS ===== -->
+  <section class="slide" data-title="Referencias">
+    <span class="eyebrow">Referencias</span>
+    <h2>Fuentes base</h2>
+
+    <div class="card azul">
+      <p style="font-size:22px; line-height:1.6;">
+        Goyanes, M., Lopezosa, C., &amp; Jordá, B. (2025). Thematic analysis of interview data with ChatGPT: Designing and testing a reliable research protocol for qualitative research. <em>Quality &amp; Quantity, 59</em>, 5491–5510.<br><br>
+        Nguyen-Trung, K. (2025). ChatGPT in thematic analysis: Can AI become a research assistant in qualitative research? <em>Quality &amp; Quantity, 59</em>, 4945–4978.<br><br>
+        Wachinger, J., Bärnighausen, K., Schäfer, L. N., Scott, K., &amp; McMahon, S. A. (2025). Prompts, pearls, imperfections: Comparing ChatGPT and a human researcher in qualitative data analysis. <em>Qualitative Health Research, 35</em>(9), 951–966.<br><br>
+        Han, J., Qiu, W., &amp; Lichtfouse, E. (2024). <em>ChatGPT in scientific research and writing: A beginner's guide</em>. Springer.<br><br>
+        King, N., Brooks, J., &amp; Tabari, S. (2018). Template analysis in business and management research. En <em>Qualitative methodologies in organization studies</em> (pp. 179–206). Palgrave Macmillan.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="progresion" id="progresion"></div>
+
+<div class="nav-bottom">
+  <button class="nav-btn" id="prevBtn" aria-label="Anterior">‹</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente">›</button>
+</div>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const indiceEl = document.getElementById('indice');
+const progress = document.getElementById('progress');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progresion = document.getElementById('progresion');
+let current = 0;
+
+slides.forEach((s, i) => {
+  const li = document.createElement('li');
+  li.textContent = (i + 1) + '. ' + s.dataset.title;
+  if (s.classList.contains('divider')) li.classList.add('divisor-item');
+  li.addEventListener('click', () => {
+    goTo(i);
+    document.getElementById('indicePanel').classList.remove('open');
+  });
+  indiceEl.appendChild(li);
+});
+const indexItems = Array.from(indiceEl.children);
+
+slides.forEach((s, i) => {
+  const punto = document.createElement('div');
+  punto.className = 'punto';
+  punto.title = s.dataset.title;
+  punto.addEventListener('click', () => goTo(i));
+  progresion.appendChild(punto);
+});
+const puntos = Array.from(progresion.children);
+
+function goTo(i){
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  indexItems[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  indexItems[current].classList.add('active');
+
+  // Activar/desactivar fondo azul cuando la diapositiva es un divisor
+  if (slides[current].classList.contains('divider')){
+    document.body.classList.add('divisor-activo');
+  } else {
+    document.body.classList.remove('divisor-activo');
+  }
+
+  updateUI();
+}
+
+function updateUI(){
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+  puntos.forEach((p, i) => {
+    p.classList.remove('activo','hecho');
+    if (i < current) p.classList.add('hecho');
+    if (i === current) p.classList.add('activo');
+  });
+}
+
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+slides[0].classList.add('active');
+indexItems[0].classList.add('active');
+updateUI();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+  if (e.key === 'Escape') document.getElementById('indicePanel').classList.remove('open');
+});
+
+document.getElementById('toggleIndice').addEventListener('click', () => {
+  document.getElementById('indicePanel').classList.toggle('open');
+});
+</script>
+</body>
+</html>
