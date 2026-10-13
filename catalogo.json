@@ -64,6 +64,36 @@
     "autor": "Juan Carlos Valderrama Cárdenas"
   },
   {
+    "titulo": "Caso Andrés M. · Modelo cognitivo de Beck",
+    "descripcion": "Caso clínico ficticio y guía interactiva de estudio autónomo para analizar el modelo cognitivo de Aaron T. Beck mediante pensamientos automáticos, distorsiones cognitivas, creencias intermedias y nucleares, tríada cognitiva, formulación de caso y ciclos de mantenimiento.",
+    "tipo": "Caso clínico interactivo",
+    "archivo": "materiales/caso-andres-modelo-cognitivo-beck.html",
+    "etiquetas": [
+      "Psicología",
+      "Psicología clínica",
+      "Terapia cognitiva",
+      "Terapia cognitivo-conductual",
+      "Modelo cognitivo de Beck",
+      "Aaron T. Beck",
+      "Formulación de caso",
+      "Conceptualización cognitiva",
+      "Pensamientos automáticos",
+      "Distorsiones cognitivas",
+      "Creencias intermedias",
+      "Creencias nucleares",
+      "Esquemas cognitivos",
+      "Tríada cognitiva",
+      "Ciclos de mantenimiento",
+      "Depresión",
+      "Caso clínico",
+      "Análisis clínico",
+      "Evaluación psicológica",
+      "Aprendizaje autónomo"
+    ],
+    "curso": "Psicología clínica",
+    "autor": "Juan Carlos Valderrama Cárdenas"
+  },
+  {
     "titulo": "Caso Andrés: laboratorio ABC interactivo",
     "descripcion": "Laboratorio grupal sobre el modelo ABC a partir del caso Andrés, con clasificación de acontecimientos, creencias y consecuencias, experimento contrafactual, transferencia, debate y autoevaluación.",
     "tipo": "Laboratorio interactivo",
