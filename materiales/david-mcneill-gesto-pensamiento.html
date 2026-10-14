@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David McNeill · Gesto y pensamiento</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="David McNeill · Gesto y pensamiento">
+<meta name="jc-descripcion" content="Guía interactiva de estudio avanzado sobre la teoría de David McNeill acerca de la integración entre gesto, habla y pensamiento, con continuo de Kendon, coexpresividad, dimensiones gestuales, sincronización, Growth Point, catchments, animaciones, analizador y autoevaluación.">
+<meta name="jc-tipo" content="Guía interactiva de estudio">
+<meta name="jc-etiquetas" content="Psicología cognitiva, Psicolingüística, David McNeill, Gesto, Pensamiento, Lenguaje, Habla, Gesto y habla, Cognición, Growth Point, Continuo de Kendon, Coexpresividad, Gestos icónicos, Gestos metafóricos, Deixis, Beats, Sincronización gesto-habla, Stroke, Holds, Catchments, Tight binding, Thinking for speaking, Predicado psicológico, Vygotsky, Análisis del discurso, Comunicación no verbal, Cognición distribuida">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#fbfbf9; --surface:#ffffff; --surface-2:#f4f5f3; --surface-3:#eef0ee;
+  --text:#16181d; --muted:#5d6470; --border:#e4e6ea; --border-strong:#d3d7dd;
+  --accent:#2f5d8a; --accent-soft:#e9f0f7; --accent-2:#b4762a; --accent-2-soft:#faf1e4;
+  --ok:#2f7d5b; --ok-soft:#e7f3ec; --err:#b03a3a; --err-soft:#f9ebeb;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(16,20,28,.05), 0 10px 28px -16px rgba(16,20,28,.25);
+  --sidebar:272px;
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0e1014; --surface:#161a20; --surface-2:#1b2028; --surface-3:#212733;
+  --text:#e9ebef; --muted:#98a1ae; --border:#262c36; --border-strong:#333b48;
+  --accent:#7fb0dd; --accent-soft:#182432; --accent-2:#d9a441; --accent-2-soft:#2a2216;
+  --ok:#5cc08d; --ok-soft:#16281f; --err:#e07a7a; --err-soft:#2a1919;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px -16px rgba(0,0,0,.8);
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.22;letter-spacing:-.012em;color:var(--text)}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);margin:0 0 .5rem}
+h2{font-size:clamp(1.4rem,2.7vw,1.85rem);margin:0 0 1rem}
+h3{font-size:1.16rem;margin:2.1rem 0 .6rem}
+h4{font-size:1rem;margin:1.5rem 0 .45rem;font-family:var(--sans);font-weight:700}
+p{margin:0 0 1rem}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+strong{font-weight:650}
+code{font-family:var(--mono);font-size:.87em;background:var(--surface-2);padding:.12em .38em;border-radius:5px;border:1px solid var(--border)}
+::selection{background:var(--accent);color:#fff}
+
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);z-index:60;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 16px 16px;gap:16px;overflow-y:auto;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.brand{display:flex;align-items:center;gap:11px;padding:0 6px}
+.brand-mark{width:38px;height:38px;flex:0 0 38px;border-radius:11px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-weight:700;font-size:.82rem;font-family:var(--serif)}
+.brand strong{display:block;font-size:.93rem;font-family:var(--serif);line-height:1.2}
+.brand small{display:block;color:var(--muted);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.progress-wrap{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 12px}
+.progress-head{display:flex;justify-content:space-between;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px}
+.progress-bar{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.progress-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .45s cubic-bezier(.4,0,.2,1)}
+.nav{display:flex;flex-direction:column;gap:2px;flex:1}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;color:var(--muted);text-decoration:none;font-size:.845rem;line-height:1.35;border-left:2px solid transparent;transition:all .16s;position:relative}
+.nav a span{font-family:var(--mono);font-size:.7rem;opacity:.7;flex:0 0 18px}
+.nav a:hover{background:var(--surface-2);color:var(--text)}
+.nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.nav a.done span::after{content:'✓';position:absolute;left:34px;top:50%;transform:translateY(-50%);color:var(--ok);font-size:.7rem}
+.nav a.done span{opacity:0}
+.theme-toggle{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:9px;padding:9px 12px;font-size:.8rem;cursor:pointer;font-family:var(--sans);transition:all .16s;text-align:left}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+main{margin-left:var(--sidebar);padding:0 0 120px}
+.wrap{max-width:940px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.burger{position:fixed;top:14px;left:14px;z-index:80;display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:1.15rem;cursor:pointer;box-shadow:var(--shadow)}
+.overlay{position:fixed;inset:0;background:rgba(8,10,14,.5);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.show{opacity:1;pointer-events:auto}
+@media(max-width:940px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  main{margin-left:0;padding-top:64px}
+  .burger{display:block}
+}
+
+section{padding:64px 0 12px;border-top:1px solid var(--border);scroll-margin-top:20px}
+section:first-of-type{border-top:none;padding-top:0}
+.sec-kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:.6rem;display:block}
+
+.cover{padding:80px 0 40px;position:relative}
+.cover::before{content:'';position:absolute;top:-40px;right:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,var(--accent-soft) 0%,transparent 68%);opacity:.9;pointer-events:none;z-index:-1}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:99px;padding:5px 14px;margin-bottom:22px;font-weight:600}
+.cover-tag i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:block}
+.cover h1{max-width:17ch}
+.cover-lead{font-size:1.09rem;color:var(--muted);max-width:64ch;margin-top:1.1rem}
+.author-card{display:flex;align-items:center;gap:14px;margin-top:30px;padding:15px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);max-width:440px}
+.author-avatar{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:1rem}
+.author-card .who{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.author-card .name{font-family:var(--serif);font-size:1.06rem;font-weight:600;line-height:1.25}
+.author-card .role{font-size:.82rem;color:var(--muted)}
+
+.map-shell{margin-top:34px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.map-toolbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);flex-wrap:wrap}
+.map-toolbar .hint{font-size:.78rem;color:var(--muted);margin-left:auto}
+.map-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.95rem;line-height:1;display:grid;place-items:center;transition:all .15s}
+.map-btn:hover{border-color:var(--accent);color:var(--accent)}
+.map-viewport{height:min(66vh,560px);overflow:hidden;cursor:grab;background:radial-gradient(circle at 1px 1px,var(--border) 1px,transparent 0) 0 0/22px 22px}
+.map-viewport.dragging{cursor:grabbing}
+.map-viewport svg{width:100%;height:100%;display:block;user-select:none}
+.mnode{cursor:pointer}
+.mnode:hover rect{stroke:var(--accent);stroke-width:2}
+.mnode rect{transition:stroke .2s}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.card h3{margin-top:0}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;font-size:.95rem}
+.callout.warn{border-left-color:var(--accent-2);background:var(--accent-2-soft)}
+.callout.danger{border-left-color:var(--err);background:var(--err-soft)}
+.callout .ct{font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--accent)}
+.callout.warn .ct{color:var(--accent-2)}
+.callout.danger .ct{color:var(--err)}
+.callout p:last-child{margin-bottom:0}
+
+.grid{display:grid;gap:14px}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.mini{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:15px 16px}
+.mini h4{margin:0 0 6px;font-size:.9rem;color:var(--accent)}
+.mini p{font-size:.9rem;margin:0;color:var(--muted)}
+
+.lo-list{list-style:none;padding:0;margin:0;counter-reset:lo}
+.lo-list li{counter-increment:lo;position:relative;padding:16px 18px 16px 60px;margin-bottom:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem}
+.lo-list li::before{content:counter(lo,decimal-leading-zero);position:absolute;left:16px;top:16px;font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--accent);background:var(--accent-soft);width:30px;height:30px;border-radius:8px;display:grid;place-items:center}
+.lo-list li b{color:var(--accent);font-weight:700}
+
+.tbl-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.89rem;min-width:520px}
+th,td{padding:12px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+th{background:var(--surface-2);font-weight:650;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface-2)}
+td:first-child{font-weight:600}
+
+.btn-complete{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:10px 18px;border-radius:99px;border:1px solid var(--border-strong);background:var(--surface);color:var(--muted);cursor:pointer;font-size:.83rem;font-family:var(--sans);font-weight:600;transition:all .18s}
+.btn-complete:hover{border-color:var(--accent);color:var(--accent)}
+.btn-complete.is-done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+
+.quiz-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:22px}
+.score-box{display:flex;align-items:baseline;gap:6px;font-family:var(--serif)}
+.score-box .big{font-size:1.7rem;font-weight:700;color:var(--accent);line-height:1}
+.score-box .small{font-size:.85rem;color:var(--muted)}
+.score-bar{flex:1;min-width:140px;height:7px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.score-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--ok));border-radius:99px;transition:width .4s}
+.btn{padding:9px 17px;border-radius:99px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:.82rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .16s}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+
+.q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:19px 21px;margin-bottom:15px;box-shadow:var(--shadow)}
+.q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.q-num{flex:0 0 28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.q-text{font-weight:600;font-size:.98rem;line-height:1.5;margin:0}
+.q-type{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-top:4px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:.92rem;transition:all .14s;background:var(--surface)}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt input{margin:3px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--err);background:var(--err-soft)}
+.opt.locked{cursor:default;pointer-events:none}
+.tf-row{display:flex;gap:10px;flex-wrap:wrap}
+.tf-btn{flex:1;min-width:130px;padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.92rem;font-weight:600;cursor:pointer;transition:all .14s}
+.tf-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tf-btn.correct{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.tf-btn.wrong{border-color:var(--err);background:var(--err-soft);color:var(--err)}
+.tf-btn.locked{pointer-events:none}
+.match-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin-bottom:9px}
+@media(max-width:600px){.match-row{grid-template-columns:1fr;gap:5px}}
+.match-row .left{font-size:.9rem;font-weight:600;padding:9px 12px;background:var(--surface-2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.match-row select{width:100%;padding:9px 11px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.88rem;cursor:pointer}
+.match-row select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.match-row.ok select{border-color:var(--ok);background:var(--ok-soft)}
+.match-row.no select{border-color:var(--err);background:var(--err-soft)}
+.order-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;counter-reset:ord}
+.order-list li{counter-increment:ord;display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);font-size:.9rem}
+.order-list li::before{content:counter(ord);flex:0 0 24px;height:24px;border-radius:6px;background:var(--surface-3);display:grid;place-items:center;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--muted)}
+.order-list li span{flex:1}
+.order-list li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.order-list li.no{border-color:var(--err);background:var(--err-soft)}
+.ord-btns{display:flex;gap:4px}
+.ord-btns button{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;font-size:.75rem;display:grid;place-items:center;transition:all .14s}
+.ord-btns button:hover{border-color:var(--accent);color:var(--accent)}
+.q-actions{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fb{margin-top:13px;padding:13px 15px;border-radius:var(--radius-sm);font-size:.89rem;line-height:1.6;display:none;border-left:3px solid var(--ok);background:var(--ok-soft)}
+.fb.show{display:block}
+.fb.bad{border-left-color:var(--err);background:var(--err-soft)}
+.fb b{display:block;margin-bottom:4px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+
+.anim-stage{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;overflow:hidden}
+.anim-stage svg{width:100%;height:auto;display:block}
+.anim-controls{display:flex;align-items:center;gap:12px;margin-top:13px;flex-wrap:wrap}
+.anim-controls button{padding:8px 15px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.8rem;font-family:var(--sans);font-weight:600;cursor:pointer;transition:all .15s}
+.anim-controls button:hover{border-color:var(--accent);color:var(--accent)}
+.anim-controls button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.speed{display:flex;align-items:center;gap:9px;font-size:.8rem;color:var(--muted);margin-left:auto}
+.speed input{width:110px;accent-color:var(--accent)}
+.speed b{font-family:var(--mono);color:var(--text);font-size:.78rem;min-width:34px}
+.anim-cap{margin-top:13px;padding:13px 16px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);font-size:.9rem;min-height:64px}
+.anim-cap b{color:var(--accent);display:block;margin-bottom:3px;font-family:var(--serif);font-size:1rem}
+
+/* Analizador McNeill */
+.anal-grid{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.anal-grid{grid-template-columns:1fr}}
+.anal-ctrl{margin-bottom:14px}
+.anal-ctrl .lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px}
+.anal-ctrl select{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:.84rem;cursor:pointer}
+.anal-ctrl select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.anal-scene{
+  background:linear-gradient(135deg,var(--accent-soft),var(--surface-2));
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:18px;
+}
+.anal-scene .lbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--accent);display:block;margin-bottom:6px}
+.anal-scene .txt{font-family:var(--serif);font-size:1.05rem;line-height:1.6;color:var(--text);margin:0 0 8px}
+.anal-scene .gest{font-size:.9rem;color:var(--muted);line-height:1.55;margin:0}
+.anal-scene .gest b{color:var(--accent-2)}
+.anal-readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:16px}
+.anal-readout{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px}
+.anal-readout .k{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block;margin-bottom:4px}
+.anal-readout .v{font-family:var(--serif);font-size:.98rem;font-weight:700;line-height:1.25;color:var(--accent)}
+.anal-readout .v small{font-size:.72rem;color:var(--muted);font-weight:400;display:block;font-family:var(--sans);margin-top:2px}
+.dim-list{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.dim-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:9px 12px;font-size:.84rem;transition:all .25s;
+}
+.dim-item.active{
+  border-color:var(--accent);background:var(--accent-soft);font-weight:600;
+}
+.dim-item.active .dim-name{color:var(--accent)}
+.dim-name{font-weight:700;color:var(--muted);display:block;margin-bottom:2px;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase}
+.dim-val{color:var(--text)}
+.timeline{
+  position:relative;height:60px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);margin-top:10px;overflow:hidden;
+}
+.tl-label{
+  position:absolute;top:4px;left:8px;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.05em;color:var(--muted);text-transform:uppercase;font-weight:600;
+}
+.tl-track{
+  position:absolute;left:0;right:0;top:50%;height:2px;background:var(--border-strong);
+}
+.tl-segment{
+  position:absolute;top:50%;transform:translateY(-50%);
+  height:26px;border-radius:5px;display:grid;place-items:center;
+  font-family:var(--sans);font-size:.68rem;font-weight:600;color:#fff;
+  transition:all .3s;cursor:default;
+}
+.tl-segment.prep{background:var(--muted)}
+.tl-segment.hold{background:var(--accent-2)}
+.tl-segment.stroke{background:var(--accent);font-weight:700}
+.tl-segment.retr{background:var(--muted);opacity:.7}
+
+.verdict{
+  padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);
+  background:var(--surface-2);font-size:.9rem;margin-top:16px;
+}
+.verdict b{font-family:var(--serif);font-size:1.02rem;display:block;margin-bottom:4px;color:var(--accent)}
+
+.breakdown{display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.bd-row{display:grid;grid-template-columns:200px 1fr 54px;gap:12px;align-items:center;font-size:.86rem}
+@media(max-width:520px){.bd-row{grid-template-columns:130px 1fr 44px;font-size:.8rem}}
+.bd-row .track{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.bd-row .track i{display:block;height:100%;width:0;border-radius:99px;transition:width .5s;background:var(--accent)}
+.bd-row .num{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-align:right}
+.bd-row.low .track i{background:var(--err)}
+.bd-row.mid .track i{background:var(--accent-2)}
+.bd-row.high .track i{background:var(--ok)}
+
+.template{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin:14px 0;font-size:.88rem;line-height:1.75}
+.template p{margin:0 0 12px}
+.template p:last-child{margin-bottom:0}
+.template .slot{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:600;font-family:var(--mono);font-size:.82em}
+
+.example{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 16px;margin:12px 0;font-size:.92rem;line-height:1.7;
+}
+.example .lbl{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent-2);font-weight:700;display:block;margin-bottom:6px;
+}
+.example.habla{border-left:3px solid var(--accent)}
+.example.gesto{border-left:3px solid var(--accent-2)}
+
+.ref-list{list-style:none;padding:0;margin:0}
+.ref-list li{padding:13px 0 13px 26px;border-bottom:1px solid var(--border);font-size:.88rem;position:relative;line-height:1.6}
+.ref-list li::before{content:'';position:absolute;left:6px;top:20px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li em{color:var(--muted);font-style:normal}
+.route{counter-reset:r;list-style:none;padding:0;margin:16px 0 0}
+.route li{counter-increment:r;position:relative;padding:15px 18px 15px 58px;margin-bottom:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.91rem}
+.route li::before{content:counter(r);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,var(--accent),var(--accent-2));color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.route li b{display:block;font-family:var(--serif);font-size:1rem;margin-bottom:2px}
+footer{margin-top:70px;padding:28px 0 0;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir índice">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <span class="brand-mark">M</span>
+    <div>
+      <strong>David McNeill</strong>
+      <small>Gesto y pensamiento</small>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-head"><span>Progreso</span><span id="progLabel">0 / 9</span></div>
+    <div class="progress-bar"><i id="progFill"></i></div>
+  </div>
+  <nav class="nav" id="nav">
+    <a href="#s1" data-sec="s1"><span>01</span> Portada y mapa</a>
+    <a href="#s2" data-sec="s2"><span>02</span> Resultados de aprendizaje</a>
+    <a href="#s3" data-sec="s3"><span>03</span> Conceptualización</a>
+    <a href="#s4" data-sec="s4"><span>04</span> Ejemplos concretos</a>
+    <a href="#s5" data-sec="s5"><span>05</span> Preguntas</a>
+    <a href="#s6" data-sec="s6"><span>06</span> Animaciones</a>
+    <a href="#s7" data-sec="s7"><span>07</span> Analizador</a>
+    <a href="#s8" data-sec="s8"><span>08</span> Autoevaluación</a>
+    <a href="#s9" data-sec="s9"><span>09</span> Referencias y ruta</a>
+  </nav>
+  <button class="theme-toggle" id="themeBtn">◐ Cambiar a modo oscuro</button>
+</aside>
+
+<main>
+
+<!-- ==================== S1 ==================== -->
+<section id="s1">
+<div class="wrap">
+  <div class="cover">
+    <span class="cover-tag"><i></i> Material de estudio autónomo · Nivel avanzado</span>
+    <h1>David McNeill: gesto y pensamiento</h1>
+    <p class="cover-lead">
+      Para McNeill, el gesto no es un añadido no verbal al lenguaje. Habla y gesto constituyen
+      <strong>manifestaciones diferentes de un mismo proceso de pensamiento</strong> y producción del
+      significado. Este material recorre esa hipótesis y las herramientas conceptuales que la hacen
+      operativa: desde el continuo de Kendon hasta el Growth Point, pasando por la sincronización, los
+      holds y los catchments.
+    </p>
+
+    <div class="author-card">
+      <div class="author-avatar">JC</div>
+      <div>
+        <div class="who">Elaborado por</div>
+        <div class="name">Juan Carlos Valderrama Cárdenas</div>
+        <div class="role">Guía interactiva de estudio autónomo</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Cómo usar esta guía</h2>
+  <p>
+    Hay una idea que organiza todo el tema y conviene ponerla por delante: <strong>cuando una persona
+    habla mientras mueve las manos, no está diciendo algo mediante palabras y después ilustrándolo
+    mediante movimientos; está construyendo una sola idea mediante dos modalidades simultáneas</strong>.
+    Casi todo lo que sigue se reduce a entender por qué esa formulación no es un matiz, sino un cambio
+    de marco.
+  </p>
+  <p>
+    La guía sigue la misma estructura que el resto de los materiales: mapa conceptual, resultados de
+    aprendizaje, conceptualización con las cinco dimensiones del modelo, ejemplos concretos, preguntas
+    de comprobación, animaciones, un analizador de escenas de habla-gesto y una autoevaluación final.
+    Si trabajas con grabaciones audiovisuales, el analizador es la herramienta más directamente
+    utilizable para codificar datos.
+  </p>
+
+  <div class="callout">
+    <span class="ct">La pregunta que organiza todo el tema</span>
+    <p>
+      Cuando una persona habla y gesticula al mismo tiempo, ¿está haciendo dos cosas que casualmente
+      ocurren juntas, o está haciendo una sola cosa que se manifiesta en dos modalidades? McNeill
+      defiende la segunda respuesta. Y esa respuesta cambia por completo cómo se estudian los datos
+      audiovisuales: ya no se trata de codificar «lo que dice» y aparte «lo que hace con las manos»,
+      sino de identificar la unidad que ambos expresan conjuntamente.
+    </p>
+  </div>
+
+  <h2>Mapa conceptual interactivo</h2>
+  <p>
+    Arrastra para desplazarte, usa la rueda del ratón o los botones para ampliar. Cada nodo es clicable
+    y te lleva a la sección correspondiente.
+  </p>
+
+  <div class="map-shell">
+    <div class="map-toolbar">
+      <button class="map-btn" id="zoomIn" title="Ampliar">+</button>
+      <button class="map-btn" id="zoomOut" title="Reducir">−</button>
+      <button class="map-btn" id="zoomReset" title="Restablecer">⤢</button>
+      <span class="hint">Arrastra para mover · rueda para ampliar · clic en un nodo para navegar</span>
+    </div>
+    <div class="map-viewport" id="mapViewport">
+      <svg viewBox="0 0 1000 640" id="mapSvg">
+        <defs>
+          <linearGradient id="gCenter" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-2)"/>
+          </linearGradient>
+        </defs>
+        <g id="mapView">
+          <g stroke="var(--border-strong)" stroke-width="1.6" fill="none" opacity=".85">
+            <path d="M500 320 L150 98"/>
+            <path d="M500 320 L850 98"/>
+            <path d="M500 320 L130 320"/>
+            <path d="M500 320 L870 320"/>
+            <path d="M500 320 L150 542"/>
+            <path d="M500 320 L850 542"/>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="390" y="278" width="220" height="84" rx="16" fill="url(#gCenter)"/>
+            <text x="500" y="314" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="17" font-weight="600">McNeill</text>
+            <text x="500" y="338" text-anchor="middle" fill="#fff" font-family="var(--serif)" font-size="14">Gesto y pensamiento</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="40" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Sistema integrado</text>
+            <text x="60" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">No dos canales</text>
+            <text x="60" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">Coexpresividad</text>
+            <text x="60" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Unidad habla + gesto</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="740" y="48" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="74" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Continuo de Kendon</text>
+            <text x="760" y="96" fill="var(--muted)" font-size="12" font-family="var(--sans)">Gesticulación → emblema</text>
+            <text x="760" y="114" fill="var(--muted)" font-size="12" font-family="var(--sans)">→ pantomima → señas</text>
+            <text x="760" y="132" fill="var(--muted)" font-size="12" font-family="var(--sans)">Necesidad del habla ↓</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="20" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="40" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Dimensiones</text>
+            <text x="40" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Icónico · Metafórico</text>
+            <text x="40" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">Deíctico · Beat</text>
+            <text x="40" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Dimensiones, no cajas</text>
+          </g>
+
+          <g class="mnode" data-goto="s3">
+            <rect x="760" y="270" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="780" y="296" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Temporalidad</text>
+            <text x="780" y="318" fill="var(--muted)" font-size="12" font-family="var(--sans)">Preparación → holds</text>
+            <text x="780" y="336" fill="var(--muted)" font-size="12" font-family="var(--sans)">Stroke → retracción</text>
+            <text x="780" y="354" fill="var(--muted)" font-size="12" font-family="var(--sans)">Sincronía con el habla</text>
+          </g>
+
+          <g class="mnode" data-goto="s7">
+            <rect x="40" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="60" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Growth Point</text>
+            <text x="60" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">Imagen + lenguaje</text>
+            <text x="60" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">Predicado psicológico</text>
+            <text x="60" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">Unidad mínima</text>
+          </g>
+
+          <g class="mnode" data-goto="s4">
+            <rect x="740" y="492" width="220" height="100" rx="13" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+            <text x="760" y="518" fill="var(--accent)" font-size="14" font-weight="700" font-family="var(--sans)">Catchments</text>
+            <text x="760" y="540" fill="var(--muted)" font-size="12" font-family="var(--sans)">Recurrencias gestuales</text>
+            <text x="760" y="558" fill="var(--muted)" font-size="12" font-family="var(--sans)">Cohesión cognitiva</text>
+            <text x="760" y="576" fill="var(--muted)" font-size="12" font-family="var(--sans)">Organización discursiva</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <button class="btn-complete" data-sec="s1">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S2 ==================== -->
+<section id="s2">
+<div class="wrap">
+  <span class="sec-kicker">02 · Hoja de ruta</span>
+  <h2>Resultados de aprendizaje</h2>
+  <p>
+    Al terminar de trabajar con este material deberías ser capaz de realizar las siguientes cinco
+    acciones. Fíjate en los verbos: no dicen «conocer» ni «recordar». Son operaciones que puedes
+    ejecutar sobre una grabación, sobre una transcripción o sobre el material audiovisual que estés
+    codificando.
+  </p>
+
+  <ol class="lo-list">
+    <li>
+      <b>Distinguir y analizar</b> las cinco dimensiones del gesto —iconicidad, metaforicidad, deixis,
+      beat y marcación temporal— como dimensiones coexistentes en un mismo movimiento, no como
+      categorías excluyentes.
+    </li>
+    <li>
+      <b>Evaluar</b> la calidad de un análisis de gestos aplicando el criterio de coexpresividad:
+      verificar si la interpretación del gesto efectivamente muestra algo que el habla no dice por sí
+      sola, y no simplemente ilustra lo ya dicho.
+    </li>
+    <li>
+      <b>Reconstruir</b> la anatomía temporal de un gesto —preparación, pre-stroke hold, stroke,
+      post-stroke hold, retracción— e identificar qué segmento lingüístico coincide con el stroke.
+    </li>
+    <li>
+      <b>Justificar</b> hipótesis sobre el Growth Point de un enunciado, articulando el componente
+      imagístico del gesto con la categorización lingüística del habla, sin reducir uno al otro.
+    </li>
+    <li>
+      <b>Diseñar</b> un análisis que integre las siete dimensiones recomendadas —forma, dimensión
+      semiótica, temporalidad, habla, coexpresividad, discurso y Growth Point hipotetizado— para
+      codificar datos audiovisuales con criterios explicitables.
+    </li>
+  </ol>
+
+  <div class="callout warn">
+    <span class="ct">Los dos que marcan la diferencia</span>
+    <p>
+      El resultado 2 y el resultado 4. Cualquiera puede decir «este gesto es icónico»; muy pocos pueden
+      explicar qué muestra el gesto que el habla no muestra, y menos aún pueden defender una hipótesis
+      sobre el Growth Point de un enunciado sin reducir el gesto a una simple ilustración. Ahí está el
+      trabajo.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s2">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S3 ==================== -->
+<section id="s3">
+<div class="wrap">
+  <span class="sec-kicker">03 · Núcleo teórico</span>
+  <h2>Conceptualización de nivel avanzado</h2>
+
+  <h3>3.1. El cambio de marco</h3>
+  <p>
+    Una lectura superficial podría situar a McNeill dentro de los estudios clásicos de comunicación no
+    verbal, como si propusiera: lenguaje verbal + lenguaje corporal. Pero no es esa su propuesta.
+    McNeill cuestiona precisamente la idea de que existan dos canales psicológicamente independientes:
+    uno verbal y otro no verbal.
+  </p>
+  <p>Su hipótesis es considerablemente más radical:</p>
+  <div class="callout">
+    <span class="ct">Tesis central</span>
+    <p>
+      Gesto y habla forman un <strong>único sistema integrado de producción del significado</strong>.
+      McNeill afirma explícitamente que deben concebirse como un sistema único, mayor que cualquiera de
+      sus componentes considerados aisladamente.
+    </p>
+  </div>
+  <p>
+    La consecuencia teórica es importante. Cuando una persona habla mientras mueve las manos, no
+    necesariamente está diciendo algo mediante palabras y después ilustrándolo mediante movimientos.
+    En muchos casos está construyendo una sola idea mediante dos modalidades simultáneas. Esa
+    integración será fundamental para comprender el concepto más importante de la teoría: el
+    <em>Growth Point</em>.
+  </p>
+
+  <h3>3.2. Qué es un gesto: el continuo de Kendon</h3>
+  <p>
+    La palabra «gesto» resulta problemática porque agrupa fenómenos muy diferentes. Levantar el pulgar,
+    señalar una puerta, representar con las manos la forma de una botella, mover rítmicamente una mano
+    mientras hablamos y utilizar una lengua de señas implican movimientos corporales, pero no tienen
+    el mismo estatuto cognitivo ni lingüístico.
+  </p>
+  <p>
+    Por esa razón McNeill recupera de Adam Kendon una distinción que se denomina <strong>continuo de
+    Kendon</strong>. En lugar de separar rígidamente «gesto» y «lenguaje», podemos situar distintos
+    comportamientos comunicativos a lo largo de un continuo:
+  </p>
+  <div class="template" style="font-family:var(--mono);font-size:.86rem;text-align:center;line-height:2">
+    Gesticulación → Gestos enmarcados por habla → Emblemas → Pantomima → Lenguas de señas
+  </div>
+  <p>
+    A medida que avanzamos por el continuo ocurren dos transformaciones inversas: la necesidad del
+    habla <em>disminuye</em> y las propiedades lingüísticas convencionales <em>aumentan</em>. En un
+    extremo, la gesticulación necesita del habla que la acompaña y presenta propiedades muy diferentes
+    de un código lingüístico convencional. En el otro, las lenguas de señas poseen léxico, morfología
+    y gramática, y no requieren acompañamiento del habla.
+  </p>
+  <p>
+    Esta distinción es fundamental porque McNeill estudia principalmente la <strong>gesticulación
+    espontánea asociada al habla</strong>, no cualquier movimiento corporal.
+  </p>
+
+  <h3>3.3. Coexpresividad y dos modos de representar</h3>
+  <p>
+    McNeill define la gesticulación como un movimiento que incorpora un significado relacionado con el
+    discurso que ocurre simultáneamente. Imaginemos que alguien dice «Entonces el automóvil salió
+    disparado hacia arriba» y, mientras dice «hacia arriba», mueve rápidamente una mano desde abajo
+    hacia arriba.
+  </p>
+  <p>
+    Para McNeill no deberíamos analizar primero la frase y después la mano. La unidad relevante es
+    «hacia arriba» + movimiento ascendente. Es decir: habla + gesto = <strong>una unidad expresiva</strong>.
+    Aquí aparece el concepto de <strong>coexpresividad</strong>: el habla y el gesto pueden expresar
+    aspectos de una misma idea, pero lo hacen mediante recursos semióticos diferentes.
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Dimensión</th><th>Habla</th><th>Gesto</th></tr></thead>
+      <tbody>
+        <tr><td>Tendencia</td><td>Segmentada · combinatoria · categorial · secuencial</td><td>Global · imagística · espacial · simultánea</td></tr>
+        <tr><td>Qué hace</td><td>Categoriza, segmenta, combina unidades, sigue estructuras lingüísticas</td><td>Muestra, representa espacialmente, expresa simultáneamente varias propiedades</td></tr>
+        <tr><td>Ejemplo: pelota rodando</td><td>«La pelota bajó rodando rápidamente por la pendiente» (secuencia: objeto → dirección → manera → velocidad → trayectoria)</td><td>Un único movimiento descendente, circular, rápido que representa simultáneamente pelota, giro, trayectoria, velocidad y dirección</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    El gesto no debe entenderse simplemente como una traducción corporal de las palabras. Puede
+    contener información que no está lexicalizada explícitamente. Esta diferencia entre una
+    representación analítico-combinatoria y otra visuoespacial-imagística es justamente la que hace
+    intelectualmente relevante la unión habla-gesto.
+  </p>
+
+  <h3>3.4. Las cinco dimensiones del gesto</h3>
+  <p>
+    Probablemente esta sea la clasificación más conocida de McNeill. Inicialmente se plantearon cuatro
+    «categorías» —icónicos, metafóricos, deícticos y beats—, pero McNeill introduce posteriormente una
+    precisión importante: <strong>no deberían considerarse categorías discretas sino dimensiones del
+    gesto</strong>. Un mismo gesto puede ser simultáneamente icónico y deíctico, o metafórico y
+    deíctico.
+  </p>
+
+  <h4>Iconicidad</h4>
+  <p>
+    Un gesto es icónico cuando existe alguna semejanza estructural entre el movimiento realizado y
+    aquello que representa. Si alguien dice «Sacó una caja enorme» y mientras dice «enorme» separa
+    mucho las manos, la distancia entre las manos corresponde al tamaño del objeto. Las manos no son
+    la caja, pero la estructura visuoespacial sí corresponde a la estructura del referente.
+  </p>
+  <p>
+    Cognitivamente, el gesto icónico proporciona algo que el lenguaje verbal difícilmente muestra de
+    la misma manera: la <em>estructura visuoespacial del acontecimiento</em>. Ofrece una ventana al
+    modo en que el hablante está imaginando el evento mientras habla.
+  </p>
+
+  <h4>Metaforicidad</h4>
+  <p>
+    ¿Cómo puede representarse corporalmente algo que no posee forma física? Una idea, una teoría, un
+    argumento, una memoria, una posibilidad. McNeill observa que tratamos corporalmente conceptos
+    abstractos como si fueran objetos físicos. En «Tenemos dos posibilidades», el hablante coloca una
+    a la izquierda y otra a la derecha. Las posibilidades no ocupan físicamente esos lugares: el
+    espacio corporal se convierte en espacio conceptual.
+  </p>
+  <p>
+    Aquí McNeill conecta directamente con la teoría de la metáfora conceptual de Lakoff y Johnson.
+    El gesto metafórico permite <em>hacer visible lo abstracto</em> mediante una estructura espacial
+    que trata el concepto como objeto manipulable.
+  </p>
+
+  <h4>Deixis</h4>
+  <p>
+    La deixis es fundamentalmente señalar. Su forma prototípica es el índice, aunque otras partes del
+    cuerpo e incluso objetos pueden cumplir esa función. La contribución interesante está en los casos
+    abstractos: podemos señalar algo que no existe físicamente allí. En una conversación sobre teorías,
+    señalamos hacia la izquierda para «la teoría conductista» y hacia la derecha para «la perspectiva
+    cognitiva»; minutos después, cuando decimos «el problema de esta aproximación», volvemos a señalar
+    hacia la izquierda. No hay teoría en aquella posición, pero hemos construido un
+    <strong>espacio semiótico</strong>: el espacio físico se transforma en un mapa conceptual del
+    discurso.
+  </p>
+  <p>
+    McNeill relaciona estos casos con la <em>deixis ad phantasma</em> de Karl Bühler: apuntamos hacia
+    entidades presentes en el espacio discursivo o imaginado, no en el mundo perceptivo inmediato.
+  </p>
+
+  <h4>Beats</h4>
+  <p>
+    Son movimientos pequeños y relativamente simples que acompañan el ritmo del discurso. No
+    necesariamente representan visualmente el significado del referente. Su función suele ser marcar
+    prominencia, organizar el discurso, acompañar cambios temáticos, destacar información y
+    sincronizarse con picos prosódicos. McNeill usa una metáfora útil: el beat funciona como un
+    <em>resaltador amarillo gestual</em>. Señala «esto que estoy diciendo ahora importa».
+  </p>
+
+  <h4>Marcación temporal/rítmica</h4>
+  <p>
+    Además de las cuatro dimensiones anteriores, McNeill distingue una dimensión específicamente
+    temporal que organiza el propio flujo del discurso. Los beats son su manifestación más obvia, pero
+    la marcación temporal no se reduce a ellos: se refiere a la función organizadora que ciertos
+    gestos cumplen respecto del ritmo de la enunciación.
+  </p>
+
+  <div class="callout warn">
+    <span class="ct">Por qué importa que sean dimensiones y no categorías</span>
+    <p>
+      Sería tentador observar un gesto y preguntarse «¿es icónico, metafórico, deíctico o beat?».
+      McNeill considera que esa pregunta puede estar mal planteada. Un gesto podría señalar un lugar
+      (deixis), representar simultáneamente una trayectoria (iconicidad) y enfatizar prosódicamente una
+      palabra (beat). Por eso propone hablar de dimensiones coexistentes. Esto es especialmente
+      importante cuando se codifican datos audiovisuales.
+    </p>
+  </div>
+
+  <h3>3.5. La sincronización habla-gesto</h3>
+  <p>
+    McNeill encuentra que el gesto no aparece arbitrariamente respecto del habla. Especialmente
+    importante es el <strong>stroke</strong>, la fase significativa del movimiento. Alrededor del 90%
+    de los strokes aparecen sincronizados con el habla coexpresiva. Cuando existe asincronía, el gesto
+    tiende a anteceder ligeramente al habla relacionada semánticamente, en vez de aparecer después de
+    ella.
+  </p>
+  <p>
+    Esto sugiere una <strong>planificación común</strong>. No sería simplemente <em>idea → frase →
+    gesto ilustrativo</em>, sino algo próximo a <em>idea → unidad habla-gesto → gesto + habla</em>.
+    El gesto no se añade al habla ya formada: se planifican conjuntamente.
+  </p>
+
+  <h3>3.6. La anatomía temporal del gesto</h3>
+  <p>
+    McNeill propone que un gesto no es simplemente «un movimiento». Posee una organización temporal
+    interna. Recuperando el análisis de Adam Kendon e incorporando aportaciones de Sotaro Kita,
+    distingue varias fases gestuales. Una secuencia completa puede tener:
+  </p>
+  <div class="template" style="font-family:var(--mono);font-size:.86rem;text-align:center;line-height:2">
+    Preparación → pre-stroke hold → STROKE → post-stroke hold → retracción
+  </div>
+  <div class="grid two" style="margin:18px 0">
+    <div class="mini">
+      <h4>Preparación</h4>
+      <p>La mano abandona la posición de reposo y se prepara para realizar el movimiento.</p>
+    </div>
+    <div class="mini">
+      <h4>Pre-stroke hold</h4>
+      <p>La mano está preparada, pero espera. El gesto parece esperar a que el habla correspondiente
+      esté lista.</p>
+    </div>
+    <div class="mini">
+      <h4>Stroke</h4>
+      <p>Es el núcleo significativo del gesto. Es la única fase indispensable para considerar que
+      existe propiamente un gesto.</p>
+    </div>
+    <div class="mini">
+      <h4>Post-stroke hold</h4>
+      <p>La configuración significativa permanece brevemente. Puede contribuir a mantener disponible
+      el significado hasta completar el segmento lingüístico correspondiente.</p>
+    </div>
+    <div class="mini">
+      <h4>Retracción</h4>
+      <p>La mano regresa a reposo.</p>
+    </div>
+  </div>
+  <p>
+    Los <em>holds</em> son teóricamente interesantes. Si alguien titubea diciendo «el vehículo… eh…
+    salió disparado», la mano puede esperar preparada hasta que aparece el segmento semánticamente
+    correspondiente, y entonces se produce el stroke. Esto sugiere que el gesto y el segmento verbal
+    están vinculados <em>antes</em> de manifestarse externamente.
+  </p>
+
+  <h3>3.7. El Growth Point</h3>
+  <p>
+    Ahora entramos en el corazón de la teoría. El <strong>Growth Point</strong> (GP), que puede
+    traducirse como «punto de crecimiento», es una unidad psicolingüística en la cual convergen
+    <em>imagen + lenguaje</em>, o más exactamente: una representación imagístico-visuoespacial y una
+    categorización lingüística. McNeill lo describe de manera muy económica: puede pensarse como
+    <strong>una imagen categorizada lingüísticamente, una imagen que ya tiene «un pie dentro del
+    lenguaje»</strong>.
+  </p>
+  <p>
+    Supongamos que alguien ve un gato entrar dentro de un tubo, ascender y salir por arriba. Cuando
+    posteriormente narra el acontecimiento, puede decir «Subió por dentro del tubo» y, simultáneamente,
+    realizar un gesto de mano que asciende con una configuración que representa la interioridad. El
+    gesto empaqueta simultáneamente <em>ascenso + interioridad</em>, mientras el lenguaje distribuye
+    esa información en diferentes componentes.
+  </p>
+  <div class="template" style="font-family:var(--mono);font-size:.86rem;text-align:center;line-height:2">
+    Growth Point → {imagen | lenguaje} → pensamiento-para-hablar → enunciado
+  </div>
+  <p>
+    El GP es, por tanto, la unidad mínima donde lo imagístico y lo lingüístico se integran para generar
+    discurso.
+  </p>
+
+  <h3>3.8. El predicado psicológico (Vygotsky)</h3>
+  <p>
+    McNeill conecta el Growth Point con el concepto vygotskiano de <strong>predicado psicológico</strong>.
+    No se refiere necesariamente al predicado gramatical. La idea es que, psicológicamente, el hablante
+    selecciona aquello que constituye la novedad o el foco significativo respecto de un contexto.
+  </p>
+  <p>
+    Para McNeill el predicado psicológico constituye una desviación significativa respecto del contexto
+    inmediato y presupone ese contexto como fondo. Esto significa que el gesto no representa simplemente
+    objetos del mundo: puede mostrarnos <em>qué aspecto de una situación está siendo cognitivamente
+    destacado</em> por el hablante en ese momento.
+  </p>
+  <p>
+    Esto tiene una consecuencia importante. Supongamos que dos personas observan exactamente la misma
+    escena y posteriormente ambas dicen «El automóvil pasó». Pero una hace un gesto horizontal rápido y
+    la otra hace un gesto describiendo una curva. Su discurso verbal puede parecer similar, pero sus
+    gestos sugieren diferentes organizaciones cognitivas del acontecimiento. Uno parece destacar la
+    velocidad; el otro, la trayectoria. Observar solamente la transcripción verbal podría hacernos
+    perder una parte fundamental del pensamiento.
+  </p>
+
+  <h3>3.9. Los catchments</h3>
+  <p>
+    Un <strong>catchment</strong> aparece cuando determinadas características gestuales se repiten en
+    dos o más gestos aunque estos no sean consecutivos. Pueden repetirse: configuración de las manos,
+    orientación, trayectoria, posición, espacio gestual, uso de una o dos manos.
+  </p>
+  <p>
+    McNeill plantea que esas recurrencias pueden funcionar como <em>hilos visuoespaciales</em> que
+    atraviesan el discurso. Los segmentos donde aparecen las recurrencias podrían no estar
+    lingüísticamente próximos, pero la repetición gestual indica que el hablante los está organizando
+    dentro de una misma unidad temática o conceptual.
+  </p>
+  <p>
+    En análisis del discurso solemos buscar cohesión mediante pronombres, conectores, repetición léxica
+    o relaciones semánticas. McNeill introduce otro nivel: <strong>cohesión gestual</strong>. Una
+    persona podría utilizar recurrentemente izquierda → argumento A; derecha → argumento B, y más tarde
+    volver al espacio izquierdo sin volver a nombrar explícitamente A. El gesto permite observar que A
+    sigue activo dentro de la estructura discursiva del hablante.
+  </p>
+
+  <h3>3.10. La hipótesis del tight binding</h3>
+  <p>
+    McNeill denomina <strong>tight binding</strong> a la fuerte vinculación psicológica entre habla y
+    gesto. La evidencia que reúne es especialmente interesante:
+  </p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Fenómeno</th><th>Observación</th><th>Qué sugiere</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Retroalimentación auditiva demorada</td>
+          <td>Cuando se altera el feedback auditivo, el habla puede hacerse lenta, vacilante y
+          desorganizada; la coordinación gesto-habla se conserva notablemente</td>
+          <td>La coordinación gesto-habla es más robusta que el flujo mismo del habla</td>
+        </tr>
+        <tr>
+          <td>Tartamudez</td>
+          <td>El comienzo de un stroke y la aparición de la tartamudez muestran relación estrecha. Si
+          la interrupción ocurre durante el stroke, la mano puede detenerse</td>
+          <td>El gesto y el habla comparten el mismo mecanismo de planificación</td>
+        </tr>
+        <tr>
+          <td>Personas ciegas congénitas</td>
+          <td>Gesticulan al hablar con frecuencias comparables, incluso sabiendo que su interlocutor
+          también es ciego</td>
+          <td>La gesticulación no depende de haber aprendido visualmente que las personas mueven las
+          manos</td>
+        </tr>
+        <tr>
+          <td>Memoria</td>
+          <td>Información recibida mediante gesto puede recordarse verbalmente y viceversa</td>
+          <td>Existe una integración profunda entre ambos formatos representacionales</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    La evidencia de las personas ciegas congénitas es especialmente poderosa porque descarta la
+    hipótesis de que gesticulamos porque hemos aprendido por observación a hacerlo.
+  </p>
+
+  <h3>3.11. Gesto, lengua y cultura</h3>
+  <p>
+    McNeill adopta una posición que evita dos extremos: ni «todos los gestos son universales» ni
+    «todos los gestos dependen de convenciones culturales específicas». La gesticulación parece ser un
+    fenómeno ampliamente humano, pero la lengua concreta que hablamos influye en cómo organizamos
+    nuestros gestos. Hay diferencias relacionadas con la tipología lingüística y con formas
+    culturalmente organizadas de representar el espacio; también lenguas cuyos hablantes organizan el
+    espacio gestual mediante orientaciones absolutas relacionadas con su sistema lingüístico y prácticas
+    espaciales.
+  </p>
+  <p>
+    Esto lleva a una tesis potente: el gesto puede hacer visible la influencia de una lengua sobre la
+    conceptualización durante el habla. No solo estudiamos «qué significan las manos»: investigamos
+    cómo diferentes sistemas lingüísticos participan en diferentes maneras de organizar espacialmente
+    el pensamiento.
+  </p>
+
+  <h3>3.12. Gesto e interacción social</h3>
+  <p>
+    El gesto no es solamente cognición individual que se manifiesta en movimiento corporal. También hay
+    <em>cognición → gesto → interacción → cognición compartida</em>. McNeill describe fenómenos de
+    mímica gestual y resonancia social, donde un interlocutor reproduce configuraciones o movimientos
+    previamente realizados por otro. Incluso pueden producirse casos en los que el gesto de una persona
+    se coordina temporalmente con el habla de otra.
+  </p>
+  <p>
+    Esto acerca la propuesta a una concepción distribuida e interactiva de la cognición. El gesto puede
+    convertirse así en un mecanismo de <em>grounding</em>, coordinación, establecimiento de referencia
+    compartida y construcción conjunta del significado.
+  </p>
+
+  <h3>3.13. Los cinco niveles del modelo</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Nivel</th><th>Qué describe</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Semiótico</td><td>El gesto representa significado mediante recursos diferentes del lenguaje</td></tr>
+        <tr><td>2 · Psicolingüístico</td><td>Gesto y habla están temporal y semánticamente integrados</td></tr>
+        <tr><td>3 · Cognitivo</td><td>La integración revela la articulación entre imagen y categorización lingüística</td></tr>
+        <tr><td>4 · Dinámico</td><td>Esa unidad puede constituirse como Growth Point desde el que se despliega el pensamiento para hablar</td></tr>
+        <tr><td>5 · Discursivo-social</td><td>Gestos sucesivos crean catchments, referencias espaciales y resonancias que organizan discurso, interacción y cognición compartida</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.14. Más allá de lo básico: la arquitectura completa</h3>
+  <p>
+    Todo lo anterior puede condensarse en una sola cadena:
+  </p>
+  <div class="template" style="font-family:var(--mono);font-size:.82rem;text-align:center;line-height:2.2">
+    Experiencia → Contexto → Predicado psicológico → Growth Point → {imagen + lenguaje} → {gesto + habla} → Unidad coexpresiva → Discurso → Catchments → Organización discursiva e intersubjetiva
+  </div>
+  <p>
+    Esta arquitectura permite entender por qué McNeill es mucho más que un autor que propuso cuatro
+    tipos de gestos. Su clasificación icónico-metafórico-deíctico-beat es solamente la superficie de
+    una teoría más profunda sobre las relaciones entre pensamiento, imagen, lenguaje, cuerpo y
+    contexto.
+  </p>
+
+  <div class="callout danger">
+    <span class="ct">Tres distinciones que conviene mantener separadas</span>
+    <p>
+      <strong>1.</strong> ¿Qué clase de propiedades tiene el gesto? → iconicidad, metaforicidad,
+      deixis, beat.<br>
+      <strong>2.</strong> ¿Cómo se organiza temporalmente? → preparación, holds, stroke, retracción.<br>
+      <strong>3.</strong> ¿Qué nos dice psicológicamente? → coexpresividad, sincronización, tight
+      binding, predicado psicológico, Growth Point, thinking-for-speaking, catchments.<br>
+      La tercera pregunta es la verdaderamente potente para psicología cognitiva y psicolingüística.
+      Confundir las tres produce análisis que describen gestos pero no explican nada sobre el
+      pensamiento.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s3">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S4 ==================== -->
+<section id="s4">
+<div class="wrap">
+  <span class="sec-kicker">04 · Del concepto al dato</span>
+  <h2>Ejemplos concretos, analizados paso a paso</h2>
+  <p>
+    Tres ejemplos que ilustran cómo funcionan las cinco dimensiones y la arquitectura del modelo, y un
+    contraejemplo que muestra cuándo una interpretación de gestos no dice nada sobre el pensamiento.
+  </p>
+
+  <h3>Ejemplo 1 · El mismo enunciado, dos gestos diferentes</h3>
+  <div class="card">
+    <p>
+      <strong>Contexto.</strong> Dos personas observaron la misma escena: un automóvil cruzó rápidamente
+      una carretera. Ambas narran lo ocurrido y dicen literalmente la misma frase.
+    </p>
+
+    <div class="grid two" style="margin:14px 0">
+      <div class="mini">
+        <h4>Hablante A</h4>
+        <div class="example habla" style="margin-top:8px">
+          <span class="lbl">Habla</span>
+          <p style="margin:0">«El automóvil pasó».</p>
+        </div>
+        <div class="example gesto" style="margin-top:8px">
+          <span class="lbl">Gesto</span>
+          <p style="margin:0">Movimiento <b>horizontal rápido</b> con la mano derecha, a la altura del
+          pecho, de izquierda a derecha.</p>
+        </div>
+      </div>
+      <div class="mini">
+        <h4>Hablante B</h4>
+        <div class="example habla" style="margin-top:8px">
+          <span class="lbl">Habla</span>
+          <p style="margin:0">«El automóvil pasó».</p>
+        </div>
+        <div class="example gesto" style="margin-top:8px">
+          <span class="lbl">Gesto</span>
+          <p style="margin:0">Movimiento <b>curvo</b> con la mano derecha describiendo una trayectoria
+          semicircular frente al cuerpo.</p>
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Análisis paso a paso.</strong></p>
+    <p>
+      <strong>(a) Qué dice el habla.</strong> La transcripción verbal es idéntica en ambos casos. Un
+      análisis basado solo en el habla concluiría que los dos hablantes organizan cognitivamente el
+      acontecimiento de la misma manera.
+    </p>
+    <p>
+      <strong>(b) Qué añade el gesto.</strong> El gesto de A destaca la <em>velocidad</em>: el
+      movimiento horizontal rápido corresponde a la rapidez con la que el automóvil cruzó. El gesto de
+      B destaca la <em>trayectoria</em>: el movimiento curvo corresponde al recorrido del automóvil.
+      Los dos gestos son icónicos, pero representan aspectos distintos del mismo acontecimiento.
+    </p>
+    <p>
+      <strong>(c) Qué cambia si incorporamos el gesto al análisis.</strong> Las dos narraciones, que
+      parecían equivalentes en la transcripción, resultan organizar el acontecimiento de manera
+      diferente. Es un caso particularmente claro de cómo el gesto revela aspectos del pensamiento que
+      la transcripción verbal no muestra.
+    </p>
+    <p>
+      <strong>(d) Qué no podemos concluir.</strong> No podemos afirmar que el hablante A «no percibió
+      la trayectoria» o que el B «no percibió la velocidad». La distinción que hacen sus gestos
+      refleja qué aspecto del acontecimiento <em>destacan en ese momento del discurso</em>, no qué
+      percibieron o recuerdan globalmente. Es una distinción entre foco y contenido total.
+    </p>
+  </div>
+
+  <h3>Ejemplo 2 · Los holds como evidencia de planificación conjunta</h3>
+  <div class="card">
+    <p>
+      <strong>Contexto.</strong> Una persona quiere narrar que un vehículo salió disparado. Titubea
+      mientras busca cómo formularlo.
+    </p>
+
+    <div class="template" style="font-family:var(--mono);font-size:.86rem;line-height:2">
+      «El vehículo... eh... salió disparado»
+    </div>
+
+    <p><strong>Análisis temporal del gesto.</strong></p>
+    <div class="timeline">
+      <span class="tl-label">Estructura temporal</span>
+      <div class="tl-track"></div>
+      <div class="tl-segment prep" style="left:2%;width:12%">Prep.</div>
+      <div class="tl-segment hold" style="left:15%;width:32%">Pre-stroke hold (espera)</div>
+      <div class="tl-segment stroke" style="left:48%;width:18%">STROKE</div>
+      <div class="tl-segment hold" style="left:67%;width:14%">Post-hold</div>
+      <div class="tl-segment retr" style="left:82%;width:14%">Retr.</div>
+    </div>
+
+    <p><strong>Análisis paso a paso.</strong></p>
+    <p>
+      <strong>(a) Qué hace la mano.</strong> La mano se prepara, pero no ejecuta el movimiento
+      inmediatamente. Permanece <em>preparada</em> durante el titubeo («eh...»). Cuando finalmente
+      aparece el segmento lingüístico semánticamente correspondiente —«salió disparado»—, se ejecuta
+      el stroke: el movimiento significativo.
+    </p>
+    <p>
+      <strong>(b) Qué sugiere el hold.</strong> El gesto parece <em>esperar</em> a que el habla esté
+      lista. Eso significa que el gesto no se construye después del habla, sino en paralelo: hay una
+      planificación conjunta que se manifiesta en la sincronización.
+    </p>
+    <p>
+      <strong>(c) Qué evidencia adicional aportarían otros fenómenos.</strong> Si la persona
+      estuviera tartamudeando y la interrupción ocurriera durante el stroke, podría observarse que la
+      mano se detiene. Si en cambio tuviera retroalimentación auditiva demorada, el habla se volvería
+      vacilante pero la coordinación gesto-habla se conservaría notablemente. Los tres fenómenos
+      apuntan en la misma dirección: la coordinación gesto-habla es más robusta que el flujo mismo del
+      habla.
+    </p>
+    <p>
+      <strong>(d) Qué no podemos concluir solo con este ejemplo.</strong> Un solo caso de hold no
+      demuestra la hipótesis del tight binding. La hipótesis se sostiene por la convergencia de
+      múltiples tipos de evidencia: sincronización estadística, tartamudez, personas ciegas
+      congénitas, memoria cruzada.
+    </p>
+  </div>
+
+  <h3>Ejemplo 3 · Growth Point: el gato dentro del tubo</h3>
+  <div class="card">
+    <p>
+      <strong>Contexto.</strong> Alguien vio a un gato entrar dentro de un tubo, ascender y salir por
+      arriba. Cuando lo narra posteriormente, dice:
+    </p>
+    <div class="example habla">
+      <span class="lbl">Habla</span>
+      <p style="margin:0">«Subió por dentro del tubo».</p>
+    </div>
+    <div class="example gesto">
+      <span class="lbl">Gesto</span>
+      <p style="margin:0">Mano que asciende desde la altura de la cintura, con una configuración en la
+      que los dedos parecen rodear un espacio cerrado.</p>
+    </div>
+
+    <p><strong>Análisis paso a paso.</strong></p>
+    <p>
+      <strong>(a) Qué empaqueta el gesto simultáneamente.</strong> El movimiento ascendente de la mano
+      corresponde al <em>ascenso</em>. La configuración de los dedos, que rodean un espacio cerrado,
+      corresponde a la <em>interioridad</em>. Ambos aspectos del acontecimiento se expresan
+      simultáneamente en un único movimiento.
+    </p>
+    <p>
+      <strong>(b) Qué hace el habla.</strong> El habla distribuye esa misma información en componentes
+      secuenciales: el verbo «subió» categoriza el movimiento, y la locución preposicional «por dentro
+      del tubo» especifica la interioridad. La secuencia lingüística es lineal; el gesto es simultáneo.
+    </p>
+    <p>
+      <strong>(c) Qué es el Growth Point.</strong> El GP no es ni el gesto ni el habla, sino la unidad
+      que ambos expresan conjuntamente: la idea de <em>ascender-estando-dentro</em>, articulada en
+      simultaneidad por el gesto y en secuencia por el habla. Es la unidad mínima desde la que se
+      despliega el pensamiento-para-hablar.
+    </p>
+    <p>
+      <strong>(d) Qué evidencia del caso sostiene esta lectura.</strong> La coincidencia temporal entre
+      el stroke ascendente y el verbo «subió», más la coincidencia espacial entre la configuración de
+      los dedos y la locución «por dentro». Si el gesto hubiera sido solo ascendente, o si el habla
+      hubiera sido solo «subió», la idea del GP no se sostendría igual.
+    </p>
+    <p style="color:var(--muted);font-size:.87rem;margin-bottom:0">
+      <em>Nota:</em> este ejemplo proviene de la literatura sobre McNeill y se usa aquí con fines
+      ilustrativos. No todos los casos son tan claros como este; en la mayoría de las grabaciones, la
+      identificación del GP requiere discutir hipótesis alternativas.
+    </p>
+  </div>
+
+  <h3>Contraejemplo · La interpretación que solo describe el movimiento</h3>
+  <div class="card" style="border-left:4px solid var(--err)">
+    <p>
+      <strong>Contexto.</strong> Un analista describe el gesto que acompaña a la frase «subió por
+      dentro del tubo».
+    </p>
+    <div class="example gesto" style="border-left-color:var(--err)">
+      <span class="lbl" style="color:var(--err)">Análisis</span>
+      <p style="margin:0">«El hablante mueve la mano derecha desde la cintura hasta la altura del
+      pecho, con los dedos ligeramente curvados, describiendo una trayectoria ascendente. El gesto
+      dura aproximadamente 1.2 segundos y coincide con la emisión del verbo "subió".»</p>
+    </div>
+
+    <p><strong>Por qué esto no es un análisis mcneilliano.</strong></p>
+    <p>
+      <strong>(a) Solo describe el movimiento.</strong> La descripción es técnicamente correcta pero
+      no dice nada sobre el pensamiento. No articula el gesto con el habla en términos de
+      coexpresividad, no propone un GP hipotetizado, no identifica qué aspecto del acontecimiento se
+      está destacando.
+    </p>
+    <p>
+      <strong>(b) No distingue los tres niveles.</strong> El nivel 1 (forma), el nivel 2 (dimensión
+      semiótica: iconicidad + interioridad) y el nivel 3 (qué nos dice psicológicamente) aparecen
+      mezclados o ausentes. Lo que hay es una descripción morfológica.
+    </p>
+    <p>
+      <strong>(c) Qué faltaría para convertirla en análisis.</strong> Habría que añadir: qué dimensión
+      semiótica opera (icónica + espacial), qué información empaqueta el gesto que el habla distribuye
+      (ascenso + interioridad en simultáneo), qué hipótesis sobre el GP se puede sostener, y qué
+      evidencia adicional del discurso apoyaría o tensionaría esa hipótesis.
+    </p>
+    <p>
+      <strong>(d) Lección metodológica.</strong> Describir la forma de un gesto es necesario pero no
+      suficiente. Un análisis mcneilliano no se distingue por la precisión con la que describe el
+      movimiento, sino por la articulación que establece entre el movimiento, el habla y el
+      pensamiento.
+    </p>
+  </div>
+
+  <h3>Caso límite · Catchments que no son catchments</h3>
+  <p>
+    Un analista nota que durante una entrevista el hablante repite tres veces un gesto con la mano
+    derecha abierta, palma hacia arriba. Propone que se trata de un <em>catchment</em> que organiza
+    temáticamente tres fragmentos del discurso.
+  </p>
+  <p>
+    Antes de aceptar la interpretación, conviene verificar tres cosas. Primero, si los tres gestos
+    aparecen en segmentos temáticamente relacionados o si simplemente coinciden en la forma por
+    casualidad. Segundo, si la forma gestual repetida es específica (una configuración particular,
+    una trayectoria reconocible) o si es un patrón motor genérico que aparece muchas veces sin
+    relación temática. Tercero, si existe otra explicación más simple —por ejemplo, que el hablante
+    tenga un repertorio gestual limitado y repita formas por economía motora, no por organización
+    conceptual.
+  </p>
+  <p>
+    El catchment es una hipótesis sobre la organización del discurso, no una observación directa. Como
+    toda hipótesis, requiere evidencia convergente. La sola recurrencia de una forma gestual no basta:
+    hay que mostrar que los segmentos relacionados comparten algo más que la forma, y que la
+    recurrencia no se explica por otras razones.
+  </p>
+
+  <button class="btn-complete" data-sec="s4">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S5 ==================== -->
+<section id="s5">
+<div class="wrap">
+  <span class="sec-kicker">05 · Comprobación</span>
+  <h2>Preguntas cerradas autocorregibles</h2>
+  <p>
+    Trece preguntas de cuatro tipos. Cada una trae retroalimentación explicada: léela aunque aciertes,
+    ahí está la parte formativa.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="qScore">0</span>
+      <span class="small">/ <span id="qTotal">13</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="qFill"></i></div>
+    <button class="btn ghost" id="qRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <button class="btn-complete" data-sec="s5" style="margin-top:10px">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S6 ==================== -->
+<section id="s6">
+<div class="wrap">
+  <span class="sec-kicker">06 · Procesos en movimiento</span>
+  <h2>Animaciones</h2>
+  <p>
+    Dos procesos que el texto estático captura mal: la <em>anatomía temporal del gesto</em>, con sus
+    holds y su sincronización con el habla, y la <em>arquitectura completa del modelo</em>, desde la
+    experiencia hasta los catchments.
+  </p>
+
+  <h3>Animación 1 · Anatomía temporal del gesto</h3>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin-top:0">
+      Un gesto con titubeo: la mano se prepara, espera durante el titubeo, ejecuta el stroke cuando
+      aparece el segmento lingüístico correspondiente, y se retrae.
+    </p>
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 300" id="anim1Svg">
+        <g id="a1Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a1Play">▶ Reproducir</button>
+      <button id="a1Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a1Speed">Velocidad</label>
+        <input type="range" id="a1Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a1SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a1Cap"><b>Listo para empezar</b>Pulsa «Reproducir» para ver cómo la mano espera durante el titubeo y ejecuta el stroke exactamente cuando aparece el segmento lingüístico correspondiente. Esa sincronía es la evidencia central del tight binding.</div>
+  </div>
+
+  <h3>Animación 2 · Arquitectura completa del modelo</h3>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin-top:0">
+      El recorrido desde la experiencia hasta la organización discursiva e intersubjetiva, pasando
+      por el Growth Point y los catchments.
+    </p>
+    <div class="anim-stage">
+      <svg viewBox="0 0 640 400" id="anim2Svg">
+        <g id="a2Content"></g>
+      </svg>
+    </div>
+    <div class="anim-controls">
+      <button class="primary" id="a2Play">▶ Reproducir</button>
+      <button id="a2Reset">↺ Reiniciar</button>
+      <div class="speed">
+        <label for="a2Speed">Velocidad</label>
+        <input type="range" id="a2Speed" min="0.25" max="3" step="0.25" value="1">
+        <b id="a2SpeedVal">1.0×</b>
+      </div>
+    </div>
+    <div class="anim-cap" id="a2Cap"><b>Antes de empezar</b>Observa que cada nivel inferior se apoya en los superiores. La experiencia se organiza en un contexto, del que emerge un predicado psicológico, que se articula como Growth Point, del que se despliegan imagen y lenguaje, y así sucesivamente hasta los catchments.</div>
+  </div>
+
+  <button class="btn-complete" data-sec="s6">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S7 ==================== -->
+<section id="s7">
+<div class="wrap">
+  <span class="sec-kicker">07 · Manos a la obra</span>
+  <h2>Analizador de escenas habla-gesto</h2>
+  <p>
+    Este analizador combina las siete dimensiones recomendadas por McNeill para codificar datos
+    audiovisuales. Selecciona una escena y observa en tiempo real cómo se articulan los distintos
+    niveles del modelo. Cada escena es un caso hipotético pero construido con la lógica del modelo;
+    los análisis que aparecen son <strong>una lectura posible</strong>, no la única.
+  </p>
+
+  <div class="anal-grid">
+    <div>
+      <div class="anal-ctrl">
+        <span class="lbl">Escena para analizar</span>
+        <select id="sceneSelect">
+          <option value="pelota">Descripción de una pelota rodando</option>
+          <option value="teorias">Comparación de dos teorías</option>
+          <option value="tubo">Narración de un gato dentro de un tubo</option>
+          <option value="titubeo">Narración con titubeo y hold</option>
+          <option value="dos-hablantes">Dos hablantes narran el mismo evento</option>
+          <option value="catchment">Catchment en una entrevista larga</option>
+        </select>
+      </div>
+
+      <div class="anal-scene" id="sceneBox">
+        <span class="lbl">Escena</span>
+        <p class="txt" id="sceneTxt">—</p>
+        <p class="gest" id="sceneGest">—</p>
+      </div>
+
+      <div class="verdict" id="analVerdict">
+        <b>—</b>Selecciona una escena para ver el análisis detallado.
+      </div>
+    </div>
+
+    <div>
+      <div class="anal-readouts">
+        <div class="anal-readout"><span class="k">Habla</span><span class="v" id="rHabla">—</span></div>
+        <div class="anal-readout"><span class="k">Dimensiones</span><span class="v" id="rDim">—</span></div>
+        <div class="anal-readout"><span class="k">Stroke sincronizado</span><span class="v" id="rStroke">—</span></div>
+        <div class="anal-readout"><span class="k">Coexpresividad</span><span class="v" id="rCoexp">—</span></div>
+      </div>
+
+      <div class="timeline" id="analTimeline">
+        <span class="tl-label">Timeline del gesto</span>
+        <div class="tl-track"></div>
+        <div class="tl-segment prep" style="left:2%;width:12%">Prep.</div>
+        <div class="tl-segment hold" style="left:15%;width:22%">Pre-hold</div>
+        <div class="tl-segment stroke" style="left:38%;width:22%">STROKE</div>
+        <div class="tl-segment hold" style="left:61%;width:14%">Post-hold</div>
+        <div class="tl-segment retr" style="left:76%;width:20%">Retracción</div>
+      </div>
+
+      <h4 style="margin-top:22px">Las siete dimensiones</h4>
+      <div class="dim-list" id="dimList">
+        <div class="dim-item"><span class="dim-name">Forma</span><span class="dim-val" id="dForma">—</span></div>
+        <div class="dim-item"><span class="dim-name">Dimensión semiótica</span><span class="dim-val" id="dSem">—</span></div>
+        <div class="dim-item"><span class="dim-name">Temporalidad</span><span class="dim-val" id="dTemp">—</span></div>
+        <div class="dim-item"><span class="dim-name">Segmento lingüístico</span><span class="dim-val" id="dHabla">—</span></div>
+        <div class="dim-item"><span class="dim-name">Coexpresividad</span><span class="dim-val" id="dCoexp">—</span></div>
+        <div class="dim-item"><span class="dim-name">Discurso</span><span class="dim-val" id="dDisc">—</span></div>
+        <div class="dim-item active"><span class="dim-name">Growth Point hipotetizado</span><span class="dim-val" id="dGP">—</span></div>
+      </div>
+
+      <div class="callout warn" style="margin-top:18px">
+        <span class="ct">Cómo leer el análisis</span>
+        <p>
+          Las siete dimensiones no son independientes: se articulan. La forma y la dimensión semiótica
+          describen <em>qué hace el gesto</em>. La temporalidad y el segmento lingüístico describen
+          <em>cómo se coordina con el habla</em>. La coexpresividad describe <em>qué aporta el gesto
+          que el habla no dice por sí sola</em>. El discurso y el GP hipotetizado describen <em>qué
+          nos dice psicológicamente</em>. La interpretación es una hipótesis, no un hecho.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-complete" data-sec="s7">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S8 ==================== -->
+<section id="s8">
+<div class="wrap">
+  <span class="sec-kicker">08 · Cierre</span>
+  <h2>Autoevaluación final</h2>
+  <p>
+    Ocho preguntas, una por componente del modelo. Al terminar verás el desglose por área para detectar
+    exactamente qué necesitas repasar.
+  </p>
+
+  <div class="quiz-head">
+    <div class="score-box">
+      <span class="big" id="fScore">0</span>
+      <span class="small">/ <span id="fTotal">8</span> correctas</span>
+    </div>
+    <div class="score-bar"><i id="fFill"></i></div>
+    <button class="btn ghost" id="fRetry">↻ Reintentar</button>
+  </div>
+
+  <div id="finalContainer"></div>
+
+  <h3>Desglose por componente</h3>
+  <div class="breakdown" id="breakdown"></div>
+
+  <button class="btn-complete" data-sec="s8">Marcar como completada</button>
+</div>
+</section>
+
+<!-- ==================== S9 ==================== -->
+<section id="s9">
+<div class="wrap">
+  <span class="sec-kicker">09 · Seguir</span>
+  <h2>Referencias y ruta de profundización</h2>
+  <p>Fuentes en formato APA 7, ordenadas alfabéticamente. Abajo se propone un orden de lectura distinto.</p>
+
+  <ul class="ref-list">
+    <li>Bühler, K. (1934). <em>Sprachtheorie: Die Darstellungsfunktion der Sprache.</em> Gustav Fischer.</li>
+    <li>Goldin-Meadow, S. (2003). <em>Hearing gesture: How our hands help us think.</em> Harvard University Press.</li>
+    <li>Kendon, A. (2004). <em>Gesture: Visible action as utterance.</em> Cambridge University Press.</li>
+    <li>Kita, S. (Ed.). (2003). <em>Pointing: Where language, culture, and cognition meet.</em> Lawrence Erlbaum.</li>
+    <li>Lakoff, G., &amp; Johnson, M. (1980). <em>Metaphors we live by.</em> University of Chicago Press.</li>
+    <li>McNeill, D. (1992). <em>Hand and mind: What gestures reveal about thought.</em> University of Chicago Press.</li>
+    <li>McNeill, D. (2000). <em>Language and gesture.</em> Cambridge University Press.</li>
+    <li>McNeill, D. (2005). <em>Gesture and thought.</em> University of Chicago Press.</li>
+    <li>McNeill, D. (2016). <em>Why we gesture: The surprising role of hand movements in communication.</em> Cambridge University Press.</li>
+    <li>Slobin, D. I. (1996). From "thought and language" to "thinking for speaking". En J. J. Gumperz &amp; S. C. Levinson (Eds.), <em>Rethinking linguistic relativity</em> (pp. 70–96). Cambridge University Press.</li>
+    <li>Vygotsky, L. S. (1934/1987). <em>Thinking and speech.</em> En <em>The collected works of L. S. Vygotsky</em> (Vol. 1). Plenum Press.</li>
+    <li>Vygotsky, L. S. (1978). <em>Mind in society: The development of higher psychological processes.</em> Harvard University Press.</li>
+  </ul>
+
+  <h3>¿Y ahora qué estudiar?</h3>
+  <p>
+    La ruta está pensada para acumular profundidad sin saltarse los cimientos. Es una sugerencia de
+    orden, no una camisa de fuerza.
+  </p>
+
+  <ol class="route">
+    <li>
+      <b>McNeill (1992) — <em>Hand and Mind</em></b>
+      El libro que reformuló el campo. Aquí es donde aparece por primera vez la distinción
+      icónico-metafórico-deíctico-beat, aunque como categorías y no como dimensiones. La lectura vale
+      porque permite ver cómo evolucionó el pensamiento del autor hacia <em>Gesture and Thought</em>.
+    </li>
+    <li>
+      <b>McNeill (2005) — <em>Gesture and Thought</em></b>
+      El texto central del modelo. Aquí se articula la teoría del Growth Point, la sincronización,
+      los holds, los catchments y la conexión con Vygotsky y Slobin. Si vas a leer un solo libro,
+      es este.
+    </li>
+    <li>
+      <b>Kendon (2004) — <em>Gesture: Visible Action as Utterance</em></b>
+      El origen del continuo que McNeill recupera. Kendon es la fuente principal de la distinción
+      entre gesticulación, emblema, pantomima y lenguas de señas. Leerlo ayuda a no confundir la
+      propuesta de McNeill con una teoría general de la comunicación no verbal.
+    </li>
+    <li>
+      <b>McNeill (2016) — <em>Why We Gesture</em></b>
+      La síntesis más reciente y accesible. Útil para consolidar el vocabulario y para actualizarse
+      sobre los desarrollos posteriores a 2005.
+    </li>
+    <li>
+      <b>Goldin-Meadow (2003) — <em>Hearing Gesture</em></b>
+      La evidencia empírica sobre el gesto como parte del pensamiento, no solo de la comunicación.
+      Especialmente valiosa por los estudios con personas ciegas congénitas y con niños en desarrollo.
+    </li>
+    <li>
+      <b>Slobin (1996) — From "thought and language" to "thinking for speaking"</b>
+      El artículo que articula la hipótesis del thinking-for-speaking. Es el puente entre la
+      psicolingüística del habla y la teoría del gesto. Imprescindible si quieres entender qué quiere
+      decir McNeill cuando habla de pensamiento-para-hablar.
+    </li>
+    <li>
+      <b>Vygotsky (1934/1987) — <em>Thinking and Speech</em></b>
+      La fuente original del concepto de predicado psicológico que McNeill retoma. Exigente pero
+      fundamental si te interesa la conexión entre McNeill y la tradición vygotskiana.
+    </li>
+    <li>
+      <b>Lakoff y Johnson (1980) — <em>Metaphors We Live By</em></b>
+      La teoría de la metáfora conceptual que McNeill usa para leer los gestos metafóricos. No es
+      indispensable para entender a McNeill, pero sí para entender de dónde vienen sus categorías
+      metafóricas.
+    </li>
+  </ol>
+
+  <div class="callout">
+    <span class="ct">La idea que conviene conservar</span>
+    <p>
+      El gesto no es un añadido no verbal al lenguaje. Es una <strong>manifestación corporal,
+      imagística, espacial y temporal del pensamiento</strong> que participa conjuntamente con el
+      lenguaje en la construcción del significado durante la producción del discurso. Decir
+      «los gestos ayudan a comunicar» resulta conceptualmente insuficiente; una formulación más fiel
+      es: <em>los gestos participan en la propia constitución del pensamiento expresado</em>.
+    </p>
+  </div>
+
+  <button class="btn-complete" data-sec="s9">Marcar como completada</button>
+
+  <footer>
+    <span>David McNeill · Guía interactiva de estudio autónomo</span>
+    <span>Elaborado por <strong>Juan Carlos Valderrama Cárdenas</strong></span>
+  </footer>
+</div>
+</section>
+
+</main>
+
+<script>
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const shuffle = a => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
+
+/* ---------- TEMA ---------- */
+const themeBtn = $('#themeBtn');
+const savedTheme = sessionStorage.getItem('mcneill_theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+themeBtn.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  sessionStorage.setItem('mcneill_theme', next);
+  themeBtn.textContent = next === 'dark' ? '◐ Cambiar a modo claro' : '◐ Cambiar a modo oscuro';
+});
+
+/* ---------- NAV MÓVIL ---------- */
+const sidebar = $('#sidebar'), overlay = $('#overlay'), burger = $('#burger');
+burger.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+$$('.nav a').forEach(a => a.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); }));
+
+/* ---------- SCROLL SPY ---------- */
+const navLinks = $$('.nav a');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+  });
+}, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+$$('section').forEach(s => obs.observe(s));
+
+/* ---------- PROGRESO ---------- */
+const SECS = ['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+let done = {};
+try { done = JSON.parse(sessionStorage.getItem('mcneill_progress') || '{}'); } catch (e) { done = {}; }
+function saveProgress() { sessionStorage.setItem('mcneill_progress', JSON.stringify(done)); }
+function renderProgress() {
+  const n = SECS.filter(s => done[s]).length;
+  $('#progFill').style.width = (n / SECS.length * 100) + '%';
+  $('#progLabel').textContent = n + ' / ' + SECS.length;
+  navLinks.forEach(a => a.classList.toggle('done', !!done[a.dataset.sec]));
+  $$('.btn-complete').forEach(b => {
+    const isDone = !!done[b.dataset.sec];
+    b.classList.toggle('is-done', isDone);
+    b.textContent = isDone ? '✓ Sección completada' : 'Marcar como completada';
+  });
+}
+$$('.btn-complete').forEach(b => b.addEventListener('click', () => {
+  done[b.dataset.sec] = !done[b.dataset.sec];
+  saveProgress(); renderProgress();
+}));
+renderProgress();
+
+/* ---------- MAPA ---------- */
+(function () {
+  const vp = $('#mapViewport'), view = $('#mapView');
+  let tx = 0, ty = 0, sc = 1, dragging = false, sx = 0, sy = 0;
+  function apply() { view.setAttribute('transform', `translate(${tx} ${ty}) scale(${sc})`); }
+  function zoomAt(cx, cy, factor) {
+    const rect = vp.getBoundingClientRect();
+    const px = (cx - rect.left) / rect.width * 1000;
+    const py = (cy - rect.top) / rect.height * 640;
+    const nsc = clamp(sc * factor, 0.45, 3.2);
+    const k = nsc / sc;
+    tx = px - k * (px - tx); ty = py - k * (py - ty);
+    sc = nsc; apply();
+  }
+  vp.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 1 / 1.12); }, { passive: false });
+  vp.addEventListener('pointerdown', e => {
+    if (e.target.closest('.mnode')) return;
+    dragging = true; vp.classList.add('dragging');
+    sx = e.clientX - tx; sy = e.clientY - ty;
+    vp.setPointerCapture(e.pointerId);
+  });
+  vp.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    tx = clamp(e.clientX - sx, -600, 600);
+    ty = clamp(e.clientY - sy, -400, 400);
+    apply();
+  });
+  ['pointerup','pointercancel'].forEach(ev => vp.addEventListener(ev, () => { dragging = false; vp.classList.remove('dragging'); }));
+  $('#zoomIn').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1.25); });
+  $('#zoomOut').addEventListener('click', () => { const r = vp.getBoundingClientRect(); zoomAt(r.left + r.width/2, r.top + r.height/2, 1/1.25); });
+  $('#zoomReset').addEventListener('click', () => { tx = 0; ty = 0; sc = 1; apply(); });
+  $$('.mnode').forEach(n => n.addEventListener('click', () => {
+    const t = document.getElementById(n.dataset.goto);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+  apply();
+})();
+
+/* ---------- MOTOR DE QUIZ ---------- */
+const results = { quiz: {}, final: {} };
+
+function renderQuiz(container, data, prefix) {
+  container.innerHTML = '';
+  data.forEach((q, i) => {
+    const el = document.createElement('div');
+    el.className = 'q';
+    el.dataset.idx = i;
+    let bodyHTML = '';
+    if (q.type === 'mc') {
+      bodyHTML = '<div class="opts">' + q.opts.map((o, j) =>
+        `<label class="opt" data-opt="${j}"><input type="radio" name="${prefix}q${i}" value="${j}"><span>${o}</span></label>`
+      ).join('') + '</div>';
+    } else if (q.type === 'tf') {
+      bodyHTML = `<div class="tf-row"><button class="tf-btn" data-val="true">Verdadero</button><button class="tf-btn" data-val="false">Falso</button></div>`;
+    } else if (q.type === 'match') {
+      const rights = shuffle(q.pairs.map(p => p.right));
+      bodyHTML = q.pairs.map((p, j) => `
+        <div class="match-row" data-mi="${j}">
+          <div class="left">${p.left}</div>
+          <select><option value="">— elige una opción —</option>${rights.map(r => `<option value="${r.replace(/"/g,'&quot;')}">${r}</option>`).join('')}</select>
+        </div>`).join('');
+    } else if (q.type === 'order') {
+      const items = shuffle(q.items.map((t, j) => ({ t, j })));
+      bodyHTML = '<ul class="order-list">' + items.map(it =>
+        `<li data-orig="${it.j}"><span>${it.t}</span><div class="ord-btns"><button data-dir="up">▲</button><button data-dir="down">▼</button></div></li>`
+      ).join('') + '</ul>';
+    }
+    const typeLabel = { mc: 'Opción múltiple', tf: 'Verdadero / Falso', match: 'Emparejar conceptos', order: 'Ordenar secuencia' }[q.type];
+    el.innerHTML = `
+      <div class="q-head">
+        <div class="q-num">${String(i + 1).padStart(2, '0')}</div>
+        <div><p class="q-text">${q.q}</p><span class="q-type">${typeLabel}</span></div>
+      </div>
+      ${bodyHTML}
+      <div class="q-actions"><button class="btn" data-check>Comprobar</button></div>
+      <div class="fb" data-fb></div>`;
+    container.appendChild(el);
+  });
+  wireQuiz(container, data, prefix);
+}
+
+function flash(qEl, text) {
+  const fb = qEl.querySelector('[data-fb]');
+  fb.className = 'fb show bad';
+  fb.innerHTML = `<b>Atención</b>${text}`;
+  setTimeout(() => { if (!qEl.dataset.done) fb.className = 'fb'; }, 2600);
+}
+
+function wireQuiz(container, data, prefix) {
+  const store = prefix === 'f' ? results.final : results.quiz;
+  container.querySelectorAll('.q').forEach(qEl => {
+    const i = +qEl.dataset.idx;
+    const q = data[i];
+    const ordList = qEl.querySelector('.order-list');
+    if (ordList) {
+      ordList.addEventListener('click', e => {
+        const btn = e.target.closest('button[data-dir]');
+        if (!btn || ordList.dataset.locked) return;
+        const li = btn.closest('li');
+        if (btn.dataset.dir === 'up' && li.previousElementSibling) ordList.insertBefore(li, li.previousElementSibling);
+        if (btn.dataset.dir === 'down' && li.nextElementSibling) ordList.insertBefore(li.nextElementSibling, li);
+      });
+    }
+    qEl.querySelectorAll('.opt input').forEach(r => r.addEventListener('change', () => {
+      qEl.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+      r.closest('.opt').classList.add('sel');
+    }));
+    qEl.querySelectorAll('.tf-btn').forEach(b => b.addEventListener('click', () => {
+      if (b.classList.contains('locked')) return;
+      qEl.querySelectorAll('.tf-btn').forEach(x => x.classList.remove('picked'));
+      b.classList.add('picked');
+    }));
+    qEl.querySelector('[data-check]').addEventListener('click', () => {
+      if (qEl.dataset.done) return;
+      let ok = false;
+      if (q.type === 'mc') {
+        const sel = qEl.querySelector('input[type=radio]:checked');
+        if (!sel) return flash(qEl, 'Selecciona una opción antes de comprobar.');
+        const v = +sel.value;
+        ok = v === q.correct;
+        qEl.querySelectorAll('.opt').forEach(o => {
+          const j = +o.dataset.opt;
+          o.classList.add('locked');
+          if (j === q.correct) o.classList.add('correct');
+          else if (j === v) o.classList.add('wrong');
+        });
+      } else if (q.type === 'tf') {
+        const picked = qEl.querySelector('.tf-btn.picked');
+        if (!picked) return flash(qEl, 'Elige Verdadero o Falso antes de comprobar.');
+        ok = (picked.dataset.val === 'true') === q.correct;
+        qEl.querySelectorAll('.tf-btn').forEach(b => {
+          b.classList.add('locked');
+          const bv = b.dataset.val === 'true';
+          if (bv === q.correct) b.classList.add('correct');
+          else if (b.classList.contains('picked')) b.classList.add('wrong');
+        });
+      } else if (q.type === 'match') {
+        let allOk = true, answered = true;
+        qEl.querySelectorAll('.match-row').forEach((row, j) => {
+          const sel = row.querySelector('select');
+          if (!sel.value) answered = false;
+          const good = sel.value === q.pairs[j].right;
+          if (!good) allOk = false;
+          row.classList.add(good ? 'ok' : 'no');
+          sel.disabled = true;
+        });
+        if (!answered) {
+          qEl.querySelectorAll('.match-row').forEach(r => r.classList.remove('ok','no'));
+          return flash(qEl, 'Completa todas las filas antes de comprobar.');
+        }
+        ok = allOk;
+      } else if (q.type === 'order') {
+        let allOk = true;
+        Array.from(ordList.querySelectorAll('li')).forEach((li, pos) => {
+          const good = +li.dataset.orig === pos;
+          if (!good) allOk = false;
+          li.classList.add(good ? 'ok' : 'no');
+        });
+        ordList.dataset.locked = '1';
+        ok = allOk;
+      }
+      qEl.dataset.done = '1';
+      const btn = qEl.querySelector('[data-check]');
+      btn.disabled = true; btn.style.opacity = '.45'; btn.textContent = 'Comprobada';
+      const fb = qEl.querySelector('[data-fb]');
+      fb.className = 'fb show' + (ok ? '' : ' bad');
+      fb.innerHTML = `<b>${ok ? '✓ Correcto' : '✗ No es correcto'}</b>${q.exp}`;
+      store[i] = ok ? 1 : 0;
+      updateScore(prefix);
+    });
+  });
+}
+
+function updateScore(prefix) {
+  const data = prefix === 'f' ? FINAL : QUIZ;
+  const store = prefix === 'f' ? results.final : results.quiz;
+  const n = Object.values(store).reduce((a, b) => a + b, 0);
+  if (prefix === 'f') {
+    $('#fScore').textContent = n;
+    $('#fFill').style.width = (n / data.length * 100) + '%';
+    renderBreakdown();
+  } else {
+    $('#qScore').textContent = n;
+    $('#qFill').style.width = (n / data.length * 100) + '%';
+  }
+}
+
+/* ---------- BANCO: COMPROBACIÓN ---------- */
+const QUIZ = [
+  { type:'mc', q:'¿Cuál es la tesis central de McNeill sobre la relación entre gesto y habla?',
+    opts:['Que el gesto es un canal de comunicación no verbal independiente del lenguaje.',
+          'Que gesto y habla forman un único sistema integrado de producción del significado.',
+          'Que el gesto ilustra lo que el habla ya ha dicho.',
+          'Que el gesto es un residuo motor sin función cognitiva.'],
+    correct:1,
+    exp:'La opción (b). McNeill cuestiona precisamente la idea de dos canales psicológicamente independientes. Cuando alguien habla y gesticula no está diciendo algo y luego ilustrándolo: está construyendo una sola idea mediante dos modalidades simultáneas. La unidad relevante es la unidad habla-gesto, no cada componente por separado.' },
+
+  { type:'tf', q:'Para McNeill, la gesticulación espontánea y las lenguas de señas son el mismo tipo de fenómeno.',
+    correct:false,
+    exp:'Falso. McNeill estudia principalmente la gesticulación espontánea asociada al habla, no cualquier movimiento corporal. El continuo de Kendon distingue: gesticulación, gestos enmarcados por habla, emblemas, pantomima y lenguas de señas. A medida que avanzamos, la necesidad del habla disminuye y las propiedades lingüísticas convencionales aumentan. Las lenguas de señas tienen léxico, morfología y gramática propias.' },
+
+  { type:'mc', q:'¿Qué significa coexpresividad?',
+    opts:['Que el gesto y el habla dicen exactamente lo mismo.',
+          'Que el habla y el gesto pueden expresar aspectos de una misma idea mediante recursos semióticos diferentes.',
+          'Que el gesto se produce al mismo tiempo que el habla.',
+          'Que el gesto depende del habla para existir.'],
+    correct:1,
+    exp:'La opción (b). El habla tiende a ser segmentada, combinatoria, categorial y secuencial. El gesto puede ser global, imagístico, espacial y simultáneo. Expresan aspectos de la misma idea con recursos distintos. Eso es lo que los hace complementarios y lo que justifica analizarlos como una unidad, no como dos canales separados.' },
+
+  { type:'match', q:'Empareja cada dimensión del gesto con su descripción.',
+    pairs:[
+      { left:'Iconicidad', right:'Semejanza estructural entre el movimiento y aquello que representa' },
+      { left:'Metaforicidad', right:'Representación corporal de algo abstracto tratándolo como objeto físico' },
+      { left:'Deixis', right:'Señalar, incluso hacia entidades del espacio discursivo imaginado' },
+      { left:'Beat', right:'Movimiento breve que marca prominencia o ritmo del discurso' },
+      { left:'Marcación temporal', right:'Función organizadora respecto del ritmo de la enunciación' }
+    ],
+    exp:'Estas son las cinco dimensiones del gesto. McNeill insiste en que no son categorías discretas sino dimensiones coexistentes: un mismo gesto puede ser simultáneamente icónico y deíctico, o metafórico y deíctico. Eso es lo que permite codificar datos audiovisuales con precisión sin forzar cada gesto a una única etiqueta.' },
+
+  { type:'order', q:'Ordena las fases temporales de un gesto.',
+    items:['Preparación','Pre-stroke hold','Stroke','Post-stroke hold','Retracción'],
+    exp:'La fase indispensable para considerar que existe un gesto es el stroke. Las demás pueden faltar o durar más o menos. Los holds son teóricamente interesantes porque evidencian la planificación conjunta: el gesto puede esperar (pre-stroke hold) a que aparezca el segmento lingüístico correspondiente antes de ejecutar el stroke.' },
+
+  { type:'tf', q:'La mayoría de los strokes gestuales ocurren sincronizados con el habla coexpresiva.',
+    correct:true,
+    exp:'Verdadero. McNeill reporta que alrededor del 90% de los strokes aparecen sincronizados con el habla coexpresiva. Cuando hay asincronía, el gesto tiende a anteceder ligeramente al habla relacionada semánticamente, en lugar de aparecer después de ella. Esa sincronía es la evidencia empírica central de la planificación conjunta.' },
+
+  { type:'mc', q:'¿Qué es el Growth Point (GP)?',
+    opts:['Un tipo particular de gesto icónico.',
+          'Una unidad psicolingüística en la que convergen una representación imagístico-visuoespacial y una categorización lingüística.',
+          'El punto del discurso donde ocurre un stroke.',
+          'La fase inicial del habla antes de que aparezca el gesto.'],
+    correct:1,
+    exp:'La opción (b). McNeill lo describe como «una imagen categorizada lingüísticamente, una imagen que ya tiene un pie dentro del lenguaje». El GP es la unidad mínima donde lo imagístico y lo lingüístico se integran para generar discurso. No es un tipo de gesto ni un punto del discurso: es la unidad psicolingüística que articula ambas modalidades.' },
+
+  { type:'mc', q:'¿Qué evidencia aporta el fenómeno de las personas ciegas congénitas a la teoría de McNeill?',
+    opts:['Que las personas ciegas gesticulan menos.',
+          'Que la gesticulación no depende de haber aprendido visualmente que las personas mueven las manos al hablar.',
+          'Que las personas ciegas gesticulan solo cuando saben que su interlocutor las ve.',
+          'Que el gesto depende de la retroalimentación visual.'],
+    correct:1,
+    exp:'La opción (b). Las personas ciegas de nacimiento gesticulan al hablar con frecuencias comparables a las personas videntes, incluso sabiendo que su interlocutor también es ciego. Esto descarta la hipótesis de que gesticulamos porque hemos aprendido por observación a hacerlo. Es una de las evidencias más poderosas del tight binding.' },
+
+  { type:'mc', q:'¿Qué es un catchment?',
+    opts:['Un gesto especialmente icónico.',
+          'La repetición de características gestuales en gestos no consecutivos, que puede revelar una organización temática del discurso.',
+          'Un tipo de hold.',
+          'Una señal de que el hablante está confundido.'],
+    correct:1,
+    exp:'La opción (b). McNeill propone que esas recurrencias funcionan como hilos visuoespaciales que atraviesan el discurso. Los segmentos relacionados por un catchment pueden no estar lingüísticamente próximos, pero la repetición gestual indica que el hablante los está organizando dentro de una misma unidad temática o conceptual. La cohesión gestual es un nivel de análisis que se añade a la cohesión léxica y gramatical.' },
+
+  { type:'mc', q:'Dos personas dicen «El automóvil pasó» pero una hace un gesto horizontal rápido y la otra un gesto curvo. ¿Qué sugiere esta diferencia?',
+    opts:['Que una de las dos está mintiendo.',
+          'Que sus gestos destacan aspectos distintos del mismo acontecimiento: uno la velocidad, el otro la trayectoria.',
+          'Que una de las dos tiene mejor memoria.',
+          'Que no hay diferencia relevante.'],
+    correct:1,
+    exp:'La opción (b). Es un caso particularmente claro de cómo el gesto revela aspectos del pensamiento que la transcripción verbal no muestra. La distinción refleja qué aspecto del acontecimiento destacan en ese momento del discurso, no qué percibieron globalmente. Es una distinción entre foco y contenido total.' },
+
+  { type:'mc', q:'¿Cuál de estas afirmaciones sería un análisis mcneilliano, y no una simple descripción del movimiento?',
+    opts:['«El hablante mueve la mano derecha desde la cintura hasta el pecho en 1.2 segundos».',
+          '«El gesto empaqueta simultáneamente ascenso e interioridad, mientras el habla distribuye esa información en componentes secuenciales, sugiriendo un Growth Point de tipo ascender-estando-dentro».',
+          '«El gesto es icónico».',
+          '«El hablante gesticula mucho durante su narración».'],
+    correct:1,
+    exp:'La opción (b). Un análisis mcneilliano no se distingue por la precisión de la descripción del movimiento, sino por la articulación que establece entre el movimiento, el habla y el pensamiento. La opción (a) solo describe forma; la (c) etiqueta una dimensión sin articularla con el habla; la (d) es impresionista. La (b) articula los tres niveles y propone un GP hipotetizado.' },
+
+  { type:'tf', q:'La teoría de McNeill sostiene que las lenguas que hablamos no tienen ninguna influencia sobre cómo organizamos los gestos.',
+    correct:false,
+    exp:'Falso. McNeill adopta una posición intermedia: la gesticulación parece ser un fenómeno ampliamente humano, pero la lengua concreta que hablamos influye en cómo organizamos los gestos. Hay diferencias relacionadas con la tipología lingüística y con formas culturalmente organizadas de representar el espacio. Esto lleva a una tesis potente: el gesto puede hacer visible la influencia de una lengua sobre la conceptualización durante el habla.' },
+
+  { type:'mc', q:'¿Cuál de estas tres preguntas corresponde al nivel más potente para psicología cognitiva, según la distinción que organiza la teoría de McNeill?',
+    opts:['¿Qué clase de propiedades tiene el gesto?',
+          '¿Cómo se organiza temporalmente?',
+          '¿Qué nos dice psicológicamente?',
+          '¿Cuántos gestos hace por minuto?'],
+    correct:2,
+    exp:'La opción (c). Las tres primeras son las tres preguntas que conviene distinguir. La primera es semiótica (iconicidad, metaforicidad, deixis, beat). La segunda es temporal (preparación, holds, stroke, retracción). La tercera es psicológica: coexpresividad, sincronización, tight binding, predicado psicológico, Growth Point, thinking-for-speaking, catchments. Confundir las tres produce análisis que describen gestos pero no explican nada sobre el pensamiento.' }
+];
+
+$('#qTotal').textContent = QUIZ.length;
+$('#qRetry').addEventListener('click', () => { results.quiz = {}; renderQuiz($('#quizContainer'), QUIZ, 'q'); updateScore('q'); });
+renderQuiz($('#quizContainer'), QUIZ, 'q');
+updateScore('q');
+
+/* ---------- BANCO: AUTOEVALUACIÓN ---------- */
+const FINAL = [
+  { topic:'Sistema integrado', type:'mc', q:'¿Cuál es la formulación más rigurosa de la tesis de McNeill?',
+    opts:['Los gestos son un canal paralelo de comunicación no verbal.',
+          'Gesto y habla forman un único sistema integrado que es mayor que la suma de sus componentes.',
+          'Los gestos ilustran lo que el habla ya ha dicho.',
+          'Los gestos son un residuo motor sin función cognitiva.'],
+    correct:1,
+    exp:'La opción (b). Es exactamente la formulación de McNeill: un único sistema integrado, mayor que sus componentes considerados aisladamente. Las otras tres opciones describen concepciones que McNeill explícitamente rechaza.' },
+
+  { topic:'Continuo de Kendon', type:'mc', q:'¿Qué ocurre a medida que avanzamos por el continuo de Kendon, desde la gesticulación hacia las lenguas de señas?',
+    opts:['Aumenta la necesidad del habla.',
+          'Disminuye la necesidad del habla y aumentan las propiedades lingüísticas convencionales.',
+          'Todo permanece igual.',
+          'Aumenta la espontaneidad.'],
+    correct:1,
+    exp:'La opción (b). Los dos cambios son inversos y simultáneos. La gesticulación necesita el habla que la acompaña y tiene propiedades idiosincrásicas. Las lenguas de señas tienen léxico, morfología y gramática, y no requieren habla. Entre ambos extremos se sitúan los gestos enmarcados por habla, los emblemas y la pantomima.' },
+
+  { topic:'Coexpresividad', type:'tf', q:'Habla y gesto realizan el mismo trabajo psicológico porque expresan la misma idea.',
+    correct:false,
+    exp:'Falso. La coexpresividad significa que expresan aspectos de una misma idea mediante recursos semióticos diferentes. El habla tiende a categorizar, segmentar y ordenar secuencialmente. El gesto puede mostrar simultáneamente varias propiedades mediante forma, orientación, trayectoria y espacio. Por eso el gesto puede contener información que el habla no lexicaliza explícitamente. Decir que hacen «el mismo trabajo» borra precisamente la diferencia que hace interesante la teoría.' },
+
+  { topic:'Dimensiones', type:'mc', q:'¿Por qué McNeill insiste en que icónico, metafórico, deíctico y beat son dimensiones y no categorías?',
+    opts:['Porque son más fáciles de codificar así.',
+          'Porque un mismo gesto puede ser simultáneamente icónico y deíctico, o metafórico y deíctico, de modo que tratarlos como categorías excluyentes distorsiona el análisis.',
+          'Porque las categorías son siempre erróneas.',
+          'Porque los cuatro tipos son idénticos entre sí.'],
+    correct:1,
+    exp:'La opción (b). Un gesto puede señalar un lugar (deixis), representar una trayectoria (iconicidad) y enfatizar prosódicamente una palabra (beat) simultáneamente. Forzarlo a una única categoría distorsiona lo que está ocurriendo. Tratar las dimensiones como dimensiones es especialmente importante al codificar datos audiovisuales, donde la tentación de asignar una etiqueta única a cada gesto es grande.' },
+
+  { topic:'Sincronización y holds', type:'mc', q:'¿Qué evidencia aporta un pre-stroke hold durante un titubeo?',
+    opts:['Que el gesto es independiente del habla.',
+          'Que la mano espera a que el segmento lingüístico correspondiente esté listo, lo que sugiere planificación conjunta.',
+          'Que el hablante ha olvidado lo que quería decir.',
+          'Que el gesto no tiene significado propio.'],
+    correct:1,
+    exp:'La opción (b). Cuando alguien titubea y la mano permanece preparada hasta que aparece el segmento lingüístico correspondiente —ejecutando entonces el stroke—, lo que se observa sugiere que gesto y habla están vinculados antes de manifestarse externamente. Los holds son evidencia privilegiada de la planificación conjunta.' },
+
+  { topic:'Growth Point', type:'mc', q:'¿Qué describe mejor un Growth Point?',
+    opts:['Un punto del discurso donde ocurre un stroke.',
+          'Una imagen categorizada lingüísticamente: la unidad mínima donde lo imagístico y lo lingüístico se integran para generar discurso.',
+          'Un tipo específico de gesto icónico.',
+          'El inicio del habla antes de la aparición del gesto.'],
+    correct:1,
+    exp:'La opción (b). McNeill lo describe como «una imagen que ya tiene un pie dentro del lenguaje». No es un punto del discurso ni un tipo de gesto, sino la unidad psicolingüística que articula ambas modalidades. En el ejemplo del gato en el tubo, el GP empaqueta simultáneamente ascenso e interioridad, mientras el habla distribuye esa información en componentes secuenciales.' },
+
+  { topic:'Evidencia empírica', type:'mc', q:'¿Cuál de estas evidencias es más difícil de explicar desde una teoría de dos canales independientes?',
+    opts:['Que muchas personas mueven las manos al hablar.',
+          'Que las personas ciegas de nacimiento gesticulan al hablar con frecuencias comparables, incluso sabiendo que su interlocutor también es ciego.',
+          'Que algunas personas gesticulan más que otras.',
+          'Que existen gestos universales y gestos culturales.'],
+    correct:1,
+    exp:'La opción (b). Si la gesticulación fuera un canal paralelo aprendido por observación, las personas ciegas de nacimiento no gesticularían de manera comparable —no han visto a nadie hacerlo, y aun sabiendo que su interlocutor tampoco las ve, siguen gesticulando. Esto respalda la hipótesis de que el gesto es parte del propio sistema de producción del pensamiento-para-hablar, no un añadido comunicativo.' },
+
+  { topic:'Aplicación analítica', type:'mc', q:'Al analizar una grabación desde McNeill, ¿cuál de estas siete dimensiones es la más específicamente psicolingüística y no solo descriptiva?',
+    opts:['La forma del movimiento de las manos.',
+          'La dimensión semiótica (iconicidad, metaforicidad, deixis, beat).',
+          'La temporalidad de las fases gestuales.',
+          'El Growth Point hipotetizado.'],
+    correct:3,
+    exp:'La opción (d). Las tres primeras describen qué hace el gesto y cómo se coordina con el habla. El GP hipotetizado es la dimensión propiamente psicolingüística: propone cuál es el contraste cognitivo que integra el componente lingüístico y el componente imagístico. Es el punto donde un análisis de gestos se convierte en un análisis del pensamiento.' }
+];
+
+$('#fTotal').textContent = FINAL.length;
+$('#fRetry').addEventListener('click', () => { results.final = {}; renderQuiz($('#finalContainer'), FINAL, 'f'); updateScore('f'); });
+renderQuiz($('#finalContainer'), FINAL, 'f');
+
+function renderBreakdown() {
+  const topics = [...new Set(FINAL.map(q => q.topic))];
+  $('#breakdown').innerHTML = topics.map(t => {
+    const idxs = FINAL.map((q, i) => q.topic === t ? i : -1).filter(i => i >= 0);
+    const got = idxs.filter(i => results.final[i] === 1).length;
+    const pct = Math.round(got / idxs.length * 100);
+    const cls = pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low';
+    return `<div class="bd-row ${cls}">
+      <span>${t}</span>
+      <span class="track"><i style="width:${pct}%"></i></span>
+      <span class="num">${got}/${idxs.length}</span>
+    </div>`;
+  }).join('');
+}
+updateScore('f');
+
+/* ---------- ANIMACIÓN 1: ANATOMÍA TEMPORAL DEL GESTO ---------- */
+(function () {
+  const g = $('#a1Content');
+  const W = 640;
+
+  // Línea de tiempo en la parte inferior
+  const tl = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  tl.innerHTML = `
+    <text x="20" y="270" font-family="var(--mono)" font-size="10" fill="var(--muted)" font-weight="700">ESTRUCTURA TEMPORAL</text>
+    <line x1="30" y1="290" x2="610" y2="290" stroke="var(--border-strong)" stroke-width="1.5"/>
+    <rect x="30" y="278" width="70" height="24" rx="5" fill="var(--muted)" id="a1seg0"/>
+    <text x="65" y="294" text-anchor="middle" font-size="10" fill="#fff" font-family="var(--sans)" font-weight="600">Prep.</text>
+    <rect x="104" y="278" width="150" height="24" rx="5" fill="var(--accent-2)" id="a1seg1"/>
+    <text x="179" y="294" text-anchor="middle" font-size="10" fill="#fff" font-family="var(--sans)" font-weight="600">Pre-hold (espera)</text>
+    <rect x="258" y="278" width="110" height="24" rx="5" fill="var(--accent)" id="a1seg2"/>
+    <text x="313" y="294" text-anchor="middle" font-size="10" fill="#fff" font-family="var(--sans)" font-weight="700">STROKE</text>
+    <rect x="372" y="278" width="80" height="24" rx="5" fill="var(--accent-2)" id="a1seg3"/>
+    <text x="412" y="294" text-anchor="middle" font-size="10" fill="#fff" font-family="var(--sans)" font-weight="600">Post-hold</text>
+    <rect x="456" y="278" width="150" height="24" rx="5" fill="var(--muted)" id="a1seg4"/>
+    <text x="531" y="294" text-anchor="middle" font-size="10" fill="#fff" font-family="var(--sans)" font-weight="600">Retracción</text>
+  `;
+  g.appendChild(tl);
+
+  // Habla con la que se sincroniza
+  const speech = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  speech.innerHTML = `
+    <text x="20" y="40" font-family="var(--mono)" font-size="10" fill="var(--muted)" font-weight="700">HABLA SIMULTÁNEA</text>
+    <text x="30" y="80" font-family="var(--serif)" font-size="15" fill="var(--text)">«El vehículo...</text>
+    <text x="180" y="80" font-family="var(--serif)" font-size="15" fill="var(--muted)">eh...</text>
+    <text x="260" y="80" font-family="var(--serif)" font-size="15" fill="var(--text)" font-weight="700" id="a1speech">salió disparado»</text>
+  `;
+  g.appendChild(speech);
+
+  // Mano animada (arriba del habla)
+  const hand = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  hand.innerHTML = `
+    <circle cx="65" cy="180" r="18" fill="var(--surface)" stroke="var(--border-strong)" stroke-width="1.5" id="a1hand"/>
+    <text x="65" y="185" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="var(--sans)">mano</text>
+  `;
+  g.appendChild(hand);
+
+  const handEl = document.getElementById('a1hand');
+  const segs = [0,1,2,3,4].map(i => document.getElementById(`a1seg${i}`));
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 12;
+
+  const PHASES = [
+    { idx:0, handX:65,  handY:180, desc:'Preparación: la mano abandona la posición de reposo y se prepara para el movimiento.' },
+    { idx:1, handX:180, handY:180, desc:'Pre-stroke hold: la mano está preparada, pero espera. El hablante titubea («eh...») y la mano no ejecuta todavía el movimiento significativo.' },
+    { idx:2, handX:313, handY:120, desc:'STROKE: la mano ejecuta el movimiento significativo, sincronizado con el segmento «salió disparado». Es el núcleo del gesto.' },
+    { idx:3, handX:412, handY:120, desc:'Post-stroke hold: la configuración significativa permanece brevemente, manteniendo disponible el significado hasta completar el segmento lingüístico.' },
+    { idx:4, handX:530, handY:180, desc:'Retracción: la mano regresa a la posición de reposo.' }
+  ];
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(PHASES.length - 1, Math.floor(frac * PHASES.length));
+
+    // Interpolar posición de la mano
+    const prevIdx = Math.max(0, idx - 1);
+    const phase = PHASES[idx];
+    const phaseStart = idx / PHASES.length;
+    const phaseEnd = (idx + 1) / PHASES.length;
+    const localT = (frac - phaseStart) / (phaseEnd - phaseStart);
+    const prev = PHASES[prevIdx];
+    const px = prev.handX + (phase.handX - prev.handX) * localT;
+    const py = prev.handY + (phase.handY - prev.handY) * localT;
+    handEl.setAttribute('cx', px);
+    handEl.setAttribute('cy', py);
+
+    if (idx !== cur) {
+      cur = idx;
+      segs.forEach((s, i) => {
+        s.setAttribute('opacity', i === idx ? '1' : i < idx ? '0.55' : '0.3');
+      });
+      $('#a1Cap').innerHTML = `<b>${['Preparación','Pre-stroke hold','Stroke','Post-stroke hold','Retracción'][idx]}</b>${phase.desc}`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a1Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a1Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a1Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a1Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    handEl.setAttribute('cx', 65); handEl.setAttribute('cy', 180);
+    segs.forEach(s => s.setAttribute('opacity', '0.3'));
+    $('#a1Cap').innerHTML = '<b>Listo para empezar</b>Pulsa «Reproducir» para ver cómo la mano espera durante el titubeo y ejecuta el stroke exactamente cuando aparece el segmento lingüístico correspondiente. Esa sincronía es la evidencia central del tight binding.';
+  });
+  $('#a1Speed').addEventListener('input', e => { speed = +e.target.value; $('#a1SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a1Reset').click();
+})();
+
+/* ---------- ANIMACIÓN 2: ARQUITECTURA COMPLETA ---------- */
+(function () {
+  const g = $('#a2Content');
+  const LEVELS = [
+    { t:'Experiencia', c:'El acontecimiento vivido o recordado.' },
+    { t:'Contexto', c:'El marco inmediato que da relevancia.' },
+    { t:'Predicado psicológico', c:'Lo que constituye la novedad o el foco respecto del contexto (Vygotsky).' },
+    { t:'Growth Point', c:'Imagen categorizada lingüísticamente. Unidad mínima donde convergen imagen y lenguaje.' },
+    { t:'Imagen + Lenguaje', c:'Lo visuoespacial por un lado, lo categorial por otro.' },
+    { t:'Gesto + Habla', c:'Dos manifestaciones de una misma unidad coexpresiva.' },
+    { t:'Discurso', c:'El despliegue temporal del enunciado.' },
+    { t:'Catchments', c:'Recurrencias gestuales que organizan el discurso.' },
+    { t:'Organización discursiva e intersubjetiva', c:'El nivel del significado compartido y la interacción.' }
+  ];
+
+  const Y0 = 20, ROW = 38;
+
+  LEVELS.forEach((l, i) => {
+    const y = Y0 + i * ROW;
+    const gg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    gg.innerHTML = `
+      <rect x="20" y="${y}" width="600" height="32" rx="8"
+        fill="var(--surface)" stroke="var(--border)" stroke-width="1.4" id="a2b${i}"/>
+      <text x="36" y="${y + 21}" font-family="var(--mono)" font-size="9.5" fill="var(--accent-2)" font-weight="700">${String(i + 1).padStart(2, '0')}</text>
+      <text x="62" y="${y + 21}" font-family="var(--serif)" font-size="13" font-weight="600" fill="var(--text)">${l.t}</text>
+    `;
+    g.appendChild(gg);
+  });
+
+  let t = 0, playing = false, speed = 1, last = 0, raf = null, cur = -1;
+  const DUR = 18;
+
+  function frame(ts) {
+    if (!playing) return;
+    if (!last) last = ts;
+    t += (ts - last) / 1000 * speed;
+    last = ts;
+    if (t > DUR) { t = DUR; stop(); }
+    const frac = t / DUR;
+    const idx = Math.min(LEVELS.length - 1, Math.floor(frac * LEVELS.length));
+    if (idx !== cur) {
+      cur = idx;
+      LEVELS.forEach((_, i) => {
+        const b = document.getElementById(`a2b${i}`);
+        if (!b) return;
+        const reached = i <= idx;
+        b.setAttribute('fill', i === idx ? 'var(--accent-soft)' : reached ? 'var(--surface-2)' : 'var(--surface)');
+        b.setAttribute('stroke', i === idx ? 'var(--accent)' : reached ? 'var(--accent-2)' : 'var(--border)');
+        b.setAttribute('stroke-width', i === idx ? '2' : '1.4');
+      });
+      $('#a2Cap').innerHTML = `<b>Nivel ${idx + 1} · ${LEVELS[idx].t}</b>${LEVELS[idx].c}`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (t >= DUR) t = 0; playing = true; last = 0; $('#a2Play').textContent = '❚❚ Pausar'; raf = requestAnimationFrame(frame); }
+  function stop() { playing = false; $('#a2Play').textContent = '▶ Reproducir'; if (raf) cancelAnimationFrame(raf); }
+
+  $('#a2Play').addEventListener('click', () => playing ? stop() : start());
+  $('#a2Reset').addEventListener('click', () => {
+    stop(); t = 0; cur = -1;
+    LEVELS.forEach((_, i) => {
+      const b = document.getElementById(`a2b${i}`);
+      if (!b) return;
+      b.setAttribute('fill', 'var(--surface)');
+      b.setAttribute('stroke', 'var(--border)');
+      b.setAttribute('stroke-width', '1.4');
+    });
+    $('#a2Cap').innerHTML = '<b>Antes de empezar</b>Observa que cada nivel inferior se apoya en los superiores. La experiencia se organiza en un contexto, del que emerge un predicado psicológico, que se articula como Growth Point, del que se despliegan imagen y lenguaje, y así sucesivamente hasta los catchments.';
+  });
+  $('#a2Speed').addEventListener('input', e => { speed = +e.target.value; $('#a2SpeedVal').textContent = speed.toFixed(1) + '×'; });
+  $('#a2Reset').click();
+})();
+
+/* ---------- ANALIZADOR DE ESCENAS ---------- */
+(function () {
+  const SCENES = {
+    pelota: {
+      txt: '«La pelota bajó rodando rápidamente por la pendiente».',
+      gest: 'Un único movimiento descendente, circular y rápido con la mano derecha, que parece contener simultáneamente la pelota, el giro, la trayectoria, la velocidad y la dirección.',
+      habla: 'Categoriza en secuencia: objeto → dirección → manera → velocidad → trayectoria.',
+      dim: 'Icónica (representa la trayectoria y el movimiento).',
+      stroke: 'Stroke sincronizado con el verbo «bajó» y con «rodando».',
+      coexp: 'El gesto empaqueta simultáneamente cinco propiedades que el habla distribuye en cinco componentes.',
+      forma: 'Movimiento circular descendente, mano abierta con ligera flexión.',
+      sem: 'Iconicidad alta; sin deixis marcada; sin metáfora; sin beat prominente.',
+      temp: 'Preparación breve → stroke sostenido → retracción sin hold marcado.',
+      disc: 'No hay recurrencia clara; gesto único en el fragmento.',
+      gp: 'Hipótesis: el GP es «descenso-rodante-rápido», una imagen dinámica que articula movimiento y velocidad en un único paquete visuoespacial que el habla debe desplegar secuencialmente.'
+    },
+    teorias: {
+      txt: '«Primero tenemos la teoría conductista... y tenemos la perspectiva cognitiva... El problema de esta aproximación...».',
+      gest: 'Señala hacia la izquierda al mencionar la teoría conductista, hacia la derecha al mencionar la perspectiva cognitiva, y vuelve a señalar hacia la izquierda al decir «esta aproximación».',
+      habla: 'Organiza el contraste mediante marcadores discursivos («primero», «y») y deixis lingüística («esta»).',
+      dim: 'Deíctica — construye un espacio semiótico donde izquierda y derecha funcionan como posiciones conceptuales.',
+      stroke: 'Tres strokes: dos señalando posiciones opuestas y un tercero volviendo a la izquierda.',
+      coexp: 'El gesto asigna posición espacial estable a entidades abstractas y las mantiene accesibles a lo largo del discurso.',
+      forma: 'Índice extendido señalando; movimientos discretos y repetibles.',
+      sem: 'Deixis ad phantasma (Bühler); ninguna iconicidad; sin metáfora explícita.',
+      temp: 'Strokes breves con retracción rápida; el tercer stroke es una reactivación de la posición izquierda.',
+      disc: 'El tercer stroke constituye una cohesión gestual: sin volver a nombrar «teoría conductista», el gesto reactiva su posición y mantiene activo el referente.',
+      gp: 'Hipótesis: el GP es «contraste-entre-dos-posiciones», una imagen espacial binaria que articula las dos teorías y su oposición en un único esquema visuoespacial.'
+    },
+    tubo: {
+      txt: '«Subió por dentro del tubo».',
+      gest: 'Mano que asciende desde la altura de la cintura, con una configuración de los dedos que rodea un espacio cerrado.',
+      habla: 'Distribuye en secuencia: verbo «subió» + locución preposicional «por dentro del tubo».',
+      dim: 'Icónica doble: el movimiento ascendente representa el ascenso; la configuración de los dedos representa la interioridad.',
+      stroke: 'Stroke sincronizado con «subió», sostenido durante «por dentro».',
+      coexp: 'El gesto empaqueta simultáneamente ascenso e interioridad; el habla los separa en dos componentes secuenciales.',
+      forma: 'Movimiento ascendente con dedos en configuración de rodeo.',
+      sem: 'Iconicidad alta y doble; ninguna deixis; sin metáfora; sin beat.',
+      temp: 'Preparación → stroke → post-stroke hold durante «por dentro».',
+      disc: 'Gesto único; sin recurrencia en el fragmento.',
+      gp: 'Hipótesis: el GP es «ascender-estando-dentro», la imagen de un movimiento vertical cuya interioridad es inseparable del propio movimiento.'
+    },
+    titubeo: {
+      txt: '«El vehículo... eh... salió disparado».',
+      gest: 'La mano se prepara, permanece preparada durante el titubeo («eh...»), y ejecuta el stroke cuando aparece «salió disparado».',
+      habla: 'Presenta una vacilación explícita entre el sujeto y el verbo.',
+      dim: 'Icónica (preparada); el hold previo no es icónico en sí, es anticipatorio.',
+      stroke: 'Stroke sincronizado con «salió disparado».',
+      coexp: 'El gesto espera a que el segmento lingüístico esté listo, evidenciando planificación conjunta.',
+      forma: 'Mano preparada en configuración de agarre; ejecución rápida al aparecer el verbo.',
+      sem: 'Iconicidad emergente en el stroke; el hold no tiene dimensión semiótica clara.',
+      temp: 'Preparación breve → pre-stroke hold prolongado → stroke → retracción.',
+      disc: 'No hay recurrencia; el fenómeno relevante es el hold.',
+      gp: 'Hipótesis: el GP ya está formado (imagen de salida rápida) durante el titubeo; lo que falta es la categorización lingüística, y la mano espera hasta que el habla la completa.'
+    },
+    'dos-hablantes': {
+      txt: 'Dos hablantes dicen la misma frase: «El automóvil pasó».',
+      gest: 'Hablante A: movimiento horizontal rápido, a la altura del pecho. Hablante B: movimiento curvo, describiendo una trayectoria semicircular frente al cuerpo.',
+      habla: 'Idéntica en los dos casos en la transcripción.',
+      dim: 'Icónica en ambos, pero destacando aspectos distintos: velocidad vs. trayectoria.',
+      stroke: 'En A, stroke breve y rápido; en B, stroke más extendido y sostenido.',
+      coexp: 'El mismo enunciado verbal es coexpresivo con gestos que destacan aspectos diferentes del acontecimiento.',
+      forma: 'A: rectilíneo, corto. B: curvo, amplio.',
+      sem: 'Iconicidad en ambos; ninguna deixis; sin metáfora.',
+      temp: 'A: stroke muy breve. B: stroke sostenido.',
+      disc: 'Análisis comparativo: la diferencia gestual revela una diferencia en el foco cognitivo.',
+      gp: 'Hipótesis: los GP son distintos aunque el habla coincida. El GP de A articula el acontecimiento como «velocidad de paso»; el de B, como «trayectoria de paso».'
+    },
+    catchment: {
+      txt: 'En una entrevista larga, un hablante describe distintas etapas de una experiencia personal.',
+      gest: 'En tres momentos separados del discurso, realiza el mismo gesto: mano derecha abierta, palma hacia arriba, moviéndose desde el pecho hacia afuera. Los tres segmentos no están lingüísticamente próximos.',
+      habla: 'Los tres segmentos tratan sobre «aceptar», «dejar ir» y «comprender».',
+      dim: 'Metafórica (trata un proceso abstracto como objeto que se ofrece o se suelta) más cierta iconicidad en el movimiento.',
+      stroke: 'Tres strokes con la misma forma, no consecutivos.',
+      coexp: 'La recurrencia gestual sugiere que los tres segmentos pertenecen a una misma unidad temática mayor.',
+      forma: 'Mano abierta, palma hacia arriba, movimiento de apertura hacia afuera.',
+      sem: 'Metaforicidad (proceso abstracto tratado como objeto).',
+      temp: 'Strokes breves, con preparación y retracción similares en los tres casos.',
+      disc: 'Catchment: la recurrencia constituye un hilo visuoespacial que organiza tres fragmentos del discurso en una misma unidad conceptual.',
+      gp: 'Hipótesis: los tres GP comparten una misma estructura imagística subyacente («soltar / abrir») que organiza la experiencia del hablante a lo largo del discurso.'
+    }
+  };
+
+  function renderScene(key) {
+    const s = SCENES[key];
+    $('#sceneTxt').textContent = s.txt;
+    $('#sceneGest').innerHTML = s.gest;
+    $('#rHabla').textContent = s.habla.length > 60 ? s.habla.slice(0, 55) + '…' : s.habla;
+    $('#rDim').textContent = s.dim.split('—')[0].trim();
+    $('#rStroke').textContent = s.stroke.split('(')[0].trim();
+    $('#rCoexp').textContent = s.coexp.length > 60 ? s.coexp.slice(0, 55) + '…' : s.coexp;
+
+    $('#dForma').textContent = s.forma;
+    $('#dSem').textContent = s.sem;
+    $('#dTemp').textContent = s.temp;
+    $('#dHabla').textContent = s.habla;
+    $('#dCoexp').textContent = s.coexp;
+    $('#dDisc').textContent = s.disc;
+    $('#dGP').textContent = s.gp;
+
+    $('#analVerdict').innerHTML = `<b>Lectura posible</b>Esta es una lectura de la escena, no la única. La identificación del Growth Point hipotetizado es la parte más discutible del análisis y admite hipótesis alternativas que también podrían defenderse con evidencia del discurso.`;
+  }
+
+  $('#sceneSelect').addEventListener('change', e => renderScene(e.target.value));
+  renderScene('pelota');
+})();
+</script>
+</body>
+</html>
