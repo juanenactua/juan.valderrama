@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramientas Digitales para las Ciencias Sociales · Tutoría 1</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Herramientas Digitales para las Ciencias Sociales · Tutoría 1">
+<meta name="jc-descripcion" content="Presentación interactiva de la Tutoría 1 sobre inteligencia artificial, enfoque STEAM+H, análisis de información, auditoría crítica, datos, evidencia, gobernanza de IA, ética y responsabilidad humana en ciencias sociales y psicología.">
+<meta name="jc-tipo" content="Presentación interactiva de clase">
+<meta name="jc-etiquetas" content="Herramientas digitales, Ciencias sociales, Psicología, Inteligencia artificial, IA generativa, STEAM+H, Enfoque STEAM, Alfabetización en IA, Prompting, RACCCA, Auditoría de IA, Análisis de información, Evidencia científica, Verificación de información, Trazabilidad, Bases de datos, Análisis de datos, Gobernanza de IA, Ética de la IA, Protección de datos, Privacidad, Sesgos algorítmicos, Supervisión humana, Matriz de riesgos, Responsabilidad profesional, Aprendizaje activo">
+<meta name="jc-curso" content="Herramientas Digitales para las Ciencias Sociales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1. VARIABLES Y BASE
+   ============================================================ */
+:root{
+  --navy:      #0B2545;
+  --blue:      #13315C;
+  --blue-mid:  #13538A;
+  --gold:      #E7C873;
+  --bg:        #FFFFFF;
+  --soft:      #F5F7FA;
+  --line:      #DDE4ED;
+  --text:      #16273D;
+  --muted:     #5C6E85;
+
+  --ok:        #1E7A54;
+  --ok-bg:     #E4F2EA;
+  --bad:       #B33A3A;
+  --bad-bg:    #FBE9E9;
+
+  --r-low-bg:  #E1F0E7;  --r-low-fg:  #175F42;
+  --r-mod-bg:  #FCF2D6;  --r-mod-fg:  #8A6B12;
+  --r-hig-bg:  #FBE3D4;  --r-hig-fg:  #A0521C;
+  --r-cri-bg:  #F7D9DC;  --r-cri-fg:  #94262C;
+
+  --radius: 14px;
+  --shadow: 0 2px 14px rgba(11,37,69,.07);
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  margin:0; padding:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body{ overflow: hidden; }
+
+h1,h2,h3,h4{ margin:0; color: var(--navy); line-height:1.18; letter-spacing:-.015em; }
+p{ margin:0 0 .8em 0; }
+ul{ margin:0 0 .8em 0; padding-left: 1.15em; }
+li{ margin-bottom:.45em; }
+
+strong{ color: var(--blue); font-weight:600; }
+
+/* ============================================================
+   2. BARRA SUPERIOR + PROGRESO
+   ============================================================ */
+.topbar{
+  position: fixed; inset: 0 0 auto 0; height: 58px; z-index: 60;
+  display: flex; align-items: center; gap: 18px;
+  padding: 0 22px;
+  background: rgba(255,255,255,.93);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-title{
+  font-size: 15px; font-weight: 600; color: var(--blue);
+  letter-spacing:.01em; white-space: nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.topbar-spacer{ flex:1; }
+.counter{
+  font-size: 15px; font-weight: 600; color: var(--muted);
+  font-variant-numeric: tabular-nums; letter-spacing:.04em;
+}
+.counter b{ color: var(--navy); }
+
+.menu-btn{
+  display:inline-flex; align-items:center; gap:9px;
+  font: inherit; font-size: 15px; font-weight:600; color: var(--navy);
+  background:#fff; border:1px solid var(--line); border-radius:999px;
+  padding: 8px 16px; cursor:pointer; transition: all .18s ease;
+}
+.menu-btn:hover{ border-color: var(--blue-mid); color: var(--blue-mid); }
+.menu-btn .bars{ display:inline-flex; flex-direction:column; gap:3px; }
+.menu-btn .bars i{ display:block; width:14px; height:2px; background: currentColor; border-radius:2px; }
+
+.progress-track{
+  position: fixed; top: 58px; left:0; right:0; height:3px; z-index:61;
+  background: #E9EEF5;
+}
+.progress-bar{
+  height:100%; width:0%;
+  background: linear-gradient(90deg, var(--blue-mid), var(--navy));
+  transition: width .35s cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================================
+   3. MENÚ LATERAL (ÍNDICE DINÁMICO)
+   ============================================================ */
+.sidebar{
+  position: fixed; top:0; left:0; bottom:0; width: 350px; max-width: 88vw;
+  background: var(--navy); color:#fff; z-index: 80;
+  transform: translateX(-102%);
+  transition: transform .34s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto; padding: 26px 0 46px;
+  box-shadow: 6px 0 30px rgba(11,37,69,.18);
+}
+.sidebar.open{ transform: translateX(0); }
+.sidebar-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 26px 18px; border-bottom:1px solid rgba(255,255,255,.14);
+  margin-bottom: 10px;
+}
+.sidebar-head span{
+  font-size: 13px; font-weight:700; letter-spacing:.16em;
+  text-transform: uppercase; color: var(--gold);
+}
+.sidebar-close{
+  background:none; border:none; color: rgba(255,255,255,.65);
+  font-size: 22px; line-height:1; cursor:pointer; padding:0 4px;
+}
+.sidebar-close:hover{ color:#fff; }
+
+.toc-section{
+  font-size: 12px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+  color: rgba(255,255,255,.42);
+  padding: 20px 26px 8px;
+}
+.toc-item{
+  display:flex; gap:14px; align-items:baseline;
+  width:100%; text-align:left; cursor:pointer;
+  background:none; border:none; font:inherit;
+  font-size: 16px; line-height:1.35; color: rgba(255,255,255,.82);
+  padding: 10px 26px; border-left: 3px solid transparent;
+  transition: all .16s ease;
+}
+.toc-item:hover{ background: rgba(255,255,255,.07); color:#fff; }
+.toc-item.active{
+  color:#fff; background: rgba(255,255,255,.10);
+  border-left-color: var(--gold); font-weight:600;
+}
+.toc-num{
+  font-size: 12px; font-weight:700; color: var(--gold);
+  font-variant-numeric: tabular-nums; min-width: 22px; opacity:.9;
+}
+
+.overlay{
+  position: fixed; inset:0; background: rgba(11,37,69,.42);
+  backdrop-filter: blur(2px); z-index:70; opacity:0; pointer-events:none;
+  transition: opacity .3s ease;
+}
+.overlay.show{ opacity:1; pointer-events:auto; }
+
+/* ============================================================
+   4. ESCENARIO DE DIAPOSITIVAS
+   ============================================================ */
+#deck{
+  position: fixed; inset: 61px 0 0 0;
+  overflow-y: auto; overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+.slide{
+  display: none;
+  min-height: 100%;
+  padding: 46px clamp(26px, 5.5vw, 96px) 96px;
+}
+.slide.active{
+  display: flex; flex-direction: column; justify-content: center;
+  animation: slideIn .40s cubic-bezier(.22,.8,.3,1) both;
+}
+@keyframes slideIn{
+  from{ opacity:0; transform: translateY(16px); }
+  to  { opacity:1; transform: none; }
+}
+
+/* Tipografía de diapositiva */
+.eyebrow{
+  font-size: 13px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color: var(--blue-mid); margin-bottom: 14px;
+}
+.slide-title{
+  font-size: clamp(28px, 2.5vw, 42px);
+  font-weight: 700; margin-bottom: 8px;
+}
+.slide-sub{
+  font-size: clamp(17px, 1.1vw, 21px); color: var(--muted);
+  margin-bottom: 26px; max-width: 60ch;
+}
+.rule{
+  width: 62px; height: 4px; border-radius: 3px;
+  background: var(--gold); margin: 0 0 28px;
+}
+.lead{
+  font-size: clamp(19px, 1.25vw, 23px);
+  color: var(--blue); max-width: 78ch; margin-bottom: 22px;
+}
+.body-text{ font-size: clamp(18px, 1.05vw, 21px); max-width: 82ch; color: #2A3B52; }
+
+/* ============================================================
+   5. COMPONENTES VISUALES REUTILIZABLES
+   ============================================================ */
+.grid-2{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 22px; }
+.grid-3{ display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 18px; }
+
+.card{
+  background:#fff; border:1px solid var(--line); border-radius: var(--radius);
+  padding: 22px 24px; box-shadow: var(--shadow);
+}
+.card h3{ font-size: 20px; margin-bottom: 8px; }
+.card p{ font-size: 17px; color:#3A4B62; margin:0; line-height:1.45; }
+
+.card-accent{ border-top: 4px solid var(--blue-mid); }
+.card-gold{ border-top: 4px solid var(--gold); }
+
+.panel{
+  background: var(--soft); border-radius: var(--radius);
+  padding: 24px 28px; border-left: 5px solid var(--blue-mid);
+}
+.panel p:last-child{ margin-bottom:0; }
+
+.quote{
+  background: var(--navy); color:#fff; border-radius: var(--radius);
+  padding: 30px 34px; position:relative; overflow:hidden;
+}
+.quote::before{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:5px; background: var(--gold);
+}
+.quote p{ font-size: clamp(19px, 1.2vw, 23px); line-height:1.5; margin:0; color:#EDF2F8; }
+.quote strong{ color: var(--gold); }
+
+.chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; }
+.chip{
+  font-size: 15px; font-weight:600; color: var(--blue);
+  background:#EDF2F8; border:1px solid #D6E0EE;
+  border-radius: 999px; padding: 7px 15px;
+}
+
+/* Tarjetas STEAM */
+.steam-card{
+  border:1px solid var(--line); border-radius: var(--radius); overflow:hidden;
+  background:#fff; box-shadow: var(--shadow);
+  display:flex; flex-direction:column;
+}
+.steam-head{
+  display:flex; align-items:center; gap:14px;
+  padding: 15px 20px; background: var(--navy); color:#fff;
+}
+.steam-letter{
+  font-size: 22px; font-weight:800; color: var(--navy);
+  background: var(--gold); width: 40px; height:40px; border-radius:10px;
+  display:grid; place-items:center; flex-shrink:0;
+}
+.steam-head h3{ color:#fff; font-size:19px; margin:0; }
+.steam-body{ padding: 16px 20px 20px; }
+.steam-body p{ font-size:16px; color:#3A4B62; margin:0 0 10px; }
+.steam-body .evi{
+  font-size: 14.5px; color: var(--muted); border-top:1px dashed var(--line);
+  padding-top:10px; margin:0;
+}
+.steam-body .evi b{ color: var(--blue-mid); }
+
+/* Escalera de niveles */
+.levels{ display:grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap:16px; }
+.level{
+  border:1px solid var(--line); border-radius: var(--radius);
+  padding: 20px; background:#fff; position:relative; box-shadow: var(--shadow);
+  border-bottom: 4px solid var(--blue-mid);
+}
+.level .lv-num{
+  font-size: 13px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+  color: var(--blue-mid); margin-bottom:6px;
+}
+.level h3{ font-size: 21px; margin-bottom:8px; }
+.level p{ font-size: 16px; color:#3A4B62; margin:0 0 10px; }
+.level .evi{ font-size:14.5px; color: var(--muted); }
+.level .evi b{ color: var(--blue); }
+
+/* Listas con pasos */
+.steps{ counter-reset: paso; display:grid; gap:12px; }
+.step{
+  display:flex; gap:16px; align-items:flex-start;
+  background:#fff; border:1px solid var(--line); border-radius: 12px;
+  padding: 14px 18px;
+}
+.step::before{
+  counter-increment: paso; content: counter(paso);
+  flex-shrink:0; width:30px; height:30px; border-radius:50%;
+  background: var(--navy); color: var(--gold);
+  font-size:15px; font-weight:700; display:grid; place-items:center;
+  margin-top:2px;
+}
+.step p{ margin:0; font-size:17px; color:#2A3B52; }
+
+/* ============================================================
+   6. ACTIVIDADES INTERACTIVAS
+   ============================================================ */
+.activity-tag{
+  display:inline-flex; align-items:center; gap:9px;
+  background:#EDF2F8; color: var(--blue-mid);
+  font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  padding: 7px 15px; border-radius:999px; margin-bottom:14px;
+}
+.activity-tag::before{
+  content:''; width:8px; height:8px; border-radius:50%; background: var(--gold);
+}
+
+/* --- Emparejamiento --- */
+.match-wrap{ display:grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 6px; }
+@media (max-width: 860px){ .match-wrap{ grid-template-columns:1fr; } }
+
+.pool{ display:grid; gap:10px; align-content:start; }
+.pool-item{
+  font: inherit; font-size: 16px; text-align:left; cursor:pointer;
+  background:#fff; border:1.5px solid var(--line); border-radius: 12px;
+  padding: 13px 16px; color:#2A3B52; transition: all .16s ease;
+}
+.pool-item:hover{ border-color: var(--blue-mid); }
+.pool-item.selected{
+  border-color: var(--blue-mid); background:#EDF2F8;
+  box-shadow: 0 0 0 3px rgba(19,83,138,.12);
+}
+.pool-empty{
+  font-size:16px; color: var(--muted); font-style:italic;
+  padding: 14px 4px;
+}
+
+.tiles{ display:grid; gap:10px; }
+.tile{
+  border:1.5px solid var(--line); border-radius: 12px; background:#fff;
+  padding: 12px 16px; cursor:pointer; transition: all .16s ease;
+}
+.tile:hover{ border-color: var(--blue-mid); }
+.tile-head{ display:flex; align-items:center; gap:12px; }
+.tile-letter{
+  width:34px; height:34px; border-radius:9px; flex-shrink:0;
+  background: var(--navy); color: var(--gold);
+  font-size:16px; font-weight:800; display:grid; place-items:center;
+}
+.tile-name{ font-size:16.5px; font-weight:600; color: var(--navy); }
+.tile-slot{
+  margin-top:9px; font-size:15px; color: var(--muted);
+  border-top:1px dashed var(--line); padding-top:9px; min-height: 22px;
+}
+.tile-slot.filled{ color:#2A3B52; font-weight:500; }
+.tile.correct{ border-color: var(--ok); background: var(--ok-bg); }
+.tile.correct .tile-letter{ background: var(--ok); color:#fff; }
+.tile.wrong{ border-color: var(--bad); background: var(--bad-bg); }
+.tile.wrong .tile-letter{ background: var(--bad); color:#fff; }
+
+.act-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; align-items:center; }
+.btn{
+  font: inherit; font-size:15px; font-weight:600; cursor:pointer;
+  border-radius:999px; padding: 10px 22px; transition: all .18s ease;
+  border:1.5px solid var(--navy); background: var(--navy); color:#fff;
+}
+.btn:hover{ background: var(--blue-mid); border-color: var(--blue-mid); }
+.btn.ghost{ background:#fff; color: var(--navy); }
+.btn.ghost:hover{ background:#EDF2F8; color: var(--blue-mid); border-color: var(--blue-mid); }
+.act-feedback{ font-size:16px; font-weight:600; }
+.act-feedback.ok{ color: var(--ok); }
+.act-feedback.bad{ color: var(--bad); }
+
+/* --- Cuestionarios --- */
+.quiz{ display:grid; gap:18px; }
+.q{
+  background:#fff; border:1px solid var(--line); border-radius: var(--radius);
+  padding: 20px 24px; box-shadow: var(--shadow);
+}
+.q-stem{ font-size:18px; font-weight:600; color: var(--navy); margin-bottom:14px; }
+.opts{ display:grid; gap:9px; }
+.opt{
+  font: inherit; font-size:16.5px; text-align:left; cursor:pointer;
+  background:#F8FAFC; border:1.5px solid var(--line); border-radius: 11px;
+  padding: 12px 16px; color:#2A3B52; transition: all .16s ease;
+}
+.opt:hover:not(:disabled){ border-color: var(--blue-mid); background:#EDF2F8; }
+.opt:disabled{ cursor: default; }
+.opt.correct{ background: var(--ok-bg); border-color: var(--ok); color:#14503A; font-weight:600; }
+.opt.wrong{ background: var(--bad-bg); border-color: var(--bad); color:#8A2727; font-weight:600; }
+.q-fb{
+  display:none; margin-top:14px; font-size:16px; line-height:1.5;
+  background:#EDF2F8; border-left:4px solid var(--blue-mid);
+  border-radius: 0 10px 10px 0; padding: 12px 16px; color:#2A3B52;
+}
+.q-fb.show{ display:block; animation: slideIn .3s ease both; }
+
+/* ============================================================
+   7. SIMULACIÓN — MATRIZ DE RIESGOS
+   ============================================================ */
+.sim{ display:grid; grid-template-columns: minmax(300px, 1fr) minmax(320px, 1.05fr); gap: 30px; align-items:start; }
+@media (max-width: 980px){ .sim{ grid-template-columns:1fr; } }
+
+.sim-controls{ display:grid; gap:20px; }
+.field label{ display:block; font-size:15px; font-weight:700; color: var(--blue); margin-bottom:9px; letter-spacing:.01em; }
+.field select{
+  font: inherit; font-size:16px; width:100%; padding: 11px 14px;
+  border:1.5px solid var(--line); border-radius:11px; background:#fff; color:#2A3B52;
+  cursor:pointer;
+}
+.field select:focus{ outline:none; border-color: var(--blue-mid); }
+
+.slider-row{ display:flex; align-items:center; gap:16px; }
+input[type=range]{
+  -webkit-appearance:none; appearance:none; flex:1; height:6px; border-radius:4px;
+  background: #DDE4ED; outline:none; cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+  background: var(--navy); border:3px solid #fff;
+  box-shadow: 0 1px 6px rgba(11,37,69,.35); cursor:pointer;
+}
+input[type=range]::-moz-range-thumb{
+  width:22px; height:22px; border-radius:50%; background: var(--navy);
+  border:3px solid #fff; box-shadow: 0 1px 6px rgba(11,37,69,.35); cursor:pointer;
+}
+.slider-val{
+  font-size:19px; font-weight:800; color: var(--navy); min-width: 34px; text-align:center;
+  font-variant-numeric: tabular-nums;
+}
+.scale{
+  display:flex; justify-content:space-between; font-size:12.5px; color: var(--muted);
+  margin-top:6px; letter-spacing:.02em;
+}
+
+.sim-result{
+  border:1px solid var(--line); border-radius: var(--radius);
+  background:#fff; box-shadow: var(--shadow); overflow:hidden;
+}
+.sim-score{
+  display:flex; align-items:center; justify-content:space-between; gap:18px;
+  padding: 20px 24px; border-bottom:1px solid var(--line);
+}
+.sim-formula{ font-size:15px; color: var(--muted); font-weight:600; letter-spacing:.02em; }
+.sim-number{
+  font-size: 46px; font-weight:800; color: var(--navy); line-height:1;
+  font-variant-numeric: tabular-nums;
+}
+.sim-badge{
+  font-size:14px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  padding: 9px 18px; border-radius:999px; white-space:nowrap;
+  transition: all .25s ease;
+}
+.sim-interp{ padding: 16px 24px; font-size:16px; color:#2A3B52; border-bottom:1px solid var(--line); }
+.sim-interp b{ color: var(--blue); }
+
+.sim-grid{ padding: 20px 24px 24px; }
+.sim-grid-title{ font-size:13px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color: var(--muted); margin-bottom:12px; }
+.matrix{ display:grid; grid-template-columns: auto repeat(5, 1fr); gap:5px; }
+.matrix .axis{
+  font-size:12px; font-weight:700; color: var(--muted);
+  display:grid; place-items:center; padding:2px;
+}
+.matrix .cell{
+  aspect-ratio: 1.5 / 1; border-radius:7px; cursor:pointer;
+  display:grid; place-items:center; font-size:13px; font-weight:700;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.matrix .cell:hover{ transform: scale(1.06); }
+.matrix .cell.active{ outline:3px solid var(--navy); outline-offset:1px; }
+.c-low{ background: var(--r-low-bg); color: var(--r-low-fg); }
+.c-mod{ background: var(--r-mod-bg); color: var(--r-mod-fg); }
+.c-hig{ background: var(--r-hig-bg); color: var(--r-hig-fg); }
+.c-cri{ background: var(--r-cri-bg); color: var(--r-cri-fg); }
+
+.sim-hint{ font-size:14px; color: var(--muted); margin-top:14px; line-height:1.45; }
+
+/* ============================================================
+   8. NAVEGACIÓN INFERIOR
+   ============================================================ */
+.nav-controls{
+  position: fixed; right: 22px; bottom: 20px; z-index: 65;
+  display:flex; gap:10px; align-items:center;
+}
+.nav-btn{
+  width: 46px; height:46px; border-radius:50%;
+  border:1.5px solid var(--line); background: rgba(255,255,255,.95);
+  color: var(--navy); font-size:19px; line-height:1; cursor:pointer;
+  display:grid; place-items:center; transition: all .18s ease;
+  backdrop-filter: blur(6px);
+}
+.nav-btn:hover:not(:disabled){ background: var(--navy); color:#fff; border-color: var(--navy); }
+.nav-btn:disabled{ opacity:.32; cursor:default; }
+
+.keyhint{
+  position: fixed; left: 22px; bottom: 26px; z-index:65;
+  font-size:13px; color: var(--muted); letter-spacing:.02em;
+}
+.keyhint kbd{
+  font-family: inherit; font-size:12px; font-weight:700;
+  border:1px solid var(--line); border-bottom-width:2px; border-radius:5px;
+  padding: 1px 6px; background:#fff; color: var(--blue);
+}
+
+/* ============================================================
+   9. RESPONSIVE
+   ============================================================ */
+@media (max-width: 720px){
+  body{ font-size: 18px; }
+  .slide{ padding: 34px 22px 110px; }
+  .topbar-title{ display:none; }
+  .keyhint{ display:none; }
+  .sim-number{ font-size: 38px; }
+}
+@media (max-height: 720px) and (min-width: 900px){
+  .slide{ padding-top: 28px; padding-bottom: 74px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ BARRA SUPERIOR ============ -->
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir índice">
+    <span class="bars"><i></i><i></i><i></i></span> Índice
+  </button>
+  <div class="topbar-title">Herramientas Digitales para las Ciencias Sociales</div>
+  <div class="topbar-spacer"></div>
+  <div class="counter"><b id="curNum">1</b> / <span id="totNum">15</span></div>
+</header>
+<div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- ============ MENÚ LATERAL ============ -->
+<nav class="sidebar" id="sidebar" aria-label="Índice de la presentación">
+  <div class="sidebar-head">
+    <span>Índice</span>
+    <button class="sidebar-close" id="closeBtn" aria-label="Cerrar índice">&times;</button>
+  </div>
+  <div id="toc"></div>
+</nav>
+<div class="overlay" id="overlay"></div>
+
+<!-- ============ DIAPOSITIVAS ============ -->
+<main id="deck">
+
+  <!-- ---------- 1. PORTADA ---------- -->
+  <section class="slide active" data-title="Portada" data-section="Inicio">
+    <div style="max-width:1000px;">
+      <p class="eyebrow">Tutoría 1 · Presentación del curso</p>
+      <h1 style="font-size:clamp(34px,4.4vw,64px);font-weight:800;margin-bottom:18px;">
+        Herramientas Digitales<br>para las Ciencias Sociales
+      </h1>
+      <p style="font-size:clamp(19px,1.5vw,26px);color:var(--blue-mid);max-width:38ch;line-height:1.4;margin-bottom:28px;">
+        Inteligencia artificial, análisis de información y diseño responsable de soluciones en psicología.
+      </p>
+      <div class="rule" style="width:96px;"></div>
+      <p style="font-size:clamp(18px,1.25vw,23px);font-weight:600;color:var(--navy);margin-bottom:6px;">
+        Juan Carlos Valderrama Cárdenas
+      </p>
+      <p style="font-size:16px;color:var(--muted);margin-bottom:24px;">Docente</p>
+      <div class="chips">
+        <span class="chip">Enfoque STEAM + H</span>
+        <span class="chip">Psicología como campo de aplicación</span>
+        <span class="chip">Dos unidades · Dos entregables</span>
+        <span class="chip">Responsabilidad humana como eje</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 2. AGENDA ---------- -->
+  <section class="slide" data-title="Agenda de la sesión" data-section="Inicio">
+    <p class="eyebrow">Recorrido de hoy</p>
+    <h2 class="slide-title">¿Qué veremos en esta tutoría?</h2>
+    <p class="slide-sub">Seis bloques que nos explican el sentido del curso, su enfoque y la ruta que seguiremos durante el semestre.</p>
+
+    <div class="grid-2" style="gap:16px;">
+      <div class="card card-accent">
+        <h3>01 · El enfoque STEAM+H</h3>
+        <p>Por qué la tecnología no basta y qué significa integrar ciencia, tecnología, ingeniería, artes, matemáticas y humanidades.</p>
+      </div>
+      <div class="card card-accent">
+        <h3>02 · Resultado y ruta de aprendizaje</h3>
+        <p>Qué sabrás hacer al terminar el curso y cómo avanzaremos por los niveles de comprender, aplicar, evaluar y diseñar.</p>
+      </div>
+      <div class="card card-gold">
+        <h3>03 · Unidad 1: co-creación y auditoría crítica</h3>
+        <p>Del texto de divulgación en salud mental a la auditoría sistemática de una herramienta de inteligencia artificial.</p>
+      </div>
+      <div class="card card-gold">
+        <h3>04 · Unidad 2: datos, evidencia y gobernanza</h3>
+        <p>De la base de literatura científica al documento institucional que regula el uso responsable de la IA.</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--navy);">
+        <h3>05 · Ética y responsabilidad humana</h3>
+        <p>Protección de datos, transparencia, supervisión y declaración del uso de IA en los trabajos académicos.</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--navy);">
+        <h3>06 · Síntesis y cierre</h3>
+        <p>Las ideas centrales del curso y la secuencia de trabajo que articula todas las actividades.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 3. CONTEXTO ---------- -->
+  <section class="slide" data-title="¿Por qué IA en ciencias sociales?" data-section="Enfoque STEAM+H">
+    <p class="eyebrow">Contexto</p>
+    <h2 class="slide-title">¿Por qué hablar de inteligencia artificial en ciencias sociales?</h2>
+    <p class="lead">
+      La IA ya transforma la manera en que buscamos información, analizamos datos y producimos contenidos.
+      La pregunta no es si la vamos a usar, sino <strong>cómo, para qué y bajo qué condiciones</strong>.
+    </p>
+
+    <div class="grid-2">
+      <div class="panel" style="border-left-color: var(--blue-mid);">
+        <h3 style="font-size:19px;margin-bottom:12px;">Lo que puede aportar</h3>
+        <ul style="font-size:17px;margin-bottom:0;">
+          <li>Organizar y sintetizar información científica dispersa.</li>
+          <li>Apoyar la comunicación en salud mental para distintas audiencias.</li>
+          <li>Explorar patrones en bases de datos y publicaciones.</li>
+          <li>Acompañar procesos de diseño, prueba y mejora de soluciones.</li>
+        </ul>
+      </div>
+      <div class="panel" style="border-left-color: var(--gold);">
+        <h3 style="font-size:19px;margin-bottom:12px;">Lo que exige atención</h3>
+        <ul style="font-size:17px;margin-bottom:0;">
+          <li>Respuestas convincentes que pueden ser incorrectas.</li>
+          <li>Riesgos de privacidad y filtración de datos sensibles.</li>
+          <li>Sesgos algorítmicos y generalizaciones injustificadas.</li>
+          <li>Confusión entre orientación general e intervención profesional.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="body-text" style="margin-top:22px;">
+      Por eso el curso no enseña a usar una herramienta como un recurso automático. Enseña a <strong>formular problemas,
+      interactuar de manera intencionada, verificar resultados y decidir cuándo la intervención humana es indispensable</strong>.
+    </p>
+  </section>
+
+  <!-- ---------- 4. STEAM NO ES SOLO TECNOLOGÍA ---------- -->
+  <section class="slide" data-title="STEAM no es solo tecnología" data-section="Enfoque STEAM+H">
+    <p class="eyebrow">Enfoque pedagógico</p>
+    <h2 class="slide-title">STEAM no es sumar asignaturas. Es integrarlas alrededor de un problema.</h2>
+
+    <div class="grid-2" style="align-items:start;">
+      <div>
+        <p class="body-text">
+          STEAM no consiste en reunir contenidos de ciencia, tecnología, ingeniería, artes y matemáticas.
+          Su valor aparece cuando esas áreas se articulan en torno a <strong>problemas auténticos</strong>, mediante
+          investigación, diseño, experimentación, colaboración y productos verificables.
+        </p>
+        <p class="body-text">
+          En el contexto colombiano, el Ministerio de Educación Nacional ha impulsado el enfoque STEM+ con
+          aprendizaje activo, tecnologías innovadoras e inteligencia artificial segura. Ese signo «+» permite
+          incorporar dimensiones sociales, humanísticas, territoriales y éticas.
+        </p>
+        <p class="body-text" style="margin-bottom:0;">
+          Por eso este curso puede definirse con mayor precisión como una propuesta <strong>STEAM+H</strong>:
+          la dimensión humanística atraviesa todas las actividades.
+        </p>
+      </div>
+
+      <div class="quote">
+        <p>
+          En este curso la «A» no decora productos. Se relaciona con la capacidad de
+          <strong>representar, comunicar y hacer comprensible el conocimiento</strong>, tomando decisiones sobre
+          lenguaje, audiencia, estructura y experiencia del usuario.
+        </p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:24px;">
+      <p style="margin:0;">
+        <strong>La consecuencia práctica:</strong> cada actividad del curso te pedirá investigar, diseñar, probar,
+        verificar, comunicar y regular. La tecnología será un medio, nunca el punto de llegada.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------- 5. SEIS COMPONENTES ---------- -->
+  <section class="slide" data-title="Los seis componentes STEAM+H" data-section="Enfoque STEAM+H">
+    <p class="eyebrow">Estructura del enfoque</p>
+    <h2 class="slide-title">Los seis componentes, aplicados al curso</h2>
+    <p class="slide-sub">Cada componente tiene un lugar concreto y una evidencia verificable dentro de las actividades.</p>
+
+    <div class="grid-3">
+      <article class="steam-card">
+        <div class="steam-head"><div class="steam-letter">S</div><h3>Ciencia</h3></div>
+        <div class="steam-body">
+          <p>Búsqueda, selección y análisis de evidencia científica para fundamentar contenidos psicológicos y comprobar respuestas generadas por IA.</p>
+          <p class="evi"><b>Evidencias:</b> revisión de artículos, matriz de trazabilidad, verificación manual de resultados.</p>
+        </div>
+      </article>
+
+      <article class="steam-card">
+        <div class="steam-head"><div class="steam-letter">T</div><h3>Tecnología</h3></div>
+        <div class="steam-body">
+          <p>Uso crítico y transparente de agentes de IA, hojas de cálculo y bases de datos como apoyo, no como sustituto del juicio profesional.</p>
+          <p class="evi"><b>Evidencias:</b> registro de prompts, organización de artículos, auditoría de una herramienta.</p>
+        </div>
+      </article>
+
+      <article class="steam-card">
+        <div class="steam-head"><div class="steam-letter">E</div><h3>Ingeniería</h3></div>
+        <div class="steam-body">
+          <p>Diseño iterativo de soluciones: definir requerimientos, construir, probar, evaluar y mejorar.</p>
+          <p class="evi"><b>Evidencias:</b> prompt inicial, mejorado y optimizado; prueba de robustez; flujograma de decisión.</p>
+        </div>
+      </article>
+
+      <article class="steam-card">
+        <div class="steam-head"><div class="steam-letter">A</div><h3>Artes</h3></div>
+        <div class="steam-body">
+          <p>Comunicación creativa y comprensible del conocimiento psicológico, considerando propósito, audiencia y representación visual.</p>
+          <p class="evi"><b>Evidencias:</b> texto de divulgación, informes, visualizaciones, matrices y flujogramas.</p>
+        </div>
+      </article>
+
+      <article class="steam-card">
+        <div class="steam-head"><div class="steam-letter">M</div><h3>Matemáticas</h3></div>
+        <div class="steam-body">
+          <p>Organización, descripción e interpretación de datos para identificar patrones y sustentar decisiones.</p>
+          <p class="evi"><b>Evidencias:</b> frecuencias, distribuciones, tablas, gráficos y matriz de riesgos.</p>
+        </div>
+      </article>
+
+      <article class="steam-card">
+        <div class="steam-head"><div class="steam-letter">+H</div><h3>Humanidades</h3></div>
+        <div class="steam-body">
+          <p>Evaluación del impacto de la tecnología sobre las personas, las comunidades y la práctica profesional.</p>
+          <p class="evi"><b>Evidencias:</b> protección de datos, análisis de sesgos, confidencialidad y supervisión humana.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- 6. ACTIVIDAD: EMPAREJAR ---------- -->
+  <section class="slide" data-title="Actividad: empareja los componentes" data-section="Enfoque STEAM+H">
+    <span class="activity-tag">Actividad 1 · Emparejamiento</span>
+    <h2 class="slide-title">Unamos cada componente con su aplicación en el curso</h2>
+    <p class="slide-sub">Seleccionen una descripción de la columna izquierda y luego hagan clic en el componente que le corresponde. Lo resolvemos juntos en clase.</p>
+
+    <div class="match-wrap">
+      <div>
+        <div class="sim-grid-title">Descripciones</div>
+        <div class="pool" id="pool"></div>
+      </div>
+      <div>
+        <div class="sim-grid-title">Componentes</div>
+        <div class="tiles" id="tiles"></div>
+      </div>
+    </div>
+
+    <div class="act-actions">
+      <button class="btn" id="checkMatch">Verificar</button>
+      <button class="btn ghost" id="resetMatch">Reiniciar</button>
+      <span class="act-feedback" id="matchFeedback"></span>
+    </div>
+  </section>
+
+  <!-- ---------- 7. RESULTADO DE APRENDIZAJE ---------- -->
+  <section class="slide" data-title="Resultado de aprendizaje" data-section="Aprendizaje">
+    <p class="eyebrow">Horizonte formativo</p>
+    <h2 class="slide-title">¿Qué sabrás hacer al terminar el curso?</h2>
+
+    <div class="quote" style="margin-bottom:26px;">
+      <p>
+        Integra herramientas digitales y sistemas de inteligencia artificial en el <strong>análisis de información</strong>,
+        el <strong>abordaje y seguimiento de situaciones psicológicas</strong> y el <strong>diseño de soluciones contextualizadas</strong>,
+        mediante evidencia científica, análisis de datos, procesos iterativos de diseño y criterios éticos de supervisión humana.
+      </p>
+    </div>
+
+    <p class="body-text" style="margin-bottom:18px;">
+      Este resultado implica cuatro desempeños observables que trabajaremos a lo largo de las dos unidades:
+    </p>
+
+    <div class="grid-3">
+      <div class="card card-accent"><h3>Uso de herramientas</h3><p>Diseñar interacciones con IA mediante instrucciones contextualizadas y mejora iterativa.</p></div>
+      <div class="card card-accent"><h3>Análisis de información</h3><p>Organizar literatura y datos con bases estructuradas, estadística descriptiva y herramientas digitales.</p></div>
+      <div class="card card-gold"><h3>Diseño de soluciones</h3><p>Construir protocolos y controles institucionales viables, probados y documentados.</p></div>
+      <div class="card card-gold"><h3>Evaluación ética y contextual</h3><p>Identificar riesgos técnicos y éticos, y decidir cuándo limitar o rechazar el uso de la IA.</p></div>
+    </div>
+  </section>
+
+  <!-- ---------- 8. RUTA DE APRENDIZAJE ---------- -->
+  <section class="slide" data-title="Ruta de aprendizaje en 4 niveles" data-section="Aprendizaje">
+    <p class="eyebrow">Progresión</p>
+    <h2 class="slide-title">Comprender, aplicar, evaluar y diseñar</h2>
+    <p class="slide-sub">La evaluación crítica funciona como puente entre el uso de la herramienta y el diseño de respuestas institucionales.</p>
+
+    <div class="levels">
+      <div class="level">
+        <div class="lv-num">Nivel 1</div>
+        <h3>Comprender</h3>
+        <p>Reconoces qué puede hacer una herramienta de IA, cuáles son sus posibilidades y sus límites.</p>
+        <div class="evi"><b>Evidencia:</b> preparación conceptual y selección de fuentes.</div>
+      </div>
+      <div class="level">
+        <div class="lv-num">Nivel 2</div>
+        <h3>Aplicar</h3>
+        <p>Utilizas herramientas digitales para crear contenidos y analizar información.</p>
+        <div class="evi"><b>Evidencias:</b> texto de divulgación y base de datos de literatura.</div>
+      </div>
+      <div class="level">
+        <div class="lv-num">Nivel 3</div>
+        <h3>Evaluar</h3>
+        <p>Verificas resultados, contrastas afirmaciones, identificas errores y analizas riesgos.</p>
+        <div class="evi"><b>Evidencia:</b> auditoría crítica de la herramienta.</div>
+      </div>
+      <div class="level">
+        <div class="lv-num">Nivel 4</div>
+        <h3>Diseñar</h3>
+        <p>Construyes una respuesta institucional contextualizada y fundamentada en evidencia.</p>
+        <div class="evi"><b>Evidencia:</b> protocolo de gobernanza de IA.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:24px;">
+      <p style="margin:0;">
+        <strong>Idea clave:</strong> el aprendizaje no termina cuando la herramienta produce una respuesta.
+        Termina cuando podemos determinar si esa respuesta es válida, explicar cómo la verificamos y decidir si
+        puede utilizarse responsablemente en un contexto profesional.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------- 9. UNIDAD 1 ---------- -->
+  <section class="slide" data-title="Unidad 1: co-creación y auditoría" data-section="Unidad 1">
+    <p class="eyebrow">Unidad 1</p>
+    <h2 class="slide-title">Co-creación, prompting y auditoría crítica de IA</h2>
+
+    <div class="panel" style="margin-bottom:24px;">
+      <p style="margin:0;font-size:clamp(18px,1.15vw,21px);">
+        <strong>Pregunta orientadora:</strong> ¿Cómo podemos trabajar con una inteligencia artificial para producir
+        contenidos y apoyar el análisis de situaciones psicológicas sin delegarle la responsabilidad profesional?
+      </p>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <div>
+        <h3 style="font-size:20px;margin-bottom:14px;">Actividad experiencial</h3>
+        <div class="steps">
+          <div class="step"><p>Seleccionar un problema de comunicación en salud mental y delimitar la audiencia.</p></div>
+          <div class="step"><p>Consultar dos fuentes académicas y diseñar el prompt inicial.</p></div>
+          <div class="step"><p>Analizar la respuesta, mejorarla y justificar cada decisión tomada.</p></div>
+          <div class="step"><p>Declarar el uso de IA y cerrar con una reflexión de 300 a 500 palabras.</p></div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:20px;margin-bottom:14px;">Primer entregable</h3>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <h3>Auditoría crítica de una herramienta de IA</h3>
+          <p style="margin-bottom:12px;">
+            En equipos, evalúan hasta qué punto una herramienta entrega respuestas pertinentes, fundamentadas,
+            seguras y éticamente aceptables ante un caso psicológico ficticio.
+          </p>
+          <ul style="font-size:16.5px;margin-bottom:0;">
+            <li>Diseño de prompts con el marco <strong>RACCCA</strong>: versión inicial, mejorada y optimizada.</li>
+            <li>Prueba controlada de robustez con casos límite y supuestos incorrectos.</li>
+            <li>Matriz de trazabilidad y contraste con fuentes externas.</li>
+            <li>Análisis ético y recomendaciones institucionales de uso.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 10. ACTIVIDAD: QUIZ ---------- -->
+  <section class="slide" data-title="Actividad: pon a prueba lo aprendido" data-section="Unidad 1">
+    <span class="activity-tag">Actividad 2 · Opción múltiple</span>
+    <h2 class="slide-title">Pon a prueba lo aprendido en la Unidad 1</h2>
+    <p class="slide-sub">Elijan una respuesta en cada pregunta. Recibirán retroalimentación inmediata.</p>
+
+    <div class="quiz" id="quiz1">
+      <div class="q" data-fb="La prueba de robustez no busca vulnerar salvaguardas: examina cómo responde la herramienta ante condiciones problemáticas y permite reconocer cuándo su uso podría tener consecuencias negativas.">
+        <div class="q-stem">1. ¿Cuál es el propósito de la prueba controlada de robustez?</div>
+        <div class="opts">
+          <button class="opt" data-correct="false">Vulnerar las salvaguardas del sistema para conocer sus límites internos.</button>
+          <button class="opt" data-correct="true">Observar cómo responde la herramienta ante casos límite, ambigüedades y supuestos incorrectos.</button>
+          <button class="opt" data-correct="false">Obtener respuestas más rápidas cambiando el orden de las palabras del prompt.</button>
+          <button class="opt" data-correct="false">Demostrar que la IA puede reemplazar el juicio del psicólogo.</button>
+        </div>
+        <div class="q-fb"></div>
+      </div>
+
+      <div class="q" data-fb="Una respuesta bien redactada puede contener errores, generalizaciones injustificadas o referencias inexistentes. Toda afirmación relevante debe contrastarse con manuales, guías profesionales, normas o artículos científicos.">
+        <div class="q-stem">2. Un texto generado por IA está bien escrito y cita tres artículos. ¿Qué corresponde hacer?</div>
+        <div class="opts">
+          <button class="opt" data-correct="false">Usarlo tal cual: si está bien redactado y cita fuentes, es confiable.</button>
+          <button class="opt" data-correct="true">Verificar cada afirmación y cada referencia contra las fuentes originales antes de usarlo.</button>
+          <button class="opt" data-correct="false">Cambiar el orden de los párrafos para que no parezca generado por IA.</button>
+          <button class="opt" data-correct="false">Pedirle a la misma herramienta que confirme si lo que dijo es cierto.</button>
+        </div>
+        <div class="q-fb"></div>
+      </div>
+
+      <div class="q" data-fb="Durante todo el curso se trabaja únicamente con información general, datos anonimizados o casos ficticios. Ingresar historias clínicas reales, nombres, documentos o datos identificables está prohibido.">
+        <div class="q-stem">3. ¿Cuál de estas acciones está prohibida en el curso?</div>
+        <div class="opts">
+          <button class="opt" data-correct="false">Construir un caso psicológico ficticio y contextualizado.</button>
+          <button class="opt" data-correct="false">Registrar los prompts principales utilizados en el trabajo.</button>
+          <button class="opt" data-correct="true">Ingresar historias clínicas reales a la herramienta de IA.</button>
+          <button class="opt" data-correct="false">Contrastar las respuestas con literatura científica.</button>
+        </div>
+        <div class="q-fb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 11. UNIDAD 2 ---------- -->
+  <section class="slide" data-title="Unidad 2: datos, evidencia y gobernanza" data-section="Unidad 2">
+    <p class="eyebrow">Unidad 2</p>
+    <h2 class="slide-title">Datos, evidencia y gobernanza de la inteligencia artificial</h2>
+
+    <div class="panel" style="margin-bottom:22px;">
+      <p style="margin:0;font-size:clamp(18px,1.15vw,21px);">
+        <strong>Pregunta orientadora:</strong> ¿Cómo podemos transformar información científica en conocimiento analizable
+        y utilizarlo para diseñar normas institucionales de uso responsable de inteligencia artificial?
+      </p>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <div>
+        <h3 style="font-size:20px;margin-bottom:12px;">De documentos a datos comparables</h3>
+        <p class="body-text" style="font-size:17.5px;">
+          Cada estudiante construye una base de datos a partir de artículos científicos. Una base no es un repositorio:
+          implica decidir categorías, definir criterios comunes y transformar información no estructurada en datos comparables.
+        </p>
+        <div class="chips" style="margin-bottom:16px;">
+          <span class="chip">Autor y año</span>
+          <span class="chip">Revista</span>
+          <span class="chip">País</span>
+          <span class="chip">Población</span>
+          <span class="chip">Tamaño de muestra</span>
+          <span class="chip">Metodología</span>
+          <span class="chip">Uso de IA</span>
+          <span class="chip">Hallazgo principal</span>
+          <span class="chip">Limitaciones</span>
+          <span class="chip">DOI</span>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:20px;margin-bottom:12px;">Verificación humana obligatoria</h3>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <p style="margin-bottom:12px;font-size:17px;">Para cada resultado generado con apoyo de IA, el equipo debe responder:</p>
+          <ul style="font-size:16.5px;margin-bottom:0;">
+            <li>¿Qué datos utilizó la herramienta?</li>
+            <li>¿El cálculo coincide con la base original?</li>
+            <li>¿La interpretación se desprende realmente de los datos?</li>
+            <li>¿La IA incorporó información que no estaba en la base?</li>
+            <li>¿Qué corrección realizó el estudiante?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:22px;border-left-color: var(--gold);">
+      <p style="margin:0;">
+        <strong>Segundo entregable —</strong> Documento de gobernanza de IA para la práctica psicológica: protocolo,
+        flujograma de decisión, banco de prompts validados, matriz de riesgos y controles, simulacro de filtración
+        de datos y aplicación piloto comparada.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------- 12. SIMULACIÓN ---------- -->
+  <section class="slide" data-title="Simulación: matriz de riesgos" data-section="Unidad 2">
+    <span class="activity-tag">Simulación interactiva</span>
+    <h2 class="slide-title">Calculemos el nivel de riesgo de un evento</h2>
+    <p class="slide-sub">Seleccionen un evento, ajusten probabilidad e impacto y observen cómo cambia la clasificación institucional.</p>
+
+    <div class="sim">
+      <!-- Controles -->
+      <div class="sim-controls">
+        <div class="field">
+          <label for="riskEvent">Evento de riesgo</label>
+          <select id="riskEvent"></select>
+        </div>
+
+        <div class="field">
+          <label>Probabilidad <span style="font-weight:500;color:var(--muted);">(1 = rara · 5 = casi segura)</span></label>
+          <div class="slider-row">
+            <input type="range" id="prob" min="1" max="5" step="1" value="3" aria-label="Probabilidad">
+            <div class="slider-val" id="probVal">3</div>
+          </div>
+          <div class="scale"><span>Rara</span><span>Poco probable</span><span>Posible</span><span>Probable</span><span>Casi segura</span></div>
+        </div>
+
+        <div class="field">
+          <label>Impacto <span style="font-weight:500;color:var(--muted);">(1 = menor · 5 = crítico)</span></label>
+          <div class="slider-row">
+            <input type="range" id="impact" min="1" max="5" step="1" value="4" aria-label="Impacto">
+            <div class="slider-val" id="impactVal">4</div>
+          </div>
+          <div class="scale"><span>Menor</span><span>Bajo</span><span>Moderado</span><span>Grave</span><span>Crítico</span></div>
+        </div>
+
+        <p class="sim-hint">
+          La escala de la matriz es <strong>1 a 5</strong>. El nivel de riesgo se obtiene multiplicando
+          probabilidad por impacto, lo que produce valores entre 1 y 25.
+        </p>
+      </div>
+
+      <!-- Resultado -->
+      <div class="sim-result">
+        <div class="sim-score">
+          <div>
+            <div class="sim-formula" id="formula">3 × 4 =</div>
+            <div class="sim-number" id="scoreNum">12</div>
+          </div>
+          <div class="sim-badge" id="badge">Riesgo alto</div>
+        </div>
+
+        <div class="sim-interp" id="interp"></div>
+
+        <div class="sim-grid">
+          <div class="sim-grid-title">Mapa de calor · Probabilidad × Impacto</div>
+          <div class="matrix" id="matrix"></div>
+          <p class="sim-hint" style="margin-top:12px;">
+            Pueden hacer clic sobre cualquier celda del mapa para situar el riesgo en esa combinación.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 13. ACTIVIDAD: CASOS ÉTICOS ---------- -->
+  <section class="slide" data-title="Actividad: decide con criterio ético" data-section="Unidad 2">
+    <span class="activity-tag">Actividad 3 · Casos de decisión</span>
+    <h2 class="slide-title">Tres situaciones, tres decisiones</h2>
+    <p class="slide-sub">Lean cada caso y elijan el curso de acción que mejor se ajusta a los criterios del curso.</p>
+
+    <div class="quiz" id="quiz2">
+      <div class="q" data-fb="El principio de minimización de datos exige que la información sensible se excluya o anonimice antes de cualquier procesamiento. Nunca se ingresa información clínica real a una herramienta externa.">
+        <div class="q-stem">Caso 1. Un equipo quiere analizar 40 historias clínicas reales con IA para encontrar patrones.</div>
+        <div class="opts">
+          <button class="opt" data-correct="false">Subirlas y anonimizar el archivo después, cuando ya estén en la herramienta.</button>
+          <button class="opt" data-correct="true">Reemplazarlas por casos ficticios o datos agregados y anonimizados antes de cualquier procesamiento.</button>
+          <button class="opt" data-correct="false">Pedir autorización verbal a un compañero de práctica y subirlas.</button>
+        </div>
+        <div class="q-fb"></div>
+      </div>
+
+      <div class="q" data-fb="Toda afirmación relevante debe pasar por la matriz de trazabilidad. Si una referencia no puede verificarse en fuentes originales, se elimina y el contenido se reformula con evidencia comprobable.">
+        <div class="q-stem">Caso 2. La IA entrega una cita que parece perfecta, pero no aparece en ninguna base de datos.</div>
+        <div class="opts">
+          <button class="opt" data-correct="false">Incluirla igual: la herramienta suele acertar en este tipo de referencias.</button>
+          <button class="opt" data-correct="true">Eliminar la cita y reformular el contenido solo con fuentes verificables.</button>
+          <button class="opt" data-correct="false">Ajustar el año hasta encontrar algo parecido y dejarla así.</button>
+        </div>
+        <div class="q-fb"></div>
+      </div>
+
+      <div class="q" data-fb="Reconocer los límites de la herramienta es parte del desempeño esperado. Ninguna IA asume responsabilidad profesional: la decisión final es siempre humana.">
+        <div class="q-stem">Caso 3. Ante un prompt con datos insuficientes, la herramienta emite un diagnóstico definitivo.</div>
+        <div class="opts">
+          <button class="opt" data-correct="false">Aceptarlo: si la herramienta lo afirma, es porque tiene base suficiente.</button>
+          <button class="opt" data-correct="true">Detener el proceso: la herramienta excedió su alcance y la decisión corresponde al profesional.</button>
+          <button class="opt" data-correct="false">Guardarlo como hipótesis y usarlo para orientar la intervención sin más revisión.</button>
+        </div>
+        <div class="q-fb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 14. ÉTICA Y RESPONSABILIDAD ---------- -->
+  <section class="slide" data-title="Ética y responsabilidad humana" data-section="Ética">
+    <p class="eyebrow">Eje transversal</p>
+    <h2 class="slide-title">La responsabilidad humana no se delega</h2>
+
+    <p class="lead">
+      La IA puede apoyar tareas de búsqueda, organización, síntesis y comunicación, pero no sustituye el juicio
+      profesional ni asume responsabilidad por las consecuencias de una decisión.
+    </p>
+
+    <div class="grid-2" style="align-items:start;">
+      <div>
+        <h3 style="font-size:19px;margin-bottom:12px;">Reglas de trabajo con datos</h3>
+        <div class="card" style="border-top:4px solid var(--gold);">
+          <ul style="font-size:17px;margin-bottom:0;">
+            <li>Trabajar únicamente con información general, anonimizada o ficticia.</li>
+            <li>No ingresar nombres, documentos, contactos ni historias clínicas reales.</li>
+            <li>Aplicar minimización de datos: solo lo estrictamente necesario.</li>
+            <li>Mantener supervisión humana en todo el proceso.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:19px;margin-bottom:12px;">Declaración de uso de IA</h3>
+        <div class="panel" style="border-left-color: var(--blue-mid);">
+          <p style="font-size:16.5px;line-height:1.55;margin:0;">
+            «Para la elaboración de este trabajo utilizamos <strong>[nombre y versión de la herramienta]</strong> en las
+            tareas de <strong>[describir tareas]</strong>. Ingresamos únicamente información ficticia, anonimizada o de
+            carácter general. Verificamos las afirmaciones mediante <strong>[fuentes o procedimiento]</strong>.
+            Modificamos los siguientes componentes de las respuestas obtenidas: <strong>[describir]</strong>.
+            El equipo revisó el contenido final y asume la responsabilidad académica y ética por su exactitud,
+            pertinencia y presentación.»
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:22px;">
+      <p style="margin:0;">
+        <strong>Transparencia no es solo decir «usé IA».</strong> Es explicar cómo se usó, qué aportó, qué se rechazó
+        y qué decisiones tomaron las personas. Este curso se alinea con el marco de competencias en IA de UNESCO y con
+        las orientaciones de la APA sobre transparencia, consentimiento, mitigación de sesgos, equidad y privacidad.
+      </p>
+    </div>
+  </section>
+
+  <!-- ---------- 15. CIERRE ---------- -->
+  <section class="slide" data-title="Síntesis y cierre" data-section="Cierre">
+    <p class="eyebrow">Cierre</p>
+    <h2 class="slide-title">Investigar, utilizar, diseñar, probar, verificar, comunicar y regular</h2>
+
+    <div class="quote" style="margin-bottom:26px;">
+      <p>
+        La competencia digital no consiste en obtener respuestas con mayor rapidez. Una utilización competente de la
+        inteligencia artificial exige <strong>formular buenas preguntas, seleccionar información pertinente,
+        verificar los resultados, reconocer la incertidumbre y actuar con criterios profesionales y éticos</strong>.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card card-accent"><h3>La tecnología es un medio</h3><p>El enfoque STEAM+H articula investigación, análisis de datos, diseño, comunicación y responsabilidad ética.</p></div>
+      <div class="card card-accent"><h3>La verificación es obligatoria</h3><p>Toda afirmación relevante se contrasta con fuentes originales antes de formar parte de un producto.</p></div>
+      <div class="card card-gold"><h3>La decisión es humana</h3><p>La IA amplía capacidades, pero no asume responsabilidad profesional ni sustituye el juicio del psicólogo.</p></div>
+    </div>
+
+    <div class="panel" style="margin-top:24px;">
+      <p style="margin:0;font-size:18px;">
+        <strong>Próximo paso:</strong> revisen la guía de la Unidad 1, elijan su tema de salud mental y comiencen a
+        construir el portafolio de co-creación. Recuerden registrar cada prompt, cada decisión y cada verificación.
+      </p>
+    </div>
+
+    <p style="margin-top:22px;font-size:15px;color:var(--muted);">
+      Referentes del curso: marco de competencias en IA para estudiantes (UNESCO) · guía de IA generativa en educación (UNESCO) ·
+      orientaciones de la American Psychological Association · lineamientos STEM+ del Ministerio de Educación Nacional de Colombia.
+    </p>
+  </section>
+
+</main>
+
+<!-- ============ CONTROLES DE NAVEGACIÓN ============ -->
+<div class="nav-controls">
+  <button class="nav-btn" id="prevBtn" aria-label="Diapositiva anterior">←</button>
+  <button class="nav-btn" id="nextBtn" aria-label="Diapositiva siguiente">→</button>
+</div>
+
+<div class="keyhint">
+  Navega con <kbd>←</kbd> <kbd>→</kbd> o <kbd>espacio</kbd> · Pulsa <kbd>Esc</kbd> para cerrar el índice
+</div>
+
+<script>
+/* ============================================================
+   A. NAVEGACIÓN PRINCIPAL
+   ============================================================ */
+const slides   = Array.from(document.querySelectorAll('.slide'));
+const deck     = document.getElementById('deck');
+const curNum   = document.getElementById('curNum');
+const totNum   = document.getElementById('totNum');
+const progress = document.getElementById('progressBar');
+const prevBtn  = document.getElementById('prevBtn');
+const nextBtn  = document.getElementById('nextBtn');
+const sidebar  = document.getElementById('sidebar');
+const overlay  = document.getElementById('overlay');
+const menuBtn  = document.getElementById('menuBtn');
+const closeBtn = document.getElementById('closeBtn');
+const toc      = document.getElementById('toc');
+
+let current = 0;
+totNum.textContent = slides.length;
+
+/* --- Construir el índice dinámico --- */
+let lastSection = null;
+slides.forEach((slide, i) => {
+  const section = slide.dataset.section;
+
+  if (section && section !== lastSection) {
+    lastSection = section;
+    const heading = document.createElement('div');
+    heading.className = 'toc-section';
+    heading.textContent = section;
+    toc.appendChild(heading);
+  }
+
+  const btn = document.createElement('button');
+  btn.className = 'toc-item';
+  btn.dataset.index = i;
+  btn.innerHTML =
+    '<span class="toc-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+    '<span>' + slide.dataset.title + '</span>';
+  btn.addEventListener('click', () => { goTo(i); closeSidebar(); });
+  toc.appendChild(btn);
+});
+
+const tocItems = Array.from(document.querySelectorAll('.toc-item'));
+
+/* --- Ir a una diapositiva --- */
+function goTo(index) {
+  if (index < 0 || index >= slides.length) return;
+  slides[current].classList.remove('active');
+  current = index;
+  slides[current].classList.add('active');
+
+  // Reiniciar el scroll para que cada diapositiva aparezca desde arriba
+  deck.scrollTop = 0;
+
+  // Actualizar indicadores
+  curNum.textContent = current + 1;
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === slides.length - 1;
+
+  // Resaltar el ítem del índice
+  tocItems.forEach((item, i) => item.classList.toggle('active', i === current));
+}
+
+/* --- Abrir / cerrar índice --- */
+function openSidebar() {
+  sidebar.classList.add('open');
+  overlay.classList.add('show');
+}
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+}
+menuBtn.addEventListener('click', openSidebar);
+closeBtn.addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+/* --- Botones anterior / siguiente --- */
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+
+/* --- Navegación con teclado --- */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+    e.preventDefault();
+    goTo(current + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    goTo(current - 1);
+  } else if (e.key === 'Escape') {
+    closeSidebar();
+  }
+});
+
+/* --- Estado inicial --- */
+goTo(0);
+
+
+/* ============================================================
+   B. ACTIVIDAD 1 — EMPAREJAMIENTO STEAM
+   ============================================================ */
+const COMPONENTS = [
+  { id: 'S', name: 'Ciencia',      desc: 'Búsqueda y contraste de evidencia científica' },
+  { id: 'T', name: 'Tecnología',   desc: 'Uso crítico de IA, hojas de cálculo y bases de datos' },
+  { id: 'E', name: 'Ingeniería',   desc: 'Diseño iterativo de prompts, protocolos y controles' },
+  { id: 'A', name: 'Artes',        desc: 'Comunicación, audiencia y representación visual' },
+  { id: 'M', name: 'Matemáticas',  desc: 'Frecuencias, distribuciones y valoración de riesgos' },
+  { id: 'H', name: 'Humanidades',  desc: 'Ética, privacidad y responsabilidad profesional' }
+];
+
+const poolEl      = document.getElementById('pool');
+const tilesEl     = document.getElementById('tiles');
+const matchFb     = document.getElementById('matchFeedback');
+const checkMatch  = document.getElementById('checkMatch');
+const resetMatch  = document.getElementById('resetMatch');
+
+let selectedDesc = null;   // id de la descripción seleccionada
+let assignments  = {};     // { compId: descId }
+
+/* Barajar el orden de las descripciones una sola vez */
+const shuffledIds = COMPONENTS.map(c => c.id).sort(() => Math.random() - 0.5);
+
+function renderPool() {
+  poolEl.innerHTML = '';
+  const used = Object.values(assignments);
+
+  shuffledIds.forEach(id => {
+    if (used.includes(id)) return;
+    const comp = COMPONENTS.find(c => c.id === id);
+    const btn = document.createElement('button');
+    btn.className = 'pool-item' + (selectedDesc === id ? ' selected' : '');
+    btn.textContent = comp.desc;
+    btn.addEventListener('click', () => {
+      selectedDesc = (selectedDesc === id) ? null : id;
+      renderPool();
+    });
+    poolEl.appendChild(btn);
+  });
+
+  if (!poolEl.children.length) {
+    const empty = document.createElement('div');
+    empty.className = 'pool-empty';
+    empty.textContent = 'Todas las descripciones fueron asignadas. Verifiquen sus respuestas.';
+    poolEl.appendChild(empty);
+  }
+}
+
+function renderTiles() {
+  tilesEl.innerHTML = '';
+  COMPONENTS.forEach(comp => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.dataset.comp = comp.id;
+
+    const assignedId = assignments[comp.id];
+    const slotText = assignedId
+      ? COMPONENTS.find(c => c.id === assignedId).desc
+      : 'Sin asignar — selecciona una descripción y haz clic aquí';
+
+    tile.innerHTML =
+      '<div class="tile-head">' +
+        '<div class="tile-letter">' + comp.id + '</div>' +
+        '<div class="tile-name">' + comp.name + '</div>' +
+      '</div>' +
+      '<div class="tile-slot' + (assignedId ? ' filled' : '') + '">' + slotText + '</div>';
+
+    tile.addEventListener('click', () => {
+      if (!selectedDesc) return;
+      assignments[comp.id] = selectedDesc;
+      selectedDesc = null;
+      matchFb.textContent = '';
+      matchFb.className = 'act-feedback';
+      renderPool();
+      renderTiles();
+    });
+
+    tilesEl.appendChild(tile);
+  });
+}
+
+checkMatch.addEventListener('click', () => {
+  const tiles = tilesEl.querySelectorAll('.tile');
+  let correct = 0;
+
+  tiles.forEach(tile => {
+    const compId = tile.dataset.comp;
+    tile.classList.remove('correct', 'wrong');
+    if (assignments[compId] === compId) {
+      tile.classList.add('correct');
+      correct++;
+    } else if (assignments[compId]) {
+      tile.classList.add('wrong');
+    }
+  });
+
+  matchFb.className = 'act-feedback ' + (correct === COMPONENTS.length ? 'ok' : 'bad');
+  matchFb.textContent = correct === COMPONENTS.length
+    ? '¡Correcto! Los seis componentes están bien emparejados.'
+    : correct + ' de ' + COMPONENTS.length + ' correctos. Revisen las casillas marcadas en rojo.';
+});
+
+resetMatch.addEventListener('click', () => {
+  assignments = {};
+  selectedDesc = null;
+  matchFb.textContent = '';
+  matchFb.className = 'act-feedback';
+  renderPool();
+  renderTiles();
+});
+
+renderPool();
+renderTiles();
+
+
+/* ============================================================
+   C. ACTIVIDADES 2 y 3 — CUESTIONARIOS CON RETROALIMENTACIÓN
+   ============================================================ */
+document.querySelectorAll('.q').forEach(question => {
+  const options = question.querySelectorAll('.opt');
+  const feedback = question.querySelector('.q-fb');
+  const feedbackText = question.dataset.fb;
+
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      // Bloquear el grupo una vez respondido
+      options.forEach(o => {
+        o.disabled = true;
+        if (o.dataset.correct === 'true') o.classList.add('correct');
+      });
+
+      if (option.dataset.correct !== 'true') {
+        option.classList.add('wrong');
+      }
+
+      feedback.textContent = feedbackText;
+      feedback.classList.add('show');
+    });
+  });
+});
+
+
+/* ============================================================
+   D. SIMULACIÓN — MATRIZ DE RIESGOS
+   ============================================================ */
+const RISK_EVENTS = [
+  { name: 'Pérdida de confidencialidad por ingreso de datos identificables', p: 3, i: 5,
+    control: 'Anonimizar antes de procesar, minimizar datos y prohibir el ingreso de información clínica real.' },
+  { name: 'Información incorrecta aceptada sin verificación', p: 4, i: 4,
+    control: 'Matriz de trazabilidad obligatoria: cada afirmación se contrasta con fuentes originales.' },
+  { name: 'Sesgo no detectado en una respuesta automatizada', p: 3, i: 4,
+    control: 'Pruebas con dos versiones del mismo caso y diferencias sociodemográficas; revisión por pares.' },
+  { name: 'Uso no autorizado de una herramienta sin protocolo', p: 2, i: 4,
+    control: 'Registro institucional de herramientas aprobadas y control de acceso.' },
+  { name: 'Dependencia tecnológica y pérdida de juicio profesional', p: 3, i: 3,
+    control: 'Supervisión humana documentada y contraste periódico con criterio profesional.' },
+  { name: 'Ausencia de supervisión humana en una decisión clínica', p: 2, i: 5,
+    control: 'Roles definidos, rutas de aprobación y prohibición expresa de decisiones automatizadas.' },
+  { name: 'Filtración de datos en un simulacro de incidente', p: 2, i: 5,
+    control: 'Plan de respuesta ante incidentes, rutas de reporte y revisión de accesos.' }
+];
+
+const eventSelect = document.getElementById('riskEvent');
+const probInput   = document.getElementById('prob');
+const impactInput = document.getElementById('impact');
+const probVal     = document.getElementById('probVal');
+const impactVal   = document.getElementById('impactVal');
+const scoreNum    = document.getElementById('scoreNum');
+const formulaEl   = document.getElementById('formula');
+const badgeEl     = document.getElementById('badge');
+const interpEl    = document.getElementById('interp');
+const matrixEl    = document.getElementById('matrix');
+
+/* --- Poblar el selector de eventos --- */
+RISK_EVENTS.forEach((ev, i) => {
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = ev.name;
+  eventSelect.appendChild(opt);
+});
+
+/* --- Clasificación del nivel de riesgo --- */
+function classify(score) {
+  if (score <= 4)  return { key: 'low',  label: 'Riesgo bajo',     bg: 'var(--r-low-bg)',  fg: 'var(--r-low-fg)' };
+  if (score <= 9)  return { key: 'mod',  label: 'Riesgo moderado', bg: 'var(--r-mod-bg)',  fg: 'var(--r-mod-fg)' };
+  if (score <= 16) return { key: 'hig',  label: 'Riesgo alto',     bg: 'var(--r-hig-bg)',  fg: 'var(--r-hig-fg)' };
+  return             { key: 'cri',  label: 'Riesgo crítico',  bg: 'var(--r-cri-bg)',  fg: 'var(--r-cri-fg)' };
+}
+
+function cellClass(score) {
+  if (score <= 4)  return 'c-low';
+  if (score <= 9)  return 'c-mod';
+  if (score <= 16) return 'c-hig';
+  return 'c-cri';
+}
+
+/* --- Construir el mapa de calor 5×5 --- */
+const MATRIX_LABELS_P = ['1', '2', '3', '4', '5'];
+
+function buildMatrix() {
+  matrixEl.innerHTML = '';
+
+  // Fila superior: etiquetas de probabilidad
+  const corner = document.createElement('div');
+  corner.className = 'axis';
+  corner.textContent = '';
+  matrixEl.appendChild(corner);
+
+  MATRIX_LABELS_P.forEach(p => {
+    const lab = document.createElement('div');
+    lab.className = 'axis';
+    lab.textContent = 'P' + p;
+    matrixEl.appendChild(lab);
+  });
+
+  // Filas de impacto, de 5 (arriba) a 1 (abajo)
+  for (let i = 5; i >= 1; i--) {
+    const rowLabel = document.createElement('div');
+    rowLabel.className = 'axis';
+    rowLabel.textContent = 'I' + i;
+    matrixEl.appendChild(rowLabel);
+
+    for (let p = 1; p <= 5; p++) {
+      const score = p * i;
+      const cell = document.createElement('div');
+      cell.className = 'cell ' + cellClass(score);
+      cell.dataset.p = p;
+      cell.dataset.i = i;
+      cell.textContent = score;
+      cell.title = 'Probabilidad ' + p + ' × Impacto ' + i + ' = ' + score;
+      cell.addEventListener('click', () => {
+        probInput.value = p;
+        impactInput.value = i;
+        updateSimulation();
+      });
+      matrixEl.appendChild(cell);
+    }
+  }
+}
+
+/* --- Actualizar toda la simulación --- */
+function updateSimulation() {
+  const p = parseInt(probInput.value, 10);
+  const i = parseInt(impactInput.value, 10);
+  const score = p * i;
+  const level = classify(score);
+  const eventIndex = parseInt(eventSelect.value, 10) || 0;
+  const event = RISK_EVENTS[eventIndex];
+
+  // Valores numéricos
+  probVal.textContent = p;
+  impactVal.textContent = i;
+
+  // Resultado
+  formulaEl.textContent = p + ' × ' + i + ' =';
+  scoreNum.textContent = score;
+  badgeEl.textContent = level.label;
+  badgeEl.style.background = level.bg;
+  badgeEl.style.color = level.fg;
+
+  // Interpretación dinámica
+  interpEl.innerHTML =
+    '<b>' + event.name + '</b><br>' +
+    'Nivel <b>' + level.label.toLowerCase() + '</b> (' + score + ' puntos en la escala 1–25). ' +
+    '<b>Control sugerido:</b> ' + event.control;
+
+  // Resaltar celda activa en el mapa de calor
+  matrixEl.querySelectorAll('.cell').forEach(cell => {
+    cell.classList.toggle(
+      'active',
+      parseInt(cell.dataset.p, 10) === p && parseInt(cell.dataset.i, 10) === i
+    );
+  });
+}
+
+/* --- Eventos --- */
+eventSelect.addEventListener('change', () => {
+  const ev = RISK_EVENTS[parseInt(eventSelect.value, 10)];
+  if (ev) {
+    probInput.value = ev.p;
+    impactInput.value = ev.i;
+  }
+  updateSimulation();
+});
+probInput.addEventListener('input', updateSimulation);
+impactInput.addEventListener('input', updateSimulation);
+
+/* --- Inicializar --- */
+buildMatrix();
+eventSelect.value = 0;
+updateSimulation();
+</script>
+
+</body>
+</html>
