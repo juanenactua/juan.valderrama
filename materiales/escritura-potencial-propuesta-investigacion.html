@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escritura Potencial · Juan Carlos Valderrama Cárdenas</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Escritura Potencial · Propuesta de investigación">
+<meta name="jc-descripcion" content="Propuesta interactiva de investigación social participativa basada en las artes que emplea escritura creativa en prosa y restricciones inspiradas en Oulipo para explorar experiencias universitarias de memoria, aprendizaje, narración e interpretación colectiva.">
+<meta name="jc-tipo" content="Propuesta de investigación interactiva">
+<meta name="jc-etiquetas" content="Investigación social participativa, Investigación basada en las artes, Métodos participativos, Escritura creativa, Escritura potencial, Oulipo, Restricciones literarias, Memoria, Aprendizaje, Experiencias de aprendizaje, Narrativa, Investigación cualitativa, Conocimiento situado, Interpretación colectiva, Autointerpretación, Creación colectiva, Cartografía de recuerdos, Fanzine, Ética de la investigación, Consentimiento informado, Autoría, Confidencialidad, Derecho a la opacidad, Reflexividad metodológica, Estudiantes universitarios">
+<meta name="jc-curso" content="Métodos Participativos de Investigación Social">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+  <style>
+    /* === RESET Y VARIABLES === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --fondo: #f7f5f2;
+      --superficie: #ffffff;
+      --texto-principal: #1e1e1e;
+      --texto-secundario: #4a4a4a;
+      --acento: #9b7b5c;
+      --acento-suave: #e8dfd5;
+      --borde: #e0d9d0;
+      --sombra: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --radio: 20px;
+      --transicion: all 0.2s ease;
+      /* Tamaños de fuente aumentados */
+      --fs-base: 1.12rem;
+      --fs-h1: 3rem;
+      --fs-h2: 2.3rem;
+      --fs-h3: 1.6rem;
+      --fs-h4: 1.1rem;
+      --fs-small: 0.95rem;
+    }
+
+    body {
+      background: var(--fondo);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--texto-principal);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 100vh;
+      font-size: var(--fs-base);
+    }
+
+    /* === BARRA SUPERIOR === */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.8rem;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--borde);
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .topbar .titulo-mini {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--texto-principal);
+      letter-spacing: -0.01em;
+    }
+
+    .topbar .nombre-autor {
+      font-size: 0.95rem;
+      color: var(--acento);
+      font-weight: 500;
+    }
+
+    /* === CONTENEDOR PRINCIPAL DE DIAPOSITIVAS === */
+    .slides-wrapper {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slides-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 2.2rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-inner {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: #d9cdbf;
+      border-radius: 3px;
+    }
+    .slide::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* === ESTILOS DE CONTENIDO === */
+    .slide-numero {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--acento);
+      background: var(--acento-suave);
+      padding: 0.25rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+      border: 1px solid #d9cdbf;
+      align-self: flex-start;
+    }
+
+    h1 {
+      font-size: var(--fs-h1);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #1a1a1a;
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: var(--fs-h2);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.8rem;
+      color: #1f1f1f;
+    }
+
+    h3 {
+      font-size: var(--fs-h3);
+      font-weight: 600;
+      color: #2c2c2c;
+      margin-top: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    h4 {
+      font-size: var(--fs-h4);
+      font-weight: 600;
+      color: var(--acento);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--texto-secundario);
+      margin-bottom: 0.9rem;
+      font-size: var(--fs-base);
+    }
+
+    .subtitulo {
+      font-size: 1.35rem;
+      color: var(--texto-secundario);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      max-width: 92%;
+      line-height: 1.5;
+    }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 0.9rem;
+      color: var(--texto-secundario);
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      font-size: var(--fs-base);
+    }
+
+    .destacado {
+      background: #f4efea;
+      padding: 1.2rem 1.6rem;
+      border-radius: 16px;
+      border-left: 4px solid var(--acento);
+      color: #2e2e2e;
+      margin: 1.3rem 0;
+      font-size: var(--fs-base);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin: 1.2rem 0;
+    }
+
+    .tarjeta {
+      background: #faf8f6;
+      border: 1px solid var(--borde);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      transition: var(--transicion);
+    }
+
+    .tarjeta h4 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+    }
+
+    .tarjeta p {
+      margin-bottom: 0;
+      font-size: 1.02rem;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      background: #efeae4;
+      color: #3a3a3a;
+      padding: 0.2rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-right: 0.35rem;
+      margin-bottom: 0.35rem;
+      border: 1px solid #ddd6cd;
+    }
+
+    .separador {
+      width: 50px;
+      height: 2px;
+      background: var(--acento);
+      opacity: 0.4;
+      margin: 1.2rem 0 1.4rem;
+    }
+
+    /* === PORTADA === */
+    .portada {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+      padding: 1rem 0;
+    }
+
+    .portada .nombre-autor-grande {
+      font-size: 1.3rem;
+      color: var(--acento);
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.01em;
+    }
+
+    .portada .rol {
+      font-size: 0.95rem;
+      color: #8a7a6a;
+      margin-bottom: 2rem;
+    }
+
+    /* === ÍNDICE DINÁMICO === */
+    .indice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.4rem;
+    }
+
+    .indice-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.3rem;
+      background: #faf8f6;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transicion);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .indice-item:hover {
+      background: #f2ece5;
+      border-color: #d0c4b6;
+      transform: translateX(4px);
+    }
+
+    .indice-item.activo {
+      background: #f0e8df;
+      border-color: var(--acento);
+      box-shadow: 0 0 0 2px rgba(155, 123, 92, 0.15);
+    }
+
+    .indice-num {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--acento);
+      background: var(--acento-suave);
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .indice-item.activo .indice-num {
+      background: var(--acento);
+      color: white;
+    }
+
+    .indice-texto {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #2c2c2c;
+    }
+
+    .indice-texto small {
+      display: block;
+      font-size: 0.88rem;
+      color: #8a7a6a;
+      font-weight: 400;
+      margin-top: 0.1rem;
+    }
+
+    /* === TABLA === */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1.02rem;
+      background: #fcfaf8;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    th {
+      background: #efe9e2;
+      text-align: left;
+      padding: 0.9rem 1.1rem;
+      font-weight: 600;
+      color: #2e2e2e;
+    }
+
+    td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid #e6dfd7;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* === NAVEGACIÓN INFERIOR === */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--borde);
+      z-index: 10;
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      background: #ffffff;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      padding: 0.55rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--texto-secundario);
+      cursor: pointer;
+      transition: var(--transicion);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: inherit;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: #f4efea;
+      border-color: #d0c4b6;
+      color: var(--texto-principal);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dots {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d9cdbf;
+      border: none;
+      cursor: pointer;
+      transition: var(--transicion);
+      padding: 0;
+    }
+
+    .dot.activo {
+      background: var(--acento);
+      transform: scale(1.35);
+    }
+
+    .dot:hover {
+      background: #b8a48e;
+    }
+
+    .contador {
+      font-size: 0.9rem;
+      color: #8a7a6a;
+      font-weight: 500;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 750px) {
+      :root {
+        --fs-h1: 2.2rem;
+        --fs-h2: 1.8rem;
+        --fs-h3: 1.35rem;
+        --fs-base: 1.02rem;
+      }
+      .slide {
+        padding: 1.4rem 1.3rem;
+      }
+      .subtitulo {
+        max-width: 100%;
+        font-size: 1.1rem;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .topbar .nombre-autor {
+        display: none;
+      }
+      .navbar {
+        padding: 0.6rem 1rem;
+      }
+      .nav-btn {
+        padding: 0.45rem 0.8rem;
+        font-size: 0.85rem;
+      }
+      .indice-grid {
+        grid-template-columns: 1fr;
+      }
+      .portada .nombre-autor-grande {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      :root {
+        --fs-h1: 1.8rem;
+        --fs-h2: 1.55rem;
+      }
+      .slide {
+        padding: 1rem 1rem;
+      }
+      .contador {
+        display: none;
+      }
+    }
+
+    /* Animación de entrada */
+    .slide-inner > * {
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media print {
+      body {
+        height: auto;
+        overflow: visible;
+        background: white;
+      }
+      .topbar, .navbar {
+        display: none;
+      }
+      .slides-wrapper {
+        overflow: visible;
+      }
+      .slides-track {
+        display: block;
+        transform: none !important;
+      }
+      .slide {
+        page-break-after: always;
+        height: auto;
+        overflow: visible;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <header class="topbar">
+    <span class="titulo-mini">Escritura Potencial</span>
+    <span class="nombre-autor">Juan Carlos Valderrama Cárdenas</span>
+  </header>
+
+  <!-- CONTENEDOR DE DIAPOSITIVAS -->
+  <div class="slides-wrapper">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- ========== SLIDE 0 · PORTADA ========== -->
+      <section class="slide" data-index="0">
+        <div class="slide-inner portada">
+          <div class="slide-numero">Propuesta de investigación social participativa</div>
+          <h1>Escritura Potencial</h1>
+          <p class="subtitulo" style="font-size:1.4rem; color:#3a3a3a; margin-bottom:1.8rem;">
+            Taller participativo de escritura creativa con restricciones para explorar experiencias de memoria y aprendizaje
+          </p>
+
+          <div class="separador"></div>
+
+          <div style="margin-bottom:2rem;">
+            <p class="nombre-autor-grande">Juan Carlos Valderrama Cárdenas</p>
+            <p class="rol">Autor de la propuesta</p>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:1.2rem 2rem; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <p style="margin:0; font-size:1.02rem;"><span style="font-weight:600; color:#1e1e1e;">Enfoque:</span> Investigación social participativa basada en las artes</p>
+              <p style="margin:0; font-size:1.02rem;"><span style="font-weight:600; color:#1e1e1e;">Expresión artística:</span> Escritura creativa en prosa · Oulipo</p>
+              <p style="margin:0; font-size:1.02rem;"><span style="font-weight:600; color:#1e1e1e;">Participantes:</span> 12–20 estudiantes universitarios</p>
+            </div>
+            <div style="text-align:right;">
+              <p style="margin:0; font-size:1rem; color:var(--acento); font-weight:500;">6 encuentros · 120 min</p>
+              <p style="margin:0; font-size:1rem; color:var(--acento); font-weight:500;">Producto colectivo final</p>
+            </div>
+          </div>
+
+          <div style="margin-top:1.8rem; background:#f4efea; border-radius:12px; padding:1.1rem 1.6rem; border:1px solid #e2d8cd;">
+            <p style="margin:0; font-style:italic; color:#2e2e2e; font-size:1.05rem;">«Una expresión artística se convierte en investigación participativa cuando interviene en la producción misma del conocimiento.»</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 1 · ÍNDICE DINÁMICO ========== -->
+      <section class="slide" data-index="1">
+        <div class="slide-inner">
+          <div class="slide-numero">Índice de contenidos</div>
+          <h2>Recorrido de la propuesta</h2>
+          <p class="subtitulo">Selecciona un apartado para navegar directamente a él. El ítem activo se resalta automáticamente.</p>
+
+          <div class="indice-grid" id="indiceGrid">
+            <a class="indice-item" data-slide="2">
+              <span class="indice-num">01</span>
+              <span class="indice-texto">Situación de interés<small>La distancia entre evaluar y recordar</small></span>
+            </a>
+            <a class="indice-item" data-slide="3">
+              <span class="indice-num">02</span>
+              <span class="indice-texto">Oulipo: escritura bajo restricción<small>Contexto y sentido de la restricción</small></span>
+            </a>
+            <a class="indice-item" data-slide="4">
+              <span class="indice-num">03</span>
+              <span class="indice-texto">Enfoque y expresión artística<small>Escritura creativa como método</small></span>
+            </a>
+            <a class="indice-item" data-slide="5">
+              <span class="indice-num">04</span>
+              <span class="indice-texto">Principios participativos<small>Autoras, intérpretes y cocreadoras</small></span>
+            </a>
+            <a class="indice-item" data-slide="6">
+              <span class="indice-num">05</span>
+              <span class="indice-texto">Diseño de actividades<small>Seis encuentros participativos</small></span>
+            </a>
+            <a class="indice-item" data-slide="7">
+              <span class="indice-num">06</span>
+              <span class="indice-texto">Interpretación y producto<small>Construcción colectiva de sentidos</small></span>
+            </a>
+            <a class="indice-item" data-slide="8">
+              <span class="indice-num">07</span>
+              <span class="indice-texto">Ética y viabilidad<small>Cuidado, consentimiento y condiciones</small></span>
+            </a>
+            <a class="indice-item" data-slide="9">
+              <span class="indice-num">08</span>
+              <span class="indice-texto">Aportes y reflexión final<small>Lo que produce esta experiencia</small></span>
+            </a>
+          </div>
+
+          <div class="destacado" style="margin-top:1.8rem;">
+            <strong>Navegación:</strong> usa las flechas ← → del teclado, los botones inferiores o los puntos indicadores para moverte entre diapositivas.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 2 · SITUACIÓN DE INTERÉS ========== -->
+      <section class="slide" data-index="2">
+        <div class="slide-inner">
+          <div class="slide-numero">01 · Situación de interés</div>
+          <h2>La distancia entre evaluar y recordar</h2>
+          <p class="subtitulo">Las prácticas académicas suelen preguntar qué información se recuerda; esta propuesta indaga cómo se recuerda, se narra y se construye sentido sobre lo aprendido.</p>
+
+          <div class="grid-2">
+            <div>
+              <h4>Preguntas tradicionales</h4>
+              <ul>
+                <li>¿Qué información recuerda el estudiante?</li>
+                <li>¿Cuántos conceptos puede recuperar?</li>
+                <li>¿Cuál fue su desempeño?</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Preguntas de esta propuesta</h4>
+              <ul>
+                <li>¿Cómo recuerda que aprendió algo significativo?</li>
+                <li>¿Qué imágenes, personas y emociones aparecen?</li>
+                <li>¿Qué condiciones hacen memorable una experiencia?</li>
+                <li>¿Cómo cambia el recuerdo al narrarlo y compartirlo?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="destacado">
+            <strong>Pregunta orientadora principal:</strong> ¿Cómo pueden las prácticas de escritura creativa basadas en restricciones contribuir a que un grupo de estudiantes explore, comparta e interprete colectivamente sus experiencias de memoria y aprendizaje?
+          </div>
+
+          <h4 style="margin-top:1.2rem;">Propósito general</h4>
+          <p>Diseñar una experiencia participativa en la que estudiantes universitarios utilicen la escritura creativa con restricciones inspiradas en Oulipo para narrar, compartir e interpretar colectivamente sus experiencias de memoria y aprendizaje.</p>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 3 · OULIPO (NUEVA) ========== -->
+      <section class="slide" data-index="3">
+        <div class="slide-inner">
+          <div class="slide-numero">02 · Contexto: Oulipo</div>
+          <h2>Oulipo: escritura bajo restricción</h2>
+          <p class="subtitulo">El Ouvroir de Littérature Potentielle (Oulipo) es un grupo literario fundado en 1960 por Raymond Queneau y François Le Lionnais. Su propósito es explorar la creación literaria a partir de restricciones formales explícitas.</p>
+
+          <div class="grid-2" style="margin-top:1rem;">
+            <div class="tarjeta">
+              <h4>¿Qué es Oulipo?</h4>
+              <p>Un taller de literatura potencial: la escritura se produce mediante reglas, procedimientos y constricciones que abren posibilidades inesperadas. La restricción no limita la creatividad: la estimula y la desplaza.</p>
+            </div>
+            <div class="tarjeta">
+              <h4>Ejemplos célebres</h4>
+              <p>La <em>literatura combinatoria</em> de Queneau, los <em>lipogramas</em> de Georges Perec (escribir una novela sin la letra “e”), los <em>palíndromos</em>, las <em>listas</em> y los <em>procedimientos matemáticos</em> aplicados al lenguaje.</p>
+            </div>
+          </div>
+
+          <h3 style="margin-top:1.6rem;">Sentido de la restricción en esta propuesta</h3>
+          <p>La restricción no se utiliza como obstáculo arbitrario ni como criterio de habilidad literaria. Funciona como un dispositivo para:</p>
+          <ul>
+            <li>Interrumpir maneras habituales de narrar.</li>
+            <li>Evitar respuestas demasiado generales.</li>
+            <li>Desplazar la mirada hacia detalles poco advertidos.</li>
+            <li>Facilitar la participación de quienes sienten que “no saben qué escribir”.</li>
+            <li>Producir asociaciones inesperadas y transformar una experiencia conocida.</li>
+            <li>Despersonalizar provisionalmente experiencias sensibles.</li>
+            <li>Abrir diferentes caminos para interpretar el recuerdo.</li>
+          </ul>
+
+          <div class="destacado" style="margin-top:1.4rem;">
+            <strong>Ejemplo aplicado:</strong> en lugar de pedir “cuente una experiencia significativa de aprendizaje”, se propone narrarla sin usar la palabra “aprender”, o contarla desde el punto de vista de un objeto presente en la escena. La regla obliga a representar el aprendizaje mediante acciones, imágenes y sensaciones.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 4 · ENFOQUE Y EXPRESIÓN ========== -->
+      <section class="slide" data-index="4">
+        <div class="slide-inner">
+          <div class="slide-numero">03 · Enfoque y expresión artística</div>
+          <h2>Escritura creativa como método de indagación</h2>
+
+          <div class="grid-2" style="margin-top:1rem;">
+            <div class="tarjeta">
+              <h4>Investigación participativa basada en las artes</h4>
+              <p>Predominio cualitativo. Componente cuantitativo descriptivo opcional (escala breve 1–5). No es un experimento ni una comparación entre grupos.</p>
+              <p style="margin-top:0.6rem;">La escritura no ilustra resultados: <strong>es parte constitutiva del método</strong>.</p>
+            </div>
+            <div class="tarjeta">
+              <h4>Restricciones inspiradas en Oulipo</h4>
+              <p>Dispositivos que interrumpen relatos habituales, desplazan la mirada hacia detalles, facilitan la participación y abren nuevas interpretaciones del recuerdo.</p>
+            </div>
+          </div>
+
+          <h3>Formas de escritura posibles</h3>
+          <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.3rem;">
+            <span class="etiqueta">Relatos breves</span>
+            <span class="etiqueta">Autobiografías fragmentarias</span>
+            <span class="etiqueta">Cartas</span>
+            <span class="etiqueta">Instrucciones</span>
+            <span class="etiqueta">Listas narrativas</span>
+            <span class="etiqueta">Escenas dialogadas</span>
+            <span class="etiqueta">Relatos colectivos</span>
+            <span class="etiqueta">Versiones alternativas del mismo recuerdo</span>
+          </div>
+
+          <h3 style="margin-top:1.2rem;">Ejemplos de restricciones</h3>
+          <ul style="columns:2; column-gap:1.5rem;">
+            <li>Narrar sin usar la palabra “aprender”.</li>
+            <li>Contar desde el punto de vista de un objeto.</li>
+            <li>Escribir comenzando por el final.</li>
+            <li>Usar seis palabras elegidas por otros.</li>
+            <li>Reconstruir mediante cinco momentos.</li>
+            <li>Escribir como una lista de instrucciones.</li>
+            <li>Crear una versión colectiva.</li>
+            <li>Narrar en primera y luego en tercera persona.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 5 · PRINCIPIOS ========== -->
+      <section class="slide" data-index="5">
+        <div class="slide-inner">
+          <div class="slide-numero">04 · Principios participativos</div>
+          <h2>Las personas como autoras e intérpretes</h2>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin-top:1.2rem;">
+            <div class="tarjeta"><h4>Autoras, no informantes</h4><p>Cada participante conserva la autoría y decide qué compartir.</p></div>
+            <div class="tarjeta"><h4>Interpretación colectiva</h4><p>El equipo facilitador no tiene la última palabra; las interpretaciones regresan al grupo.</p></div>
+            <div class="tarjeta"><h4>Restricción negociable</h4><p>Los participantes pueden proponer, adaptar o rechazar una regla.</p></div>
+            <div class="tarjeta"><h4>No se evalúa la calidad literaria</h4><p>Los textos se valoran como formas de explorar y comunicar experiencias.</p></div>
+            <div class="tarjeta"><h4>Compartir es voluntario</h4><p>Se puede escribir sin leer públicamente, compartir solo una frase o anonimizar.</p></div>
+            <div class="tarjeta"><h4>Producto del proceso colectivo</h4><p>La circulación requiere acuerdos explícitos de los autores.</p></div>
+          </div>
+
+          <div class="destacado" style="margin-top:1.4rem;">
+            El conocimiento emerge del encuentro entre la experiencia, las reglas de escritura, las decisiones creativas, la lectura colectiva y las interpretaciones negociadas.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 6 · ACTIVIDADES ========== -->
+      <section class="slide" data-index="6">
+        <div class="slide-inner">
+          <div class="slide-numero">05 · Diseño de actividades participativas</div>
+          <h2>Seis encuentros · 120 minutos cada uno</h2>
+
+          <div style="overflow-x:auto; margin-top:1rem;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Encuentro</th>
+                  <th>Núcleo de la experiencia</th>
+                  <th>Producto principal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Acuerdos y exploración inicial</td><td>Mapa colectivo de recuerdos</td></tr>
+                <tr><td>2</td><td>Oulipo y escritura individual restringida</td><td>Relato de una experiencia de aprendizaje</td></tr>
+                <tr><td>3</td><td>Transformación y reescritura</td><td>Versiones alternativas del recuerdo</td></tr>
+                <tr><td>4</td><td>Creación colectiva</td><td>Relato colectivo con restricciones</td></tr>
+                <tr><td>5</td><td>Interpretación y socialización</td><td>Constelación colectiva de aprendizajes</td></tr>
+                <tr><td>6</td><td>Producto final y cierre</td><td>Cuadernillo / fanzine / exposición colectiva</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid-2" style="margin-top:1.4rem;">
+            <div>
+              <h4>Encuentro 1 · Cartografía de recuerdos</h4>
+              <p>Acuerdos de cuidado, activación “Recuerdo que aprendí”, cartografía colectiva con territorios (personas, lugares, emociones, objetos, transformaciones).</p>
+            </div>
+            <div>
+              <h4>Encuentro 2 · Oulipo y recuerdo bajo restricción</h4>
+              <p>Contextualización de Oulipo. Narrar sin usar “aprender”, “enseñar”, “recordar”, “estudiar”. Inventario sensorial, escritura individual y lectura en parejas.</p>
+            </div>
+            <div>
+              <h4>Encuentro 3 · Reescribir desde otra voz</h4>
+              <p>Reescribir el relato desde un objeto, otra persona, un lugar, el cuerpo o una versión futura. Comparación e interpretación grupal.</p>
+            </div>
+            <div>
+              <h4>Encuentro 4 · Relato colectivo</h4>
+              <p>Seis palabras elegidas por el grupo. Personaje colectivo, escritura por turnos, negociación de significado y lectura performativa opcional.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 7 · INTERPRETACIÓN Y PRODUCTO ========== -->
+      <section class="slide" data-index="7">
+        <div class="slide-inner">
+          <div class="slide-numero">06 · Interpretación y producto colectivo</div>
+          <h2>Construcción colectiva de sentidos</h2>
+
+          <div class="grid-2">
+            <div>
+              <h3>Estrategia de interpretación</h3>
+              <ol style="margin-bottom:0;">
+                <li><strong>Autointerpretación:</strong> cada autor registra qué quiso expresar, qué apareció inesperadamente, qué omitió.</li>
+                <li><strong>Interpretación entre pares:</strong> imágenes, emociones, tensiones, ausencias y preguntas.</li>
+                <li><strong>Organización preliminar:</strong> temas provisionales (emociones, acompañamiento, exclusión, error, memoria corporal, etc.).</li>
+                <li><strong>Devolución al grupo:</strong> los participantes corrigen, renombran, agregan excepciones o retiran fragmentos.</li>
+                <li><strong>Construcción de sentidos:</strong> coincidencias, diferencias, tensiones y preguntas abiertas.</li>
+              </ol>
+            </div>
+            <div>
+              <h3>Producto final</h3>
+              <p>El grupo decide el formato:</p>
+              <ul>
+                <li>Cuadernillo colectivo / fanzine</li>
+                <li>Mural de fragmentos</li>
+                <li>Archivo sonoro con lecturas</li>
+                <li>Exposición o libro artesanal</li>
+                <li>Publicación digital / instalación de palabras</li>
+                <li>Archivo privado para los participantes</li>
+              </ul>
+              <div class="destacado" style="margin-top:1rem;">
+                La constelación colectiva conecta núcleos temáticos con emociones, personas, espacios, objetos, obstáculos, apoyos y transformaciones.
+              </div>
+            </div>
+          </div>
+
+          <h4 style="margin-top:1.2rem;">Posibles ejes de interpretación (provisionales)</h4>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            <span class="etiqueta">Aprendizaje relacional</span>
+            <span class="etiqueta">Cuerpo que aprende y recuerda</span>
+            <span class="etiqueta">Objetos como soportes de memoria</span>
+            <span class="etiqueta">Emociones memorables</span>
+            <span class="etiqueta">Aprendizajes fuera de la institución</span>
+            <span class="etiqueta">Error, fracaso y transformación</span>
+            <span class="etiqueta">Poder y reconocimiento</span>
+            <span class="etiqueta">Restricción y creatividad</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 8 · ÉTICA Y VIABILIDAD ========== -->
+      <section class="slide" data-index="8">
+        <div class="slide-inner">
+          <div class="slide-numero">07 · Ética y viabilidad</div>
+          <h2>Cuidado, consentimiento y condiciones reales</h2>
+
+          <div class="grid-2">
+            <div>
+              <h3>Consideraciones éticas</h3>
+              <ul>
+                <li><strong>Participación voluntaria:</strong> no se vincula la calificación con revelar experiencias personales.</li>
+                <li><strong>Consentimiento como proceso:</strong> se revisa en distintos momentos (talleres, grabación, análisis, difusión).</li>
+                <li><strong>Autoría:</strong> cada participante conserva la autoría de sus textos individuales.</li>
+                <li><strong>Confidencialidad:</strong> anonimizar no es solo eliminar nombres; revisar lugares, cargos, fechas, relaciones.</li>
+                <li><strong>Derecho a la opacidad:</strong> no es obligatorio explicar completamente los textos.</li>
+                <li><strong>Experiencias sensibles:</strong> rutas de acompañamiento, pausas, consignas alternativas.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Viabilidad</h3>
+              <ul>
+                <li><strong>Duración:</strong> 6 encuentros de 2 horas (12 horas directas).</li>
+                <li><strong>Participantes:</strong> 12 a 20 estudiantes universitarios.</li>
+                <li><strong>Equipo mínimo:</strong> una persona facilitadora y apoyo opcional para registro.</li>
+                <li><strong>Espacio:</strong> salón con sillas móviles, paredes para producciones y privacidad.</li>
+                <li><strong>Presupuesto:</strong> materiales básicos (papelería, impresiones, fanzine). Versión digital reduce costos pero puede limitar espontaneidad.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="destacado" style="margin-top:1.2rem;">
+            La propuesta puede implementarse con recursos sencillos y no depende necesariamente de tecnologías digitales.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SLIDE 9 · APORTES Y REFLEXIÓN ========== -->
+      <section class="slide" data-index="9">
+        <div class="slide-inner">
+          <div class="slide-numero">08 · Aportes y reflexión final</div>
+          <h2>Lo que produce esta experiencia</h2>
+
+          <div class="grid-2">
+            <div>
+              <h3>Aportes esperados</h3>
+              <ul>
+                <li><strong>Conocimiento situado:</strong> recordar y aprender son procesos relacionales, emocionales y sociales.</li>
+                <li><strong>Reconocimiento de saberes experienciales:</strong> imágenes, escenas, silencios y contradicciones son parte del conocimiento.</li>
+                <li><strong>Visibilización de voces diversas:</strong> experiencias exitosas, dificultades, aprendizajes informales, exclusiones.</li>
+                <li><strong>Memoria como reconstrucción:</strong> cada versión y lectura colectiva reorganiza el sentido.</li>
+                <li><strong>Reflexividad metodológica:</strong> qué restricciones facilitan, cuáles bloquean, qué reglas protegen.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Limitaciones y desafíos</h3>
+              <ul>
+                <li>Desigualdad en la confianza para escribir → no evaluar estilo, ofrecer comienzos, permitir textos breves.</li>
+                <li>Confusión entre participación y exposición personal → distintos niveles de cercanía.</li>
+                <li>Restricciones demasiado complejas → pilotear y adaptar.</li>
+                <li>Interpretación excesiva → devolución y validación colectiva.</li>
+                <li>Armonía artificial → incluir contradicciones y posiciones minoritarias.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="separador" style="margin:1.6rem 0 1rem;"></div>
+          <p style="font-size:1.2rem; color:#2c2c2c; font-weight:500; font-style:italic; max-width:95%;">
+            «La escritura creativa adquiere un doble lugar: es una forma de expresión y, simultáneamente, una práctica de investigación. Permite narrar lo vivido, pero también producir nuevas maneras de comprenderlo.»
+          </p>
+          <p style="margin-top:1.4rem; font-size:0.95rem; color:#7a6a5c;">Propuesta adaptada a la guía de la Comunidad de Aprendizaje: Métodos Participativos de Investigación Social.</p>
+          <p style="font-size:1rem; color:#9b7b5c; font-weight:500;">Juan Carlos Valderrama Cárdenas</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN INFERIOR -->
+  <nav class="navbar">
+    <button class="nav-btn" id="prevBtn" aria-label="Diapositiva anterior">← Anterior</button>
+    <div class="dots" id="dots"></div>
+    <span class="contador" id="contador">1 / 10</span>
+    <button class="nav-btn" id="nextBtn" aria-label="Diapositiva siguiente">Siguiente →</button>
+  </nav>
+
+  <script>
+    (function() {
+      const track = document.getElementById('slidesTrack');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const dotsContainer = document.getElementById('dots');
+      const contador = document.getElementById('contador');
+      const indiceItems = Array.from(document.querySelectorAll('.indice-item'));
+
+      // Crear puntos
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.classList.add('dot');
+        dot.setAttribute('aria-label', `Ir a diapositiva ${i + 1}`);
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = Array.from(dotsContainer.children);
+
+      function updateUI() {
+        // Mover el track
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Actualizar botones
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalSlides - 1;
+
+        // Actualizar dots
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('activo', i === currentIndex);
+        });
+
+        // Actualizar contador
+        contador.textContent = `${currentIndex + 1} / ${totalSlides}`;
+
+        // Actualizar índice dinámico: resaltar el ítem cuya diapositiva destino es la actual
+        indiceItems.forEach(item => {
+          const target = parseInt(item.getAttribute('data-slide'));
+          item.classList.toggle('activo', target === currentIndex);
+        });
+      }
+
+      function goToSlide(index) {
+        if (index < 0) index = 0;
+        if (index >= totalSlides) index = totalSlides - 1;
+        currentIndex = index;
+        updateUI();
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          currentIndex++;
+          updateUI();
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateUI();
+        }
+      }
+
+      // Eventos de botones
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+
+      // Navegación por teclado
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          prevSlide();
+        }
+      });
+
+      // Navegación desde el índice
+      indiceItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = parseInt(item.getAttribute('data-slide'));
+          if (!isNaN(target)) goToSlide(target);
+        });
+      });
+
+      // Inicializar
+      updateUI();
+
+      // Reajustar al redimensionar
+      window.addEventListener('resize', () => {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        requestAnimationFrame(() => {
+          track.style.transition = 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

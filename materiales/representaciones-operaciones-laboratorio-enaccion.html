@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Representaciones y Operaciones · Laboratorio EnAcción</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Representaciones y Operaciones · Laboratorio EnAcción">
+<meta name="jc-descripcion" content="Laboratorio interactivo de psicología cognitiva sobre formatos de representación y operaciones mentales, organizado alrededor del caso de Julián e integrado por fundamentos, actividades, decisiones de intervención, retroalimentación, puntuación, insignias y reflexión metacognitiva.">
+<meta name="jc-tipo" content="Laboratorio educativo interactivo">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, Representaciones mentales, Operaciones cognitivas, Representación verbal, Representación proposicional, Representación imagística, Representación espacial, Representación simbólica, Modelos mentales, Codificación dual, Allan Paivio, Larkin y Simon, Johnson-Laird, Aprendizaje multimedia, Richard Mayer, Carga cognitiva, John Sweller, Analogía, Transferencia, Metacognición, Práctica de recuperación, Caso educativo, Intervención educativa, Evaluación formativa, Aprendizaje autónomo, Gamificación">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#eef2f7; --surface:#ffffff; --surface-2:#f4f7fb;
+  --ink:#1a2433; --ink-soft:#3d4a5c; --muted:#6b7a8f;
+  --primary:#1e3a5f; --primary-dark:#142a47; --primary-soft:#d6e2f0;
+  --accent:#3d6a99; --accent-soft:#dbe7f3;
+  --gold:#c9a227; --gold-soft:#f7ecc4;
+  --green:#3d8a5c; --green-soft:#d9ecdf;
+  --red:#b04a4a; --red-soft:#f3dada;
+  --border:#d6e0ec;
+  --shadow:0 8px 24px rgba(20,42,71,.10); --shadow-sm:0 2px 8px rgba(20,42,71,.06);
+  --radius:14px; --radius-sm:10px;
+  --font-head:'Lora',Georgia,serif; --font-body:'Nunito',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);font-size:18px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;color:var(--ink);font-weight:600}
+h1{font-size:clamp(2.1rem,4.4vw,3rem)}
+h2{font-size:clamp(1.65rem,2.9vw,2.2rem);margin-bottom:.4em}
+h3{font-size:1.35rem;margin-bottom:.4em;color:var(--primary)}
+h4{font-size:1.15rem;color:var(--accent)}
+p{margin-bottom:.9em;color:var(--ink-soft)}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+strong{color:var(--ink);font-weight:700}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent-soft)}
+
+#topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:1rem;padding:.8rem clamp(1rem,3vw,2rem);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);box-shadow:0 1px 0 rgba(20,42,71,.04)}
+.brand{display:flex;flex-direction:column;line-height:1.15;flex-shrink:0}
+.brand small{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.brand strong{font-family:var(--font-head);font-size:1.15rem;color:var(--primary)}
+.progress-wrap{flex:1;min-width:120px;display:flex;flex-direction:column;gap:.3rem}
+.progress-track{height:9px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-label{font-size:.82rem;color:var(--muted);font-weight:700;display:flex;justify-content:space-between}
+.score-pill{display:flex;align-items:center;gap:.4rem;background:var(--gold-soft);color:#6b5310;padding:.45rem .9rem;border-radius:99px;font-weight:800;font-size:.95rem;white-space:nowrap;border:1px solid #e6d28a}
+.score-pill span:last-child{color:#8a6c17;font-size:.78rem;font-weight:700}
+#hamburger{display:none;font-size:1.5rem;padding:.3rem .6rem;color:var(--primary)}
+
+#cover{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:clamp(1.5rem,4vw,3.5rem) 1rem;background:radial-gradient(circle at 12% 15%,rgba(61,106,153,.10),transparent 42%),radial-gradient(circle at 88% 85%,rgba(30,58,95,.10),transparent 42%),var(--bg)}
+.cover-card{max-width:980px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeUp .8s cubic-bezier(.4,0,.2,1);display:grid;grid-template-columns:1.35fr 1fr}
+.cover-card::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;z-index:2;background:linear-gradient(90deg,var(--primary),var(--accent),var(--gold))}
+.cover-main{padding:clamp(2rem,4.5vw,3.4rem);display:flex;flex-direction:column;justify-content:center;min-height:520px}
+.cover-kicker{display:inline-flex;align-items:center;gap:.6rem;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:1.1rem}
+.cover-kicker::before{content:'';width:34px;height:2px;background:var(--primary);border-radius:2px}
+.cover-main h1{font-size:clamp(2.1rem,3.9vw,2.9rem);line-height:1.15;margin-bottom:.9rem;color:var(--primary-dark)}
+.cover-main .subtitle{font-size:1.15rem;line-height:1.55;color:var(--ink-soft);max-width:520px;margin:0 0 1.8rem;font-weight:600}
+.cover-actions{margin-top:auto;padding-top:1rem}
+.btn-start{display:inline-flex;align-items:center;gap:.7rem;background:var(--primary);color:#fff;padding:1.05rem 2.2rem;border-radius:99px;font-weight:800;font-size:1.08rem;box-shadow:0 6px 18px rgba(30,58,95,.35);transition:transform .25s,box-shadow .25s,background .25s}
+.btn-start:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 10px 22px rgba(30,58,95,.45);text-decoration:none}
+.btn-start svg{transition:transform .25s}
+.btn-start:hover svg{transform:translateX(4px)}
+.cover-side{background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%);padding:clamp(1.8rem,3.5vw,2.8rem);display:flex;flex-direction:column;border-left:1px solid var(--border);position:relative;color:#e8eef6}
+.cover-seal{width:64px;height:64px;border-radius:50%;background:var(--gold);color:var(--primary-dark);display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:1.6rem;margin-bottom:1.6rem;box-shadow:0 4px 14px rgba(0,0,0,.28),inset 0 0 0 3px rgba(255,255,255,.15)}
+.cover-side .label-tiny{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#a9bdd4;font-weight:800;margin-bottom:.3rem}
+.cover-side .author-name{font-family:var(--font-head);font-size:1.55rem;line-height:1.2;color:#fff;font-weight:600;margin-bottom:.35rem}
+.cover-side .author-role{font-size:.95rem;color:#c4d3e3;font-weight:600;margin-bottom:1.8rem}
+.cover-side .divider{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:1.4rem}
+.cover-side .project{font-size:1.02rem;line-height:1.45;color:#d9e6f2;font-weight:800;margin-bottom:1.8rem}
+.cover-side .project::before{content:'◆';color:var(--gold);margin-right:.5rem;font-size:.85rem;vertical-align:middle}
+.cover-meta-list{display:flex;flex-direction:column;gap:.65rem;margin-top:auto}
+.cover-meta-list .row{display:flex;align-items:center;gap:.7rem;font-size:.95rem;color:#c4d3e3;font-weight:700}
+.cover-meta-list .row .ico{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;font-size:.95rem;flex-shrink:0}
+.cover-meta-list .row span:last-child{color:#fff;font-weight:800}
+
+#lab{display:none;min-height:calc(100vh - 72px)}
+#lab.open{display:grid;grid-template-columns:280px 1fr;gap:0}
+#sidebar{position:sticky;top:72px;align-self:start;height:calc(100vh - 72px);overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.side-title{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:.4rem .6rem}
+#sidebar a{display:flex;align-items:center;gap:.65rem;padding:.7rem .85rem;border-radius:10px;color:var(--ink-soft);font-weight:700;font-size:1rem;transition:background .2s,color .2s;text-decoration:none}
+#sidebar a:hover{background:var(--surface-2);text-decoration:none}
+#sidebar a.active{background:var(--primary-soft);color:var(--primary-dark)}
+#sidebar a .num{width:26px;height:26px;border-radius:50%;background:var(--surface-2);color:var(--muted);display:grid;place-items:center;font-size:.85rem;font-weight:800;flex-shrink:0;transition:background .2s,color .2s}
+#sidebar a.active .num{background:var(--primary);color:#fff}
+#sidebar a.done .num{background:var(--green);color:#fff}
+.badges-box{margin-top:auto;padding-top:1rem;border-top:1px dashed var(--border)}
+.badges-box h4{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-family:var(--font-body);font-weight:800}
+.badge-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.badge{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;background:var(--surface-2);color:#b3c3d6;border:1px solid var(--border);opacity:.55;transition:all .35s;cursor:help}
+.badge.earned{opacity:1;background:var(--gold-soft);border-color:#e6d28a;color:#6b5310;transform:scale(1.05);box-shadow:0 2px 8px rgba(201,162,39,.35)}
+
+#content{padding:clamp(1.3rem,3vw,2.6rem);max-width:980px;margin:0 auto;width:100%}
+.panel{display:none;animation:fadeIn .5s ease}
+.panel.active{display:block}
+.panel-head{margin-bottom:1.6rem;padding-bottom:1.1rem;border-bottom:2px solid var(--border)}
+.panel-head .kicker{font-size:.84rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800}
+.panel-head h2{margin-top:.25rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.1rem,2.5vw,1.7rem);box-shadow:var(--shadow-sm);margin-bottom:1.3rem}
+.card.soft{background:var(--surface-2);border-style:dashed}
+.card.accent{border-left:4px solid var(--accent)}
+.card.warm{border-left:4px solid var(--primary)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.5rem;border-radius:10px;font-weight:800;font-size:1rem;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(30,58,95,.25)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface-2);color:var(--primary);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--primary-soft)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:#2e5580}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.btn-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.1rem}
+
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;margin:1.1rem 0}
+.flip-card{perspective:1000px;height:260px;cursor:pointer;outline:none}
+.flip-card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft);border-radius:var(--radius)}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);padding:1.3rem;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.flip-front{background:var(--surface);text-align:center}
+.flip-front .icon{font-size:2.3rem;margin-bottom:.55rem}
+.flip-front h4{color:var(--primary);font-size:1.2rem;margin-bottom:.4rem}
+.flip-front .hint{font-size:.85rem;color:var(--muted);margin-top:.7rem;font-weight:700}
+.flip-back{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;transform:rotateY(180deg);font-size:.95rem;line-height:1.55}
+.flip-back strong{color:#ffe9a8}
+
+details.acc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.65rem;overflow:hidden}
+details.acc summary{padding:.9rem 1.15rem;cursor:pointer;font-weight:800;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;transition:background .2s;font-size:1.02rem}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:'+';font-size:1.5rem;color:var(--primary);transition:transform .25s}
+details.acc[open] summary::after{transform:rotate(45deg)}
+details.acc summary:hover{background:var(--surface-2)}
+details.acc .acc-body{padding:0 1.15rem 1.1rem;color:var(--ink-soft);font-size:1rem}
+
+table.cmp{width:100%;border-collapse:collapse;margin:1.1rem 0;font-size:.98rem;border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+table.cmp th{background:var(--primary);color:#fff;padding:.8rem 1rem;text-align:left;font-weight:800;font-size:1rem}
+table.cmp td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+table.cmp tr:nth-child(even) td{background:var(--surface-2)}
+table.cmp td:first-child{font-weight:800;color:var(--primary-dark);width:24%}
+
+.example-box{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin:1.1rem 0}
+.example-box>div{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.1rem}
+.example-box .tag{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--muted);margin-bottom:.4rem}
+.example-box .formula{font-family:var(--font-head);font-size:1.15rem;color:var(--primary);margin:.5rem 0;line-height:1.4}
+.example-box .note{font-size:.92rem;color:var(--muted)}
+
+.activity{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.1rem,2.5vw,1.7rem);margin-bottom:1.5rem;box-shadow:var(--shadow-sm)}
+.activity .act-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.35rem;flex-wrap:wrap}
+.activity .act-tag{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:800}
+.activity .pts{font-size:.85rem;font-weight:800;color:#6b5310;background:var(--gold-soft);padding:.25rem .7rem;border-radius:99px}
+.activity h4{margin-bottom:.75rem;font-family:var(--font-head);font-size:1.2rem;color:var(--ink)}
+.question{font-weight:700;color:var(--ink);margin-bottom:1rem;font-size:1.05rem}
+
+.mcq .opts{display:grid;gap:.6rem}
+.mcq .opt{text-align:left;padding:.85rem 1.1rem;border-radius:10px;background:var(--surface-2);border:1.5px solid transparent;color:var(--ink-soft);font-weight:600;font-size:1rem;transition:all .2s;display:flex;gap:.65rem;align-items:flex-start;line-height:1.5}
+.mcq .opt:hover{background:var(--primary-soft);border-color:#b9cce3}
+.mcq .opt .ltr{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.85rem;color:var(--primary)}
+.mcq .opt.correct{background:var(--green-soft);border-color:var(--green);color:#1f5734}
+.mcq .opt.correct .ltr{background:var(--green);color:#fff;border-color:var(--green)}
+.mcq .opt.wrong{background:var(--red-soft);border-color:var(--red);color:#7a2a2a}
+.mcq .opt.wrong .ltr{background:var(--red);color:#fff;border-color:var(--red)}
+.mcq.locked .opt{pointer-events:none}
+
+.feedback{margin-top:1rem;padding:.85rem 1.1rem;border-radius:10px;font-size:.98rem;display:none;border-left:4px solid;line-height:1.6}
+.feedback.show{display:block;animation:fadeIn .35s}
+.feedback.ok{background:var(--green-soft);border-color:var(--green);color:#1f5734}
+.feedback.no{background:var(--red-soft);border-color:var(--red);color:#7a2a2a}
+.feedback.info{background:var(--accent-soft);border-color:var(--accent);color:#1c466b}
+.feedback strong{color:inherit}
+
+.multi label{display:flex;gap:.75rem;align-items:flex-start;padding:.8rem 1rem;border-radius:10px;margin-bottom:.55rem;background:var(--surface-2);cursor:pointer;border:1.5px solid transparent;transition:all .2s;font-size:1rem;line-height:1.5}
+.multi label:hover{background:var(--primary-soft)}
+.multi input{margin-top:.3rem;accent-color:var(--primary);width:18px;height:18px;flex-shrink:0}
+.multi label.correct{background:var(--green-soft);border-color:var(--green)}
+.multi label.wrong{background:var(--red-soft);border-color:var(--red)}
+.multi.locked label{pointer-events:none}
+
+.classify .bank{display:flex;flex-wrap:wrap;gap:.55rem;background:var(--surface-2);border:1px dashed #b9cce3;border-radius:10px;padding:.9rem;margin-bottom:1.1rem;min-height:70px}
+.classify .chip{background:var(--surface);border:1.5px solid var(--border);padding:.55rem 1rem;border-radius:99px;font-size:.92rem;font-weight:700;color:var(--ink-soft);transition:all .2s;line-height:1.35}
+.classify .chip:hover{border-color:var(--primary);color:var(--primary)}
+.classify .chip.selected{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.05);box-shadow:0 3px 10px rgba(30,58,95,.30)}
+.classify .chip.correct{border-color:var(--green);background:var(--green-soft)}
+.classify .chip.wrong{border-color:var(--red);background:var(--red-soft)}
+.classify .buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.classify .bucket{background:var(--surface-2);border:2px dashed #b9cce3;border-radius:10px;padding:.7rem;min-height:100px;transition:all .2s;cursor:pointer}
+.classify .bucket:hover{border-color:var(--primary);background:var(--primary-soft)}
+.classify .bucket h5{font-family:var(--font-body);font-size:.84rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:800;margin-bottom:.5rem;text-align:center}
+.classify .bucket .drop{display:flex;flex-direction:column;gap:.4rem;min-height:40px}
+
+.matching .row{display:grid;grid-template-columns:1fr 1.4fr;gap:.8rem;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--border)}
+.matching .row:last-of-type{border-bottom:none}
+.matching .row .term{font-weight:800;color:var(--primary);font-size:1rem}
+.matching select{width:100%;padding:.6rem .8rem;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-family:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s}
+.matching select:focus{outline:none;border-color:var(--accent)}
+.matching select.correct{border-color:var(--green);background:var(--green-soft)}
+.matching select.wrong{border-color:var(--red);background:var(--red-soft)}
+
+.ordering .order-item{display:flex;align-items:center;gap:.8rem;width:100%;text-align:left;padding:.8rem 1rem;margin-bottom:.55rem;border-radius:10px;background:var(--surface-2);border:1.5px solid transparent;font-weight:600;font-size:.98rem;color:var(--ink-soft);transition:all .2s;line-height:1.45}
+.ordering .order-item:hover{background:var(--primary-soft);border-color:#b9cce3}
+.ordering .order-item .num{width:30px;height:30px;border-radius:50%;flex-shrink:0;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.88rem;color:var(--muted)}
+.ordering .order-item[data-n]{background:var(--primary-soft);border-color:var(--primary);color:var(--primary-dark)}
+.ordering .order-item[data-n] .num{background:var(--primary);color:#fff;border-color:var(--primary)}
+.ordering .order-item.correct{background:var(--green-soft);border-color:var(--green)}
+.ordering .order-item.wrong{background:var(--red-soft);border-color:var(--red)}
+
+.decision{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;margin-bottom:1.3rem}
+.decision .d-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem}
+.decision .d-num{width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;font-weight:800;display:grid;place-items:center;font-size:1.02rem;flex-shrink:0}
+.decision .d-title{font-family:var(--font-head);font-weight:600;font-size:1.2rem;color:var(--primary)}
+.decision .scenario{font-style:italic;color:var(--ink-soft);background:rgba(255,255,255,.7);padding:.8rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:1rem;border-left:3px solid var(--accent);line-height:1.6}
+.decision .opts{display:grid;gap:.6rem}
+.decision .d-opt{text-align:left;padding:.85rem 1.1rem;border-radius:10px;background:var(--surface);border:1.5px solid var(--border);font-size:.98rem;color:var(--ink-soft);font-weight:600;transition:all .2s;display:flex;gap:.65rem;align-items:flex-start;line-height:1.5}
+.decision .d-opt:hover{border-color:var(--primary);background:var(--primary-soft)}
+.decision .d-opt.best{border-color:var(--green);background:var(--green-soft)}
+.decision .d-opt.okay{border-color:var(--gold);background:var(--gold-soft)}
+.decision .d-opt.bad{border-color:var(--red);background:var(--red-soft)}
+.decision .d-opt .ltr{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:var(--surface-2);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.85rem;color:var(--primary)}
+.decision.locked .d-opt{pointer-events:none}
+.decision .consequence{margin-top:.9rem;padding:.9rem 1.1rem;border-radius:10px;background:rgba(255,255,255,.9);border-left:4px solid var(--accent);font-size:.98rem;display:none;color:var(--ink-soft);line-height:1.6}
+.decision .consequence.show{display:block;animation:fadeIn .4s}
+
+textarea.reflect{width:100%;min-height:130px;padding:1rem 1.1rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:1rem;color:var(--ink);background:var(--surface);resize:vertical;transition:border-color .2s;line-height:1.6}
+textarea.reflect:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.char-count{font-size:.85rem;color:var(--muted);text-align:right;margin-top:.4rem;font-weight:700}
+
+.checklist{display:grid;gap:.55rem;margin:.7rem 0}
+.checklist label{display:flex;gap:.7rem;align-items:flex-start;font-size:1rem;color:var(--ink-soft);cursor:pointer;padding:.6rem .8rem;border-radius:8px;transition:background .2s;line-height:1.55}
+.checklist label:hover{background:var(--surface-2)}
+.checklist input{margin-top:.35rem;accent-color:var(--primary);width:17px;height:17px;flex-shrink:0}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--primary-dark);color:#fff;padding:.9rem 1.5rem;border-radius:99px;font-weight:800;font-size:1rem;z-index:200;box-shadow:0 10px 30px rgba(20,42,71,.30);transition:transform .4s cubic-bezier(.4,0,.2,1);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.gold{background:linear-gradient(90deg,var(--primary),var(--gold))}
+
+.reading-list{list-style:none;padding:0}
+.reading-list li{padding:.8rem 0;border-bottom:1px dashed var(--border);font-size:1rem;color:var(--ink-soft);line-height:1.6}
+.reading-list li:last-child{border-bottom:none}
+.reading-list strong{display:block;color:var(--primary);margin-bottom:.2rem}
+
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;margin:1.1rem 0}
+.summary-item{background:var(--surface-2);border-radius:10px;padding:1.1rem;text-align:center;border:1px solid var(--border)}
+.summary-item .big{font-family:var(--font-head);font-size:2.1rem;color:var(--primary);font-weight:700}
+.summary-item .lbl{font-size:.84rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+@media (max-width:960px){.cover-card{grid-template-columns:1fr}.cover-side{border-left:none;border-top:1px solid var(--border)}.cover-main{min-height:auto}}
+@media (max-width:880px){#lab.open{grid-template-columns:1fr}#sidebar{position:fixed;top:72px;left:0;bottom:0;width:280px;z-index:60;transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.15)}#sidebar.open{transform:translateX(0)}#hamburger{display:block}.example-box{grid-template-columns:1fr}.matching .row{grid-template-columns:1fr;gap:.35rem}}
+@media (max-width:520px){body{font-size:17px}.flip-grid{grid-template-columns:1fr}.cover-meta-list .row{font-size:.9rem}.activity{padding:1rem}#topbar{gap:.5rem;padding:.5rem .8rem}.brand small{display:none}.progress-label{font-size:.72rem}.cover-main{padding:1.5rem}.cover-side{padding:1.5rem}}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <button id="hamburger" aria-label="Abrir menú">☰</button>
+  <div class="brand">
+    <small>Laboratorio EnAcción</small>
+    <strong>Representaciones & Operaciones</strong>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label"><span id="progress-text">Progreso</span><span id="progress-pct">0%</span></div>
+  </div>
+  <div class="score-pill"><span>⭐</span><span id="score-val">0</span><span>/ 120 pts</span></div>
+</header>
+
+<section id="cover">
+  <div class="cover-card">
+    <div class="cover-main">
+      <div class="cover-kicker">Curso Pensamiento y Lenguaje</div>
+      <h1>Representaciones y&nbsp;Operaciones</h1>
+      <p class="subtitle">El mapa invisible del pensamiento: cómo codificamos la información y qué hacemos con ella cuando pensamos.</p>
+      <div class="cover-actions">
+        <a href="#" class="btn-start" id="btn-start">
+          Comenzar el laboratorio
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <aside class="cover-side">
+      <div class="cover-seal" aria-hidden="true">JC</div>
+      <div class="label-tiny">Diseño instruccional</div>
+      <div class="author-name">Juan Carlos<br>Valderrama Cardenas</div>
+      <div class="author-role">Psicólogo · Diseñador de experiencias de aprendizaje</div>
+      <div class="divider"></div>
+      <div class="project">Hace parte del proyecto Laboratorio EnAcción</div>
+      <div class="cover-meta-list">
+        <div class="row"><span class="ico">⏱</span><span>40 minutos</span></div>
+        <div class="row"><span class="ico">🎯</span><span>4 niveles · 10 actividades</span></div>
+        <div class="row"><span class="ico">🧠</span><span>Psicología cognitiva</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div id="lab">
+
+  <aside id="sidebar">
+    <div class="side-title">Recorrido</div>
+    <a href="#" data-target="concepto" class="nav-link"><span class="num">A</span> Fundamentos</a>
+    <a href="#" data-target="nivel1" class="nav-link"><span class="num">1</span> El caso de Julián</a>
+    <a href="#" data-target="nivel2" class="nav-link"><span class="num">2</span> Representaciones</a>
+    <a href="#" data-target="nivel3" class="nav-link"><span class="num">3</span> Operaciones</a>
+    <a href="#" data-target="nivel4" class="nav-link"><span class="num">4</span> La intervención</a>
+    <a href="#" data-target="cierre" class="nav-link"><span class="num">✦</span> Cierre y reflexión</a>
+    <div class="badges-box">
+      <h4>Insignias</h4>
+      <div class="badge-list" id="badge-list">
+        <div class="badge" data-badge="primer-paso" title="Primer paso">🩺</div>
+        <div class="badge" data-badge="cartografo" title="Cartógrafo mental">🗺️</div>
+        <div class="badge" data-badge="ingeniero" title="Ingeniero de procesos">⚙️</div>
+        <div class="badge" data-badge="disenador" title="Diseñador de intervenciones">🧩</div>
+        <div class="badge" data-badge="reflexivo" title="Pensador reflexivo">💭</div>
+        <div class="badge" data-badge="perfecto" title="Puntaje perfecto">🏆</div>
+      </div>
+    </div>
+  </aside>
+
+  <main id="content">
+
+    <!-- ============================================================
+         BLOQUE A · CONCEPTUAL
+         ============================================================ -->
+    <section id="concepto" class="panel active">
+      <div class="panel-head">
+        <div class="kicker">Bloque A · Fundamentos</div>
+        <h2>Antes de entrar al caso, afinemos la lente</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Pensar no es un acto mágico. La psicología cognitiva nos dice que cuando resolvemos un problema, cuando recordamos algo o cuando nos equivocamos, interactúan dos cosas: <strong>cómo guardamos la información</strong> (representaciones) y <strong>qué hacemos con ella</strong> (operaciones).</p>
+        <p>Vamos a mirarlas por separado —solo como herramienta de análisis— y luego las veremos trabajando juntas en la mente de un estudiante real.</p>
+      </div>
+
+      <h3>1. Las representaciones: ¿en qué formato guardas lo que piensas?</h3>
+      <p>Una representación es la forma en que tu mente codifica algo. Puede ser un mapa, una frase, una imagen o una fórmula. Y aquí va la idea que lo cambia todo: <strong>el formato no es un detalle decorativo. Cambia lo que puedes hacer con la información</strong>. Toca cada tarjeta para ver su descripción.</p>
+
+      <div class="flip-grid">
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">💬</div>
+              <h4>Verbal / proposicional</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Relaciones abstractas tipo predicado-argumento. “El gato está sobre la mesa” se codifica como <strong>SOBRE(gato, mesa)</strong>. Recordamos el significado más que las palabras exactas (Kintsch).
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">🖼️</div>
+              <h4>Imagístico</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Preserva propiedades perceptuales análogas al objeto. Si te pido imaginar tu cuarto con la cama en otra pared, puedes “ver” cómo queda. Shepard y Metzler (1971) lo demostraron: rotar mentalmente una figura tarda más cuanto mayor es el ángulo.
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">🧭</div>
+              <h4>Espacial</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Codifica ubicaciones y estructura, no apariencia. Una persona ciega congénita puede tener un mapa muy preciso de su barrio. Por eso lo separamos de lo imagístico: <strong>no es lo mismo “ver” que “saber dónde está”</strong>.
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">∑</div>
+              <h4>Simbólico / notacional</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Sistemas formales con reglas explícitas: una receta escrita, un horario de buses, una partitura, una fórmula. El significado está en las reglas de manipulación, no en la semejanza con el objeto.
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">🧠</div>
+              <h4>Modelos mentales</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Johnson-Laird: una representación analógica en estructura que <strong>simula</strong> la situación. Lees “Ana a la izquierda de Beto, Beto a la izquierda de Carla” y respondes sin reglas lógicas: construiste un modelo A–B–C.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>2. Codificación dual: por qué “manzana” se recuerda mejor que “justicia”</h3>
+      <div class="card warm">
+        <p>Paivio propuso que tenemos dos sistemas conectados: uno <strong>verbal</strong> y uno <strong>imagístico</strong>. Una palabra concreta como <em>manzana</em> activa los dos; una abstracta como <em>justicia</em> solo activa el verbal. Esa doble ruta de recuperación es la que hace la diferencia.</p>
+        <p>Es también la base de que, para aprender, <strong>combinar un texto con una imagen pertinente</strong> funcione mejor que cualquiera de los dos por separado (Mayer, aprendizaje multimedia).</p>
+      </div>
+
+      <h3>3. Las operaciones: ¿qué hace tu mente con lo que guarda?</h3>
+      <p>Las operaciones transforman, combinan o extraen información. Se parecen a la taxonomía de Bloom, pero la psicología cognitiva las estudia como procesos con mecanismos propios.</p>
+
+      <table class="cmp">
+        <thead><tr><th>Operación</th><th>Mecanismo estudiado</th><th>Ejemplo cotidiano</th></tr></thead>
+        <tbody>
+          <tr><td>Comparar</td><td>Alineación estructural (Gentner)</td><td>Comparar dos recetas con los mismos ingredientes en distinto orden: te fijas en la secuencia, no en los ingredientes sueltos.</td></tr>
+          <tr><td>Inferir</td><td>Razonamiento deductivo, inductivo, abductivo</td><td>Ver humo y concluir que hay fuego.</td></tr>
+          <tr><td>Transformar</td><td>Manipulación mental de una representación</td><td>Acomodar los muebles de la sala en tu cabeza antes de moverlos.</td></tr>
+          <tr><td>Analizar</td><td>Segmentación y búsqueda de estructura</td><td>Un cocinero experto reconoce una salsa por su aroma; no huele ingredientes sueltos.</td></tr>
+          <tr><td>Evaluar</td><td>Monitoreo metacognitivo y criterios</td><td>Decidir si el presupuesto que armaste alcanza para el mes.</td></tr>
+          <tr><td>Crear</td><td>Combinación conceptual, transferencia analógica</td><td>Resolver un conflicto con un amigo usando la misma estrategia que usaste para negociar con tu jefe.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4. La idea central: separables para analizar, interdependientes para pensar</h3>
+      <div class="card accent">
+        <p>Larkin y Simon (1987) mostraron que dos representaciones pueden tener <strong>la misma información</strong> pero costos distintos para operar. Es decir: <em>informacionalmente equivalentes, computacionalmente distintas</em>.</p>
+        <div class="example-box">
+          <div>
+            <div class="tag">Indicaciones verbales</div>
+            <div class="formula">“Camina 3 cuadras, gira a la derecha...”</div>
+            <div class="note">Misma información, pero tienes que simular cada paso y recordar las vueltas. Si te equivocas, no lo notas hasta el final.</div>
+          </div>
+          <div>
+            <div class="tag">Mapa</div>
+            <div class="formula">🗺️ La ruta visible de un vistazo</div>
+            <div class="note">Misma información, pero ves la ruta completa, detectas atajos y evalúas si tiene sentido. El mapa reduce el costo de operar.</div>
+          </div>
+        </div>
+        <p>Piensa en vestirte: no necesitas una regla escrita que diga “calcetines antes que zapatos”. El zapato simplemente no entra sobre el calcetín. Cuando la restricción está codificada en el propio objeto, ni siquiera hay que recordarla. Zhang y Norman lo mostraron con versiones isomorfas de la Torre de Hanoi: cambiar la “capa” de cobertura del problema altera drásticamente tiempos y errores aunque la estructura lógica sea idéntica.</p>
+      </div>
+
+      <div class="card soft">
+        <p><strong>Para el aula:</strong> dos estudiantes enfrentan “el Plan A de celular cobra $30.000 fijos más $200 por minuto; el Plan B cobra $50.000 fijos más $100 por minuto; ¿a partir de cuántos minutos conviene el Plan B?”. Quien lo representa como ecuaciones transforma y resuelve; quien lo representa como dos rectas que se cruzan ve el punto de equilibrio y evalúa si el resultado es razonable; quien se queda en la representación verbal a menudo no puede operar. <em>La dificultad no estaba en “pensar”, sino en la correspondencia entre representación y operación.</em></p>
+      </div>
+
+      <h3>5. Implicaciones para el aprendizaje</h3>
+      <details class="acc"><summary>Novatos vs. expertos: la diferencia está en la representación</summary><div class="acc-body">Chi, Feltovich y Glaser (1981) lo mostraron en física: los novatos categorizan los problemas por rasgos <em>superficiales</em> (plano inclinado, poleas), mientras que los expertos lo hacen por <em>principios profundos</em> (conservación de la energía). En la vida diaria pasa igual: un cocinero novato ve “ingredientes”; uno experto ve “técnicas” y “sabores”. No es que tenga mejores operaciones en abstracto: su representación ya activa lo relevante.</div></details>
+      <details class="acc"><summary>Transferencia: por qué la analogía a la vista no basta</summary><div class="acc-body">Gick y Holyoak (1980): muy pocas personas aplican espontáneamente la solución de un problema a otro estructuralmente idéntico aunque tengan la analogía delante. Pasa en la vida diaria: aprendes a negociar un aumento con tu jefe y luego no se te ocurre usar la misma estructura para negociar con tu pareja. La superficie es distinta, pero la estructura profunda (intereses, alternativas, límites) es la misma. Transferir es difícil cuando solo ves la superficie.</div></details>
+      <details class="acc"><summary>Procesamiento apropiado a la transferencia</summary><div class="acc-body">Morris, Bransford y Franks: el recuerdo es mejor cuando las operaciones practicadas al aprender coinciden con las que se exigirán después. Releer (reconocimiento) entrena una operación distinta de la que exige un examen de resolución de problemas.</div></details>
+      <details class="acc"><summary>Niveles de procesamiento</summary><div class="acc-body">Craik y Lockhart: procesar el <em>significado</em> produce mejor retención que procesar la forma. La operación modula qué tan bien se consolida la representación.</div></details>
+      <details class="acc"><summary>Carga cognitiva</summary><div class="acc-body">Sweller: la memoria de trabajo es limitada (unos 4 ítems). Una mala representación consume recursos en decodificar y deja pocos para operar. Por eso los ejemplos resueltos ayudan a los novatos, y por eso un gráfico con texto redundante puede perjudicar.</div></details>
+      <details class="acc"><summary>Práctica de recuperación</summary><div class="acc-body">Roediger y Karpicke: recuperar información de memoria (una operación activa) fortalece la representación más que releerla. La operación cambia la calidad de lo almacenado.</div></details>
+
+      <div class="btn-row" style="margin-top:1.7rem">
+        <button class="btn btn-primary" data-goto="nivel1">Ir al caso de Julián →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 1
+         ============================================================ -->
+    <section id="nivel1" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 1</div>
+        <h2>El caso de Julián: la consulta</h2>
+      </div>
+
+      <div class="card warm">
+        <p><strong>Julián Andrés Mora</strong>, 16 años, cursa 10.º en el Colegio San Bartolomé de Medellín. Vive con su mamá —enfermera en un hospital— y su hermana menor. En sus ratos libres dibuja con una precisión que asombra a sus amigos, juega ajedrez en el club del barrio y arma estructuras de LEGO que parecen maquetas de arquitecto.</p>
+        <p>Su profesor de geometría y su profesora de arte lo tienen por uno de los estudiantes más hábiles. Sin embargo, en la clase de álgebra algo se rompe. Cuando la profesora <strong>Marcela Ríos</strong> escribe un problema verbal en el tablero —del tipo “el Plan A de celular cobra $30.000 fijos más $200 por minuto; el Plan B cobra $50.000 fijos más $100 por minuto; ¿a partir de cuántos minutos conviene el Plan B?”—, Julián se queda en blanco. No es que no lo intente: mira la hoja, subraya palabras, empieza cuentas y las tacha. En los exámenes escritos, sin figuras ni diagramas, su rendimiento cae en picada.</p>
+        <p>La profesora Marcela comenta con preocupación: <em>“Julián no piensa. Se queda mirando el papel como si no hubiera nada.”</em> Su mamá teme que pierda el año. Una evaluación psicopedagógica previa descartó discalculia severa, déficit atencional y trastorno del lenguaje: su coeficiente intelectual es normal-alto y no hay problemas emocionales significativos.</p>
+        <p>El equipo de orientación escolar, liderado por <strong>Claudia Benítez</strong>, te pide analizar el caso. Antes de proponer nada, necesitas entender qué le pasa a Julián cuando “piensa” matemáticas.</p>
+      </div>
+
+      <div class="activity mcq" data-activity="l1a" data-points="10"
+           data-feedback-ok="Exacto. Nada indica un déficit de pensamiento: lo que falla es la correspondencia entre cómo representa el problema y qué operación necesita ejecutar. Es justo la tesis de Larkin y Simon."
+           data-feedback-no="Todavía no. Revisa: no hay evidencia de déficit intelectual, atencional ni emocional. La clave está en otra parte.">
+        <div class="act-head">
+          <span class="act-tag">Actividad 1.1 · Diagnóstico</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>¿Cuál es la explicación más plausible del patrón de Julián?</h4>
+        <p class="question">Elige la opción que mejor dialogue con lo que sabes de representaciones y operaciones.</p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> Julián tiene un déficit general de razonamiento abstracto; por eso falla en todo lo que implique “pensar”.</button>
+          <button class="opt" data-correct="true"><span class="ltr">B</span> Julián construye con facilidad representaciones imagísticas y espaciales, pero le cuesta traducir el enunciado verbal a una representación simbólica (algebraica) sobre la que pueda operar.</button>
+          <button class="opt" data-correct="false"><span class="ltr">C</span> Julián no se esfuerza lo suficiente: si practicara más problemas del mismo tipo, terminaría resolviéndolos.</button>
+          <button class="opt" data-correct="false"><span class="ltr">D</span> Julián tiene un problema emocional no detectado: la ansiedad matemática bloquea toda su cognición.</button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="activity multi" data-activity="l1b" data-points="10">
+        <div class="act-head">
+          <span class="act-tag">Actividad 1.2 · Recolección de evidencia</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>Antes de intervenir, ¿qué información necesitas recoger?</h4>
+        <p class="question">Marca <strong>todas</strong> las fuentes que aportarían evidencia útil para el análisis representacional. Después pulsa “Comprobar”.</p>
+        <div class="opts">
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Pedirle a Julián que “piense en voz alta” mientras resuelve un problema verbal, para ver qué formato usa.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Comparar su desempeño en versiones del mismo problema con y sin diagrama.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Preguntarle cómo se imagina la situación de los planes: ¿la ve, la dibuja, la dice, la escribe en fórmula?</label>
+          <label><input type="checkbox" class="mcheck" data-correct="false"> Aplicar otro test de inteligencia para confirmar que “no le da”.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="false"> Revisar sus calificaciones de otras materias para ver si “es flojo en general”.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Observar si, cuando logra resolver, el éxito coincide con haber hecho un dibujo o esquema previo.</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent mcheck-btn">Comprobar</button></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="concepto">← Repasar fundamentos</button>
+        <button class="btn btn-primary" data-goto="nivel2">Siguiente nivel →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 2
+         ============================================================ -->
+    <section id="nivel2" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 2</div>
+        <h2>Radiografía de las representaciones</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Cuando Claudia le pide a Julián que “piense en voz alta” mientras resuelve el problema de los planes, esto es lo que emerge: <em>“Me imagino dos líneas que van subiendo, una más empinada que la otra… veo dónde se cruzan. Pero cuando me piden la fórmula, no sé qué poner”</em>. Y al intentar escribir la ecuación, se queda mirando el papel sin saber qué corresponde a qué.</p>
+        <p>Tu tarea ahora: <strong>clasificar los ejemplos en el formato de representación dominante</strong>. Toca un concepto para seleccionarlo y luego toca el recuadro donde creas que va.</p>
+      </div>
+
+      <div class="activity classify" data-activity="l2a" data-points="20">
+        <div class="act-head">
+          <span class="act-tag">Actividad 2.1 · Clasificar</span>
+          <span class="pts">+20 pts</span>
+        </div>
+        <h4>¿Qué formato domina en cada caso?</h4>
+        <p class="question">Coloca cada ejemplo en el formato de representación principal. Puedes mover las fichas las veces que necesites.</p>
+        <div class="bank">
+          <button class="chip" data-type="verbal">“El gato está sobre la mesa” → SOBRE(gato, mesa)</button>
+          <button class="chip" data-type="imagistico">Imaginar tu cuarto con la cama en la pared opuesta y “ver” cómo queda</button>
+          <button class="chip" data-type="espacial">Recordar dónde quedó cada cosa en la mesa sin mirar</button>
+          <button class="chip" data-type="simbolico">Un horario de buses o una receta escrita</button>
+          <button class="chip" data-type="imagistico">“Ver” la cara de tu abuela mientras recuerdas su voz</button>
+          <button class="chip" data-type="simbolico">Las notas de una canción en una partitura</button>
+          <button class="chip" data-type="verbal">Recordar el <em>significado</em> de un texto y no sus palabras exactas</button>
+          <button class="chip" data-type="espacial">Saber la distribución de los muebles de tu casa con los ojos cerrados</button>
+        </div>
+        <div class="buckets">
+          <div class="bucket" data-type="verbal"><h5>Verbal / proposicional</h5><div class="drop"></div></div>
+          <div class="bucket" data-type="imagistico"><h5>Imagístico</h5><div class="drop"></div></div>
+          <div class="bucket" data-type="espacial"><h5>Espacial</h5><div class="drop"></div></div>
+          <div class="bucket" data-type="simbolico"><h5>Simbólico / notacional</h5><div class="drop"></div></div>
+        </div>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent classify-check">Comprobar clasificación</button></div>
+      </div>
+
+      <div class="activity mcq" data-activity="l2b" data-points="10"
+           data-feedback-ok="Correcto. Con la doble codificación, un material que combina texto pertinente e imagen ofrece dos rutas de recuperación y libera carga de la memoria de trabajo. Justo lo que necesita Julián."
+           data-feedback-no="Piénsalo con Paivio y Mayer: si dos rutas de acceso están disponibles, el recuerdo mejora. Vuelve a intentarlo.">
+        <div class="act-head">
+          <span class="act-tag">Actividad 2.2 · Aplicando la teoría</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>Si preparas material para Julián, ¿qué combinación tendría mejor sustento teórico?</h4>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> Solo texto: que lea el problema muchas veces hasta que lo entienda.</button>
+          <button class="opt" data-correct="false"><span class="ltr">B</span> Solo la fórmula: que memorice la ecuación y la aplique mecánicamente.</button>
+          <button class="opt" data-correct="true"><span class="ltr">C</span> Un enunciado verbal acompañado de un diagrama pertinente que muestre la situación, y luego la traducción al lenguaje algebraico.</button>
+          <button class="opt" data-correct="false"><span class="ltr">D</span> Un video con música, imágenes decorativas y texto redundante que repita la misma idea tres veces.</button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel1">← Nivel anterior</button>
+        <button class="btn btn-primary" data-goto="nivel3">Siguiente nivel →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 3
+         ============================================================ -->
+    <section id="nivel3" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 3</div>
+        <h2>El motor de las operaciones</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Ya tienes una hipótesis sobre las representaciones de Julián. Ahora toca mirar las <strong>operaciones</strong>: qué procesos se activan (o no) cuando intenta resolver. Observa que Julián puede <em>imaginar</em> la escena, pero no puede <em>transformarla</em> en una ecuación ni <em>comparar</em> ambos planes en un mismo lenguaje.</p>
+      </div>
+
+      <div class="activity matching" data-activity="l3a" data-points="20">
+        <div class="act-head">
+          <span class="act-tag">Actividad 3.1 · Emparejar</span>
+          <span class="pts">+20 pts</span>
+        </div>
+        <h4>Cada operación con su mecanismo</h4>
+        <p class="question">Selecciona en cada fila el mecanismo que la psicología cognitiva asocia a esa operación.</p>
+        <div class="rows">
+          <div class="row"><span class="term">Comparar</span>
+            <select data-answer="alineacion">
+              <option value="">— Elige —</option>
+              <option value="alineacion">Alineación estructural (Gentner)</option>
+              <option value="recuperacion">Recuperación de memoria</option>
+              <option value="chunking">Segmentación por chunks</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Analizar</span>
+            <select data-answer="chunking">
+              <option value="">— Elige —</option>
+              <option value="alineacion">Alineación estructural (Gentner)</option>
+              <option value="chunking">Segmentación por chunks</option>
+              <option value="metacog">Monitoreo metacognitivo</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Evaluar</span>
+            <select data-answer="metacog">
+              <option value="">— Elige —</option>
+              <option value="chunking">Segmentación por chunks</option>
+              <option value="metacog">Monitoreo metacognitivo</option>
+              <option value="analogia">Transferencia analógica</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Crear</span>
+            <select data-answer="analogia">
+              <option value="">— Elige —</option>
+              <option value="metacog">Monitoreo metacognitivo</option>
+              <option value="analogia">Combinación conceptual / analogía</option>
+              <option value="recuperacion">Recuperación de memoria</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Transformar</span>
+            <select data-answer="manipulacion">
+              <option value="">— Elige —</option>
+              <option value="manipulacion">Manipulación mental de una representación</option>
+              <option value="chunking">Segmentación por chunks</option>
+              <option value="alineacion">Alineación estructural</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Inferir</span>
+            <select data-answer="razonamiento">
+              <option value="">— Elige —</option>
+              <option value="razonamiento">Razonamiento deductivo / inductivo / abductivo</option>
+              <option value="metacog">Monitoreo metacognitivo</option>
+              <option value="recuperacion">Recuperación de memoria</option>
+            </select>
+          </div>
+        </div>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent match-check">Comprobar</button></div>
+      </div>
+
+      <div class="activity ordering" data-activity="l3b" data-points="10" data-answer="a,c,b,d">
+        <div class="act-head">
+          <span class="act-tag">Actividad 3.2 · Ordenar</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>Ruta cognitiva de Julián para resolver el problema de los planes</h4>
+        <p class="question">Toca los pasos <strong>en orden</strong> para asignarles un número. Vuelve a tocar para desasignar. Luego comprueba.</p>
+        <button class="order-item" data-id="c"><span class="num"></span> Representar la situación como un modelo mental (dos planes que se cruzan)</button>
+        <button class="order-item" data-id="a"><span class="num"></span> Leer el enunciado y construir una representación verbal del problema</button>
+        <button class="order-item" data-id="d"><span class="num"></span> Transformar la representación simbólica y despejar la incógnita</button>
+        <button class="order-item" data-id="b"><span class="num"></span> Traducir la escena a una representación simbólica (costo = fijo + tarifa × minutos)</button>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent order-check">Comprobar orden</button></div>
+      </div>
+
+      <div class="activity mcq" data-activity="l3c" data-points="10"
+           data-feedback-ok="Justo. El problema de Julián no está en la operación de “transformar” en sí, sino en el paso previo: no tiene una representación sobre la cual operar. Como dice Larkin y Simon, la representación habilita (o bloquea) la operación."
+           data-feedback-no="Vuelve a la idea de Larkin y Simon: la representación no es decorativa, habilita u obstruye la operación. ¿Dónde falla Julián?">
+        <div class="act-head">
+          <span class="act-tag">Actividad 3.3 · Aplicar</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>¿Dónde está, con más precisión, el cuello de botella de Julián?</h4>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> En la operación de inferir: no puede deducir la respuesta correcta.</button>
+          <button class="opt" data-correct="false"><span class="ltr">B</span> En la operación de evaluar: no sabe si su resultado es razonable.</button>
+          <button class="opt" data-correct="true"><span class="ltr">C</span> En la <em>correspondencia entre representaciones</em>: puede imaginar la escena, pero no la traduce al lenguaje algebraico para poder operar sobre ella.</button>
+          <button class="opt" data-correct="false"><span class="ltr">D</span> En la memoria de trabajo: simplemente se le olvidan los datos del problema.</button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel2">← Nivel anterior</button>
+        <button class="btn btn-primary" data-goto="nivel4">Siguiente nivel →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 4
+         ============================================================ -->
+    <section id="nivel4" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 4</div>
+        <h2>Diseñar la intervención</h2>
+      </div>
+
+      <div class="card warm">
+        <p>Claudia Benítez te pide un plan de intervención para Julián. Tienes tres decisiones que tomar. Cada elección tendrá consecuencias didácticas que verás al instante. No hay una única respuesta “perfecta”: hay decisiones con mejor o peor sustento.</p>
+      </div>
+
+      <div class="decision" data-activity="l4a" data-points="10" data-dec="1">
+        <div class="d-head"><div class="d-num">1</div><div class="d-title">¿Cuál es el primer paso de la intervención?</div></div>
+        <div class="scenario">Marcela te sugiere “empezar de una vez con ejercicios de álgebra, que es lo que se le da mal”. Claudia, en cambio, quiere entender antes de actuar.</div>
+        <div class="opts">
+          <button class="d-opt" data-quality="bad"><span class="ltr">A</span> Entregarle a Julián una lista extra de problemas verbales para que practique en casa.</button>
+          <button class="d-opt" data-quality="best"><span class="ltr">B</span> Entrevistarlo y observar cómo representa el problema cuando piensa en voz alta, antes de tocar el contenido.</button>
+          <button class="d-opt" data-quality="bad"><span class="ltr">C</span> Retirarle los problemas verbales del currículo y evaluarlo solo con ejercicios simbólicos.</button>
+        </div>
+        <div class="consequence"></div>
+      </div>
+
+      <div class="decision" data-activity="l4b" data-points="10" data-dec="2">
+        <div class="d-head"><div class="d-num">2</div><div class="d-title">Ya tienes evidencia. ¿Qué intervención propones?</div></div>
+        <div class="scenario">Julián imagina la escena con soltura pero no logra traducirla a una ecuación. Sabes que su punto débil es la correspondencia entre representaciones.</div>
+        <div class="opts">
+          <button class="d-opt" data-quality="okay"><span class="ltr">A</span> Repetir el mismo tipo de problema 20 veces más, con la esperanza de que “se le quede”.</button>
+          <button class="d-opt" data-quality="best"><span class="ltr">B</span> Enseñarle a hacer un diagrama del problema (planes, costos, minutos) y, sobre ese diagrama, ir señalando qué parte corresponde a cada término de la ecuación.</button>
+          <button class="d-opt" data-quality="bad"><span class="ltr">C</span> Darle la ecuación ya armada y pedirle solo que la resuelva: “lo importante es que sepa operar”.</button>
+        </div>
+        <div class="consequence"></div>
+      </div>
+
+      <div class="decision" data-activity="l4c" data-points="10" data-dec="3">
+        <div class="d-head"><div class="d-num">3</div><div class="d-title">¿Cómo evaluarás si la intervención funcionó?</div></div>
+        <div class="scenario">Han pasado cuatro semanas. Necesitas evidencia de que Julián mejoró de verdad, no solo de que “se siente mejor”.</div>
+        <div class="opts">
+          <button class="d-opt" data-quality="bad"><span class="ltr">A</span> Preguntarle si ahora le gustan más las matemáticas.</button>
+          <button class="d-opt" data-quality="okay"><span class="ltr">B</span> Aplicarle el mismo examen que hizo antes de la intervención, para comparar la nota.</button>
+          <button class="d-opt" data-quality="best"><span class="ltr">C</span> Proponerle un problema nuevo, con una superficie distinta (por ejemplo, de ahorro o de mezclas) y ver si transfiere la estrategia de representación aprendida.</button>
+        </div>
+        <div class="consequence"></div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <h4 style="font-family:var(--font-head);color:var(--primary);margin-bottom:.4rem">Autoevaluación breve</h4>
+        <p style="font-size:1rem">En tres o cuatro líneas, justifica con <strong>conceptos del Bloque A</strong> por qué la intervención que elegiste tiene sentido para el caso de Julián.</p>
+        <textarea class="reflect" id="self-eval" placeholder="Ejemplo: la clave está en la correspondencia entre representaciones porque..."></textarea>
+        <div class="char-count"><span id="self-count">0</span> caracteres</div>
+        <div class="feedback" id="self-feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent" id="self-submit">Guardar autoevaluación</button></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel3">← Nivel anterior</button>
+        <button class="btn btn-primary" data-goto="cierre">Ir al cierre →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CIERRE
+         ============================================================ -->
+    <section id="cierre" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Cierre</div>
+        <h2>Reflexión y para seguir pensando</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Has recorrido el caso de Julián usando dos lentes que la psicología cognitiva nos ofrece: <strong>representaciones</strong> (¿en qué formato se codifica la información?) y <strong>operaciones</strong> (¿qué procesos actúan sobre ella?). Y has comprobado algo importante: no son módulos separados, sino dos preguntas que nos ayudan a analizar el pensamiento. Cambiar la representación puede volver trivial lo difícil —o al revés—, como cuando pasas de seguir indicaciones verbales a ver la ruta en un mapa.</p>
+      </div>
+
+      <div class="card">
+        <h4 style="font-family:var(--font-head);color:var(--primary)">Preguntas metacognitivas</h4>
+        <p style="font-size:1rem;margin-bottom:.6rem">No hay respuestas correctas. Son para pensar tu propio proceso.</p>
+        <div class="checklist">
+          <label><input type="checkbox"> ¿En qué momento del laboratorio cambié de opinión sobre algo? ¿Qué evidencia me hizo cambiar?</label>
+          <label><input type="checkbox"> ¿Qué representación uso yo con más frecuencia cuando estudio: verbal, imagística, espacial o simbólica? ¿En qué me beneficia y en qué me limita?</label>
+          <label><input type="checkbox"> Si tuviera que explicarle “representación vs. operación” a un compañero en una frase, ¿qué frase usaría?</label>
+          <label><input type="checkbox"> ¿En qué parte de mi propia vida estoy intentando resolver con la operación equivocada porque estoy mirando el problema desde la representación equivocada?</label>
+        </div>
+      </div>
+
+      <div class="card soft">
+        <h4 style="font-family:var(--font-head);color:var(--primary);margin-bottom:.4rem">Tu reflexión final</h4>
+        <p style="font-size:1rem">Escribe una reflexión breve (4-6 líneas) sobre qué te llevas de este laboratorio para tu formación como psicólogo/a.</p>
+        <textarea class="reflect" id="reflection" placeholder="Me llevo..."></textarea>
+        <div class="char-count"><span id="refl-count">0</span> caracteres</div>
+        <div class="feedback" id="refl-feedback"></div>
+        <div class="btn-row"><button class="btn btn-primary" id="refl-submit">Enviar reflexión y ver resumen</button></div>
+      </div>
+
+      <div class="card" id="summary-box" style="display:none">
+        <h4 style="font-family:var(--font-head);color:var(--primary);margin-bottom:.6rem">Resumen de desempeño</h4>
+        <div class="summary-grid" id="summary-grid"></div>
+        <div id="summary-text" style="font-size:1rem;margin-top:.6rem"></div>
+      </div>
+
+      <div class="card warm" style="margin-top:1rem">
+        <h4 style="font-family:var(--font-head);color:var(--primary)">Lecturas para seguir profundizando</h4>
+        <ul class="reading-list">
+          <li><strong>Larkin, J. & Simon, H. (1987)</strong> Why a diagram is (sometimes) worth ten thousand words. <em>Cognitive Science</em>, 11, 65–99.</li>
+          <li><strong>Paivio, A. (1986)</strong> <em>Mental Representations: A Dual Coding Approach</em>. Oxford University Press.</li>
+          <li><strong>Johnson-Laird, P. N. (1983)</strong> <em>Mental Models</em>. Harvard University Press.</li>
+          <li><strong>Chi, M., Feltovich, P. & Glaser, R. (1981)</strong> Categorization and representation of physics problems by experts and novices. <em>Cognitive Science</em>, 5, 121–152.</li>
+          <li><strong>Mayer, R. (2009)</strong> <em>Multimedia Learning</em> (2.ª ed.). Cambridge University Press.</li>
+          <li><strong>Sweller, J. (1988)</strong> Cognitive load during problem solving. <em>Cognitive Science</em>, 12, 257–285.</li>
+        </ul>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel4">← Volver al nivel 4</button>
+        <button class="btn btn-primary" data-goto="concepto">Repasar fundamentos</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const S = { activities:{}, attempts:{}, badges:new Set(), maxScore:120 };
+
+function $(sel, ctx=document){ return ctx.querySelector(sel); }
+function $$(sel, ctx=document){ return [...ctx.querySelectorAll(sel)]; }
+
+function recalc(){
+  S.score = Object.values(S.activities).reduce((a,b)=> a + b.pts, 0);
+  const pct = Math.round((S.score / S.maxScore) * 100);
+  $('#score-val').textContent = S.score;
+  $('#progress-fill').style.width = pct + '%';
+  $('#progress-pct').textContent = pct + '%';
+  $('#progress-text').textContent = pct === 0 ? 'Progreso' : (pct === 100 ? '¡Completado!' : 'Progreso');
+  updateSidebarDone();
+  checkBadges();
+}
+function award(id, pts, maxPts){
+  if (S.activities[id]?.done) return;
+  S.activities[id] = { done:true, pts, max:maxPts };
+  recalc();
+}
+function registerAttempt(id){
+  S.attempts[id] = (S.attempts[id] || 0) + 1;
+  return S.attempts[id] === 1;
+}
+function tryAward(id, maxPts, firstTry){
+  award(id, firstTry ? maxPts : Math.round(maxPts * 0.5), maxPts);
+}
+function showFeedback(el, msg, type){
+  const fb = el.querySelector('.feedback');
+  if (!fb) return;
+  fb.className = 'feedback show ' + type;
+  fb.innerHTML = msg;
+}
+function toast(msg, gold=false){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'show' + (gold ? ' gold' : '');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=> t.classList.remove('show'), 3200);
+}
+function showPanel(id){
+  $$('#content .panel').forEach(p => p.classList.toggle('active', p.id === id));
+  $$('#sidebar .nav-link').forEach(a => a.classList.toggle('active', a.dataset.target === id));
+  window.scrollTo({ top:0, behavior:'smooth' });
+  $('#sidebar').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const nav = e.target.closest('[data-goto], .nav-link');
+  if (nav){
+    e.preventDefault();
+    const target = nav.dataset.goto || nav.dataset.target;
+    if (target) showPanel(target);
+  }
+});
+$('#btn-start').addEventListener('click', e => {
+  e.preventDefault();
+  $('#cover').style.display = 'none';
+  $('#lab').classList.add('open');
+  showPanel('concepto');
+  window.scrollTo({ top:0 });
+});
+$('#hamburger').addEventListener('click', () => {
+  $('#sidebar').classList.toggle('open');
+});
+function updateSidebarDone(){
+  const done = id => S.activities[id]?.done;
+  const map = {
+    nivel1: done('l1a') && done('l1b'),
+    nivel2: done('l2a') && done('l2b'),
+    nivel3: done('l3a') && done('l3b') && done('l3c'),
+    nivel4: done('l4a') && done('l4b') && done('l4c')
+  };
+  $$('#sidebar .nav-link').forEach(a => {
+    const t = a.dataset.target;
+    a.classList.toggle('done', !!map[t]);
+  });
+}
+function checkBadges(){
+  const done = id => S.activities[id]?.done;
+  const setBadge = (id, name, cond) => {
+    if (cond && !S.badges.has(id)){
+      S.badges.add(id);
+      const el = document.querySelector(`[data-badge="${id}"]`);
+      if (el) el.classList.add('earned');
+      toast('🏅 Logro desbloqueado: ' + name, true);
+    }
+  };
+  setBadge('primer-paso', 'Primer paso', done('l1a') && done('l1b'));
+  setBadge('cartografo', 'Cartógrafo mental', done('l2a') && done('l2b'));
+  setBadge('ingeniero', 'Ingeniero de procesos', done('l3a') && done('l3b') && done('l3c'));
+  setBadge('disenador', 'Diseñador de intervenciones', done('l4a') && done('l4b') && done('l4c'));
+  setBadge('reflexivo', 'Pensador reflexivo', done('cierre'));
+  const scored = ['l1a','l1b','l2a','l2b','l3a','l3b','l3c','l4a','l4b','l4c'];
+  const allPerfect = scored.every(id => S.activities[id]?.done && S.activities[id].pts === S.activities[id].max);
+  setBadge('perfecto', 'Puntaje perfecto', allPerfect);
+}
+$$('.flip-card').forEach(card => {
+  const toggle = () => card.classList.toggle('flipped');
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+  });
+});
+document.addEventListener('click', e => {
+  const opt = e.target.closest('.mcq .opt');
+  if (!opt) return;
+  const mcq = opt.closest('.mcq');
+  const id = mcq.dataset.activity;
+  const maxPts = +mcq.dataset.points || 10;
+  if (mcq.classList.contains('locked')) return;
+  const firstTry = registerAttempt(id);
+  const correct = opt.dataset.correct === 'true';
+  mcq.querySelectorAll('.opt').forEach(b => b.classList.remove('correct','wrong'));
+  if (correct){
+    opt.classList.add('correct');
+    mcq.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(mcq, mcq.dataset.feedbackOk || '¡Muy bien!', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    opt.classList.add('wrong');
+    showFeedback(mcq, mcq.dataset.feedbackNo || 'No es esa opción. Vuelve a pensarlo.', 'no');
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.mcheck-btn')) return;
+  const wrap = e.target.closest('.multi');
+  if (wrap.classList.contains('locked')) return;
+  const id = wrap.dataset.activity;
+  const maxPts = +wrap.dataset.points || 10;
+  const firstTry = registerAttempt(id);
+  const checks = $$('.mcheck', wrap);
+  let allCorrect = true;
+  checks.forEach(c => {
+    const label = c.closest('label');
+    label.classList.remove('correct','wrong');
+    const isCorrect = c.dataset.correct === 'true';
+    if (c.checked === isCorrect){ label.classList.add('correct'); }
+    else { label.classList.add('wrong'); if (c.checked) allCorrect = false; }
+    if (!c.checked && isCorrect) allCorrect = false;
+  });
+  if (allCorrect){
+    wrap.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(wrap, '¡Exacto! Recoger evidencia sobre <em>cómo representa</em> Julián es justo lo que necesitas antes de intervenir. Aplicar otro test de inteligencia o revisar notas de otras materias no aporta información sobre el formato representacional.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    showFeedback(wrap, 'Aún hay casillas que no corresponden. Fíjate en las marcadas en rojo: algunas suman poca información representacional, otras son redundantes con la evaluación previa.', 'no');
+  }
+});
+let selectedChip = null;
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.classify .chip');
+  if (chip){
+    const cls = chip.closest('.classify');
+    if (cls.classList.contains('locked')) return;
+    if (chip.parentElement.classList.contains('bank')){
+      cls.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      selectedChip = chip;
+    } else {
+      cls.querySelector('.bank').appendChild(chip);
+      chip.classList.remove('selected','correct','wrong');
+      selectedChip = null;
+    }
+    return;
+  }
+  const bucket = e.target.closest('.classify .bucket');
+  if (bucket && selectedChip){
+    const cls = bucket.closest('.classify');
+    if (cls.classList.contains('locked')) return;
+    bucket.querySelector('.drop').appendChild(selectedChip);
+    selectedChip.classList.remove('selected','correct','wrong');
+    selectedChip = null;
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.classify-check')) return;
+  const cls = e.target.closest('.classify');
+  if (cls.classList.contains('locked')) return;
+  const id = cls.dataset.activity;
+  const maxPts = +cls.dataset.points || 20;
+  const firstTry = registerAttempt(id);
+  const totalChips = $$('.chip', cls).length;
+  const placed = $$('.bucket .chip', cls).length;
+  if (placed < totalChips){
+    showFeedback(cls, 'Todavía quedan fichas en el banco. Colócalas todas antes de comprobar.', 'no');
+    return;
+  }
+  let correct = 0;
+  $$('.bucket', cls).forEach(b => {
+    const type = b.dataset.type;
+    $$('.chip', b).forEach(ch => {
+      ch.classList.remove('correct','wrong');
+      if (ch.dataset.type === type){ ch.classList.add('correct'); correct++; }
+      else { ch.classList.add('wrong'); }
+    });
+  });
+  if (correct === totalChips){
+    cls.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(cls, '¡Perfecto! Distinguiste bien los cuatro formatos. Fíjate que “saber dónde quedó cada cosa” es <em>espacial</em>, no imagístico: codifica posiciones, no apariencias.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    showFeedback(cls, `Tienes ${correct} de ${totalChips} bien ubicadas. Revisa las rojas y vuelve a intentarlo.`, 'no');
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.match-check')) return;
+  const wrap = e.target.closest('.matching');
+  if (wrap.classList.contains('locked')) return;
+  const id = wrap.dataset.activity;
+  const maxPts = +wrap.dataset.points || 20;
+  const firstTry = registerAttempt(id);
+  const sels = $$('select', wrap);
+  let ok = 0;
+  sels.forEach(s => {
+    s.classList.remove('correct','wrong');
+    if (s.value === s.dataset.answer){ s.classList.add('correct'); ok++; }
+    else { s.classList.add('wrong'); }
+  });
+  if (ok === sels.length){
+    wrap.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(wrap, '¡Todo alineado! “Comparar” no es solo yuxtaponer: es <em>alinear relaciones</em>, y eso lo mostró Gentner con los estudios de analogía.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    showFeedback(wrap, `${ok} de ${sels.length} correctas. Revisa las filas marcadas y vuelve a intentarlo.`, 'no');
+  }
+});
+document.addEventListener('click', e => {
+  const item = e.target.closest('.ordering .order-item');
+  if (!item) return;
+  const ord = item.closest('.ordering');
+  if (ord.classList.contains('locked')) return;
+  if (item.dataset.n){
+    delete item.dataset.n;
+    item.querySelector('.num').textContent = '';
+  } else {
+    const nums = $$('.order-item', ord).map(i => +i.dataset.n || 0);
+    const next = Math.max(0, ...nums) + 1;
+    item.dataset.n = next;
+    item.querySelector('.num').textContent = next;
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.order-check')) return;
+  const ord = e.target.closest('.ordering');
+  if (ord.classList.contains('locked')) return;
+  const id = ord.dataset.activity;
+  const maxPts = +ord.dataset.points || 10;
+  const firstTry = registerAttempt(id);
+  const answer = ord.dataset.answer.split(',');
+  const items = $$('.order-item', ord);
+  const unassigned = items.filter(i => !i.dataset.n).length;
+  if (unassigned){
+    showFeedback(ord, 'Faltan pasos por numerar. Toca los que quedan en blanco para asignarles un lugar.', 'no');
+    return;
+  }
+  const sorted = [...items].sort((a,b) => +a.dataset.n - +b.dataset.n);
+  const isCorrect = sorted.every((it, i) => it.dataset.id === answer[i]);
+  items.forEach(i => i.classList.remove('correct','wrong'));
+  if (isCorrect){
+    items.forEach(i => i.classList.add('correct'));
+    ord.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(ord, '¡Exacto! Primero lees y construyes una representación verbal; luego un modelo mental de la escena; luego lo traduces al lenguaje simbólico; y solo entonces transformas y despejas. El paso que falla en Julián es el tercero.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    items.forEach(i => i.classList.add('wrong'));
+    showFeedback(ord, 'No es el orden correcto. Piensa: primero hay que <em>comprender</em> el enunciado; lo simbólico llega después de haber construido un modelo de la situación.', 'no');
+    setTimeout(()=> items.forEach(i => i.classList.remove('wrong')), 1500);
+  }
+});
+const decisionsMeta = {
+  '1': {
+    feedbacks: {
+      bad:  'Practicar más de lo mismo refuerza la representación que ya falla. Sin cambiar el formato, el esfuerzo se invierte en el lugar equivocado.',
+      best: 'Buena decisión. Antes de intervenir hay que <em>ver</em> cómo representa Julián. La evaluación previa descartó déficits, así que la evidencia cualitativa es la que orientará el diseño.'
+    }
+  },
+  '2': {
+    feedbacks: {
+      okay: 'La práctica repetida sin cambiar la representación difícilmente transfiere. Puede mejorar el reconocimiento, pero no la operación de traducción.',
+      best: 'Excelente. Estás usando el diagrama como <em>puente</em> entre la representación imagística que Julián ya domina y la simbólica que necesita. Es exactamente lo que Larkin y Simon describen: la representación habilita la operación.',
+      bad: 'Darle la ecuación armada lo deja sin la operación clave: la correspondencia entre representaciones. Resolverá ese problema pero no podrá transferir a otros.'
+    }
+  },
+  '3': {
+    feedbacks: {
+      bad:  'El gusto por la materia es un indicador subjetivo; no evalúa si hubo cambio cognitivo.',
+      okay: 'Comparar la misma prueba mide aprendizaje específico, pero no transferencia. Un estudiante puede mejorar la nota y no haber cambiado su representación.',
+      best: 'Muy bien. Proponer un problema con superficie distinta es lo que la literatura llama <em>prueba de transferencia</em>: mide si la operación se generalizó o si solo se ancló al ejemplo. Es la evidencia más robusta.'
+    }
+  }
+};
+document.addEventListener('click', e => {
+  const opt = e.target.closest('.decision .d-opt');
+  if (!opt) return;
+  const dec = opt.closest('.decision');
+  if (dec.classList.contains('locked')) return;
+  const id = dec.dataset.activity;
+  const maxPts = +dec.dataset.points || 10;
+  const num = dec.dataset.dec;
+  const quality = opt.dataset.quality;
+  const firstTry = registerAttempt(id);
+  dec.classList.add('locked');
+  dec.querySelectorAll('.d-opt').forEach(b => {
+    const q = b.dataset.quality;
+    if (q === 'best') b.classList.add('best');
+    else if (q === 'okay') b.classList.add('okay');
+    else b.classList.add('bad');
+  });
+  const cons = dec.querySelector('.consequence');
+  cons.classList.add('show');
+  if (quality === 'best'){
+    tryAward(id, maxPts, firstTry);
+    cons.innerHTML = '<strong>✅ Mejor decisión.</strong> ' + decisionsMeta[num].feedbacks.best;
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else if (quality === 'okay'){
+    tryAward(id, Math.round(maxPts/2), firstTry);
+    cons.innerHTML = '<strong>🟡 Decisión aceptable, pero no la mejor.</strong> ' + decisionsMeta[num].feedbacks.okay;
+    toast('+' + (firstTry ? Math.round(maxPts/2) : Math.round(maxPts/4)) + ' pts');
+  } else {
+    cons.innerHTML = '<strong>❌ Decisión con menor sustento teórico.</strong> ' + (decisionsMeta[num].feedbacks[quality] || '');
+  }
+});
+const selfEval = $('#self-eval');
+const selfCount = $('#self-count');
+selfEval.addEventListener('input', () => { selfCount.textContent = selfEval.value.trim().length; });
+$('#self-submit').addEventListener('click', () => {
+  const txt = selfEval.value.trim();
+  const fb = $('#self-feedback');
+  if (txt.length < 40){
+    fb.className = 'feedback show no';
+    fb.textContent = 'Escribe al menos 40 caracteres para que la autoevaluación tenga sentido. La idea es que conectes el caso con los conceptos del Bloque A.';
+    return;
+  }
+  fb.className = 'feedback show ok';
+  fb.innerHTML = 'Gracias por tu autoevaluación. Guardarla no es un trámite: el hecho de <em>explicar con tus palabras</em> por qué la intervención funciona es una operación de procesamiento profundo (Craik y Lockhart) que consolida mejor lo aprendido.';
+  selfEval.disabled = true;
+  $('#self-submit').disabled = true;
+  toast('Autoevaluación guardada ✍️');
+});
+const refl = $('#reflection');
+const reflCount = $('#refl-count');
+refl.addEventListener('input', () => { reflCount.textContent = refl.value.trim().length; });
+$('#refl-submit').addEventListener('click', () => {
+  const txt = refl.value.trim();
+  const fb = $('#refl-feedback');
+  if (txt.length < 60){
+    fb.className = 'feedback show no';
+    fb.textContent = 'Con 60 caracteres como mínimo podremos considerar que la reflexión está desarrollada. Intenta conectar con el caso de Julián o con tu propia experiencia.';
+    return;
+  }
+  fb.className = 'feedback show ok';
+  fb.innerHTML = '¡Listo! Has cerrado el laboratorio con una operación metacognitiva: <em>mirar tu propio proceso de aprendizaje</em>. Eso también es entrenar una operación valiosa.';
+  refl.disabled = true;
+  $('#refl-submit').disabled = true;
+  if (!S.activities['cierre']){
+    S.activities['cierre'] = { done:true, pts:0, max:0 };
+    recalc();
+  }
+  buildSummary();
+  toast('Reflexión enviada. ¡Felicidades por completar el laboratorio! 🎉', true);
+});
+function buildSummary(){
+  const box = $('#summary-box');
+  box.style.display = 'block';
+  const scored = [
+    { id:'l1a', label:'Diagnóstico' },
+    { id:'l1b', label:'Evidencia' },
+    { id:'l2a', label:'Clasificar' },
+    { id:'l2b', label:'Dual' },
+    { id:'l3a', label:'Emparejar' },
+    { id:'l3b', label:'Ordenar' },
+    { id:'l3c', label:'Aplicar' },
+    { id:'l4a', label:'Decisión 1' },
+    { id:'l4b', label:'Decisión 2' },
+    { id:'l4c', label:'Decisión 3' }
+  ];
+  let html = '';
+  let perfectas = 0;
+  scored.forEach(s => {
+    const a = S.activities[s.id];
+    const pts = a ? a.pts : 0;
+    const max = a ? a.max : 10;
+    if (pts === max) perfectas++;
+    html += `<div class="summary-item"><div class="big">${pts}/${max}</div><div class="lbl">${s.label}</div></div>`;
+  });
+  $('#summary-grid').innerHTML = html;
+  const pct = Math.round((S.score / S.maxScore) * 100);
+  let msg;
+  if (pct >= 90) msg = 'Dominio sobresaliente. No solo resolviste las actividades: entendiste <em>por qué</em> funcionan. Estás pensando con los lentes de la psicología cognitiva.';
+  else if (pct >= 70) msg = 'Buen desempeño. Hay matices para pulir, sobre todo en las decisiones de intervención. Revisar el Bloque A con calma puede afinar esas distinciones.';
+  else if (pct >= 50) msg = 'Vas por buen camino. Varias actividades quedaron a medio puntaje, lo que sugiere que algunos conceptos necesitan una segunda vuelta. Te sugiero repasar el Bloque A y volver a intentarlo.';
+  else msg = 'Este es un buen punto de partida. La distinción representación/operación es más sutil de lo que parece a primera vista. Repasa el Bloque A con calma y regresa al caso: la segunda pasada siempre es más clara.';
+  $('#summary-text').innerHTML = `<p><strong>Puntaje final:</strong> ${S.score} / ${S.maxScore} (${pct}%) · <strong>Actividades con puntaje completo:</strong> ${perfectas} de ${scored.length}.</p><p>${msg}</p>`;
+}
+recalc();
+</script>
+</body>
+</html>

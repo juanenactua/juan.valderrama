@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La formulación de un objeto de investigación · Laboratorio EnAcción</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="La formulación de un objeto de investigación · Laboratorio EnAcción">
+<meta name="jc-descripcion" content="Laboratorio educativo interactivo para aprender a transformar una inquietud en un objeto de investigación delimitado, justificado e investigable, mediante la distinción entre tema, problema, objeto y pregunta, el análisis de vacíos, cinco ejes de delimitación, criterios FINER y formulación de proyectos.">
+<meta name="jc-tipo" content="Laboratorio educativo interactivo">
+<meta name="jc-etiquetas" content="Formulación de proyectos, Objeto de investigación, Tema de investigación, Problema de investigación, Pregunta de investigación, Objetivos de investigación, Delimitación, Población, Contexto, Tiempo, Perspectiva teórica, Vacío de investigación, Vacío empírico, Vacío teórico, Vacío metodológico, Contradicción de hallazgos, Criterios FINER, Viabilidad, Relevancia, Originalidad, Investigabilidad, Coherencia metodológica, Ética de la investigación, Investigación cuantitativa, Investigación cualitativa, Métodos mixtos, Metodología de investigación, Psicología, Aprendizaje autónomo, Evaluación formativa, Gamificación">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#eef2f7; --surface:#ffffff; --surface-2:#f4f7fb;
+  --ink:#1a2433; --ink-soft:#3d4a5c; --muted:#6b7a8f;
+  --primary:#1e3a5f; --primary-dark:#142a47; --primary-soft:#d6e2f0;
+  --accent:#3d6a99; --accent-soft:#dbe7f3;
+  --gold:#c9a227; --gold-soft:#f7ecc4;
+  --green:#3d8a5c; --green-soft:#d9ecdf;
+  --red:#b04a4a; --red-soft:#f3dada;
+  --border:#d6e0ec;
+  --shadow:0 8px 24px rgba(20,42,71,.10); --shadow-sm:0 2px 8px rgba(20,42,71,.06);
+  --radius:14px; --radius-sm:10px;
+  --font-head:'Lora',Georgia,serif; --font-body:'Nunito',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);font-size:18px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;color:var(--ink);font-weight:600}
+h1{font-size:clamp(2.1rem,4.4vw,3rem)}
+h2{font-size:clamp(1.65rem,2.9vw,2.2rem);margin-bottom:.4em}
+h3{font-size:1.35rem;margin-bottom:.4em;color:var(--primary)}
+h4{font-size:1.15rem;color:var(--accent)}
+p{margin-bottom:.9em;color:var(--ink-soft)}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+strong{color:var(--ink);font-weight:700}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent-soft)}
+
+#topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:1rem;padding:.8rem clamp(1rem,3vw,2rem);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);box-shadow:0 1px 0 rgba(20,42,71,.04)}
+.brand{display:flex;flex-direction:column;line-height:1.15;flex-shrink:0}
+.brand small{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.brand strong{font-family:var(--font-head);font-size:1.15rem;color:var(--primary)}
+.progress-wrap{flex:1;min-width:120px;display:flex;flex-direction:column;gap:.3rem}
+.progress-track{height:9px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-label{font-size:.82rem;color:var(--muted);font-weight:700;display:flex;justify-content:space-between}
+.score-pill{display:flex;align-items:center;gap:.4rem;background:var(--gold-soft);color:#6b5310;padding:.45rem .9rem;border-radius:99px;font-weight:800;font-size:.95rem;white-space:nowrap;border:1px solid #e6d28a}
+.score-pill span:last-child{color:#8a6c17;font-size:.78rem;font-weight:700}
+#hamburger{display:none;font-size:1.5rem;padding:.3rem .6rem;color:var(--primary)}
+
+#cover{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:clamp(1.5rem,4vw,3.5rem) 1rem;background:radial-gradient(circle at 12% 15%,rgba(61,106,153,.10),transparent 42%),radial-gradient(circle at 88% 85%,rgba(30,58,95,.10),transparent 42%),var(--bg)}
+.cover-card{max-width:980px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeUp .8s cubic-bezier(.4,0,.2,1);display:grid;grid-template-columns:1.35fr 1fr}
+.cover-card::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;z-index:2;background:linear-gradient(90deg,var(--primary),var(--accent),var(--gold))}
+.cover-main{padding:clamp(2rem,4.5vw,3.4rem);display:flex;flex-direction:column;justify-content:center;min-height:520px}
+.cover-kicker{display:inline-flex;align-items:center;gap:.6rem;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:1.1rem}
+.cover-kicker::before{content:'';width:34px;height:2px;background:var(--primary);border-radius:2px}
+.cover-main h1{font-size:clamp(2rem,3.7vw,2.7rem);line-height:1.15;margin-bottom:.9rem;color:var(--primary-dark)}
+.cover-main .subtitle{font-size:1.15rem;line-height:1.55;color:var(--ink-soft);max-width:520px;margin:0 0 1.8rem;font-weight:600}
+.cover-actions{margin-top:auto;padding-top:1rem}
+.btn-start{display:inline-flex;align-items:center;gap:.7rem;background:var(--primary);color:#fff;padding:1.05rem 2.2rem;border-radius:99px;font-weight:800;font-size:1.08rem;box-shadow:0 6px 18px rgba(30,58,95,.35);transition:transform .25s,box-shadow .25s,background .25s}
+.btn-start:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 10px 22px rgba(30,58,95,.45);text-decoration:none}
+.btn-start svg{transition:transform .25s}
+.btn-start:hover svg{transform:translateX(4px)}
+.cover-side{background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%);padding:clamp(1.8rem,3.5vw,2.8rem);display:flex;flex-direction:column;border-left:1px solid var(--border);position:relative;color:#e8eef6}
+.cover-seal{width:64px;height:64px;border-radius:50%;background:var(--gold);color:var(--primary-dark);display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:1.6rem;margin-bottom:1.6rem;box-shadow:0 4px 14px rgba(0,0,0,.28),inset 0 0 0 3px rgba(255,255,255,.15)}
+.cover-side .label-tiny{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#a9bdd4;font-weight:800;margin-bottom:.3rem}
+.cover-side .author-name{font-family:var(--font-head);font-size:1.55rem;line-height:1.2;color:#fff;font-weight:600;margin-bottom:.35rem}
+.cover-side .author-role{font-size:.95rem;color:#c4d3e3;font-weight:600;margin-bottom:1.8rem}
+.cover-side .divider{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:1.4rem}
+.cover-side .project{font-size:1.02rem;line-height:1.45;color:#d9e6f2;font-weight:800;margin-bottom:1.8rem}
+.cover-side .project::before{content:'◆';color:var(--gold);margin-right:.5rem;font-size:.85rem;vertical-align:middle}
+.cover-meta-list{display:flex;flex-direction:column;gap:.65rem;margin-top:auto}
+.cover-meta-list .row{display:flex;align-items:center;gap:.7rem;font-size:.95rem;color:#c4d3e3;font-weight:700}
+.cover-meta-list .row .ico{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;font-size:.95rem;flex-shrink:0}
+.cover-meta-list .row span:last-child{color:#fff;font-weight:800}
+
+#lab{display:none;min-height:calc(100vh - 72px)}
+#lab.open{display:grid;grid-template-columns:280px 1fr;gap:0}
+#sidebar{position:sticky;top:72px;align-self:start;height:calc(100vh - 72px);overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.side-title{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:.4rem .6rem}
+#sidebar a{display:flex;align-items:center;gap:.65rem;padding:.7rem .85rem;border-radius:10px;color:var(--ink-soft);font-weight:700;font-size:1rem;transition:background .2s,color .2s;text-decoration:none}
+#sidebar a:hover{background:var(--surface-2);text-decoration:none}
+#sidebar a.active{background:var(--primary-soft);color:var(--primary-dark)}
+#sidebar a .num{width:26px;height:26px;border-radius:50%;background:var(--surface-2);color:var(--muted);display:grid;place-items:center;font-size:.85rem;font-weight:800;flex-shrink:0;transition:background .2s,color .2s}
+#sidebar a.active .num{background:var(--primary);color:#fff}
+#sidebar a.done .num{background:var(--green);color:#fff}
+.badges-box{margin-top:auto;padding-top:1rem;border-top:1px dashed var(--border)}
+.badges-box h4{font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;font-family:var(--font-body);font-weight:800}
+.badge-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.badge{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;background:var(--surface-2);color:#b3c3d6;border:1px solid var(--border);opacity:.55;transition:all .35s;cursor:help}
+.badge.earned{opacity:1;background:var(--gold-soft);border-color:#e6d28a;color:#6b5310;transform:scale(1.05);box-shadow:0 2px 8px rgba(201,162,39,.35)}
+
+#content{padding:clamp(1.3rem,3vw,2.6rem);max-width:980px;margin:0 auto;width:100%}
+.panel{display:none;animation:fadeIn .5s ease}
+.panel.active{display:block}
+.panel-head{margin-bottom:1.6rem;padding-bottom:1.1rem;border-bottom:2px solid var(--border)}
+.panel-head .kicker{font-size:.84rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800}
+.panel-head h2{margin-top:.25rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.1rem,2.5vw,1.7rem);box-shadow:var(--shadow-sm);margin-bottom:1.3rem}
+.card.soft{background:var(--surface-2);border-style:dashed}
+.card.accent{border-left:4px solid var(--accent)}
+.card.warm{border-left:4px solid var(--primary)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.5rem;border-radius:10px;font-weight:800;font-size:1rem;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(30,58,95,.25)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface-2);color:var(--primary);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--primary-soft)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:#2e5580}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.btn-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.1rem}
+
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.1rem;margin:1.1rem 0}
+.flip-card{perspective:1000px;height:270px;cursor:pointer;outline:none}
+.flip-card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft);border-radius:var(--radius)}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);padding:1.3rem;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.flip-front{background:var(--surface);text-align:center}
+.flip-front .icon{font-size:2.3rem;margin-bottom:.55rem}
+.flip-front h4{color:var(--primary);font-size:1.2rem;margin-bottom:.4rem}
+.flip-front .hint{font-size:.85rem;color:var(--muted);margin-top:.7rem;font-weight:700}
+.flip-back{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;transform:rotateY(180deg);font-size:.93rem;line-height:1.5}
+.flip-back strong{color:#ffe9a8}
+
+details.acc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.65rem;overflow:hidden}
+details.acc summary{padding:.9rem 1.15rem;cursor:pointer;font-weight:800;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;transition:background .2s;font-size:1.02rem}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:'+';font-size:1.5rem;color:var(--primary);transition:transform .25s}
+details.acc[open] summary::after{transform:rotate(45deg)}
+details.acc summary:hover{background:var(--surface-2)}
+details.acc .acc-body{padding:0 1.15rem 1.1rem;color:var(--ink-soft);font-size:1rem}
+
+table.cmp{width:100%;border-collapse:collapse;margin:1.1rem 0;font-size:.98rem;border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+table.cmp th{background:var(--primary);color:#fff;padding:.8rem 1rem;text-align:left;font-weight:800;font-size:1rem}
+table.cmp td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+table.cmp tr:nth-child(even) td{background:var(--surface-2)}
+table.cmp td:first-child{font-weight:800;color:var(--primary-dark);width:26%}
+
+.axis-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1rem 0}
+.axis-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;box-shadow:var(--shadow-sm)}
+.axis-card .n{font-family:var(--font-head);font-size:1.5rem;color:var(--gold);font-weight:700;line-height:1;margin-bottom:.3rem}
+.axis-card h5{font-family:var(--font-head);font-size:1.05rem;color:var(--primary);margin-bottom:.3rem;font-weight:600}
+.axis-card p{font-size:.92rem;margin:0;color:var(--ink-soft)}
+
+.template-list{counter-reset:tpl;list-style:none;padding:0;margin:.6rem 0}
+.template-list li{counter-increment:tpl;position:relative;padding:.65rem 0 .65rem 2.6rem;border-bottom:1px dashed var(--border);font-size:1rem;color:var(--ink-soft);line-height:1.5}
+.template-list li:last-child{border-bottom:none}
+.template-list li::before{content:counter(tpl);position:absolute;left:0;top:.55rem;width:30px;height:30px;border-radius:50%;background:var(--primary-soft);color:var(--primary-dark);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+
+.activity{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1.1rem,2.5vw,1.7rem);margin-bottom:1.5rem;box-shadow:var(--shadow-sm)}
+.activity .act-head{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.35rem;flex-wrap:wrap}
+.activity .act-tag{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:800}
+.activity .pts{font-size:.85rem;font-weight:800;color:#6b5310;background:var(--gold-soft);padding:.25rem .7rem;border-radius:99px}
+.activity h4{margin-bottom:.75rem;font-family:var(--font-head);font-size:1.2rem;color:var(--ink)}
+.question{font-weight:700;color:var(--ink);margin-bottom:1rem;font-size:1.05rem}
+
+.mcq .opts{display:grid;gap:.6rem}
+.mcq .opt{text-align:left;padding:.85rem 1.1rem;border-radius:10px;background:var(--surface-2);border:1.5px solid transparent;color:var(--ink-soft);font-weight:600;font-size:1rem;transition:all .2s;display:flex;gap:.65rem;align-items:flex-start;line-height:1.5}
+.mcq .opt:hover{background:var(--primary-soft);border-color:#b9cce3}
+.mcq .opt .ltr{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.85rem;color:var(--primary)}
+.mcq .opt.correct{background:var(--green-soft);border-color:var(--green);color:#1f5734}
+.mcq .opt.correct .ltr{background:var(--green);color:#fff;border-color:var(--green)}
+.mcq .opt.wrong{background:var(--red-soft);border-color:var(--red);color:#7a2a2a}
+.mcq .opt.wrong .ltr{background:var(--red);color:#fff;border-color:var(--red)}
+.mcq.locked .opt{pointer-events:none}
+
+.feedback{margin-top:1rem;padding:.85rem 1.1rem;border-radius:10px;font-size:.98rem;display:none;border-left:4px solid;line-height:1.6}
+.feedback.show{display:block;animation:fadeIn .35s}
+.feedback.ok{background:var(--green-soft);border-color:var(--green);color:#1f5734}
+.feedback.no{background:var(--red-soft);border-color:var(--red);color:#7a2a2a}
+.feedback.info{background:var(--accent-soft);border-color:var(--accent);color:#1c466b}
+.feedback strong{color:inherit}
+
+.multi label{display:flex;gap:.75rem;align-items:flex-start;padding:.8rem 1rem;border-radius:10px;margin-bottom:.55rem;background:var(--surface-2);cursor:pointer;border:1.5px solid transparent;transition:all .2s;font-size:1rem;line-height:1.5}
+.multi label:hover{background:var(--primary-soft)}
+.multi input{margin-top:.3rem;accent-color:var(--primary);width:18px;height:18px;flex-shrink:0}
+.multi label.correct{background:var(--green-soft);border-color:var(--green)}
+.multi label.wrong{background:var(--red-soft);border-color:var(--red)}
+.multi.locked label{pointer-events:none}
+
+.classify .bank{display:flex;flex-wrap:wrap;gap:.55rem;background:var(--surface-2);border:1px dashed #b9cce3;border-radius:10px;padding:.9rem;margin-bottom:1.1rem;min-height:70px}
+.classify .chip{background:var(--surface);border:1.5px solid var(--border);padding:.55rem 1rem;border-radius:10px;font-size:.92rem;font-weight:700;color:var(--ink-soft);transition:all .2s;line-height:1.35;text-align:left;max-width:100%}
+.classify .chip:hover{border-color:var(--primary);color:var(--primary)}
+.classify .chip.selected{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.02);box-shadow:0 3px 10px rgba(30,58,95,.30)}
+.classify .chip.correct{border-color:var(--green);background:var(--green-soft)}
+.classify .chip.wrong{border-color:var(--red);background:var(--red-soft)}
+.classify .buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.classify .bucket{background:var(--surface-2);border:2px dashed #b9cce3;border-radius:10px;padding:.7rem;min-height:110px;transition:all .2s;cursor:pointer}
+.classify .bucket:hover{border-color:var(--primary);background:var(--primary-soft)}
+.classify .bucket h5{font-family:var(--font-body);font-size:.84rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:800;margin-bottom:.5rem;text-align:center}
+.classify .bucket .drop{display:flex;flex-direction:column;gap:.4rem;min-height:40px}
+
+.matching .row{display:grid;grid-template-columns:1fr 1.3fr;gap:.8rem;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--border)}
+.matching .row:last-of-type{border-bottom:none}
+.matching .row .term{font-weight:800;color:var(--primary);font-size:1rem}
+.matching select{width:100%;padding:.6rem .8rem;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-family:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s}
+.matching select:focus{outline:none;border-color:var(--accent)}
+.matching select.correct{border-color:var(--green);background:var(--green-soft)}
+.matching select.wrong{border-color:var(--red);background:var(--red-soft)}
+
+.ordering .order-item{display:flex;align-items:center;gap:.8rem;width:100%;text-align:left;padding:.8rem 1rem;margin-bottom:.55rem;border-radius:10px;background:var(--surface-2);border:1.5px solid transparent;font-weight:600;font-size:.98rem;color:var(--ink-soft);transition:all .2s;line-height:1.45}
+.ordering .order-item:hover{background:var(--primary-soft);border-color:#b9cce3}
+.ordering .order-item .num{width:30px;height:30px;border-radius:50%;flex-shrink:0;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.88rem;color:var(--muted)}
+.ordering .order-item[data-n]{background:var(--primary-soft);border-color:var(--primary);color:var(--primary-dark)}
+.ordering .order-item[data-n] .num{background:var(--primary);color:#fff;border-color:var(--primary)}
+.ordering .order-item.correct{background:var(--green-soft);border-color:var(--green)}
+.ordering .order-item.wrong{background:var(--red-soft);border-color:var(--red)}
+
+.decision{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;margin-bottom:1.3rem}
+.decision .d-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem}
+.decision .d-num{width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;font-weight:800;display:grid;place-items:center;font-size:1.02rem;flex-shrink:0}
+.decision .d-title{font-family:var(--font-head);font-weight:600;font-size:1.2rem;color:var(--primary)}
+.decision .scenario{font-style:italic;color:var(--ink-soft);background:rgba(255,255,255,.7);padding:.8rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:1rem;border-left:3px solid var(--accent);line-height:1.6}
+.decision .opts{display:grid;gap:.6rem}
+.decision .d-opt{text-align:left;padding:.85rem 1.1rem;border-radius:10px;background:var(--surface);border:1.5px solid var(--border);font-size:.98rem;color:var(--ink-soft);font-weight:600;transition:all .2s;display:flex;gap:.65rem;align-items:flex-start;line-height:1.5}
+.decision .d-opt:hover{border-color:var(--primary);background:var(--primary-soft)}
+.decision .d-opt.best{border-color:var(--green);background:var(--green-soft)}
+.decision .d-opt.okay{border-color:var(--gold);background:var(--gold-soft)}
+.decision .d-opt.bad{border-color:var(--red);background:var(--red-soft)}
+.decision .d-opt .ltr{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:var(--surface-2);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.85rem;color:var(--primary)}
+.decision.locked .d-opt{pointer-events:none}
+.decision .consequence{margin-top:.9rem;padding:.9rem 1.1rem;border-radius:10px;background:rgba(255,255,255,.9);border-left:4px solid var(--accent);font-size:.98rem;display:none;color:var(--ink-soft);line-height:1.6}
+.decision .consequence.show{display:block;animation:fadeIn .4s}
+
+textarea.reflect{width:100%;min-height:140px;padding:1rem 1.1rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:1rem;color:var(--ink);background:var(--surface);resize:vertical;transition:border-color .2s;line-height:1.6}
+textarea.reflect:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.char-count{font-size:.85rem;color:var(--muted);text-align:right;margin-top:.4rem;font-weight:700}
+
+.checklist{display:grid;gap:.55rem;margin:.7rem 0}
+.checklist label{display:flex;gap:.7rem;align-items:flex-start;font-size:1rem;color:var(--ink-soft);cursor:pointer;padding:.6rem .8rem;border-radius:8px;transition:background .2s;line-height:1.55}
+.checklist label:hover{background:var(--surface-2)}
+.checklist input{margin-top:.35rem;accent-color:var(--primary);width:17px;height:17px;flex-shrink:0}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--primary-dark);color:#fff;padding:.9rem 1.5rem;border-radius:99px;font-weight:800;font-size:1rem;z-index:200;box-shadow:0 10px 30px rgba(20,42,71,.30);transition:transform .4s cubic-bezier(.4,0,.2,1);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.gold{background:linear-gradient(90deg,var(--primary),var(--gold))}
+
+.reading-list{list-style:none;padding:0}
+.reading-list li{padding:.8rem 0;border-bottom:1px dashed var(--border);font-size:1rem;color:var(--ink-soft);line-height:1.6}
+.reading-list li:last-child{border-bottom:none}
+.reading-list strong{display:block;color:var(--primary);margin-bottom:.2rem}
+
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;margin:1.1rem 0}
+.summary-item{background:var(--surface-2);border-radius:10px;padding:1.1rem;text-align:center;border:1px solid var(--border)}
+.summary-item .big{font-family:var(--font-head);font-size:2.1rem;color:var(--primary);font-weight:700}
+.summary-item .lbl{font-size:.84rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+@media (max-width:960px){.cover-card{grid-template-columns:1fr}.cover-side{border-left:none;border-top:1px solid var(--border)}.cover-main{min-height:auto}}
+@media (max-width:880px){#lab.open{grid-template-columns:1fr}#sidebar{position:fixed;top:72px;left:0;bottom:0;width:280px;z-index:60;transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.15)}#sidebar.open{transform:translateX(0)}#hamburger{display:block}.matching .row{grid-template-columns:1fr;gap:.35rem}}
+@media (max-width:520px){body{font-size:17px}.flip-grid{grid-template-columns:1fr}.cover-meta-list .row{font-size:.9rem}.activity{padding:1rem}#topbar{gap:.5rem;padding:.5rem .8rem}.brand small{display:none}.progress-label{font-size:.72rem}.cover-main{padding:1.5rem}.cover-side{padding:1.5rem}}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <button id="hamburger" aria-label="Abrir menú">☰</button>
+  <div class="brand">
+    <small>Laboratorio EnAcción</small>
+    <strong>Formulación de proyectos</strong>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label"><span id="progress-text">Progreso</span><span id="progress-pct">0%</span></div>
+  </div>
+  <div class="score-pill"><span>⭐</span><span id="score-val">0</span><span>/ 120 pts</span></div>
+</header>
+
+<!-- ============ PORTADA ============ -->
+<section id="cover">
+  <div class="cover-card">
+    <div class="cover-main">
+      <div class="cover-kicker">Formulación de proyectos de investigación en psicología</div>
+      <h1>La formulación de un&nbsp;objeto de investigación</h1>
+      <p class="subtitle">Cómo convertir una inquietud difusa en un fenómeno delimitado, justificado e investigable.</p>
+      <div class="cover-actions">
+        <a href="#" class="btn-start" id="btn-start">
+          Comenzar el laboratorio
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <aside class="cover-side">
+      <div class="cover-seal" aria-hidden="true">JC</div>
+      <div class="label-tiny">Diseño instruccional</div>
+      <div class="author-name">Juan Carlos<br>Valderrama Cardenas</div>
+      <div class="author-role">Psicólogo · Diseñador de experiencias de aprendizaje</div>
+      <div class="divider"></div>
+      <div class="project">Hace parte del proyecto Laboratorio EnAcción</div>
+      <div class="cover-meta-list">
+        <div class="row"><span class="ico">⏱</span><span>45 minutos</span></div>
+        <div class="row"><span class="ico">🎯</span><span>4 niveles · 10 actividades</span></div>
+        <div class="row"><span class="ico">🧠</span><span>Formulación de proyectos</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ LABORATORIO ============ -->
+<div id="lab">
+
+  <aside id="sidebar">
+    <div class="side-title">Recorrido</div>
+    <a href="#" data-target="concepto" class="nav-link"><span class="num">A</span> Fundamentos</a>
+    <a href="#" data-target="nivel1" class="nav-link"><span class="num">1</span> El caso de Valentina</a>
+    <a href="#" data-target="nivel2" class="nav-link"><span class="num">2</span> Construir el objeto</a>
+    <a href="#" data-target="nivel3" class="nav-link"><span class="num">3</span> Formular y verificar</a>
+    <a href="#" data-target="nivel4" class="nav-link"><span class="num">4</span> La formulación final</a>
+    <a href="#" data-target="cierre" class="nav-link"><span class="num">✦</span> Cierre y reflexión</a>
+    <div class="badges-box">
+      <h4>Insignias</h4>
+      <div class="badge-list" id="badge-list">
+        <div class="badge" data-badge="primer-paso" title="Primer paso">🩺</div>
+        <div class="badge" data-badge="constructor" title="Constructor de objetos">🧱</div>
+        <div class="badge" data-badge="formulador" title="Formulador riguroso">✍️</div>
+        <div class="badge" data-badge="disenador" title="Diseñador de proyectos">🧩</div>
+        <div class="badge" data-badge="reflexivo" title="Pensador reflexivo">💭</div>
+        <div class="badge" data-badge="perfecto" title="Puntaje perfecto">🏆</div>
+      </div>
+    </div>
+  </aside>
+
+  <main id="content">
+
+    <!-- ============================================================
+         BLOQUE A · FUNDAMENTOS
+         ============================================================ -->
+    <section id="concepto" class="panel active">
+      <div class="panel-head">
+        <div class="kicker">Bloque A · Fundamentos</div>
+        <h2>Antes de entrar al caso, afinemos la lente</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Un objeto de investigación no se encuentra ya hecho en la realidad: <strong>se construye</strong>. Bachelard decía que "nada es espontáneo, nada está dado, todo se construye", y Bourdieu insistía en que lo que parece un tema obvio suele ser una "pre-construcción" del sentido común que hay que romper.</p>
+        <p>Formular el objeto es el acto que convierte una inquietud difusa en algo <strong>delimitado, observable y discutible con teoría y datos</strong>. Vamos a ver por qué es tan fácil equivocarse y cómo hacerlo bien.</p>
+      </div>
+
+      <h3>1. Cuatro conceptos que suelen confundirse</h3>
+      <p>Toca cada tarjeta para ver la definición y un ejemplo.</p>
+
+      <div class="flip-grid">
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">🌐</div>
+              <h4>Tema</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Área amplia de interés.<br><br><strong>Ejemplo:</strong> "Aprendizaje de la física" o "redes sociales y atención".<br><br>No basta: señala un terreno, no un fenómeno.
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">⚡</div>
+              <h4>Problema</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Tensión, vacío o contradicción que exige respuesta.<br><br><strong>Ejemplo:</strong> "Los estudiantes resuelven problemas rutinarios pero fallan cuando cambia el contexto."<br><br>Es el motor: sin tensión, no hay investigación.
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">🔬</div>
+              <h4>Objeto</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              Fenómeno concreto, recortado de la realidad, que se va a estudiar.<br><br><strong>Ejemplo:</strong> "Las representaciones que usan estudiantes de décimo grado al resolver problemas de cinemática."<br><br>Ya incluye población, contexto y aspecto.
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <div class="icon">❓</div>
+              <h4>Pregunta</h4>
+              <div class="hint">Toca para ver</div>
+            </div>
+            <div class="flip-face flip-back">
+              El problema convertido en interrogante investigable.<br><br><strong>Ejemplo:</strong> "¿Cómo influye el tipo de representación (gráfica, algebraica, verbal) en las estrategias de resolución?"<br><br>Debe poder responderse con método.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card soft">
+        <p><strong>La secuencia lógica:</strong> tema → problema → objeto → pregunta → objetivos. Muchos proyectos fallan por saltarse pasos, por ejemplo pasando del tema directo a los objetivos.</p>
+        <p style="font-size:.95rem;margin-bottom:0"><em>Nota terminológica.</em> En la tradición latinoamericana, "objeto de investigación" designa el fenómeno o proceso que se estudia, y a veces se distingue del <strong>campo de acción</strong> (el aspecto específico del objeto que se interviene). En la tradición anglosajona se habla más de <em>research problem</em> y <em>research questions</em>. Conviene aclarar con qué convención trabaja tu programa o tu asesor.</p>
+      </div>
+
+      <h3>2. El proceso de construcción, paso a paso</h3>
+      <details class="acc"><summary>Paso 1. Partir de una inquietud situada</summary><div class="acc-body">Las buenas preguntas nacen de una experiencia, una observación o una lectura que no cuadra. Ejemplo: "Mis estudiantes entienden el ejemplo del tablero, pero no pueden aplicarlo a otro problema."</div></details>
+      <details class="acc"><summary>Paso 2. Explorar la literatura</summary><div class="acc-body">No para "buscar tu tema", sino para ver <em>cómo ha sido construido el fenómeno</em> por otros: qué conceptos usan, qué métodos, qué han encontrado y dónde hay desacuerdo.</div></details>
+      <details class="acc"><summary>Paso 3. Identificar el vacío o la tensión</summary><div class="acc-body">Puede ser empírico (no se ha estudiado en cierta población), de contradicción (unos dicen A y otros B), teórico (faltan explicaciones), metodológico (se midió de forma limitada) o práctico (una práctica extendida que nadie ha evaluado).</div></details>
+      <details class="acc"><summary>Paso 4. Delimitar en cinco ejes</summary><div class="acc-body">Población (¿quiénes?), contexto (¿dónde?), tiempo (¿cuándo, cuánto dura?), aspecto (¿qué dimensión del fenómeno?) y perspectiva teórica (¿desde dónde se mira?). Es el paso decisivo: aquí se recorta el fenómeno.</div></details>
+      <details class="acc"><summary>Paso 5. Formular el objeto en una frase</summary><div class="acc-body">Una fórmula útil: <em>[Fenómeno / proceso / relación] en [población] en [contexto], examinado desde [perspectiva].</em></div></details>
+      <details class="acc"><summary>Paso 6. Derivar pregunta, objetivos y supuestos</summary><div class="acc-body">Del objeto salen la pregunta, el objetivo general (que responde a la pregunta), los específicos (pasos para lograrlo) y, si el enfoque lo requiere, hipótesis o supuestos.</div></details>
+
+      <h3>3. Los cinco ejes de la delimitación</h3>
+      <div class="axis-cards">
+        <div class="axis-card"><div class="n">1</div><h5>Población</h5><p>¿Quiénes? Edad, grado, ocupación, características relevantes.</p></div>
+        <div class="axis-card"><div class="n">2</div><h5>Contexto</h5><p>¿Dónde? Institución, ciudad, tipo de colegio, comunidad.</p></div>
+        <div class="axis-card"><div class="n">3</div><h5>Tiempo</h5><p>¿Cuándo? Año, semestre, duración del estudio.</p></div>
+        <div class="axis-card"><div class="n">4</div><h5>Aspecto</h5><p>¿Qué dimensión del fenómeno? La relación, el efecto, el significado, el proceso.</p></div>
+        <div class="axis-card"><div class="n">5</div><h5>Perspectiva teórica</h5><p>¿Desde dónde se mira? Teoría, modelo o enfoque que orienta.</p></div>
+      </div>
+
+      <h3>4. Los tipos de vacío que justifican una investigación</h3>
+      <table class="cmp">
+        <thead><tr><th>Tipo</th><th>Qué es</th><th>Ejemplo cotidiano</th></tr></thead>
+        <tbody>
+          <tr><td>Vacío empírico</td><td>No se ha estudiado en cierta población o contexto.</td><td>Hay estudios sobre redes y atención en universitarios, pero no en adolescentes de colegios públicos latinoamericanos.</td></tr>
+          <tr><td>Contradicción en hallazgos</td><td>Unos estudios dicen A, otros dicen B.</td><td>Unos encuentran relación entre redes y peor atención; otros, ninguna cuando controlan el tiempo total de pantalla.</td></tr>
+          <tr><td>Vacío teórico</td><td>Hay datos, pero faltan explicaciones.</td><td>Sabemos que hay asociación, pero no por qué mecanismo ocurre.</td></tr>
+          <tr><td>Vacío metodológico</td><td>Lo estudiado se midió de forma limitada.</td><td>La atención se midió con auto-reportes y no con tareas conductuales.</td></tr>
+          <tr><td>Problema práctico sin respaldo</td><td>Una práctica extendida que nadie ha evaluado.</td><td>Hay programas escolares de "desintoxicación digital" que no han sido evaluados.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>5. Criterios para evaluar tu objeto</h3>
+      <table class="cmp">
+        <thead><tr><th>Criterio</th><th>Pregunta que responde</th></tr></thead>
+        <tbody>
+          <tr><td>Claridad</td><td>¿Se entiende sin ambigüedad y los términos clave son definibles?</td></tr>
+          <tr><td>Delimitación</td><td>¿Tiene población, contexto y recorte temporal?</td></tr>
+          <tr><td>Relevancia</td><td>¿Importa teórica, práctica o socialmente? ¿Qué cambia si se responde?</td></tr>
+          <tr><td>Originalidad o aporte</td><td>¿Hace algo más que repetir lo conocido?</td></tr>
+          <tr><td>Viabilidad</td><td>¿Hay acceso a los datos, tiempo, recursos y competencias?</td></tr>
+          <tr><td>Investigabilidad</td><td>¿Puede abordarse empíricamente o con análisis sistemático?</td></tr>
+          <tr><td>Coherencia</td><td>¿Objeto, pregunta, objetivos y método se corresponden?</td></tr>
+          <tr><td>Ética</td><td>¿Se puede estudiar sin dañar a los participantes?</td></tr>
+        </tbody>
+      </table>
+      <div class="card soft">
+        <p style="margin-bottom:.4rem"><strong>Un criterio práctico: FINER</strong> (Hulley, desde la investigación clínica, extrapolable a cualquier campo):</p>
+        <p style="margin-bottom:0"><strong>F</strong>easible (viable) · <strong>I</strong>nteresting (interesante) · <strong>N</strong>ovel (novedoso) · <strong>E</strong>thical (ético) · <strong>R</strong>elevant (relevante).</p>
+      </div>
+
+      <h3>6. Errores frecuentes</h3>
+      <table class="cmp">
+        <thead><tr><th>Error</th><th>Por qué es un problema</th></tr></thead>
+        <tbody>
+          <tr><td>Confundir tema con objeto</td><td>Es demasiado amplio para investigar.</td></tr>
+          <tr><td>Objeto que contiene la conclusión</td><td>"Demostrar que X mejora Y" impide que los datos sorprendan.</td></tr>
+          <tr><td>Mezclar varios objetos</td><td>Estudiar a la vez motivación, rendimiento, clima de aula y uso de TIC es dispersión.</td></tr>
+          <tr><td>Solo describir un contexto</td><td>Un contexto interesante no equivale a una pregunta.</td></tr>
+          <tr><td>Objeto condicionado al método</td><td>Elegir primero la técnica y luego buscar qué preguntar es invertir el orden.</td></tr>
+          <tr><td>Ignorar la literatura</td><td>Puede llevar a "descubrir" lo ya conocido o a no ver las discusiones relevantes.</td></tr>
+          <tr><td>Variables sin operacionalizar</td><td>Si "motivación" o "comprensión" no se pueden observar, el objeto queda en el aire.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>7. El objeto según el enfoque</h3>
+      <table class="cmp">
+        <thead><tr><th>Enfoque</th><th>Cómo se formula el objeto</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td>Cuantitativo</td><td>Relación, efecto o diferencia entre variables medibles.</td><td>Efecto de la práctica de recuperación sobre la retención a dos semanas.</td></tr>
+          <tr><td>Cualitativo</td><td>Comprensión de significados, experiencias o procesos en un contexto.</td><td>Cómo significan los docentes noveles su primera experiencia de evaluación.</td></tr>
+          <tr><td>Mixto</td><td>Un fenómeno que exige magnitud y comprensión.</td><td>Prevalencia y sentidos de la deserción en un programa técnico.</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.95rem">En el cualitativo el objeto suele ser <strong>más emergente</strong> y puede reformularse durante el trabajo de campo; en el cuantitativo debe quedar <strong>cerrado antes</strong> de recoger datos.</p>
+
+      <h3>8. Una plantilla para empezar</h3>
+      <div class="card">
+        <ol class="template-list">
+          <li>Me interesa el fenómeno de ______ porque he observado / leído que ______.</li>
+          <li>Lo que no sabemos o no está resuelto es ______.</li>
+          <li>Lo estudiaré en ______ (población) en ______ (contexto y tiempo).</li>
+          <li>Lo miraré desde ______ (teoría / perspectiva).</li>
+          <li>Mi objeto es: ______.</li>
+          <li>Mi pregunta es: ______.</li>
+          <li>Esto importaría porque ______.</li>
+        </ol>
+      </div>
+
+      <div class="btn-row" style="margin-top:1.7rem">
+        <button class="btn btn-primary" data-goto="nivel1">Ir al caso de Valentina →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 1
+         ============================================================ -->
+    <section id="nivel1" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 1</div>
+        <h2>El caso de Valentina: la consulta</h2>
+      </div>
+
+      <div class="card warm">
+        <p><strong>Valentina Osorio</strong> tiene 22 años y cursa último semestre de psicología en una universidad pública de Bogotá. Durante sus prácticas en un colegio público de la localidad de Suba, algo la inquietó: los estudiantes de noveno pasan horas en TikTok e Instagram, pero cuando la profesora de español les pide leer veinte minutos en silencio, muchos se levantan, revisan el celular, se distraen. En las conversaciones informales, varios le dijeron: <em>"profe, es que ya no puedo concentrarme"</em>.</p>
+        <p>Valentina quiere investigar esto para su trabajo de grado. Llega donde su asesora, la profesora <strong>Camila Restrepo</strong>, con una primera formulación: <em>"Las redes sociales y la atención en los adolescentes de Colombia"</em>.</p>
+        <p>Camila la lee, la subraya con lápiz y le dice con calma: <em>"Todavía no. Esto es un tema, no un objeto. Necesitas construir el objeto: recortar el fenómeno, justificar por qué merece estudiarse y traducirlo en una pregunta que pueda responderse con método. Vamos por partes."</em></p>
+      </div>
+
+      <div class="activity mcq" data-activity="l1a" data-points="10"
+           data-feedback-ok="Exacto. 'Las redes sociales y la atención en los adolescentes de Colombia' es un tema: señala un área de interés, pero no recorta un fenómeno, no delimita ni justifica un vacío. Confundir tema con objeto es el error más frecuente al empezar un proyecto."
+           data-feedback-no="Piensa en la diferencia entre tema y objeto. ¿Qué le falta a la formulación de Valentina para ser investigable?">
+        <div class="act-head">
+          <span class="act-tag">Actividad 1.1 · Diagnóstico</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>¿Cuál es el problema principal de la primera formulación de Valentina?</h4>
+        <p class="question">Elige la opción que mejor dialogue con lo que sabes de tema, problema, objeto y pregunta.</p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> Es demasiado específica: no deja espacio para descubrir nada nuevo.</button>
+          <button class="opt" data-correct="true"><span class="ltr">B</span> Es un tema, no un objeto: es demasiado amplia, no delimita población, contexto ni justifica un vacío.</button>
+          <button class="opt" data-correct="false"><span class="ltr">C</span> Usa el método equivocado: debería ser una investigación cualitativa.</button>
+          <button class="opt" data-correct="false"><span class="ltr">D</span> No incluye variables medibles.</button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="card accent">
+        <p>Antes de seguir, asegurémonos de que distingues los cuatro conceptos que Valentina está mezclando. <strong>Toca una formulación y luego el recuadro donde creas que va.</strong></p>
+      </div>
+
+      <div class="activity classify" data-activity="l1b" data-points="20">
+        <div class="act-head">
+          <span class="act-tag">Actividad 1.2 · Clasificar</span>
+          <span class="pts">+20 pts</span>
+        </div>
+        <h4>¿Cada formulación es un tema, un problema, un objeto o una pregunta?</h4>
+        <p class="question">Coloca cada formulación en su categoría. Puedes mover las fichas las veces que necesites.</p>
+        <div class="bank">
+          <button class="chip" data-type="tema">Redes sociales y atención</button>
+          <button class="chip" data-type="problema">Los estudiantes usan el celular 4 horas diarias pero dicen no poder concentrarse 20 minutos en una lectura</button>
+          <button class="chip" data-type="objeto">El uso de redes sociales y su relación con la atención sostenida en estudiantes de 9º de un colegio público de Suba, Bogotá, en 2024</button>
+          <button class="chip" data-type="pregunta">¿Qué relación existe entre el tiempo diario de uso de redes sociales y el desempeño en tareas de atención sostenida en estudiantes de 9º?</button>
+          <button class="chip" data-type="tema">Aprendizaje en la universidad</button>
+          <button class="chip" data-type="problema">Los docentes reportan que los estudiantes leen menos que hace diez años, pero no hay datos locales que lo confirmen</button>
+          <button class="chip" data-type="objeto">Las concepciones sobre evaluación formativa de docentes de básica primaria en tres colegios rurales de Cundinamarca</button>
+          <button class="chip" data-type="pregunta">¿Cómo significan los docentes noveles su primera experiencia de evaluación?</button>
+        </div>
+        <div class="buckets">
+          <div class="bucket" data-type="tema"><h5>Tema</h5><div class="drop"></div></div>
+          <div class="bucket" data-type="problema"><h5>Problema</h5><div class="drop"></div></div>
+          <div class="bucket" data-type="objeto"><h5>Objeto</h5><div class="drop"></div></div>
+          <div class="bucket" data-type="pregunta"><h5>Pregunta</h5><div class="drop"></div></div>
+        </div>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent classify-check">Comprobar clasificación</button></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="concepto">← Repasar fundamentos</button>
+        <button class="btn btn-primary" data-goto="nivel2">Siguiente nivel →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 2
+         ============================================================ -->
+    <section id="nivel2" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 2</div>
+        <h2>Construir el objeto: del vacío a la delimitación</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Camila le pide a Valentina que revise la literatura antes de seguir. Valentina encuentra tres cosas que la sorprenden:</p>
+        <p>① Hay muchos estudios sobre redes sociales y atención en <strong>universitarios</strong>, pero muy pocos en <strong>adolescentes de colegios públicos latinoamericanos</strong>.<br>
+        ② Los resultados son contradictorios: unos muestran asociación entre uso de redes y peor atención sostenida; otros no encuentran relación cuando controlan el tiempo total de pantalla.<br>
+        ③ La mayoría de estudios miden atención con <strong>auto-reportes</strong>, no con tareas conductuales.</p>
+        <p>Con este material, Valentina ya tiene con qué justificar su estudio.</p>
+      </div>
+
+      <div class="activity multi" data-activity="l2a" data-points="10">
+        <div class="act-head">
+          <span class="act-tag">Actividad 2.1 · Identificar el vacío</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>¿Qué tipos de vacío justifican la investigación de Valentina?</h4>
+        <p class="question">Marca <strong>todas</strong> las opciones que corresponden a un vacío investigable. Después pulsa "Comprobar".</p>
+        <div class="opts">
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Vacío empírico: no se ha estudiado esta población / contexto (adolescentes de colegios públicos de Bogotá).</label>
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Contradicción en hallazgos: unos estudios muestran relación y otros no.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Vacío metodológico: la atención se midió con auto-reportes y no con tareas conductuales.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="true"> Problema práctico sin respaldo: hay programas escolares de "desintoxicación digital" que no han sido evaluados.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="false"> Porque a Valentina le interesa el tema.</label>
+          <label><input type="checkbox" class="mcheck" data-correct="false"> Porque el rector del colegio lo pidió.</label>
+        </div>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent mcheck-btn">Comprobar</button></div>
+      </div>
+
+      <div class="card accent">
+        <p>Ya tienes el vacío. Ahora hay que recortar el fenómeno: <strong>los cinco ejes de la delimitación</strong>. Empareja cada eje con la pregunta que responde.</p>
+      </div>
+
+      <div class="activity matching" data-activity="l2b" data-points="20">
+        <div class="act-head">
+          <span class="act-tag">Actividad 2.2 · Delimitar</span>
+          <span class="pts">+20 pts</span>
+        </div>
+        <h4>Cada eje con su pregunta guía</h4>
+        <p class="question">Selecciona en cada fila la pregunta que corresponde a ese eje de la delimitación.</p>
+        <div class="rows">
+          <div class="row"><span class="term">Población</span>
+            <select data-answer="quienes">
+              <option value="">— Elige —</option>
+              <option value="quienes">¿Quiénes?</option>
+              <option value="donde">¿Dónde?</option>
+              <option value="cuando">¿Cuándo o durante cuánto tiempo?</option>
+              <option value="dimension">¿Qué dimensión del fenómeno?</option>
+              <option value="mirada">¿Desde dónde se mira?</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Contexto</span>
+            <select data-answer="donde">
+              <option value="">— Elige —</option>
+              <option value="quienes">¿Quiénes?</option>
+              <option value="donde">¿Dónde?</option>
+              <option value="cuando">¿Cuándo o durante cuánto tiempo?</option>
+              <option value="dimension">¿Qué dimensión del fenómeno?</option>
+              <option value="mirada">¿Desde dónde se mira?</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Tiempo</span>
+            <select data-answer="cuando">
+              <option value="">— Elige —</option>
+              <option value="quienes">¿Quiénes?</option>
+              <option value="donde">¿Dónde?</option>
+              <option value="cuando">¿Cuándo o durante cuánto tiempo?</option>
+              <option value="dimension">¿Qué dimensión del fenómeno?</option>
+              <option value="mirada">¿Desde dónde se mira?</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Aspecto</span>
+            <select data-answer="dimension">
+              <option value="">— Elige —</option>
+              <option value="quienes">¿Quiénes?</option>
+              <option value="donde">¿Dónde?</option>
+              <option value="cuando">¿Cuándo o durante cuánto tiempo?</option>
+              <option value="dimension">¿Qué dimensión del fenómeno?</option>
+              <option value="mirada">¿Desde dónde se mira?</option>
+            </select>
+          </div>
+          <div class="row"><span class="term">Perspectiva teórica</span>
+            <select data-answer="mirada">
+              <option value="">— Elige —</option>
+              <option value="quienes">¿Quiénes?</option>
+              <option value="donde">¿Dónde?</option>
+              <option value="cuando">¿Cuándo o durante cuánto tiempo?</option>
+              <option value="dimension">¿Qué dimensión del fenómeno?</option>
+              <option value="mirada">¿Desde dónde se mira?</option>
+            </select>
+          </div>
+        </div>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent match-check">Comprobar</button></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel1">← Nivel anterior</button>
+        <button class="btn btn-primary" data-goto="nivel3">Siguiente nivel →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 3
+         ============================================================ -->
+    <section id="nivel3" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 3</div>
+        <h2>Formular y verificar: el orden y las trampas</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Con el vacío identificado y la delimitación hecha, Valentina ya puede formular su objeto. Pero antes, Camila le pide que ordene mentalmente el proceso completo y que revise dos trampas frecuentes.</p>
+      </div>
+
+      <div class="activity ordering" data-activity="l3a" data-points="10" data-answer="a,b,c,d,e,f">
+        <div class="act-head">
+          <span class="act-tag">Actividad 3.1 · Ordenar</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>El proceso de construcción, en orden</h4>
+        <p class="question">Toca los pasos <strong>en orden</strong> para asignarles un número. Vuelve a tocar para desasignar. Luego comprueba.</p>
+        <button class="order-item" data-id="c"><span class="num"></span> Identificar el vacío o la tensión</button>
+        <button class="order-item" data-id="a"><span class="num"></span> Partir de una inquietud situada</button>
+        <button class="order-item" data-id="e"><span class="num"></span> Formular el objeto en una frase</button>
+        <button class="order-item" data-id="b"><span class="num"></span> Explorar la literatura</button>
+        <button class="order-item" data-id="f"><span class="num"></span> Derivar pregunta, objetivos y supuestos</button>
+        <button class="order-item" data-id="d"><span class="num"></span> Delimitar en cinco ejes</button>
+        <div class="feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent order-check">Comprobar orden</button></div>
+      </div>
+
+      <div class="activity mcq" data-activity="l3b" data-points="10"
+           data-feedback-ok="Justo. 'Demostrar que X causa Y' contiene la conclusión antes de investigar: impide que los datos sorprendan y compromete al investigador con una causalidad que un diseño correlacional no puede establecer."
+           data-feedback-no="Vuelve a leer la formulación. ¿Qué presupone antes de investigar?">
+        <div class="act-head">
+          <span class="act-tag">Actividad 3.2 · Detectar el error</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>¿Cuál es el error principal de esta formulación?</h4>
+        <p class="question">Valentina escribe: <em>"Demostrar que el uso de redes sociales causa déficit de atención en los adolescentes."</em></p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> Es demasiado amplia: no delimita la población.</button>
+          <button class="opt" data-correct="true"><span class="ltr">B</span> Contiene la conclusión: presupone la respuesta antes de investigar y plantea una causalidad que no puede establecerse con un diseño correlacional.</button>
+          <button class="opt" data-correct="false"><span class="ltr">C</span> Usa el método equivocado: debería ser cualitativa.</button>
+          <button class="opt" data-correct="false"><span class="ltr">D</span> No incluye variables medibles.</button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="activity mcq" data-activity="l3c" data-points="10"
+           data-feedback-ok="Exacto. El objeto y la pregunta deben determinar el método, no al revés. Si primero eliges la técnica, terminas buscando qué preguntar en lugar de preguntar lo que necesitas."
+           data-feedback-no="Piensa en el orden lógico: ¿qué debe decidir qué? ¿El método al objeto o el objeto al método?">
+        <div class="act-head">
+          <span class="act-tag">Actividad 3.3 · Otra trampa</span>
+          <span class="pts">+10 pts</span>
+        </div>
+        <h4>¿Qué error comete este compañero de Valentina?</h4>
+        <p class="question">Un compañero le dice: <em>"Elige primero la técnica (encuesta, entrevista) y luego decides qué preguntar. Así avanzas más rápido."</em></p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> Confundir tema con objeto.</button>
+          <button class="opt" data-correct="false"><span class="ltr">B</span> Mezclar varios objetos en un mismo estudio.</button>
+          <button class="opt" data-correct="true"><span class="ltr">C</span> Elegir primero el método y luego el objeto: el objeto y la pregunta deben determinar el método, no al revés.</button>
+          <button class="opt" data-correct="false"><span class="ltr">D</span> Ignorar la literatura existente.</button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel2">← Nivel anterior</button>
+        <button class="btn btn-primary" data-goto="nivel4">Siguiente nivel →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NIVEL 4
+         ============================================================ -->
+    <section id="nivel4" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Bloque B · Nivel 4</div>
+        <h2>La formulación final</h2>
+      </div>
+
+      <div class="card warm">
+        <p>Valentina llega con tres versiones de su formulación. Camila le pide que elija la más sólida y que justifique por qué. Después vendrán dos decisiones más: el enfoque y la verificación final.</p>
+      </div>
+
+      <div class="decision" data-activity="l4a" data-points="10" data-dec="1">
+        <div class="d-head"><div class="d-num">1</div><div class="d-title">¿Cuál formulación es la más sólida?</div></div>
+        <div class="scenario">Las tres opciones que Valentina trae son estas. Camila le pide elegir una y explicar por qué las otras dos no funcionan.</div>
+        <div class="opts">
+          <button class="d-opt" data-quality="bad"><span class="ltr">A</span> "Demostrar que las redes sociales causan déficit de atención en los adolescentes."</button>
+          <button class="d-opt" data-quality="best"><span class="ltr">B</span> "El uso de redes sociales y su relación con la atención sostenida en estudiantes de 9º de un colegio público de Suba, Bogotá, durante el año escolar 2024."</button>
+          <button class="d-opt" data-quality="bad"><span class="ltr">C</span> "La atención en los adolescentes."</button>
+        </div>
+        <div class="consequence"></div>
+      </div>
+
+      <div class="decision" data-activity="l4b" data-points="10" data-dec="2">
+        <div class="d-head"><div class="d-num">2</div><div class="d-title">¿Qué enfoque corresponde a su pregunta?</div></div>
+        <div class="scenario">La pregunta final de Valentina es: "¿Qué relación existe entre el tiempo diario de uso de redes sociales y el desempeño en tareas de atención sostenida en estudiantes de 9º...?" Camila le pregunta qué enfoque le corresponde.</div>
+        <div class="opts">
+          <button class="d-opt" data-quality="best"><span class="ltr">A</span> Cuantitativo: la pregunta es de relación entre variables y pide medidas, correlación y control.</button>
+          <button class="d-opt" data-quality="bad"><span class="ltr">B</span> Cualitativo: lo importante es comprender cómo los estudiantes significan el uso de redes.</button>
+          <button class="d-opt" data-quality="okay"><span class="ltr">C</span> Mixto: combinar encuestas con entrevistas para tener una visión más completa.</button>
+        </div>
+        <div class="consequence"></div>
+      </div>
+
+      <div class="decision" data-activity="l4c" data-points="10" data-dec="3">
+        <div class="d-head"><div class="d-num">3</div><div class="d-title">Antes de presentar al comité: ¿cómo verificar el objeto?</div></div>
+        <div class="scenario">Valentina quiere asegurarse de que su objeto es sólido antes de la sustentación. ¿Qué debería hacer?</div>
+        <div class="opts">
+          <button class="d-opt" data-quality="bad"><span class="ltr">A</span> Preguntarle al rector del colegio si le gusta la formulación.</button>
+          <button class="d-opt" data-quality="best"><span class="ltr">B</span> Aplicar criterios explícitos (claridad, delimitación, relevancia, originalidad, viabilidad, investigabilidad, coherencia, ética) y la prueba FINER, y verificar que objeto, pregunta, objetivos y método se correspondan.</button>
+          <button class="d-opt" data-quality="bad"><span class="ltr">C</span> Comparar su formulación con la de otra tesis y copiar el formato.</button>
+        </div>
+        <div class="consequence"></div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <h4 style="font-family:var(--font-head);color:var(--primary);margin-bottom:.4rem">Autoevaluación breve</h4>
+        <p style="font-size:1rem">En tres o cuatro líneas, escribe la formulación final del objeto de Valentina y justifica con <strong>conceptos del Bloque A</strong> por qué esa formulación es sólida.</p>
+        <textarea class="reflect" id="self-eval" placeholder="El objeto de Valentina es... y es sólido porque..."></textarea>
+        <div class="char-count"><span id="self-count">0</span> caracteres</div>
+        <div class="feedback" id="self-feedback"></div>
+        <div class="btn-row"><button class="btn btn-accent" id="self-submit">Guardar autoevaluación</button></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel3">← Nivel anterior</button>
+        <button class="btn btn-primary" data-goto="cierre">Ir al cierre →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CIERRE
+         ============================================================ -->
+    <section id="cierre" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Cierre</div>
+        <h2>Reflexión y para seguir pensando</h2>
+      </div>
+
+      <div class="card accent">
+        <p>Formular un objeto es un trabajo de <strong>recorte, justificación y traducción</strong>: recortas una porción de realidad, justificas por qué merece estudiarse y la traduces en una pregunta que pueda responderse con método. Un buen objeto es el que, leído en una sola frase, ya deja ver <strong>quién, qué, dónde, desde qué mirada y para qué</strong>.</p>
+        <p>Has acompañado a Valentina a recorrer ese camino: del tema ("redes sociales y atención") al problema (la tensión observada en el colegio), del problema al objeto (delimitado en cinco ejes) y del objeto a la pregunta y los objetivos.</p>
+      </div>
+
+      <div class="card">
+        <h4 style="font-family:var(--font-head);color:var(--primary)">Preguntas metacognitivas</h4>
+        <p style="font-size:1rem;margin-bottom:.6rem">No hay respuestas correctas. Son para pensar tu propio proceso.</p>
+        <div class="checklist">
+          <label><input type="checkbox"> ¿En qué momento del laboratorio cambié de opinión sobre algo? ¿Qué evidencia me hizo cambiar?</label>
+          <label><input type="checkbox"> ¿Cuál es <em>mi</em> tema de interés y cuál sería un primer recorte posible? ¿Qué tipo de vacío justificaría estudiarlo?</label>
+          <label><input type="checkbox"> Si tuviera que explicarle "tema vs. objeto" a un compañero en una frase, ¿qué frase usaría?</label>
+          <label><input type="checkbox"> ¿En qué parte de mi propio proyecto estoy saltándome pasos: del tema directo a los objetivos, del método a la pregunta, de la intuición al dato?</label>
+        </div>
+      </div>
+
+      <div class="card soft">
+        <h4 style="font-family:var(--font-head);color:var(--primary);margin-bottom:.4rem">Tu reflexión final</h4>
+        <p style="font-size:1rem">Escribe una reflexión breve (4-6 líneas) sobre qué te llevas de este laboratorio para tu formación como investigador/a en psicología.</p>
+        <textarea class="reflect" id="reflection" placeholder="Me llevo..."></textarea>
+        <div class="char-count"><span id="refl-count">0</span> caracteres</div>
+        <div class="feedback" id="refl-feedback"></div>
+        <div class="btn-row"><button class="btn btn-primary" id="refl-submit">Enviar reflexión y ver resumen</button></div>
+      </div>
+
+      <div class="card" id="summary-box" style="display:none">
+        <h4 style="font-family:var(--font-head);color:var(--primary);margin-bottom:.6rem">Resumen de desempeño</h4>
+        <div class="summary-grid" id="summary-grid"></div>
+        <div id="summary-text" style="font-size:1rem;margin-top:.6rem"></div>
+      </div>
+
+      <div class="card warm" style="margin-top:1rem">
+        <h4 style="font-family:var(--font-head);color:var(--primary)">Lecturas para seguir profundizando</h4>
+        <ul class="reading-list">
+          <li><strong>Bachelard, G. (1938)</strong> <em>La formation de l'esprit scientifique</em>. Vrin.</li>
+          <li><strong>Bourdieu, P., Chamboredon, J.-C. & Passeron, J.-C. (1973)</strong> <em>El oficio del sociólogo</em>. Siglo XXI.</li>
+          <li><strong>Kerlinger, F. & Lee, H. (2002)</strong> <em>Investigación del comportamiento</em>. McGraw-Hill.</li>
+          <li><strong>Hernández-Sampieri, R., Fernández, C. & Baptista, P. (2014)</strong> <em>Metodología de la investigación</em> (6.ª ed.). McGraw-Hill.</li>
+          <li><strong>Hulley, S. et al. (2007)</strong> <em>Designing Clinical Research</em> (criterios FINER). Lippincott.</li>
+          <li><strong>Gick, M. & Holyoak, K. (1980)</strong> Analogical problem solving. <em>Cognitive Psychology</em>, 12, 306–355.</li>
+          <li><strong>Chi, M., Feltovich, P. & Glaser, R. (1981)</strong> Categorization and representation of physics problems by experts and novices. <em>Cognitive Science</em>, 5, 121–152.</li>
+        </ul>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="nivel4">← Volver al nivel 4</button>
+        <button class="btn btn-primary" data-goto="concepto">Repasar fundamentos</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const S = { activities:{}, attempts:{}, badges:new Set(), maxScore:120 };
+
+function $(sel, ctx=document){ return ctx.querySelector(sel); }
+function $$(sel, ctx=document){ return [...ctx.querySelectorAll(sel)]; }
+
+function recalc(){
+  S.score = Object.values(S.activities).reduce((a,b)=> a + b.pts, 0);
+  const pct = Math.round((S.score / S.maxScore) * 100);
+  $('#score-val').textContent = S.score;
+  $('#progress-fill').style.width = pct + '%';
+  $('#progress-pct').textContent = pct + '%';
+  $('#progress-text').textContent = pct === 0 ? 'Progreso' : (pct === 100 ? '¡Completado!' : 'Progreso');
+  updateSidebarDone();
+  checkBadges();
+}
+function award(id, pts, maxPts){
+  if (S.activities[id]?.done) return;
+  S.activities[id] = { done:true, pts, max:maxPts };
+  recalc();
+}
+function registerAttempt(id){
+  S.attempts[id] = (S.attempts[id] || 0) + 1;
+  return S.attempts[id] === 1;
+}
+function tryAward(id, maxPts, firstTry){
+  award(id, firstTry ? maxPts : Math.round(maxPts * 0.5), maxPts);
+}
+function showFeedback(el, msg, type){
+  const fb = el.querySelector('.feedback');
+  if (!fb) return;
+  fb.className = 'feedback show ' + type;
+  fb.innerHTML = msg;
+}
+function toast(msg, gold=false){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'show' + (gold ? ' gold' : '');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=> t.classList.remove('show'), 3200);
+}
+function showPanel(id){
+  $$('#content .panel').forEach(p => p.classList.toggle('active', p.id === id));
+  $$('#sidebar .nav-link').forEach(a => a.classList.toggle('active', a.dataset.target === id));
+  window.scrollTo({ top:0, behavior:'smooth' });
+  $('#sidebar').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const nav = e.target.closest('[data-goto], .nav-link');
+  if (nav){
+    e.preventDefault();
+    const target = nav.dataset.goto || nav.dataset.target;
+    if (target) showPanel(target);
+  }
+});
+$('#btn-start').addEventListener('click', e => {
+  e.preventDefault();
+  $('#cover').style.display = 'none';
+  $('#lab').classList.add('open');
+  showPanel('concepto');
+  window.scrollTo({ top:0 });
+});
+$('#hamburger').addEventListener('click', () => {
+  $('#sidebar').classList.toggle('open');
+});
+function updateSidebarDone(){
+  const done = id => S.activities[id]?.done;
+  const map = {
+    nivel1: done('l1a') && done('l1b'),
+    nivel2: done('l2a') && done('l2b'),
+    nivel3: done('l3a') && done('l3b') && done('l3c'),
+    nivel4: done('l4a') && done('l4b') && done('l4c')
+  };
+  $$('#sidebar .nav-link').forEach(a => {
+    const t = a.dataset.target;
+    a.classList.toggle('done', !!map[t]);
+  });
+}
+function checkBadges(){
+  const done = id => S.activities[id]?.done;
+  const setBadge = (id, name, cond) => {
+    if (cond && !S.badges.has(id)){
+      S.badges.add(id);
+      const el = document.querySelector(`[data-badge="${id}"]`);
+      if (el) el.classList.add('earned');
+      toast('🏅 Logro desbloqueado: ' + name, true);
+    }
+  };
+  setBadge('primer-paso', 'Primer paso', done('l1a') && done('l1b'));
+  setBadge('constructor', 'Constructor de objetos', done('l2a') && done('l2b'));
+  setBadge('formulador', 'Formulador riguroso', done('l3a') && done('l3b') && done('l3c'));
+  setBadge('disenador', 'Diseñador de proyectos', done('l4a') && done('l4b') && done('l4c'));
+  setBadge('reflexivo', 'Pensador reflexivo', done('cierre'));
+  const scored = ['l1a','l1b','l2a','l2b','l3a','l3b','l3c','l4a','l4b','l4c'];
+  const allPerfect = scored.every(id => S.activities[id]?.done && S.activities[id].pts === S.activities[id].max);
+  setBadge('perfecto', 'Puntaje perfecto', allPerfect);
+}
+$$('.flip-card').forEach(card => {
+  const toggle = () => card.classList.toggle('flipped');
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+  });
+});
+document.addEventListener('click', e => {
+  const opt = e.target.closest('.mcq .opt');
+  if (!opt) return;
+  const mcq = opt.closest('.mcq');
+  const id = mcq.dataset.activity;
+  const maxPts = +mcq.dataset.points || 10;
+  if (mcq.classList.contains('locked')) return;
+  const firstTry = registerAttempt(id);
+  const correct = opt.dataset.correct === 'true';
+  mcq.querySelectorAll('.opt').forEach(b => b.classList.remove('correct','wrong'));
+  if (correct){
+    opt.classList.add('correct');
+    mcq.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(mcq, mcq.dataset.feedbackOk || '¡Muy bien!', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    opt.classList.add('wrong');
+    showFeedback(mcq, mcq.dataset.feedbackNo || 'No es esa opción. Vuelve a pensarlo.', 'no');
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.mcheck-btn')) return;
+  const wrap = e.target.closest('.multi');
+  if (wrap.classList.contains('locked')) return;
+  const id = wrap.dataset.activity;
+  const maxPts = +wrap.dataset.points || 10;
+  const firstTry = registerAttempt(id);
+  const checks = $$('.mcheck', wrap);
+  let allCorrect = true;
+  checks.forEach(c => {
+    const label = c.closest('label');
+    label.classList.remove('correct','wrong');
+    const isCorrect = c.dataset.correct === 'true';
+    if (c.checked === isCorrect){ label.classList.add('correct'); }
+    else { label.classList.add('wrong'); if (c.checked) allCorrect = false; }
+    if (!c.checked && isCorrect) allCorrect = false;
+  });
+  if (allCorrect){
+    wrap.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(wrap, '¡Exacto! Los cuatro primeros son vacíos investigables: empírico, contradicción, metodológico y práctico sin respaldo. El interés personal y la autoridad no son vacíos: pueden motivar, pero no justifican una investigación.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    showFeedback(wrap, 'Aún hay casillas que no corresponden. Fíjate en las marcadas en rojo: el interés personal y la autoridad no son vacíos investigables. Los otros cuatro sí lo son.', 'no');
+  }
+});
+let selectedChip = null;
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.classify .chip');
+  if (chip){
+    const cls = chip.closest('.classify');
+    if (cls.classList.contains('locked')) return;
+    if (chip.parentElement.classList.contains('bank')){
+      cls.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      selectedChip = chip;
+    } else {
+      cls.querySelector('.bank').appendChild(chip);
+      chip.classList.remove('selected','correct','wrong');
+      selectedChip = null;
+    }
+    return;
+  }
+  const bucket = e.target.closest('.classify .bucket');
+  if (bucket && selectedChip){
+    const cls = bucket.closest('.classify');
+    if (cls.classList.contains('locked')) return;
+    bucket.querySelector('.drop').appendChild(selectedChip);
+    selectedChip.classList.remove('selected','correct','wrong');
+    selectedChip = null;
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.classify-check')) return;
+  const cls = e.target.closest('.classify');
+  if (cls.classList.contains('locked')) return;
+  const id = cls.dataset.activity;
+  const maxPts = +cls.dataset.points || 20;
+  const firstTry = registerAttempt(id);
+  const totalChips = $$('.chip', cls).length;
+  const placed = $$('.bucket .chip', cls).length;
+  if (placed < totalChips){
+    showFeedback(cls, 'Todavía quedan fichas en el banco. Colócalas todas antes de comprobar.', 'no');
+    return;
+  }
+  let correct = 0;
+  $$('.bucket', cls).forEach(b => {
+    const type = b.dataset.type;
+    $$('.chip', b).forEach(ch => {
+      ch.classList.remove('correct','wrong');
+      if (ch.dataset.type === type){ ch.classList.add('correct'); correct++; }
+      else { ch.classList.add('wrong'); }
+    });
+  });
+  if (correct === totalChips){
+    cls.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(cls, '¡Perfecto! Distinguiste bien los cuatro conceptos. Fíjate que un tema puede ser interesante y hasta urgente, pero mientras no recorte población, contexto y aspecto, no se convierte en objeto.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    showFeedback(cls, `Tienes ${correct} de ${totalChips} bien ubicadas. Revisa las rojas y vuelve a intentarlo.`, 'no');
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.match-check')) return;
+  const wrap = e.target.closest('.matching');
+  if (wrap.classList.contains('locked')) return;
+  const id = wrap.dataset.activity;
+  const maxPts = +wrap.dataset.points || 20;
+  const firstTry = registerAttempt(id);
+  const sels = $$('select', wrap);
+  let ok = 0;
+  sels.forEach(s => {
+    s.classList.remove('correct','wrong');
+    if (s.value === s.dataset.answer){ s.classList.add('correct'); ok++; }
+    else { s.classList.add('wrong'); }
+  });
+  if (ok === sels.length){
+    wrap.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(wrap, '¡Todo alineado! Recuerda que la delimitación es el paso decisivo: sin estos cinco ejes, el objeto queda en el aire aunque la pregunta esté bien escrita.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    showFeedback(wrap, `${ok} de ${sels.length} correctas. Revisa las filas marcadas y vuelve a intentarlo.`, 'no');
+  }
+});
+document.addEventListener('click', e => {
+  const item = e.target.closest('.ordering .order-item');
+  if (!item) return;
+  const ord = item.closest('.ordering');
+  if (ord.classList.contains('locked')) return;
+  if (item.dataset.n){
+    delete item.dataset.n;
+    item.querySelector('.num').textContent = '';
+  } else {
+    const nums = $$('.order-item', ord).map(i => +i.dataset.n || 0);
+    const next = Math.max(0, ...nums) + 1;
+    item.dataset.n = next;
+    item.querySelector('.num').textContent = next;
+  }
+});
+document.addEventListener('click', e => {
+  if (!e.target.matches('.order-check')) return;
+  const ord = e.target.closest('.ordering');
+  if (ord.classList.contains('locked')) return;
+  const id = ord.dataset.activity;
+  const maxPts = +ord.dataset.points || 10;
+  const firstTry = registerAttempt(id);
+  const answer = ord.dataset.answer.split(',');
+  const items = $$('.order-item', ord);
+  const unassigned = items.filter(i => !i.dataset.n).length;
+  if (unassigned){
+    showFeedback(ord, 'Faltan pasos por numerar. Toca los que quedan en blanco para asignarles un lugar.', 'no');
+    return;
+  }
+  const sorted = [...items].sort((a,b) => +a.dataset.n - +b.dataset.n);
+  const isCorrect = sorted.every((it, i) => it.dataset.id === answer[i]);
+  items.forEach(i => i.classList.remove('correct','wrong'));
+  if (isCorrect){
+    items.forEach(i => i.classList.add('correct'));
+    ord.classList.add('locked');
+    tryAward(id, maxPts, firstTry);
+    showFeedback(ord, '¡Exacto! La secuencia es: inquietud situada → literatura → vacío → delimitación → formulación → derivación. Saltarse pasos es la causa más frecuente de proyectos que no despegan.', 'ok');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else {
+    items.forEach(i => i.classList.add('wrong'));
+    showFeedback(ord, 'No es el orden correcto. Piensa: primero hay que situar la inquietud y explorar la literatura; la delimitación y la formulación llegan después.', 'no');
+    setTimeout(()=> items.forEach(i => i.classList.remove('wrong')), 1500);
+  }
+});
+const decisionsMeta = {
+  '1': {
+    feedbacks: {
+      best: 'Excelente. La opción B recorta el fenómeno (uso de redes y atención sostenida), delimita población (estudiantes de 9º), contexto (colegio público de Suba, Bogotá) y tiempo (año escolar 2024), y no presupone la respuesta.',
+      bad1: 'La opción A contiene la conclusión: "demostrar que causan". Eso impide que los datos sorprendan y compromete al investigador con una causalidad que un diseño correlacional no puede establecer.',
+      bad2: 'La opción C es un tema, no un objeto: no delimita población, contexto, tiempo ni aspecto. Le falta todo el trabajo de construcción.'
+    }
+  },
+  '2': {
+    feedbacks: {
+      best: 'Correcto. La pregunta es de relación entre variables (tiempo de uso y desempeño atencional): eso pide un enfoque cuantitativo, con medidas, correlación y control de variables.',
+      okay: 'El enfoque mixto es posible, pero agregaría una capa que no está en la pregunta. Si Valentina quiere complementar con entrevistas, tendría que reformular el objeto para incluir también la comprensión de significados.',
+      bad: 'El enfoque cualitativo no corresponde a esta pregunta: no busca comprender significados, sino estimar una relación entre variables. Si quisiera hacer cualitativo, tendría que reformular la pregunta.'
+    }
+  },
+  '3': {
+    feedbacks: {
+      best: 'Muy bien. La verificación de un objeto no es una cuestión de gusto ni de autoridad: se hace con criterios explícitos y con la prueba FINER. Y se cierra verificando que objeto, pregunta, objetivos y método se correspondan.',
+      bad1: 'Preguntarle al rector puede dar información contextual útil, pero la solidez de un objeto no se decide por autoridad: se decide con criterios metodológicos explícitos.',
+      bad2: 'Copiar el formato de otra tesis puede ayudar a ver la estructura, pero no reemplaza la verificación: tu objeto tiene su propia lógica y debe sostenerse por sí mismo.'
+    }
+  }
+};
+document.addEventListener('click', e => {
+  const opt = e.target.closest('.decision .d-opt');
+  if (!opt) return;
+  const dec = opt.closest('.decision');
+  if (dec.classList.contains('locked')) return;
+  const id = dec.dataset.activity;
+  const maxPts = +dec.dataset.points || 10;
+  const num = dec.dataset.dec;
+  const quality = opt.dataset.quality;
+  const firstTry = registerAttempt(id);
+  dec.classList.add('locked');
+  dec.querySelectorAll('.d-opt').forEach(b => {
+    const q = b.dataset.quality;
+    if (q === 'best') b.classList.add('best');
+    else if (q === 'okay') b.classList.add('okay');
+    else b.classList.add('bad');
+  });
+  const cons = dec.querySelector('.consequence');
+  cons.classList.add('show');
+  const meta = decisionsMeta[num]?.feedbacks || {};
+  if (quality === 'best'){
+    tryAward(id, maxPts, firstTry);
+    cons.innerHTML = '<strong>✅ Mejor decisión.</strong> ' + (meta.best || '');
+    toast('+' + (firstTry ? maxPts : Math.round(maxPts*0.5)) + ' pts');
+  } else if (quality === 'okay'){
+    tryAward(id, Math.round(maxPts/2), firstTry);
+    cons.innerHTML = '<strong>🟡 Decisión aceptable, pero no la mejor.</strong> ' + (meta.okay || '');
+    toast('+' + (firstTry ? Math.round(maxPts/2) : Math.round(maxPts/4)) + ' pts');
+  } else {
+    const key = quality + '1' in meta ? quality + '1' : quality;
+    cons.innerHTML = '<strong>❌ Decisión con menor sustento teórico.</strong> ' + (meta[key] || meta.bad || '');
+  }
+});
+const selfEval = $('#self-eval');
+const selfCount = $('#self-count');
+selfEval.addEventListener('input', () => { selfCount.textContent = selfEval.value.trim().length; });
+$('#self-submit').addEventListener('click', () => {
+  const txt = selfEval.value.trim();
+  const fb = $('#self-feedback');
+  if (txt.length < 60){
+    fb.className = 'feedback show no';
+    fb.textContent = 'Escribe al menos 60 caracteres para que la autoevaluación tenga sentido. La idea es que formules el objeto de Valentina y lo justifiques con los conceptos del Bloque A.';
+    return;
+  }
+  fb.className = 'feedback show ok';
+  fb.innerHTML = 'Gracias por tu autoevaluación. El hecho de <em>formular con tus palabras</em> el objeto y justificarlo es una operación de procesamiento profundo que consolida el aprendizaje.';
+  selfEval.disabled = true;
+  $('#self-submit').disabled = true;
+  toast('Autoevaluación guardada ✍️');
+});
+const refl = $('#reflection');
+const reflCount = $('#refl-count');
+refl.addEventListener('input', () => { reflCount.textContent = refl.value.trim().length; });
+$('#refl-submit').addEventListener('click', () => {
+  const txt = refl.value.trim();
+  const fb = $('#refl-feedback');
+  if (txt.length < 60){
+    fb.className = 'feedback show no';
+    fb.textContent = 'Con 60 caracteres como mínimo podremos considerar que la reflexión está desarrollada. Intenta conectar con el caso de Valentina o con tu propio proyecto de investigación.';
+    return;
+  }
+  fb.className = 'feedback show ok';
+  fb.innerHTML = '¡Listo! Has cerrado el laboratorio con una operación metacognitiva: <em>mirar tu propio proceso de aprendizaje</em>. Eso también es entrenar una operación valiosa para la investigación.';
+  refl.disabled = true;
+  $('#refl-submit').disabled = true;
+  if (!S.activities['cierre']){
+    S.activities['cierre'] = { done:true, pts:0, max:0 };
+    recalc();
+  }
+  buildSummary();
+  toast('Reflexión enviada. ¡Felicidades por completar el laboratorio! 🎉', true);
+});
+function buildSummary(){
+  const box = $('#summary-box');
+  box.style.display = 'block';
+  const scored = [
+    { id:'l1a', label:'Diagnóstico' },
+    { id:'l1b', label:'Clasificar' },
+    { id:'l2a', label:'Vacío' },
+    { id:'l2b', label:'Delimitar' },
+    { id:'l3a', label:'Ordenar' },
+    { id:'l3b', label:'Errores' },
+    { id:'l3c', label:'Método' },
+    { id:'l4a', label:'Formulación' },
+    { id:'l4b', label:'Enfoque' },
+    { id:'l4c', label:'Verificación' }
+  ];
+  let html = '';
+  let perfectas = 0;
+  scored.forEach(s => {
+    const a = S.activities[s.id];
+    const pts = a ? a.pts : 0;
+    const max = a ? a.max : 10;
+    if (pts === max) perfectas++;
+    html += `<div class="summary-item"><div class="big">${pts}/${max}</div><div class="lbl">${s.label}</div></div>`;
+  });
+  $('#summary-grid').innerHTML = html;
+  const pct = Math.round((S.score / S.maxScore) * 100);
+  let msg;
+  if (pct >= 90) msg = 'Dominio sobresaliente. No solo resolviste las actividades: entendiste <em>por qué</em> funcionan. Estás pensando con los lentes de la formulación de proyectos.';
+  else if (pct >= 70) msg = 'Buen desempeño. Hay matices para pulir, sobre todo en las decisiones de formulación y verificación. Revisar el Bloque A con calma puede afinar esas distinciones.';
+  else if (pct >= 50) msg = 'Vas por buen camino. Varias actividades quedaron a medio puntaje, lo que sugiere que algunos conceptos necesitan una segunda vuelta. Te sugiero repasar el Bloque A y volver a intentarlo.';
+  else msg = 'Este es un buen punto de partida. La distinción tema / problema / objeto / pregunta es más sutil de lo que parece a primera vista. Repasa el Bloque A con calma y regresa al caso: la segunda pasada siempre es más clara.';
+  $('#summary-text').innerHTML = `<p><strong>Puntaje final:</strong> ${S.score} / ${S.maxScore} (${pct}%) · <strong>Actividades con puntaje completo:</strong> ${perfectas} de ${scored.length}.</p><p>${msg}</p>`;
+}
+recalc();
+</script>
+</body>
+</html>

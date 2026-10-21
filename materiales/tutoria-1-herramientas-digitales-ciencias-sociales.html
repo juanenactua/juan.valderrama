@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutoría 1 · Herramientas digitales para las ciencias sociales</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Tutoría 1 · Herramientas digitales para las ciencias sociales">
+<meta name="jc-descripcion" content="Presentación interactiva sobre inteligencia artificial generativa aplicada a psicología y ciencias sociales, con enfoque STEAM, habilidades de inteligencia digital, funcionamiento de modelos generativos, diseño de prompts por niveles, riesgos, ética, plan de acción y autoevaluación.">
+<meta name="jc-tipo" content="Presentación interactiva de clase">
+<meta name="jc-etiquetas" content="Herramientas digitales, Ciencias sociales, Psicología, Inteligencia artificial, IA generativa, Inteligencia digital, STEAM, Alfabetización digital, Identidad digital, Seguridad digital, Protección digital, Derechos digitales, Comunicación digital, Modelos de lenguaje, LLM, Multimodalidad, Agentes de IA, Tokens, Ventana de contexto, Alucinaciones, Diseño de prompts, Prompt engineering, R-C-T-F-R, Few-shot prompting, Iteración, Documentos propios, Humano en el circuito, Privacidad, Sesgos, Propiedad intelectual, Deepfakes, Ética de la IA, Aprendizaje activo, Autoevaluación">
+<meta name="jc-curso" content="Herramientas Digitales para las Ciencias Sociales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+:root{
+  --ink:#14181f;
+  --paper:#f7f6f2;
+  --card:#ffffff;
+  --accent:#1a6b5b;
+  --accent-soft:#e3efec;
+  --warn:#b8451a;
+  --warn-soft:#f8e9e2;
+  --muted:#5a636d;
+  --line:#e3e1da;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(20,24,31,.05), 0 12px 28px -22px rgba(20,24,31,.5);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:19px;line-height:1.62;-webkit-font-smoothing:antialiased;
+}
+[hidden]{display:none!important}
+h1,h2,h3{margin:0 0 .55em;line-height:1.14;letter-spacing:-.018em}
+h1{font-size:clamp(2.5rem,6.6vw,4.4rem);font-weight:770}
+h2{font-size:clamp(1.75rem,4vw,2.7rem);font-weight:740}
+h3{font-size:1.24rem;font-weight:690;margin-top:1.7em}
+p{margin:0 0 1em}
+a{color:var(--accent)}
+button{font:inherit}
+strong{font-weight:680}
+
+/* ===== topbar ===== */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:64px;z-index:80;
+  background:rgba(247,246,242,.96);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;padding:0 16px;
+}
+.brand{font-size:.98rem;font-weight:730;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.tb-counter{font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb-pct{font-size:1rem;font-weight:750;color:var(--accent);font-variant-numeric:tabular-nums}
+.tb-nav{display:flex;gap:6px}
+.icon-btn{
+  width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);
+  transition:background .2s,border-color .2s,color .2s,transform .15s;
+}
+.icon-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.icon-btn:active:not(:disabled){transform:scale(.95)}
+.icon-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.icon-btn:disabled{opacity:.35;cursor:default}
+.progress-track{position:absolute;left:0;right:0;bottom:-1px;height:4px;background:var(--line)}
+.progress-fill{height:100%;width:0;background:var(--accent);transition:width .45s cubic-bezier(.22,.61,.36,1)}
+.burger{display:flex;flex-direction:column;gap:3px}
+.burger span{display:block;width:16px;height:2px;background:var(--ink);border-radius:2px}
+
+/* ===== sidebar ===== */
+.sidebar{
+  position:fixed;top:64px;left:0;bottom:0;width:290px;z-index:70;
+  background:var(--paper);border-right:1px solid var(--line);
+  overflow-y:auto;padding:22px 12px 48px;
+  transition:transform .32s cubic-bezier(.22,.61,.36,1);
+  transform:translateX(0);
+}
+body.index-collapsed .sidebar{transform:translateX(-100%)}
+.side-head{display:flex;align-items:center;justify-content:space-between;padding:0 10px 12px}
+.side-title{font-size:.74rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:750;margin:0}
+.side-close{width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;transition:background .2s,border-color .2s,color .2s}
+.side-close:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.side-close:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.idx-list{list-style:none;margin:0;padding:0}
+.idx-link{
+  display:flex;align-items:baseline;gap:10px;padding:9px 12px;border-radius:10px;
+  color:var(--muted);text-decoration:none;font-size:.92rem;line-height:1.3;
+  border-left:3px solid transparent;transition:background .22s,color .22s,border-color .22s,transform .18s;
+}
+.idx-link:hover{background:rgba(20,24,31,.055);color:var(--ink);transform:translateX(2px)}
+.idx-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.idx-num{font-size:.78rem;font-weight:750;color:#9aa1aa;font-variant-numeric:tabular-nums;min-width:20px}
+.idx-txt{flex:1}
+.idx-check{font-size:.82rem;color:var(--accent);opacity:0;transform:scale(.6);transition:opacity .3s,transform .3s}
+.idx-link.active{color:var(--ink);font-weight:680;background:var(--accent-soft);border-left-color:var(--accent)}
+.idx-link.active .idx-num{color:var(--accent)}
+.idx-link.done .idx-check{opacity:1;transform:none}
+.overlay{position:fixed;inset:64px 0 0;background:rgba(20,24,31,.35);z-index:65;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.on{opacity:1;pointer-events:auto}
+
+/* ===== deck ===== */
+main{margin-left:290px;padding-top:64px;transition:margin-left .32s cubic-bezier(.22,.61,.36,1)}
+body.index-collapsed main{margin-left:0}
+.slide{display:none;min-height:calc(100vh - 64px);padding:48px 26px 130px;outline:none}
+.slide.active{display:block;animation:slideIn .4s cubic-bezier(.22,.61,.36,1)}
+.slide-inner{max-width:1010px;margin:0 auto}
+.kicker{font-size:.8rem;font-weight:760;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1em}
+.lede{font-size:clamp(1.1rem,2.2vw,1.3rem);color:var(--muted);max-width:44em}
+.hint{font-size:.92rem;color:var(--muted);font-style:italic;margin-bottom:18px}
+.cover{padding-top:4vh}
+.cover h1{max-width:15em}
+.tag-row{display:flex;flex-wrap:wrap;gap:9px;margin:26px 0}
+.tag{font-size:.86rem;font-weight:670;padding:7px 14px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.author{font-weight:670;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);display:inline-block;padding-right:24px}
+
+/* ===== botones ===== */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;font-size:1rem;font-weight:660;
+  padding:12px 22px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);
+  cursor:pointer;text-decoration:none;
+  transition:transform .18s,box-shadow .25s,background .22s,border-color .22s,color .22s;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px -16px rgba(20,24,31,.6);border-color:#cbc8be}
+.btn:active{transform:scale(.985)}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:#155a4c;border-color:#155a4c}
+
+/* ===== grids y tarjetas ===== */
+.grid{display:grid;gap:14px}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.grid-5{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color .25s,box-shadow .25s,transform .2s}
+.dcard:hover{border-color:#cbd6d2;box-shadow:var(--shadow)}
+.dcard-btn{
+  width:100%;background:none;border:0;text-align:left;padding:16px 16px;
+  display:flex;align-items:center;gap:12px;cursor:pointer;color:var(--ink);
+}
+.dcard-btn:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.dcard-k{
+  width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-weight:760;font-size:.86rem;flex:none;
+}
+.dcard-t{font-weight:660;font-size:1rem;line-height:1.25}
+.dcard-plus{margin-left:auto;font-size:1.5rem;line-height:1;color:var(--muted);transition:transform .3s,color .3s;flex:none}
+.dcard-btn[aria-expanded="true"] .dcard-plus{transform:rotate(45deg);color:var(--accent)}
+.dcard-panel{padding:0 16px 16px;font-size:.97rem;color:var(--muted);animation:fadeUp .3s ease}
+.dcard-panel p{margin:0}
+.static-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.static-card .card-k{display:block;font-size:.76rem;font-weight:760;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.static-card p{margin:0;font-size:1rem}
+.outcome{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.rlab{font-size:.76rem;font-weight:760;color:var(--accent);background:var(--accent-soft);padding:5px 9px;border-radius:7px;flex:none;letter-spacing:.04em}
+.outcome p{margin:0;font-size:1rem}
+
+/* ===== timeline ===== */
+.timeline{display:flex;gap:9px;overflow-x:auto;padding:4px 2px 12px;margin:14px 0}
+.tl-btn{
+  flex:1 0 auto;min-width:126px;background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:11px 13px;font-size:.88rem;font-weight:660;color:var(--muted);cursor:pointer;
+  transition:background .2s,color .2s,border-color .2s,transform .15s;
+}
+.tl-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.tl-btn.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+.tl-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tl-panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;font-size:1rem;min-height:70px}
+.tl-panel.anim{animation:fadeUp .3s ease}
+
+/* ===== callouts ===== */
+.callout{
+  border-left:4px solid var(--accent);background:#fff;border-radius:0 12px 12px 0;
+  padding:16px 20px;margin:22px 0;font-size:1.02rem;
+}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout strong{color:inherit}
+
+/* ===== skill slides ===== */
+.skill-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.skill-num{
+  width:64px;height:64px;border-radius:16px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:780;font-size:1.4rem;flex:none;
+}
+.example-box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:18px 0}
+.example-box .lbl{display:block;font-size:.78rem;font-weight:760;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.example-box p{margin:0 0 .8em;font-size:1rem}
+.example-box p:last-child{margin-bottom:0}
+.example-box ul{margin:0;padding-left:1.3em;font-size:1rem}
+.example-box li{margin-bottom:.5em}
+
+/* ===== prompt levels ===== */
+.level-badge{
+  display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:760;
+  letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--accent);
+  padding:7px 14px;border-radius:999px;margin-bottom:14px;
+}
+.level-badge.l0{background:#8a8f96}
+.level-badge.l1{background:#5f7a72}
+.level-badge.l8{background:var(--warn)}
+.prompt-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.prompt-card .plbl{display:block;font-size:.76rem;font-weight:760;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.prompt-card.bad{border-color:#eccfc4;background:var(--warn-soft)}
+.prompt-card.bad .plbl{color:var(--warn)}
+.prompt-card.good{border-color:#c7ded8;background:var(--accent-soft)}
+.prompt-card.good .plbl{color:var(--accent)}
+.prompt-card .ptext{font-size:1rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;margin:0}
+.purpose{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.purpose .picon{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;font-weight:780;font-size:.9rem}
+.purpose p{margin:0;font-size:1rem}
+
+/* ===== pa prompt ===== */
+.pa{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 10px}
+
+/* ===== checklist ===== */
+.check-item{
+  display:flex;gap:16px;align-items:flex-start;padding:16px 18px;border:1px solid var(--line);
+  border-radius:12px;background:#fff;margin-bottom:12px;transition:background .25s,border-color .25s;
+}
+.check-item.done{background:var(--accent-soft);border-color:#c7ded8}
+.check-btn{
+  width:32px;height:32px;border-radius:9px;border:2px solid var(--line);background:#fff;
+  cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;
+  font-weight:780;font-size:.95rem;color:transparent;transition:background .2s,border-color .2s,color .2s,transform .15s;
+}
+.check-btn:hover{border-color:var(--accent)}
+.check-btn:active{transform:scale(.92)}
+.check-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.check-item.done .check-btn{background:var(--accent);border-color:var(--accent);color:#fff}
+.check-item p{margin:0;font-size:1rem}
+
+/* ===== quiz ===== */
+.live{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  background:var(--ink);color:#fff;padding:14px 20px;border-radius:12px;margin-bottom:20px;font-size:1rem;
+}
+.live strong{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.q{border:1px solid var(--line);border-radius:14px;padding:20px 20px;margin-bottom:14px;background:#fff;transition:border-color .25s}
+.q.answered{border-color:#cfd8d5}
+.q-num{font-size:.78rem;font-weight:760;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.q-text{font-weight:640;font-size:1.04rem;margin-bottom:14px}
+.q-opts{display:flex;flex-direction:column;gap:9px}
+.qopt{
+  text-align:left;font-size:1rem;padding:12px 15px;border-radius:10px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;color:var(--ink);transition:background .2s,border-color .2s,color .2s,transform .15s;
+}
+.qopt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft);transform:translateX(2px)}
+.qopt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.qopt:disabled{cursor:default}
+.qopt.good{background:var(--accent);border-color:var(--accent);color:#fff}
+.qopt.bad{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);animation:shake .4s}
+.q-fb{display:none;font-size:.95rem;margin-top:12px;padding:12px 14px;border-radius:9px;background:var(--paper)}
+.q-fb.show{display:block;animation:fadeUp .3s ease}
+.q-fb.ok{border-left:3px solid var(--accent)}
+.q-fb.err{border-left:3px solid var(--warn)}
+#quizSummary{margin-top:20px;border:1px solid var(--line);border-radius:14px;padding:22px;background:#fff;animation:fadeUp .4s ease}
+
+/* ===== summary/conclusions ===== */
+.sum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:20px 0}
+.sum-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.sum-card .sk{display:block;font-size:.78rem;font-weight:760;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sum-card p{margin:0;font-size:1rem}
+.ideas{font-size:1.06rem;padding-left:1.3em}
+.ideas li{margin-bottom:.85em}
+.conclusion-list{list-style:none;padding:0;margin:16px 0;counter-reset:cl}
+.conclusion-list li{
+  counter-increment:cl;position:relative;padding:18px 20px 18px 68px;background:#fff;
+  border:1px solid var(--line);border-radius:14px;margin-bottom:12px;font-size:1rem;
+}
+.conclusion-list li::before{
+  content:counter(cl);position:absolute;left:18px;top:18px;width:34px;height:34px;border-radius:10px;
+  background:var(--accent-soft);color:var(--accent);font-weight:780;display:flex;align-items:center;justify-content:center;
+}
+
+/* ===== animaciones ===== */
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+.js .anim{opacity:0}
+.js .slide.active .anim{animation:fadeUp .5s both}
+
+/* ===== responsive ===== */
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);width:min(86vw,320px);box-shadow:0 0 40px rgba(20,24,31,.2)}
+  body.sidebar-open-mobile .sidebar{transform:translateX(0)}
+  body.sidebar-open-mobile .overlay{opacity:1;pointer-events:auto}
+  main{margin-left:0!important}
+  .slide{padding:36px 18px 130px}
+  .grid-2{grid-template-columns:1fr}
+  .pa{grid-template-columns:1fr}
+  .brand{max-width:44vw}
+  .skill-num{width:52px;height:52px;font-size:1.15rem}
+}
+@media (max-width:560px){
+  body{font-size:17.5px}
+  .tb-counter{display:none}
+  .brand{max-width:56vw}
+}
+
+/* ===== reduced motion ===== */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+  }
+  .js .anim{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="Mostrar u ocultar índice" aria-expanded="true" aria-controls="sidebar">
+    <span class="burger"><span></span><span></span><span></span></span>
+  </button>
+  <div class="brand">Tutoría 1 · Herramientas digitales para las ciencias sociales</div>
+  <div class="tb-right">
+    <span class="tb-counter" id="tbCounter">1 / 36</span>
+    <span class="tb-pct" id="ppct">0%</span>
+    <div class="tb-nav">
+      <button class="icon-btn js-prev" aria-label="Diapositiva anterior">←</button>
+      <button class="icon-btn js-next" aria-label="Diapositiva siguiente">→</button>
+    </div>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+</header>
+
+<aside class="sidebar" id="sidebar" aria-label="Índice de diapositivas">
+  <div class="side-head">
+    <p class="side-title">Diapositivas</p>
+    <button class="side-close" id="sideClose" type="button" aria-label="Ocultar índice">✕</button>
+  </div>
+  <ul class="idx-list" id="idxList"></ul>
+</aside>
+<div class="overlay" id="overlay"></div>
+
+<main id="deck">
+
+  <!-- 1 PORTADA -->
+  <section class="slide" id="s1" tabindex="-1">
+    <div class="slide-inner cover">
+      <p class="kicker">Curso de IA generativa · Tutoría 1</p>
+      <h1 class="anim">Herramientas digitales para las ciencias sociales</h1>
+      <p class="lede anim">Qué es la IA generativa, cómo funciona, cómo se diseña un prompt por niveles y cómo usarla con criterio en psicología y ciencias sociales.</p>
+      <div class="tag-row anim">
+        <span class="tag">STEAM</span><span class="tag">Habilidades digitales</span><span class="tag">Prompts por niveles</span><span class="tag">Psicología</span>
+      </div>
+      <p class="author anim">Juan Carlos Valderrama Cardenas</p>
+      <button class="btn primary anim" id="startBtn" type="button">Comenzar</button>
+    </div>
+  </section>
+
+  <!-- 2 STEAM -->
+  <section class="slide" id="s2" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Enfoque del curso</p>
+      <h2 class="anim">El curso se organiza desde STEAM</h2>
+      <p class="lede anim">Cinco dimensiones que se integran en una misma tarea: producir con IA, verificar y decidir.</p>
+      <p class="hint anim">Toca cada letra para descubrir qué aporta al curso.</p>
+      <div class="grid grid-5">
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="steam" aria-expanded="false" aria-controls="steam-s">
+            <span class="dcard-k">S</span><span class="dcard-t">Ciencia</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="steam-s" hidden><p>Verificar fuentes, distinguir plausibilidad de verdad y reconocer sesgos. La IA genera respuestas plausibles; la evidencia se contrasta.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="steam" aria-expanded="false" aria-controls="steam-t">
+            <span class="dcard-k">T</span><span class="dcard-t">Tecnología</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="steam-t" hidden><p>LLM, multimodalidad, agentes y ventana de contexto: entender qué hay detrás de la herramienta que usas.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="steam" aria-expanded="false" aria-controls="steam-e">
+            <span class="dcard-k">E</span><span class="dcard-t">Ingeniería</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="steam-e" hidden><p>Diseñar prompts, iterar y construir una biblioteca de prompts que funcionen para tu trabajo.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="steam" aria-expanded="false" aria-controls="steam-a">
+            <span class="dcard-k">A</span><span class="dcard-t">Artes</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="steam-a" hidden><p>Generación de imagen, audio y video; comunicación y narrativa. La IA también produce materiales visuales y sonoros.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="steam" aria-expanded="false" aria-controls="steam-m">
+            <span class="dcard-k">M</span><span class="dcard-t">Matemáticas</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="steam-m" hidden><p>Patrones, probabilidad y predicción del siguiente token. La fluidez del modelo es estadística, no comprensión humana.</p></div>
+        </div>
+      </div>
+      <div class="callout anim">No son cinco materias separadas: son cinco formas de mirar el mismo problema.</div>
+    </div>
+  </section>
+
+  <!-- 3 RESULTADOS -->
+  <section class="slide" id="s3" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Resultados de aprendizaje</p>
+      <h2 class="anim">Qué vas a poder hacer al terminar</h2>
+      <p class="lede anim">Al finalizar la tutoría, serás capaz de:</p>
+      <div class="grid grid-2">
+        <div class="outcome anim"><span class="rlab">R1</span><p><strong>Diferenciar</strong> la IA generativa de la IA predictiva o clasificatoria, clasificando tareas profesionales según el tipo de sistema que las resuelve.</p></div>
+        <div class="outcome anim"><span class="rlab">R2</span><p><strong>Analizar</strong> el funcionamiento de un modelo generativo —entrenamiento, tokens, predicción, ventana de contexto— para explicar por qué produce alucinaciones.</p></div>
+        <div class="outcome anim"><span class="rlab">R3</span><p><strong>Diseñar</strong> prompts de distintos niveles de complejidad, aplicando la fórmula R-C-T-F-R y técnicas de iteración a tareas de ciencias sociales.</p></div>
+        <div class="outcome anim"><span class="rlab">R4</span><p><strong>Evaluar</strong> riesgos de privacidad, sesgo y desinformación en el uso de IA generativa, aplicando la regla «humano en el circuito».</p></div>
+      </div>
+      <div class="callout anim">Cada resultado se comprueba en la autoevaluación final.</div>
+    </div>
+  </section>
+
+  <!-- 4 RELEVANCIA -->
+  <section class="slide" id="s4" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Relevancia profesional</p>
+      <h2 class="anim">Por qué es relevante para psicología y ciencias sociales</h2>
+      <p class="lede anim">La IA generativa no reemplaza el criterio profesional: lo pone a prueba en tareas concretas.</p>
+      <p class="hint anim">Toca cada tarjeta para ver la conexión.</p>
+      <div class="grid grid-2">
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="psi" aria-expanded="false" aria-controls="psi-1">
+            <span class="dcard-k">01</span><span class="dcard-t">Investigación</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="psi-1" hidden><p>La IA puede proponer preguntas y estructuras para una revisión. El investigador evalúa pertinencia teórica, antecedentes, operacionalización, viabilidad, ética e instrumentos.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="psi" aria-expanded="false" aria-controls="psi-2">
+            <span class="dcard-k">02</span><span class="dcard-t">Evaluación y formulación</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="psi-2" hidden><p>Puede generar una formulación preliminar de un caso. El juicio clínico, la responsabilidad y la firma siguen siendo del psicólogo.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="psi" aria-expanded="false" aria-controls="psi-3">
+            <span class="dcard-k">03</span><span class="dcard-t">Educación y formación</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="psi-3" hidden><p>Tutores personalizados, material y retroalimentación. Vigila la dependencia y la pérdida de criterio.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="psi" aria-expanded="false" aria-controls="psi-4">
+            <span class="dcard-k">04</span><span class="dcard-t">Ética y sesgos</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="psi-4" hidden><p>Los modelos reflejan sesgos de sus datos de entrenamiento. El psicólogo debe detectarlos y decidir qué no delegar.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="psi" aria-expanded="false" aria-controls="psi-5">
+            <span class="dcard-k">05</span><span class="dcard-t">Análisis de datos cualitativos</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="psi-5" hidden><p>Puede apoyar la codificación inicial de entrevistas, pero el criterio de saturación, la interpretación y la validez dependen del investigador.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="psi" aria-expanded="false" aria-controls="psi-6">
+            <span class="dcard-k">06</span><span class="dcard-t">Divulgación</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="psi-6" hidden><p>Borradores de artículos, guiones y material gráfico. La verificación de citas y la responsabilidad editorial siguen siendo humanas.</p></div>
+        </div>
+      </div>
+      <div class="callout anim"><strong>Caso.</strong> Un grupo de estudiantes pide tres preguntas sobre pantallas y funciones ejecutivas en niños menores de siete años. La IA las genera en segundos. El grupo debe decidir qué conservar, qué verificar y qué justificar.</div>
+    </div>
+  </section>
+
+  <!-- 5 HABILIDADES INTRO -->
+  <section class="slide" id="s5" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Inteligencia digital</p>
+      <h2 class="anim">Las 8 habilidades de la inteligencia digital</h2>
+      <p class="lede anim">Cada habilidad se traduce en una decisión concreta sobre el uso de IA generativa. En las próximas diapositivas verás cada una con ejemplos aplicados a ciencias sociales.</p>
+      <div class="grid grid-4">
+        <div class="static-card anim"><span class="card-k">01</span><p>Identidad digital</p></div>
+        <div class="static-card anim"><span class="card-k">02</span><p>Uso digital</p></div>
+        <div class="static-card anim"><span class="card-k">03</span><p>Seguridad digital</p></div>
+        <div class="static-card anim"><span class="card-k">04</span><p>Protección digital</p></div>
+        <div class="static-card anim"><span class="card-k">05</span><p>Inteligencia emocional digital</p></div>
+        <div class="static-card anim"><span class="card-k">06</span><p>Comunicación digital</p></div>
+        <div class="static-card anim"><span class="card-k">07</span><p>Alfabetización digital</p></div>
+        <div class="static-card anim"><span class="card-k">08</span><p>Derechos digitales</p></div>
+      </div>
+      <div class="callout anim">No se trata de memorizar la lista: se trata de reconocer cuál habilidad está en juego en cada decisión.</div>
+    </div>
+  </section>
+
+  <!-- 6 HABILIDAD 1 -->
+  <section class="slide" id="s6" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 1 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">01</div><h2>Identidad digital</h2></div>
+      <p class="lede anim">Reconocer qué es real y qué es sintético en un entorno donde la IA genera imágenes, audio y video convincentes.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>Un audio con la voz de un político circula en redes. Antes de compartirlo en un trabajo de opinión pública, verifica la fuente original y busca la declaración en medios oficiales.</li>
+          <li>Una imagen de una protesta generada con IA se usa como evidencia en una investigación. Debes rastrear el origen, la fecha y si existe registro en agencias o archivos.</li>
+          <li>Un video de una entrevista a un psicólogo reconocido contiene afirmaciones que no aparecen en ninguna de sus publicaciones. Verifica con la fuente primaria.</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Antes de citar o compartir contenido visual o sonoro, pregunta: ¿existe una fuente primaria verificable? Si no, no lo uses como evidencia.</div>
+    </div>
+  </section>
+
+  <!-- 7 HABILIDAD 2 -->
+  <section class="slide" id="s7" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 2 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">02</div><h2>Uso digital</h2></div>
+      <p class="lede anim">Elegir la herramienta adecuada para cada tarea: no todo se resuelve con un chatbot de texto.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>Para transcribir entrevistas, usa una herramienta de audio. Para resumirlas, un asistente de texto. Para generar una infografía de resultados, un generador de imagen.</li>
+          <li>Para analizar la literatura de un tema, un asistente de texto con capacidad de subir documentos. Para revisar un corpus de tu propio material, la misma herramienta con instrucciones específicas.</li>
+          <li>Para automatizar la recolección de respuestas de un formulario y su resumen, un agente con acceso a herramientas, no un chat abierto.</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Antes de abrir la primera herramienta, define la tarea y la salida esperada; después elige el tipo de sistema.</div>
+    </div>
+  </section>
+
+  <!-- 8 HABILIDAD 3 -->
+  <section class="slide" id="s8" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 3 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">03</div><h2>Seguridad digital</h2></div>
+      <p class="lede anim">Proteger datos personales, clínicos y confidenciales antes de introducirlos en una herramienta generativa.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>No pegues historias clínicas, nombres de pacientes ni datos de menores en un chat sin revisar la política de privacidad de la herramienta.</li>
+          <li>Anonimiza los datos antes de pedir un resumen: sustituye nombres por códigos y elimina identificadores directos.</li>
+          <li>Si trabajas con datos de una investigación en curso, revisa el consentimiento informado: es posible que no cubra el uso de servicios externos de IA.</li>
+        </ul>
+      </div>
+      <div class="callout warn anim"><strong>Acción.</strong> Regla práctica: si el dato no lo publicarías en un foro público, no lo pegues en un chat de IA sin anonimizar y sin revisar la política.</div>
+    </div>
+  </section>
+
+  <!-- 9 HABILIDAD 4 -->
+  <section class="slide" id="s9" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 4 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">04</div><h2>Protección digital</h2></div>
+      <p class="lede anim">Reconocer los límites legales y éticos del contenido generado, especialmente en propiedad intelectual y derechos de autor.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>Una imagen generada con IA para ilustrar una publicación: revisa la licencia de la herramienta y la normativa de tu país.</li>
+          <li>Un texto redactado con IA y presentado como propio: declara el uso de la herramienta cuando la institución o la revista lo exija.</li>
+          <li>Un resumen de un artículo protegido: cita siempre la fuente original; el resumen generado no sustituye la lectura del artículo.</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Antes de publicar o entregar, comprueba la licencia de la herramienta, la normativa aplicable y las normas de tu institución.</div>
+    </div>
+  </section>
+
+  <!-- 10 HABILIDAD 5 -->
+  <section class="slide" id="s10" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 5 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">05</div><h2>Inteligencia emocional digital</h2></div>
+      <p class="lede anim">Gestionar la dependencia y preservar el criterio propio: usar la IA para pensar mejor, no para dejar de pensar.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>Si la IA redacta todo el marco teórico y tú no puedes explicar los conceptos sin volver al chat, la dependencia ya es un problema.</li>
+          <li>Si la IA formula el caso clínico y tú no puedes justificar el diagnóstico con evidencia propia, la responsabilidad profesional está comprometida.</li>
+          <li>Si la IA responde una pregunta de examen y tú no puedes reconstruir el razonamiento, no aprendiste: solo obtuviste una salida.</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Después de cada uso, pregúntate: ¿puedo explicar y defender esta salida sin volver a consultar el sistema? Si no, vuelve al material.</div>
+    </div>
+  </section>
+
+  <!-- 11 HABILIDAD 6 -->
+  <section class="slide" id="s11" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 6 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">06</div><h2>Comunicación digital</h2></div>
+      <p class="lede anim">Formular instrucciones claras, precisas y verificables: el prompt es una forma de comunicación técnica.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>En lugar de «explícame la teoría X», pide: «actúa como tutor de psicología cognitiva, explica la teoría X a estudiantes de segundo semestre, con un ejemplo cotidiano y uno experimental».</li>
+          <li>En lugar de «resume este artículo», pide: «resume el artículo adjunto en una tabla con objetivo, muestra y hallazgo principal, en 300 palabras máximo».</li>
+          <li>En lugar de «ayúdame con mi tesis», pide: «revisa este fragmento de mi marco teórico e identifica supuestos no justificados, en una lista de 5 puntos».</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Antes de enviar el prompt, comprueba si incluye rol, contexto, tarea, formato y restricciones. Si falta uno, la salida suele fallar.</div>
+    </div>
+  </section>
+
+  <!-- 12 HABILIDAD 7 -->
+  <section class="slide" id="s12" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 7 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">07</div><h2>Alfabetización digital</h2></div>
+      <p class="lede anim">Evaluar críticamente la información y sus fuentes: verificar datos, cifras, citas y referencias antes de usarlas.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>La IA cita un estudio con autores, año y revista. Antes de incluirlo, búscalo en la base de datos: si no existe, descártalo como alucinación.</li>
+          <li>La IA ofrece una cifra de prevalencia sin fuente. No la uses en un informe sin localizar el estudio original y verificar la definición operacional.</li>
+          <li>La IA resume un artículo y omite el tamaño de la muestra. Contrasta con el original: el resumen no es evidencia.</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Trata cada salida como una hipótesis, no como un dato. La verificación en fuente primaria es parte del trabajo.</div>
+    </div>
+  </section>
+
+  <!-- 13 HABILIDAD 8 -->
+  <section class="slide" id="s13" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Habilidad 8 de 8</p>
+      <div class="skill-header anim"><div class="skill-num">08</div><h2>Derechos digitales</h2></div>
+      <p class="lede anim">Reconocer sesgos, desinformación e impactos laborales, y actuar con criterio frente a ellos.</p>
+      <div class="example-box anim">
+        <span class="lbl">Ejemplos aplicados a ciencias sociales</span>
+        <ul>
+          <li>Un modelo describe roles de género de forma estereotipada en ejemplos de familia. Detecta el sesgo, documéntalo y no lo reproduzcas en tu material.</li>
+          <li>Un modelo genera una descripción de un grupo étnico con generalizaciones. No la uses en un informe sin contrastar con literatura y con las comunidades.</li>
+          <li>Un modelo reemplaza tareas de transcripción y clasificación. Analiza qué tareas cambian y qué decisiones siguen requiriendo criterio humano.</li>
+        </ul>
+      </div>
+      <div class="callout anim"><strong>Acción.</strong> Revisa cada salida con la pregunta: ¿qué grupo queda representado de forma desigual o invisibilizado en este contenido?</div>
+    </div>
+  </section>
+
+  <!-- 14 QUÉ ES -->
+  <section class="slide" id="s14" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Conceptos base</p>
+      <h2 class="anim">Qué es la IA generativa —y qué no es</h2>
+      <div class="callout anim"><strong>Definición.</strong> Sistemas de IA que crean contenido nuevo —texto, imágenes, audio, video, código— a partir de patrones aprendidos de grandes cantidades de datos.</div>
+      <div class="grid grid-2">
+        <div class="static-card anim"><span class="card-k">IA tradicional / predictiva</span><p>Clasifica o predice: ¿este correo es spam? ¿este cliente se irá?</p></div>
+        <div class="static-card anim"><span class="card-k">IA generativa</span><p>Produce algo nuevo: redacta, dibuja, programa.</p></div>
+      </div>
+      <p class="anim" style="margin-top:22px">La diferencia no es de grado, es de tipo: una clasifica entradas, la otra produce instancias nuevas compatibles con los patrones aprendidos.</p>
+    </div>
+  </section>
+
+  <!-- 15 PREDICTIVA VS GENERATIVA -->
+  <section class="slide" id="s15" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Comparación</p>
+      <h2 class="anim">IA predictiva frente a IA generativa</h2>
+      <p class="lede anim">La distinción se aclara con tareas concretas.</p>
+      <div class="grid grid-2">
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="cmp" aria-expanded="false" aria-controls="cmp-1">
+            <span class="dcard-k">P</span><span class="dcard-t">IA predictiva</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="cmp-1" hidden><p>Aprende principalmente X → Y. Con estas características de un correo, ¿es spam o no? Con estos datos del estudiante, ¿abandona o no?</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="cmp" aria-expanded="false" aria-controls="cmp-2">
+            <span class="dcard-k">G</span><span class="dcard-t">IA generativa</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="cmp-2" hidden><p>Aprende una distribución de patrones suficientemente rica para producir nuevas instancias compatibles: «escribe un ejemplo de correo fraudulento para una clase de alfabetización digital».</p></div>
+        </div>
+      </div>
+      <h3 class="anim">Tabla comparativa</h3>
+      <div class="grid grid-2">
+        <div class="static-card anim"><span class="card-k">Psicología · predictiva</span><p>Predice una categoría a partir de un conjunto de variables.</p></div>
+        <div class="static-card anim"><span class="card-k">Psicología · generativa</span><p>Genera una formulación preliminar de un caso.</p></div>
+        <div class="static-card anim"><span class="card-k">Educación · predictiva</span><p>Predice riesgo de abandono.</p></div>
+        <div class="static-card anim"><span class="card-k">Educación · generativa</span><p>Diseña actividades educativas.</p></div>
+        <div class="static-card anim"><span class="card-k">Imagen · predictiva</span><p>Reconoce un gato en una imagen.</p></div>
+        <div class="static-card anim"><span class="card-k">Imagen · generativa</span><p>Genera la imagen de un gato.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 TIMELINE -->
+  <section class="slide" id="s16" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Contexto histórico</p>
+      <h2 class="anim">Línea de tiempo de la IA</h2>
+      <p class="lede anim">La IA generativa no surgió de la nada: es un hito en una historia más larga.</p>
+      <div class="timeline anim" id="timeline"></div>
+      <div class="tl-panel anim" id="tlPanel" aria-live="polite">Selecciona un hito para ver su descripción.</div>
+    </div>
+  </section>
+
+  <!-- 17 CONCEPTOS CLAVE -->
+  <section class="slide" id="s17" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Conceptos clave</p>
+      <h2 class="anim">Cuatro términos que deben quedar claros</h2>
+      <p class="hint anim">Toca cada tarjeta para descubrir el contenido.</p>
+      <div class="grid grid-4">
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="concept" aria-expanded="false" aria-controls="c-llm">
+            <span class="dcard-k">LLM</span><span class="dcard-t">Modelo de lenguaje grande</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="c-llm" hidden><p>El «cerebro» detrás de los asistentes de texto. Entrenado sobre grandes corpus de lenguaje.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="concept" aria-expanded="false" aria-controls="c-multi">
+            <span class="dcard-k">MM</span><span class="dcard-t">Multimodal</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="c-multi" hidden><p>Entiende y genera texto, imagen, audio y más en una misma operación.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="concept" aria-expanded="false" aria-controls="c-prompt">
+            <span class="dcard-k">P</span><span class="dcard-t">Prompt</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="c-prompt" hidden><p>La instrucción que le das al sistema. Modifica el contexto de generación, no el conocimiento aprendido.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="concept" aria-expanded="false" aria-controls="c-agent">
+            <span class="dcard-k">A</span><span class="dcard-t">Agente</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="c-agent" hidden><p>IA que planifica y usa herramientas para completar tareas de varios pasos, no solo responder.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 CÓMO FUNCIONA 1 -->
+  <section class="slide" id="s18" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Funcionamiento · parte 1</p>
+      <h2 class="anim">Entrenamiento y tokens</h2>
+      <div class="example-box anim">
+        <span class="lbl">Entrenamiento</span>
+        <p>El modelo procesa enormes cantidades de texto, imágenes u otros datos y aprende patrones estadísticos del lenguaje y del mundo.</p>
+      </div>
+      <div class="example-box anim">
+        <span class="lbl">Tokens</span>
+        <p>El texto se divide en fragmentos llamados tokens. El modelo no «lee palabras»: procesa tokens.</p>
+        <p>Una frase como «La psicología cognitiva estudia la memoria» no se procesa literalmente como la vemos. Primero se convierte en unidades numéricas y después en representaciones matemáticas.</p>
+      </div>
+      <div class="callout anim">El modelo no guarda los textos para devolverlos: aprende regularidades y las usa para predecir continuaciones.</div>
+    </div>
+  </section>
+
+  <!-- 19 PREDICCIÓN / ALUCINACIONES -->
+  <section class="slide" id="s19" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Funcionamiento · parte 2</p>
+      <h2 class="anim">Predicción, ventana de contexto y alucinaciones</h2>
+      <div class="grid grid-2">
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="how" aria-expanded="false" aria-controls="h-3">
+            <span class="dcard-k">3</span><span class="dcard-t">Predicción</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="h-3" hidden><p>Un LLM predice el siguiente fragmento más probable según el contexto. De ahí su fluidez y también sus errores.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="how" aria-expanded="false" aria-controls="h-5">
+            <span class="dcard-k">5</span><span class="dcard-t">Ventana de contexto</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="h-5" hidden><p>La «memoria de trabajo»: cuánto texto puede tener presente en una conversación.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="how" aria-expanded="false" aria-controls="h-4">
+            <span class="dcard-k">4</span><span class="dcard-t">Ajuste posterior</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="h-4" hidden><p>Se refina con retroalimentación humana y reglas de seguridad para que sea útil y conversacional.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="how" aria-expanded="false" aria-controls="h-6">
+            <span class="dcard-k">6</span><span class="dcard-t">Difusión (imagen)</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="h-6" hidden><p>En imagen, el modelo parte de ruido y lo refina hasta llegar a la imagen pedida.</p></div>
+        </div>
+      </div>
+      <div class="callout warn anim"><strong>Alucinación.</strong> Respuesta que suena segura pero es falsa. No es un fallo raro: es una consecuencia de cómo funciona. Por eso: fluidez ≠ exactitud.</div>
+    </div>
+  </section>
+
+  <!-- 20 INTRO PROMPTS -->
+  <section class="slide" id="s20" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Diseño de prompts</p>
+      <h2 class="anim">Del prompt mínimo al prompt avanzado</h2>
+      <p class="lede anim">La calidad de lo que obtienes depende de la calidad de lo que pides. Un mismo modelo produce salidas muy distintas según cómo se le instruya.</p>
+      <div class="callout anim"><strong>Recorrido.</strong> En las próximas diapositivas verás nueve niveles de prompt, de menor a mayor control sobre la salida. Cada nivel incluye ejemplo, propósito y cuándo usarlo.</div>
+      <h3 class="anim">Fórmula R-C-T-F-R</h3>
+      <div class="grid grid-5">
+        <div class="static-card anim"><span class="card-k">R</span><p>Rol</p></div>
+        <div class="static-card anim"><span class="card-k">C</span><p>Contexto</p></div>
+        <div class="static-card anim"><span class="card-k">T</span><p>Tarea</p></div>
+        <div class="static-card anim"><span class="card-k">F</span><p>Formato</p></div>
+        <div class="static-card anim"><span class="card-k">R</span><p>Restricciones / Ejemplos</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 21 NIVEL 0 -->
+  <section class="slide" id="s21" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge l0 anim">Nivel 0 · Prompt mínimo</span>
+      <h2 class="anim">La instrucción sin contexto</h2>
+      <div class="prompt-card bad anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Resume esto.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida genérica, impredecible, que suele fallar en extensión, enfoque y nivel de detalle. No hay criterio de evaluación posible porque no hay criterio de entrada.</p>
+      </div>
+      <div class="callout anim"><strong>Cuándo usarlo:</strong> casi nunca. Sirve solo para explorar el tono general de un sistema, no para producir material utilizable.</div>
+    </div>
+  </section>
+
+  <!-- 22 NIVEL 1 -->
+  <section class="slide" id="s22" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge l1 anim">Nivel 1 · Tarea concreta</span>
+      <h2 class="anim">Decir qué debe hacer y en qué formato</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Resume el artículo adjunto en tres párrafos y una lista de cinco hallazgos principales.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida acotada en extensión y estructura. Mejora mucho la previsibilidad respecto al nivel 0.</p>
+      </div>
+      <div class="callout anim"><strong>Cuándo usarlo:</strong> tareas rápidas, resúmenes de primer nivel, generación de borradores exploratorios.</div>
+    </div>
+  </section>
+
+  <!-- 23 NIVEL 2 -->
+  <section class="slide" id="s23" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge l1 anim">Nivel 2 · Rol y contexto</span>
+      <h2 class="anim">Situar al sistema y a la audiencia</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Actúa como tutor de metodología de la investigación. Soy estudiante de psicología de segundo semestre y preparo un marco teórico sobre funciones ejecutivas. Resume el artículo adjunto en tres párrafos y una lista de cinco hallazgos principales.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida ajustada al nivel de la audiencia y al propósito del trabajo. El vocabulario y la profundidad cambian de forma notable.</p>
+      </div>
+      <div class="callout anim"><strong>Cuándo usarlo:</strong> cuando la salida se va a usar con una audiencia específica o dentro de un producto concreto (clase, informe, artículo).</div>
+    </div>
+  </section>
+
+  <!-- 24 NIVEL 3 -->
+  <section class="slide" id="s24" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge anim">Nivel 3 · R-C-T-F-R completo</span>
+      <h2 class="anim">Aplicar la fórmula completa</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Actúa como tutor de metodología de la investigación.
+
+Soy estudiante de psicología de segundo semestre y preparo un marco teórico sobre funciones ejecutivas en niños menores de siete años.
+
+Resume el artículo adjunto en una tabla con cuatro columnas: objetivo, muestra, instrumento y hallazgo principal.
+
+Máximo 300 palabras. Tono académico. Sin jerga innecesaria.
+
+No incluyas recomendaciones clínicas; solo lo que el artículo reporta.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida estructurada, acotada y verificable. Es el nivel recomendado como base para cualquier tarea profesional.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 25 NIVEL 4 -->
+  <section class="slide" id="s25" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge anim">Nivel 4 · Few-shot (ejemplos)</span>
+      <h2 class="anim">Mostrar el patrón con ejemplos</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Voy a mostrarte dos ejemplos del tipo de resumen que necesito.
+
+Ejemplo 1:
+«Objetivo: analizar la relación entre sueño y atención sostenida. Muestra: 120 niños de 6 años. Instrumento: CPT-II. Hallazgo: asociación significativa entre menor duración de sueño y menor atención sostenida.»
+
+Ejemplo 2:
+«Objetivo: comparar dos programas de entrenamiento cognitivo. Muestra: 80 adultos mayores. Instrumento: MoCA. Hallazgo: mejoras en el grupo experimental, sin diferencias significativas en el control.»
+
+Ahora aplica el mismo formato al artículo adjunto.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> salidas con estilo y estructura consistentes. Reduce la variabilidad y facilita el uso en serie sobre muchos documentos.</p>
+      </div>
+      <div class="callout anim"><strong>Cuándo usarlo:</strong> cuando tienes una plantilla propia y quieres que el modelo la respete sin explicarla de nuevo.</div>
+    </div>
+  </section>
+
+  <!-- 26 NIVEL 5 -->
+  <section class="slide" id="s26" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge anim">Nivel 5 · Razonamiento paso a paso</span>
+      <h2 class="anim">Pedir el proceso, no solo el resultado</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Antes de responder, hazme tres preguntas para aclarar el objetivo, la población y el tipo de resultado que espero.
+
+Después, analiza paso a paso la relación entre las variables del artículo adjunto y explica cómo llegaste a cada conclusión.
+
+Al final, indica qué supuestos no están justificados en el artículo.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida con trazabilidad. Permite detectar errores de razonamiento, no solo errores de contenido.</p>
+      </div>
+      <div class="callout anim"><strong>Cuándo usarlo:</strong> problemas complejos, análisis de datos, diseño de investigación, revisión de argumentos.</div>
+    </div>
+  </section>
+
+  <!-- 27 NIVEL 6 -->
+  <section class="slide" id="s27" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge anim">Nivel 6 · Iteración</span>
+      <h2 class="anim">Tratar la primera salida como borrador</h2>
+      <div class="prompt-card anim">
+        <span class="plbl">Secuencia de iteración</span>
+        <p class="ptext">1. Salida inicial.
+2. «Más corto: 150 palabras.»
+3. «Añade un contraargumento a la conclusión.»
+4. «Reescribe el párrafo 2 para un lector no especialista.»
+5. «Marca con [VERIFICAR] cualquier dato que no aparezca literalmente en el artículo.»</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida progresivamente ajustada al objetivo real. Es la técnica que más mejora la calidad por unidad de tiempo.</p>
+      </div>
+      <div class="callout anim"><strong>Regla práctica:</strong> ninguna primera salida se entrega. La primera respuesta es un borrador del que se aprende el siguiente prompt.</div>
+    </div>
+  </section>
+
+  <!-- 28 NIVEL 7 -->
+  <section class="slide" id="s28" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge anim">Nivel 7 · Documentos propios</span>
+      <h2 class="anim">Trabajar sobre tu material</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Adjunto el PDF del artículo.
+
+Usa exclusivamente este documento como fuente. No completes con conocimiento general.
+
+Extrae: pregunta de investigación, muestra, instrumentos, hallazgos principales y limitaciones declaradas.
+
+Cita la página exacta de cada elemento. Si un elemento no aparece en el documento, escribe «no reportado».</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida anclada a tu material, con menor riesgo de alucinación y mayor trazabilidad.</p>
+      </div>
+      <div class="callout anim"><strong>Cuándo usarlo:</strong> revisión de literatura, codificación inicial de entrevistas, análisis de documentos propios.</div>
+    </div>
+  </section>
+
+  <!-- 29 NIVEL 8 -->
+  <section class="slide" id="s29" tabindex="-1">
+    <div class="slide-inner">
+      <span class="level-badge l8 anim">Nivel 8 · Agentes y multi-paso</span>
+      <h2 class="anim">Delegar una secuencia, no una respuesta</h2>
+      <div class="prompt-card good anim">
+        <span class="plbl">Ejemplo</span>
+        <p class="ptext">Planifica los pasos para revisar cinco artículos sobre funciones ejecutivas y pantallas en niños menores de siete años.
+
+Para cada artículo:
+1. Busca la fuente primaria.
+2. Extrae pregunta, muestra, instrumento y hallazgo.
+3. Verifica que cada dato aparezca en el documento.
+
+Devuelve una tabla comparativa y una lista de referencias verificadas. Indica qué pasos no pudiste completar y por qué.</p>
+      </div>
+      <div class="purpose anim">
+        <span class="picon">→</span>
+        <p><strong>Qué produce:</strong> una salida organizada por etapas, con trazabilidad del proceso. Requiere revisar cada paso: no es delegación de responsabilidad.</p>
+      </div>
+      <div class="callout warn anim"><strong>Cuidado:</strong> el agente puede completar pasos con supuestos. Revisa siempre cada etapa antes de aceptar el resultado final.</div>
+    </div>
+  </section>
+
+  <!-- 30 ERRORES COMUNES -->
+  <section class="slide" id="s30" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Diseño de prompts</p>
+      <h2 class="anim">Errores comunes</h2>
+      <div class="grid grid-2">
+        <div class="static-card anim"><span class="card-k">Error 1</span><p>Pedir «un ensayo sobre X» sin audiencia, extensión ni propósito. La salida es genérica y no sirve.</p></div>
+        <div class="static-card anim"><span class="card-k">Error 2</span><p>Enviar un prompt largo sin estructura. El modelo pierde partes de la instrucción. Usa párrafos o numeración.</p></div>
+        <div class="static-card anim"><span class="card-k">Error 3</span><p>Aceptar la primera salida sin iterar. La primera respuesta es un borrador, no un producto final.</p></div>
+        <div class="static-card anim"><span class="card-k">Error 4</span><p>No verificar referencias, cifras ni citas. La salida plausible no es evidencia.</p></div>
+        <div class="static-card anim"><span class="card-k">Error 5</span><p>Pegar datos personales o confidenciales sin anonimizar y sin revisar la política de la herramienta.</p></div>
+        <div class="static-card anim"><span class="card-k">Error 6</span><p>Delegar la decisión completa al sistema. La regla del humano en el circuito no es opcional.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 31 RIESGOS -->
+  <section class="slide" id="s31" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Uso responsable</p>
+      <h2 class="anim">Riesgos, límites y ética</h2>
+      <p class="lede anim">Usar IA generativa exige decisiones explícitas sobre qué se delega y qué no.</p>
+      <p class="hint anim">Toca cada riesgo para ver la acción asociada.</p>
+      <div class="grid grid-2">
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-1">
+            <span class="dcard-k">01</span><span class="dcard-t">Alucinaciones</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-1" hidden><p>Verifica datos, cifras, citas y referencias.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-2">
+            <span class="dcard-k">02</span><span class="dcard-t">Privacidad</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-2" hidden><p>No pegues datos personales, confidenciales o de clientes sin revisar las políticas de la herramienta.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-3">
+            <span class="dcard-k">03</span><span class="dcard-t">Sesgos</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-3" hidden><p>Los modelos reflejan sesgos de sus datos de entrenamiento.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-4">
+            <span class="dcard-k">04</span><span class="dcard-t">Propiedad intelectual</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-4" hidden><p>Zona legal en evolución; revisa la normativa de tu país.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-5">
+            <span class="dcard-k">05</span><span class="dcard-t">Desinformación y deepfakes</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-5" hidden><p>Contenido sintético convincente; desconfía y verifica.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-6">
+            <span class="dcard-k">06</span><span class="dcard-t">Dependencia y pérdida de criterio</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-6" hidden><p>Úsala para pensar mejor, no para dejar de pensar.</p></div>
+        </div>
+        <div class="dcard anim">
+          <button class="dcard-btn" data-acc="risk" aria-expanded="false" aria-controls="r-7">
+            <span class="dcard-k">07</span><span class="dcard-t">Impacto laboral</span><span class="dcard-plus">+</span>
+          </button>
+          <div class="dcard-panel" id="r-7" hidden><p>Cambia tareas más que profesiones completas; la ventaja está en saber usarla.</p></div>
+        </div>
+      </div>
+      <div class="callout anim"><strong>Regla práctica: humano en el circuito.</strong> La IA propone, tú decides y firmas.</div>
+    </div>
+  </section>
+
+  <!-- 32 PLAN -->
+  <section class="slide" id="s32" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Acción</p>
+      <h2 class="anim">Plan de acción de 7 días</h2>
+      <p class="lede anim">El plan funciona si lo aplicas a una tarea real de tu trabajo.</p>
+      <div class="check-item anim">
+        <button class="check-btn" type="button" aria-pressed="false" aria-label="Marcar días 1 y 2">✓</button>
+        <p><strong>Día 1–2.</strong> Elige una tarea repetitiva y automatiza un borrador con IA.</p>
+      </div>
+      <div class="check-item anim">
+        <button class="check-btn" type="button" aria-pressed="false" aria-label="Marcar días 3 a 5">✓</button>
+        <p><strong>Día 3–5.</strong> Crea tu propia biblioteca de prompts con los que funcionen.</p>
+      </div>
+      <div class="check-item anim">
+        <button class="check-btn" type="button" aria-pressed="false" aria-label="Marcar días 6 y 7">✓</button>
+        <p><strong>Día 6–7.</strong> Comparte lo aprendido con un compañero.</p>
+      </div>
+      <p id="planMsg" hidden class="callout anim">Plan de 7 días completo.</p>
+    </div>
+  </section>
+
+  <!-- 33 AUTOEVALUACIÓN -->
+  <section class="slide" id="s33" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Autoevaluación</p>
+      <h2 class="anim">Comprobación de los cuatro resultados</h2>
+      <p class="lede anim">6 ítems alineados con los resultados de aprendizaje. Umbral de aprobación: 70%.</p>
+      <div class="live anim"><span>Puntaje en tiempo real</span><strong id="quizLive">0 / 6 · 0%</strong></div>
+      <div id="quiz"></div>
+      <div id="quizSummary" hidden></div>
+    </div>
+  </section>
+
+  <!-- 34 RESUMEN -->
+  <section class="slide" id="s34" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Resumen</p>
+      <h2 class="anim">Lo esencial de la tutoría</h2>
+      <div class="sum-grid">
+        <div class="sum-card anim"><span class="sk">IA generativa</span><p>Sistemas que crean contenido nuevo a partir de patrones aprendidos de grandes cantidades de datos.</p></div>
+        <div class="sum-card anim"><span class="sk">Diferencia clave</span><p>La IA predictiva clasifica o predice. La IA generativa produce instancias nuevas compatibles con los patrones aprendidos.</p></div>
+        <div class="sum-card anim"><span class="sk">Funcionamiento</span><p>Entrenamiento → tokens → predicción del siguiente fragmento. La fluidez es estadística; la verdad no está garantizada.</p></div>
+        <div class="sum-card anim"><span class="sk">Alucinación</span><p>Respuesta plausible pero falsa. No es un fallo raro: es consecuencia del modo de funcionamiento.</p></div>
+        <div class="sum-card anim"><span class="sk">Prompts</span><p>Del mínimo al avanzado: tarea concreta, rol y contexto, R-C-T-F-R, few-shot, razonamiento paso a paso, iteración, documentos propios y agentes.</p></div>
+        <div class="sum-card anim"><span class="sk">Regla práctica</span><p>Humano en el circuito: la IA propone, tú decides y firmas.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 35 CONCLUSIONES -->
+  <section class="slide" id="s35" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Conclusiones</p>
+      <h2 class="anim">Qué queda para tu práctica profesional</h2>
+      <ol class="conclusion-list">
+        <li class="anim">La IA generativa no reemplaza tu criterio: lo amplifica si sabes dirigirla.</li>
+        <li class="anim">La calidad de lo que obtienes depende de la calidad de lo que pides. El prompt es la palanca principal.</li>
+        <li class="anim">La fluidez no es exactitud: verifica siempre datos, citas y referencias en fuentes primarias.</li>
+        <li class="anim">Protege los datos personales y clínicos; anonimiza antes de introducirlos en cualquier herramienta.</li>
+        <li class="anim">En ciencias sociales, la IA es útil para explorar y organizar, no para decidir ni para sustituir la responsabilidad epistemológica.</li>
+        <li class="anim">Generar no es verificar. La ventaja profesional está en reconocer la diferencia y actuar en consecuencia.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 36 CIERRE -->
+  <section class="slide" id="s36" tabindex="-1">
+    <div class="slide-inner">
+      <p class="kicker">Cierre</p>
+      <h2 class="anim">Tres ideas para llevarse</h2>
+      <ol class="ideas anim">
+        <li>Es una herramienta potente basada en predicción de patrones, no un oráculo.</li>
+        <li>La calidad de lo que obtienes depende de la calidad de lo que pides.</li>
+        <li>Verifica siempre, protege tus datos y mantén el criterio humano.</li>
+      </ol>
+      <div class="callout anim">La IA propone. Tú verificas, decides y firmas.</div>
+      <button class="btn anim" id="restartBtn" type="button">Volver al inicio</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="bottom-nav">
+  <button class="icon-btn js-prev" aria-label="Diapositiva anterior">←</button>
+  <span class="pill" id="pillCounter">1 / 36</span>
+  <button class="icon-btn js-next" aria-label="Diapositiva siguiente">→</button>
+</div>
+
+<noscript><p style="padding:80px 24px;max-width:700px;margin:0 auto">Activa JavaScript para navegar la presentación.</p></noscript>
+
+<script>
+(function(){
+  'use strict';
+  document.documentElement.classList.add('js');
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var current = 0;
+  var visited = new Set();
+  var quizDone = false;
+
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  var SLIDE_NAMES = [
+    'Portada',
+    'Enfoque STEAM',
+    'Resultados de aprendizaje',
+    'Relevancia para psicología',
+    'Las 8 habilidades digitales',
+    'Habilidad 1 · Identidad digital',
+    'Habilidad 2 · Uso digital',
+    'Habilidad 3 · Seguridad digital',
+    'Habilidad 4 · Protección digital',
+    'Habilidad 5 · Inteligencia emocional digital',
+    'Habilidad 6 · Comunicación digital',
+    'Habilidad 7 · Alfabetización digital',
+    'Habilidad 8 · Derechos digitales',
+    'Qué es la IA generativa',
+    'Predictiva vs generativa',
+    'Línea de tiempo',
+    'Conceptos clave',
+    'Funcionamiento · entrenamiento y tokens',
+    'Funcionamiento · predicción y alucinaciones',
+    'Introducción al diseño de prompts',
+    'Nivel 0 · Prompt mínimo',
+    'Nivel 1 · Tarea concreta',
+    'Nivel 2 · Rol y contexto',
+    'Nivel 3 · R-C-T-F-R',
+    'Nivel 4 · Few-shot',
+    'Nivel 5 · Razonamiento paso a paso',
+    'Nivel 6 · Iteración',
+    'Nivel 7 · Documentos propios',
+    'Nivel 8 · Agentes y multi-paso',
+    'Errores comunes',
+    'Riesgos y ética',
+    'Plan de 7 días',
+    'Autoevaluación',
+    'Resumen',
+    'Conclusiones',
+    'Cierre'
+  ];
+
+  /* ---------- índice ---------- */
+  var idxList = $('#idxList');
+  SLIDE_NAMES.forEach(function(name, i){
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + slides[i].id;
+    a.className = 'idx-link';
+    a.innerHTML = '<span class="idx-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+                  '<span class="idx-txt">' + name + '</span>' +
+                  '<span class="idx-check" aria-hidden="true">✓</span>';
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      closeMobileSidebar();
+      goTo(i);
+    });
+    li.appendChild(a);
+    idxList.appendChild(li);
+  });
+
+  /* ---------- progreso ---------- */
+  function updateProgress(){
+    var units = total + 1;
+    var done = visited.size + (quizDone ? 1 : 0);
+    var pct = Math.round(done / units * 100);
+    $('#pfill').style.width = pct + '%';
+    $('#ppct').textContent = pct + '%';
+    $('#tbCounter').textContent = (current + 1) + ' / ' + total;
+    var pill = $('#pillCounter');
+    if (pill) pill.textContent = (current + 1) + ' / ' + total;
+    $$('.js-prev').forEach(function(b){ b.disabled = current === 0; });
+    $$('.js-next').forEach(function(b){ b.disabled = current === total - 1; });
+  }
+
+  function updateIndex(){
+    $$('.idx-link').forEach(function(a, i){
+      a.classList.toggle('active', i === current);
+      a.classList.toggle('done', visited.has(i));
+      if (i === current) a.setAttribute('aria-current', 'step');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  function animateSlide(slide){
+    if (reduce) return;
+    $$('.anim', slide).forEach(function(el, i){
+      el.style.animationDelay = (i * 45) + 'ms';
+    });
+  }
+
+  function goTo(i){
+    if (i < 0 || i >= total) return;
+    slides[current].classList.remove('active');
+    current = i;
+    animateSlide(slides[current]);
+    slides[current].classList.add('active');
+    visited.add(current);
+    updateProgress();
+    updateIndex();
+    slides[current].focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  /* ---------- inicio ---------- */
+  animateSlide(slides[0]);
+  slides[0].classList.add('active');
+  visited.add(0);
+  updateProgress();
+  updateIndex();
+
+  /* ---------- botones ---------- */
+  $$('.js-prev').forEach(function(b){
+    b.addEventListener('click', function(){ goTo(current - 1); });
+  });
+  $$('.js-next').forEach(function(b){
+    b.addEventListener('click', function(){ goTo(current + 1); });
+  });
+
+  /* ---------- teclado ---------- */
+  document.addEventListener('keydown', function(e){
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown'){ e.preventDefault(); goTo(current + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); goTo(current - 1); }
+    else if (e.key === 'Home'){ e.preventDefault(); goTo(0); }
+    else if (e.key === 'End'){ e.preventDefault(); goTo(total - 1); }
+    else if (e.key === 'Escape'){ closeMobileSidebar(); }
+  });
+
+  /* ---------- swipe ---------- */
+  var tx = null;
+  var deck = $('#deck');
+  deck.addEventListener('touchstart', function(e){
+    if (e.touches.length === 1) tx = e.touches[0].clientX;
+  }, { passive: true });
+  deck.addEventListener('touchend', function(e){
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 60) goTo(current + (dx < 0 ? 1 : -1));
+    tx = null;
+  }, { passive: true });
+
+  /* ---------- sidebar plegable ---------- */
+  var sidebar = $('#sidebar');
+  var overlay = $('#overlay');
+  var menuBtn = $('#menuBtn');
+  var sideClose = $('#sideClose');
+
+  function isMobile(){ return window.matchMedia('(max-width: 900px)').matches; }
+
+  function openMobileSidebar(){
+    document.body.classList.add('sidebar-open-mobile');
+    overlay.classList.add('on');
+    menuBtn.setAttribute('aria-expanded', 'true');
+  }
+  function closeMobileSidebar(){
+    document.body.classList.remove('sidebar-open-mobile');
+    overlay.classList.remove('on');
+    if (isMobile()) menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  function toggleDesktopSidebar(){
+    var collapsed = document.body.classList.toggle('index-collapsed');
+    menuBtn.setAttribute('aria-expanded', String(!collapsed));
+  }
+
+  menuBtn.addEventListener('click', function(){
+    if (isMobile()){
+      if (document.body.classList.contains('sidebar-open-mobile')) closeMobileSidebar();
+      else openMobileSidebar();
+    } else {
+      toggleDesktopSidebar();
+    }
+  });
+  sideClose.addEventListener('click', function(){
+    if (isMobile()) closeMobileSidebar();
+    else toggleDesktopSidebar();
+  });
+  overlay.addEventListener('click', closeMobileSidebar);
+
+  window.addEventListener('resize', function(){
+    if (!isMobile()) closeMobileSidebar();
+  });
+
+  /* ---------- tarjetas desplegables ---------- */
+  $$('.dcard-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = btn.dataset.acc;
+      var willOpen = btn.getAttribute('aria-expanded') !== 'true';
+
+      if (willOpen && group){
+        $$('.dcard-btn[data-acc="' + group + '"]').forEach(function(other){
+          if (other !== btn && other.getAttribute('aria-expanded') === 'true'){
+            other.setAttribute('aria-expanded', 'false');
+            var p = document.getElementById(other.getAttribute('aria-controls'));
+            if (p) p.hidden = true;
+          }
+        });
+      }
+
+      btn.setAttribute('aria-expanded', String(willOpen));
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !willOpen;
+    });
+  });
+
+  /* ---------- navegación auxiliar ---------- */
+  var startBtn = $('#startBtn');
+  if (startBtn) startBtn.addEventListener('click', function(){ goTo(1); });
+  var restartBtn = $('#restartBtn');
+  if (restartBtn) restartBtn.addEventListener('click', function(){ goTo(0); });
+
+  /* ---------- línea de tiempo ---------- */
+  var TL = [
+    { k: '1950–2000', d: 'IA basada en reglas y aprendizaje automático clásico.' },
+    { k: '2012', d: 'Auge del aprendizaje profundo.' },
+    { k: '2017', d: 'Arquitectura Transformer, el motor de los modelos actuales.' },
+    { k: '2022', d: 'Llegada masiva al público con asistentes conversacionales.' },
+    { k: 'Hoy', d: 'Modelos multimodales y agentes que ejecutan tareas de varios pasos.' }
+  ];
+  var tlEl = $('#timeline');
+  var tlPanel = $('#tlPanel');
+  if (tlEl && tlPanel){
+    TL.forEach(function(item){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tl-btn';
+      b.textContent = item.k;
+      b.addEventListener('click', function(){
+        $$('.tl-btn', tlEl).forEach(function(x){ x.classList.remove('sel'); });
+        b.classList.add('sel');
+        tlPanel.textContent = item.d;
+        tlPanel.classList.remove('anim');
+        void tlPanel.offsetWidth;
+        tlPanel.classList.add('anim');
+      });
+      tlEl.appendChild(b);
+    });
+  }
+
+  /* ---------- checklist ---------- */
+  $$('.check-item').forEach(function(item){
+    var btn = $('.check-btn', item);
+    btn.addEventListener('click', function(){
+      var on = item.classList.toggle('done');
+      btn.setAttribute('aria-pressed', String(on));
+      updatePlan();
+    });
+  });
+  function updatePlan(){
+    var items = $$('.check-item');
+    var done = items.filter(function(x){ return x.classList.contains('done'); }).length;
+    var msg = $('#planMsg');
+    if (msg) msg.hidden = done !== items.length;
+  }
+
+  /* ---------- autoevaluación ---------- */
+  var QUIZ = [
+    {
+      q: 'Un sistema que asigna a cada correo la etiqueta «spam» o «no spam» es un ejemplo de:',
+      opts: [
+        { t: 'IA generativa', ok: false, fb: 'No produce contenido nuevo: clasifica una entrada.' },
+        { t: 'IA predictiva o clasificatoria', ok: true, fb: 'Aprende a asignar una categoría; no genera contenido nuevo.' },
+        { t: 'Modelo multimodal', ok: false, fb: 'La multimodalidad se refiere a los tipos de datos, no al tipo de tarea.' },
+        { t: 'Agente', ok: false, fb: 'Un agente planifica y usa herramientas; aquí solo se clasifica.' }
+      ]
+    },
+    {
+      q: 'Una respuesta suena segura y académica, pero cita un artículo que no existe. Eso es:',
+      opts: [
+        { t: 'Un fallo raro del sistema', ok: false, fb: 'No es raro: es una consecuencia de generar respuestas plausibles.' },
+        { t: 'Una alucinación', ok: true, fb: 'El modelo genera una continuación plausible sin garantía de verdad factual.' },
+        { t: 'Una prueba de que el modelo razona', ok: false, fb: 'La fluidez no demuestra razonamiento ni verdad.' },
+        { t: 'Un problema de conexión', ok: false, fb: 'La alucinación ocurre con el sistema funcionando con normalidad.' }
+      ]
+    },
+    {
+      q: 'En la fórmula R-C-T-F-R, ¿qué componente indica «tabla, lista, 300 palabras, tono formal»?',
+      opts: [
+        { t: 'Rol', ok: false, fb: 'El rol indica qué experto debe adoptar el sistema.' },
+        { t: 'Contexto', ok: false, fb: 'El contexto describe quién eres, para quién es y el objetivo.' },
+        { t: 'Tarea', ok: false, fb: 'La tarea indica qué debe hacer concretamente.' },
+        { t: 'Formato', ok: true, fb: 'El formato define la presentación de la salida.' }
+      ]
+    },
+    {
+      q: 'Un prompt que incluye dos ejemplos del formato esperado antes de la instrucción principal se denomina:',
+      opts: [
+        { t: 'Prompt mínimo', ok: false, fb: 'El prompt mínimo no incluye ejemplos ni estructura.' },
+        { t: 'Few-shot', ok: true, fb: 'Se muestran ejemplos para que el modelo reproduzca el patrón.' },
+        { t: 'Razonamiento paso a paso', ok: false, fb: 'Eso pide el proceso, no ejemplos del formato.' },
+        { t: 'Prompt con agentes', ok: false, fb: 'Los agentes delegan una secuencia de pasos, no un formato.' }
+      ]
+    },
+    {
+      q: 'La regla práctica «humano en el circuito» significa que:',
+      opts: [
+        { t: 'La IA decide y el humano firma sin revisar', ok: false, fb: 'Firmar sin revisar elimina el control humano.' },
+        { t: 'La IA propone y el humano decide y firma', ok: true, fb: 'La IA propone; la responsabilidad de la decisión es humana.' },
+        { t: 'El humano escribe el prompt y la IA verifica', ok: false, fb: 'La verificación no se delega al modelo.' },
+        { t: 'Solo se usa IA en equipo', ok: false, fb: 'La regla no depende del tamaño del equipo.' }
+      ]
+    },
+    {
+      q: 'Un estudiante pega una historia clínica completa en un chat de IA para pedir un resumen. ¿Qué habilidad digital está fallando?',
+      opts: [
+        { t: 'Identidad digital', ok: false, fb: 'Esa habilidad se relaciona con distinguir contenido real y sintético.' },
+        { t: 'Seguridad digital', ok: true, fb: 'Los datos personales y clínicos no deben introducirse sin anonimizar y sin revisar la política.' },
+        { t: 'Comunicación digital', ok: false, fb: 'La comunicación digital se relaciona con formular prompts claros.' },
+        { t: 'Derechos digitales', ok: false, fb: 'Los derechos digitales se relacionan con sesgos, desinformación e impacto laboral.' }
+      ]
+    }
+  ];
+
+  var quizEl = $('#quiz');
+  var quizLive = $('#quizLive');
+  var quizSummary = $('#quizSummary');
+  var qScore = 0;
+  var qAnswered = 0;
+
+  function updateQuizLive(){
+    var pct = Math.round(qScore / QUIZ.length * 100);
+    quizLive.textContent = qScore + ' / ' + QUIZ.length + ' · ' + pct + '%';
+  }
+
+  function finishQuiz(){
+    var pct = Math.round(qScore / QUIZ.length * 100);
+    var pass = pct >= 70;
+    quizSummary.hidden = false;
+    quizSummary.innerHTML =
+      '<h3>Resultado: ' + qScore + ' / ' + QUIZ.length + ' · ' + pct + '%</h3>' +
+      '<p>' + (pass ? 'Umbral alcanzado (70%).' : 'Umbral no alcanzado. Revisa las diapositivas de prompts, funcionamiento y riesgos.') + '</p>' +
+      '<button class="btn" id="retryQuiz" type="button">Reintentar</button>';
+    var retry = $('#retryQuiz');
+    if (retry) retry.addEventListener('click', renderQuiz);
+    if (!quizDone){
+      quizDone = true;
+      updateProgress();
+    }
+    quizSummary.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+  }
+
+  function renderQuiz(){
+    quizEl.innerHTML = '';
+    quizSummary.hidden = true;
+    quizSummary.innerHTML = '';
+    qScore = 0;
+    qAnswered = 0;
+    updateQuizLive();
+
+    QUIZ.forEach(function(item, qi){
+      var art = document.createElement('article');
+      art.className = 'q';
+
+      var num = document.createElement('p');
+      num.className = 'q-num';
+      num.textContent = 'Ítem ' + (qi + 1);
+
+      var q = document.createElement('p');
+      q.className = 'q-text';
+      q.textContent = item.q;
+
+      var opts = document.createElement('div');
+      opts.className = 'q-opts';
+
+      var fb = document.createElement('div');
+      fb.className = 'q-fb';
+      fb.setAttribute('aria-live', 'polite');
+
+      item.opts.forEach(function(o){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'qopt';
+        b.textContent = o.t;
+        b.addEventListener('click', function(){
+          if (art.classList.contains('answered')) return;
+          art.classList.add('answered');
+          $$('.qopt', opts).forEach(function(x){ x.disabled = true; });
+
+          if (o.ok){
+            b.classList.add('good');
+            qScore++;
+            fb.className = 'q-fb show ok';
+            fb.textContent = 'Correcto. ' + o.fb;
+          } else {
+            b.classList.add('bad');
+            fb.className = 'q-fb show err';
+            fb.textContent = 'Incorrecto. ' + o.fb;
+            item.opts.forEach(function(oo, ii){
+              if (oo.ok) opts.children[ii].classList.add('good');
+            });
+          }
+          qAnswered++;
+          updateQuizLive();
+          if (qAnswered === QUIZ.length) finishQuiz();
+        });
+        opts.appendChild(b);
+      });
+
+      art.appendChild(num);
+      art.appendChild(q);
+      art.appendChild(opts);
+      art.appendChild(fb);
+      quizEl.appendChild(art);
+    });
+  }
+
+  renderQuiz();
+})();
+</script>
+</body>
+</html>
