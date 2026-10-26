@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tutoría 2 · Herramientas digitales para las ciencias sociales</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Tutoría 2 · Herramientas digitales para las ciencias sociales">
+<meta name="jc-descripcion" content="Presentación interactiva sobre la hipótesis de la mente extendida y su relación con la inteligencia artificial generativa, con simulaciones sobre cognición 4E, principio de paridad, Otto e Inga, descarga cognitiva, agencia, confianza, memoria, aprendizaje y evaluación de sistemas humano-IA.">
+<meta name="jc-tipo" content="Presentación interactiva de clase">
+<meta name="jc-etiquetas" content="Herramientas digitales, Ciencias sociales, Psicología, Inteligencia artificial, IA generativa, Mente extendida, Andy Clark, David Chalmers, Externalismo activo, Cognición 4E, Cognición corporizada, Cognición situada, Cognición enactiva, Cognición extendida, Principio de paridad, Otto e Inga, Descarga cognitiva, Cognición distribuida, Modelos de lenguaje, ChatGPT, RAG, Agencia cognitiva, Vigilancia epistémica, Pensamiento crítico, Memoria, Aprendizaje, Metacognición, Humano en el circuito, Supervisión humana, Ética de la IA">
+<meta name="jc-curso" content="Herramientas Digitales para las Ciencias Sociales">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --accent:#1f5c5b;
+    --accent-2:#2b7a78;
+    --accent-soft:#e9f1f0;
+    --ink:#17201f;
+    --muted:#66716f;
+    --bg:#f6f6f3;
+    --panel:#ffffff;
+    --line:#e2e4df;
+    --danger-soft:#f7efec;
+    --danger:#a95b47;
+    --sidebar-w:320px;
+    --radius:12px;
+  }
+
+  html,body{height:100%}
+
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    font-size:19px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  button{font-family:inherit}
+
+  .app{display:flex;height:100vh;height:100dvh;overflow:hidden}
+
+  /* ============ SIDEBAR ============ */
+  .sidebar{
+    flex:0 0 var(--sidebar-w);
+    width:var(--sidebar-w);
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    z-index:60;
+    transition:margin-left .32s ease,opacity .26s ease;
+  }
+  .sidebar__head{padding:24px 22px 16px;border-bottom:1px solid var(--line)}
+  .sidebar__kicker{
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;
+  }
+  .sidebar__title{
+    font-size:15.5px;font-weight:650;line-height:1.3;
+    margin-top:8px;letter-spacing:-.01em;
+  }
+  .sidebar__nav{
+    flex:1;overflow-y:auto;padding:14px 12px 30px;scrollbar-width:thin;
+  }
+  .sidebar__nav::-webkit-scrollbar{width:8px}
+  .sidebar__nav::-webkit-scrollbar-thumb{background:#d9dcd6;border-radius:8px}
+
+  .idx-home{
+    display:flex;align-items:center;gap:10px;width:100%;
+    padding:10px 12px;border:none;background:transparent;text-align:left;
+    border-radius:9px;color:var(--ink);font-size:15px;font-weight:600;
+    cursor:pointer;margin-bottom:4px;transition:background .15s,color .15s;
+  }
+  .idx-home:hover{background:#f1f3ef}
+  .idx-home.is-active{background:var(--accent-soft);color:var(--accent)}
+
+  .idx-section{
+    display:block;width:100%;text-align:left;
+    padding:16px 12px 6px;border:none;background:transparent;
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    font-weight:700;color:var(--muted);cursor:pointer;
+    transition:color .15s;
+  }
+  .idx-section:hover{color:var(--accent)}
+  .idx-section.is-active{color:var(--accent)}
+
+  .idx-link{
+    display:block;width:100%;text-align:left;
+    padding:6px 12px;border:none;background:transparent;
+    border-left:2px solid transparent;
+    border-radius:0 8px 8px 0;
+    color:#3d4745;font-size:14px;line-height:1.36;cursor:pointer;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .idx-link:hover{background:#f1f3ef;color:var(--ink)}
+  .idx-link.is-active{
+    background:var(--accent-soft);color:var(--accent);
+    border-left-color:var(--accent);font-weight:600;
+  }
+
+  @media (min-width:981px){
+    .app--collapsed .sidebar{
+      margin-left:calc(-1 * var(--sidebar-w));
+      opacity:0;pointer-events:none;
+    }
+  }
+
+  /* ============ STAGE ============ */
+  .stage{flex:1;display:flex;flex-direction:column;min-width:0;position:relative}
+
+  .progress{height:3px;background:var(--line);flex:0 0 3px;position:relative}
+  .progress__bar{
+    position:absolute;inset:0 auto 0 0;width:0;
+    background:var(--accent);transition:width .35s ease;
+  }
+
+  .slides{flex:1;position:relative;overflow:hidden}
+
+  .slide{
+    position:absolute;inset:0;overflow-y:auto;display:flex;
+    padding:clamp(30px,5.2vw,82px) clamp(22px,5.6vw,96px);
+    opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .34s ease,transform .34s ease,visibility .34s;
+    scrollbar-width:thin;
+  }
+  .slide::-webkit-scrollbar{width:8px}
+  .slide::-webkit-scrollbar-thumb{background:#d9dcd6;border-radius:8px}
+  .slide.is-active{opacity:1;visibility:visible;transform:none}
+  .slide__inner{margin:auto;width:100%;max-width:1120px}
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes riseIn{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes popIn{
+    from{opacity:0;transform:scale(.95)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(31,92,91,.28)}
+    50%{box-shadow:0 0 0 8px rgba(31,92,91,0)}
+  }
+
+  .slide.is-active .slide__inner > *{
+    animation:riseIn .55s cubic-bezier(.22,.68,.28,1) both;
+  }
+  .slide.is-active .slide__inner > *:nth-child(1){animation-delay:.04s}
+  .slide.is-active .slide__inner > *:nth-child(2){animation-delay:.10s}
+  .slide.is-active .slide__inner > *:nth-child(3){animation-delay:.16s}
+  .slide.is-active .slide__inner > *:nth-child(4){animation-delay:.22s}
+  .slide.is-active .slide__inner > *:nth-child(5){animation-delay:.28s}
+
+  .slide.is-active .card,
+  .slide.is-active .step,
+  .slide.is-active .flow__item,
+  .slide.is-active ul.clean li,
+  .slide.is-active ol.num li,
+  .slide.is-active .chip,
+  .slide.is-active .table-wrap,
+  .slide.is-active .callout,
+  .slide.is-active .eq,
+  .slide.is-active .chart__row,
+  .slide.is-active .pipe-node,
+  .slide.is-active .v-three__item,
+  .slide.is-active .v-grid__item,
+  .slide.is-active .v-group,
+  .slide.is-active .sim,
+  .slide.is-active .bignum,
+  .slide.is-active .ladder__step,
+  .slide.is-active .quote-big{
+    animation:riseIn .5s cubic-bezier(.22,.68,.28,1) both;
+  }
+
+  .slide.is-active .sec-num{animation:popIn .6s cubic-bezier(.22,.68,.28,1) both}
+
+  .card{transition:border-color .2s ease,transform .2s ease}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+
+  /* ============ TYPOGRAPHY ============ */
+  .kicker{
+    font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:14px;
+  }
+  .slide h2{
+    font-size:clamp(28px,3.3vw,40px);line-height:1.15;
+    letter-spacing:-.018em;font-weight:700;margin-bottom:20px;max-width:28ch;
+  }
+  .slide h3{
+    font-size:16.5px;letter-spacing:.02em;margin-bottom:10px;
+    color:var(--accent);font-weight:700;
+  }
+  .slide p{
+    font-size:clamp(18px,1.42vw,20.5px);color:#26302e;
+    margin-bottom:14px;max-width:76ch;
+  }
+  .slide p.lead{
+    font-size:clamp(19.5px,1.75vw,23px);color:var(--ink);line-height:1.5;
+  }
+  .muted-note{
+    color:var(--muted);font-size:16.5px !important;line-height:1.5;
+    border-top:1px solid var(--line);padding-top:13px;margin-top:18px;
+    max-width:82ch;
+  }
+  strong{font-weight:650}
+
+  /* ============ LISTS ============ */
+  ul.clean,ol.num{list-style:none;margin:6px 0 16px;display:grid;gap:9px}
+  ul.clean li,ol.num li{
+    position:relative;padding-left:26px;font-size:17.5px;
+    line-height:1.48;color:#26302e;
+  }
+  ul.clean li::before{
+    content:"";position:absolute;left:2px;top:.62em;
+    width:7px;height:7px;border-radius:50%;background:var(--accent);
+  }
+  ol.num{counter-reset:n}
+  ol.num li{counter-increment:n;padding-left:40px}
+  ol.num li::before{
+    content:counter(n);position:absolute;left:0;top:.02em;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent);
+    font-size:13px;font-weight:700;display:grid;place-items:center;
+  }
+  ul.clean.two-col{grid-template-columns:1fr 1fr;column-gap:36px}
+  ul.clean.compact li{font-size:16px}
+  ul.clean.compact{gap:6px}
+
+  /* ============ CARDS & COLUMNS ============ */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:10px 0 16px}
+  .cols-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:10px 0 16px}
+  .card{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px 20px;
+  }
+  .card h4{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:8px;font-weight:700;
+  }
+  .card p{font-size:16.5px;margin-bottom:0;line-height:1.5;max-width:none}
+  .card ul{margin:0}
+  .card--accent{border-color:var(--accent);background:var(--accent-soft)}
+
+  /* ============ CALLOUTS ============ */
+  .callout{
+    background:var(--accent-soft);border-left:3px solid var(--accent);
+    border-radius:0 10px 10px 0;padding:14px 18px;
+    font-size:17px;line-height:1.5;margin:10px 0 16px;color:#1f3b39;
+    max-width:82ch;
+  }
+  .callout em{font-style:italic}
+  .callout--no{background:var(--danger-soft);border-left-color:var(--danger);color:#6d3a2c}
+
+  .quote-big{
+    background:var(--accent);color:#fff;border-radius:var(--radius);
+    padding:22px 26px;font-size:clamp(18px,1.7vw,22px);line-height:1.45;
+    max-width:60ch;margin:14px 0 18px;
+  }
+
+  /* ============ CODE ============ */
+  .eq{
+    background:#f0f2ee;border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14px;line-height:1.6;white-space:pre-wrap;
+    margin:8px 0 16px;color:#243230;max-width:80ch;
+  }
+
+  /* ============ TABLES ============ */
+  .table-wrap{
+    overflow-x:auto;margin:10px 0 16px;
+    border:1px solid var(--line);border-radius:var(--radius);
+  }
+  .table{
+    width:100%;border-collapse:collapse;font-size:15px;
+    min-width:720px;background:var(--panel);
+  }
+  .table th{
+    text-align:left;padding:11px 14px;font-size:11px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    border-bottom:1px solid var(--line);font-weight:700;
+    vertical-align:bottom;background:#fafbf8;
+  }
+  .table td{
+    padding:11px 14px;border-bottom:1px solid var(--line);
+    vertical-align:top;line-height:1.42;
+  }
+  .table tr:last-child td{border-bottom:none}
+  .table td strong{color:var(--accent)}
+
+  /* ============ CHIPS ============ */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+  .chip{
+    border:1px solid var(--line);background:var(--panel);
+    border-radius:999px;padding:6px 14px;font-size:14.5px;color:#33403e;
+  }
+
+  /* ============ STEPS ============ */
+  .steps{display:grid;gap:0;margin:8px 0 16px;counter-reset:s;max-width:86ch}
+  .step{
+    position:relative;padding:12px 0 12px 50px;
+    border-bottom:1px solid var(--line);
+    font-size:17.5px;line-height:1.44;
+  }
+  .step:last-child{border-bottom:none}
+  .step::before{
+    counter-increment:s;content:counter(s);
+    position:absolute;left:0;top:12px;width:30px;height:30px;
+    border-radius:50%;background:var(--accent);color:#fff;
+    font-size:14px;font-weight:700;display:grid;place-items:center;
+  }
+
+  /* ============ FLOW ============ */
+  .flow{display:grid;gap:5px;margin:10px 0 16px;max-width:76ch}
+  .flow__item{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:11px 16px;font-size:17px;
+  }
+  .flow__arrow{color:var(--accent);font-size:13px;text-align:center;line-height:1}
+
+  /* ============ COVER ============ */
+  .cover .rule{width:60px;height:3px;background:var(--accent);margin-bottom:26px}
+  .cover h1{
+    font-size:clamp(32px,4.5vw,58px);line-height:1.07;
+    letter-spacing:-.027em;font-weight:800;max-width:21ch;margin-bottom:20px;
+  }
+  .cover .lead{
+    color:var(--muted);font-size:clamp(18.5px,1.65vw,22px);max-width:56ch;
+  }
+  .cover .cover-name{
+    margin-top:24px;font-size:clamp(18.5px,1.55vw,21px);
+    font-weight:650;color:var(--ink);
+  }
+  .cover .cover-role{
+    font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-top:4px;
+  }
+  .cover .hint{
+    margin-top:28px;font-size:14px;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:15px;max-width:56ch;
+  }
+
+  /* ============ SECTION SLIDES ============ */
+  .slide--section{background:var(--accent);color:#fff}
+  .slide--section .sec-num{
+    font-size:clamp(60px,11vw,136px);font-weight:800;line-height:.88;
+    letter-spacing:-.04em;color:rgba(255,255,255,.26);margin-bottom:10px;
+  }
+  .slide--section h2{
+    color:#fff;font-size:clamp(30px,4.5vw,50px);
+    max-width:none;margin-bottom:14px;
+  }
+  .slide--section .sec-sub{
+    color:rgba(255,255,255,.86);font-size:clamp(17px,1.6vw,20px);
+    max-width:64ch;
+  }
+
+  /* ============ CHART ============ */
+  .chart{display:grid;gap:10px;margin:16px 0 18px;max-width:820px}
+  .chart__row{
+    display:grid;grid-template-columns:minmax(150px,240px) 1fr 46px;
+    gap:12px;align-items:center;font-size:15.5px;
+  }
+  .chart__label{color:#33403e;line-height:1.28}
+  .chart__track{height:14px;background:#eceee9;border-radius:999px;overflow:hidden}
+  .chart__fill{
+    height:100%;width:0;background:var(--accent);border-radius:999px;
+    transition:width .85s cubic-bezier(.22,.68,.28,1);
+  }
+  .slide.is-active .chart__fill{width:var(--w)}
+  .chart__value{
+    text-align:right;color:var(--muted);
+    font-variant-numeric:tabular-nums;font-size:14.5px;
+  }
+
+  /* ============ SVG ============ */
+  .svg-figure{width:100%;max-width:940px;margin:12px 0 16px;display:block}
+  .svg-figure text{font-family:inherit}
+  .pipe-node{transform-origin:center}
+
+  /* ============ VISUAL COMPONENTS ============ */
+  .v-three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 18px}
+  .v-three__item{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px 16px;
+  }
+  .v-three__item--accent{background:var(--accent-soft);border-color:var(--accent)}
+  .v-three__num{
+    display:inline-grid;place-items:center;width:28px;height:28px;
+    border-radius:50%;background:var(--accent);color:#fff;
+    font-size:12.5px;font-weight:700;margin-bottom:10px;
+  }
+  .v-three__item h4{font-size:15.5px;color:var(--ink);margin-bottom:6px}
+  .v-three__item p{font-size:15px;color:#33403e;line-height:1.44;margin:0}
+
+  .v-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0 16px}
+  .v-grid__item{
+    display:flex;gap:10px;align-items:flex-start;
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:9px 13px;font-size:15px;line-height:1.38;
+  }
+  .v-grid__item span{
+    flex:0 0 auto;font-size:11.5px;font-weight:700;color:var(--accent);
+    background:var(--accent-soft);border-radius:6px;padding:2px 6px;margin-top:1px;
+  }
+
+  .v-groups{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0 16px}
+  .v-group{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;background:var(--panel);
+  }
+  .v-group--accent{background:var(--accent-soft);border-color:var(--accent)}
+  .v-group h4{
+    font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:9px;font-weight:700;
+  }
+  .v-group .chips{margin:0}
+
+  .bignums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0 18px}
+  .bignum{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:16px 14px;
+  }
+  .bignum strong{
+    display:block;font-size:clamp(26px,3vw,38px);line-height:1;
+    color:var(--accent);font-weight:800;letter-spacing:-.02em;margin-bottom:6px;
+  }
+  .bignum span{font-size:14px;color:#4a5452;line-height:1.35;display:block}
+
+  .ladder{display:grid;gap:6px;margin:14px 0 18px;max-width:760px}
+  .ladder__step{
+    display:flex;gap:12px;align-items:baseline;
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:9px;padding:10px 15px;font-size:16px;
+  }
+  .ladder__step b{color:var(--accent);font-size:12px;letter-spacing:.1em;text-transform:uppercase;flex:0 0 96px}
+  .ladder__step--accent{background:var(--accent-soft);border-color:var(--accent)}
+
+  /* ============ SIMULACIONES ============ */
+  .sim{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--panel);padding:16px 18px;margin:14px 0 18px;max-width:940px;
+  }
+  .sim__head{
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:12px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .sim__head::before{
+    content:"";width:7px;height:7px;border-radius:50%;
+    background:var(--accent);animation:pulse 2.4s infinite;
+  }
+  .sim__modes{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+  .sim__btn{
+    border:1px solid var(--line);background:var(--panel);
+    border-radius:999px;padding:7px 15px;font-size:14px;
+    color:#33403e;cursor:pointer;transition:all .15s;
+  }
+  .sim__btn:hover{border-color:var(--accent);color:var(--accent)}
+  .sim__btn.is-on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .sim__btn--primary{
+    background:var(--accent-soft);border-color:var(--accent);color:var(--accent);
+    font-weight:650;
+  }
+  .sim__stage{
+    background:#fafbf8;border:1px solid var(--line);border-radius:10px;
+    padding:14px;margin-bottom:12px;min-height:120px;
+    display:flex;flex-direction:column;gap:10px;justify-content:center;
+  }
+  .sim__out{
+    font-size:15.5px;color:#33403e;line-height:1.5;margin:0;
+    border-left:2px solid var(--accent-soft);padding-left:12px;
+  }
+  .chip--btn{cursor:pointer;transition:all .15s;background:var(--panel)}
+  .chip--btn:hover{border-color:var(--accent);color:var(--accent)}
+  .chip--btn.is-on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* rotación */
+  .rot-svg{width:170px;height:170px;margin:0 auto;display:block}
+
+  /* tres estudiantes */
+  .tres-pool,.tres-slots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .tres-card{
+    width:54px;height:54px;border-radius:10px;
+    border:1.5px solid var(--accent);background:var(--panel);
+    color:var(--accent);font-size:18px;font-weight:700;cursor:pointer;
+    transition:transform .18s,background .18s;
+  }
+  .tres-card:hover{background:var(--accent-soft);transform:translateY(-2px)}
+  .tres-slot{
+    width:54px;height:54px;border-radius:10px;
+    border:1.5px dashed #c9d1cf;background:#fff;
+    display:grid;place-items:center;font-size:18px;font-weight:700;
+    color:var(--accent);
+  }
+  .sim__stage--mental{background:#f4f1ec;border-style:dashed}
+  .sim__stage--tarjetas{background:#f7faf6}
+  .sim__stage--app{background:#f2f6f8;border-color:#c5d6dc}
+  .stage-tag{
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;text-align:center;
+  }
+
+  /* otto */
+  .otto-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+  .otto-col h5{
+    font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:8px;font-weight:700;
+  }
+  .otto-steps{display:grid;gap:6px}
+  .otto-steps span{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:8px 12px;font-size:14.5px;
+    transition:all .25s;color:#4a5452;
+  }
+  .otto-steps span.is-on{
+    background:var(--accent);border-color:var(--accent);
+    color:#fff;transform:translateX(4px);
+  }
+
+  /* bucle */
+  .bucle{display:grid;gap:5px;margin-bottom:12px}
+  .bucle__node{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:9px;padding:10px 14px;font-size:15.5px;
+    transition:all .25s;color:#4a5452;
+  }
+  .bucle__node.is-on{
+    background:var(--accent);border-color:var(--accent);
+    color:#fff;transform:translateX(5px);
+  }
+  .bucle__node b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.75;margin-right:8px}
+
+  /* continuo */
+  .cont-range{width:100%;max-width:640px;accent-color:var(--accent);height:26px}
+  .cont-bar{height:10px;background:#eceee9;border-radius:999px;overflow:hidden;max-width:640px;margin:10px 0 12px}
+  .cont-bar__fill{height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .3s ease}
+  .cont-title{font-size:17.5px;font-weight:700;color:var(--accent);margin-bottom:4px}
+  .cont-desc{font-size:16px;color:#33403e;line-height:1.45;margin:0 0 6px}
+  .cont-ex{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* usos */
+  .uso-panel{font-size:16px;line-height:1.5;color:#33403e;margin-bottom:12px}
+  .uso-panel p{margin-bottom:8px;font-size:16px;max-width:none}
+  .uso-panel ul{margin:6px 0 0}
+  .uso-panel ul li{font-size:15.5px}
+  .meter{display:flex;gap:5px;margin:10px 0 6px}
+  .meter span{
+    flex:1;height:9px;border-radius:999px;background:#eceee9;
+    transition:background .25s;
+  }
+  .meter span.is-on{background:var(--accent)}
+  .meter-label{font-size:13px;color:var(--muted);letter-spacing:.04em}
+
+  /* matriz */
+  .matriz{display:grid;gap:7px;margin-bottom:12px}
+  .matriz label{
+    display:flex;gap:10px;align-items:flex-start;
+    background:#fafbf8;border:1px solid var(--line);
+    border-radius:9px;padding:9px 13px;font-size:15px;
+    line-height:1.4;cursor:pointer;transition:background .15s;
+  }
+  .matriz label:hover{background:var(--accent-soft)}
+  .matriz input{accent-color:var(--accent);width:17px;height:17px;margin-top:2px;flex:0 0 auto}
+  .matriz b{color:var(--accent);margin-right:4px}
+
+  /* ============ CONTROLS ============ */
+  .controls{
+    flex:0 0 auto;display:flex;align-items:center;gap:10px;
+    padding:12px clamp(14px,4vw,36px);
+    background:var(--panel);border-top:1px solid var(--line);
+  }
+  .controls__meta{
+    display:flex;flex-direction:column;gap:1px;
+    min-width:0;flex:1;margin-left:6px;
+  }
+  .controls__section{
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .controls__count{
+    font-size:14px;color:var(--muted);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .btn{
+    display:inline-grid;place-items:center;width:44px;height:44px;
+    border-radius:50%;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink);cursor:pointer;
+    transition:background .15s,border-color .15s,color .15s;
+    flex:0 0 auto;
+  }
+  .btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .btn:disabled{opacity:.3;cursor:not-allowed}
+  .btn:disabled:hover{background:var(--panel);border-color:var(--line);color:var(--ink)}
+  .btn svg{width:19px;height:19px;display:block}
+
+  .scrim{display:none}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1100px){
+    :root{--sidebar-w:292px}
+    .cols-3{grid-template-columns:1fr 1fr}
+    .v-three{grid-template-columns:1fr}
+    .bignums{grid-template-columns:1fr 1fr}
+  }
+
+  @media (max-width:980px){
+    .sidebar{
+      position:fixed;inset:0 auto 0 0;
+      transform:translateX(-100%);
+      margin-left:0 !important;opacity:1 !important;
+      box-shadow:0 0 60px rgba(0,0,0,.22);
+      pointer-events:auto;
+    }
+    .sidebar.is-open{transform:none}
+    .scrim{
+      display:block;position:fixed;inset:0;
+      background:rgba(15,25,23,.45);
+      opacity:0;pointer-events:none;transition:opacity .25s;z-index:55;
+    }
+    .scrim.is-open{opacity:1;pointer-events:auto}
+    ul.clean.two-col{grid-template-columns:1fr}
+    .cols,.cols-3,.v-grid,.v-groups,.otto-grid{grid-template-columns:1fr}
+    .slide{padding:26px 20px 44px}
+    .chart__row{grid-template-columns:minmax(110px,44%) 1fr 36px;font-size:14.5px}
+    .sim{padding:13px 14px}
+  }
+
+  @media (max-width:600px){
+    .controls__section{display:none}
+    .btn{width:41px;height:41px}
+    .cover .hint{display:none}
+    .bignums{grid-template-columns:1fr}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .slide.is-active .chart__fill{width:var(--w)}
+  }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__head">
+      <div class="sidebar__kicker">Tutoría 2</div>
+      <div class="sidebar__title">Herramientas digitales para las ciencias sociales</div>
+    </div>
+    <nav class="sidebar__nav" id="index" aria-label="Índice de diapositivas"></nav>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <main class="stage">
+    <div class="progress"><div class="progress__bar" id="bar"></div></div>
+
+    <div class="slides" id="slides"></div>
+
+    <footer class="controls">
+      <button class="btn" id="toggleIndex" aria-label="Mostrar u ocultar el índice" aria-expanded="true" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M9.5 4v16"/>
+        </svg>
+      </button>
+
+      <button class="btn" id="prev" aria-label="Diapositiva anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 6l-6 6 6 6"/>
+        </svg>
+      </button>
+
+      <button class="btn" id="next" aria-label="Diapositiva siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </button>
+
+      <div class="controls__meta">
+        <div class="controls__section" id="ctrlSection">Apertura</div>
+        <div class="controls__count" id="ctrlCount">01 / 68</div>
+      </div>
+
+      <button class="btn" id="fs" aria-label="Pantalla completa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
+        </svg>
+      </button>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   CONTENIDO
+   ============================================================ */
+const SLIDES = [
+
+/* ---------------- APERTURA ---------------- */
+{
+  type:'cover', section:'Apertura', nav:'Portada', kicker:'Tutoría 2',
+  title:'Herramientas digitales para las ciencias sociales',
+  body:`
+    <p class="lead">La hipótesis de la mente extendida y su relación con la inteligencia artificial generativa</p>
+    <p class="cover-name">Juan Carlos Valderrama Cárdenas</p>
+    <p class="cover-role">Tutoría 2</p>
+    <p class="hint">Navega con las flechas ← → · Índice en el panel lateral · Comparte una diapositiva con #slide-N</p>
+  `
+},
+
+{
+  type:'content', section:'Apertura', nav:'Resultados de aprendizaje',
+  title:'Resultados de aprendizaje',
+  body:`
+    <p class="lead">Al finalizar la tutoría, se espera que el estudiante sea capaz de:</p>
+    <ol class="num">
+      <li><strong>Distinguir</strong> la hipótesis de la mente extendida de otras nociones afines —cognición situada, descarga cognitiva y cognición distribuida—, reconociendo cuándo un recurso externo causa un proceso cognitivo y cuándo lo constituye.</li>
+      <li><strong>Evaluar críticamente</strong> un sistema humano–IA a partir del acoplamiento, la agencia cognitiva, la confianza y la vigilancia epistémica, para decidir qué operaciones delega, cuáles supervisa y cuáles conserva.</li>
+    </ol>
+    <div class="v-three">
+      <div class="v-three__item"><span class="v-three__num">1</span><h4>Distinguir</h4><p>Causa ≠ constitución. Extensión ≠ influencia.</p></div>
+      <div class="v-three__item v-three__item--accent"><span class="v-three__num">2</span><h4>Evaluar</h4><p>Acoplamiento, agencia, confianza y supervisión.</p></div>
+      <div class="v-three__item"><span class="v-three__num">3</span><h4>Decidir</h4><p>Qué se delega, qué se supervisa y qué se conserva.</p></div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'Apertura', nav:'Recorrido de la tutoría',
+  title:'Recorrido de la tutoría',
+  body:`
+    <p>Distribución de las diapositivas por sección.</p>
+    <div class="chart" id="chart"></div>
+    <p class="muted-note">El índice lateral permite saltar a cualquier diapositiva; el resaltado automático indica la sección activa.</p>
+  `
+},
+
+/* ---------------- 01 ---------------- */
+{type:'section', section:'01 · Límites de la mente', num:'01', title:'El problema de los límites de la mente', sub:'¿La mente termina en los límites del cerebro y del cuerpo?'},
+
+{
+  type:'content', section:'01 · Límites de la mente', nav:'Concepción tradicional',
+  title:'Concepción tradicional',
+  body:`
+    <p>Una concepción tradicional supone que la cognición ocurre fundamentalmente dentro del individuo:</p>
+    <svg class="svg-figure" viewBox="0 0 900 110" role="img" aria-label="Estímulo externo, procesamiento cerebral, representación mental y respuesta conductual">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g>
+        <rect x="6" y="28" width="180" height="54" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="96" y="61" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Estímulo externo</text>
+        <line x1="190" y1="55" x2="222" y2="55" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#a1)"/>
+        <rect x="226" y="28" width="196" height="54" rx="10" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="324" y="61" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Procesamiento cerebral</text>
+        <line x1="426" y1="55" x2="458" y2="55" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#a1)"/>
+        <rect x="462" y="28" width="196" height="54" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="560" y="61" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Representación mental</text>
+        <line x1="662" y1="55" x2="694" y2="55" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#a1)"/>
+        <rect x="698" y="28" width="196" height="54" rx="10" fill="#1f5c5b"/>
+        <text x="796" y="61" text-anchor="middle" font-size="15" font-weight="650" fill="#ffffff">Respuesta conductual</text>
+      </g>
+    </svg>
+    <p class="muted-note">Desde esta perspectiva, el ambiente proporciona estímulos y oportunidades de acción, pero la actividad cognitiva propiamente dicha ocurre en el sistema nervioso.</p>
+  `
+},
+
+{
+  type:'content', section:'01 · Límites de la mente', nav:'La pregunta central',
+  title:'La pregunta central',
+  body:`
+    <p>La hipótesis de la mente extendida cuestiona esta delimitación. Su pregunta central es:</p>
+    <div class="quote-big">¿Por qué debemos asumir que los procesos cognitivos terminan exactamente donde terminan la piel y el cráneo?</div>
+    <p>En lugar de considerar el ambiente como una fuente pasiva de información, propone examinar cómo determinados recursos externos intervienen activamente en la realización de una tarea.</p>
+    <p class="muted-note">La aparición de sistemas de inteligencia artificial generativa —capaces de escribir, resumir, comparar, argumentar, planificar y producir alternativas— hace que esta pregunta resulte más compleja.</p>
+  `
+},
+
+{
+  type:'content', section:'01 · Límites de la mente', nav:'Simulación: el entorno en la tarea',
+  title:'Simulación: el entorno en la tarea',
+  body:`
+    <p>Cuando una persona realiza cualquiera de estas actividades, el entorno no solo entrega información: también puede transformar la manera en que la actividad cognitiva se realiza.</p>
+    <div class="sim" id="sim-entorno">
+      <div class="sim__head">Simulación · Actividades cognitivas con recursos externos</div>
+      <div class="chips" id="entornoChips">
+        <button class="chip chip--btn">escribir para organizar sus ideas</button>
+        <button class="chip chip--btn">utilizar los dedos para contar</button>
+        <button class="chip chip--btn">reordenar fichas para clasificar conceptos</button>
+        <button class="chip chip--btn">consultar una agenda para recordar una cita</button>
+        <button class="chip chip--btn">configurar alarmas para gestionar actividades</button>
+        <button class="chip chip--btn">usar un mapa para orientarse</button>
+        <button class="chip chip--btn">dialogar con otra persona para aclarar un problema</button>
+        <button class="chip chip--btn">emplear una IA para comparar explicaciones</button>
+      </div>
+      <p class="sim__out" id="entornoOut">Selecciona una actividad para ver qué ocurre con el entorno.</p>
+    </div>
+  `
+},
+
+/* ---------------- 02 ---------------- */
+{type:'section', section:'02 · Origen', num:'02', title:'Origen de la hipótesis', sub:'Clark y Chalmers (1998) · externalismo activo · cognición 4E'},
+
+{
+  type:'content', section:'02 · Origen', nav:'Clark y Chalmers (1998)',
+  title:'Clark y Chalmers (1998)',
+  body:`
+    <p class="lead">La formulación clásica fue presentada en 1998 por Andy Clark y David Chalmers en el artículo <em>The Extended Mind</em>.</p>
+    <p>Los autores denominaron <strong>externalismo activo</strong> a la tesis según la cual ciertos elementos del ambiente desempeñan un papel activo en la constitución de procesos cognitivos.</p>
+    <div class="callout">No se limitan a causar una respuesta en el cerebro, sino que pueden formar parte del sistema que ejecuta la actividad.</div>
+  `
+},
+
+{
+  type:'content', section:'02 · Origen', nav:'Cognición 4E',
+  title:'Cognición 4E',
+  body:`
+    <p>Esta propuesta debe ubicarse dentro de un programa más amplio conocido como cognición 4E:</p>
+    <div class="v-grid">
+      <div class="v-grid__item"><span>E1</span><b>Embodied</b> — cognición corporizada.</div>
+      <div class="v-grid__item"><span>E2</span><b>Embedded</b> — cognición situada o incrustada.</div>
+      <div class="v-grid__item"><span>E3</span><b>Enactive</b> — cognición enactiva.</div>
+      <div class="v-grid__item"><span>E4</span><b>Extended</b> — cognición extendida.</div>
+    </div>
+    <p class="muted-note">Estas perspectivas coinciden en cuestionar una visión de la cognición exclusivamente cerebral, aunque no sostienen exactamente lo mismo.</p>
+  `
+},
+
+{
+  type:'content', section:'02 · Origen', nav:'Las 4E no dicen lo mismo',
+  title:'Las 4E no dicen lo mismo',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>Lo que comparten</h4>
+        <p>Cuestionan una visión de la cognición exclusivamente cerebral.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Lo específico de la extendida</h4>
+        <p>Afirma que algunos procesos cognitivos pueden incluir recursos situados fuera del organismo.</p>
+      </div>
+    </div>
+  `
+},
+
+/* ---------------- 03 ---------------- */
+{type:'section', section:'03 · ¿Qué significa extender?', num:'03', title:'¿Qué significa que la mente se extienda?', sub:'Entre influencia ambiental y constitución del proceso'},
+
+{
+  type:'content', section:'03 · ¿Qué significa extender?', nav:'La afirmación precisa',
+  title:'La afirmación precisa',
+  body:`
+    <p>La tesis no afirma simplemente que el ambiente influya sobre las personas. Esto sería aceptado por casi cualquier perspectiva psicológica.</p>
+    <p>Tampoco significa que todo aquello que rodea a una persona sea parte de su mente.</p>
+    <div class="callout">En determinadas condiciones, un recurso externo puede integrarse de tal manera a una actividad que pasa a funcionar como parte constitutiva del proceso cognitivo.</div>
+    <p class="muted-note">La diferencia fundamental se encuentra entre <strong>causar</strong> un proceso y <strong>constituirlo</strong>.</p>
+  `
+},
+
+{
+  type:'content', section:'03 · ¿Qué significa extender?', nav:'Simulación: causal vs constitutivo',
+  title:'Simulación: causal vs constitutivo',
+  body:`
+    <div class="sim" id="sim-causal">
+      <div class="sim__head">Simulación · Causar un proceso o constituirlo</div>
+      <div class="sim__modes">
+        <button class="sim__btn is-on" data-cmode="causal">Relación causal</button>
+        <button class="sim__btn" data-cmode="constitutiva">Relación constitutiva</button>
+      </div>
+      <div class="sim__stage" id="causalStage"></div>
+      <p class="sim__out" id="causalOut"></p>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'03 · ¿Qué significa extender?', nav:'La tesis fuerte',
+  title:'La tesis fuerte',
+  body:`
+    <p>Por tanto, la tesis no es:</p>
+    <div class="callout callout--no">“Las herramientas ayudan a pensar”.</div>
+    <p>La tesis fuerte es:</p>
+    <div class="quote-big">“Bajo ciertas condiciones, el pensamiento se realiza mediante un sistema compuesto por la persona y determinados recursos externos”.</div>
+  `
+},
+
+/* ---------------- 04 ---------------- */
+{type:'section', section:'04 · Principio de paridad', num:'04', title:'El principio de paridad', sub:'Si la función es cognitiva, el límite de la piel no decide'},
+
+{
+  type:'content', section:'04 · Principio de paridad', nav:'Formulación del principio',
+  title:'Formulación del principio',
+  body:`
+    <p class="lead">Uno de los argumentos centrales es el principio de paridad. Puede formularse así:</p>
+    <div class="quote-big">Si un proceso externo desempeña una función que reconoceríamos como cognitiva si ocurriera dentro de la cabeza, no deberíamos excluirlo únicamente porque ocurre fuera del organismo.</div>
+    <p class="muted-note">Clark y Chalmers ilustraron este razonamiento mediante tareas de rotación mental.</p>
+  `
+},
+
+{
+  type:'content', section:'04 · Principio de paridad', nav:'Simulación: rotación mental',
+  title:'Simulación: rotación mental',
+  body:`
+    <p>Compararon la rotación interna de una figura, la rotación de una imagen mediante un dispositivo externo y una hipotética rotación efectuada por un implante.</p>
+    <div class="sim" id="sim-rot">
+      <div class="sim__head">Simulación · Tres procedimientos, una misma función</div>
+      <div class="sim__modes">
+        <button class="sim__btn is-on" data-mode="interna">Rotación interna</button>
+        <button class="sim__btn" data-mode="externa">Dispositivo externo</button>
+        <button class="sim__btn" data-mode="implante">Implante</button>
+      </div>
+      <div class="sim__stage" style="align-items:center">
+        <svg class="rot-svg" viewBox="0 0 200 200" role="img" aria-label="Figura que rota para ilustrar el principio de paridad">
+          <g id="rotGroup" style="transform-origin:100px 100px;transition:transform .9s cubic-bezier(.4,0,.2,1)">
+            <polygon points="100,38 156,78 135,144 65,144 44,78" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="2"/>
+            <circle cx="100" cy="100" r="4.5" fill="#1f5c5b"/>
+          </g>
+        </svg>
+        <button class="sim__btn sim__btn--primary" id="rotBtn">Rotar la figura</button>
+      </div>
+      <p class="sim__out" id="rotOut"></p>
+    </div>
+    <p class="muted-note">Si los tres procedimientos cumplen una función comparable dentro de la resolución del problema, los límites de la piel no parecen suficientes para decidir cuál es cognitivo y cuál no.</p>
+  `
+},
+
+{
+  type:'content', section:'04 · Principio de paridad', nav:'Simulación: tres estudiantes',
+  title:'Simulación: tres estudiantes',
+  body:`
+    <p>Tres estudiantes deben ordenar una serie de acontecimientos. Los tres resuelven el mismo problema mediante configuraciones diferentes; en los dos últimos casos, parte de la organización se realiza en el ambiente.</p>
+    <div class="sim" id="sim-tres">
+      <div class="sim__head">Simulación · ¿Dónde se realiza la organización?</div>
+      <div class="sim__modes">
+        <button class="sim__btn is-on" data-tmode="mental">1 · Imagina mentalmente</button>
+        <button class="sim__btn" data-tmode="tarjetas">2 · Tarjetas en la mesa</button>
+        <button class="sim__btn" data-tmode="app">3 · Aplicación</button>
+      </div>
+      <div class="sim__stage sim__stage--mental">
+        <div class="stage-tag" id="tresTag">En la mente del estudiante</div>
+        <div class="tres-slots" id="tresSlots"></div>
+        <div class="tres-pool" id="tresPool"></div>
+      </div>
+      <p class="sim__out" id="tresOut"></p>
+    </div>
+  `
+},
+
+/* ---------------- 05 ---------------- */
+{type:'section', section:'05 · Otto e Inga', num:'05', title:'El caso de Otto e Inga', sub:'El experimento mental más conocido'},
+
+{
+  type:'content', section:'05 · Otto e Inga', nav:'Dos estructuras funcionales',
+  title:'Dos estructuras funcionales',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>5.1 · Inga</h4>
+        <p>Inga quiere visitar un museo. Recuerda internamente que se encuentra en una dirección determinada y se desplaza hasta allí.</p>
+        <div class="eq" style="margin-top:12px">Intención → memoria biológica → recuperación → acción</div>
+      </div>
+      <div class="card card--accent">
+        <h4>5.2 · Otto</h4>
+        <p>Otto presenta dificultades de memoria y utiliza habitualmente una libreta. Cuando necesita recordar una dirección, consulta la información allí registrada.</p>
+        <div class="eq" style="margin-top:12px;background:#fff">Intención → consulta de la libreta → recuperación → acción</div>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'05 · Otto e Inga', nav:'Simulación: recorrido de Otto e Inga',
+  title:'Simulación: recorrido de Otto e Inga',
+  body:`
+    <div class="sim" id="sim-otto">
+      <div class="sim__head">Simulación · La misma función en dos soportes</div>
+      <div class="otto-grid">
+        <div class="otto-col">
+          <h5>Inga</h5>
+          <div class="otto-steps" data-who="inga">
+            <span>Intención</span>
+            <span>memoria biológica</span>
+            <span>recuperación</span>
+            <span>acción</span>
+          </div>
+        </div>
+        <div class="otto-col">
+          <h5>Otto</h5>
+          <div class="otto-steps" data-who="otto">
+            <span>Intención</span>
+            <span>consulta de la libreta</span>
+            <span>recuperación</span>
+            <span>acción</span>
+          </div>
+        </div>
+      </div>
+      <button class="sim__btn sim__btn--primary" id="ottoBtn">Iniciar recorrido</button>
+      <p class="sim__out" id="ottoOut">Pulsa «Iniciar recorrido» para comparar ambos procedimientos.</p>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'05 · Otto e Inga', nav:'Qué pretende demostrar',
+  title:'Qué pretende demostrar el caso',
+  body:`
+    <p>El argumento no afirma que una libreta sea idéntica al hipocampo ni que los procesos biológicos y externos sean materialmente iguales. La comparación es principalmente funcional:</p>
+    <ul class="clean">
+      <li>Ambos recursos conservan información.</li>
+      <li>La información está disponible para orientar la conducta.</li>
+      <li>El usuario confía en ella.</li>
+      <li>La consulta forma parte de un procedimiento habitual.</li>
+      <li>El acceso no requiere una nueva investigación cada vez.</li>
+    </ul>
+    <p class="muted-note">Si se acepta que la información recuperada por Inga pertenece a su memoria, surge la pregunta de por qué la información de la libreta de Otto debe considerarse necesariamente externa a su sistema cognitivo.</p>
+  `
+},
+
+{
+  type:'content', section:'05 · Otto e Inga', nav:'¿Dónde está la memoria de Otto?',
+  title:'¿Dónde está la memoria de Otto?',
+  body:`
+    <p>La propuesta es que la memoria de Otto no está localizada exclusivamente en su cerebro. Está distribuida entre:</p>
+    <svg class="svg-figure" viewBox="0 0 900 300" role="img" aria-label="Seis componentes distribuidos de la memoria de Otto">
+      <g>
+        <circle cx="450" cy="150" r="58" fill="#1f5c5b"/>
+        <text x="450" y="146" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Memoria</text>
+        <text x="450" y="164" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">de Otto</text>
+
+        <line x1="450" y1="150" x2="200" y2="52" stroke="#b9cbc9" stroke-width="1.2"/>
+        <rect x="60" y="30" width="200" height="42" rx="21" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="160" y="56" text-anchor="middle" font-size="13" fill="#17201f">capacidades biológicas</text>
+
+        <line x1="450" y1="150" x2="700" y2="52" stroke="#b9cbc9" stroke-width="1.2"/>
+        <rect x="640" y="30" width="200" height="42" rx="21" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="740" y="56" text-anchor="middle" font-size="13" fill="#17201f">la libreta</text>
+
+        <line x1="450" y1="150" x2="150" y2="150" stroke="#b9cbc9" stroke-width="1.2"/>
+        <rect x="10" y="129" width="200" height="42" rx="21" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="110" y="155" text-anchor="middle" font-size="13" fill="#17201f">sistema de símbolos</text>
+
+        <line x1="450" y1="150" x2="750" y2="150" stroke="#b9cbc9" stroke-width="1.2"/>
+        <rect x="690" y="129" width="200" height="42" rx="21" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="790" y="155" text-anchor="middle" font-size="13" fill="#17201f">hábito de registrar</text>
+
+        <line x1="450" y1="150" x2="240" y2="250" stroke="#b9cbc9" stroke-width="1.2"/>
+        <rect x="110" y="229" width="210" height="42" rx="21" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="215" y="255" text-anchor="middle" font-size="13" fill="#17201f">hábito de consultar</text>
+
+        <line x1="450" y1="150" x2="660" y2="250" stroke="#b9cbc9" stroke-width="1.2"/>
+        <rect x="590" y="229" width="210" height="42" rx="21" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="695" y="255" text-anchor="middle" font-size="13" fill="#17201f">disponibilidad física</text>
+      </g>
+    </svg>
+  `
+},
+
+/* ---------------- 06 ---------------- */
+{type:'section', section:'06 · Condiciones', num:'06', title:'Condiciones para hablar de extensión cognitiva', sub:'No existe una lista universalmente aceptada'},
+
+{
+  type:'content', section:'06 · Condiciones', nav:'Siete condiciones',
+  title:'Siete condiciones',
+  body:`
+    <div class="v-grid">
+      <div class="v-grid__item"><span>6.1</span><b>Disponibilidad.</b> El recurso debe estar accesible cuando la persona necesita utilizarlo.</div>
+      <div class="v-grid__item"><span>6.2</span><b>Uso habitual.</b> La relación no debe ser completamente accidental.</div>
+      <div class="v-grid__item"><span>6.3</span><b>Acceso relativamente directo.</b> La información debería poder recuperarse sin procedimientos excesivamente complejos.</div>
+      <div class="v-grid__item"><span>6.4</span><b>Confianza.</b> El usuario suele aceptar la información del recurso de manera relativamente automática.</div>
+      <div class="v-grid__item"><span>6.5</span><b>Integración funcional.</b> El recurso debe intervenir dentro de una actividad cognitiva concreta.</div>
+      <div class="v-grid__item"><span>6.6</span><b>Acoplamiento estable.</b> La actividad emerge del funcionamiento coordinado del conjunto.</div>
+      <div class="v-grid__item"><span>6.7</span><b>Apropiación previa.</b> En el ejemplo de Otto, él mismo registró o aceptó previamente la información.</div>
+    </div>
+    <p class="muted-note">Una libreta olvidada en otro país difícilmente puede formar parte del sistema cognitivo actual.</p>
+  `
+},
+
+{
+  type:'content', section:'06 · Condiciones', nav:'La condición problemática con IA',
+  title:'La condición problemática con la IA generativa',
+  body:`
+    <p class="lead">La apropiación previa se vuelve problemática con la IA generativa porque la herramienta produce contenidos que el usuario no conocía antes.</p>
+    <div class="cols">
+      <div class="card">
+        <h4>Libreta de Otto</h4>
+        <p>Otto registró o aceptó previamente la información. El contenido tiene un origen rastreable en su propia práctica.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>IA generativa</h4>
+        <p>El contenido se produce durante la interacción. El usuario no lo escribió ni lo conocía antes de la consulta.</p>
+      </div>
+    </div>
+  `
+},
+
+/* ---------------- 07 ---------------- */
+{type:'section', section:'07 · Distinciones', num:'07', title:'Extendida, situada, descarga y distribuida', sub:'Conceptos relacionados que no deben confundirse'},
+
+{
+  type:'content', section:'07 · Distinciones', nav:'Cuatro conceptos',
+  title:'Cuatro conceptos',
+  body:`
+    <div class="v-grid">
+      <div class="v-grid__item"><span>7.1</span><b>Cognición situada o incrustada.</b> El pensamiento depende del ambiente y se beneficia de él; no necesariamente considera que los objetos externos sean partes de la mente.</div>
+      <div class="v-grid__item"><span>7.2</span><b>Descarga cognitiva.</b> Transferir parte de una demanda cognitiva a un recurso externo para reducir el esfuerzo mental.</div>
+      <div class="v-grid__item"><span>7.3</span><b>Cognición distribuida.</b> Examina cómo los procesos cognitivos se distribuyen entre personas, objetos, representaciones, normas y momentos temporales.</div>
+      <div class="v-grid__item"><span>7.4</span><b>Cognición extendida.</b> Algunos componentes externos no solo ayudan o causan el proceso, sino que forman parte del sistema cognitivo que lo realiza.</div>
+    </div>
+    <p class="muted-note">Ejemplos del texto: la distribución del aula facilita o dificulta la atención; escribir una lista, usar una calculadora o pedir a una IA que resuma un documento son formas de descarga; la toma de decisiones en un equipo clínico se distribuye entre entrevistas, expedientes, pruebas, profesionales, protocolos y reuniones.</p>
+  `
+},
+
+{
+  type:'content', section:'07 · Distinciones', nav:'Diferencia resumida',
+  title:'Diferencia resumida',
+  body:`
+    <div class="ladder">
+      <div class="ladder__step"><b>Influencia</b>El ambiente modifica la cognición.</div>
+      <div class="ladder__step"><b>Descarga</b>El ambiente asume parte de la tarea.</div>
+      <div class="ladder__step"><b>Distribuida</b>La tarea se realiza entre múltiples componentes.</div>
+      <div class="ladder__step ladder__step--accent"><b>Extendida</b>Algunos componentes externos constituyen el proceso cognitivo.</div>
+    </div>
+    <p class="muted-note">Toda cognición extendida supone alguna forma de acoplamiento con el ambiente, pero no toda influencia ambiental constituye una extensión mental.</p>
+  `
+},
+
+/* ---------------- 08 ---------------- */
+{type:'section', section:'08 · De la libreta a la IA', num:'08', title:'De la libreta a la inteligencia artificial generativa', sub:'La IA no funciona como un objeto completamente pasivo'},
+
+{
+  type:'content', section:'08 · De la libreta a la IA', nav:'Libreta vs IA',
+  title:'Libreta vs IA generativa',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>Una libreta convencional</h4>
+        <ul class="clean compact">
+          <li>conserva información;</li>
+          <li>presenta lo que previamente se escribió;</li>
+          <li>no reformula espontáneamente;</li>
+          <li>no produce contraargumentos;</li>
+          <li>no adapta el contenido al interlocutor;</li>
+          <li>no genera nuevas alternativas.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>Un sistema generativo puede</h4>
+        <ul class="clean compact">
+          <li>resumir y reformular;</li>
+          <li>clasificar y comparar;</li>
+          <li>generar hipótesis y proponer argumentos;</li>
+          <li>simular objeciones y ofrecer retroalimentación;</li>
+          <li>transformar una representación en otra;</li>
+          <li>mantener una interacción lingüística.</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'08 · De la libreta a la IA', nav:'Simulación: el bucle iterativo',
+  title:'Simulación: el bucle iterativo',
+  body:`
+    <p>La relación deja de ser únicamente «persona → almacena información → recupera información» y puede convertirse en un bucle iterativo de interacción.</p>
+    <div class="sim" id="sim-bucle">
+      <div class="sim__head">Simulación · El producto final surge de un bucle iterativo</div>
+      <div class="bucle">
+        <div class="bucle__node" data-note="La persona define el propósito y formula la petición."><b>Persona</b>formula una petición</div>
+        <div class="bucle__node" data-note="La IA produce una propuesta que la persona no había formulado."><b>IA</b>genera una propuesta</div>
+        <div class="bucle__node" data-note="La persona evalúa, corrige y modifica la propuesta."><b>Persona</b>evalúa y modifica</div>
+        <div class="bucle__node" data-note="La IA reorganiza o amplía a partir de la modificación."><b>IA</b>reorganiza o amplía</div>
+        <div class="bucle__node" data-note="La persona integra, rechaza o vuelve a preguntar: el bucle puede reiniciarse."><b>Persona</b>integra, rechaza o vuelve a preguntar</div>
+      </div>
+      <button class="sim__btn sim__btn--primary" id="bucleBtn">Avanzar un paso</button>
+      <p class="sim__out" id="bucleOut"></p>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'08 · De la libreta a la IA', nav:'Tabla comparativa',
+  title:'Diferencias entre una libreta y una IA generativa',
+  body:`
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>Dimensión</th><th>Libreta de Otto</th><th>IA generativa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Función principal</strong></td><td>Almacenar y recuperar</td><td>Generar, transformar y reorganizar</td></tr>
+          <tr><td><strong>Origen del contenido</strong></td><td>Registrado previamente</td><td>Producido durante la interacción</td></tr>
+          <tr><td><strong>Predictibilidad</strong></td><td>Relativamente alta</td><td>Variable</td></tr>
+          <tr><td><strong>Iniciativa aparente</strong></td><td>Muy baja</td><td>Puede proponer continuaciones</td></tr>
+          <tr><td><strong>Personalización</strong></td><td>Depende de lo escrito</td><td>Puede adaptarse al contexto recibido</td></tr>
+          <tr><td><strong>Estabilidad</strong></td><td>El registro permanece</td><td>La respuesta puede variar</td></tr>
+          <tr><td><strong>Transparencia</strong></td><td>Se conoce el contenido guardado</td><td>El procedimiento generativo no es plenamente visible</td></tr>
+          <tr><td><strong>Riesgo de error</strong></td><td>Registro desactualizado o incorrecto</td><td>Errores, invenciones, sesgos y omisiones</td></tr>
+          <tr><td><strong>Dependencia externa</strong></td><td>Objeto físico</td><td>Plataforma, conexión, cuenta y proveedor</td></tr>
+          <tr><td><strong>Evaluación crítica</strong></td><td>Puede ser reducida</td><td>Debe ser constante</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `
+},
+
+/* ---------------- 09 ---------------- */
+{type:'section', section:'09 · ¿IA como mente extendida?', num:'09', title:'¿La IA generativa puede ser parte de una mente extendida?', sub:'Tres posiciones · RAG · doble extensión'},
+
+{
+  type:'content', section:'09 · ¿IA como mente extendida?', nav:'Tres posiciones',
+  title:'Tres posiciones',
+  body:`
+    <div class="v-three">
+      <div class="v-three__item">
+        <span class="v-three__num">9.1</span>
+        <h4>Conservadora</h4>
+        <p>La IA es solamente una herramienta: proporciona información, influye, reduce esfuerzo y facilita actividades, pero no forma parte de la mente del usuario.</p>
+      </div>
+      <div class="v-three__item v-three__item--accent">
+        <span class="v-three__num">9.2</span>
+        <h4>Moderada</h4>
+        <p>La IA permite cognición distribuida: el humano define propósitos, la IA genera contenidos, el humano evalúa, la interfaz conserva el intercambio y el resultado emerge del circuito completo.</p>
+      </div>
+      <div class="v-three__item">
+        <span class="v-three__num">9.3</span>
+        <h4>Fuerte</h4>
+        <p>Algunos acoplamientos constituyen una mente extendida cuando el uso es estable, disponible, incorporado al flujo de trabajo y supervisado.</p>
+      </div>
+    </div>
+    <p class="muted-note">La posición conservadora recuerda que ayudar a una actividad no equivale a constituirla: un profesor puede ayudar a un estudiante a resolver un problema, pero no por ello se convierte automáticamente en parte de su mente.</p>
+  `
+},
+
+{
+  type:'content', section:'09 · ¿IA como mente extendida?', nav:'Smart, Clowes y Clark (2025)',
+  title:'Smart, Clowes y Clark (2025)',
+  body:`
+    <p>En 2025, Paul Smart, Robert Clowes y Andy Clark analizaron explícitamente la relación entre modelos de lenguaje y mente extendida.</p>
+    <div class="callout">Su discusión incluye sistemas con generación aumentada por recuperación (RAG), en los que un modelo consulta almacenes externos de información. Esto introduce una segunda extensión posible: no solo la mente humana podría extenderse hacia la IA, sino que la arquitectura de la propia IA puede extenderse hacia bases documentales y herramientas externas.</div>
+    <h3>Condiciones de la lectura fuerte</h3>
+    <ul class="clean two-col">
+      <li>se utiliza de manera estable;</li>
+      <li>está disponible regularmente;</li>
+      <li>se encuentra incorporada al flujo de trabajo;</li>
+      <li>transforma representaciones de manera funcional;</li>
+      <li>el usuario sabe cómo interrogarla y evaluarla;</li>
+      <li>el proceso depende del intercambio recurrente;</li>
+      <li>la persona conserva una relación de control y apropiación.</li>
+    </ul>
+  `
+},
+
+{
+  type:'content', section:'09 · ¿IA como mente extendida?', nav:'La doble extensión',
+  title:'Una doble extensión cognitiva',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>10.1 · Extensión del usuario hacia el sistema de IA</h4>
+        <ul class="clean compact">
+          <li>conservar el contexto de un proyecto;</li>
+          <li>generar alternativas y comparar argumentos;</li>
+          <li>organizar una secuencia;</li>
+          <li>revisar decisiones;</li>
+          <li>representar un problema de otra manera.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>10.2 · Extensión de la IA hacia otros sistemas</h4>
+        <ul class="clean compact">
+          <li>buscadores y calculadoras;</li>
+          <li>bases de datos y repositorios documentales;</li>
+          <li>programas estadísticos y calendarios;</li>
+          <li>archivos personales;</li>
+          <li>sistemas de recuperación de información.</li>
+        </ul>
+      </div>
+    </div>
+    <svg class="svg-figure" viewBox="0 0 420 300" role="img" aria-label="Arquitectura: usuario, interfaz, modelo, recuperación, base documental">
+      <defs>
+        <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g>
+        <rect x="120" y="10" width="180" height="38" rx="19" fill="#1f5c5b"/>
+        <text x="210" y="35" text-anchor="middle" font-size="14" font-weight="650" fill="#fff">Usuario</text>
+        <line x1="210" y1="50" x2="210" y2="64" stroke="#1f5c5b" stroke-width="1.5" marker-start="url(#a2)" marker-end="url(#a2)"/>
+        <rect x="100" y="68" width="220" height="38" rx="19" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="210" y="93" text-anchor="middle" font-size="13.5" font-weight="650" fill="#17201f">Interfaz conversacional</text>
+        <line x1="210" y1="108" x2="210" y2="122" stroke="#1f5c5b" stroke-width="1.5" marker-start="url(#a2)" marker-end="url(#a2)"/>
+        <rect x="100" y="126" width="220" height="38" rx="19" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="210" y="151" text-anchor="middle" font-size="13.5" font-weight="650" fill="#17201f">Modelo de lenguaje</text>
+        <line x1="210" y1="166" x2="210" y2="180" stroke="#1f5c5b" stroke-width="1.5" marker-start="url(#a2)" marker-end="url(#a2)"/>
+        <rect x="100" y="184" width="220" height="38" rx="19" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="210" y="209" text-anchor="middle" font-size="13.5" font-weight="650" fill="#17201f">Sistema de recuperación</text>
+        <line x1="210" y1="224" x2="210" y2="238" stroke="#1f5c5b" stroke-width="1.5" marker-start="url(#a2)" marker-end="url(#a2)"/>
+        <rect x="80" y="242" width="260" height="38" rx="19" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="210" y="267" text-anchor="middle" font-size="13.5" font-weight="650" fill="#17201f">Base documental o herramientas</text>
+      </g>
+    </svg>
+    <p class="muted-note">La unidad funcional ya no coincide necesariamente con una sola persona ni con un solo programa.</p>
+  `
+},
+
+/* ---------------- 10 ---------------- */
+{type:'section', section:'10 · Confianza', num:'10', title:'El problema de la confianza', sub:'Una respuesta plausible no es necesariamente verdadera'},
+
+{
+  type:'content', section:'10 · Confianza', nav:'El problema',
+  title:'El problema de la confianza',
+  body:`
+    <p class="lead">La libreta de Otto funciona como extensión porque él confía habitualmente en su contenido. Aplicar este criterio directamente a una IA generativa sería problemático.</p>
+    <p>Un modelo puede producir una respuesta:</p>
+    <div class="chips">
+      <span class="chip">gramaticalmente correcta</span>
+      <span class="chip">coherente</span>
+      <span class="chip">plausible</span>
+      <span class="chip">segura en el tono</span>
+    </div>
+    <p>sin que la información sea verdadera.</p>
+  `
+},
+
+{
+  type:'content', section:'10 · Confianza', nav:'Vigilancia epistémica',
+  title:'Vigilancia epistémica',
+  body:`
+    <p>En el caso de la IA, una integración cognitiva adecuada no puede basarse en la aceptación automática. Debe incluir un mecanismo de vigilancia epistémica:</p>
+    <ul class="clean">
+      <li>Identificar qué afirmaciones requieren verificación.</li>
+      <li>Solicitar o localizar fuentes.</li>
+      <li>Comparar la respuesta con evidencia independiente.</li>
+      <li>Distinguir hechos, inferencias y propuestas.</li>
+      <li>Revisar si la conclusión se sigue de las premisas.</li>
+      <li>Conservar la responsabilidad sobre el resultado.</li>
+    </ul>
+  `
+},
+
+{
+  type:'content', section:'10 · Confianza', nav:'Datos de la encuesta 2025',
+  title:'Encuesta 2025 sobre confianza y pensamiento crítico',
+  body:`
+    <div class="bignums">
+      <div class="bignum"><strong>319</strong><span>trabajadores del conocimiento encuestados</span></div>
+      <div class="bignum"><strong>936</strong><span>ejemplos de uso de IA generativa recopilados</span></div>
+      <div class="bignum"><strong>+</strong><span>mayor confianza en la IA asociada a menor esfuerzo de pensamiento crítico autoinformado</span></div>
+      <div class="bignum"><strong>+</strong><span>mayor confianza en las propias capacidades asociada a mayor pensamiento crítico</span></div>
+    </div>
+    <p>También encontró un desplazamiento del esfuerzo hacia actividades de verificación, integración y supervisión del contenido generado.</p>
+    <p class="muted-note">Por tratarse de una encuesta, estos resultados muestran asociaciones y percepciones, no demuestran por sí solos deterioro cognitivo causado por la IA.</p>
+  `
+},
+
+{
+  type:'content', section:'10 · Confianza', nav:'Consecuencia teórica',
+  title:'Consecuencia teórica',
+  body:`
+    <div class="quote-big">Una mente extendida competente no es una mente que confía ciegamente en su extensión. Es un sistema que incorpora procedimientos para controlar su confiabilidad.</div>
+  `
+},
+
+/* ---------------- 11 ---------------- */
+{type:'section', section:'11 · Agencia', num:'11', title:'Agencia cognitiva', sub:'Quién conserva la dirección de la actividad'},
+
+{
+  type:'content', section:'11 · Agencia', nav:'Qué comprende la agencia',
+  title:'Qué comprende la agencia cognitiva',
+  body:`
+    <p class="lead">La cuestión central no consiste únicamente en determinar cuánto trabajo realiza la IA, sino quién conserva la dirección de la actividad.</p>
+    <div class="v-grid">
+      <div class="v-grid__item"><span>01</span>establecer el objetivo;</div>
+      <div class="v-grid__item"><span>02</span>formular el problema;</div>
+      <div class="v-grid__item"><span>03</span>seleccionar criterios;</div>
+      <div class="v-grid__item"><span>04</span>decidir qué delegar;</div>
+      <div class="v-grid__item"><span>05</span>supervisar el procedimiento;</div>
+      <div class="v-grid__item"><span>06</span>evaluar las respuestas;</div>
+      <div class="v-grid__item"><span>07</span>justificar la decisión final;</div>
+      <div class="v-grid__item"><span>08</span>reconocer los límites del conocimiento.</div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'11 · Agencia', nav:'Descarga dependiente vs autónoma',
+  title:'Descarga dependiente vs autónoma',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>13.1 · Descarga dependiente</h4>
+        <p>La persona delega las operaciones centrales:</p>
+        <div class="eq" style="margin-top:10px">“Haz el análisis”
+“Dame la respuesta correcta”
+“Escribe el trabajo”
+“Decide por mí”</div>
+        <p>La IA produce el contenido y el usuario se limita a aceptarlo, copiarlo o introducir modificaciones superficiales.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>13.2 · Descarga autónoma</h4>
+        <p>La persona utiliza la IA como andamiaje:</p>
+        <div class="eq" style="margin-top:10px;background:#fff">“Propón tres interpretaciones y explica sus supuestos”
+“Identifica debilidades en mi razonamiento”
+“Compara mi argumento con una posición alternativa”
+“Formula contraejemplos para que pueda revisar mi hipótesis”</div>
+        <p>La IA amplía el espacio de posibilidades, pero el usuario conserva la orientación y la evaluación.</p>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'11 · Agencia', nav:'Estudio 2026',
+  title:'Estudio 2026 sobre descarga y agencia',
+  body:`
+    <div class="bignums">
+      <div class="bignum"><strong>589</strong><span>estudiantes universitarios y trabajadores al inicio de su carrera</span></div>
+      <div class="bignum"><strong>2026</strong><span>año de publicación del estudio</span></div>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h4>Descarga dependiente</h4>
+        <p>Se asoció con transferencia de agencia y menor motivación intrínseca.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Descarga autónoma</h4>
+        <p>Se asoció con resultados percibidos más favorables.</p>
+      </div>
+    </div>
+    <p class="muted-note">Es importante subrayar que se trató de un estudio de encuesta con resultados cognitivos percibidos, por lo cual no permite concluir directamente que una modalidad cause desarrollo o deterioro de capacidades.</p>
+  `
+},
+
+/* ---------------- 12 ---------------- */
+{type:'section', section:'12 · Memoria y aprendizaje', num:'12', title:'Memoria, aprendizaje y pensamiento crítico', sub:'Recordar con una IA no es igual que comprender'},
+
+{
+  type:'content', section:'12 · Memoria y aprendizaje', nav:'Tres niveles de competencia',
+  title:'Tres niveles',
+  body:`
+    <div class="ladder">
+      <div class="ladder__step"><b>Disponibilidad</b>La respuesta es accesible externamente.</div>
+      <div class="ladder__step ladder__step--accent"><b>Distribuida</b>La persona resuelve la tarea cuando dispone de la herramienta.</div>
+      <div class="ladder__step"><b>Internalizada</b>La persona puede ejecutar y justificar las operaciones relevantes sin depender completamente del recurso.</div>
+    </div>
+    <p class="muted-note">La educación psicológica no debería buscar exclusivamente competencia internalizada ni exclusivamente competencia distribuida. Debe determinar qué capacidades necesitan aprenderse internamente y cuáles pueden realizarse legítimamente mediante sistemas externos.</p>
+  `
+},
+
+{
+  type:'content', section:'12 · Memoria y aprendizaje', nav:'Memoria como sistema híbrido',
+  title:'La memoria como sistema híbrido',
+  body:`
+    <p>Las personas no memorizan todo el contenido disponible. También aprenden:</p>
+    <div class="chips">
+      <span class="chip">dónde localizarlo</span>
+      <span class="chip">cómo organizarlo</span>
+      <span class="chip">en qué fuente confiar</span>
+      <span class="chip">cuándo recuperarlo</span>
+      <span class="chip">cómo integrarlo</span>
+      <span class="chip">cuándo actualizarlo</span>
+    </div>
+    <p class="muted-note">Una IA puede convertirse en parte de una ecología de memoria al conservar conversaciones, resumir documentos o recuperar materiales. Sin embargo, si la respuesta cambia, la conversación desaparece o el acceso es suspendido, la supuesta extensión pierde estabilidad.</p>
+  `
+},
+
+{
+  type:'content', section:'12 · Memoria y aprendizaje', nav:'Riesgo de sustituir la elaboración',
+  title:'El riesgo de sustituir la elaboración',
+  body:`
+    <p>El aprendizaje profundo requiere actividades como:</p>
+    <ul class="clean two-col">
+      <li>recuperar información;</li>
+      <li>explicar;</li>
+      <li>comparar;</li>
+      <li>generar ejemplos;</li>
+      <li>detectar contradicciones;</li>
+      <li>relacionar ideas;</li>
+      <li>aplicar principios.</li>
+    </ul>
+    <p class="muted-note">Si la IA realiza todas estas operaciones antes de que el estudiante intente hacerlas, puede reducirse la elaboración cognitiva necesaria para aprender.</p>
+  `
+},
+
+{
+  type:'content', section:'12 · Memoria y aprendizaje', nav:'Carga cognitiva ≠ aprendizaje',
+  title:'Reducir carga no significa automáticamente aprender',
+  body:`
+    <p>La IA puede reducir la carga extrínseca, por ejemplo, aclarando instrucciones confusas o transformando un texto complejo en una explicación inicial. Pero también puede sustituir la actividad relevante para construir esquemas.</p>
+    <div class="bignums">
+      <div class="bignum"><strong>39</strong><span>estudios empíricos examinados en la revisión sistemática</span></div>
+      <div class="bignum"><strong>2026</strong><span>año de publicación de la revisión (agosto)</span></div>
+    </div>
+    <div class="callout">Los efectos no fueron uniformes: dependieron del andamiaje, la dosificación, el conocimiento previo y el diseño de la tarea. La revisión advierte que reducir carga no equivale necesariamente a favorecer el aprendizaje y recomienda distinguir entre apoyo y sustitución de la actividad cognitiva.</div>
+  `
+},
+
+{
+  type:'content', section:'12 · Memoria y aprendizaje', nav:'Pensamiento crítico redistribuido',
+  title:'Pensamiento crítico redistribuido',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>Antes de utilizar IA</h4>
+        <ul class="clean compact">
+          <li>búsqueda;</li>
+          <li>recuerdo;</li>
+          <li>generación de argumentos;</li>
+          <li>organización;</li>
+          <li>redacción inicial.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>Al utilizar IA, puede ganar importancia</h4>
+        <ul class="clean compact">
+          <li>formular adecuadamente la solicitud;</li>
+          <li>examinar supuestos;</li>
+          <li>verificar información;</li>
+          <li>comparar versiones;</li>
+          <li>detectar omisiones;</li>
+          <li>integrar resultados;</li>
+          <li>decidir qué aceptar;</li>
+          <li>responsabilizarse de la conclusión.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted-note">El problema surge cuando el usuario omite ambos tipos de esfuerzo: no construye una respuesta propia y tampoco evalúa rigurosamente la respuesta externa. En ese caso no existe una extensión cognitiva enriquecida, sino una delegación sin supervisión.</p>
+  `
+},
+
+/* ---------------- 13 ---------------- */
+{type:'section', section:'13 · Objeciones', num:'13', title:'Objeciones a la hipótesis', sub:'Acoplamiento no equivale a constitución'},
+
+{
+  type:'content', section:'13 · Objeciones', nav:'Objeciones 1 a 4',
+  title:'Objeciones · 1 de 2',
+  body:`
+    <div class="v-grid">
+      <div class="v-grid__item"><span>17.1</span><b>Acoplamiento no equivale a constitución.</b> El aire es necesario para pensar, pero no parece formar parte del pensamiento.</div>
+      <div class="v-grid__item"><span>17.2</span><b>Inflación cognitiva.</b> Si todo recurso útil se considera parte de la mente, sus límites se vuelven excesivamente amplios.</div>
+      <div class="v-grid__item"><span>17.3</span><b>Diferencias entre procesos internos y externos.</b> Los recuerdos biológicos se consolidan, interactúan con emociones, participan en la identidad y se degradan de formas particulares.</div>
+      <div class="v-grid__item"><span>17.4</span><b>Falta de estabilidad.</b> Un sistema de IA puede cambiar de modelo, modificar políticas, perder funciones, requerir pago o dejar de estar disponible.</div>
+    </div>
+    <p class="muted-note">La crítica de inflación cognitiva también señala la dificultad de establecer una marca clara de lo cognitivo.</p>
+  `
+},
+
+{
+  type:'content', section:'13 · Objeciones', nav:'Objeciones 5 a 7',
+  title:'Objeciones · 2 de 2',
+  body:`
+    <div class="cols-3">
+      <div class="card">
+        <h4>17.5 · Falta de transparencia</h4>
+        <p>El usuario normalmente no conoce con precisión qué datos influyeron, qué fuentes fueron utilizadas, por qué se eligió una continuación, qué información fue omitida o cuán confiable es cada afirmación.</p>
+      </div>
+      <div class="card">
+        <h4>17.6 · Problema de la autoría</h4>
+        <p>Cuando una idea emerge del intercambio, resulta difícil determinar qué pertenece al usuario y qué proviene del sistema.</p>
+        <div class="eq" style="margin-top:10px">¿Puede una persona apropiarse de una conclusión que no comprende ni puede justificar?</div>
+      </div>
+      <div class="card card--accent">
+        <h4>17.7 · Dependencia institucional</h4>
+        <p>Servidores, políticas de acceso, condiciones de servicio, tratamiento de datos, decisiones empresariales, conectividad y capacidad económica.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">La mente extendida digital también es una mente infraestructuralmente dependiente.</p>
+      </div>
+    </div>
+  `
+},
+
+/* ---------------- 14 ---------------- */
+{type:'section', section:'14 · Evaluación gradual', num:'14', title:'Una evaluación gradual de la extensión', sub:'Un continuo, no una propiedad de todo o nada'},
+
+{
+  type:'content', section:'14 · Evaluación gradual', nav:'Simulación: continuo 0–6',
+  title:'Simulación: el continuo de la extensión',
+  body:`
+    <div class="sim" id="sim-cont">
+      <div class="sim__head">Simulación · Niveles de relación con la IA</div>
+      <input class="cont-range" id="contRange" type="range" min="0" max="6" step="1" value="0" aria-label="Nivel de extensión cognitiva" />
+      <div class="cont-bar"><div class="cont-bar__fill" id="contFill"></div></div>
+      <div class="cont-title" id="contName"></div>
+      <p class="cont-desc" id="contDesc"></p>
+      <p class="cont-ex" id="contEx"></p>
+    </div>
+    <p class="muted-note">Los niveles superiores no son necesariamente mejores. Una integración intensa puede aumentar capacidades, pero también incrementar dependencia, vulnerabilidad, pérdida de privacidad, automatización de decisiones, transferencia de agencia y dificultad para actuar sin el sistema.</p>
+  `
+},
+
+{
+  type:'content', section:'14 · Evaluación gradual', nav:'Los siete niveles',
+  title:'Los siete niveles',
+  body:`
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>Nivel</th><th>Relación con la IA</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>0. Exposición</strong></td><td>La persona recibe contenido</td><td>Leer una respuesta aislada</td></tr>
+          <tr><td><strong>1. Consulta</strong></td><td>Usa la IA como fuente ocasional</td><td>Pedir una definición</td></tr>
+          <tr><td><strong>2. Descarga</strong></td><td>Delega una operación limitada</td><td>Solicitar que ordene una lista</td></tr>
+          <tr><td><strong>3. Andamiaje</strong></td><td>La IA ayuda a ejecutar la tarea</td><td>Recibir preguntas para revisar un argumento</td></tr>
+          <tr><td><strong>4. Acoplamiento iterativo</strong></td><td>Persona e IA modifican sucesivamente el producto</td><td>Construir y refinar una explicación</td></tr>
+          <tr><td><strong>5. Integración estable</strong></td><td>La herramienta se incorpora regularmente al flujo cognitivo</td><td>Usar un sistema configurado con materiales propios</td></tr>
+          <tr><td><strong>6. Dependencia constitutiva</strong></td><td>La actividad ya no puede realizarse de forma equivalente sin el sistema</td><td>Tomar decisiones siempre mediante un entorno personal de IA</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `
+},
+
+/* ---------------- 15 ---------------- */
+{type:'section', section:'15 · Aplicación y criterios', num:'15', title:'Aplicación y criterios de evaluación', sub:'Caso psicológico · matriz humano-IA · hipótesis · actividad'},
+
+{
+  type:'content', section:'15 · Aplicación y criterios', nav:'Simulación: cuatro usos del caso',
+  title:'Simulación: cuatro usos en el análisis de un caso',
+  body:`
+    <p>Se entrega un caso sobre ansiedad académica. Observa cómo cambia la agencia cognitiva según el uso.</p>
+    <div class="sim" id="sim-usos">
+      <div class="sim__head">Simulación · Del uso sustitutivo al sistema extendido regulado</div>
+      <div class="sim__modes">
+        <button class="sim__btn is-on" data-uso="0">Uso 1 · Sustitución</button>
+        <button class="sim__btn" data-uso="1">Uso 2 · Colaboración superficial</button>
+        <button class="sim__btn" data-uso="2">Uso 3 · Andamiaje metacognitivo</button>
+        <button class="sim__btn" data-uso="3">Uso 4 · Sistema extendido regulado</button>
+      </div>
+      <div class="sim__stage">
+        <div class="uso-panel" id="usoPanel"></div>
+        <div class="meter" id="usoMeter">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="meter-label">Agencia cognitiva conservada por el estudiante</div>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'15 · Aplicación y criterios', nav:'Simulación: matriz A–G',
+  title:'Simulación: matriz de evaluación humano-IA',
+  body:`
+    <p>Marca las dimensiones que puedes responder afirmativamente en tu propio uso de la IA.</p>
+    <div class="sim" id="sim-matriz">
+      <div class="sim__head">Autoevaluación · Siete dimensiones</div>
+      <div class="matriz">
+        <label><input type="checkbox" /><span><b>A · Acoplamiento.</b> ¿La interacción es ocasional o habitual? ¿Existe un proceso iterativo?</span></label>
+        <label><input type="checkbox" /><span><b>B · Función cognitiva.</b> ¿Qué operación realiza la persona y qué operación realiza la herramienta?</span></label>
+        <label><input type="checkbox" /><span><b>C · Agencia.</b> ¿Quién define el problema, establece los criterios y toma la decisión? ¿Puedes rechazar la respuesta?</span></label>
+        <label><input type="checkbox" /><span><b>D · Comprensión.</b> ¿Puedes explicar el resultado, reconstruir el razonamiento y detectar un error?</span></label>
+        <label><input type="checkbox" /><span><b>E · Confiabilidad.</b> ¿Las afirmaciones fueron verificadas? ¿Las fuentes son identificables?</span></label>
+        <label><input type="checkbox" /><span><b>F · Estabilidad.</b> ¿La herramienta conserva información? ¿Qué ocurre si deja de estar disponible?</span></label>
+        <label><input type="checkbox" /><span><b>G · Responsabilidad.</b> ¿Quién responde por el resultado? ¿Se declaró el uso de IA? ¿Se protegieron datos sensibles?</span></label>
+      </div>
+      <div class="cont-bar"><div class="cont-bar__fill" id="matrizBar"></div></div>
+      <p class="sim__out" id="matrizOut"></p>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'15 · Aplicación y criterios', nav:'Hipótesis psicológicas derivadas',
+  title:'Hipótesis psicológicas derivadas',
+  body:`
+    <div class="v-grid">
+      <div class="v-grid__item"><span>H1</span><b>La calidad del acoplamiento importa más que la frecuencia.</b> El desempeño dependería de si el uso es pasivo o interactivo, dependiente o autónomo, acrítico o supervisado, episódico o integrado.</div>
+      <div class="v-grid__item"><span>H2</span><b>El conocimiento previo regula el beneficio.</b> Quienes poseen más conocimiento pueden formular mejores preguntas, detectar errores e integrar respuestas.</div>
+      <div class="v-grid__item"><span>H3</span><b>La IA redistribuye la metacognición.</b> El usuario necesita monitorear no solo su propio pensamiento, sino el funcionamiento del sistema externo.</div>
+      <div class="v-grid__item"><span>H4</span><b>La disponibilidad modifica la memoria.</b> Las personas podrían aprender menos contenido específico, pero desarrollar más memoria sobre rutas de acceso y procedimientos de recuperación.</div>
+      <div class="v-grid__item"><span>H5</span><b>La dependencia puede permanecer oculta.</b> Si la IA produce beneficios inmediatos, el usuario puede no notar la pérdida gradual de autonomía.</div>
+      <div class="v-grid__item"><span>H6</span><b>Retirar la IA revela la naturaleza de la competencia.</b> Comparar el desempeño con y sin acceso permite distinguir competencia internalizada, aumentada y dependencia instrumental.</div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'15 · Aplicación y criterios', nav:'Actividad de clase',
+  title:'Actividad de clase · ¿La IA forma parte de mi proceso de pensamiento?',
+  body:`
+    <div class="steps">
+      <div class="step"><strong>Fase 1 · Resolución individual.</strong> Los estudiantes responden sin IA: ¿debe permitirse que una IA participe en la evaluación inicial de un caso psicológico? Construya una posición con dos argumentos y una objeción. Tiempo sugerido: 15 minutos.</div>
+      <div class="step"><strong>Fase 2 · Resolución con IA.</strong> Interactúan con una IA durante 15 minutos y conservan instrucciones, respuestas, modificaciones, afirmaciones aceptadas y rechazadas.</div>
+      <div class="step"><strong>Fase 3 · Producción final.</strong> Elaboran una nueva respuesta y marcan ideas propias iniciales, ideas sugeridas por la IA, ideas verificadas, ideas descartadas y cambios de posición.</div>
+      <div class="step"><strong>Fase 4 · Análisis psicológico.</strong> Responden qué operaciones fueron delegadas, cuáles permanecieron en el usuario, si hubo descarga dependiente o autónoma y si el estudiante conserva la capacidad de defender la respuesta.</div>
+      <div class="step"><strong>Fase 5 · Transferencia.</strong> Una semana después realizan una tarea relacionada sin IA para comparar desempeño inmediato, retención y transferencia.</div>
+    </div>
+  `
+},
+
+{
+  type:'content', section:'15 · Aplicación y criterios', nav:'Precaución en Psicología',
+  title:'Precaución especial en Psicología',
+  body:`
+    <p>Una IA no debería recibir datos clínicos identificables ni sustituir:</p>
+    <ul class="clean two-col">
+      <li>entrevista profesional;</li>
+      <li>evaluación psicológica;</li>
+      <li>juicio clínico;</li>
+      <li>aplicación e interpretación autorizada de pruebas;</li>
+      <li>formulación de caso;</li>
+      <li>supervisión profesional;</li>
+      <li>decisión de intervención.</li>
+    </ul>
+    <div class="callout">La cuestión no es si la IA “piensa como un psicólogo”, sino qué funciones le son delegadas, con qué evidencia, bajo qué supervisión y quién conserva la responsabilidad.</div>
+    <p class="muted-note">Una herramienta puede extender determinadas operaciones de búsqueda, organización o comparación, pero esto no le concede automáticamente comprensión del caso, responsabilidad ética, conocimiento situado, relación terapéutica, competencia profesional ni autoridad diagnóstica.</p>
+  `
+},
+
+/* ---------------- CIERRE ---------------- */
+{type:'section', section:'Cierre', num:'✓', title:'Resumen y conclusiones', sub:'Lo esencial de la tutoría'},
+
+{
+  type:'content', section:'Cierre', nav:'Resumen',
+  title:'Resumen',
+  body:`
+    <ul class="clean">
+      <li>La hipótesis de la mente extendida propone que algunos procesos cognitivos pueden realizarse mediante sistemas que incluyen cerebro, cuerpo y recursos externos.</li>
+      <li>Su aporte central consiste en desplazar la pregunta desde dónde está físicamente la cognición hacia cómo se organiza funcionalmente una actividad cognitiva.</li>
+      <li>La IA generativa introduce recursos externos que no solo almacenan información, sino que generan, transforman y reorganizan representaciones durante una interacción.</li>
+      <li>Sin embargo, no todo uso de IA constituye una extensión mental.</li>
+      <li>Deben examinarse el grado de integración, la estabilidad del acoplamiento, la función realizada, la confiabilidad, la comprensión del usuario, la conservación de la agencia, la posibilidad de supervisión y las condiciones institucionales.</li>
+      <li>La relación puede representarse como un continuo: herramienta externa, ayuda cognitiva, descarga cognitiva, andamiaje, cognición distribuida, posible extensión mental y dependencia constitutiva.</li>
+    </ul>
+  `
+},
+
+{
+  type:'content', section:'Cierre', nav:'Conclusiones',
+  title:'Conclusiones',
+  body:`
+    <ul class="clean">
+      <li>La pregunta educativa más productiva no es simplemente “¿la IA nos hace pensar más o menos?”, sino qué operaciones cognitivas realiza la persona, cuáles delega, cuáles supervisa y qué capacidades desarrolla o pierde dentro del sistema humano-IA.</li>
+      <li>Desde la Psicología, el reto consiste en estudiar no solamente al individuo ni solamente a la tecnología, sino la unidad funcional formada por la persona, la herramienta, la tarea, el contexto y las prácticas de regulación.</li>
+      <li>La IA puede funcionar como una extensión que amplía el pensamiento o como un sustituto que debilita la autonomía.</li>
+      <li>La diferencia depende, en buena medida, del diseño de la actividad, del conocimiento previo y de la calidad del control metacognitivo.</li>
+    </ul>
+    <div class="callout">Una mente extendida competente no es una mente que confía ciegamente en su extensión: es un sistema que incorpora procedimientos para controlar su confiabilidad.</div>
+  `
+},
+
+{
+  type:'content', section:'Cierre', nav:'Fuentes centrales',
+  title:'Fuentes centrales',
+  body:`
+    <ul class="clean">
+      <li>Clark, A., y Chalmers, D. (1998). <em>The Extended Mind</em>.</li>
+      <li>Sprevak, M. (2019). <em>Extended Cognition</em>. Routledge Encyclopedia of Philosophy.</li>
+      <li>Lee, H.-P. H. et al. (2025). <em>The Impact of Generative AI on Critical Thinking</em>.</li>
+      <li>Smart, P., Clowes, R. y Clark, A. (2025). <em>ChatGPT, Extended: Large Language Models and the Extended Mind</em>.</li>
+      <li>Wang, G. et al. (2026). <em>Generative AI, Cognitive Offloading, and Learner Agency in Higher Education</em>.</li>
+      <li>Qian, W. et al. (2026). <em>Generative AI and Cognitive Load in Education</em>.</li>
+    </ul>
+    <p class="muted-note">Tutoría 2 · Herramientas digitales para las ciencias sociales · Juan Carlos Valderrama Cárdenas</p>
+  `
+}
+
+];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const appEl      = document.getElementById('app');
+const slidesEl   = document.getElementById('slides');
+const indexEl    = document.getElementById('index');
+const barEl      = document.getElementById('bar');
+const sectionEl  = document.getElementById('ctrlSection');
+const countEl    = document.getElementById('ctrlCount');
+const prevBtn    = document.getElementById('prev');
+const nextBtn    = document.getElementById('next');
+const fsBtn      = document.getElementById('fs');
+const toggleBtn  = document.getElementById('toggleIndex');
+const sidebarEl  = document.getElementById('sidebar');
+const scrimEl    = document.getElementById('scrim');
+
+let current = 0;
+
+slidesEl.innerHTML = SLIDES.map((s, i) => {
+  const cls = ['slide'];
+  if (s.type === 'section') cls.push('slide--section');
+  if (s.type === 'cover')   cls.push('slide--cover');
+
+  let inner;
+  if (s.type === 'cover') {
+    inner = `<div class="slide__inner cover">
+      <div class="rule"></div>
+      <div class="kicker">${s.kicker}</div>
+      <h1>${s.title}</h1>
+      ${s.body}
+    </div>`;
+  } else if (s.type === 'section') {
+    inner = `<div class="slide__inner">
+      <div class="sec-num">${s.num}</div>
+      <h2>${s.title}</h2>
+      <p class="sec-sub">${s.sub}</p>
+    </div>`;
+  } else {
+    inner = `<div class="slide__inner">
+      <div class="kicker">${s.section}</div>
+      <h2>${s.title}</h2>
+      ${s.body}
+    </div>`;
+  }
+
+  return `<section class="${cls.join(' ')}" data-i="${i}" aria-hidden="${i === 0 ? 'false' : 'true'}">${inner}</section>`;
+}).join('');
+
+let idxHTML = `<button class="idx-home" data-i="0">Portada</button>`;
+SLIDES.forEach((s, i) => {
+  if (s.type === 'section') {
+    idxHTML += `<button class="idx-section" data-i="${i}">${s.section}</button>`;
+  } else if (s.type === 'content') {
+    idxHTML += `<button class="idx-link" data-i="${i}">${s.nav || s.title}</button>`;
+  }
+});
+indexEl.innerHTML = idxHTML;
+
+/* --- gráfica de secciones --- */
+(function buildChart(){
+  const host = document.getElementById('chart');
+  if (!host) return;
+  const order = [];
+  const counts = {};
+  SLIDES.forEach(s => {
+    if (!(s.section in counts)) { counts[s.section] = 0; order.push(s.section); }
+    counts[s.section]++;
+  });
+  const max = Math.max(...order.map(k => counts[k]));
+  host.innerHTML = order.map(k => `
+    <div class="chart__row">
+      <span class="chart__label">${k}</span>
+      <div class="chart__track"><div class="chart__fill" style="--w:${Math.round((counts[k] / max) * 100)}%"></div></div>
+      <span class="chart__value">${counts[k]}</span>
+    </div>`).join('');
+})();
+
+const slideNodes = Array.from(slidesEl.querySelectorAll('.slide'));
+const navNodes   = Array.from(indexEl.querySelectorAll('[data-i]'));
+
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
+function goTo(i) {
+  i = Math.max(0, Math.min(SLIDES.length - 1, i));
+  current = i;
+
+  slideNodes.forEach((n, k) => {
+    const on = (k === i);
+    n.classList.toggle('is-active', on);
+    n.setAttribute('aria-hidden', on ? 'false' : 'true');
+    if (on) n.scrollTop = 0;
+  });
+
+  navNodes.forEach(n => {
+    const on = (+n.dataset.i === i);
+    n.classList.toggle('is-active', on);
+    if (on) n.setAttribute('aria-current', 'true');
+    else n.removeAttribute('aria-current');
+  });
+
+  const s = SLIDES[i];
+  sectionEl.textContent = s.section;
+  countEl.textContent = `${String(i + 1).padStart(2, '0')} / ${SLIDES.length}`;
+  barEl.style.width = `${((i + 1) / SLIDES.length) * 100}%`;
+
+  prevBtn.disabled = (i === 0);
+  nextBtn.disabled = (i === SLIDES.length - 1);
+
+  const animEls = slideNodes[i].querySelectorAll(
+    '.card, .step, .flow__item, ul.clean li, ol.num li, .chip, .table-wrap, .callout, .eq, .chart__row, .pipe-node, .v-three__item, .v-grid__item, .v-group, .sim, .bignum, .ladder__step, .quote-big'
+  );
+  animEls.forEach((el, k) => {
+    el.style.animationDelay = Math.min(k * 32, 460) + 'ms';
+  });
+
+  try { history.replaceState(null, '', `#slide-${i + 1}`); } catch (e) {}
+
+  const active = indexEl.querySelector('.is-active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+}
+
+(function initFromHash() {
+  const m = location.hash.match(/slide-(\d+)/);
+  const start = m
+    ? Math.min(SLIDES.length - 1, Math.max(0, parseInt(m[1], 10) - 1))
+    : 0;
+  goTo(start);
+})();
+
+nextBtn.addEventListener('click', () => goTo(current + 1));
+prevBtn.addEventListener('click', () => goTo(current - 1));
+
+indexEl.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-i]');
+  if (!b) return;
+  goTo(+b.dataset.i);
+  closeMenu();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.matches('input, textarea, select')) return;
+  switch (e.key) {
+    case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ':
+      e.preventDefault(); goTo(current + 1); break;
+    case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+      e.preventDefault(); goTo(current - 1); break;
+    case 'Home': e.preventDefault(); goTo(0); break;
+    case 'End': e.preventDefault(); goTo(SLIDES.length - 1); break;
+    case 'Escape': closeMenu(); break;
+  }
+});
+
+fsBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    (document.documentElement.requestFullscreen || function(){}).call(document.documentElement);
+  } else {
+    (document.exitFullscreen || function(){}).call(document);
+  }
+});
+
+const ICON_SHOW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9.5 4v16"/></svg>`;
+const ICON_HIDE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9.5 4v16"/><path d="M14.5 12h4"/></svg>`;
+
+let indexHidden = false;
+
+function toggleIndex() {
+  if (window.innerWidth <= 980) {
+    if (sidebarEl.classList.contains('is-open')) closeMenu();
+    else openMenu();
+    return;
+  }
+  indexHidden = !indexHidden;
+  appEl.classList.toggle('app--collapsed', indexHidden);
+  toggleBtn.setAttribute('aria-expanded', String(!indexHidden));
+  toggleBtn.innerHTML = indexHidden ? ICON_SHOW : ICON_HIDE;
+}
+
+toggleBtn.addEventListener('click', toggleIndex);
+
+function openMenu() {
+  sidebarEl.classList.add('is-open');
+  scrimEl.classList.add('is-open');
+  toggleBtn.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  sidebarEl.classList.remove('is-open');
+  scrimEl.classList.remove('is-open');
+  if (window.innerWidth <= 980) toggleBtn.setAttribute('aria-expanded', 'false');
+}
+scrimEl.addEventListener('click', closeMenu);
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 980) {
+    sidebarEl.classList.remove('is-open');
+    scrimEl.classList.remove('is-open');
+  }
+});
+
+window.addEventListener('hashchange', () => {
+  const m = location.hash.match(/slide-(\d+)/);
+  if (!m) return;
+  const i = Math.min(SLIDES.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  if (i !== current) goTo(i);
+});
+
+/* ============================================================
+   SIMULACIONES
+   ============================================================ */
+
+/* --- 1. Entorno --- */
+(function initEntorno(){
+  const root = document.getElementById('entornoChips');
+  const out  = document.getElementById('entornoOut');
+  if (!root || !out) return;
+  root.addEventListener('click', (e) => {
+    const b = e.target.closest('.chip--btn');
+    if (!b) return;
+    [...root.children].forEach(c => c.classList.remove('is-on'));
+    b.classList.add('is-on');
+    out.textContent = '«' + b.textContent.trim() + '» — el entorno no solo entrega información: puede transformar la manera en que la actividad cognitiva se realiza.';
+  });
+})();
+
+/* --- 2. Causal vs constitutivo --- */
+(function initCausal(){
+  const root  = document.getElementById('sim-causal');
+  if (!root) return;
+  const stage = document.getElementById('causalStage');
+  const out   = document.getElementById('causalOut');
+  const btns  = [...root.querySelectorAll('[data-cmode]')];
+
+  const scenes = {
+    causal: {
+      svg: `<svg viewBox="0 0 620 120" style="width:100%;max-width:620px;margin:0 auto;display:block" role="img" aria-label="Un libro causa una idea en el lector">
+        <defs><marker id="ac1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/></marker></defs>
+        <rect x="10" y="34" width="150" height="52" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="85" y="66" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Libro</text>
+        <line x1="164" y1="60" x2="238" y2="60" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#ac1)"/>
+        <text x="201" y="50" text-anchor="middle" font-size="12" fill="#66716f">causa</text>
+        <rect x="242" y="34" width="170" height="52" rx="10" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="327" y="66" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Idea en el lector</text>
+        <line x1="416" y1="60" x2="490" y2="60" stroke="#c9d1cf" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <rect x="494" y="34" width="116" height="52" rx="10" fill="#f4f5f2" stroke="#d9dcd6" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <text x="552" y="66" text-anchor="middle" font-size="12" fill="#9aa5a2">no forma parte</text>
+      </svg>`,
+      text: '3.1 · Relación causal. Un libro puede producir una idea en el lector. En ese caso, el libro causa un cambio cognitivo, pero no forma parte del proceso.'
+    },
+    constitutiva: {
+      svg: `<svg viewBox="0 0 620 150" style="width:100%;max-width:620px;margin:0 auto;display:block" role="img" aria-label="Persona y libreta acopladas en un mismo sistema funcional">
+        <defs><marker id="ac2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/></marker></defs>
+        <ellipse cx="310" cy="76" rx="268" ry="60" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3" stroke-dasharray="5 4"/>
+        <rect x="80" y="46" width="170" height="58" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.5"/>
+        <text x="165" y="81" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Organismo</text>
+        <rect x="370" y="46" width="170" height="58" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.5"/>
+        <text x="455" y="81" text-anchor="middle" font-size="15" font-weight="650" fill="#17201f">Libreta</text>
+        <line x1="254" y1="62" x2="366" y2="62" stroke="#1f5c5b" stroke-width="1.6" marker-start="url(#ac2)" marker-end="url(#ac2)"/>
+        <line x1="254" y1="88" x2="366" y2="88" stroke="#1f5c5b" stroke-width="1.6" marker-start="url(#ac2)" marker-end="url(#ac2)"/>
+        <text x="310" y="140" text-anchor="middle" font-size="12.5" font-weight="650" fill="#1f5c5b">El proceso de recordar está distribuido</text>
+      </svg>`,
+      text: '3.2 · Relación constitutiva. Una libreta utilizada habitualmente para registrar y recuperar información puede intervenir directamente en la realización de la memoria cotidiana.'
+    }
+  };
+
+  function paint(mode){
+    stage.innerHTML = scenes[mode].svg;
+    out.textContent = scenes[mode].text;
+    btns.forEach(b => b.classList.toggle('is-on', b.dataset.cmode === mode));
+  }
+  btns.forEach(b => b.addEventListener('click', () => paint(b.dataset.cmode)));
+  paint('causal');
+})();
+
+/* --- 3. Rotación mental --- */
+(function initRot(){
+  const g   = document.getElementById('rotGroup');
+  const out = document.getElementById('rotOut');
+  const go  = document.getElementById('rotBtn');
+  const btns = [...document.querySelectorAll('#sim-rot [data-mode]')];
+  if (!g || !go) return;
+
+  const texts = {
+    interna: 'Rotación interna: la operación se realiza dentro del organismo.',
+    externa: 'Dispositivo externo: la operación se realiza en el ambiente, fuera de la piel.',
+    implante: 'Implante: la operación se efectúa dentro del organismo, mediante un dispositivo artificial.'
+  };
+  let ang = 0;
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    ang = 0;
+    g.style.transform = 'rotate(0deg)';
+    btns.forEach(x => x.classList.toggle('is-on', x === b));
+    out.textContent = texts[b.dataset.mode];
+  }));
+
+  go.addEventListener('click', () => {
+    ang += 72;
+    g.style.transform = 'rotate(' + ang + 'deg)';
+  });
+
+  out.textContent = texts.interna;
+})();
+
+/* --- 4. Tres estudiantes --- */
+(function initTres(){
+  const root = document.getElementById('sim-tres');
+  if (!root) return;
+  const poolEl  = root.querySelector('#tresPool');
+  const slotsEl = root.querySelector('#tresSlots');
+  const out     = root.querySelector('#tresOut');
+  const tag     = root.querySelector('#tresTag');
+  const stage   = root.querySelector('.sim__stage');
+  const btns    = [...root.querySelectorAll('[data-tmode]')];
+
+  const labels = ['A','B','C','D'];
+  const modes = {
+    mental:   { place: 'en la mente del estudiante',           cls: 'sim__stage sim__stage--mental',   tag: 'En la mente del estudiante' },
+    tarjetas: { place: 'en la mesa, sobre las tarjetas',         cls: 'sim__stage sim__stage--tarjetas', tag: 'Sobre la mesa, con tarjetas físicas' },
+    app:      { place: 'en la aplicación, al reorganizar',       cls: 'sim__stage sim__stage--app',      tag: 'Dentro de la aplicación' }
+  };
+  let mode = 'mental';
+  let placed = [];
+  let pool = [];
+
+  function shuffle(a){
+    for (let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function render(){
+    poolEl.innerHTML = pool.map(l => '<button class="tres-card" data-l="' + l + '">' + l + '</button>').join('');
+    slotsEl.innerHTML = [0,1,2,3].map(i => '<div class="tres-slot">' + (placed[i] || '') + '</div>').join('');
+  }
+
+  function reset(){
+    placed = [];
+    pool = shuffle(labels.slice());
+    out.textContent = 'Selecciona las tarjetas en el orden correcto (A → B → C → D).';
+    tag.textContent = modes[mode].tag;
+    stage.className = modes[mode].cls;
+    render();
+  }
+
+  poolEl.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-l]');
+    if (!b || placed.length >= 4) return;
+    const l = b.dataset.l;
+    pool = pool.filter(x => x !== l);
+    placed.push(l);
+    render();
+    if (placed.length === 4){
+      const ok = placed.join('') === 'ABCD';
+      out.textContent = ok
+        ? 'Orden completado. En esta modalidad, parte de la organización se realizó ' + modes[mode].place + '.'
+        : 'El orden no es A → B → C → D. Pulsa otra modalidad para reiniciar.';
+    }
+  });
+
+  btns.forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.tmode;
+    btns.forEach(x => x.classList.toggle('is-on', x === b));
+    reset();
+  }));
+
+  reset();
+})();
+
+/* --- 5. Otto e Inga --- */
+(function initOtto(){
+  const root = document.getElementById('sim-otto');
+  if (!root) return;
+  const btn = root.querySelector('#ottoBtn');
+  const out = root.querySelector('#ottoOut');
+  const inga = [...root.querySelectorAll('[data-who="inga"] span')];
+  const otto = [...root.querySelectorAll('[data-who="otto"] span')];
+  let timers = [];
+  let running = false;
+
+  function clearAll(){
+    timers.forEach(clearTimeout);
+    timers = [];
+    [...inga, ...otto].forEach(s => s.classList.remove('is-on'));
+  }
+
+  btn.addEventListener('click', () => {
+    if (running) return;
+    running = true;
+    clearAll();
+    out.textContent = 'Recorrido en curso…';
+
+    inga.forEach((s, i) => timers.push(setTimeout(() => s.classList.add('is-on'), i * 420)));
+    otto.forEach((s, i) => timers.push(setTimeout(() => s.classList.add('is-on'), i * 420)));
+
+    timers.push(setTimeout(() => {
+      out.textContent = 'La información almacenada desempeña en los dos casos una función semejante: orientar la acción en función de una creencia previamente disponible.';
+      running = false;
+    }, 4 * 420 + 200));
+  });
+})();
+
+/* --- 6. Bucle iterativo --- */
+(function initBucle(){
+  const root = document.getElementById('sim-bucle');
+  if (!root) return;
+  const nodes = [...root.querySelectorAll('.bucle__node')];
+  const btn = root.querySelector('#bucleBtn');
+  const out = root.querySelector('#bucleOut');
+  let i = 0;
+
+  function paint(){
+    nodes.forEach((n, k) => n.classList.toggle('is-on', k === i));
+    out.textContent = nodes[i].dataset.note;
+  }
+  btn.addEventListener('click', () => { i = (i + 1) % nodes.length; paint(); });
+  paint();
+})();
+
+/* --- 7. Continuo --- */
+(function initCont(){
+  const r    = document.getElementById('contRange');
+  if (!r) return;
+  const name = document.getElementById('contName');
+  const desc = document.getElementById('contDesc');
+  const ex   = document.getElementById('contEx');
+  const fill = document.getElementById('contFill');
+
+  const data = [
+    { n: 'Exposición',              d: 'La persona recibe contenido.',                                    e: 'Leer una respuesta aislada' },
+    { n: 'Consulta',                d: 'Usa la IA como fuente ocasional.',                                e: 'Pedir una definición' },
+    { n: 'Descarga',                d: 'Delega una operación limitada.',                                  e: 'Solicitar que ordene una lista' },
+    { n: 'Andamiaje',               d: 'La IA ayuda a ejecutar la tarea.',                                e: 'Recibir preguntas para revisar un argumento' },
+    { n: 'Acoplamiento iterativo',  d: 'Persona e IA modifican sucesivamente el producto.',               e: 'Construir y refinar una explicación' },
+    { n: 'Integración estable',     d: 'La herramienta se incorpora regularmente al flujo cognitivo.',    e: 'Usar un sistema configurado con materiales propios' },
+    { n: 'Dependencia constitutiva',d: 'La actividad ya no puede realizarse de forma equivalente sin el sistema.', e: 'Tomar decisiones siempre mediante un entorno personal de IA' }
+  ];
+
+  function paint(){
+    const v = +r.value;
+    const d = data[v];
+    name.textContent = v + ' · ' + d.n;
+    desc.textContent = d.d;
+    ex.textContent = 'Ejemplo: ' + d.e;
+    fill.style.width = ((v / 6) * 100) + '%';
+  }
+  r.addEventListener('input', paint);
+  paint();
+})();
+
+/* --- 8. Cuatro usos del caso --- */
+(function initUsos(){
+  const root = document.getElementById('sim-usos');
+  if (!root) return;
+  const btns  = [...root.querySelectorAll('[data-uso]')];
+  const panel = root.querySelector('#usoPanel');
+  const meter = root.querySelector('#usoMeter');
+
+  const data = [
+    {
+      level: 1,
+      html: `<p><strong>Uso 1 · Sustitución.</strong> El estudiante pregunta: “Analiza el caso y dame el diagnóstico, la teoría y la intervención”. Copia la respuesta sin verificarla.</p>
+             <ul class="clean compact">
+               <li>se delega la formulación del problema;</li>
+               <li>se delega la selección teórica;</li>
+               <li>se delega la interpretación;</li>
+               <li>se delega la justificación;</li>
+               <li>se conserva poca agencia cognitiva.</li>
+             </ul>`
+    },
+    {
+      level: 2,
+      html: `<p><strong>Uso 2 · Colaboración superficial.</strong> El estudiante realiza un análisis inicial y solicita: “Mejora la redacción de este texto”.</p>
+             <p>Existe apoyo, pero la IA participa principalmente en la expresión lingüística.</p>`
+    },
+    {
+      level: 3,
+      html: `<p><strong>Uso 3 · Andamiaje metacognitivo.</strong> El estudiante presenta su hipótesis y solicita: “Identifica tres supuestos discutibles, dos explicaciones alternativas y la información adicional necesaria. No establezcas un diagnóstico definitivo”.</p>
+             <p>La IA amplía el espacio de hipótesis, funciona como interlocutor crítico y hace visibles posibles omisiones, sin reemplazar el juicio final.</p>`
+    },
+    {
+      level: 4,
+      html: `<p><strong>Uso 4 · Sistema extendido regulado.</strong> El estudiante analiza el caso sin IA, registra su hipótesis inicial, consulta criterios y bibliografía autorizada, solicita explicaciones alternativas, verifica cada afirmación, documenta qué aportó la IA y explica oralmente la conclusión.</p>
+             <p>La extensión tecnológica está acompañada por regulación metacognitiva y responsabilidad epistémica.</p>`
+    }
+  ];
+
+  function paint(k){
+    panel.innerHTML = data[k].html;
+    [...meter.children].forEach((s, i) => s.classList.toggle('is-on', i < data[k].level));
+    btns.forEach((b, i) => b.classList.toggle('is-on', i === k));
+  }
+  btns.forEach((b, i) => b.addEventListener('click', () => paint(i)));
+  paint(0);
+})();
+
+/* --- 9. Matriz A–G --- */
+(function initMatriz(){
+  const root = document.getElementById('sim-matriz');
+  if (!root) return;
+  const boxes = [...root.querySelectorAll('input[type=checkbox]')];
+  const bar   = root.querySelector('#matrizBar');
+  const out   = root.querySelector('#matrizOut');
+
+  function paint(){
+    const n = boxes.filter(b => b.checked).length;
+    bar.style.width = ((n / boxes.length) * 100) + '%';
+    out.textContent = n + ' de ' + boxes.length + ' dimensiones consideradas. ' +
+      (n === boxes.length
+        ? 'Revisión completa: el sistema puede evaluarse como una unidad funcional.'
+        : 'Revisa las dimensiones pendientes antes de considerar la integración como estable.');
+  }
+  boxes.forEach(b => b.addEventListener('change', paint));
+  paint();
+})();
+</script>
+</body>
+</html>

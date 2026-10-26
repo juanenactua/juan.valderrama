@@ -1,0 +1,2490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tutoría 2 · Formulación de proyectos de investigación en Psicología</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Tutoría 2 · Formulación de proyectos de investigación en Psicología">
+<meta name="jc-descripcion" content="Presentación interactiva para construir antecedentes, estado del conocimiento y brechas de investigación en revisiones narrativas y estudios empíricos, con procedimientos de búsqueda, matrices, lectura crítica, síntesis, tipos de brechas, plantillas y criterios de coherencia entre pregunta, objetivo y diseño.">
+<meta name="jc-tipo" content="Presentación interactiva de clase">
+<meta name="jc-etiquetas" content="Formulación de proyectos, Psicología, Antecedentes de investigación, Estado del conocimiento, Brechas de investigación, Revisión de literatura, Revisión narrativa, Investigación empírica, Pregunta de investigación, Objetivos de investigación, Diseño de investigación, Búsqueda bibliográfica, Bases de datos, Descriptores, Ecuaciones de búsqueda, Criterios de inclusión, Criterios de exclusión, Matriz de antecedentes, Lectura crítica, Síntesis narrativa, Síntesis argumentativa, Convergencias, Divergencias, Brecha conceptual, Brecha teórica, Brecha empírica, Brecha metodológica, Brecha de medición, Brecha poblacional, Brecha contextual, Investigación cuantitativa, Investigación cualitativa, Métodos mixtos, SANRA, PRISMA, JARS, Escritura académica">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --accent:#1f5c5b;
+    --accent-2:#2b7a78;
+    --accent-soft:#e9f1f0;
+    --ink:#17201f;
+    --muted:#66716f;
+    --bg:#f6f6f3;
+    --panel:#ffffff;
+    --line:#e2e4df;
+    --danger-soft:#f7efec;
+    --danger:#a95b47;
+    --sidebar-w:316px;
+    --radius:12px;
+  }
+
+  html,body{height:100%}
+
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    font-size:19px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  button{font-family:inherit}
+
+  .app{display:flex;height:100vh;height:100dvh;overflow:hidden}
+
+  /* ============ SIDEBAR ============ */
+  .sidebar{
+    flex:0 0 var(--sidebar-w);
+    width:var(--sidebar-w);
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    z-index:60;
+    transition:margin-left .32s ease,opacity .26s ease;
+  }
+  .sidebar__head{padding:26px 22px 18px;border-bottom:1px solid var(--line)}
+  .sidebar__kicker{
+    font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;
+  }
+  .sidebar__title{
+    font-size:16px;font-weight:650;line-height:1.3;
+    margin-top:8px;letter-spacing:-.01em;
+  }
+  .sidebar__nav{
+    flex:1;overflow-y:auto;padding:16px 12px 30px;scrollbar-width:thin;
+  }
+  .sidebar__nav::-webkit-scrollbar{width:8px}
+  .sidebar__nav::-webkit-scrollbar-thumb{background:#d9dcd6;border-radius:8px}
+
+  .idx-home{
+    display:flex;align-items:center;gap:10px;width:100%;
+    padding:10px 12px;border:none;background:transparent;text-align:left;
+    border-radius:9px;color:var(--ink);font-size:15px;font-weight:600;
+    cursor:pointer;margin-bottom:4px;transition:background .15s,color .15s;
+  }
+  .idx-home:hover{background:#f1f3ef}
+  .idx-home.is-active{background:var(--accent-soft);color:var(--accent)}
+
+  .idx-section{
+    display:block;width:100%;text-align:left;
+    padding:17px 12px 7px;border:none;background:transparent;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    font-weight:700;color:var(--muted);cursor:pointer;
+    transition:color .15s;
+  }
+  .idx-section:hover{color:var(--accent)}
+  .idx-section.is-active{color:var(--accent)}
+
+  .idx-link{
+    display:block;width:100%;text-align:left;
+    padding:7px 12px;border:none;background:transparent;
+    border-left:2px solid transparent;
+    border-radius:0 8px 8px 0;
+    color:#3d4745;font-size:14.5px;line-height:1.38;cursor:pointer;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .idx-link:hover{background:#f1f3ef;color:var(--ink)}
+  .idx-link.is-active{
+    background:var(--accent-soft);color:var(--accent);
+    border-left-color:var(--accent);font-weight:600;
+  }
+
+  @media (min-width:981px){
+    .app--collapsed .sidebar{
+      margin-left:calc(-1 * var(--sidebar-w));
+      opacity:0;pointer-events:none;
+    }
+  }
+
+  /* ============ STAGE ============ */
+  .stage{flex:1;display:flex;flex-direction:column;min-width:0;position:relative}
+
+  .progress{height:3px;background:var(--line);flex:0 0 3px;position:relative}
+  .progress__bar{
+    position:absolute;inset:0 auto 0 0;width:0;
+    background:var(--accent);transition:width .35s ease;
+  }
+
+  .slides{flex:1;position:relative;overflow:hidden}
+
+  .slide{
+    position:absolute;inset:0;overflow-y:auto;display:flex;
+    padding:clamp(32px,5.5vw,88px) clamp(24px,6vw,100px);
+    opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .34s ease,transform .34s ease,visibility .34s;
+    scrollbar-width:thin;
+  }
+  .slide::-webkit-scrollbar{width:8px}
+  .slide::-webkit-scrollbar-thumb{background:#d9dcd6;border-radius:8px}
+  .slide.is-active{opacity:1;visibility:visible;transform:none}
+  .slide__inner{margin:auto;width:100%;max-width:1080px}
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes riseIn{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes popIn{
+    from{opacity:0;transform:scale(.95)}
+    to{opacity:1;transform:none}
+  }
+
+  .slide.is-active .slide__inner > *{
+    animation:riseIn .55s cubic-bezier(.22,.68,.28,1) both;
+  }
+  .slide.is-active .slide__inner > *:nth-child(1){animation-delay:.04s}
+  .slide.is-active .slide__inner > *:nth-child(2){animation-delay:.10s}
+  .slide.is-active .slide__inner > *:nth-child(3){animation-delay:.16s}
+  .slide.is-active .slide__inner > *:nth-child(4){animation-delay:.22s}
+  .slide.is-active .slide__inner > *:nth-child(5){animation-delay:.28s}
+  .slide.is-active .slide__inner > *:nth-child(6){animation-delay:.34s}
+
+  .slide.is-active .card,
+  .slide.is-active .step,
+  .slide.is-active .flow__item,
+  .slide.is-active ul.clean li,
+  .slide.is-active ol.num li,
+  .slide.is-active .chip,
+  .slide.is-active .table-wrap,
+  .slide.is-active .callout,
+  .slide.is-active .eq,
+  .slide.is-active .chart__row,
+  .slide.is-active .pipe-node,
+  .slide.is-active .v-three__item,
+  .slide.is-active .v-grid__item,
+  .slide.is-active .v-group,
+  .slide.is-active .v-formula__item,
+  .slide.is-active .v-chain__item,
+  .slide.is-active .v-funnel__row{
+    animation:riseIn .5s cubic-bezier(.22,.68,.28,1) both;
+  }
+
+  .slide.is-active .sec-num{animation:popIn .6s cubic-bezier(.22,.68,.28,1) both}
+
+  .card{transition:border-color .2s ease,transform .2s ease}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+
+  /* ============ TYPOGRAPHY ============ */
+  .kicker{
+    font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:14px;
+  }
+  .slide h2{
+    font-size:clamp(29px,3.4vw,42px);line-height:1.15;
+    letter-spacing:-.018em;font-weight:700;margin-bottom:22px;max-width:26ch;
+  }
+  .slide h3{
+    font-size:16.5px;letter-spacing:.02em;margin-bottom:10px;
+    color:var(--accent);font-weight:700;
+  }
+  .slide p{
+    font-size:clamp(18.5px,1.45vw,21px);color:#26302e;
+    margin-bottom:15px;max-width:74ch;
+  }
+  .slide p.lead{
+    font-size:clamp(20px,1.85vw,23.5px);color:var(--ink);line-height:1.5;
+  }
+  .muted-note{
+    color:var(--muted);font-size:17px !important;line-height:1.5;
+    border-top:1px solid var(--line);padding-top:14px;margin-top:20px;
+    max-width:80ch;
+  }
+  strong{font-weight:650}
+
+  /* ============ LISTS ============ */
+  ul.clean,ol.num{list-style:none;margin:6px 0 18px;display:grid;gap:10px}
+  ul.clean li,ol.num li{
+    position:relative;padding-left:26px;font-size:18px;
+    line-height:1.5;color:#26302e;
+  }
+  ul.clean li::before{
+    content:"";position:absolute;left:2px;top:.62em;
+    width:7px;height:7px;border-radius:50%;background:var(--accent);
+  }
+  ol.num{counter-reset:n}
+  ol.num li{counter-increment:n;padding-left:40px}
+  ol.num li::before{
+    content:counter(n);position:absolute;left:0;top:.02em;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent);
+    font-size:13px;font-weight:700;display:grid;place-items:center;
+  }
+  ul.clean.two-col{grid-template-columns:1fr 1fr;column-gap:38px}
+  ul.clean.compact li{font-size:16.5px}
+  ul.clean.compact{gap:7px}
+
+  /* ============ CARDS & COLUMNS ============ */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:10px 0 18px}
+  .cols-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:10px 0 18px}
+  .card{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;
+  }
+  .card h4{
+    font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:9px;font-weight:700;
+  }
+  .card p{font-size:17px;margin-bottom:0;line-height:1.52;max-width:none}
+  .card ul{margin:0}
+  .card--accent{border-color:var(--accent);background:var(--accent-soft)}
+
+  /* ============ CALLOUTS ============ */
+  .callout{
+    background:var(--accent-soft);border-left:3px solid var(--accent);
+    border-radius:0 10px 10px 0;padding:15px 20px;
+    font-size:17.5px;line-height:1.52;margin:10px 0 18px;color:#1f3b39;
+    max-width:82ch;
+  }
+  .callout em{font-style:italic}
+  .callout--no{background:var(--danger-soft);border-left-color:var(--danger);color:#6d3a2c}
+
+  /* ============ CODE ============ */
+  .eq{
+    background:#f0f2ee;border:1px solid var(--line);border-radius:10px;
+    padding:15px 18px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14.5px;line-height:1.6;white-space:pre-wrap;
+    margin:8px 0 18px;color:#243230;max-width:80ch;
+  }
+
+  /* ============ TABLES ============ */
+  .table-wrap{
+    overflow-x:auto;margin:10px 0 18px;
+    border:1px solid var(--line);border-radius:var(--radius);
+  }
+  .table{
+    width:100%;border-collapse:collapse;font-size:15.5px;
+    min-width:700px;background:var(--panel);
+  }
+  .table th{
+    text-align:left;padding:12px 15px;font-size:11.5px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    border-bottom:1px solid var(--line);font-weight:700;
+    vertical-align:bottom;background:#fafbf8;
+  }
+  .table td{
+    padding:12px 15px;border-bottom:1px solid var(--line);
+    vertical-align:top;line-height:1.45;
+  }
+  .table tr:last-child td{border-bottom:none}
+  .table td strong{color:var(--accent)}
+
+  /* ============ CHIPS ============ */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 18px}
+  .chip{
+    border:1px solid var(--line);background:var(--panel);
+    border-radius:999px;padding:7px 15px;font-size:15px;color:#33403e;
+  }
+
+  /* ============ STEPS ============ */
+  .steps{display:grid;gap:0;margin:8px 0 18px;counter-reset:s;max-width:84ch}
+  .step{
+    position:relative;padding:13px 0 13px 52px;
+    border-bottom:1px solid var(--line);
+    font-size:18px;line-height:1.45;
+  }
+  .step:last-child{border-bottom:none}
+  .step::before{
+    counter-increment:s;content:counter(s);
+    position:absolute;left:0;top:13px;width:31px;height:31px;
+    border-radius:50%;background:var(--accent);color:#fff;
+    font-size:14px;font-weight:700;display:grid;place-items:center;
+  }
+
+  /* ============ FLOW ============ */
+  .flow{display:grid;gap:6px;margin:10px 0 18px;max-width:74ch}
+  .flow__item{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:12px 18px;font-size:17.5px;
+  }
+  .flow__arrow{color:var(--accent);font-size:14px;text-align:center;line-height:1}
+
+  /* ============ COVER ============ */
+  .cover .rule{width:60px;height:3px;background:var(--accent);margin-bottom:28px}
+  .cover h1{
+    font-size:clamp(34px,4.8vw,62px);line-height:1.06;
+    letter-spacing:-.027em;font-weight:800;max-width:19ch;margin-bottom:22px;
+  }
+  .cover .lead{
+    color:var(--muted);font-size:clamp(19px,1.7vw,23px);max-width:52ch;
+  }
+  .cover .cover-name{
+    margin-top:26px;font-size:clamp(19px,1.6vw,22px);
+    font-weight:650;color:var(--ink);letter-spacing:.005em;
+  }
+  .cover .cover-role{
+    font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-top:4px;
+  }
+  .cover .hint{
+    margin-top:32px;font-size:14.5px;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:16px;max-width:54ch;
+  }
+
+  /* ============ SECTION SLIDES ============ */
+  .slide--section{background:var(--accent);color:#fff}
+  .slide--section .sec-num{
+    font-size:clamp(64px,12vw,146px);font-weight:800;line-height:.88;
+    letter-spacing:-.04em;color:rgba(255,255,255,.26);margin-bottom:12px;
+  }
+  .slide--section h2{
+    color:#fff;font-size:clamp(32px,4.7vw,54px);
+    max-width:none;margin-bottom:16px;
+  }
+  .slide--section .sec-sub{
+    color:rgba(255,255,255,.86);font-size:clamp(17.5px,1.7vw,21px);
+    max-width:62ch;
+  }
+
+  /* ============ CHART ============ */
+  .chart{display:grid;gap:11px;margin:16px 0 20px;max-width:800px}
+  .chart__row{
+    display:grid;grid-template-columns:minmax(140px,220px) 1fr 48px;
+    gap:14px;align-items:center;font-size:16px;
+  }
+  .chart__label{color:#33403e;line-height:1.3}
+  .chart__track{height:15px;background:#eceee9;border-radius:999px;overflow:hidden}
+  .chart__fill{
+    height:100%;width:0;background:var(--accent);border-radius:999px;
+    transition:width .85s cubic-bezier(.22,.68,.28,1);
+  }
+  .slide.is-active .chart__fill{width:var(--w)}
+  .chart__value{
+    text-align:right;color:var(--muted);
+    font-variant-numeric:tabular-nums;font-size:15px;
+  }
+
+  /* ============ SVG ============ */
+  .svg-figure{width:100%;max-width:920px;margin:14px 0 18px;display:block}
+  .svg-figure text{font-family:inherit}
+  .pipe-node{transform-origin:center}
+
+  /* ============ VISUAL THREE ============ */
+  .v-three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0 20px}
+  .v-three__item{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 18px;position:relative;
+  }
+  .v-three__item--accent{background:var(--accent-soft);border-color:var(--accent)}
+  .v-three__num{
+    display:inline-grid;place-items:center;width:30px;height:30px;
+    border-radius:50%;background:var(--accent);color:#fff;
+    font-size:13px;font-weight:700;margin-bottom:12px;
+  }
+  .v-three__item h4{
+    font-size:16px;color:var(--ink);margin-bottom:6px;
+    text-transform:none;letter-spacing:0;
+  }
+  .v-three__item p{font-size:15.5px;color:#33403e;line-height:1.45;margin:0}
+
+  /* ============ VISUAL GRID ============ */
+  .v-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 18px}
+  .v-grid__item{
+    display:flex;gap:10px;align-items:flex-start;
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:10px 14px;font-size:15.5px;line-height:1.4;
+  }
+  .v-grid__item span{
+    flex:0 0 auto;font-size:12px;font-weight:700;color:var(--accent);
+    background:var(--accent-soft);border-radius:6px;padding:2px 7px;
+    margin-top:1px;
+  }
+
+  /* ============ VISUAL GROUPS ============ */
+  .v-groups{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0 18px}
+  .v-group{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;background:var(--panel);
+  }
+  .v-group--accent{background:var(--accent-soft);border-color:var(--accent)}
+  .v-group h4{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;font-weight:700;
+  }
+  .v-group .chips{margin:0}
+
+  /* ============ VISUAL FORMULA ============ */
+  .v-formula{display:grid;gap:4px;margin:14px 0 20px;max-width:520px}
+  .v-formula__item{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:8px;padding:9px 14px;font-size:15.5px;
+  }
+  .v-formula__item--accent{
+    background:var(--accent-soft);border-color:var(--accent);font-weight:600;
+  }
+  .v-formula__plus{
+    text-align:center;color:var(--accent);font-weight:700;
+    font-size:16px;line-height:1;
+  }
+
+  /* ============ VISUAL CHAIN ============ */
+  .v-chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 18px}
+  .v-chain__item{
+    flex:1 1 140px;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;font-size:14.5px;line-height:1.35;
+  }
+  .v-chain__arrow{color:var(--accent);font-size:18px;font-weight:700}
+
+  /* ============ CONTROLS ============ */
+  .controls{
+    flex:0 0 auto;display:flex;align-items:center;gap:10px;
+    padding:12px clamp(14px,4vw,36px);
+    background:var(--panel);border-top:1px solid var(--line);
+  }
+  .controls__meta{
+    display:flex;flex-direction:column;gap:1px;
+    min-width:0;flex:1;margin-left:6px;
+  }
+  .controls__section{
+    font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .controls__count{
+    font-size:14.5px;color:var(--muted);
+    font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  }
+
+  .btn{
+    display:inline-grid;place-items:center;width:44px;height:44px;
+    border-radius:50%;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink);cursor:pointer;
+    transition:background .15s,border-color .15s,color .15s;
+    flex:0 0 auto;
+  }
+  .btn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .btn:disabled{opacity:.3;cursor:not-allowed}
+  .btn:disabled:hover{background:var(--panel);border-color:var(--line);color:var(--ink)}
+  .btn svg{width:19px;height:19px;display:block}
+
+  .scrim{display:none}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1100px){
+    :root{--sidebar-w:290px}
+    .cols-3{grid-template-columns:1fr 1fr}
+    .v-three{grid-template-columns:1fr}
+  }
+
+  @media (max-width:980px){
+    .sidebar{
+      position:fixed;inset:0 auto 0 0;
+      transform:translateX(-100%);
+      margin-left:0 !important;opacity:1 !important;
+      box-shadow:0 0 60px rgba(0,0,0,.22);
+      pointer-events:auto;
+    }
+    .sidebar.is-open{transform:none}
+    .scrim{
+      display:block;position:fixed;inset:0;
+      background:rgba(15,25,23,.45);
+      opacity:0;pointer-events:none;transition:opacity .25s;z-index:55;
+    }
+    .scrim.is-open{opacity:1;pointer-events:auto}
+    ul.clean.two-col{grid-template-columns:1fr}
+    .cols,.cols-3{grid-template-columns:1fr}
+    .v-grid,.v-groups{grid-template-columns:1fr}
+    .slide{padding:28px 22px 46px}
+    .chart__row{grid-template-columns:minmax(110px,44%) 1fr 38px;font-size:15px}
+  }
+
+  @media (max-width:600px){
+    .controls__section{display:none}
+    .btn{width:41px;height:41px}
+    .cover .hint{display:none}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .slide.is-active .chart__fill{width:var(--w)}
+  }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__head">
+      <div class="sidebar__kicker">Tutoría 2</div>
+      <div class="sidebar__title">Formulación de proyectos de investigación en Psicología</div>
+    </div>
+    <nav class="sidebar__nav" id="index" aria-label="Índice de diapositivas"></nav>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <main class="stage">
+    <div class="progress"><div class="progress__bar" id="bar"></div></div>
+
+    <div class="slides" id="slides"></div>
+
+    <footer class="controls">
+      <button class="btn" id="toggleIndex" aria-label="Mostrar u ocultar el índice" aria-expanded="true" aria-controls="sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M9.5 4v16"/>
+        </svg>
+      </button>
+
+      <button class="btn" id="prev" aria-label="Diapositiva anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 6l-6 6 6 6"/>
+        </svg>
+      </button>
+
+      <button class="btn" id="next" aria-label="Diapositiva siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </button>
+
+      <div class="controls__meta">
+        <div class="controls__section" id="ctrlSection">Apertura</div>
+        <div class="controls__count" id="ctrlCount">01 / 61</div>
+      </div>
+
+      <button class="btn" id="fs" aria-label="Pantalla completa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
+        </svg>
+      </button>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   CONTENIDO DE LAS DIAPOSITIVAS
+   ============================================================ */
+const SLIDES = [
+
+/* ---------- APERTURA ---------- */
+{
+  type:'cover',
+  section:'Apertura',
+  nav:'Portada',
+  kicker:'Tutoría 2',
+  title:'Formulación de proyectos de investigación en Psicología',
+  body:`
+    <p class="lead">Antecedentes, estado del conocimiento y brechas de investigación</p>
+    <p class="cover-name">Juan Carlos Valderrama Cárdenas</p>
+    <p class="cover-role">Tutoría 2</p>
+    <p class="hint">Navega con las flechas ← → · Consulta el índice en el panel lateral · Comparte una diapositiva con #slide-N</p>
+  `
+},
+
+{
+  type:'content',
+  section:'Apertura',
+  nav:'Resultados de aprendizaje',
+  title:'Resultados de aprendizaje',
+  body:`
+    <p class="lead">Al finalizar la tutoría, se espera que el estudiante sea capaz de:</p>
+    <ol class="num">
+      <li><strong>Distinguir</strong> los antecedentes, el estado del conocimiento y las brechas de investigación, reconociendo la función, la operación principal y el producto que aporta cada componente a una revisión narrativa o a una investigación empírica.</li>
+      <li><strong>Formular</strong> una brecha de investigación rigurosa y traducirla en pregunta, objetivo y diseño coherentes, a partir de la comparación crítica de la literatura.</li>
+    </ol>
+    <svg class="svg-figure" viewBox="0 0 920 132" role="img" aria-label="Los antecedentes alimentan el estado del conocimiento, este conduce a las brechas y las brechas al aporte del estudio">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g class="pipe-node">
+        <rect x="8" y="30" width="196" height="70" rx="12" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="106" y="70" text-anchor="middle" font-size="17" font-weight="650" fill="#17201f">Antecedentes</text>
+      </g>
+      <line x1="210" y1="65" x2="242" y2="65" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr)"/>
+      <g class="pipe-node">
+        <rect x="248" y="30" width="212" height="70" rx="12" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="354" y="63" text-anchor="middle" font-size="16" font-weight="650" fill="#17201f">Estado del</text>
+        <text x="354" y="83" text-anchor="middle" font-size="16" font-weight="650" fill="#17201f">conocimiento</text>
+      </g>
+      <line x1="466" y1="65" x2="498" y2="65" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr)"/>
+      <g class="pipe-node">
+        <rect x="504" y="30" width="176" height="70" rx="12" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="592" y="70" text-anchor="middle" font-size="17" font-weight="650" fill="#17201f">Brechas</text>
+      </g>
+      <line x1="686" y1="65" x2="718" y2="65" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr)"/>
+      <g class="pipe-node">
+        <rect x="724" y="30" width="188" height="70" rx="12" fill="#1f5c5b" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="818" y="70" text-anchor="middle" font-size="17" font-weight="650" fill="#ffffff">Aporte del estudio</text>
+      </g>
+    </svg>
+  `
+},
+
+{
+  type:'content',
+  section:'Apertura',
+  nav:'Recorrido de la tutoría',
+  title:'Recorrido de la tutoría',
+  body:`
+    <p>Distribución de las diapositivas por sección.</p>
+    <div class="chart" id="chart"></div>
+    <p class="muted-note">El índice lateral permite saltar a cualquier diapositiva; el resaltado automático indica la sección activa.</p>
+  `
+},
+
+/* ---------- 01 · INTRODUCCIÓN ---------- */
+{type:'section', section:'01 · Introducción', num:'01', title:'Introducción', sub:'Antecedentes, estado del conocimiento y brechas de investigación'},
+
+{
+  type:'content',
+  section:'01 · Introducción',
+  nav:'Tres componentes, tres funciones',
+  title:'Tres componentes, tres funciones',
+  body:`
+    <p>En muchos trabajos académicos estos tres componentes aparecen mezclados, convertidos en una sucesión de resúmenes de artículos o tratados como sinónimos. Sin embargo, cumplen funciones diferentes.</p>
+    <div class="v-three">
+      <div class="v-three__item">
+        <span class="v-three__num">01</span>
+        <h4>Antecedentes</h4>
+        <p>Reconstruyen la trayectoria investigativa.</p>
+      </div>
+      <div class="v-three__item v-three__item--accent">
+        <span class="v-three__num">02</span>
+        <h4>Estado del conocimiento</h4>
+        <p>Organiza críticamente lo que se sabe en la actualidad.</p>
+      </div>
+      <div class="v-three__item">
+        <span class="v-three__num">03</span>
+        <h4>Brechas</h4>
+        <p>Justifican qué falta por comprender y por qué una nueva investigación resulta necesaria.</p>
+      </div>
+    </div>
+    <p class="muted-note">La forma de desarrollarlos cambia según se trate de una revisión de la literatura —particularmente una revisión narrativa— o de una investigación empírica: cuantitativa, cualitativa o mixta.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'01 · Introducción',
+  nav:'La función de esta sección',
+  title:'La función de esta sección dentro de una investigación',
+  body:`
+    <p class="lead">Los antecedentes y el estado del conocimiento no se escriben solamente para demostrar que se consultaron fuentes. Su propósito es construir un argumento científico que conduzca progresivamente hacia el problema, la pregunta y los objetivos de investigación.</p>
+    <svg class="svg-figure" viewBox="0 0 900 86" role="img" aria-label="Cinco preguntas que esta sección debe permitir responder">
+      <defs>
+        <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g>
+        <circle cx="60" cy="43" r="26" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="60" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#1f5c5b">1</text>
+        <text x="60" y="82" text-anchor="middle" font-size="11.5" fill="#33403e">¿Qué se investigó?</text>
+        <line x1="90" y1="43" x2="126" y2="43" stroke="#1f5c5b" stroke-width="1.4" marker-end="url(#arr3)"/>
+        <circle cx="236" cy="43" r="26" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="236" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#1f5c5b">2</text>
+        <text x="236" y="82" text-anchor="middle" font-size="11.5" fill="#33403e">¿Desde qué teorías?</text>
+        <line x1="266" y1="43" x2="302" y2="43" stroke="#1f5c5b" stroke-width="1.4" marker-end="url(#arr3)"/>
+        <circle cx="412" cy="43" r="26" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="412" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#1f5c5b">3</text>
+        <text x="412" y="82" text-anchor="middle" font-size="11.5" fill="#33403e">¿Hallazgos?</text>
+        <line x1="442" y1="43" x2="478" y2="43" stroke="#1f5c5b" stroke-width="1.4" marker-end="url(#arr3)"/>
+        <circle cx="588" cy="43" r="26" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="588" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#1f5c5b">4</text>
+        <text x="588" y="82" text-anchor="middle" font-size="11.5" fill="#33403e">¿Controversias?</text>
+        <line x1="618" y1="43" x2="654" y2="43" stroke="#1f5c5b" stroke-width="1.4" marker-end="url(#arr3)"/>
+        <circle cx="764" cy="43" r="26" fill="#1f5c5b"/>
+        <text x="764" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">5</text>
+        <text x="764" y="82" text-anchor="middle" font-size="11.5" fill="#33403e">¿Qué aportará?</text>
+      </g>
+    </svg>
+    <p>Esta sección debe permitir que el lector responda cinco preguntas:</p>
+    <ol class="num">
+      <li>¿Qué se ha investigado sobre el fenómeno?</li>
+      <li>¿Desde qué teorías, conceptos y métodos se ha estudiado?</li>
+      <li>¿Cuáles son los hallazgos más consistentes?</li>
+      <li>¿Qué controversias o limitaciones subsisten?</li>
+      <li>¿Qué aportará el trabajo actual?</li>
+    </ol>
+  `
+},
+
+{
+  type:'content',
+  section:'01 · Introducción',
+  nav:'La lógica general',
+  title:'La lógica general',
+  body:`
+    <p class="lead">La lógica general debería ser:</p>
+    <div class="steps">
+      <div class="step">Existe un fenómeno psicológico relevante.</div>
+      <div class="step">Ha sido estudiado desde determinadas perspectivas.</div>
+      <div class="step">Los estudios han producido ciertos hallazgos.</div>
+      <div class="step">Esos hallazgos presentan coincidencias, contradicciones o limitaciones.</div>
+      <div class="step">Persiste un problema no resuelto.</div>
+      <div class="step">La investigación propuesta contribuirá a resolverlo.</div>
+    </div>
+  `
+},
+
+/* ---------- 02 · CONCEPTOS FUNDAMENTALES ---------- */
+{type:'section', section:'02 · Conceptos fundamentales', num:'02', title:'Conceptos fundamentales', sub:'Antecedentes · estado del conocimiento · brechas'},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'¿Qué son los antecedentes?',
+  title:'¿Qué son los antecedentes?',
+  body:`
+    <p class="lead">Los antecedentes de investigación son los estudios previos directamente relacionados con el problema que se desea examinar.</p>
+    <p>Un antecedente no es cualquier texto que mencione el tema. Para funcionar como antecedente, una fuente debe aportar información sobre uno o varios de estos elementos:</p>
+    <div class="v-grid">
+      <div class="v-grid__item"><span>01</span>La manera en que se ha definido el fenómeno.</div>
+      <div class="v-grid__item"><span>02</span>Las teorías empleadas para explicarlo.</div>
+      <div class="v-grid__item"><span>03</span>Las variables o categorías estudiadas.</div>
+      <div class="v-grid__item"><span>04</span>Las poblaciones investigadas.</div>
+      <div class="v-grid__item"><span>05</span>Los contextos en los que se ha observado.</div>
+      <div class="v-grid__item"><span>06</span>Los métodos utilizados.</div>
+      <div class="v-grid__item"><span>07</span>Los instrumentos de medición o técnicas de producción de información.</div>
+      <div class="v-grid__item"><span>08</span>Los resultados obtenidos.</div>
+      <div class="v-grid__item"><span>09</span>Las limitaciones reportadas.</div>
+      <div class="v-grid__item"><span>10</span>Las recomendaciones para investigaciones futuras.</div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'Ejemplo: pregunta y antecedentes',
+  title:'Ejemplo: pregunta y antecedentes pertinentes',
+  body:`
+    <p>Supongamos que se formula la siguiente pregunta:</p>
+    <div class="callout"><em>¿Cómo se relaciona el uso de inteligencia artificial generativa con la planificación de textos argumentativos en estudiantes universitarios?</em></div>
+    <p>Serían antecedentes pertinentes:</p>
+    <ul class="clean">
+      <li>Estudios sobre inteligencia artificial generativa y escritura académica.</li>
+      <li>Investigaciones experimentales que comparen escritura con y sin asistencia tecnológica.</li>
+      <li>Estudios psicológicos sobre planificación, autorregulación y carga cognitiva durante la escritura.</li>
+      <li>Investigaciones cualitativas sobre las experiencias de estudiantes que utilizan estas herramientas.</li>
+      <li>Estudios realizados con universitarios, particularmente en contextos latinoamericanos.</li>
+    </ul>
+    <p class="muted-note">En cambio, un artículo dedicado exclusivamente al funcionamiento técnico de los modelos de lenguaje podría servir como contextualización conceptual, pero no necesariamente como antecedente directo de la investigación psicológica.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'¿Qué es el estado del conocimiento?',
+  title:'¿Qué es el estado del conocimiento?',
+  body:`
+    <p class="lead">El estado del conocimiento es una síntesis organizada, crítica e interpretativa de lo que una comunidad académica sabe acerca de un problema en un momento determinado.</p>
+    <p>No equivale a enumerar antecedentes. Implica establecer relaciones entre ellos.</p>
+    <div class="chips">
+      <span class="chip">Síntesis organizada</span>
+      <span class="chip">Lectura crítica</span>
+      <span class="chip">Interpretación</span>
+      <span class="chip">Relaciones entre estudios</span>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'Diferencia fundamental',
+  title:'Diferencia fundamental',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>Un apartado de antecedentes puede decir</h4>
+        <p>García et al. encontraron una relación positiva entre autorregulación y desempeño académico. Posteriormente, Rodríguez et al. identificaron una asociación entre planificación y calidad textual. Por su parte, López et al. observaron…</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Un verdadero estado del conocimiento</h4>
+        <p>En conjunto, los estudios muestran una asociación relativamente consistente entre los procesos de autorregulación y la calidad de los textos académicos. Sin embargo, la mayoría ha evaluado la autorregulación mediante escalas de autoinforme y ha utilizado diseños transversales, lo que limita la posibilidad de identificar cómo operan estos procesos durante la actividad de escritura.</p>
+      </div>
+    </div>
+    <p>La segunda versión:</p>
+    <ul class="clean">
+      <li>Agrupa los estudios.</li>
+      <li>Identifica una tendencia.</li>
+      <li>Valora la evidencia.</li>
+      <li>Reconoce una limitación.</li>
+      <li>Prepara la formulación de una brecha.</li>
+    </ul>
+  `
+},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'¿Qué es una brecha de investigación?',
+  title:'¿Qué es una brecha de investigación?',
+  body:`
+    <p class="lead">Una brecha de investigación es una insuficiencia relevante del conocimiento disponible.</p>
+    <p>Puede consistir en algo que:</p>
+    <div class="v-grid">
+      <div class="v-grid__item"><span>01</span>No se ha estudiado.</div>
+      <div class="v-grid__item"><span>02</span>Ha sido estudiado de forma insuficiente.</div>
+      <div class="v-grid__item"><span>03</span>Ha producido resultados contradictorios.</div>
+      <div class="v-grid__item"><span>04</span>Se ha investigado con métodos limitados.</div>
+      <div class="v-grid__item"><span>05</span>Se ha examinado solamente en algunas poblaciones.</div>
+      <div class="v-grid__item"><span>06</span>Carece de explicación teórica.</div>
+      <div class="v-grid__item"><span>07</span>No ha sido estudiado en determinados contextos.</div>
+      <div class="v-grid__item"><span>08</span>Requiere actualización debido a cambios sociales, culturales o tecnológicos.</div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'Formulación rigurosa de la brecha',
+  title:'Formulación rigurosa de la brecha',
+  body:`
+    <p>Una brecha no se demuestra simplemente afirmando:</p>
+    <div class="callout callout--no">“No existen estudios sobre el tema”.</div>
+    <p>Esta frase es difícil de sostener y frecuentemente es falsa. Una formulación más rigurosa sería:</p>
+    <div class="callout">Aunque se identificaron estudios sobre el uso de inteligencia artificial en la escritura universitaria, son escasas las investigaciones que comparan el proceso de planificación con y sin asistencia tecnológica mediante medidas directas del desempeño.</div>
+    <p class="muted-note">La brecha debe surgir de la comparación sistemática de la literatura, no de una impresión personal.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'02 · Conceptos fundamentales',
+  nav:'Diferencias entre componentes',
+  title:'Diferencias entre componentes',
+  body:`
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Componente</th>
+            <th>Pregunta que responde</th>
+            <th>Operación principal</th>
+            <th>Producto esperado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Antecedentes</strong></td>
+            <td>¿Qué estudios relacionados se han realizado?</td>
+            <td>Identificación y caracterización</td>
+            <td>Mapa de investigaciones previas</td>
+          </tr>
+          <tr>
+            <td><strong>Estado del conocimiento</strong></td>
+            <td>¿Qué sabemos actualmente al integrar esos estudios?</td>
+            <td>Comparación, síntesis e interpretación</td>
+            <td>Explicación organizada del conocimiento disponible</td>
+          </tr>
+          <tr>
+            <td><strong>Brechas</strong></td>
+            <td>¿Qué sigue sin saberse o está insuficientemente resuelto?</td>
+            <td>Evaluación crítica</td>
+            <td>Justificación de una nueva revisión o investigación</td>
+          </tr>
+          <tr>
+            <td><strong>Aporte del estudio</strong></td>
+            <td>¿Qué hará este trabajo frente a la brecha?</td>
+            <td>Delimitación de la contribución</td>
+            <td>Pregunta, objetivo y contribución esperada</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `
+},
+
+/* ---------- 03 · PROCEDIMIENTO COMÚN ---------- */
+{type:'section', section:'03 · Procedimiento común', num:'03', title:'Procedimiento común para las dos vías', sub:'Delimitar · buscar · seleccionar · registrar · leer críticamente'},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Delimitar el objeto de análisis',
+  title:'Delimitar el objeto de análisis',
+  body:`
+    <p class="lead">Antes de buscar literatura, el estudiante debe precisar el alcance del tema.</p>
+    <svg class="svg-figure" viewBox="0 0 760 420" role="img" aria-label="Siete elementos de una delimitación útil alrededor del tema delimitado">
+      <defs>
+        <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#8aa8a5"/>
+        </marker>
+      </defs>
+      <line x1="380" y1="200" x2="530" y2="200" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+      <line x1="380" y1="200" x2="474" y2="317" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+      <line x1="380" y1="200" x2="347" y2="346" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+      <line x1="380" y1="200" x2="245" y2="265" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+      <line x1="380" y1="200" x2="245" y2="135" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+      <line x1="380" y1="200" x2="347" y2="54" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+      <line x1="380" y1="200" x2="474" y2="83" stroke="#8aa8a5" stroke-width="1.2" marker-end="url(#arr4)"/>
+
+      <g>
+        <rect x="440" y="184" width="130" height="32" rx="16" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="505" y="205" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Fenómeno</text>
+      </g>
+      <g>
+        <rect x="404" y="318" width="130" height="32" rx="16" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="469" y="339" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Población</text>
+      </g>
+      <g>
+        <rect x="280" y="338" width="130" height="32" rx="16" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="345" y="359" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Contexto</text>
+      </g>
+      <g>
+        <rect x="150" y="248" width="150" height="32" rx="16" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="225" y="269" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Relación / proceso</text>
+      </g>
+      <g>
+        <rect x="150" y="118" width="130" height="32" rx="16" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="215" y="139" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Periodo</text>
+      </g>
+      <g>
+        <rect x="280" y="38" width="130" height="32" rx="16" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="345" y="59" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Ámbito</text>
+      </g>
+      <g>
+        <rect x="404" y="66" width="140" height="32" rx="16" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="474" y="87" text-anchor="middle" font-size="14" font-weight="650" fill="#17201f">Perspectiva teórica</text>
+      </g>
+
+      <circle cx="380" cy="200" r="72" fill="#1f5c5b"/>
+      <text x="380" y="196" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Tema</text>
+      <text x="380" y="216" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">delimitado</text>
+    </svg>
+    <p class="muted-note">Una delimitación útil incluye: fenómeno psicológico, población, contexto, relación o proceso de interés, periodo histórico, ámbito geográfico o cultural y perspectiva teórica.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Ejemplos de delimitación',
+  title:'Ejemplos de delimitación',
+  body:`
+    <div class="cols-3">
+      <div class="card">
+        <h4>Delimitación deficiente</h4>
+        <p>Uso de redes sociales y salud mental.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Mejor delimitado</h4>
+        <p>Relación entre el uso problemático de redes sociales y los síntomas de ansiedad en estudiantes universitarios latinoamericanos.</p>
+      </div>
+      <div class="card">
+        <h4>Centrado en un proceso cualitativo</h4>
+        <p>Significados atribuidos al uso de redes sociales por estudiantes universitarios que reportan experiencias de ansiedad.</p>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Transformar el tema en preguntas',
+  title:'Transformar el tema en preguntas de búsqueda',
+  body:`
+    <p>Conviene diferenciar la pregunta de investigación de las preguntas utilizadas para revisar la literatura. Para construir los antecedentes se pueden formular preguntas como:</p>
+    <ul class="clean two-col">
+      <li>¿Cómo se ha definido el fenómeno?</li>
+      <li>¿Qué modelos psicológicos se han utilizado?</li>
+      <li>¿Qué variables se han relacionado con él?</li>
+      <li>¿En qué poblaciones se ha investigado?</li>
+      <li>¿Qué diseños y técnicas se han utilizado?</li>
+      <li>¿Qué instrumentos aparecen con mayor frecuencia?</li>
+      <li>¿Cuáles son los principales hallazgos?</li>
+      <li>¿Qué resultados son contradictorios?</li>
+      <li>¿Qué limitaciones reconocen los autores?</li>
+      <li>¿Qué contextos, poblaciones o procesos están poco representados?</li>
+    </ul>
+    <p class="muted-note">Estas preguntas orientan tanto la búsqueda como la lectura.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Bases de datos',
+  title:'Seleccionar bases de datos',
+  body:`
+    <p>Para estudiantes de Psicología resultan especialmente pertinentes:</p>
+    <div class="v-groups">
+      <div class="v-group">
+        <h4>Internacionales</h4>
+        <div class="chips">
+          <span class="chip">APA PsycINFO</span>
+          <span class="chip">PubMed</span>
+          <span class="chip">Scopus</span>
+          <span class="chip">Web of Science</span>
+          <span class="chip">Google Scholar</span>
+        </div>
+      </div>
+      <div class="v-group v-group--accent">
+        <h4>Regionales y locales</h4>
+        <div class="chips">
+          <span class="chip">SciELO</span>
+          <span class="chip">Redalyc</span>
+          <span class="chip">Dialnet</span>
+          <span class="chip">Repositorios institucionales</span>
+        </div>
+      </div>
+    </div>
+    <p class="muted-note">Es aconsejable combinar una base internacional con una regional. De ese modo se reduce el riesgo de construir el estado del conocimiento únicamente con investigaciones provenientes de países angloparlantes.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Descriptores y ecuaciones',
+  title:'Identificar descriptores y combinar términos',
+  body:`
+    <p>Los conceptos deben buscarse en español e inglés.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th>Concepto</th><th>Español</th><th>Inglés</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Regulación emocional</td><td>regulación emocional</td><td>emotion regulation</td></tr>
+          <tr><td>Estudiantes universitarios</td><td>universitarios, estudiantes universitarios</td><td>college students, university students, undergraduates</td></tr>
+          <tr><td>Escritura argumentativa</td><td>escritura argumentativa, texto argumentativo</td><td>argumentative writing, argumentative text</td></tr>
+          <tr><td>Inteligencia artificial generativa</td><td>IA generativa</td><td>generative artificial intelligence, generative AI</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Ejemplo de ecuación:</p>
+    <pre class="eq">("emotion regulation" OR "emotional regulation")
+AND ("university students" OR undergraduates)
+AND (anxiety OR "anxiety symptoms")</pre>
+    <p>Para una búsqueda regional:</p>
+    <pre class="eq">("regulación emocional")
+AND ("estudiantes universitarios")
+AND (ansiedad)
+AND (Colombia OR "América Latina")</pre>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Registro de la búsqueda',
+  title:'Registrar la búsqueda',
+  body:`
+    <p>Como mínimo, se debe registrar:</p>
+    <ul class="clean two-col">
+      <li>Base consultada.</li>
+      <li>Fecha de búsqueda.</li>
+      <li>Ecuación empleada.</li>
+      <li>Número aproximado de resultados.</li>
+      <li>Filtros aplicados.</li>
+      <li>Criterios de inclusión.</li>
+      <li>Criterios de exclusión.</li>
+      <li>Número de documentos finalmente utilizados.</li>
+    </ul>
+    <p class="muted-note">Este registro no convierte automáticamente una revisión narrativa en una revisión sistemática, pero mejora su transparencia.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Criterios de selección',
+  title:'Establecer criterios de selección',
+  body:`
+    <p>Los criterios deben definirse antes de comenzar la redacción.</p>
+    <div class="cols">
+      <div class="card card--accent">
+        <h4>Posibles criterios de inclusión</h4>
+        <ul class="clean compact">
+          <li>Artículos revisados por pares.</li>
+          <li>Estudios publicados dentro de un periodo determinado.</li>
+          <li>Investigaciones con la población de interés.</li>
+          <li>Estudios que examinen directamente el fenómeno.</li>
+          <li>Publicaciones en español, inglés o portugués.</li>
+          <li>Estudios cuantitativos, cualitativos o mixtos, según el objetivo.</li>
+          <li>Textos clásicos indispensables para reconstruir una teoría.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Posibles criterios de exclusión</h4>
+        <ul class="clean compact">
+          <li>Publicaciones sin acceso a información metodológica suficiente.</li>
+          <li>Estudios que empleen el término buscado con un significado diferente.</li>
+          <li>Trabajos centrados en una población ajena al problema.</li>
+          <li>Documentos duplicados.</li>
+          <li>Fuentes de divulgación utilizadas como si fueran evidencia científica.</li>
+          <li>Estudios que no respondan a las preguntas orientadoras.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted-note">Los criterios temporales deben ser razonables. Una búsqueda de los últimos cinco años puede identificar evidencia reciente, pero sería insuficiente si el trabajo necesita reconstruir el desarrollo de una teoría clásica.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Matriz de antecedentes',
+  title:'Elaborar una matriz de antecedentes',
+  body:`
+    <p class="lead">La matriz evita que la lectura se transforme en una acumulación de apuntes desconectados.</p>
+    <p>Modelo de matriz:</p>
+    <div class="chips">
+      <span class="chip">Referencia</span>
+      <span class="chip">País y población</span>
+      <span class="chip">Objetivo</span>
+      <span class="chip">Marco teórico</span>
+      <span class="chip">Diseño y muestra</span>
+      <span class="chip">Técnicas o instrumentos</span>
+      <span class="chip">Hallazgos</span>
+      <span class="chip">Limitaciones</span>
+      <span class="chip">Aporte a mi estudio</span>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Registro según el tipo de estudio',
+  title:'Registro adicional según el tipo de estudio',
+  body:`
+    <div class="cols-3">
+      <div class="card">
+        <h4>Cuantitativos</h4>
+        <ul class="clean compact">
+          <li>Variables.</li>
+          <li>Hipótesis.</li>
+          <li>Tamaño de la muestra.</li>
+          <li>Propiedades de los instrumentos.</li>
+          <li>Tamaños del efecto, cuando estén disponibles.</li>
+          <li>Variables de control.</li>
+          <li>Diseño transversal, longitudinal o experimental.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Cualitativos</h4>
+        <ul class="clean compact">
+          <li>Enfoque metodológico.</li>
+          <li>Estrategia de muestreo.</li>
+          <li>Características de los participantes.</li>
+          <li>Técnica de producción de información.</li>
+          <li>Procedimiento analítico.</li>
+          <li>Categorías o temas principales.</li>
+          <li>Estrategias de reflexividad y rigor.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Mixtos</h4>
+        <ul class="clean compact">
+          <li>Diseño mixto utilizado.</li>
+          <li>Momento de integración.</li>
+          <li>Prioridad cuantitativa o cualitativa.</li>
+          <li>Forma en que se conectaron los resultados.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted-note">Los estándares JARS distinguen orientaciones específicas para investigaciones cuantitativas, cualitativas y mixtas. Su empleo favorece la claridad, la transparencia y, según el tipo de estudio, la reproducibilidad o la integridad metodológica.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Lectura crítica: estudios cuantitativos',
+  title:'Leer críticamente cada antecedente · estudios cuantitativos',
+  body:`
+    <p>No basta con identificar qué concluyó un artículo. Es necesario preguntarse cómo llegó a esa conclusión.</p>
+    <ul class="clean">
+      <li>¿El diseño permite hablar de causalidad o solamente de asociación?</li>
+      <li>¿La muestra es suficiente y pertinente?</li>
+      <li>¿Los instrumentos tienen evidencia de validez y confiabilidad?</li>
+      <li>¿Se controlaron variables alternativas?</li>
+      <li>¿Los resultados poseen relevancia práctica o solo significación estadística?</li>
+      <li>¿La muestra permite generalizar los resultados?</li>
+      <li>¿Las hipótesis fueron previas o surgieron después del análisis?</li>
+    </ul>
+    <p class="muted-note">Los estándares JARS-Quant incluyen orientaciones para investigaciones experimentales, no experimentales, longitudinales, de replicación, ensayos clínicos, estudios N-of-1 y metaanálisis, entre otros diseños. También recomiendan distinguir hipótesis y análisis primarios, secundarios y exploratorios.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'03 · Procedimiento común',
+  nav:'Lectura crítica: cualitativos y mixtos',
+  title:'Lectura crítica · estudios cualitativos y mixtos',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>Estudios cualitativos</h4>
+        <ul class="clean compact">
+          <li>¿El enfoque metodológico es coherente con la pregunta?</li>
+          <li>¿La selección de participantes está justificada?</li>
+          <li>¿Las voces de los participantes aparecen suficientemente representadas?</li>
+          <li>¿El procedimiento analítico está descrito?</li>
+          <li>¿La interpretación se encuentra sustentada en el material empírico?</li>
+          <li>¿Los investigadores examinan su propia posición frente al fenómeno?</li>
+          <li>¿Se consideran explicaciones alternativas?</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>Estudios mixtos</h4>
+        <ul class="clean compact">
+          <li>¿Existía una razón clara para combinar métodos?</li>
+          <li>¿Los componentes cuantitativo y cualitativo se relacionan?</li>
+          <li>¿La integración produjo una comprensión adicional?</li>
+          <li>¿Las divergencias entre resultados fueron analizadas?</li>
+          <li>¿Un componente quedó subordinado sin justificación?</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+/* ---------- 04 · REVISIÓN NARRATIVA ---------- */
+{type:'section', section:'04 · Revisión narrativa', num:'04', title:'Primera vía: revisión narrativa de la literatura', sub:'Los estudios previos como material principal de análisis'},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Propósito en la revisión narrativa',
+  title:'Propósito de los antecedentes en una revisión narrativa',
+  body:`
+    <p class="lead">En una revisión narrativa, los estudios previos constituyen el material principal de análisis. No son solamente una introducción a una recolección posterior de datos.</p>
+    <p>Por esta razón, la revisión debe:</p>
+    <ul class="clean two-col">
+      <li>Delimitar una pregunta o propósito.</li>
+      <li>Explicar cómo se localizó la literatura.</li>
+      <li>Seleccionar fuentes pertinentes.</li>
+      <li>Organizar conceptualmente la evidencia.</li>
+      <li>Comparar perspectivas.</li>
+      <li>Producir una interpretación integradora.</li>
+      <li>Identificar brechas o nuevas líneas de trabajo.</li>
+    </ul>
+    <p class="muted-note">Una revisión narrativa puede ser flexible, histórica, conceptual o teórica. Sin embargo, “narrativa” no significa “arbitraria”. SANRA propone evaluar, entre otros elementos, si la búsqueda se describe con términos y criterios de inclusión, si las afirmaciones importantes cuentan con respaldo y si se emplea evidencia apropiada.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Estructura sugerida',
+  title:'Estructura sugerida para una revisión narrativa',
+  body:`
+    <div class="cols">
+      <div class="card card--accent">
+        <h4>Introducción</h4>
+        <ul class="clean compact">
+          <li>El fenómeno.</li>
+          <li>Su importancia psicológica y social.</li>
+          <li>El problema conceptual o empírico.</li>
+          <li>El objetivo de la revisión.</li>
+          <li>La pregunta orientadora.</li>
+          <li>El alcance adoptado.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Método de búsqueda y selección</h4>
+        <ul class="clean compact">
+          <li>Bases consultadas.</li>
+          <li>Descriptores.</li>
+          <li>Periodo cubierto.</li>
+          <li>Idiomas.</li>
+          <li>Tipos de documentos.</li>
+          <li>Criterios de selección.</li>
+          <li>Procedimiento de análisis o agrupación.</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Modelo de redacción del método',
+  title:'Modelo de redacción del método',
+  body:`
+    <div class="callout">Se realizó una revisión narrativa de publicaciones sobre regulación emocional y ansiedad en estudiantes universitarios. La búsqueda se efectuó en APA PsycINFO, Scopus, PubMed y SciELO, utilizando combinaciones de los términos “emotion regulation”, “emotional regulation”, “anxiety”, “university students” y sus equivalentes en español. Se priorizaron artículos revisados por pares publicados entre 2016 y 2026. También se incluyeron trabajos anteriores cuando resultaban indispensables para presentar los modelos teóricos fundamentales. Los documentos fueron organizados según modelo conceptual, estrategia de evaluación, población y principales hallazgos.</div>
+    <p class="muted-note">Si la revisión fuera sistemática, deberían seguirse estándares específicos de reporte. PRISMA 2020 proporciona una lista de 27 ítems, orientaciones ampliadas y diagramas de flujo para informar por qué se hizo una revisión sistemática, qué métodos se utilizaron y qué resultados se encontraron. No obstante, PRISMA no debe mencionarse como si se hubiera aplicado cuando la revisión es únicamente narrativa.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Organización del estado del conocimiento',
+  title:'Desarrollo del estado del conocimiento',
+  body:`
+    <p>La organización no debería seguir una secuencia del tipo “autor 1, autor 2, autor 3”. Conviene estructurar el texto por ejes de análisis.</p>
+    <div class="cols-3">
+      <div class="card">
+        <h4>A · Histórica</h4>
+        <ul class="clean compact">
+          <li>Formulaciones iniciales.</li>
+          <li>Reformulaciones posteriores.</li>
+          <li>Debates contemporáneos.</li>
+          <li>Tendencias actuales.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>B · Teórica</h4>
+        <ul class="clean compact">
+          <li>Perspectiva cognitiva.</li>
+          <li>Perspectiva sociocultural.</li>
+          <li>Perspectiva metacognitiva.</li>
+          <li>Coincidencias y controversias.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>C · Metodológica</h4>
+        <ul class="clean compact">
+          <li>Estudios experimentales.</li>
+          <li>Estudios correlacionales.</li>
+          <li>Estudios longitudinales.</li>
+          <li>Estudios cualitativos.</li>
+          <li>Convergencias y diferencias metodológicas.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h4>D · Temática</h4>
+        <ul class="clean compact">
+          <li>Factores asociados.</li>
+          <li>Consecuencias psicológicas.</li>
+          <li>Mecanismos explicativos.</li>
+          <li>Estrategias de intervención.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>E · Por población o contexto</h4>
+        <ul class="clean compact">
+          <li>Niñez.</li>
+          <li>Adolescencia.</li>
+          <li>Estudiantes universitarios.</li>
+          <li>Población clínica.</li>
+          <li>Diferencias entre contextos.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted-note">Es posible combinar estructuras. Por ejemplo, organizar primero por perspectivas teóricas y, dentro de cada una, distinguir estudios cuantitativos y cualitativos.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Párrafos de síntesis',
+  title:'Cómo redactar párrafos de síntesis',
+  body:`
+    <p>Un párrafo sólido suele contener cinco movimientos.</p>
+    <div class="v-formula">
+      <div class="v-formula__item">Afirmación integradora</div>
+      <div class="v-formula__plus">+</div>
+      <div class="v-formula__item">Evidencia convergente</div>
+      <div class="v-formula__plus">+</div>
+      <div class="v-formula__item">Contraste o excepción</div>
+      <div class="v-formula__plus">+</div>
+      <div class="v-formula__item">Valoración metodológica</div>
+      <div class="v-formula__plus">+</div>
+      <div class="v-formula__item v-formula__item--accent">Conclusión parcial</div>
+    </div>
+    <div class="steps">
+      <div class="step"><strong>Idea central.</strong> La literatura muestra una asociación consistente entre evitación experiencial y síntomas de ansiedad.</div>
+      <div class="step"><strong>Evidencia convergente.</strong> Esta relación ha sido identificada en estudios transversales con universitarios y en investigaciones longitudinales con población clínica.</div>
+      <div class="step"><strong>Diferencias o matices.</strong> No obstante, la magnitud de la asociación varía según el instrumento empleado y el tipo de ansiedad evaluada.</div>
+      <div class="step"><strong>Evaluación crítica.</strong> La predominancia de medidas de autoinforme impide determinar hasta qué punto los resultados reflejan patrones conductuales o percepciones retrospectivas.</div>
+      <div class="step"><strong>Implicación.</strong> Se requieren diseños que integren autoinformes, medidas conductuales y seguimiento temporal.</div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Presentación de resultados',
+  title:'Cómo presentar los resultados en una revisión narrativa',
+  body:`
+    <p>Los resultados de una revisión narrativa son las regularidades, diferencias, controversias y patrones identificados en la literatura. Pueden presentarse mediante:</p>
+    <ul class="clean two-col">
+      <li>Síntesis temática.</li>
+      <li>Comparación entre modelos.</li>
+      <li>Evolución histórica.</li>
+      <li>Tipología conceptual.</li>
+      <li>Tabla de características de estudios.</li>
+      <li>Mapa de categorías.</li>
+      <li>Esquema de relaciones entre conceptos.</li>
+      <li>Propuesta de un modelo integrador.</li>
+    </ul>
+    <p class="lead" style="margin-top:18px">Ejemplo de resultado narrativo</p>
+    <div class="callout">Los estudios revisados pueden agruparse en tres líneas. La primera considera la inteligencia artificial como apoyo para generar ideas; la segunda analiza su influencia sobre la organización y revisión textual; y la tercera estudia las percepciones de utilidad, confianza y dependencia. Mientras las dos primeras líneas se concentran en indicadores de desempeño, la tercera privilegia cuestionarios de percepción. Son todavía limitados los estudios que examinan simultáneamente procesos cognitivos, producto escrito y experiencia subjetiva.</div>
+    <p class="muted-note">Este tipo de redacción comunica un hallazgo de la revisión, no una simple lista bibliográfica.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Brechas en la revisión (1/2)',
+  title:'Identificación de brechas en una revisión narrativa · 1 de 2',
+  body:`
+    <svg class="svg-figure" viewBox="0 0 900 54" role="img" aria-label="Espectro de los diez tipos de brechas; esta diapositiva destaca los tipos uno a cinco">
+      <g>
+        <rect x="0" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="43" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">1 Conceptual</text>
+        <rect x="90" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="133" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">2 Teórica</text>
+        <rect x="180" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="223" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">3 Empírica</text>
+        <rect x="270" y="10" width="94" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="317" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">4 Metodol.</text>
+        <rect x="368" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="411" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">5 Medición</text>
+        <rect x="458" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="501" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">6 Población</text>
+        <rect x="548" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="591" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">7 Contexto</text>
+        <rect x="638" y="10" width="106" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="691" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">8 Contradic.</text>
+        <rect x="748" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="791" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">9 Interven.</text>
+        <rect x="838" y="10" width="62" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="869" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">10 Integr.</text>
+      </g>
+    </svg>
+    <div class="cols">
+      <div class="card">
+        <h4>16.1 · Brecha conceptual</h4>
+        <p>Se presenta cuando un concepto carece de definición compartida.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">Los estudios utilizan de manera intercambiable los conceptos de uso intensivo, uso problemático y dependencia digital, aunque representan constructos distintos.</p>
+      </div>
+      <div class="card">
+        <h4>16.2 · Brecha teórica</h4>
+        <p>Surge cuando los hallazgos no han sido explicados desde un marco psicológico suficiente.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">La mayoría de los estudios describe cambios en el desempeño, pero pocos explican esos cambios desde modelos de carga cognitiva, autorregulación o metacognición.</p>
+      </div>
+      <div class="card">
+        <h4>16.3 · Brecha empírica</h4>
+        <p>Existe poca evidencia sobre una relación o fenómeno.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">Se dispone de evidencia sobre percepción de utilidad, pero son escasos los estudios que utilizan medidas directas de planificación textual.</p>
+      </div>
+      <div class="card">
+        <h4>16.4 · Brecha metodológica</h4>
+        <p>Los estudios han empleado métodos que dejan preguntas abiertas.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">La predominancia de diseños transversales impide establecer la dirección temporal de la relación entre ansiedad y uso problemático de redes sociales.</p>
+      </div>
+    </div>
+    <div class="card card--accent" style="margin-top:16px">
+      <h4>16.5 · Brecha de medición</h4>
+      <p>Los instrumentos son limitados, heterogéneos o no han sido validados en la población de interés.</p>
+      <p style="margin-top:10px">Los estudios emplean escalas distintas y pocos presentan evidencia de validez para estudiantes colombianos.</p>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Brechas en la revisión (2/2)',
+  title:'Identificación de brechas en una revisión narrativa · 2 de 2',
+  body:`
+    <svg class="svg-figure" viewBox="0 0 900 54" role="img" aria-label="Espectro de los diez tipos de brechas; esta diapositiva destaca los tipos seis a diez">
+      <g>
+        <rect x="0" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="43" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">1 Conceptual</text>
+        <rect x="90" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="133" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">2 Teórica</text>
+        <rect x="180" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="223" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">3 Empírica</text>
+        <rect x="270" y="10" width="94" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="317" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">4 Metodol.</text>
+        <rect x="368" y="10" width="86" height="26" rx="6" fill="#eceee9" stroke="#d9dcd6"/>
+        <text x="411" y="28" text-anchor="middle" font-size="12" font-weight="600" fill="#66716f">5 Medición</text>
+        <rect x="458" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="501" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">6 Población</text>
+        <rect x="548" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="591" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">7 Contexto</text>
+        <rect x="638" y="10" width="106" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="691" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">8 Contradic.</text>
+        <rect x="748" y="10" width="86" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="791" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">9 Interven.</text>
+        <rect x="838" y="10" width="62" height="26" rx="6" fill="#1f5c5b"/>
+        <text x="869" y="28" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">10 Integr.</text>
+      </g>
+    </svg>
+    <div class="cols">
+      <div class="card">
+        <h4>16.6 · Brecha poblacional</h4>
+        <p>Ciertos grupos están ausentes o insuficientemente representados.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">La evidencia se concentra en estudiantes de primeros semestres y ofrece poca información sobre estudiantes próximos a graduarse.</p>
+      </div>
+      <div class="card">
+        <h4>16.7 · Brecha contextual o cultural</h4>
+        <p>El conocimiento proviene mayoritariamente de contextos específicos.</p>
+        <p class="muted-note" style="border:none;padding:0;margin:10px 0 0">La literatura se concentra en universidades de Norteamérica, por lo que no es claro si los resultados se mantienen en contextos latinoamericanos con condiciones educativas y tecnológicas diferentes.</p>
+      </div>
+      <div class="card">
+        <h4>16.8 · Brecha de resultados contradictorios</h4>
+        <p>Algunos estudios informan mejoras en la calidad textual, mientras otros no identifican diferencias o señalan una reducción de la autonomía. Estas divergencias podrían deberse a diferencias en las tareas, el tiempo de exposición y la forma de utilizar la herramienta.</p>
+      </div>
+      <div class="card">
+        <h4>16.9 · Brecha de intervención</h4>
+        <p>Aunque se conoce la relación entre regulación emocional y ansiedad, existe menos evidencia sobre intervenciones breves que puedan implementarse dentro del contexto universitario.</p>
+      </div>
+    </div>
+    <div class="card card--accent" style="margin-top:16px">
+      <h4>16.10 · Brecha de integración</h4>
+      <p>Los estudios cuantitativos describen asociaciones entre variables, mientras los cualitativos muestran experiencias de control, inseguridad y dependencia. Sin embargo, ambas líneas rara vez se integran en un mismo modelo explicativo.</p>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'04 · Revisión narrativa',
+  nav:'Cierre de la revisión narrativa',
+  title:'Cierre de una revisión narrativa',
+  body:`
+    <p>El cierre debe responder:</p>
+    <ul class="clean two-col">
+      <li>¿Qué se sabe con mayor seguridad?</li>
+      <li>¿Qué continúa en discusión?</li>
+      <li>¿Cuáles son las limitaciones de la literatura?</li>
+      <li>¿Cuál es la brecha principal?</li>
+      <li>¿Qué agenda de investigación se propone?</li>
+    </ul>
+    <p class="lead" style="margin-top:18px">Modelo</p>
+    <div class="callout">En síntesis, la literatura sugiere que la asistencia mediante inteligencia artificial puede facilitar la generación y organización inicial de ideas. Sin embargo, la heterogeneidad de las tareas, herramientas y criterios de evaluación dificulta comparar los resultados. Además, predominan estudios basados en percepciones y diseños de una sola medición. Se requieren investigaciones que comparen condiciones con y sin asistencia, empleen indicadores directos del proceso de escritura e incorporen poblaciones universitarias latinoamericanas.</div>
+  `
+},
+
+/* ---------- 05 · INVESTIGACIÓN EMPÍRICA ---------- */
+{type:'section', section:'05 · Investigación empírica', num:'05', title:'Segunda vía: investigaciones empíricas', sub:'Los antecedentes como fundamento para recoger o analizar datos nuevos'},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Propósito en la investigación empírica',
+  title:'Propósito de los antecedentes en una investigación empírica',
+  body:`
+    <p class="lead">En una investigación empírica, los antecedentes no son el producto final. Su función es demostrar por qué es necesario:</p>
+    <ul class="clean two-col">
+      <li>Recoger nuevos datos.</li>
+      <li>Analizar datos existentes de otra manera.</li>
+      <li>Estudiar otra población.</li>
+      <li>Aplicar un diseño diferente.</li>
+      <li>Examinar un mecanismo no considerado.</li>
+      <li>Evaluar una intervención.</li>
+      <li>Integrar métodos cuantitativos y cualitativos.</li>
+    </ul>
+    <p class="muted-note">La revisión de antecedentes debe conducir de manera directa a la pregunta y al diseño.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Secuencia recomendada',
+  title:'Secuencia recomendada para una introducción empírica',
+  body:`
+    <p>Una estructura eficaz puede organizarse en cinco movimientos.</p>
+    <svg class="svg-figure" viewBox="0 0 900 100" role="img" aria-label="Cinco movimientos de una introducción empírica">
+      <defs>
+        <marker id="arr5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g>
+        <rect x="10" y="22" width="150" height="56" rx="10" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="85" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5c5b">1</text>
+        <text x="85" y="65" text-anchor="middle" font-size="12.5" fill="#17201f">Fenómeno</text>
+        <line x1="164" y1="50" x2="188" y2="50" stroke="#1f5c5b" stroke-width="1.5" marker-end="url(#arr5)"/>
+        <rect x="192" y="22" width="150" height="56" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="267" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5c5b">2</text>
+        <text x="267" y="65" text-anchor="middle" font-size="12.5" fill="#17201f">Marco conceptual</text>
+        <line x1="346" y1="50" x2="370" y2="50" stroke="#1f5c5b" stroke-width="1.5" marker-end="url(#arr5)"/>
+        <rect x="374" y="22" width="150" height="56" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="449" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5c5b">3</text>
+        <text x="449" y="65" text-anchor="middle" font-size="12.5" fill="#17201f">Evidencia previa</text>
+        <line x1="528" y1="50" x2="552" y2="50" stroke="#1f5c5b" stroke-width="1.5" marker-end="url(#arr5)"/>
+        <rect x="556" y="22" width="150" height="56" rx="10" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.3"/>
+        <text x="631" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5c5b">4</text>
+        <text x="631" y="65" text-anchor="middle" font-size="12.5" fill="#17201f">Limitaciones y brecha</text>
+        <line x1="710" y1="50" x2="734" y2="50" stroke="#1f5c5b" stroke-width="1.5" marker-end="url(#arr5)"/>
+        <rect x="738" y="22" width="152" height="56" rx="10" fill="#1f5c5b"/>
+        <text x="814" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">5</text>
+        <text x="814" y="65" text-anchor="middle" font-size="12.5" fill="#ffffff">Respuesta del estudio</text>
+      </g>
+    </svg>
+    <div class="steps">
+      <div class="step"><strong>Presentación y relevancia del fenómeno.</strong> Se define el problema y se explica por qué merece investigación.</div>
+      <div class="step"><strong>Marco conceptual.</strong> Se presentan las teorías necesarias para comprenderlo. No es preciso describir todas las teorías posibles, sino las que sustentan las variables, categorías, hipótesis o interpretaciones del estudio.</div>
+      <div class="step"><strong>Evidencia empírica previa.</strong> Se sintetizan los estudios más relevantes: hallazgos consistentes, relaciones entre variables, mecanismos propuestos, diferencias entre poblaciones y resultados contradictorios.</div>
+      <div class="step"><strong>Limitaciones y brecha.</strong> Se muestran las insuficiencias del conocimiento disponible.</div>
+      <div class="step"><strong>Respuesta de la investigación.</strong> Se formulan la pregunta, el objetivo, las hipótesis cuando corresponda, el diseño general y la contribución esperada.</div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Antecedentes cuantitativos',
+  title:'Antecedentes en investigaciones cuantitativas',
+  body:`
+    <p>En una investigación cuantitativa, los antecedentes deben justificar:</p>
+    <ul class="clean two-col">
+      <li>Qué variables se estudiarán.</li>
+      <li>Cómo se espera que se relacionen.</li>
+      <li>Qué mecanismos podrían explicar la relación.</li>
+      <li>Qué variables deberían controlarse.</li>
+      <li>Qué hipótesis se pondrán a prueba.</li>
+      <li>Por qué el diseño seleccionado es adecuado.</li>
+    </ul>
+  `
+},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Cadena argumental',
+  title:'Ejemplo de cadena argumental',
+  body:`
+    <div class="v-chain">
+      <div class="v-chain__item">La autorregulación se relaciona con el desempeño académico.</div>
+      <span class="v-chain__arrow">→</span>
+      <div class="v-chain__item">La planificación es un componente de la autorregulación.</div>
+      <span class="v-chain__arrow">→</span>
+      <div class="v-chain__item">La escritura argumentativa exige planificación de objetivos, argumentos y evidencias.</div>
+      <span class="v-chain__arrow">→</span>
+      <div class="v-chain__item">Las herramientas de inteligencia artificial pueden modificar la distribución de estas actividades.</div>
+      <span class="v-chain__arrow">→</span>
+      <div class="v-chain__item">Los estudios existentes evalúan principalmente el producto final, pero no comparan suficientemente el proceso de planificación.</div>
+      <span class="v-chain__arrow">→</span>
+      <div class="v-chain__item" style="background:var(--accent-soft);border-color:var(--accent)">Se propone comparar la planificación con y sin asistencia.</div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Ejemplo de redacción',
+  title:'Ejemplo de redacción cuantitativa',
+  body:`
+    <div class="callout">Diversos estudios han relacionado la autorregulación con el desempeño en tareas de escritura. Dentro de este proceso, la planificación permite establecer objetivos, seleccionar argumentos y organizar información. La aparición de sistemas de inteligencia artificial generativa introduce una fuente externa de ideas y estructuras textuales que podría modificar este proceso. Sin embargo, buena parte de la evidencia disponible se ha concentrado en la calidad del producto final o en las percepciones de los estudiantes. En consecuencia, se conoce menos sobre los cambios específicos que ocurren durante la planificación. El presente estudio compara el desempeño de los mismos participantes en condiciones de escritura con y sin asistencia tecnológica.</div>
+    <p class="muted-note">La brecha justifica aquí tanto la pregunta como el diseño de medidas repetidas.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Antecedentes cualitativos',
+  title:'Antecedentes en investigaciones cualitativas',
+  body:`
+    <p>En una investigación cualitativa, la revisión no busca necesariamente establecer hipótesis. Debe mostrar:</p>
+    <ul class="clean two-col">
+      <li>Cómo se ha comprendido el fenómeno.</li>
+      <li>Qué significados han sido documentados.</li>
+      <li>Qué voces aparecen representadas.</li>
+      <li>Qué dimensiones de la experiencia permanecen poco exploradas.</li>
+      <li>Qué supuestos dominan la literatura.</li>
+      <li>Por qué se necesita una aproximación situada e interpretativa.</li>
+    </ul>
+    <div class="callout">Los estudios cuantitativos muestran una asociación entre sobrecarga académica y ansiedad. Sin embargo, esta relación no permite comprender cómo los estudiantes reconocen la sobrecarga, qué situaciones consideran más amenazantes ni qué recursos utilizan para afrontarla. Los estudios cualitativos disponibles se han concentrado en estudiantes de medicina, de modo que se conoce menos sobre estas experiencias en programas de ciencias sociales. Por ello, esta investigación busca comprender los significados atribuidos a la sobrecarga académica por estudiantes de Psicología.</div>
+    <p class="muted-note">La brecha no consiste en que “no haya datos”, sino en que falta comprender: la experiencia subjetiva, la interpretación de los participantes, la construcción contextual del fenómeno y procesos que una escala no logra captar.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'05 · Investigación empírica',
+  nav:'Antecedentes mixtos',
+  title:'Antecedentes en investigaciones mixtas',
+  body:`
+    <p>En un estudio mixto se debe justificar no solo el problema, sino también la necesidad de combinar métodos.</p>
+    <h3>Formas frecuentes de justificación</h3>
+    <ul class="clean">
+      <li>Los resultados cuantitativos muestran una tendencia, pero no explican por qué ocurre.</li>
+      <li>Los hallazgos cualitativos identifican categorías cuya frecuencia o distribución se desconoce.</li>
+      <li>Existen contradicciones que requieren triangulación.</li>
+      <li>Se necesita evaluar resultados y procesos.</li>
+      <li>Se pretende desarrollar o adaptar un instrumento a partir de una fase cualitativa.</li>
+      <li>Se desea estudiar simultáneamente eficacia y experiencia de los participantes.</li>
+    </ul>
+    <div class="callout">Las escalas muestran que un grupo de estudiantes presenta niveles elevados de ansiedad académica, pero estos puntajes no explican qué situaciones se experimentan como amenazantes ni cómo se toman decisiones de afrontamiento. Un diseño mixto secuencial explicativo permitiría identificar inicialmente los patrones de ansiedad y, posteriormente, explorar mediante entrevistas las experiencias de participantes con perfiles contrastantes.</div>
+    <p class="muted-note">La brecha justifica aquí la integración metodológica.</p>
+  `
+},
+
+/* ---------- 06 · DEL ARTÍCULO A LA SÍNTESIS ---------- */
+{type:'section', section:'06 · Del artículo a la síntesis', num:'06', title:'Método para pasar de los artículos a una síntesis', sub:'Tres lecturas · codificación · convergencias y divergencias'},
+
+{
+  type:'content',
+  section:'06 · Del artículo a la síntesis',
+  nav:'Tres lecturas',
+  title:'Tres lecturas',
+  body:`
+    <svg class="svg-figure" viewBox="0 0 760 120" role="img" aria-label="Lectura descriptiva, comparativa y explicativa">
+      <defs>
+        <marker id="arr6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g>
+        <rect x="10" y="20" width="210" height="70" rx="12" fill="#e9f1f0" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="115" y="52" text-anchor="middle" font-size="14" font-weight="700" fill="#1f5c5b">1 · Descriptiva</text>
+        <text x="115" y="72" text-anchor="middle" font-size="12.5" fill="#33403e">Datos básicos</text>
+        <line x1="224" y1="55" x2="262" y2="55" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr6)"/>
+        <rect x="266" y="20" width="210" height="70" rx="12" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="371" y="52" text-anchor="middle" font-size="14" font-weight="700" fill="#1f5c5b">2 · Comparativa</text>
+        <text x="371" y="72" text-anchor="middle" font-size="12.5" fill="#33403e">Patrones y contrastes</text>
+        <line x1="480" y1="55" x2="518" y2="55" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr6)"/>
+        <rect x="522" y="20" width="228" height="70" rx="12" fill="#1f5c5b"/>
+        <text x="636" y="52" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">3 · Explicativa</text>
+        <text x="636" y="72" text-anchor="middle" font-size="12.5" fill="#ffffff">Evaluación e integración</text>
+      </g>
+    </svg>
+    <div class="cols-3">
+      <div class="card">
+        <h4>23 · Primera lectura</h4>
+        <p><strong>Clasificación descriptiva.</strong> En la primera lectura se identifican datos básicos:</p>
+        <ul class="clean compact" style="margin-top:10px">
+          <li>Tema.</li>
+          <li>Población.</li>
+          <li>País.</li>
+          <li>Diseño.</li>
+          <li>Instrumentos.</li>
+          <li>Hallazgos.</li>
+          <li>Limitaciones.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>24 · Segunda lectura</h4>
+        <p><strong>Comparación.</strong> Después se buscan patrones:</p>
+        <ul class="clean compact" style="margin-top:10px">
+          <li>¿Qué teorías se repiten?</li>
+          <li>¿Qué variables aparecen relacionadas?</li>
+          <li>¿Qué diseños predominan?</li>
+          <li>¿Qué poblaciones están sobrerrepresentadas?</li>
+          <li>¿Qué resultados convergen?</li>
+          <li>¿Qué resultados se contradicen?</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>25 · Tercera lectura</h4>
+        <p><strong>Evaluación explicativa.</strong> Finalmente se pregunta:</p>
+        <ul class="clean compact" style="margin-top:10px">
+          <li>¿Por qué podrían diferir los resultados?</li>
+          <li>¿Las diferencias se relacionan con el diseño?</li>
+          <li>¿Cambian según la población?</li>
+          <li>¿Dependen del instrumento?</li>
+          <li>¿Los conceptos fueron definidos de maneras distintas?</li>
+          <li>¿Existen cambios históricos o tecnológicos?</li>
+          <li>¿Qué explicación integra mejor el conjunto?</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'06 · Del artículo a la síntesis',
+  nav:'Codificación de antecedentes',
+  title:'Técnica de codificación de antecedentes',
+  body:`
+    <p>Los artículos pueden marcarse con códigos sencillos:</p>
+    <div class="chips">
+      <span class="chip"><strong>T</strong> = aporte teórico</span>
+      <span class="chip"><strong>M</strong> = aporte metodológico</span>
+      <span class="chip"><strong>H</strong> = hallazgo relevante</span>
+      <span class="chip"><strong>C</strong> = contradicción</span>
+      <span class="chip"><strong>L</strong> = limitación</span>
+      <span class="chip"><strong>P</strong> = vacío poblacional</span>
+      <span class="chip"><strong>X</strong> = vacío contextual</span>
+      <span class="chip"><strong>I</strong> = implicación para la investigación</span>
+    </div>
+    <p class="muted-note">Después se agrupan los fragmentos por código. Esto permite abandonar la estructura “un artículo por párrafo” y construir una síntesis temática.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'06 · Del artículo a la síntesis',
+  nav:'Convergencias y divergencias',
+  title:'Tabla de convergencias y divergencias',
+  body:`
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Dimensión</th>
+            <th>Coincidencias</th>
+            <th>Divergencias</th>
+            <th>Explicación posible</th>
+            <th>Implicación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Definición</strong></td>
+            <td>La mayoría incluye control de respuestas emocionales.</td>
+            <td>Algunos modelos incluyen aceptación y otros solamente modificación.</td>
+            <td>Diferencias teóricas.</td>
+            <td>Definir explícitamente el constructo.</td>
+          </tr>
+          <tr>
+            <td><strong>Medición</strong></td>
+            <td>Predominan autoinformes.</td>
+            <td>Se usan escalas diferentes.</td>
+            <td>Falta de estandarización.</td>
+            <td>Comparar instrumentos.</td>
+          </tr>
+          <tr>
+            <td><strong>Población</strong></td>
+            <td>Mayoría de universitarios.</td>
+            <td>Poca evidencia clínica.</td>
+            <td>Accesibilidad de la muestra.</td>
+            <td>Ampliar poblaciones.</td>
+          </tr>
+          <tr>
+            <td><strong>Resultados</strong></td>
+            <td>Asociación con ansiedad.</td>
+            <td>Magnitudes diferentes.</td>
+            <td>Diseños e instrumentos heterogéneos.</td>
+            <td>Realizar estudios comparables.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `
+},
+
+/* ---------- 07 · BRECHA RIGUROSA ---------- */
+{type:'section', section:'07 · Brecha rigurosa', num:'07', title:'Cómo formular una brecha rigurosa', sub:'Del conocimiento acumulado a la respuesta del estudio'},
+
+{
+  type:'content',
+  section:'07 · Brecha rigurosa',
+  nav:'Componentes de una buena formulación',
+  title:'Componentes de una buena formulación',
+  body:`
+    <p>Una brecha completa suele tener cuatro partes.</p>
+    <div class="steps">
+      <div class="step"><strong>Conocimiento acumulado.</strong> La evidencia muestra que la regulación emocional se relaciona con la ansiedad en estudiantes universitarios.</div>
+      <div class="step"><strong>Limitación específica.</strong> Sin embargo, predominan diseños transversales y medidas generales de regulación emocional.</div>
+      <div class="step"><strong>Consecuencia de la limitación.</strong> En consecuencia, no es posible establecer cómo fluctúan las estrategias regulatorias frente a situaciones académicas concretas.</div>
+      <div class="step"><strong>Respuesta del estudio.</strong> Para abordar esta limitación, se realizará un estudio de seguimiento con registros repetidos durante periodos de evaluación académica.</div>
+    </div>
+    <p class="lead">Plantilla general</p>
+    <div class="callout">Aunque la literatura ha mostrado que <em>[conocimiento establecido]</em>, los estudios disponibles se han concentrado en <em>[limitación]</em>. En consecuencia, todavía no se comprende <em>[problema pendiente]</em>. El presente estudio abordará esta brecha mediante <em>[población, diseño o estrategia]</em>.</div>
+  `
+},
+
+{
+  type:'content',
+  section:'07 · Brecha rigurosa',
+  nav:'De la brecha a la pregunta y al objetivo',
+  title:'De la brecha a la pregunta y al objetivo',
+  body:`
+    <p>Debe existir correspondencia directa.</p>
+    <div class="cols-3">
+      <div class="card">
+        <h4>Ejemplo cuantitativo</h4>
+        <p><strong>Brecha:</strong> No se conoce si la relación se mantiene a lo largo del tiempo.</p>
+        <p style="margin-top:10px"><strong>Pregunta:</strong> ¿En qué medida la regulación emocional predice cambios en la ansiedad durante el primer año universitario?</p>
+        <p style="margin-top:10px"><strong>Objetivo:</strong> Analizar la capacidad predictiva de la regulación emocional sobre los cambios en ansiedad durante el primer año universitario.</p>
+        <p style="margin-top:10px"><strong>Diseño esperable:</strong> Longitudinal.</p>
+      </div>
+      <div class="card">
+        <h4>Ejemplo cualitativo</h4>
+        <p><strong>Brecha:</strong> Se conoce la frecuencia del agotamiento, pero no cómo los estudiantes interpretan su aparición.</p>
+        <p style="margin-top:10px"><strong>Pregunta:</strong> ¿Cómo interpretan los estudiantes de Psicología la experiencia de agotamiento académico?</p>
+        <p style="margin-top:10px"><strong>Objetivo:</strong> Comprender los significados atribuidos al agotamiento académico por estudiantes de Psicología.</p>
+        <p style="margin-top:10px"><strong>Diseño esperable:</strong> Estudio cualitativo interpretativo.</p>
+      </div>
+      <div class="card">
+        <h4>Ejemplo mixto</h4>
+        <p><strong>Brecha:</strong> Se conocen los niveles de ansiedad, pero no cómo se relacionan con experiencias académicas específicas.</p>
+        <p style="margin-top:10px"><strong>Pregunta:</strong> ¿Qué perfiles de ansiedad se presentan y cómo explican los estudiantes las experiencias vinculadas con esos perfiles?</p>
+        <p style="margin-top:10px"><strong>Objetivo:</strong> Identificar perfiles de ansiedad y comprender las experiencias académicas asociadas con ellos.</p>
+        <p style="margin-top:10px"><strong>Diseño esperable:</strong> Mixto secuencial explicativo.</p>
+      </div>
+    </div>
+  `
+},
+
+/* ---------- 08 · ERRORES FRECUENTES ---------- */
+{type:'section', section:'08 · Errores frecuentes', num:'08', title:'Errores frecuentes', sub:'Lo que conviene evitar al construir antecedentes, estado del conocimiento y brechas'},
+
+{
+  type:'content',
+  section:'08 · Errores frecuentes',
+  nav:'Errores frecuentes (1/2)',
+  title:'Errores frecuentes · 1 de 2',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>30 · Presentar un inventario de estudios</h4>
+        <p><strong>Problema:</strong> Pérez encontró… Gómez encontró… Ramírez encontró…</p>
+        <p style="margin-top:10px"><strong>Corrección:</strong> Agrupar por tendencias.</p>
+        <p class="muted-note" style="border:none;padding:0;margin-top:10px">Los estudios coinciden en identificar una relación entre ansiedad y evitación; sin embargo, difieren en la magnitud reportada y en los instrumentos empleados.</p>
+      </div>
+      <div class="card">
+        <h4>31 · Confundir marco teórico con antecedentes</h4>
+        <p><strong>El marco teórico presenta:</strong> conceptos, modelos, proposiciones, mecanismos explicativos.</p>
+        <p style="margin-top:10px"><strong>Los antecedentes presentan:</strong> investigaciones realizadas, métodos, resultados, limitaciones.</p>
+        <p class="muted-note" style="border:none;padding:0;margin-top:10px">Ambos se relacionan, pero no son intercambiables.</p>
+      </div>
+    </div>
+    <div class="card card--accent" style="margin-top:18px">
+      <h4>32 · Usar solo fuentes que respaldan la posición del autor</h4>
+      <p>Una buena revisión incluye:</p>
+      <ul class="clean compact" style="margin-top:10px">
+        <li>Evidencia favorable.</li>
+        <li>Resultados nulos.</li>
+        <li>Hallazgos contradictorios.</li>
+        <li>Críticas teóricas.</li>
+        <li>Limitaciones.</li>
+      </ul>
+      <p style="margin-top:10px">Excluir deliberadamente resultados contrarios produce una visión sesgada.</p>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'08 · Errores frecuentes',
+  nav:'Errores frecuentes (2/2)',
+  title:'Errores frecuentes · 2 de 2',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>33 · Afirmar que “no existen estudios”</h4>
+        <p>Solo debería hacerse después de una búsqueda muy amplia. Son preferibles expresiones como:</p>
+        <ul class="clean compact" style="margin-top:10px">
+          <li>“Se identificaron pocos estudios…”</li>
+          <li>“La evidencia localizada es limitada…”</li>
+          <li>“La literatura consultada se concentra en…”</li>
+          <li>“No se encontraron estudios que integraran simultáneamente…”</li>
+          <li>“Dentro de las bases y el periodo consultados, no se identificaron…”</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>34 · Convertir cualquier diferencia contextual en una brecha</h4>
+        <p>No basta con señalar que un fenómeno no se ha estudiado en una universidad específica. Se debe explicar por qué el contexto podría modificarlo.</p>
+        <p style="margin-top:10px"><strong>Formulación débil:</strong> No se han realizado estudios en la Universidad X.</p>
+        <p style="margin-top:10px"><strong>Formulación sólida:</strong> Las investigaciones se han desarrollado principalmente en instituciones con amplia disponibilidad tecnológica. Debido a que el acceso, la alfabetización digital y las políticas de uso pueden modificar la interacción con estas herramientas, es pertinente examinar el fenómeno en universidades con condiciones de acceso heterogéneas.</p>
+      </div>
+    </div>
+    <div class="cols" style="margin-top:18px">
+      <div class="card">
+        <h4>35 · Formular una brecha que el estudio no puede resolver</h4>
+        <ul class="clean compact">
+          <li>Si la brecha es causal, un diseño transversal no será suficiente.</li>
+          <li>Si la brecha es cultural, una muestra pequeña de una sola institución no permitirá representar toda una región.</li>
+          <li>Si la brecha exige comprender experiencias, una encuesta cerrada puede resultar insuficiente.</li>
+        </ul>
+        <p class="muted-note" style="border:none;padding:0;margin-top:10px">La brecha debe ser proporcional al alcance real del estudio.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>36 · Considerar que “más investigación” es una conclusión suficiente</h4>
+        <p>Una revisión debe indicar qué debe investigarse, en qué población, con qué método, para resolver qué problema, desde qué perspectiva teórica y con qué aporte esperado.</p>
+        <p style="margin-top:10px"><strong>En lugar de:</strong> Se necesita más investigación.</p>
+        <p style="margin-top:10px"><strong>Es preferible:</strong> Se requieren estudios longitudinales que examinen si las estrategias de regulación emocional predicen cambios posteriores en ansiedad y que incluyan medidas situacionales además de escalas generales.</p>
+      </div>
+    </div>
+  `
+},
+
+/* ---------- 09 · PLANTILLAS Y VERIFICACIÓN ---------- */
+{type:'section', section:'09 · Plantillas y verificación', num:'09', title:'Plantillas y lista de verificación', sub:'Instrumentos listos para utilizar'},
+
+{
+  type:'content',
+  section:'09 · Plantillas y verificación',
+  nav:'Plantilla: revisión narrativa',
+  title:'Plantilla para el estado del conocimiento en una revisión narrativa',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>1 · Presentación del campo</h4>
+        <ul class="clean compact">
+          <li>Definición del fenómeno.</li>
+          <li>Importancia psicológica y social.</li>
+          <li>Delimitación de la revisión.</li>
+        </ul>
+        <h4 style="margin-top:16px">2 · Desarrollo conceptual</h4>
+        <ul class="clean compact">
+          <li>Principales conceptos.</li>
+          <li>Modelos teóricos.</li>
+          <li>Evolución o controversias.</li>
+        </ul>
+        <h4 style="margin-top:16px">3 · Descripción de la búsqueda</h4>
+        <ul class="clean compact">
+          <li>Bases de datos.</li>
+          <li>Descriptores.</li>
+          <li>Periodo.</li>
+          <li>Criterios de selección.</li>
+          <li>Procedimiento de organización.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>4 · Síntesis de la evidencia</h4>
+        <ul class="clean compact">
+          <li>Eje temático 1.</li>
+          <li>Eje temático 2.</li>
+          <li>Eje temático 3.</li>
+          <li>Comparación entre ejes.</li>
+        </ul>
+        <h4 style="margin-top:16px">5 · Evaluación crítica</h4>
+        <ul class="clean compact">
+          <li>Convergencias.</li>
+          <li>Contradicciones.</li>
+          <li>Limitaciones metodológicas.</li>
+          <li>Poblaciones y contextos ausentes.</li>
+        </ul>
+        <h4 style="margin-top:16px">6 · Brechas</h4>
+        <ul class="clean compact">
+          <li>Brecha conceptual.</li>
+          <li>Brecha empírica.</li>
+          <li>Brecha metodológica.</li>
+          <li>Brecha contextual.</li>
+        </ul>
+        <h4 style="margin-top:16px">7 · Conclusión</h4>
+        <ul class="clean compact">
+          <li>Conocimiento consolidado.</li>
+          <li>Problemas pendientes.</li>
+          <li>Agenda de investigación.</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'09 · Plantillas y verificación',
+  nav:'Plantilla: investigación empírica',
+  title:'Plantilla para una investigación empírica',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>1 · Presentación del problema</h4>
+        <ul class="clean compact">
+          <li>Fenómeno.</li>
+          <li>Población.</li>
+          <li>Relevancia.</li>
+        </ul>
+        <h4 style="margin-top:16px">2 · Marco conceptual</h4>
+        <ul class="clean compact">
+          <li>Teoría central.</li>
+          <li>Constructos.</li>
+          <li>Relaciones esperadas.</li>
+        </ul>
+        <h4 style="margin-top:16px">3 · Antecedentes empíricos</h4>
+        <ul class="clean compact">
+          <li>Hallazgos consistentes.</li>
+          <li>Resultados contradictorios.</li>
+          <li>Diferencias entre poblaciones.</li>
+          <li>Métodos utilizados.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>4 · Evaluación crítica</h4>
+        <ul class="clean compact">
+          <li>Limitaciones de diseño.</li>
+          <li>Limitaciones de medición.</li>
+          <li>Limitaciones poblacionales o contextuales.</li>
+        </ul>
+        <h4 style="margin-top:16px">5 · Brecha específica</h4>
+        <ul class="clean compact">
+          <li>Qué se sabe.</li>
+          <li>Qué no se sabe.</li>
+          <li>Por qué importa resolverlo.</li>
+        </ul>
+        <h4 style="margin-top:16px">6 · Propuesta del estudio</h4>
+        <ul class="clean compact">
+          <li>Pregunta.</li>
+          <li>Objetivo.</li>
+          <li>Hipótesis, si corresponde.</li>
+          <li>Diseño.</li>
+          <li>Contribución.</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'09 · Plantillas y verificación',
+  nav:'Lista de verificación',
+  title:'Lista de verificación para estudiantes',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>39 · Sobre los antecedentes</h4>
+        <ul class="clean compact">
+          <li>Los estudios seleccionados se relacionan directamente con el problema.</li>
+          <li>Se incluyeron investigaciones recientes y trabajos clásicos pertinentes.</li>
+          <li>Se consultaron fuentes internacionales y regionales.</li>
+          <li>Se describieron población, método y hallazgos.</li>
+          <li>Se evaluaron las limitaciones de los estudios.</li>
+          <li>No se escribió un párrafo aislado para cada artículo.</li>
+        </ul>
+        <h4 style="margin-top:16px">40 · Sobre el estado del conocimiento</h4>
+        <ul class="clean compact">
+          <li>La literatura está organizada por ejes.</li>
+          <li>Se identifican hallazgos convergentes.</li>
+          <li>Se muestran resultados contradictorios.</li>
+          <li>Se comparan teorías, métodos o poblaciones.</li>
+          <li>Se diferencian afirmaciones sólidas de conclusiones preliminares.</li>
+          <li>La síntesis produce una comprensión superior a la lectura aislada de las fuentes.</li>
+        </ul>
+      </div>
+      <div class="card card--accent">
+        <h4>41 · Sobre las brechas</h4>
+        <ul class="clean compact">
+          <li>La brecha surge de la revisión y no de una opinión.</li>
+          <li>Se especifica qué falta por conocer.</li>
+          <li>Se explica por qué esa ausencia es importante.</li>
+          <li>Se evita afirmar que “no existen estudios” sin evidencia.</li>
+          <li>La pregunta responde a la brecha.</li>
+          <li>El método propuesto puede abordarla.</li>
+          <li>El aporte no se exagera.</li>
+        </ul>
+        <h4 style="margin-top:16px">42 · Sobre la escritura</h4>
+        <ul class="clean compact">
+          <li>Cada párrafo tiene una idea central.</li>
+          <li>Las afirmaciones importantes están respaldadas por referencias.</li>
+          <li>Se utilizan conectores de comparación y contraste.</li>
+          <li>Se diferencia la voz del autor de las conclusiones de las fuentes.</li>
+          <li>La sección conduce de manera lógica hacia el objetivo.</li>
+          <li>Las citas no reemplazan el análisis.</li>
+        </ul>
+      </div>
+    </div>
+  `
+},
+
+{
+  type:'content',
+  section:'09 · Plantillas y verificación',
+  nav:'Dos vías, un mismo argumento',
+  title:'Dos vías, un mismo argumento',
+  body:`
+    <div class="cols">
+      <div class="card">
+        <h4>Revisión narrativa</h4>
+        <p>La integración crítica de la literatura constituye el resultado central.</p>
+      </div>
+      <div class="card card--accent">
+        <h4>Investigación empírica</h4>
+        <p>Esa integración funciona como fundamento para recoger o analizar datos nuevos.</p>
+      </div>
+    </div>
+    <svg class="svg-figure" viewBox="0 0 900 150" role="img" aria-label="Las dos vías convergen en un argumento científico coherente">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#1f5c5b"/>
+        </marker>
+      </defs>
+      <g class="pipe-node">
+        <rect x="20" y="14" width="270" height="52" rx="26" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="155" y="46" text-anchor="middle" font-size="17" font-weight="650" fill="#17201f">Revisión narrativa</text>
+      </g>
+      <g class="pipe-node">
+        <rect x="610" y="14" width="270" height="52" rx="26" fill="#ffffff" stroke="#1f5c5b" stroke-width="1.4"/>
+        <text x="745" y="46" text-anchor="middle" font-size="17" font-weight="650" fill="#17201f">Investigación empírica</text>
+      </g>
+      <path d="M155 70 C155 100 400 100 400 118" fill="none" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr2)"/>
+      <path d="M745 70 C745 100 500 100 500 118" fill="none" stroke="#1f5c5b" stroke-width="1.6" marker-end="url(#arr2)"/>
+      <g class="pipe-node">
+        <rect x="250" y="112" width="400" height="0" fill="none"/>
+        <text x="450" y="140" text-anchor="middle" font-size="16.5" font-weight="650" fill="#1f5c5b">Argumento científico coherente</text>
+      </g>
+    </svg>
+    <p class="muted-note">En ambos casos, la calidad depende menos de la cantidad de referencias que de la capacidad para seleccionarlas, compararlas, evaluarlas y convertirlas en un argumento científico coherente.</p>
+  `
+},
+
+{
+  type:'content',
+  section:'09 · Plantillas y verificación',
+  nav:'Criterio final de calidad',
+  title:'Criterio final para evaluar la calidad',
+  body:`
+    <p>Un estudiante ha construido adecuadamente los antecedentes, el estado del conocimiento y las brechas cuando el lector puede comprender, sin saltos argumentales:</p>
+    <div class="flow">
+      <div class="flow__item">Qué fenómeno se estudia</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Cómo ha sido conceptualizado</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Cómo se ha investigado</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Qué resultados se han obtenido</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Qué limitaciones o contradicciones existen</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Qué falta por conocer</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Por qué el nuevo trabajo es necesario</div>
+      <div class="flow__arrow">↓</div>
+      <div class="flow__item">Cómo su pregunta, objetivo y método responden a esa necesidad</div>
+    </div>
+    <p class="muted-note">La diferencia principal entre las dos vías es que, en una revisión narrativa, la integración crítica de la literatura constituye el resultado central; mientras que, en una investigación empírica, esa integración funciona como fundamento para recoger o analizar datos nuevos. En ambos casos, la calidad depende menos de la cantidad de referencias que de la capacidad para seleccionarlas, compararlas, evaluarlas y convertirlas en un argumento científico coherente.</p>
+  `
+}
+
+];
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const appEl      = document.getElementById('app');
+const slidesEl   = document.getElementById('slides');
+const indexEl    = document.getElementById('index');
+const barEl      = document.getElementById('bar');
+const sectionEl  = document.getElementById('ctrlSection');
+const countEl    = document.getElementById('ctrlCount');
+const prevBtn    = document.getElementById('prev');
+const nextBtn    = document.getElementById('next');
+const fsBtn      = document.getElementById('fs');
+const toggleBtn  = document.getElementById('toggleIndex');
+const sidebarEl  = document.getElementById('sidebar');
+const scrimEl    = document.getElementById('scrim');
+
+let current = 0;
+
+slidesEl.innerHTML = SLIDES.map((s, i) => {
+  const cls = ['slide'];
+  if (s.type === 'section') cls.push('slide--section');
+  if (s.type === 'cover')   cls.push('slide--cover');
+
+  let inner;
+  if (s.type === 'cover') {
+    inner = `<div class="slide__inner cover">
+      <div class="rule"></div>
+      <div class="kicker">${s.kicker}</div>
+      <h1>${s.title}</h1>
+      ${s.body}
+    </div>`;
+  } else if (s.type === 'section') {
+    inner = `<div class="slide__inner">
+      <div class="sec-num">${s.num}</div>
+      <h2>${s.title}</h2>
+      <p class="sec-sub">${s.sub}</p>
+    </div>`;
+  } else {
+    inner = `<div class="slide__inner">
+      <div class="kicker">${s.section}</div>
+      <h2>${s.title}</h2>
+      ${s.body}
+    </div>`;
+  }
+
+  return `<section class="${cls.join(' ')}" data-i="${i}" aria-hidden="${i === 0 ? 'false' : 'true'}">${inner}</section>`;
+}).join('');
+
+let idxHTML = `<button class="idx-home" data-i="0">Portada</button>`;
+SLIDES.forEach((s, i) => {
+  if (s.type === 'section') {
+    idxHTML += `<button class="idx-section" data-i="${i}">${s.section}</button>`;
+  } else if (s.type === 'content') {
+    idxHTML += `<button class="idx-link" data-i="${i}">${s.nav || s.title}</button>`;
+  }
+});
+indexEl.innerHTML = idxHTML;
+
+(function buildChart(){
+  const host = document.getElementById('chart');
+  if (!host) return;
+  const order = [];
+  const counts = {};
+  SLIDES.forEach(s => {
+    if (!(s.section in counts)) { counts[s.section] = 0; order.push(s.section); }
+    counts[s.section]++;
+  });
+  const max = Math.max(...order.map(k => counts[k]));
+  host.innerHTML = order.map(k => `
+    <div class="chart__row">
+      <span class="chart__label">${k}</span>
+      <div class="chart__track"><div class="chart__fill" style="--w:${Math.round((counts[k] / max) * 100)}%"></div></div>
+      <span class="chart__value">${counts[k]}</span>
+    </div>`).join('');
+})();
+
+const slideNodes = Array.from(slidesEl.querySelectorAll('.slide'));
+const navNodes   = Array.from(indexEl.querySelectorAll('[data-i]'));
+
+function goTo(i, opts = {}) {
+  i = Math.max(0, Math.min(SLIDES.length - 1, i));
+  current = i;
+
+  slideNodes.forEach((n, k) => {
+    const on = (k === i);
+    n.classList.toggle('is-active', on);
+    n.setAttribute('aria-hidden', on ? 'false' : 'true');
+    if (on) n.scrollTop = 0;
+  });
+
+  navNodes.forEach(n => {
+    const on = (+n.dataset.i === i);
+    n.classList.toggle('is-active', on);
+    if (on) n.setAttribute('aria-current', 'true');
+    else n.removeAttribute('aria-current');
+  });
+
+  const s = SLIDES[i];
+  sectionEl.textContent = s.section;
+  countEl.textContent = `${String(i + 1).padStart(2, '0')} / ${SLIDES.length}`;
+  barEl.style.width = `${((i + 1) / SLIDES.length) * 100}%`;
+
+  prevBtn.disabled = (i === 0);
+  nextBtn.disabled = (i === SLIDES.length - 1);
+
+  const animEls = slideNodes[i].querySelectorAll(
+    '.card, .step, .flow__item, ul.clean li, ol.num li, .chip, .table-wrap, .callout, .eq, .chart__row, .pipe-node, .v-three__item, .v-grid__item, .v-group, .v-formula__item, .v-chain__item'
+  );
+  animEls.forEach((el, k) => {
+    el.style.animationDelay = Math.min(k * 35, 480) + 'ms';
+  });
+
+  try { history.replaceState(null, '', `#slide-${i + 1}`); } catch (e) {}
+
+  const active = indexEl.querySelector('.is-active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+}
+
+(function initFromHash() {
+  const m = location.hash.match(/slide-(\d+)/);
+  const start = m
+    ? Math.min(SLIDES.length - 1, Math.max(0, parseInt(m[1], 10) - 1))
+    : 0;
+  goTo(start);
+})();
+
+nextBtn.addEventListener('click', () => goTo(current + 1));
+prevBtn.addEventListener('click', () => goTo(current - 1));
+
+indexEl.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-i]');
+  if (!b) return;
+  goTo(+b.dataset.i);
+  closeMenu();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.matches('input, textarea, select')) return;
+
+  switch (e.key) {
+    case 'ArrowRight':
+    case 'ArrowDown':
+    case 'PageDown':
+      e.preventDefault();
+      goTo(current + 1);
+      break;
+    case 'ArrowLeft':
+    case 'ArrowUp':
+    case 'PageUp':
+      e.preventDefault();
+      goTo(current - 1);
+      break;
+    case ' ':
+      e.preventDefault();
+      goTo(current + 1);
+      break;
+    case 'Home':
+      e.preventDefault();
+      goTo(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      goTo(SLIDES.length - 1);
+      break;
+    case 'Escape':
+      closeMenu();
+      break;
+  }
+});
+
+fsBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    (document.documentElement.requestFullscreen || function(){}).call(document.documentElement);
+  } else {
+    (document.exitFullscreen || function(){}).call(document);
+  }
+});
+
+const ICON_SHOW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9.5 4v16"/></svg>`;
+const ICON_HIDE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9.5 4v16"/><path d="M14.5 12h4"/></svg>`;
+
+let indexHidden = false;
+
+function toggleIndex() {
+  if (window.innerWidth <= 980) {
+    if (sidebarEl.classList.contains('is-open')) closeMenu();
+    else openMenu();
+    return;
+  }
+  indexHidden = !indexHidden;
+  appEl.classList.toggle('app--collapsed', indexHidden);
+  toggleBtn.setAttribute('aria-expanded', String(!indexHidden));
+  toggleBtn.innerHTML = indexHidden ? ICON_SHOW : ICON_HIDE;
+}
+
+toggleBtn.addEventListener('click', toggleIndex);
+
+function openMenu() {
+  sidebarEl.classList.add('is-open');
+  scrimEl.classList.add('is-open');
+  toggleBtn.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  sidebarEl.classList.remove('is-open');
+  scrimEl.classList.remove('is-open');
+  if (window.innerWidth <= 980) toggleBtn.setAttribute('aria-expanded', 'false');
+}
+scrimEl.addEventListener('click', closeMenu);
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 980) {
+    sidebarEl.classList.remove('is-open');
+    scrimEl.classList.remove('is-open');
+  }
+});
+
+window.addEventListener('hashchange', () => {
+  const m = location.hash.match(/slide-(\d+)/);
+  if (!m) return;
+  const i = Math.min(SLIDES.length - 1, Math.max(0, parseInt(m[1], 10) - 1));
+  if (i !== current) goTo(i);
+});
+</script>
+</body>
+</html>
