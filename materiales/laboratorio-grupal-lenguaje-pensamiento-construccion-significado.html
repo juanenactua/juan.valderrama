@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratorio grupal · Lenguaje, pensamiento y construcción de significado</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Laboratorio grupal · Lenguaje, pensamiento y construcción de significado">
+<meta name="jc-descripcion" content="Laboratorio grupal interactivo para analizar cómo distintas formulaciones lingüísticas orientan la atención, la categorización, la atribución causal y la disposición a intervenir, mediante contraste entre descripciones etiquetadoras y conductuales, matriz comparativa, reflexión conceptual y acta imprimible.">
+<meta name="jc-tipo" content="Laboratorio grupal interactivo">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, Lenguaje, Pensamiento, Construcción de significado, Encuadre, Categorización, Etiquetamiento, Atribución causal, Atribución interna, Atribución externa, Atribución interactiva, Generalización, Esencialización, Relativismo lingüístico, Determinismo lingüístico, Hipótesis Sapir-Whorf, Descripción conductual, Juicio, Conducta observable, Reformulación, Intervención psicológica, Trabajo grupal, Aprendizaje colaborativo, Aprendizaje activo, Metacognición, Evaluación formativa, Acta grupal, Laboratorio EnAcción">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#eef2f7; --surface:#ffffff; --surface-2:#f4f7fb;
+  --ink:#1a2433; --ink-soft:#3d4a5c; --muted:#6b7a8f;
+  --primary:#1e3a5f; --primary-dark:#142a47; --primary-soft:#d6e2f0;
+  --accent:#3d6a99; --accent-soft:#dbe7f3;
+  --gold:#c9a227; --gold-soft:#f7ecc4;
+  --green:#3d8a5c; --green-soft:#d9ecdf;
+  --red:#b04a4a; --red-soft:#f3dada;
+  --border:#d6e0ec;
+  --shadow:0 8px 24px rgba(20,42,71,.10); --shadow-sm:0 2px 8px rgba(20,42,71,.06);
+  --radius:14px; --radius-sm:10px;
+  --font-head:'Lora',Georgia,serif; --font-body:'Nunito',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);font-size:18px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;color:var(--ink);font-weight:600}
+h1{font-size:clamp(2rem,4.2vw,2.8rem)}
+h2{font-size:clamp(1.55rem,2.8vw,2.1rem);margin-bottom:.4em}
+h3{font-size:1.3rem;margin-bottom:.4em;color:var(--primary)}
+h4{font-size:1.1rem;color:var(--accent)}
+p{margin-bottom:.9em;color:var(--ink-soft)}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+strong{color:var(--ink);font-weight:700}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent-soft)}
+
+/* Topbar */
+#topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:1rem;padding:.8rem clamp(1rem,3vw,2rem);background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);box-shadow:0 1px 0 rgba(20,42,71,.04);flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;line-height:1.15;flex-shrink:0}
+.brand small{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.brand strong{font-family:var(--font-head);font-size:1.05rem;color:var(--primary)}
+.progress-wrap{flex:1;min-width:140px;display:flex;flex-direction:column;gap:.3rem}
+.progress-track{height:9px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.progress-label{font-size:.78rem;color:var(--muted);font-weight:700;display:flex;justify-content:space-between}
+.timer-pill{display:flex;align-items:center;gap:.5rem;background:var(--primary-soft);color:var(--primary-dark);padding:.45rem .9rem;border-radius:99px;font-weight:800;font-size:.95rem;white-space:nowrap;border:1px solid #b9cce3;transition:background .3s}
+.timer-pill.warning{background:var(--gold-soft);border-color:#e6d28a;color:#6b5310}
+.timer-pill.danger{background:var(--red-soft);border-color:#e8b8b8;color:#7a2a2a}
+.timer-pill #timer-display{font-family:var(--font-head);font-size:1.05rem;letter-spacing:.02em}
+.timer-controls{display:flex;gap:.3rem}
+.timer-controls button{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.2rem .5rem;font-size:.85rem;color:var(--primary);font-weight:700;transition:all .2s}
+.timer-controls button:hover{background:var(--primary-soft)}
+#hamburger{display:none;font-size:1.4rem;padding:.3rem .5rem;color:var(--primary)}
+
+/* Cover */
+#cover{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:clamp(1.5rem,4vw,3rem) 1rem;background:radial-gradient(circle at 12% 15%,rgba(61,106,153,.10),transparent 42%),radial-gradient(circle at 88% 85%,rgba(30,58,95,.10),transparent 42%),var(--bg)}
+.cover-card{max-width:1000px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeUp .8s cubic-bezier(.4,0,.2,1);display:grid;grid-template-columns:1.3fr 1fr}
+.cover-card::before{content:'';position:absolute;inset:0 0 auto 0;height:5px;z-index:2;background:linear-gradient(90deg,var(--primary),var(--accent),var(--gold))}
+.cover-main{padding:clamp(2rem,4.5vw,3.2rem);display:flex;flex-direction:column;justify-content:center;min-height:500px}
+.cover-kicker{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:1rem}
+.cover-kicker::before{content:'';width:34px;height:2px;background:var(--primary);border-radius:2px}
+.cover-main h1{font-size:clamp(1.9rem,3.5vw,2.5rem);line-height:1.15;margin-bottom:.9rem;color:var(--primary-dark)}
+.cover-main .subtitle{font-size:1.1rem;line-height:1.55;color:var(--ink-soft);max-width:520px;margin:0 0 1.6rem;font-weight:600}
+.cover-badge-group{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold-soft);color:#6b5310;padding:.4rem .9rem;border-radius:99px;font-weight:800;font-size:.85rem;margin-bottom:1.4rem;border:1px solid #e6d28a}
+.cover-actions{margin-top:auto;padding-top:1rem}
+.btn-start{display:inline-flex;align-items:center;gap:.7rem;background:var(--primary);color:#fff;padding:1rem 2rem;border-radius:99px;font-weight:800;font-size:1.05rem;box-shadow:0 6px 18px rgba(30,58,95,.35);transition:transform .25s,box-shadow .25s,background .25s}
+.btn-start:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 10px 22px rgba(30,58,95,.45);text-decoration:none}
+.cover-side{background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%);padding:clamp(1.7rem,3.2vw,2.6rem);display:flex;flex-direction:column;border-left:1px solid var(--border);color:#e8eef6}
+.cover-seal{width:60px;height:60px;border-radius:50%;background:var(--gold);color:var(--primary-dark);display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:1.5rem;margin-bottom:1.4rem;box-shadow:0 4px 14px rgba(0,0,0,.28),inset 0 0 0 3px rgba(255,255,255,.15)}
+.cover-side .label-tiny{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#a9bdd4;font-weight:800;margin-bottom:.3rem}
+.cover-side .author-name{font-family:var(--font-head);font-size:1.4rem;line-height:1.2;color:#fff;font-weight:600;margin-bottom:.35rem}
+.cover-side .author-role{font-size:.9rem;color:#c4d3e3;font-weight:600;margin-bottom:1.6rem}
+.cover-side .divider{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:1.2rem}
+.cover-side .project{font-size:.98rem;line-height:1.45;color:#d9e6f2;font-weight:800;margin-bottom:1.6rem}
+.cover-side .project::before{content:'◆';color:var(--gold);margin-right:.5rem;font-size:.8rem;vertical-align:middle}
+.cover-meta-list{display:flex;flex-direction:column;gap:.6rem;margin-top:auto}
+.cover-meta-list .row{display:flex;align-items:center;gap:.7rem;font-size:.9rem;color:#c4d3e3;font-weight:700}
+.cover-meta-list .row .ico{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;font-size:.9rem;flex-shrink:0}
+.cover-meta-list .row span:last-child{color:#fff;font-weight:800}
+
+/* Layout */
+#lab{display:none;min-height:calc(100vh - 72px)}
+#lab.open{display:grid;grid-template-columns:270px 1fr;gap:0}
+#sidebar{position:sticky;top:72px;align-self:start;height:calc(100vh - 72px);overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:1.4rem .9rem;display:flex;flex-direction:column;gap:.3rem}
+.side-title{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:.4rem .6rem}
+#sidebar a{display:flex;align-items:center;gap:.6rem;padding:.65rem .8rem;border-radius:9px;color:var(--ink-soft);font-weight:700;font-size:.92rem;transition:background .2s,color .2s;text-decoration:none}
+#sidebar a:hover{background:var(--surface-2);text-decoration:none}
+#sidebar a.active{background:var(--primary-soft);color:var(--primary-dark)}
+#sidebar a .num{width:24px;height:24px;border-radius:50%;background:var(--surface-2);color:var(--muted);display:grid;place-items:center;font-size:.78rem;font-weight:800;flex-shrink:0;transition:background .2s,color .2s}
+#sidebar a.active .num{background:var(--primary);color:#fff}
+#sidebar a.done .num{background:var(--green);color:#fff}
+#sidebar a .dur{margin-left:auto;font-size:.7rem;color:var(--muted);font-weight:700}
+.total-time{margin-top:auto;padding:1rem .7rem .3rem;border-top:1px dashed var(--border);font-size:.75rem;color:var(--muted);font-weight:700;text-align:center}
+.total-time strong{color:var(--primary);font-size:.95rem;display:block;margin-top:.2rem;font-family:var(--font-head)}
+
+#content{padding:clamp(1.2rem,3vw,2.4rem);max-width:960px;margin:0 auto;width:100%}
+.panel{display:none;animation:fadeIn .5s ease}
+.panel.active{display:block}
+.panel-head{margin-bottom:1.2rem;padding-bottom:.9rem;border-bottom:2px solid var(--border)}
+.panel-head .kicker{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:800}
+.panel-head h2{margin-top:.25rem}
+.panel-head .phase-meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.panel-head .phase-meta span{font-size:.78rem;font-weight:800;background:var(--surface-2);color:var(--ink-soft);padding:.2rem .7rem;border-radius:99px;border:1px solid var(--border)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1rem,2.4vw,1.5rem);box-shadow:var(--shadow-sm);margin-bottom:1.1rem}
+.card.soft{background:var(--surface-2);border-style:dashed}
+.card.accent{border-left:4px solid var(--accent)}
+.card.warm{border-left:4px solid var(--primary)}
+.card.danger{border-left:4px solid var(--red)}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.4rem;border-radius:10px;font-weight:800;font-size:.95rem;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(30,58,95,.25)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface-2);color:var(--primary);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--primary-soft)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:#2e5580}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.btn-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem}
+
+/* Roles */
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin:.6rem 0 1rem}
+.role-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem;box-shadow:var(--shadow-sm)}
+.role-card .role-icon{font-size:1.6rem;margin-bottom:.3rem}
+.role-card h5{font-family:var(--font-head);font-size:.95rem;color:var(--primary);margin-bottom:.25rem;font-weight:600}
+.role-card p{font-size:.82rem;margin:0;line-height:1.5;color:var(--ink-soft)}
+
+/* Timer card */
+.timer-card{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:1.2rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.timer-card .tc-label{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#a9bdd4;font-weight:800}
+.timer-card .tc-time{font-family:var(--font-head);font-size:2rem;font-weight:700;color:#fff;line-height:1}
+.timer-card .tc-phase{font-size:.92rem;color:#c4d3e3;font-weight:700}
+.timer-card .tc-controls{margin-left:auto;display:flex;gap:.4rem;flex-wrap:wrap}
+.timer-card .tc-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:.5rem .9rem;font-size:.85rem;font-weight:800;transition:all .2s}
+.timer-card .tc-btn:hover{background:rgba(255,255,255,.25)}
+.timer-card .tc-btn.primary{background:var(--gold);color:var(--primary-dark);border-color:var(--gold)}
+.timer-card .tc-btn.primary:hover{background:#d9b54a}
+
+/* Quiz */
+.quiz-q{margin-bottom:1.3rem}
+.quiz-q .q-num{display:inline-block;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:.78rem;padding:.2rem .7rem;border-radius:99px;margin-bottom:.4rem}
+.quiz-q .q-text{font-weight:700;color:var(--ink);margin-bottom:.7rem;font-size:1.02rem}
+.quiz-q .opts{display:grid;gap:.5rem}
+.quiz-q .opt{text-align:left;padding:.7rem 1rem;border-radius:9px;background:var(--surface-2);border:1.5px solid transparent;color:var(--ink-soft);font-weight:600;font-size:.95rem;transition:all .2s;display:flex;gap:.6rem;align-items:flex-start;line-height:1.5}
+.quiz-q .opt:hover{background:var(--primary-soft);border-color:#b9cce3}
+.quiz-q .opt .ltr{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-weight:800;font-size:.8rem;color:var(--primary)}
+.quiz-q .opt.correct{background:var(--green-soft);border-color:var(--green);color:#1f5734}
+.quiz-q .opt.correct .ltr{background:var(--green);color:#fff;border-color:var(--green)}
+.quiz-q .opt.wrong{background:var(--red-soft);border-color:var(--red);color:#7a2a2a}
+.quiz-q .opt.wrong .ltr{background:var(--red);color:#fff;border-color:var(--red)}
+.quiz-q.locked .opt{pointer-events:none}
+.quiz-feedback{margin-top:.7rem;padding:.7rem 1rem;border-radius:9px;font-size:.9rem;display:none;border-left:4px solid;line-height:1.55}
+.quiz-feedback.show{display:block;animation:fadeIn .35s}
+.quiz-feedback.ok{background:var(--green-soft);border-color:var(--green);color:#1f5734}
+.quiz-feedback.no{background:var(--red-soft);border-color:var(--red);color:#7a2a2a}
+
+/* Situation bank */
+.sit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;margin:.7rem 0 1rem}
+.sit-card{text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:.9rem 1rem;transition:all .2s;cursor:pointer}
+.sit-card:hover{border-color:var(--primary);background:var(--primary-soft);transform:translateY(-1px)}
+.sit-card.selected{border-color:var(--primary);background:var(--primary-soft);box-shadow:0 0 0 2px var(--primary-soft)}
+.sit-card.selected::after{content:'✓';position:absolute;top:.4rem;right:.5rem;color:var(--primary);font-weight:800;font-size:1.1rem}
+.sit-card{position:relative}
+.sit-card strong{display:block;color:var(--primary);font-size:.9rem;margin-bottom:.3rem;font-family:var(--font-head);font-weight:600}
+.sit-card span{font-size:.82rem;color:var(--ink-soft);line-height:1.45;display:block}
+
+/* Textareas */
+label.field-label{display:block;font-weight:800;color:var(--primary-dark);font-size:.92rem;margin:.9rem 0 .4rem}
+textarea.form-txt, input.form-txt{width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--surface);resize:vertical;transition:border-color .2s;line-height:1.6}
+textarea.form-txt{min-height:100px}
+textarea.form-txt:focus, input.form-txt:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea.form-txt[readonly]{background:var(--surface-2);color:var(--ink-soft)}
+.hint-small{font-size:.83rem;color:var(--muted);font-style:italic;margin:.3rem 0 .6rem}
+
+/* Checklist verify */
+.verify-list{display:grid;gap:.45rem;margin:.6rem 0}
+.verify-list label{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem .8rem;border-radius:8px;background:var(--surface-2);cursor:pointer;font-size:.9rem;color:var(--ink-soft);line-height:1.45;transition:background .2s}
+.verify-list label:hover{background:var(--primary-soft)}
+.verify-list input{margin-top:.25rem;accent-color:var(--primary);width:16px;height:16px;flex-shrink:0}
+
+/* Matrix */
+.matrix{width:100%;border-collapse:collapse;margin:.7rem 0;font-size:.9rem}
+.matrix th{background:var(--primary);color:#fff;padding:.7rem .8rem;text-align:left;font-weight:800;font-size:.88rem}
+.matrix td{padding:.6rem .7rem;border-bottom:1px solid var(--border);vertical-align:top;background:var(--surface)}
+.matrix tr:nth-child(even) td{background:var(--surface-2)}
+.matrix td:first-child{font-weight:800;color:var(--primary-dark);width:22%;font-size:.88rem}
+.matrix textarea{width:100%;min-height:60px;padding:.5rem .6rem;border:1.5px solid var(--border);border-radius:7px;font-family:inherit;font-size:.85rem;color:var(--ink);background:var(--surface);resize:vertical;line-height:1.5}
+.matrix textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+
+/* Concepts recap */
+.concept-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0 1rem}
+.concept-chip{background:var(--accent-soft);color:var(--accent);padding:.35rem .8rem;border-radius:99px;font-weight:800;font-size:.82rem}
+.concept-chip.gold{background:var(--gold-soft);color:#6b5310}
+.concept-chip.green{background:var(--green-soft);color:#1f5734}
+
+/* Reflection / self-eval */
+.reflect-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;margin-bottom:1rem}
+
+/* Toast */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--primary-dark);color:#fff;padding:.85rem 1.4rem;border-radius:99px;font-weight:800;font-size:.95rem;z-index:200;box-shadow:0 10px 30px rgba(20,42,71,.30);transition:transform .4s cubic-bezier(.4,0,.2,1);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast.gold{background:linear-gradient(90deg,var(--primary),var(--gold))}
+#toast.danger{background:var(--red)}
+
+/* Acta */
+#acta-output{display:none;background:var(--surface);border:2px solid var(--primary);border-radius:var(--radius);padding:1.4rem;margin-top:1rem}
+#acta-printable h2{color:var(--primary-dark);margin-bottom:.6rem}
+#acta-printable h3{font-size:1.15rem;color:var(--primary);margin-top:1rem;margin-bottom:.3rem}
+#acta-printable .acta-meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;background:var(--surface-2);padding:.7rem 1rem;border-radius:8px;margin-bottom:.8rem;font-size:.88rem}
+#acta-printable .acta-meta div strong{color:var(--primary-dark);display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.1rem}
+#acta-printable .acta-block{background:var(--surface-2);border-left:3px solid var(--accent);border-radius:6px;padding:.7rem 1rem;margin-bottom:.7rem;font-size:.92rem;line-height:1.6;white-space:pre-wrap}
+#acta-printable .acta-table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.85rem}
+#acta-printable .acta-table th{background:var(--primary);color:#fff;padding:.5rem .6rem;text-align:left;font-size:.8rem}
+#acta-printable .acta-table td{padding:.5rem .6rem;border-bottom:1px solid var(--border);vertical-align:top;white-space:pre-wrap}
+#acta-printable .acta-table tr:nth-child(even) td{background:var(--surface-2)}
+#acta-printable .acta-footer{margin-top:1rem;padding-top:.8rem;border-top:1px dashed var(--border);font-size:.8rem;color:var(--muted);text-align:center;font-style:italic}
+
+/* Print */
+@media print {
+  body{background:#fff}
+  body *{visibility:hidden}
+  #acta-printable, #acta-printable *{visibility:visible}
+  #acta-printable{position:absolute;left:0;top:0;width:100%;border:none;padding:1rem;box-shadow:none}
+  .no-print{display:none!important}
+}
+
+/* Responsive */
+@media (max-width:960px){
+  .cover-card{grid-template-columns:1fr}
+  .cover-main{min-height:auto}
+  #acta-printable .acta-meta{grid-template-columns:1fr}
+}
+@media (max-width:880px){
+  #lab.open{grid-template-columns:1fr}
+  #sidebar{position:fixed;top:72px;left:0;bottom:0;width:270px;z-index:60;transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px rgba(0,0,0,.15)}
+  #sidebar.open{transform:translateX(0)}
+  #hamburger{display:block}
+  .timer-card{flex-direction:column;align-items:flex-start}
+  .timer-card .tc-controls{margin-left:0;width:100%}
+  .timer-card .tc-btn{flex:1}
+}
+@media (max-width:520px){
+  body{font-size:17px}
+  .activity{padding:1rem}
+  #topbar{gap:.5rem;padding:.5rem .8rem}
+  .brand small{display:none}
+  .progress-label{font-size:.7rem}
+  .sit-grid,.roles-grid{grid-template-columns:1fr}
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header id="topbar">
+  <button id="hamburger" aria-label="Abrir menú">☰</button>
+  <div class="brand">
+    <small>Laboratorio EnAcción · Grupal</small>
+    <strong>Lenguaje y significado</strong>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label"><span id="progress-text">Fases completadas</span><span id="progress-pct">0/7</span></div>
+  </div>
+  <div class="timer-pill" id="timer-pill">
+    <span>⏱</span>
+    <span id="timer-display">5:00</span>
+    <div class="timer-controls">
+      <button id="timer-play" title="Iniciar/Pausar">▶</button>
+      <button id="timer-reset" title="Reiniciar">↺</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PORTADA ============ -->
+<section id="cover">
+  <div class="cover-card">
+    <div class="cover-main">
+      <div class="cover-kicker">Pensamiento y Lenguaje · Laboratorio práctico</div>
+      <h1>Lenguaje, pensamiento y construcción de significado</h1>
+      <p class="subtitle">Laboratorio grupal: cómo dos formas de describir una misma situación orientan la atención, la atribución y la disposición a intervenir.</p>
+      <div class="cover-badge-group">
+        <span>👥</span> Trabajo en grupos de 4–5 · 60 minutos
+      </div>
+      <div class="cover-actions">
+        <a href="#" class="btn-start" id="btn-start">
+          Comenzar el laboratorio grupal
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <aside class="cover-side">
+      <div class="cover-seal" aria-hidden="true">JC</div>
+      <div class="label-tiny">Diseño instruccional</div>
+      <div class="author-name">Juan Carlos<br>Valderrama Cardenas</div>
+      <div class="author-role">Psicólogo · Diseñador de experiencias de aprendizaje</div>
+      <div class="divider"></div>
+      <div class="project">Hace parte del proyecto Laboratorio EnAcción</div>
+      <div class="cover-meta-list">
+        <div class="row"><span class="ico">⏱</span><span>60 minutos</span></div>
+        <div class="row"><span class="ico">👥</span><span>4–5 estudiantes por grupo</span></div>
+        <div class="row"><span class="ico">📝</span><span>Acta grupal imprimible</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ LABORATORIO ============ -->
+<div id="lab">
+
+  <aside id="sidebar">
+    <div class="side-title">Fases del laboratorio</div>
+    <a href="#" data-target="prep" class="nav-link"><span class="num">0</span> Preparación<span class="dur">5 min</span></a>
+    <a href="#" data-target="fase1" class="nav-link"><span class="num">1</span> Encuadre<span class="dur">5 min</span></a>
+    <a href="#" data-target="fase2" class="nav-link"><span class="num">2</span> Primera formulación<span class="dur">10 min</span></a>
+    <a href="#" data-target="fase3" class="nav-link"><span class="num">3</span> Reformulación<span class="dur">12 min</span></a>
+    <a href="#" data-target="fase4" class="nav-link"><span class="num">4</span> Matriz comparativa<span class="dur">13 min</span></a>
+    <a href="#" data-target="fase5" class="nav-link"><span class="num">5</span> Análisis conceptual<span class="dur">10 min</span></a>
+    <a href="#" data-target="cierre" class="nav-link"><span class="num">✦</span> Acta y cierre<span class="dur">5 min</span></a>
+    <div class="total-time">Tiempo total<strong>60:00</strong></div>
+  </aside>
+
+  <main id="content">
+
+    <!-- ============================================================
+         PREPARACIÓN
+         ============================================================ -->
+    <section id="prep" class="panel active">
+      <div class="panel-head">
+        <div class="kicker">Fase 0 · Preparación</div>
+        <h2>Antes de empezar: roles y encuadre</h2>
+        <div class="phase-meta"><span>⏱ 5 min</span><span>👥 Todo el grupo</span><span>📝 Registro inicial</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-prep">5:00</div>
+          <div class="tc-phase">Preparación</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="prep">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="prep">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p><strong>Bienvenidos al laboratorio.</strong> En los próximos 60 minutos van a producir, en grupo, dos descripciones de una misma situación: una <em>etiquetadora</em> y una <em>descriptiva</em>. Después van a comparar sus efectos y a analizar qué conceptos de la psicología del lenguaje y la cognición permiten explicar lo que observan. El producto final es un <strong>acta grupal</strong> que podrán imprimir.</p>
+        <p>La actividad es grupal: <strong>el relator o la relatora</strong> será quien escriba en la plataforma; los demás discuten, contrastan y verifican. Ninguna decisión se toma en solitario: cada campo requiere acuerdo.</p>
+      </div>
+
+      <div class="card">
+        <h3>Registro del grupo</h3>
+        <label class="field-label" for="group-name">Nombre del grupo</label>
+        <input type="text" class="form-txt" id="group-name" placeholder="Ej. Grupo 3 · Pensamiento y Lenguaje">
+
+        <label class="field-label" for="group-members">Integrantes (separados por comas)</label>
+        <input type="text" class="form-txt" id="group-members" placeholder="Ej. Ana G., Beto M., Carla R., Daniel S.">
+
+        <label class="field-label" for="group-course">Curso / fecha</label>
+        <input type="text" class="form-txt" id="group-course" placeholder="Ej. Formulación de proyectos · 26 oct 2025">
+      </div>
+
+      <div class="card soft">
+        <h3>Roles que se recomiendan</h3>
+        <p style="font-size:.92rem">Cada miembro del grupo asume un rol. Si son 4, se pueden unir observador y relator. Los roles no son jerárquicos: todos participan en la discusión.</p>
+        <div class="roles-grid">
+          <div class="role-card">
+            <div class="role-icon">🎯</div>
+            <h5>Facilitador/a</h5>
+            <p>Modera la discusión, asegura que todos hablen, decide cuándo pasar a la siguiente fase.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-icon">✍️</div>
+            <h5>Relator/a</h5>
+            <p>Registra las respuestas del grupo en la plataforma. Verifica que las ideas queden completas.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-icon">⏱</div>
+            <h5>Cronometrista</h5>
+            <p>Vigila el tiempo de cada fase y avisa al grupo cuando queden 2 minutos y 1 minuto.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-icon">🗣️</div>
+            <h5>Portavoz</h5>
+            <p>Presenta el acta final al resto de la clase si el docente lo solicita.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-icon">👁️</div>
+            <h5>Observador/a</h5>
+            <p>Vigila que el grupo no confunda descripción con juicio y que no concluya antes de tiempo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" data-goto="fase1">Comenzar Fase 1 →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FASE 1 · ENCUADRE
+         ============================================================ -->
+    <section id="fase1" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Fase 1 · Encuadre conceptual</div>
+        <h2>Tres distinciones que necesitan manejar</h2>
+        <div class="phase-meta"><span>⏱ 5 min</span><span>👥 Discusión grupal</span><span>✅ Una sola respuesta por pregunta</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-fase1">5:00</div>
+          <div class="tc-phase">Encuadre conceptual</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="fase1">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="fase1">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p>Antes de producir nada, verifiquen que el grupo maneja tres distinciones que van a necesitar en las próximas fases. Discutan cada pregunta, lleguen a un acuerdo y el relator marque la opción elegida.</p>
+      </div>
+
+      <div class="quiz-q" data-quiz="q1">
+        <span class="q-num">Pregunta 1</span>
+        <p class="q-text">¿Cuál de estas afirmaciones describe mejor la relación entre lenguaje y pensamiento según la evidencia actual?</p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> El lenguaje determina completamente lo que una persona puede pensar (determinismo lingüístico fuerte).</button>
+          <button class="opt" data-correct="true"><span class="ltr">B</span> El lenguaje puede orientar la atención, la categorización y la atribución, sin determinar mecánicamente el pensamiento (relativismo moderado).</button>
+          <button class="opt" data-correct="false"><span class="ltr">C</span> El lenguaje es un reflejo neutral de pensamientos que ya existen con independencia de las palabras.</button>
+        </div>
+        <div class="quiz-feedback" data-fb-ok="Correcto. La versión fuerte (determinismo) no se sostiene con la evidencia: las personas pueden aprender categorías nuevas, crear expresiones y cuestionar sus propias etiquetas. La versión moderada (relativismo) es la más defendible hoy." data-fb-no="Vuelvan a pensarlo: el determinismo fuerte es difícil de sostener, y el instrumento neutral tampoco explica por qué cambiar las palabras cambia la interpretación. La respuesta está en la versión moderada."></div>
+      </div>
+
+      <div class="quiz-q" data-quiz="q2">
+        <span class="q-num">Pregunta 2</span>
+        <p class="q-text">¿Cuál de las dos formulaciones es descriptiva (no evaluativa)?</p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> "Es un estudiante irresponsable y desinteresado con su formación."</button>
+          <button class="opt" data-correct="true"><span class="ltr">B</span> "Ha llegado tarde en cuatro ocasiones durante el último mes y no ha entregado dos actividades dentro del plazo establecido."</button>
+          <button class="opt" data-correct="false"><span class="ltr">C</span> Ambas son descripciones del mismo hecho, solo cambian las palabras.</button>
+        </div>
+        <div class="quiz-feedback" data-fb-ok="Exacto. La opción A contiene una etiqueta ('irresponsable') que atribuye una característica estable a la persona. La opción B describe conductas observables con frecuencia y plazo. No son lógicamente equivalentes: la primera añade una inferencia." data-fb-no="Cuidado: no son descripciones equivalentes. Una contiene una etiqueta y un juicio; la otra informa conductas con frecuencia y plazo."></div>
+      </div>
+
+      <div class="quiz-q" data-quiz="q3">
+        <span class="q-num">Pregunta 3</span>
+        <p class="q-text">El efecto de encuadre consiste en…</p>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="ltr">A</span> Cambiar los hechos para que la situación se vea diferente.</button>
+          <button class="opt" data-correct="true"><span class="ltr">B</span> Presentar la misma información (o casi la misma) de una forma que oriente la interpretación y la valoración.</button>
+          <button class="opt" data-correct="false"><span class="ltr">C</span> Ocultar deliberadamente información para manipular al receptor.</button>
+        </div>
+        <div class="quiz-feedback" data-fb-ok="Correcto. El encuadre no cambia los hechos: cambia el énfasis. '90 % de éxito' y '10 % de fracaso' comunican la misma información numérica, pero orientan la evaluación de manera distinta." data-fb-no="Revisen: el encuadre no cambia los hechos ni oculta información; cambia el énfasis con el que se presenta la misma información."></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="prep">← Fase anterior</button>
+        <button class="btn btn-primary" data-goto="fase2">Continuar a Fase 2 →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FASE 2 · PRIMERA FORMULACIÓN (ETIQUETADORA)
+         ============================================================ -->
+    <section id="fase2" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Fase 2 · Primera formulación</div>
+        <h2>Construir una descripción etiquetadora</h2>
+        <div class="phase-meta"><span>⏱ 10 min</span><span>👥 Todo el grupo</span><span>📝 Una situación + una formulación</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-fase2">10:00</div>
+          <div class="tc-phase">Primera formulación</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="fase2">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="fase2">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p>Elijan <strong>una situación</strong> del banco. Después construyan, en grupo, una <strong>primera formulación etiquetadora</strong>: una descripción que contenga deliberadamente una etiqueta, un juicio, una inferencia sobre la intención y una generalización.</p>
+      </div>
+
+      <div class="card">
+        <h3>Paso 2.1 · Elijan una situación</h3>
+        <p style="font-size:.92rem">Toca una tarjeta para seleccionarla. Todas comparten la misma estructura: varias conductas ambiguas que pueden interpretarse de más de una manera.</p>
+
+        <div class="sit-grid" id="sit-grid">
+          <button class="sit-card" data-text="Un estudiante de 10º ha llegado tarde en cuatro ocasiones durante el último mes y no entregó dos actividades dentro del plazo establecido.">
+            <strong>El estudiante que llega tarde</strong>
+            <span>Contexto académico. Llegadas tarde + tareas sin entregar.</span>
+          </button>
+          <button class="sit-card" data-text="Una estudiante permanece en silencio durante las primeras dos reuniones de un trabajo grupal, consulta repetidamente su celular y no propone ideas al equipo.">
+            <strong>La estudiante en silencio</strong>
+            <span>Trabajo en equipo. Silencio + celular + no participa.</span>
+          </button>
+          <button class="sit-card" data-text="Una compañera de grupo entregó su parte, pero no respondió a las solicitudes de dos compañeros que le pidieron revisar sus apartados.">
+            <strong>La compañera que no responde</strong>
+            <span>Trabajo grupal. Cumple lo propio pero no colabora en lo ajeno.</span>
+          </button>
+          <button class="sit-card" data-text="Una persona publicó cinco mensajes críticos sobre una decisión de la administración de su conjunto residencial y solicitó las actas de la reunión.">
+            <strong>El vecino crítico</strong>
+            <span>Contexto comunitario. Críticas públicas + solicitud formal.</span>
+          </button>
+          <button class="sit-card" data-text="Un paciente llegó veinte minutos tarde a dos sesiones consecutivas, aunque en la primera había confirmado la cita por mensaje el día anterior.">
+            <strong>El paciente que llega tarde</strong>
+            <span>Contexto clínico. Impuntualidad + confirmación previa.</span>
+          </button>
+          <button class="sit-card" data-text="Un compañero de equipo consulta el celular varias veces durante las reuniones y, cuando se le pregunta algo, responde con frases breves.">
+            <strong>El compañero con el celular</strong>
+            <span>Reuniones de trabajo. Uso de celular + respuestas breves.</span>
+          </button>
+        </div>
+
+        <label class="field-label" for="chosen-situation">Situación seleccionada</label>
+        <textarea class="form-txt" id="chosen-situation" readonly placeholder="Aún no han seleccionado ninguna situación."></textarea>
+      </div>
+
+      <div class="card">
+        <h3>Paso 2.2 · Construyan la primera formulación</h3>
+        <p style="font-size:.92rem">Escriban una descripción de la situación que contenga al menos estos cuatro recursos:</p>
+        <ul style="font-size:.92rem;margin-left:1.2rem;margin-bottom:.6rem">
+          <li><strong>Una etiqueta:</strong> una palabra que ubique a la persona en una categoría (irresponsable, perezoso, conflictivo, etc.).</li>
+          <li><strong>Un juicio:</strong> una valoración sin evidencia explícita.</li>
+          <li><strong>Una inferencia sobre la intención:</strong> suponer lo que la persona “quiere” o “no quiere”.</li>
+          <li><strong>Una generalización:</strong> extender la conducta a otros dominios (“si es así aquí, también lo será en…”) o al futuro.</li>
+        </ul>
+
+        <label class="field-label" for="f2-formulacion1">Primera formulación (etiquetadora)</label>
+        <textarea class="form-txt" id="f2-formulacion1" placeholder="Ej. 'Es un estudiante irresponsable y desinteresado que no valora la oportunidad. Si sigue así, tampoco cumplirá en el trabajo.'"></textarea>
+        <p class="hint-small">Acuerden el texto entre todos. Una sola persona escribe; el resto verifica que las cuatro marcas estén presentes.</p>
+      </div>
+
+      <div class="card soft">
+        <h3>Verificación rápida</h3>
+        <p style="font-size:.9rem">Antes de pasar, marquen lo que sí incluyeron. Si falta alguno, ajústenlo.</p>
+        <div class="verify-list">
+          <label><input type="checkbox" class="f2-check"> Incluye al menos una etiqueta que categoriza a la persona.</label>
+          <label><input type="checkbox" class="f2-check"> Incluye un juicio de valor.</label>
+          <label><input type="checkbox" class="f2-check"> Incluye una inferencia sobre la intención o el deseo.</label>
+          <label><input type="checkbox" class="f2-check"> Incluye una generalización hacia otros dominios o al futuro.</label>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="fase1">← Fase anterior</button>
+        <button class="btn btn-primary" data-goto="fase3">Continuar a Fase 3 →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FASE 3 · REFORMULACIÓN DESCRIPTIVA
+         ============================================================ -->
+    <section id="fase3" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Fase 3 · Reformulación</div>
+        <h2>Construir una descripción conductual</h2>
+        <div class="phase-meta"><span>⏱ 12 min</span><span>👥 Todo el grupo</span><span>📝 Misma situación, otros recursos</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-fase3">12:00</div>
+          <div class="tc-phase">Reformulación descriptiva</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="fase3">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="fase3">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p>Ahora reescriban <strong>la misma situación</strong> con una segunda formulación <strong>descriptiva</strong>. Debe conservar los mismos hechos básicos. No reemplacen una etiqueta negativa por una positiva: transformen los juicios en conductas observables, delimiten el contexto y señalen lo que todavía no saben.</p>
+      </div>
+
+      <div class="card">
+        <h3>Reglas de la reformulación</h3>
+        <ol style="font-size:.92rem;margin-left:1.2rem;margin-bottom:.5rem">
+          <li>Mencionar conductas observables, no características de la persona.</li>
+          <li>Incluir frecuencia o duración cuando sea posible.</li>
+          <li>Delimitar el contexto (dónde, cuándo, con quién).</li>
+          <li>Separar el dato de la explicación.</li>
+          <li>Reconocer la información que aún no se tiene.</li>
+          <li>No cambiar los hechos básicos de la primera formulación.</li>
+          <li>No reemplazar una etiqueta negativa por una positiva (“no es egoísta, está saturada”).</li>
+        </ol>
+
+        <label class="field-label" for="f3-formulacion2">Segunda formulación (descriptiva)</label>
+        <textarea class="form-txt" id="f3-formulacion2" placeholder="Ej. 'Durante el último mes, el estudiante llegó después de iniciada la clase en cuatro ocasiones y no entregó dos actividades dentro del plazo. No se dispone de información sobre las razones.'"></textarea>
+      </div>
+
+      <div class="card soft">
+        <h3>Verificación antes de continuar</h3>
+        <p style="font-size:.9rem">Revisen su propia reformulación. Si algún ítem queda sin marcar, discutan cómo ajustarla.</p>
+        <div class="verify-list">
+          <label><input type="checkbox" class="f3-check"> Describe conductas observables (no características de la persona).</label>
+          <label><input type="checkbox" class="f3-check"> Incluye frecuencia o duración cuando es posible.</label>
+          <label><input type="checkbox" class="f3-check"> Delimita el contexto (dónde / cuándo / con quién).</label>
+          <label><input type="checkbox" class="f3-check"> Separa el dato de la explicación.</label>
+          <label><input type="checkbox" class="f3-check"> Reconoce la información que falta.</label>
+          <label><input type="checkbox" class="f3-check"> Conserva los mismos hechos básicos de la primera formulación.</label>
+          <label><input type="checkbox" class="f3-check"> No reemplaza la etiqueta negativa por una etiqueta positiva.</label>
+        </div>
+        <p class="hint-small">Este checklist no se califica: es para que el grupo verifique antes de seguir. Si algo no está, ajústenlo en la formulación.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="fase2">← Fase anterior</button>
+        <button class="btn btn-primary" data-goto="fase4">Continuar a Fase 4 →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FASE 4 · MATRIZ COMPARATIVA
+         ============================================================ -->
+    <section id="fase4" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Fase 4 · Comparación estructurada</div>
+        <h2>Matriz de efectos: qué cambia entre las dos formulaciones</h2>
+        <div class="phase-meta"><span>⏱ 13 min</span><span>👥 Todo el grupo</span><span>📊 7 filas para completar</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-fase4">13:00</div>
+          <div class="tc-phase">Matriz comparativa</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="fase4">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="fase4">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p>Comparen las dos formulaciones con la matriz. Para cada fila, anoten qué efecto produce <strong>cada una</strong>. No se trata de decir “una es buena y otra mala”: se trata de identificar qué <em>hace</em> cada formulación.</p>
+      </div>
+
+      <div class="card" style="padding:.5rem">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Dimensión</th>
+              <th>Formulación 1 (etiquetadora)</th>
+              <th>Formulación 2 (descriptiva)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Impresión inicial</td>
+              <td><textarea id="m-impresion-1" placeholder="¿Qué imagen se forma?"></textarea></td>
+              <td><textarea id="m-impresion-2" placeholder="¿Qué imagen se forma?"></textarea></td>
+            </tr>
+            <tr>
+              <td>Emoción que suscita</td>
+              <td><textarea id="m-emocion-1"></textarea></td>
+              <td><textarea id="m-emocion-2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Característica que queda destacada</td>
+              <td><textarea id="m-carac-1"></textarea></td>
+              <td><textarea id="m-carac-2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Causa que parece más probable</td>
+              <td><textarea id="m-causa-1" placeholder="¿Interna, externa o interactiva?"></textarea></td>
+              <td><textarea id="m-causa-2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Información que queda omitida</td>
+              <td><textarea id="m-info-1"></textarea></td>
+              <td><textarea id="m-info-2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Intervención que favorece</td>
+              <td><textarea id="m-interv-1"></textarea></td>
+              <td><textarea id="m-interv-2"></textarea></td>
+            </tr>
+            <tr>
+              <td>Posibilidad de otra explicación</td>
+              <td><textarea id="m-otra-1"></textarea></td>
+              <td><textarea id="m-otra-2"></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card soft">
+        <p style="margin-bottom:0"><strong>Pista para el grupo:</strong> si una fila queda casi igual en las dos columnas, vuelvan a la formulación y pregunten: ¿realmente cambia algo ahí? Algunas dimensiones pueden coincidir; otras deberían marcar diferencias claras.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="fase3">← Fase anterior</button>
+        <button class="btn btn-primary" data-goto="fase5">Continuar a Fase 5 →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FASE 5 · ANÁLISIS CONCEPTUAL
+         ============================================================ -->
+    <section id="fase5" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Fase 5 · Análisis conceptual</div>
+        <h2>¿Qué conceptos explican mejor lo observado?</h2>
+        <div class="phase-meta"><span>⏱ 10 min</span><span>👥 Todo el grupo</span><span>🧠 Justificar, no solo nombrar</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-fase5">10:00</div>
+          <div class="tc-phase">Análisis conceptual</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="fase5">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="fase5">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p>Ya tienen dos formulaciones y una matriz. Ahora toca <strong>interpretar</strong>: ¿qué conceptos de la psicología del lenguaje y la cognición describen mejor lo que observaron? Elijan al menos <strong>dos</strong> y justifiquen con evidencia de su propia matriz.</p>
+      </div>
+
+      <div class="card">
+        <h3>Conceptos disponibles</h3>
+        <div class="concept-chips">
+          <span class="concept-chip gold">Encuadre</span>
+          <span class="concept-chip">Categorización</span>
+          <span class="concept-chip">Etiquetamiento</span>
+          <span class="concept-chip green">Atribución causal (interna / externa / interactiva)</span>
+          <span class="concept-chip">Generalización</span>
+          <span class="concept-chip gold">Esencialización</span>
+          <span class="concept-chip">Relativismo lingüístico (versión moderada)</span>
+          <span class="concept-chip">Determinismo lingüístico (versión fuerte)</span>
+        </div>
+        <p style="font-size:.88rem;margin-top:.6rem">Recuerden: la actividad <em>no demuestra</em> la hipótesis Sapir-Whorf. Muestra efectos de <strong>formulación dentro de una misma lengua</strong>. Los conceptos que mejor describen lo observado son <em>encuadre</em>, <em>categorización</em> y <em>atribución</em>. El relativismo lingüístico se relaciona, pero en su versión moderada.</p>
+      </div>
+
+      <div class="card">
+        <h3>Análisis del grupo</h3>
+        <label class="field-label" for="f5-analisis">¿Cuáles conceptos describen mejor lo observado? Justifiquen con evidencia de su matriz</label>
+        <textarea class="form-txt" id="f5-analisis" style="min-height:160px" placeholder="Ej. La primera formulación opera por categorización y etiquetamiento: convierte conductas en una característica estable. En nuestra matriz, la fila 'Causa que parece más probable' mostró que la primera formulación empuja hacia una atribución interna, mientras la segunda deja abiertas varias atribuciones. Esto se explica mejor por encuadre y atribución que por determinismo lingüístico."></textarea>
+        <p class="hint-small">Mínimo 150 caracteres. Debe nombrar al menos dos conceptos y conectar con datos de la matriz.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="fase4">← Fase anterior</button>
+        <button class="btn btn-primary" data-goto="cierre">Ir al cierre →</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CIERRE · ACTA Y METACOGNICIÓN
+         ============================================================ -->
+    <section id="cierre" class="panel">
+      <div class="panel-head">
+        <div class="kicker">Cierre · Acta y metacognición</div>
+        <h2>Reflexión final y acta del grupo</h2>
+        <div class="phase-meta"><span>⏱ 5 min</span><span>👥 Todo el grupo</span><span>📄 Entregable imprimible</span></div>
+      </div>
+
+      <div class="timer-card">
+        <div>
+          <div class="tc-label">Tiempo de la fase</div>
+          <div class="tc-time" id="tc-cierre">5:00</div>
+          <div class="tc-phase">Cierre y acta</div>
+        </div>
+        <div class="tc-controls">
+          <button class="tc-btn primary" data-tc-start="cierre">▶ Iniciar</button>
+          <button class="tc-btn" data-tc-reset="cierre">↺ Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <p>Han llegado al final. Antes de generar el acta, escriban en grupo una <strong>reflexión final</strong> que sintetice lo aprendido. Después completen la <strong>autoevaluación</strong> y generen el <strong>acta imprimible</strong>.</p>
+      </div>
+
+      <div class="reflect-block">
+        <h3>Reflexión final del grupo</h3>
+        <p style="font-size:.92rem">Completen esta frase en 4–6 líneas, conectando con lo que observaron:</p>
+        <p style="font-size:.92rem;font-style:italic;color:var(--muted);background:var(--surface-2);padding:.7rem 1rem;border-radius:8px;margin-bottom:.6rem">
+          "Después de este laboratorio, considero que el lenguaje influye en el pensamiento porque…"
+        </p>
+        <textarea class="form-txt" id="final-reflection" style="min-height:140px" placeholder="Ej. ...porque las palabras utilizadas para describir una situación orientan la atención hacia ciertos aspectos, activan categorías y favorecen determinadas explicaciones. En la primera formulación, la etiqueta…"></textarea>
+      </div>
+
+      <div class="reflect-block">
+        <h3>Autoevaluación con los cinco criterios</h3>
+        <p style="font-size:.9rem">Marquen los criterios que el grupo considera que cumplió. Sean honestos: la autoevaluación sirve para aprender, no para “aprobar”.</p>
+        <div class="verify-list">
+          <label><input type="checkbox" class="auto-check"> <span><strong>Claridad de la situación:</strong> presentaron una situación concreta, con información suficiente y sin identificar a personas reales.</span></label>
+          <label><input type="checkbox" class="auto-check"> <span><strong>Contraste entre formulaciones:</strong> la primera contiene una interpretación identificable; la segunda describe conductas y contexto; no cambiaron los hechos fundamentales.</span></label>
+          <label><input type="checkbox" class="auto-check"> <span><strong>Análisis psicológico:</strong> compararon impresiones, identificaron atribuciones, examinaron información visible y omitida, y explicaron efectos sobre la intervención.</span></label>
+          <label><input type="checkbox" class="auto-check"> <span><strong>Aplicación conceptual:</strong> diferenciaron determinismo y relativismo; usaron con precisión encuadre, categorización o atribución; evitaron afirmar que la actividad demuestra causalmente la hipótesis Sapir-Whorf.</span></label>
+          <label><input type="checkbox" class="auto-check"> <span><strong>Reflexión final:</strong> completaron la frase, usaron evidencia de su propia experiencia y presentaron una conclusión crítica y no absoluta.</span></label>
+        </div>
+      </div>
+
+      <div class="card" style="background:var(--primary-soft);border:1px solid #b9cce3">
+        <h3 style="color:var(--primary-dark)">Acta grupal</h3>
+        <p style="font-size:.92rem">Revisen que los campos estén completos. Si algo falta, pueden volver a la fase correspondiente. Cuando esté listo, generen el acta. Podrán imprimirla o guardarla como PDF.</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="generar-acta">📄 Generar acta</button>
+          <button class="btn btn-ghost" id="limpiar-acta" title="Borrar todos los campos y empezar de nuevo">🗑 Limpiar todo</button>
+        </div>
+      </div>
+
+      <div id="acta-output">
+        <div id="acta-printable"></div>
+        <div class="btn-row no-print" style="margin-top:1rem">
+          <button class="btn btn-primary" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('acta-output').style.display='none'">✕ Ocultar</button>
+        </div>
+      </div>
+
+      <div class="card warm" style="margin-top:1rem">
+        <h4 style="color:var(--primary);margin-bottom:.4rem">Para seguir pensando</h4>
+        <ul style="font-size:.92rem;margin-left:1.2rem">
+          <li>¿En qué momento del laboratorio el grupo cambió de opinión sobre algo? ¿Qué evidencia lo hizo cambiar?</li>
+          <li>¿Qué etiquetas usan ustedes en su vida cotidiana que podrían estar teniendo efectos que no habían notado?</li>
+          <li>En su futuro rol como psicólogos/as: ¿en qué documentos o espacios será importante distinguir descripción de juicio?</li>
+        </ul>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-goto="fase5">← Fase anterior</button>
+        <button class="btn btn-primary" data-goto="prep">Volver al inicio</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN DE FASES
+   ============================================================ */
+const phaseConfig = {
+  prep:    { duration: 300, name: 'Preparación' },
+  fase1:   { duration: 300, name: 'Encuadre conceptual' },
+  fase2:   { duration: 600, name: 'Primera formulación' },
+  fase3:   { duration: 720, name: 'Reformulación descriptiva' },
+  fase4:   { duration: 780, name: 'Matriz comparativa' },
+  fase5:   { duration: 600, name: 'Análisis conceptual' },
+  cierre:  { duration: 300, name: 'Cierre y acta' }
+};
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+function $(s, c=document){ return c.querySelector(s); }
+function $$(s, c=document){ return [...c.querySelectorAll(s)]; }
+function val(id){ const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function toast(msg, type='normal'){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'show' + (type === 'gold' ? ' gold' : '') + (type === 'danger' ? ' danger' : '');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
+let currentPhase = 'prep';
+
+function showPanel(id){
+  currentPhase = id;
+  $$('#content .panel').forEach(p => p.classList.toggle('active', p.id === id));
+  $$('#sidebar .nav-link').forEach(a => a.classList.toggle('active', a.dataset.target === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  $('#sidebar').classList.remove('open');
+  updateTimerDisplay();
+  updateProgress();
+}
+
+document.addEventListener('click', e => {
+  const nav = e.target.closest('[data-goto], .nav-link');
+  if (nav){
+    e.preventDefault();
+    const target = nav.dataset.goto || nav.dataset.target;
+    if (target) showPanel(target);
+  }
+});
+
+$('#btn-start').addEventListener('click', e => {
+  e.preventDefault();
+  $('#cover').style.display = 'none';
+  $('#lab').classList.add('open');
+  showPanel('prep');
+  window.scrollTo({ top: 0 });
+});
+
+$('#hamburger').addEventListener('click', () => {
+  $('#sidebar').classList.toggle('open');
+});
+
+/* ============================================================
+   TIMER POR FASE
+   ============================================================ */
+let timerSeconds = 300;
+let timerTotal = 300;
+let timerRunning = false;
+let timerInterval = null;
+
+function resetTimer(seconds){
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = seconds;
+  timerTotal = seconds;
+  updateTimerDisplay();
+  $('#timer-play').textContent = '▶';
+}
+
+function updateTimerDisplay(){
+  const secs = timerRunning ? timerSeconds : (currentPhase ? timerSeconds : 0);
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  const disp = `${m}:${s.toString().padStart(2,'0')}`;
+
+  // Topbar timer
+  const topbar = $('#timer-display');
+  const pill = $('#timer-pill');
+  if (topbar) topbar.textContent = disp;
+  if (pill){
+    pill.classList.remove('warning','danger');
+    if (secs < 60 && secs > 0) pill.classList.add('danger');
+    else if (secs < 120 && secs > 0) pill.classList.add('warning');
+  }
+
+  // Per-phase timer cards
+  $$('.tc-time').forEach(el => {
+    const phaseId = el.id.replace('tc-', '');
+    if (phaseId === currentPhase) el.textContent = disp;
+    else {
+      const cfg = phaseConfig[phaseId];
+      if (cfg){
+        const phM = Math.floor(cfg.duration / 60);
+        const phS = cfg.duration % 60;
+        el.textContent = `${phM}:${phS.toString().padStart(2,'0')}`;
+      }
+    }
+  });
+}
+
+function startTimer(){
+  if (timerRunning) return;
+  timerRunning = true;
+  $('#timer-play').textContent = '⏸';
+  timerInterval = setInterval(() => {
+    if (timerSeconds > 0){
+      timerSeconds--;
+      updateTimerDisplay();
+      if (timerSeconds === 120) toast('⏱ Quedan 2 minutos de esta fase');
+      if (timerSeconds === 60) toast('⏱ Queda 1 minuto', 'gold');
+      if (timerSeconds === 0){
+        clearInterval(timerInterval);
+        timerRunning = false;
+        $('#timer-play').textContent = '▶';
+        toast('⏰ Tiempo de la fase terminado', 'danger');
+      }
+    }
+  }, 1000);
+}
+
+function pauseTimer(){
+  clearInterval(timerInterval);
+  timerRunning = false;
+  $('#timer-play').textContent = '▶';
+}
+
+$('#timer-play').addEventListener('click', () => {
+  if (timerRunning) pauseTimer();
+  else startTimer();
+});
+
+$('#timer-reset').addEventListener('click', () => {
+  const cfg = phaseConfig[currentPhase];
+  if (cfg) resetTimer(cfg.duration);
+});
+
+document.addEventListener('click', e => {
+  const start = e.target.closest('[data-tc-start]');
+  const reset = e.target.closest('[data-tc-reset]');
+  if (start){
+    const phase = start.dataset.tcStart;
+    if (phase !== currentPhase) showPanel(phase);
+    if (timerRunning) pauseTimer();
+    setTimeout(startTimer, 100);
+  }
+  if (reset){
+    const phase = reset.dataset.tcReset;
+    if (phase === currentPhase){
+      resetTimer(phaseConfig[phase].duration);
+      toast('Cronómetro reiniciado');
+    }
+  }
+});
+
+/* ============================================================
+   PERSISTENCIA
+   ============================================================ */
+const STORAGE_PREFIX = 'lab-significado-';
+
+function saveField(id, value){
+  try { localStorage.setItem(STORAGE_PREFIX + id, value); } catch(e){}
+}
+function loadField(id){
+  try { return localStorage.getItem(STORAGE_PREFIX + id) || ''; } catch(e){ return ''; }
+}
+
+function setupPersistence(){
+  $$('input[type="text"], input[type="checkbox"], textarea, select').forEach(el => {
+    if (!el.id) return;
+    // Skip checkboxes with classes that are just UI
+    if (el.type === 'checkbox' && (el.classList.contains('f2-check') || el.classList.contains('f3-check') || el.classList.contains('auto-check'))) {
+      const saved = loadField(el.id + '-checked');
+      if (saved === 'true') el.checked = true;
+      el.addEventListener('change', () => saveField(el.id + '-checked', el.checked ? 'true' : 'false'));
+      return;
+    }
+    const saved = loadField(el.id);
+    if (saved) el.value = saved;
+    el.addEventListener('input', () => saveField(el.id, el.value));
+    el.addEventListener('change', () => saveField(el.id, el.value));
+  });
+
+  // Situation selected
+  const savedSit = loadField('chosen-situation');
+  if (savedSit){
+    const sitTA = document.getElementById('chosen-situation');
+    if (sitTA) sitTA.value = savedSit;
+    // Mark matching card
+    $$('.sit-card').forEach(c => {
+      if (c.dataset.text === savedSit) c.classList.add('selected');
+    });
+  }
+
+  // Give checkboxes without ids an auto-id
+  $$('.verify-list input[type="checkbox"]').forEach((cb, i) => {
+    if (!cb.id) cb.id = 'chk-' + i;
+  });
+}
+
+/* ============================================================
+   SITUATION BANK
+   ============================================================ */
+document.addEventListener('click', e => {
+  const card = e.target.closest('.sit-card');
+  if (!card) return;
+  $$('.sit-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const ta = document.getElementById('chosen-situation');
+  ta.value = card.dataset.text;
+  saveField('chosen-situation', card.dataset.text);
+  toast('Situación seleccionada');
+});
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+document.addEventListener('click', e => {
+  const opt = e.target.closest('.quiz-q .opt');
+  if (!opt) return;
+  const q = opt.closest('.quiz-q');
+  if (q.classList.contains('locked')) return;
+  const correct = opt.dataset.correct === 'true';
+
+  q.querySelectorAll('.opt').forEach(b => b.classList.remove('correct','wrong'));
+
+  if (correct){
+    opt.classList.add('correct');
+    q.classList.add('locked');
+    const fb = q.querySelector('.quiz-feedback');
+    fb.className = 'quiz-feedback show ok';
+    fb.innerHTML = '<strong>✓ ' + (fb.dataset.fbOk || 'Correcto.') + '</strong>';
+    saveField('quiz-' + q.dataset.quiz, 'ok');
+    toast('Respuesta correcta');
+  } else {
+    opt.classList.add('wrong');
+    const fb = q.querySelector('.quiz-feedback');
+    fb.className = 'quiz-feedback show no';
+    fb.innerHTML = '<strong>✗ ' + (fb.dataset.fbNo || 'Vuelvan a intentarlo.') + '</strong>';
+  }
+});
+
+/* ============================================================
+   PROGRESO
+   ============================================================ */
+function isPhaseComplete(phase){
+  switch(phase){
+    case 'prep': return val('group-name').length > 0 && val('group-members').length > 0;
+    case 'fase1': return ['q1','q2','q3'].every(q => loadField('quiz-' + q) === 'ok');
+    case 'fase2': return val('chosen-situation').length > 0 && val('f2-formulacion1').length > 30;
+    case 'fase3': return val('f3-formulacion2').length > 30;
+    case 'fase4': return ['m-impresion-1','m-impresion-2','m-causa-1','m-causa-2','m-interv-1','m-interv-2'].every(id => val(id).length > 5);
+    case 'fase5': return val('f5-analisis').length > 100;
+    case 'cierre': return val('final-reflection').length > 50;
+    default: return false;
+  }
+}
+
+function updateProgress(){
+  const phases = Object.keys(phaseConfig);
+  const completed = phases.filter(isPhaseComplete).length;
+  const pct = (completed / phases.length) * 100;
+  $('#progress-fill').style.width = pct + '%';
+  $('#progress-pct').textContent = completed + '/' + phases.length;
+  $('#progress-text').textContent = completed === phases.length ? '¡Laboratorio completo!' : 'Fases completadas';
+
+  // Sidebar checks
+  $$('#sidebar .nav-link').forEach(a => {
+    const phase = a.dataset.target;
+    if (isPhaseComplete(phase)) a.classList.add('done');
+    else a.classList.remove('done');
+  });
+}
+
+// Update progress on input
+document.addEventListener('input', updateProgress);
+document.addEventListener('change', updateProgress);
+setInterval(updateProgress, 2000); // safety
+
+/* ============================================================
+   GENERAR ACTA
+   ============================================================ */
+function buildActa(){
+  const groupName = val('group-name') || '(sin nombre)';
+  const members = val('group-members') || '(sin integrantes)';
+  const course = val('group-course') || '(sin curso)';
+  const situation = val('chosen-situation') || '(sin situación)';
+  const f1 = val('f2-formulacion1') || '(sin formulación)';
+  const f2 = val('f3-formulacion2') || '(sin formulación)';
+  const analisis = val('f5-analisis') || '(sin análisis)';
+  const reflexion = val('final-reflection') || '(sin reflexión)';
+
+  const matrixRows = [
+    { label: 'Impresión inicial', id: 'm-impresion' },
+    { label: 'Emoción que suscita', id: 'm-emocion' },
+    { label: 'Característica destacada', id: 'm-carac' },
+    { label: 'Causa que parece más probable', id: 'm-causa' },
+    { label: 'Información omitida', id: 'm-info' },
+    { label: 'Intervención que favorece', id: 'm-interv' },
+    { label: 'Posibilidad de otra explicación', id: 'm-otra' }
+  ];
+
+  const matrixHTML = matrixRows.map(r => {
+    const c1 = val(r.id + '-1') || '—';
+    const c2 = val(r.id + '-2') || '—';
+    return `<tr><td><strong>${r.label}</strong></td><td>${escapeHTML(c1)}</td><td>${escapeHTML(c2)}</td></tr>`;
+  }).join('');
+
+  const autos = $$('.auto-check').filter(c => c.checked).length;
+
+  return `
+    <h2>Acta del laboratorio grupal</h2>
+    <p style="font-style:italic;color:#6b7a8f;margin-bottom:.6rem">Lenguaje, pensamiento y construcción de significado · Laboratorio EnAcción</p>
+    <div class="acta-meta">
+      <div><strong>Grupo</strong>${escapeHTML(groupName)}</div>
+      <div><strong>Curso / fecha</strong>${escapeHTML(course)}</div>
+      <div style="grid-column:1/-1"><strong>Integrantes</strong>${escapeHTML(members)}</div>
+    </div>
+
+    <h3>1. Situación elegida</h3>
+    <div class="acta-block">${escapeHTML(situation)}</div>
+
+    <h3>2. Primera formulación (etiquetadora)</h3>
+    <div class="acta-block">${escapeHTML(f1)}</div>
+
+    <h3>3. Segunda formulación (descriptiva)</h3>
+    <div class="acta-block">${escapeHTML(f2)}</div>
+
+    <h3>4. Matriz comparativa</h3>
+    <table class="acta-table">
+      <thead>
+        <tr><th>Dimensión</th><th>Formulación 1</th><th>Formulación 2</th></tr>
+      </thead>
+      <tbody>${matrixHTML}</tbody>
+    </table>
+
+    <h3>5. Análisis conceptual</h3>
+    <div class="acta-block">${escapeHTML(analisis)}</div>
+
+    <h3>6. Reflexión final</h3>
+    <div class="acta-block">${escapeHTML(reflexion)}</div>
+
+    <h3>7. Autoevaluación</h3>
+    <p style="font-size:.9rem">Criterios marcados por el grupo: <strong>${autos} de 5</strong>.</p>
+
+    <div class="acta-footer">
+      Generado el ${new Date().toLocaleDateString('es-CO', { day:'numeric', month:'long', year:'numeric' })} · Laboratorio EnAcción · Juan Carlos Valderrama Cardenas
+    </div>
+  `;
+}
+
+function escapeHTML(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+$('#generar-acta').addEventListener('click', () => {
+  const acta = buildActa();
+  document.getElementById('acta-printable').innerHTML = acta;
+  document.getElementById('acta-output').style.display = 'block';
+  document.getElementById('acta-output').scrollIntoView({ behavior: 'smooth' });
+  toast('Acta generada. Pueden imprimirla o guardarla como PDF.', 'gold');
+});
+
+$('#limpiar-acta').addEventListener('click', () => {
+  if (!confirm('¿Borrar todos los campos y empezar de nuevo? Esta acción no se puede deshacer.')) return;
+  try {
+    Object.keys(localStorage).forEach(k => {
+      if (k.startsWith(STORAGE_PREFIX)) localStorage.removeItem(k);
+    });
+  } catch(e){}
+  location.reload();
+});
+
+/* ============================================================
+   INICIALIZACIÓN
+   ============================================================ */
+setupPersistence();
+updateTimerDisplay();
+updateProgress();
+</script>
+</body>
+</html>
