@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>So you think gestures are nonverbal? · Laboratorio interactivo</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Gesto y habla · So you think gestures are nonverbal?">
+<meta name="jc-descripcion" content="Laboratorio interactivo basado en David McNeill sobre la integración entre gesto y habla, la distinción entre emblemas y gestos espontáneos, la etapa computacional compartida y la distribución de representaciones entre modalidades, con casos, preguntas, metacognición y exportación de respuestas.">
+<meta name="jc-tipo" content="Laboratorio educativo interactivo">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, David McNeill, Gesto, Habla, Gesto y habla, Comunicación no verbal, Psicolingüística, Emblemas, Gestos espontáneos, Beats, Gestos deícticos, Gestos metafóricos, Representación distribuida, Etapa computacional compartida, Sincronización gesto-habla, Habla interna, Modalidad imagística, Representación global, Representación lingüística, Afasia, Desarrollo del lenguaje, Cognición, Análisis de interacción, Metacognición, Evaluación formativa, Aprendizaje autónomo">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  :root {
+    --bg: #08192b;
+    --bg-alt: #0c2338;
+    --card: #102a41;
+    --card-soft: #16374f;
+    --ink: #e9f1f6;
+    --ink-soft: #b8c9d6;
+    --ink-faint: #7f97ab;
+    --accent: #4ecdc4;
+    --accent-warm: #ffc15e;
+    --accent-reflect: #b8a5ff;
+    --accent-soft: #0f3b47;
+    --accent-line: #2b7a76;
+    --rule: #1e3a52;
+    --rule-strong: #2a4a63;
+    --success: #4ecdc4;
+    --error: #ff9b9b;
+    --radius: 12px;
+    --max: 980px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 26px;
+  }
+
+  /* ============ NAV STICKY ============ */
+  nav.nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(8, 25, 43, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 12px 26px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .nav-steps {
+    list-style: none;
+    display: flex;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  .nav-steps li {
+    font-size: 13px;
+    color: var(--ink-faint);
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .nav-steps li:hover { color: var(--ink); border-color: var(--rule-strong); }
+  .nav-steps li.active {
+    color: var(--accent);
+    border-color: var(--accent-line);
+    background: rgba(78, 205, 196, 0.1);
+  }
+  .nav-progress {
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .nav-progress span { color: var(--accent); font-weight: 700; }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-size: 42px;
+    line-height: 1.15;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #ffffff;
+    letter-spacing: -0.015em;
+  }
+  .h1-translation {
+    font-size: 24px;
+    font-style: italic;
+    color: var(--accent);
+    margin: 0 0 14px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+  }
+  .h1-attribution {
+    font-size: 15px;
+    color: var(--ink-faint);
+    margin: 0 0 22px;
+    letter-spacing: 0.01em;
+  }
+  .hero .lead {
+    font-size: 20px;
+    color: var(--ink-soft);
+    margin: 0 0 26px;
+    max-width: 58ch;
+    line-height: 1.55;
+  }
+  .author {
+    display: inline-block;
+    font-size: 15px;
+    color: var(--ink-soft);
+    padding: 8px 16px;
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    margin-bottom: 26px;
+  }
+  .author strong { color: var(--accent); }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+  .meta span {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding: 5px 12px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: #04221f;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(78, 205, 196, 0.25);
+  }
+
+  /* ============ RESULTADOS DE APRENDIZAJE ============ */
+  .outcomes-section {
+    padding: 48px 0 44px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .outcomes-label {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .outcomes-section h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 22px;
+    letter-spacing: -0.01em;
+  }
+  .outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .outcome-card {
+    background: var(--card);
+    border: 1px solid var(--rule-strong);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+  .outcome-num {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .outcome-card p {
+    margin: 0;
+    font-size: 17px;
+    color: var(--ink);
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  /* ============ FASES ============ */
+  .fase {
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .fase:last-of-type { border-bottom: none; }
+
+  .fase-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .fase-num {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .fase-head h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .fase-time {
+    font-size: 14px;
+    color: var(--ink-faint);
+    padding: 3px 12px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    margin-left: auto;
+  }
+  .fase-intro {
+    font-size: 19px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 28px;
+  }
+  .fase-intro strong { color: var(--ink); }
+
+  .reading-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--accent-warm);
+    background: rgba(255, 193, 94, 0.08);
+    border: 1px solid rgba(255, 193, 94, 0.3);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .reading-note::before {
+    content: "▸";
+    color: var(--accent-warm);
+  }
+
+  /* ============ CARTAS ============ */
+  .carta {
+    background: var(--card);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--radius);
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .carta-head { padding: 16px 24px 0; }
+  .carta-label {
+    display: inline-block;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .carta-body { padding: 8px 24px 22px; }
+  .carta-body p { max-width: 64ch; margin: 0 0 14px; }
+  .carta-body p:last-child { margin-bottom: 0; }
+
+  .carta-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 4px 0 10px;
+    line-height: 1.3;
+  }
+
+  details.carta { padding: 0; }
+  details.carta > summary {
+    padding: 20px 24px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+  details.carta > summary::-webkit-details-marker { display: none; }
+  details.carta > summary::after {
+    content: "+";
+    margin-left: auto;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--accent);
+    transition: transform 0.2s;
+    line-height: 1;
+  }
+  details.carta[open] > summary::after { transform: rotate(45deg); }
+  details.carta[open] { border-color: var(--accent-line); }
+  details.carta .summary-text { flex: 1; }
+  details.carta .summary-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 2px 0 0;
+    line-height: 1.3;
+  }
+  details.carta .carta-body {
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    margin-top: 2px;
+  }
+
+  /* ============ BILINGÜE (ABSTRACT) ============ */
+  .bilingual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--rule-strong);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 14px 0 8px;
+  }
+  .bilingual .lang { padding: 18px 22px; }
+  .bilingual .lang + .lang {
+    border-left: 1px solid var(--rule-strong);
+    background: rgba(78, 205, 196, 0.03);
+  }
+  .bilingual .lang-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .bilingual p {
+    margin: 0 0 12px;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: none;
+    color: var(--ink);
+  }
+  .bilingual p:last-child { margin-bottom: 0; }
+  .bilingual .ref-line {
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--rule-strong);
+    line-height: 1.5;
+  }
+  .bilingual .ref-line a {
+    color: var(--accent);
+    word-break: break-all;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-line);
+  }
+
+  /* ============ TABLA RESUMEN ABSTRACT ============ */
+  .abstract-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15.5px;
+    margin: 14px 0 6px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .abstract-table th {
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule-strong);
+    vertical-align: top;
+    background: var(--bg-alt);
+  }
+  .abstract-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .abstract-table tr:last-child td { border-bottom: none; }
+  .abstract-table td:first-child {
+    color: var(--ink-soft);
+    font-weight: 600;
+    width: 32%;
+  }
+
+  /* ============ SVG · DIAGRAMAS ============ */
+  .svg-figure {
+    margin: 20px 0 10px;
+    padding: 20px;
+    background: rgba(8, 25, 43, 0.55);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+  }
+  .svg-figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .svg-caption {
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 14px;
+    font-style: italic;
+    line-height: 1.55;
+  }
+
+  /* ============ PREGUNTAS ============ */
+  .q-type {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 5px;
+  }
+  .q-type.cerrada {
+    background: rgba(78, 205, 196, 0.15);
+    color: var(--accent);
+    border: 1px solid var(--accent-line);
+  }
+  .q-type.abierta {
+    background: rgba(255, 193, 94, 0.12);
+    color: var(--accent-warm);
+    border: 1px solid rgba(255, 193, 94, 0.35);
+  }
+  .q-type.reflexiva {
+    background: rgba(184, 165, 255, 0.12);
+    color: var(--accent-reflect);
+    border: 1px solid rgba(184, 165, 255, 0.35);
+  }
+
+  .q-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 10px 0 20px;
+    line-height: 1.5;
+    max-width: 60ch;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    text-align: left;
+    background: var(--bg-alt);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--ink);
+    font-size: 17px;
+    font-family: inherit;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .option:hover {
+    border-color: var(--accent-line);
+    background: var(--card-soft);
+  }
+  .option .opt-letter {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--card-soft);
+    border: 1px solid var(--rule-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-top: 1px;
+  }
+  .option.selected .opt-letter {
+    background: var(--accent);
+    color: #04221f;
+    border-color: var(--accent);
+  }
+  .option.correct {
+    border-color: var(--success);
+    background: rgba(78, 205, 196, 0.1);
+  }
+  .option.correct .opt-letter {
+    background: var(--success);
+    color: #04221f;
+    border-color: var(--success);
+  }
+  .option.incorrect {
+    border-color: var(--error);
+    background: rgba(255, 155, 155, 0.08);
+  }
+  .option.incorrect .opt-letter {
+    background: var(--error);
+    color: #2a0808;
+    border-color: var(--error);
+  }
+
+  .feedback {
+    display: none;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-top: 6px;
+  }
+  .feedback.show { display: block; }
+  .feedback.good {
+    background: rgba(78, 205, 196, 0.1);
+    border-left: 3px solid var(--success);
+    color: var(--ink);
+  }
+  .feedback.bad {
+    background: rgba(255, 155, 155, 0.08);
+    border-left: 3px solid var(--error);
+    color: var(--ink);
+  }
+
+  .q-textarea {
+    width: 100%;
+    background: var(--bg-alt);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: 10px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 17px;
+    line-height: 1.65;
+    resize: vertical;
+    min-height: 110px;
+    transition: border-color 0.15s;
+  }
+  .q-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--card-soft);
+  }
+  .q-textarea::placeholder { color: var(--ink-faint); }
+
+  .saved-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 10px;
+    transition: color 0.2s;
+  }
+  .saved-hint::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rule-strong);
+    transition: background 0.2s;
+  }
+  .saved-hint.saved { color: var(--accent); }
+  .saved-hint.saved::before { background: var(--accent); }
+
+  .caso-escena {
+    background: var(--bg-alt);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 6px 0 22px;
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px dashed var(--rule-strong);
+    margin: 24px 0;
+  }
+
+  /* ============ SOCIALIZACIÓN ============ */
+  .social-card {
+    background: linear-gradient(135deg, rgba(184, 165, 255, 0.08), var(--card));
+    border: 1px solid rgba(184, 165, 255, 0.35);
+    border-radius: var(--radius);
+    padding: 0;
+    margin: 24px 0;
+    overflow: hidden;
+  }
+  .social-card .carta-head {
+    background: rgba(184, 165, 255, 0.08);
+    border-bottom: 1px solid rgba(184, 165, 255, 0.2);
+    padding: 16px 24px;
+  }
+  .social-card .carta-label { color: var(--accent-reflect); }
+  .social-card .carta-title { color: #ffffff; }
+  .social-card .carta-body { padding: 20px 24px 24px; }
+  .social-questions {
+    list-style: none;
+    counter-reset: social;
+    padding: 0;
+    margin: 18px 0 0;
+  }
+  .social-questions li {
+    counter-increment: social;
+    position: relative;
+    padding: 16px 18px 16px 62px;
+    background: rgba(184, 165, 255, 0.06);
+    border: 1px solid rgba(184, 165, 255, 0.2);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .social-questions li:last-child { margin-bottom: 0; }
+  .social-questions li::before {
+    content: counter(social);
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(184, 165, 255, 0.18);
+    border: 1px solid var(--accent-reflect);
+    color: var(--accent-reflect);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* ============ EXPORT ============ */
+  .export-panel {
+    background: linear-gradient(135deg, var(--accent-soft), var(--card));
+    border: 1px solid var(--accent-line);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 28px 0;
+    text-align: center;
+  }
+  .export-panel h3 {
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0 0 10px;
+  }
+  .export-panel p {
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+    font-size: 17px;
+    max-width: none;
+  }
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: 1.5px solid var(--accent);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover {
+    background: var(--accent);
+    color: #04221f;
+  }
+  .export-status {
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 12px;
+    min-height: 20px;
+  }
+
+  /* ============ FOOTER ============ */
+  footer.doc-foot {
+    border-top: 1px solid var(--rule-strong);
+    padding: 40px 26px 60px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 15px;
+  }
+  footer.doc-foot strong { color: var(--accent); }
+  footer.doc-foot p { margin: 6px 0; max-width: none; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 820px) {
+    .bilingual { grid-template-columns: 1fr; }
+    .bilingual .lang + .lang {
+      border-left: none;
+      border-top: 1px solid var(--rule-strong);
+    }
+  }
+  @media (max-width: 720px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    nav.nav { padding: 10px 16px; gap: 12px; }
+    .nav-steps { display: none; }
+    h1 { font-size: 28px; }
+    .h1-translation { font-size: 19px; }
+    .hero { padding: 48px 0 40px; }
+    .hero .lead { font-size: 18px; }
+    .fase { padding: 44px 0 30px; }
+    .fase-head h2 { font-size: 24px; }
+    .fase-time { margin-left: 0; }
+    .outcomes-section { padding: 36px 0 30px; }
+    .outcomes-section h2 { font-size: 22px; }
+    .carta-head { padding: 14px 18px 0; }
+    .carta-body { padding: 8px 18px 20px; }
+    details.carta > summary { padding: 16px 18px; }
+    .q-text { font-size: 18px; }
+    .option { font-size: 16px; padding: 12px 14px; }
+    .q-textarea { font-size: 16px; }
+    .bilingual .lang { padding: 14px 16px; }
+    .bilingual p { font-size: 15px; }
+    .abstract-table { font-size: 14.5px; }
+    .abstract-table th, .abstract-table td { padding: 9px 11px; }
+    .abstract-table td:first-child { width: 38%; }
+    .social-questions li { font-size: 16px; padding: 14px 14px 14px 54px; }
+    .social-questions li::before { left: 14px; width: 26px; height: 26px; font-size: 13px; }
+    .social-card .carta-head { padding: 14px 18px; }
+    .social-card .carta-body { padding: 16px 18px 20px; }
+    .svg-figure {
+      padding: 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .svg-figure svg { min-width: 540px; }
+    .svg-caption { min-width: 540px; text-align: left; font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV PROGRESO ============ -->
+<nav class="nav" aria-label="Progreso del laboratorio">
+  <div class="nav-brand">Gesto y habla</div>
+  <ol class="nav-steps" id="navSteps">
+    <li data-step="1">01 · Marco teórico</li>
+    <li data-step="2">02 · Calentamiento</li>
+    <li data-step="3">03 · Desafío 1</li>
+    <li data-step="4">04 · Desafío 2</li>
+    <li data-step="5">05 · Cierre</li>
+  </ol>
+  <div class="nav-progress"><span id="answered">0</span>/<span id="total">0</span> respuestas</div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Laboratorio interactivo · 45 minutos</p>
+    <h1>So you think gestures are nonverbal?</h1>
+    <p class="h1-translation">¿Así que crees que los gestos no son verbales?</p>
+    <p class="h1-attribution">David McNeill · <em>Psychological Review, 92</em>(3), 350–371 · 1985</p>
+    <p class="lead">Un laboratorio digital para descubrir qué hacen tus manos cuando hablas y por qué el gesto no es un simple adorno de las palabras.</p>
+    <p class="author">Diseñado por <strong>Juan Carlos Valderrama Cárdenas</strong></p>
+    <div class="meta">
+      <span>5 fases</span>
+      <span>45 minutos</span>
+      <span>Basado en McNeill (1985)</span>
+    </div>
+    <a href="#fase1" class="btn-primary">Comenzar →</a>
+  </div>
+</header>
+
+<!-- ============ RESULTADOS DE APRENDIZAJE ============ -->
+<section class="outcomes-section">
+  <div class="wrap">
+    <p class="outcomes-label">Resultados de aprendizaje</p>
+    <h2>Al finalizar este laboratorio podrás…</h2>
+    <div class="outcomes">
+      <div class="outcome-card">
+        <span class="outcome-num">RA1 · Distinguir</span>
+        <p>Distinguir un gesto espontáneo de un emblema en fragmentos breves de interacción, justificando la distinción con al menos dos criterios (dependencia del habla y grado de convencionalidad).</p>
+      </div>
+      <div class="outcome-card">
+        <span class="outcome-num">RA2 · Analizar</span>
+        <p>Analizar un episodio psicológico breve identificando qué información aporta el habla, qué información aporta el gesto y cómo ambas se coordinan para expresar una representación que ninguna de las dos modalidades agota por separado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- ============================================================= -->
+  <!-- FASE 1 · MARCO TEÓRICO (7 min)                                 -->
+  <!-- ============================================================= -->
+  <section id="fase1" class="fase" data-step="1">
+    <header class="fase-head">
+      <span class="fase-num">Fase 01</span>
+      <h2>Marco teórico</h2>
+      <span class="fase-time">7 min</span>
+    </header>
+    <p class="fase-intro">Esta es tu primera actividad: <strong>leer</strong>. Empezarás por el resumen original del artículo de McNeill (1985), con su traducción al español y una tabla que sintetiza sus argumentos. Después encontrarás tres conceptos clave con sus respectivos esquemas visuales.</p>
+    <div class="reading-note">Tiempo estimado de lectura: 6 minutos</div>
+
+    <!-- Carta 01 · Abstract bilingüe -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 01 · Resumen del artículo</span>
+        <h3 class="carta-title">Abstract original y traducción</h3>
+      </div>
+      <div class="carta-body">
+        <div class="bilingual">
+          <div class="lang">
+            <span class="lang-label">Original (en inglés)</span>
+            <p>Argues that gestures and speech are parts of the same psychological structure and share a computational stage. This argument is based on the close temporal, semantic, pragmatic, pathological, and developmental parallels between speech and referential and discourse-oriented gestures. The symbolic character of gestures is demonstrated with examples of gestures produced by 5 women who were narrating the same event from a cartoon story. Evidence is also presented in support of the conclusions that (1) gestures occur only during speech, (2) they have semantic and pragmatic functions that parallel those of speech, (3) they are synchronized with linguistic units, (4) they dissolve (as does speech) in aphasia, and (5) they develop together with speech in children. It is noted that a concept that unites outer speech and gesture is the hypothesis of inner speech. (57 ref) (PsycInfo Database Record (c) 2025 APA, all rights reserved)</p>
+          </div>
+          <div class="lang">
+            <span class="lang-label">Traducción al español</span>
+            <p>Sostiene que los gestos y el habla son partes de una misma estructura psicológica y comparten una etapa computacional. Este argumento se basa en los estrechos paralelismos temporales, semánticos, pragmáticos, patológicos y evolutivos entre el habla y los gestos referenciales y orientados al discurso. El carácter simbólico de los gestos se demuestra con ejemplos de gestos producidos por 5 mujeres que narraban un mismo evento de una historia animada. También se presenta evidencia que apoya las conclusiones de que (1) los gestos ocurren solo durante el habla, (2) tienen funciones semánticas y pragmáticas que son paralelas a las del habla, (3) están sincronizados con unidades lingüísticas, (4) se disuelven (como el habla) en la afasia, y (5) se desarrollan junto con el habla en los niños. Se señala que un concepto que une el habla externa y el gesto es la hipótesis del habla interna. (57 referencias) (Registro de la base de datos PsycInfo (c) 2025 APA, todos los derechos reservados)</p>
+          </div>
+        </div>
+        <p class="ref-line">McNeill, D. (1985). So you think gestures are nonverbal? <em>Psychological Review, 92</em>(3), 350–371. <a href="https://doi.org/10.1037/0033-295X.92.3.350" target="_blank" rel="noopener">https://doi.org/10.1037/0033-295X.92.3.350</a></p>
+      </div>
+    </div>
+
+    <!-- Carta 02 · Tabla resumen -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 02 · Síntesis del resumen</span>
+        <h3 class="carta-title">La tesis y sus cinco conclusiones</h3>
+      </div>
+      <div class="carta-body">
+        <table class="abstract-table">
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>Contenido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tesis central</td>
+              <td>Gestos y habla son partes de una misma estructura psicológica y comparten una etapa computacional.</td>
+            </tr>
+            <tr>
+              <td>Base del argumento</td>
+              <td>Paralelismos temporales, semánticos, pragmáticos, patológicos y evolutivos entre habla y gestos referenciales y orientados al discurso.</td>
+            </tr>
+            <tr>
+              <td>Demostración del carácter simbólico</td>
+              <td>Gestos producidos por 5 mujeres que narraban el mismo evento de una historia animada.</td>
+            </tr>
+            <tr>
+              <td>Conclusión 1</td>
+              <td>Los gestos ocurren solo durante el habla.</td>
+            </tr>
+            <tr>
+              <td>Conclusión 2</td>
+              <td>Tienen funciones semánticas y pragmáticas paralelas a las del habla.</td>
+            </tr>
+            <tr>
+              <td>Conclusión 3</td>
+              <td>Están sincronizados con unidades lingüísticas.</td>
+            </tr>
+            <tr>
+              <td>Conclusión 4</td>
+              <td>Se disuelven (como el habla) en la afasia.</td>
+            </tr>
+            <tr>
+              <td>Conclusión 5</td>
+              <td>Se desarrollan junto con el habla en los niños.</td>
+            </tr>
+            <tr>
+              <td>Concepto integrador</td>
+              <td>La hipótesis del habla interna (<em>inner speech</em>) une habla externa y gesto.</td>
+            </tr>
+            <tr>
+              <td>Alcance del artículo</td>
+              <td>57 referencias bibliográficas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Carta 03 · Concepto 1 -->
+    <details class="carta">
+      <summary>
+        <div class="summary-text">
+          <span class="carta-label">Carta 03 · Concepto 1</span>
+          <p class="summary-title">Gesto espontáneo vs. emblema</p>
+        </div>
+      </summary>
+      <div class="carta-body">
+        <p>McNeill no habla de «los gestos» en general. Distingue los <strong>emblemas</strong> —como el pulgar arriba o el dedo en la sien para decir «loco»—, que tienen un significado convencional y pueden entenderse sin habla, de los <strong>gestos espontáneos</strong> que aparecen mientras hablamos y que a menudo no se entienden sin el discurso que acompañan.</p>
+        <p>Esta distinción es clave: no todos los movimientos de las manos son «no verbales» en el mismo sentido.</p>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg1-title">
+            <title id="svg1-title">Dos tipos de gesto: emblema y gesto espontáneo</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">DOS TIPOS DE GESTO</text>
+
+            <!-- Emblema -->
+            <rect x="40" y="56" width="340" height="230" rx="12" fill="#16374f" stroke="#ffc15e" stroke-width="1.5"/>
+            <text x="210" y="88" text-anchor="middle" fill="#ffc15e" font-size="15" font-weight="700" letter-spacing="1">EMBLEMA</text>
+            <circle cx="210" cy="150" r="38" fill="none" stroke="#ffc15e" stroke-width="2"/>
+            <text x="210" y="160" text-anchor="middle" fill="#ffc15e" font-size="34" font-weight="700">👍</text>
+            <text x="210" y="215" text-anchor="middle" fill="#e9f1f6" font-size="14">Significado convencional</text>
+            <text x="210" y="237" text-anchor="middle" fill="#b8c9d6" font-size="13">Se entiende sin habla</text>
+            <text x="210" y="261" text-anchor="middle" fill="#7f97ab" font-size="12" font-style="italic">Ej.: pulgar arriba, dedo en la sien</text>
+
+            <!-- Gesto espontáneo -->
+            <rect x="420" y="56" width="340" height="230" rx="12" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="590" y="88" text-anchor="middle" fill="#4ecdc4" font-size="15" font-weight="700" letter-spacing="1">GESTO ESPONTÁNEO</text>
+            <path d="M540 150 Q590 110 640 150" stroke="#4ecdc4" stroke-width="2.5" fill="none"/>
+            <circle cx="540" cy="150" r="5" fill="#4ecdc4"/>
+            <circle cx="640" cy="150" r="5" fill="#4ecdc4"/>
+            <text x="590" y="215" text-anchor="middle" fill="#e9f1f6" font-size="14">Aparece con el habla</text>
+            <text x="590" y="237" text-anchor="middle" fill="#b8c9d6" font-size="13">Depende del discurso</text>
+            <text x="590" y="261" text-anchor="middle" fill="#7f97ab" font-size="12" font-style="italic">Ej.: dibujar una trayectoria</text>
+          </svg>
+          <p class="svg-caption">Un emblema se comprende aislado; un gesto espontáneo solo se entiende junto al habla que lo acompaña.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Carta 04 · Concepto 2 con SVG -->
+    <details class="carta">
+      <summary>
+        <div class="summary-text">
+          <span class="carta-label">Carta 04 · Concepto 2</span>
+          <p class="summary-title">Etapa computacional compartida</p>
+        </div>
+      </summary>
+      <div class="carta-body">
+        <p>Habla y gesto <em>comparten una etapa computacional</em> (<em>share a computational stage</em>). No son dos sistemas que se traducen entre sí, sino dos realizaciones de una misma actividad psicológica de formación del enunciado.</p>
+        <p>Por eso los gestos se sincronizan con las palabras, por eso pueden anticiparse a la palabra que expresará la misma información, y por eso los pacientes con ciertas afasias pierden gesto y habla de forma paralela.</p>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg2-title">
+            <title id="svg2-title">Diagrama de la etapa computacional compartida</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">UNA MISMA ACTIVIDAD PSICOLÓGICA</text>
+
+            <!-- Pensamiento en formación -->
+            <rect x="260" y="50" width="280" height="64" rx="10" fill="#16374f" stroke="#2b7a76"/>
+            <text x="400" y="78" text-anchor="middle" fill="#e9f1f6" font-size="16" font-weight="600">Pensamiento en formación</text>
+            <text x="400" y="98" text-anchor="middle" fill="#7f97ab" font-size="12" font-style="italic">representación aún no verbal</text>
+
+            <!-- Flecha hacia abajo -->
+            <line x1="400" y1="114" x2="400" y2="146" stroke="#4ecdc4" stroke-width="2"/>
+            <polygon points="394,144 406,144 400,158" fill="#4ecdc4"/>
+
+            <!-- Etapa compartida -->
+            <rect x="220" y="160" width="360" height="80" rx="10" fill="#0f3b47" stroke="#4ecdc4" stroke-width="2"/>
+            <text x="400" y="190" text-anchor="middle" fill="#4ecdc4" font-size="14" font-weight="700" letter-spacing="1">ETAPA COMPUTACIONAL</text>
+            <text x="400" y="210" text-anchor="middle" fill="#4ecdc4" font-size="14" font-weight="700" letter-spacing="1">COMPARTIDA</text>
+            <text x="400" y="230" text-anchor="middle" fill="#b8c9d6" font-size="12" font-style="italic">share a computational stage</text>
+
+            <!-- Flechas divergentes -->
+            <path d="M330 240 Q280 285 230 300" stroke="#4ecdc4" stroke-width="2" fill="none"/>
+            <polygon points="222,294 236,296 230,308" fill="#4ecdc4"/>
+            <path d="M470 240 Q520 285 570 300" stroke="#4ecdc4" stroke-width="2" fill="none"/>
+            <polygon points="578,294 564,296 570,308" fill="#4ecdc4"/>
+
+            <!-- Habla -->
+            <rect x="80" y="310" width="300" height="70" rx="10" fill="#16374f" stroke="#2b7a76"/>
+            <text x="230" y="338" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">Habla</text>
+            <text x="230" y="360" text-anchor="middle" fill="#b8c9d6" font-size="13">lineal · segmentada · secuencial</text>
+
+            <!-- Gesto -->
+            <rect x="420" y="310" width="300" height="70" rx="10" fill="#16374f" stroke="#2b7a76"/>
+            <text x="570" y="338" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">Gesto</text>
+            <text x="570" y="360" text-anchor="middle" fill="#b8c9d6" font-size="13">global · sintético · simultáneo</text>
+          </svg>
+          <p class="svg-caption">Habla y gesto no se traducen entre sí: emergen de una misma etapa de formación del enunciado.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Carta 05 · Concepto 3 con dos SVG -->
+    <details class="carta">
+      <summary>
+        <div class="summary-text">
+          <span class="carta-label">Carta 05 · Concepto 3</span>
+          <p class="summary-title">Representación distribuida</p>
+        </div>
+      </summary>
+      <div class="carta-body">
+        <p>La representación cognitiva completa no coincide con el contenido de la oración. En el ejemplo del paraguas, la frase dice «ella lo persigue y lo echa otra vez», pero el gesto añade el instrumento con el que se realiza la acción.</p>
+        <p>Los dos canales han <strong>distribuido</strong> una representación común: el habla es lineal y segmentada; el gesto, global y sintético.</p>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg3-title">
+            <title id="svg3-title">Habla lineal frente a gesto global</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">DOS MODALIDADES DE REPRESENTACIÓN</text>
+
+            <!-- HABLA -->
+            <text x="200" y="70" text-anchor="middle" fill="#4ecdc4" font-size="15" font-weight="700" letter-spacing="1">HABLA · LINEAL</text>
+
+            <rect x="55" y="100" width="52" height="52" rx="6" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="81" y="134" text-anchor="middle" fill="#4ecdc4" font-size="20" font-weight="700">A</text>
+
+            <line x1="107" y1="126" x2="123" y2="126" stroke="#4ecdc4" stroke-width="2"/>
+            <polygon points="122,120 134,126 122,132" fill="#4ecdc4"/>
+
+            <rect x="134" y="100" width="52" height="52" rx="6" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="160" y="134" text-anchor="middle" fill="#4ecdc4" font-size="20" font-weight="700">B</text>
+
+            <line x1="186" y1="126" x2="202" y2="126" stroke="#4ecdc4" stroke-width="2"/>
+            <polygon points="201,120 213,126 201,132" fill="#4ecdc4"/>
+
+            <rect x="213" y="100" width="52" height="52" rx="6" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="239" y="134" text-anchor="middle" fill="#4ecdc4" font-size="20" font-weight="700">C</text>
+
+            <line x1="265" y1="126" x2="281" y2="126" stroke="#4ecdc4" stroke-width="2"/>
+            <polygon points="280,120 292,126 280,132" fill="#4ecdc4"/>
+
+            <rect x="292" y="100" width="52" height="52" rx="6" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="318" y="134" text-anchor="middle" fill="#4ecdc4" font-size="20" font-weight="700">D</text>
+
+            <text x="200" y="192" text-anchor="middle" fill="#b8c9d6" font-size="14">Una información después de otra</text>
+            <text x="200" y="218" text-anchor="middle" fill="#7f97ab" font-size="12" font-style="italic">«El gato / subió / rápido / por / la tubería»</text>
+
+            <!-- Línea divisoria -->
+            <line x1="400" y1="55" x2="400" y2="280" stroke="#1e3a52" stroke-width="1" stroke-dasharray="4 6"/>
+
+            <!-- GESTO -->
+            <text x="600" y="70" text-anchor="middle" fill="#ffc15e" font-size="15" font-weight="700" letter-spacing="1">GESTO · GLOBAL</text>
+
+            <rect x="485" y="100" width="230" height="80" rx="10" fill="#16374f" stroke="#ffc15e" stroke-width="1.5"/>
+            <text x="600" y="135" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="700">A + B + C + D</text>
+            <text x="600" y="160" text-anchor="middle" fill="#7f97ab" font-size="12" font-style="italic">un solo movimiento simultáneo</text>
+
+            <text x="600" y="205" text-anchor="middle" fill="#b8c9d6" font-size="14">Toda la información a la vez</text>
+            <text x="600" y="230" text-anchor="middle" fill="#7f97ab" font-size="12" font-style="italic">trayectoria · forma · perspectiva</text>
+          </svg>
+          <p class="svg-caption">El habla despliega la información en secuencia; el gesto la concentra en un solo movimiento simultáneo.</p>
+        </div>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg4-title">
+            <title id="svg4-title">Una representación, dos canales</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">UNA MISMA REPRESENTACIÓN, DOS CANALES</text>
+
+            <!-- Representación central -->
+            <rect x="270" y="55" width="260" height="80" rx="10" fill="#0f3b47" stroke="#4ecdc4" stroke-width="2"/>
+            <text x="400" y="86" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="700">Representación cognitiva</text>
+            <text x="400" y="108" text-anchor="middle" fill="#b8c9d6" font-size="13" font-style="italic">«ella lo persigue y lo echa otra vez»</text>
+            <text x="400" y="126" text-anchor="middle" fill="#7f97ab" font-size="12">+ ¿con qué?</text>
+
+            <!-- Flechas divergentes -->
+            <path d="M320 135 Q250 195 200 235" stroke="#4ecdc4" stroke-width="2" fill="none"/>
+            <polygon points="192,230 206,230 200,242" fill="#4ecdc4"/>
+            <path d="M480 135 Q550 195 600 235" stroke="#ffc15e" stroke-width="2" fill="none"/>
+            <polygon points="608,230 594,230 600,242" fill="#ffc15e"/>
+
+            <!-- Habla -->
+            <rect x="60" y="250" width="280" height="130" rx="10" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="200" y="278" text-anchor="middle" fill="#4ecdc4" font-size="15" font-weight="700" letter-spacing="1">HABLA</text>
+            <text x="200" y="304" text-anchor="middle" fill="#e9f1f6" font-size="14" font-style="italic">«…lo persigue y lo echa otra vez»</text>
+            <text x="200" y="332" text-anchor="middle" fill="#b8c9d6" font-size="13">dice: acción · objeto · repetición</text>
+            <text x="200" y="356" text-anchor="middle" fill="#7f97ab" font-size="12">no dice: el instrumento</text>
+
+            <!-- Gesto -->
+            <rect x="460" y="250" width="280" height="130" rx="10" fill="#16374f" stroke="#ffc15e" stroke-width="1.5"/>
+            <text x="600" y="278" text-anchor="middle" fill="#ffc15e" font-size="15" font-weight="700" letter-spacing="1">GESTO</text>
+            <text x="600" y="304" text-anchor="middle" fill="#e9f1f6" font-size="14" font-style="italic">movimiento de blandir un objeto</text>
+            <text x="600" y="332" text-anchor="middle" fill="#b8c9d6" font-size="13">muestra: instrumento · forma</text>
+            <text x="600" y="356" text-anchor="middle" fill="#7f97ab" font-size="12">no dice: la persecución</text>
+
+            <!-- Conclusión -->
+            <text x="400" y="410" text-anchor="middle" fill="#4ecdc4" font-size="14" font-weight="600">La representación completa = habla + gesto</text>
+          </svg>
+          <p class="svg-caption">Ni la frase ni el gesto agotan por separado la representación: cada uno aporta una parte y solo coordinados la completan.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- Carta 06 · Comprensión + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 06 · Verifica tu lectura</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">Según lo que acabas de leer, ¿cuál de estos gestos es un emblema?</p>
+        <div class="options" data-group="q01">
+          <button class="option" data-correct="false" data-feedback="Ese gesto acompaña al habla y describe una trayectoria: es un gesto espontáneo, no un emblema.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Dibujar una trayectoria con la mano mientras se describe un movimiento.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. El dedo en la sien es un emblema: su significado es culturalmente convencional y puede entenderse sin habla.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Llevar el dedo a la sien para indicar «loco».</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="Marcar el ritmo es un beat: organiza el discurso, no representa un objeto ni tiene significado convencional.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Marcar con la mano el ritmo de una frase.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="Señalar es un gesto deíctico: indica una localización, pero no es un emblema.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Señalar un objeto mientras se lo nombra.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">¿Qué gesto usas tú en tu vida cotidiana que podría ser un emblema? Descríbelo y explica por qué lo consideras así.</p>
+        <textarea class="q-textarea" data-label="Fase 1 · Reflexión cotidiana: un emblema propio" rows="4" placeholder="Por ejemplo: «Cuando quiero decir que alguien está exagerando, hago…»"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 2 · CALENTAMIENTO (8 min)                                 -->
+  <!-- ============================================================= -->
+  <section id="fase2" class="fase" data-step="2">
+    <header class="fase-head">
+      <span class="fase-num">Fase 02</span>
+      <h2>Calentamiento</h2>
+      <span class="fase-time">8 min</span>
+    </header>
+    <p class="fase-intro">Ya tienes los conceptos. Ahora sitúate en la misión y explora lo que ya sabes sobre tus propios gestos.</p>
+
+    <!-- Carta 07 · Misión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 07 · Tu misión</span>
+        <h3 class="carta-title">Eres parte de un equipo de investigación</h3>
+      </div>
+      <div class="carta-body">
+        <p>Un centro de psicología cognitiva te ha invitado a clasificar episodios de interacción y a reconstruir las representaciones que las personas elaboran mientras hablan. Tu tarea no es adivinar: es <strong>decidir y justificar</strong>. Cada respuesta que escribas queda guardada en este cuaderno digital y podrás descargarla al final para entregarla.</p>
+      </div>
+    </div>
+
+    <!-- Carta 08 · Detonadora + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 08 · Pregunta detonadora</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">Después de leer el marco teórico: ¿los gestos son un «lenguaje no verbal» separado del lenguaje?</p>
+        <div class="options" data-group="q02">
+          <button class="option" data-correct="false" data-feedback="McNeill cuestiona precisamente esa separación. Su argumento se apoya en la sincronización, la anticipación y la distribución de información entre ambos canales.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Sí: son un sistema independiente que se traduce al habla.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Exacto. McNeill (1985) argumenta que al menos los gestos espontáneos no son un sistema aparte, sino otra manifestación de la misma actividad psicológica que produce el habla.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">No: al menos los gestos espontáneos forman parte del mismo proceso que el habla.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No exactamente. La tesis de McNeill no depende de diferencias individuales, sino de cómo se organiza la producción del enunciado en cualquier hablante.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Depende del hablante y de su cultura.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">Piensa en la última conversación que tuviste hoy. ¿Recuerdas algún gesto con las manos que acompañara tus palabras? Descríbelo y cuenta qué intentabas decir con él.</p>
+        <textarea class="q-textarea" data-label="Fase 2 · Reflexión cotidiana: gesto de la última conversación" rows="5" placeholder="Por ejemplo: «Mientras le contaba a mi compañera cómo llegué tarde, moví la mano en círculos como si buscara una ruta…»"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 3 · DESAFÍO 1 (12 min)                                    -->
+  <!-- ============================================================= -->
+  <section id="fase3" class="fase" data-step="3">
+    <header class="fase-head">
+      <span class="fase-num">Fase 03</span>
+      <h2>Desafío 1 · El detector de gestos</h2>
+      <span class="fase-time">12 min</span>
+    </header>
+    <p class="fase-intro">El archivo tiene dos casos. Tu tarea: clasificarlos y justificar la decisión con al menos dos criterios. No hay puntos por rapidez; los hay por calidad argumentativa.</p>
+
+    <!-- Carta 09 · Caso A -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 09 · Caso A</span>
+        <h3 class="carta-title">Un gesto que se entiende sin palabras</h3>
+      </div>
+      <div class="carta-body">
+        <div class="caso-escena">Una persona mira a otra y, sin decir nada, lleva el dedo índice a la sien y hace un pequeño círculo. La otra persona sonríe y asiente.</div>
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Cómo clasificas el gesto del Caso A?</p>
+        <div class="options" data-group="q03">
+          <button class="option" data-correct="true" data-feedback="Correcto. Es un emblema: se comprende sin habla y su significado es culturalmente compartido.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Emblema.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Un gesto espontáneo depende del habla y no tiene un significado convencional aislado.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Gesto espontáneo.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Un beat marca el ritmo o el énfasis del discurso, no representa un contenido convencional.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Beat.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Un gesto deíctico señala una localización, no un significado cultural.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Gesto deíctico.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type abierta">Abierta · justificación</span>
+        <p class="q-text">Justifica tu elección con dos criterios. ¿Qué haría falta para estar seguros de que es un emblema y no un gesto espontáneo?</p>
+        <textarea class="q-textarea" data-label="Fase 3 · Caso A: justificación con dos criterios" rows="4" placeholder="Menciona al menos dos criterios: dependencia del habla, convencionalidad, comprensión aislada…"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 10 · Caso B -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 10 · Caso B</span>
+        <h3 class="carta-title">Un gesto que solo se entiende con el habla</h3>
+      </div>
+      <div class="carta-body">
+        <div class="caso-escena">Una persona dice: «Y la pelota se fue rodando por la cuesta». Mientras pronuncia «rodando», su mano derecha dibuja un pequeño arco descendente y luego gira ligeramente, como siguiendo una trayectoria.</div>
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Cómo clasificas el gesto del Caso B?</p>
+        <div class="options" data-group="q04">
+          <button class="option" data-correct="false" data-feedback="No. No tiene un significado convencional aislado: sin la frase, el arco podría significar muchas otras cosas.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Emblema.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es un gesto espontáneo: acompaña al habla, no es convencional y añade información sobre la trayectoria.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Gesto espontáneo.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Un beat no representa una trayectoria; solo marca el ritmo o el énfasis.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Beat.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No exactamente. Los gestos metafóricos representan abstracciones; aquí se representa una trayectoria concreta.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Gesto metafórico.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type abierta">Abierta · justificación</span>
+        <p class="q-text">Justifica tu elección con dos criterios. ¿Qué diferencia este gesto del Caso A?</p>
+        <textarea class="q-textarea" data-label="Fase 3 · Caso B: justificación y diferencia con el Caso A" rows="4" placeholder="Compara los dos casos: ¿qué hace que uno se entienda solo y el otro no?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 11 · Clasificación múltiple + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 11 · Clasificación múltiple</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">Clasifica estos tres gestos: 1) Dedo a la sien para decir «loco»; 2) Marcar el ritmo de una frase; 3) Dibujar la trayectoria de un objeto. ¿Cuál de estas clasificaciones es correcta?</p>
+        <div class="options" data-group="q05">
+          <button class="option" data-correct="true" data-feedback="Correcto. 1 es emblema (convencional), 2 es beat (organiza el discurso), 3 es gesto espontáneo (acompaña al habla).">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">1) emblema · 2) beat · 3) gesto espontáneo</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="Revisa: el dedo en la sien es convencional, no espontáneo; la trayectoria no es emblema.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">1) gesto espontáneo · 2) beat · 3) emblema</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="Revisa: el dedo en la sien no es un beat; el ritmo no es un emblema.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">1) beat · 2) emblema · 3) gesto espontáneo</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="Revisa: el ritmo es un beat, no un gesto espontáneo; la trayectoria es un gesto espontáneo, no un beat.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">1) emblema · 2) gesto espontáneo · 3) beat</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">Piensa en un gesto que hayas visto hoy en el transporte, en una cafetería o en una clase. ¿Era un emblema o un gesto espontáneo? Descríbelo y explica por qué.</p>
+        <textarea class="q-textarea" data-label="Fase 3 · Reflexión cotidiana: un gesto observado hoy" rows="4" placeholder="Describe la escena: ¿quién lo hacía, en qué contexto, qué crees que significaba?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 4 · DESAFÍO 2 (12 min)                                    -->
+  <!-- ============================================================= -->
+  <section id="fase4" class="fase" data-step="4">
+    <header class="fase-head">
+      <span class="fase-num">Fase 04</span>
+      <h2>Desafío 2 · La cámara de representación</h2>
+      <span class="fase-time">12 min</span>
+    </header>
+    <p class="fase-intro">La plataforma ha bloqueado la cámara de representación. Para abrirla, resuelve tres candados. Cada candado tiene una pregunta cerrada (que revela un código) y una pregunta abierta (que se queda con tu análisis).</p>
+
+    <!-- Carta 12 · Episodio + Candado 1 -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 12 · Episodio</span>
+        <h3 class="carta-title">La caja sobre la mesa</h3>
+      </div>
+      <div class="carta-body">
+        <div class="caso-escena">Una persona narra: «Mi hermana llegó y puso la caja sobre la mesa». Mientras dice «puso», su mano derecha desciende desde la altura del pecho hasta la altura de la cintura, con la palma hacia abajo, y luego se detiene.</div>
+
+        <span class="q-type cerrada">Candado 1 · Cerrada</span>
+        <p class="q-text">¿Qué información aporta la frase que el gesto no aporta?</p>
+        <div class="options" data-group="q06">
+          <button class="option" data-correct="true" data-feedback="Correcto. La frase dice la acción y el objeto; el gesto añade la altura y la orientación. Código del candado 1: CAJA.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">La acción de poner y el objeto (la caja).</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La altura es precisamente lo que aporta el gesto, no la frase. Código: CAJA.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">La altura desde la que se depositó.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La orientación de la palma la aporta el gesto. Código: CAJA.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">La orientación de la palma.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. El cuidado es una inferencia que surge de coordinar ambos canales; no está en la frase. Código: CAJA.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">El cuidado con que se colocó.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type abierta">Abierta · análisis</span>
+        <p class="q-text">Describe con tus palabras qué información aporta el gesto y que la frase no contiene. ¿Cómo lo sabes?</p>
+        <textarea class="q-textarea" data-label="Fase 4 · Candado 1: qué aporta el gesto" rows="4" placeholder="Separa lo que dice la frase de lo que muestra el gesto y de lo que solo se entiende al coordinar ambos."></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 13 · Candado 2 + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 13 · Candado 2</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Qué inferencia permite la coordinación de frase y gesto que ninguna de las dos modalidades permite por separado?</p>
+        <div class="options" data-group="q07">
+          <button class="option" data-correct="false" data-feedback="No. El peso no se infiere de los datos. Código del candado 2: CTRL.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Que la caja era pesada.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. La frase dice «puso»; el gesto muestra un descenso controlado. Juntos permiten inferir que no fue arrojada. Código del candado 2: CTRL.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Que la caja no fue arrojada, sino depositada con control.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. El enojo no se sigue de los datos. Código: CTRL.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Que la hermana estaba enojada.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La altura de la mesa no se infiere. Código: CTRL.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Que la mesa era baja.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">Piensa en una conversación reciente en la que alguien te contó algo y su gesto añadió información que la frase no contenía. Describe la escena en 3–4 líneas e identifica qué aportó cada canal.</p>
+        <textarea class="q-textarea" data-label="Fase 4 · Reflexión cotidiana: un gesto que añadió información" rows="5" placeholder="Describe la escena: qué dijo la persona, qué hizo con las manos, qué entendiste que las palabras solas no decían."></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 14 · Candado 3 + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 14 · Candado 3</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Qué modalidad de pensamiento describe McNeill como global, sintética y simultánea?</p>
+        <div class="options" data-group="q08">
+          <button class="option" data-correct="false" data-feedback="No. La modalidad lingüístico-sintáctica es lineal y segmentada. Código del candado 3: IMAG.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Lingüístico-sintáctica.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. La modalidad imagístico-global es la que el gesto hace visible. Código del candado 3: IMAG.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Imagístico-global.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. McNeill no usa esa categoría para describir la modalidad gestual. Código: IMAG.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Lógico-formal.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La modalidad narrativa no es la que McNeill contrapone a la lingüística. Código: IMAG.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Narrativa-lineal.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">Explica con un ejemplo cotidiano la diferencia entre «el gesto traduce lo que ya está en las palabras» y «el gesto distribuye una representación junto con las palabras».</p>
+        <textarea class="q-textarea" data-label="Fase 4 · Reflexión cotidiana: traducir vs. distribuir" rows="5" placeholder="Piensa en una situación de tu día a día donde el gesto añadió algo que la frase no tenía."></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 5 · CIERRE (6 min)                                        -->
+  <!-- ============================================================= -->
+  <section id="fase5" class="fase" data-step="5">
+    <header class="fase-head">
+      <span class="fase-num">Fase 05</span>
+      <h2>Cierre</h2>
+      <span class="fase-time">6 min</span>
+    </header>
+    <p class="fase-intro">Antes de terminar, una síntesis, dos preguntas de metacognición y tres preguntas para la conversación en grupo.</p>
+
+    <!-- Carta 15 · Síntesis -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 15 · Síntesis</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Cuál de estas afirmaciones resume mejor la tesis de McNeill (1985)?</p>
+        <div class="options" data-group="q09">
+          <button class="option" data-correct="false" data-feedback="No. McNeill cuestiona precisamente que los gestos sean un lenguaje paralelo.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Los gestos son un lenguaje paralelo al verbal.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Habla y gesto son dos manifestaciones de una misma actividad psicológica: comparten una etapa computacional.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Habla y gesto son dos manifestaciones de una misma actividad psicológica.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. McNeill rechaza la idea de que el gesto sea una mera traducción del lenguaje interno.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Los gestos traducen al cuerpo lo que ya está en las palabras.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. McNeill no defiende la independencia del pensamiento no verbal; defiende una organización integrada.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">El pensamiento no verbal es independiente del lenguaje.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Carta 16 · Metacognición 1 -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 16 · Metacognición</span>
+        <span class="q-type abierta">Abierta</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Qué concepto te resultó más difícil de distinguir y qué hiciste para corregir la confusión?</p>
+        <textarea class="q-textarea" data-label="Fase 5 · Metacognición: concepto más difícil" rows="4" placeholder="Nombra el concepto y describe el momento en que lograste distinguirlo."></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 17 · Metacognición 2 -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 17 · Metacognición</span>
+        <span class="q-type abierta">Abierta</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿En qué momento del análisis te diste cuenta de que el gesto aportaba algo que la frase no decía?</p>
+        <textarea class="q-textarea" data-label="Fase 5 · Metacognición: momento de descubrimiento" rows="4" placeholder="Describe el instante: ¿fue al leer el episodio, al justificar, al comparar casos?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 18 · Reflexión cotidiana -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 18 · Reflexión cotidiana</span>
+        <span class="q-type reflexiva">Abierta · reflexión</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">Después de este laboratorio, ¿qué gesto de tu vida cotidiana mirarás de otra manera? Descríbelo y explica por qué.</p>
+        <textarea class="q-textarea" data-label="Fase 5 · Reflexión cotidiana: gesto que mirarás distinto" rows="4" placeholder="Piensa en un gesto propio, de un familiar, de un compañero de trabajo o de clase…"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 19 · Socialización -->
+    <div class="social-card">
+      <div class="carta-head">
+        <span class="carta-label">Carta 19 · Socialización en grupo</span>
+        <h3 class="carta-title">Tres preguntas para conversar</h3>
+      </div>
+      <div class="carta-body">
+        <p style="max-width:64ch; margin:0 0 4px">Cuando el facilitador abra la conversación grupal, estas tres preguntas orientarán la puesta en común. No hay respuestas correctas: se trata de contrastar lo que cada uno vivió, pensó y descubrió durante el laboratorio.</p>
+        <ol class="social-questions">
+          <li>¿Cómo cambió tu forma de mirar tus propios gestos y los de los demás después de este laboratorio?</li>
+          <li>¿En qué situaciones de tu formación o práctica como psicólogo/a podría ser útil distinguir entre gesto espontáneo y emblema?</li>
+          <li>¿Qué consecuencias tiene la tesis de McNeill para la idea de que el pensamiento se reduce al lenguaje?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Exportar -->
+    <div class="export-panel">
+      <h3>Has completado el laboratorio</h3>
+      <p>Descarga tus respuestas para entregarlas o consérvalas como evidencia de tu proceso.</p>
+      <button class="btn-secondary" id="btnExport">Descargar mis respuestas</button>
+      <div class="export-status" id="exportStatus"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="doc-foot">
+  <p><strong>Autor del recurso:</strong> Juan Carlos Valderrama Cárdenas</p>
+  <p>Laboratorio digital basado en McNeill, D. (1985). So you think gestures are nonverbal? <em>Psychological Review, 92</em>(3), 350–371. https://doi.org/10.1037/0033-295X.92.3.350</p>
+  <p style="margin-top:14px; font-size:13px;">5 fases · 7 + 8 + 12 + 12 + 6 = 45 minutos · Las respuestas se guardan automáticamente en este dispositivo.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============ PREGUNTAS CERRADAS ============ */
+  document.querySelectorAll('.options').forEach(function (group) {
+    group.querySelectorAll('.option').forEach(function (option) {
+      option.addEventListener('click', function () {
+        group.querySelectorAll('.option').forEach(function (o) {
+          o.classList.remove('selected', 'correct', 'incorrect');
+        });
+        option.classList.add('selected');
+
+        var isCorrect = option.dataset.correct === 'true';
+        var feedback = group.parentElement.querySelector('.feedback');
+
+        if (isCorrect) {
+          option.classList.add('correct');
+          if (feedback) {
+            feedback.textContent = option.dataset.feedback || 'Correcto.';
+            feedback.className = 'feedback show good';
+          }
+        } else {
+          option.classList.add('incorrect');
+          if (feedback) {
+            feedback.textContent = option.dataset.feedback || 'Revisa el concepto y vuelve a intentarlo.';
+            feedback.className = 'feedback show bad';
+          }
+        }
+      });
+    });
+  });
+
+  /* ============ TEXTAREAS · AUTOGUARDADO ============ */
+  var textareas = document.querySelectorAll('textarea[data-label]');
+  var totalEl = document.getElementById('total');
+  var answeredEl = document.getElementById('answered');
+  if (totalEl) totalEl.textContent = textareas.length;
+
+  function updateCounter() {
+    var filled = 0;
+    textareas.forEach(function (ta) {
+      if (ta.value.trim().length > 0) filled++;
+    });
+    if (answeredEl) answeredEl.textContent = filled;
+  }
+
+  textareas.forEach(function (ta) {
+    var key = 'lab_gesto_v4_' + ta.dataset.label;
+    var saved = localStorage.getItem(key);
+    if (saved) ta.value = saved;
+
+    var hint = ta.parentElement.querySelector('.saved-hint');
+
+    ta.addEventListener('input', function () {
+      localStorage.setItem(key, ta.value);
+      if (hint) {
+        hint.classList.add('saved');
+        hint.textContent = 'Guardado';
+        clearTimeout(hint._t);
+        hint._t = setTimeout(function () {
+          hint.classList.remove('saved');
+          hint.textContent = 'Guardado automáticamente';
+        }, 1200);
+      }
+      updateCounter();
+    });
+  });
+
+  updateCounter();
+
+  /* ============ NAV · SECCIÓN ACTIVA ============ */
+  var sections = document.querySelectorAll('.fase[data-step]');
+  var navItems = document.querySelectorAll('#navSteps li');
+
+  navItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      var target = document.getElementById('fase' + item.dataset.step);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var step = entry.target.dataset.step;
+          navItems.forEach(function (li) {
+            li.classList.toggle('active', li.dataset.step === step);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ============ EXPORTAR RESPUESTAS ============ */
+  var btnExport = document.getElementById('btnExport');
+  var exportStatus = document.getElementById('exportStatus');
+
+  if (btnExport) {
+    btnExport.addEventListener('click', function () {
+      var lines = [];
+      lines.push('RESPUESTAS · LABORATORIO');
+      lines.push('«So you think gestures are nonverbal?» (¿Así que crees que los gestos no son verbales?)');
+      lines.push('Recurso diseñado por Juan Carlos Valderrama Cárdenas');
+      lines.push('Basado en McNeill (1985). So you think gestures are nonverbal?');
+      lines.push('Psychological Review, 92(3), 350–371.');
+      lines.push('DOI: https://doi.org/10.1037/0033-295X.92.3.350');
+      lines.push('='.repeat(64));
+      lines.push('');
+      lines.push('RESULTADOS DE APRENDIZAJE DEL LABORATORIO');
+      lines.push('RA1 · Distinguir gesto espontáneo de emblema, justificando con dos criterios.');
+      lines.push('RA2 · Analizar la distribución de información entre habla y gesto.');
+      lines.push('');
+      lines.push('='.repeat(64));
+      lines.push('');
+
+      textareas.forEach(function (ta) {
+        var label = ta.dataset.label || 'Respuesta';
+        lines.push('▸ ' + label);
+        lines.push((ta.value.trim() || '(sin respuesta)'));
+        lines.push('');
+      });
+
+      lines.push('='.repeat(64));
+      lines.push('PREGUNTAS PARA LA SOCIALIZACIÓN EN GRUPO');
+      lines.push('1. ¿Cómo cambió tu forma de mirar tus propios gestos y los de los demás después de este laboratorio?');
+      lines.push('2. ¿En qué situaciones de tu formación o práctica como psicólogo/a podría ser útil distinguir entre gesto espontáneo y emblema?');
+      lines.push('3. ¿Qué consecuencias tiene la tesis de McNeill para la idea de que el pensamiento se reduce al lenguaje?');
+
+      var text = lines.join('\n');
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'respuestas_gestures_nonverbal.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      exportStatus.textContent = '✓ Archivo descargado. Revisa tu carpeta de descargas.';
+      setTimeout(function () { exportStatus.textContent = ''; }, 5000);
+    });
+  }
+
+  /* ============ ACORDEÓN ============ */
+  var details = document.querySelectorAll('details.carta');
+  details.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) {
+        details.forEach(function (other) {
+          if (other !== d) other.open = false;
+        });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

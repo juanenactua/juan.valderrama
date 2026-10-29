@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>¿Piensas con palabras? · Laboratorio interactivo</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿Piensas con palabras? · Laboratorio interactivo">
+<meta name="jc-descripcion" content="Laboratorio interactivo sobre la relación entre lenguaje y pensamiento, desde el determinismo y la relatividad lingüística hasta Vygotsky, Piaget, Slobin, la cognición corporizada y la mente extendida, con actividades, casos, metacognición y exportación de respuestas.">
+<meta name="jc-tipo" content="Laboratorio educativo interactivo">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, Lenguaje, Pensamiento, Determinismo lingüístico, Relatividad lingüística, Hipótesis Sapir-Whorf, Edward Sapir, Benjamin Lee Whorf, Wilhelm von Humboldt, Lev Vygotsky, Jean Piaget, Dan Slobin, Steven Pinker, Noam Chomsky, Andy Clark, David Chalmers, Thinking for speaking, Habla interna, Internalización, Mediación lingüística, Cognición corporizada, Cognición extendida, Conceptos abstractos, Categorización, Atención, Memoria, Aprendizaje, Metacognición, Evaluación formativa, Aprendizaje autónomo">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  :root {
+    --bg: #08192b;
+    --bg-alt: #0c2338;
+    --card: #102a41;
+    --card-soft: #16374f;
+    --ink: #e9f1f6;
+    --ink-soft: #b8c9d6;
+    --ink-faint: #7f97ab;
+    --accent: #4ecdc4;
+    --accent-warm: #ffc15e;
+    --accent-reflect: #b8a5ff;
+    --accent-soft: #0f3b47;
+    --accent-line: #2b7a76;
+    --rule: #1e3a52;
+    --rule-strong: #2a4a63;
+    --success: #4ecdc4;
+    --error: #ff9b9b;
+    --radius: 12px;
+    --max: 980px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 19px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 26px; }
+
+  /* NAV */
+  nav.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(8, 25, 43, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 12px 26px;
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  }
+  .nav-brand { font-weight: 700; font-size: 15px; color: var(--accent); letter-spacing: 0.02em; white-space: nowrap; }
+  .nav-steps { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; flex: 1; flex-wrap: wrap; }
+  .nav-steps li {
+    font-size: 13px; color: var(--ink-faint);
+    padding: 4px 10px; border-radius: 999px; border: 1px solid transparent;
+    transition: all 0.2s; cursor: pointer; white-space: nowrap;
+  }
+  .nav-steps li:hover { color: var(--ink); border-color: var(--rule-strong); }
+  .nav-steps li.active { color: var(--accent); border-color: var(--accent-line); background: rgba(78, 205, 196, 0.1); }
+  .nav-progress { font-size: 13px; color: var(--ink-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .nav-progress span { color: var(--accent); font-weight: 700; }
+
+  /* HERO */
+  .hero { padding: 72px 0 56px; border-bottom: 1px solid var(--rule-strong); }
+  .eyebrow { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 14px; }
+  h1 { font-size: 46px; line-height: 1.1; font-weight: 700; margin: 0 0 14px; color: #ffffff; letter-spacing: -0.02em; }
+  .h1-translation { font-size: 22px; color: var(--accent); margin: 0 0 14px; font-weight: 500; letter-spacing: -0.005em; line-height: 1.4; }
+  .h1-attribution { font-size: 15px; color: var(--ink-faint); margin: 0 0 22px; letter-spacing: 0.01em; }
+  .hero .lead { font-size: 20px; color: var(--ink-soft); margin: 0 0 26px; max-width: 60ch; line-height: 1.55; }
+  .author { display: inline-block; font-size: 15px; color: var(--ink-soft); padding: 8px 16px; border: 1px solid var(--accent-line); border-radius: 999px; margin-bottom: 26px; }
+  .author strong { color: var(--accent); }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+  .meta span { font-size: 13.5px; color: var(--ink-soft); padding: 5px 12px; background: var(--card); border: 1px solid var(--rule); border-radius: 999px; }
+  .btn-primary {
+    display: inline-block; background: var(--accent); color: #04221f;
+    font-weight: 700; font-size: 17px; padding: 14px 26px; border-radius: 999px;
+    text-decoration: none; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(78, 205, 196, 0.25); }
+
+  /* OUTCOMES */
+  .outcomes-section { padding: 48px 0 44px; border-bottom: 1px solid var(--rule); }
+  .outcomes-label { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 8px; }
+  .outcomes-section h2 { font-size: 26px; font-weight: 700; color: #ffffff; margin: 0 0 22px; letter-spacing: -0.01em; }
+  .outcomes { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .outcome-card { background: var(--card); border: 1px solid var(--rule-strong); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 20px 24px; }
+  .outcome-num { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .outcome-card p { margin: 0; font-size: 17px; color: var(--ink); line-height: 1.65; max-width: none; }
+
+  /* FASES */
+  .fase { padding: 60px 0 40px; border-bottom: 1px solid var(--rule); }
+  .fase:last-of-type { border-bottom: none; }
+  .fase-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fase-num { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .fase-head h2 { font-size: 30px; font-weight: 700; color: #ffffff; margin: 0; letter-spacing: -0.01em; }
+  .fase-time { font-size: 14px; color: var(--ink-faint); padding: 3px 12px; border: 1px solid var(--rule-strong); border-radius: 999px; margin-left: auto; }
+  .fase-intro { font-size: 19px; color: var(--ink-soft); max-width: 62ch; margin: 0 0 28px; }
+  .fase-intro strong { color: var(--ink); }
+
+  .reading-note {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--accent-warm);
+    background: rgba(255, 193, 94, 0.08);
+    border: 1px solid rgba(255, 193, 94, 0.3);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+  }
+  .reading-note::before { content: "▸"; color: var(--accent-warm); }
+
+  /* CARTAS */
+  .carta { background: var(--card); border: 1px solid var(--rule-strong); border-radius: var(--radius); margin: 20px 0; overflow: hidden; }
+  .carta-head { padding: 16px 24px 0; }
+  .carta-label { display: inline-block; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+  .carta-body { padding: 8px 24px 22px; }
+  .carta-body p { max-width: 64ch; margin: 0 0 14px; }
+  .carta-body p:last-child { margin-bottom: 0; }
+  .carta-title { font-size: 22px; font-weight: 700; color: #ffffff; margin: 4px 0 10px; line-height: 1.3; }
+
+  details.carta { padding: 0; }
+  details.carta > summary {
+    padding: 20px 24px; cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 16px; position: relative;
+  }
+  details.carta > summary::-webkit-details-marker { display: none; }
+  details.carta > summary::after {
+    content: "+"; margin-left: auto; font-size: 26px; font-weight: 300;
+    color: var(--accent); transition: transform 0.2s; line-height: 1;
+  }
+  details.carta[open] > summary::after { transform: rotate(45deg); }
+  details.carta[open] { border-color: var(--accent-line); }
+  details.carta .summary-text { flex: 1; }
+  details.carta .summary-title { font-size: 20px; font-weight: 700; color: #ffffff; margin: 2px 0 0; line-height: 1.3; }
+  details.carta .carta-body { padding-top: 16px; border-top: 1px solid var(--rule); margin-top: 2px; }
+
+  /* TABLAS */
+  .abstract-table {
+    width: 100%; border-collapse: collapse; font-size: 15.5px;
+    margin: 14px 0 6px; border: 1px solid var(--rule-strong); border-radius: 10px; overflow: hidden;
+  }
+  .abstract-table th {
+    text-align: left; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); padding: 11px 14px; border-bottom: 1px solid var(--rule-strong);
+    vertical-align: top; background: var(--bg-alt);
+  }
+  .abstract-table td { padding: 11px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.55; color: var(--ink); }
+  .abstract-table tr:last-child td { border-bottom: none; }
+  .abstract-table td:first-child { color: var(--ink-soft); font-weight: 600; width: 28%; }
+  .abstract-table td.center { text-align: center; }
+
+  /* SVG */
+  .svg-figure { margin: 20px 0 10px; padding: 20px; background: rgba(8, 25, 43, 0.55); border: 1px solid var(--rule); border-radius: 10px; }
+  .svg-figure svg { display: block; width: 100%; height: auto; }
+  .svg-caption { font-size: 13.5px; color: var(--ink-faint); text-align: center; margin-top: 14px; font-style: italic; line-height: 1.55; }
+
+  /* PREGUNTAS */
+  .q-type { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 5px; }
+  .q-type.cerrada { background: rgba(78, 205, 196, 0.15); color: var(--accent); border: 1px solid var(--accent-line); }
+  .q-type.abierta { background: rgba(255, 193, 94, 0.12); color: var(--accent-warm); border: 1px solid rgba(255, 193, 94, 0.35); }
+  .q-type.reflexiva { background: rgba(184, 165, 255, 0.12); color: var(--accent-reflect); border: 1px solid rgba(184, 165, 255, 0.35); }
+
+  .q-text { font-size: 20px; font-weight: 600; color: #ffffff; margin: 10px 0 20px; line-height: 1.5; max-width: 60ch; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .option {
+    display: flex; align-items: flex-start; gap: 14px; text-align: left;
+    background: var(--bg-alt); border: 1.5px solid var(--rule-strong); border-radius: 10px;
+    padding: 14px 18px; color: var(--ink); font-size: 17px; font-family: inherit;
+    line-height: 1.5; cursor: pointer; transition: all 0.15s; width: 100%;
+  }
+  .option:hover { border-color: var(--accent-line); background: var(--card-soft); }
+  .option .opt-letter {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--card-soft); border: 1px solid var(--rule-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--ink-soft); margin-top: 1px;
+  }
+  .option.selected .opt-letter { background: var(--accent); color: #04221f; border-color: var(--accent); }
+  .option.correct { border-color: var(--success); background: rgba(78, 205, 196, 0.1); }
+  .option.correct .opt-letter { background: var(--success); color: #04221f; border-color: var(--success); }
+  .option.incorrect { border-color: var(--error); background: rgba(255, 155, 155, 0.08); }
+  .option.incorrect .opt-letter { background: var(--error); color: #2a0808; border-color: var(--error); }
+
+  .feedback { display: none; font-size: 16px; line-height: 1.6; padding: 14px 18px; border-radius: 10px; margin-top: 6px; }
+  .feedback.show { display: block; }
+  .feedback.good { background: rgba(78, 205, 196, 0.1); border-left: 3px solid var(--success); color: var(--ink); }
+  .feedback.bad { background: rgba(255, 155, 155, 0.08); border-left: 3px solid var(--error); color: var(--ink); }
+
+  .q-textarea {
+    width: 100%; background: var(--bg-alt); border: 1.5px solid var(--rule-strong);
+    border-radius: 10px; padding: 16px 18px; color: var(--ink); font-family: inherit;
+    font-size: 17px; line-height: 1.65; resize: vertical; min-height: 110px; transition: border-color 0.15s;
+  }
+  .q-textarea:focus { outline: none; border-color: var(--accent); background: var(--card-soft); }
+  .q-textarea::placeholder { color: var(--ink-faint); }
+
+  .saved-hint { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-faint); margin-top: 10px; transition: color 0.2s; }
+  .saved-hint::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rule-strong); transition: background 0.2s; }
+  .saved-hint.saved { color: var(--accent); }
+  .saved-hint.saved::before { background: var(--accent); }
+
+  .caso-escena { background: var(--bg-alt); border: 1px solid var(--rule); border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 6px 0 22px; font-size: 17px; color: var(--ink-soft); line-height: 1.65; }
+
+  .divider { border: none; border-top: 1px dashed var(--rule-strong); margin: 24px 0; }
+
+  /* SOCIAL */
+  .social-card { background: linear-gradient(135deg, rgba(184, 165, 255, 0.08), var(--card)); border: 1px solid rgba(184, 165, 255, 0.35); border-radius: var(--radius); padding: 0; margin: 24px 0; overflow: hidden; }
+  .social-card .carta-head { background: rgba(184, 165, 255, 0.08); border-bottom: 1px solid rgba(184, 165, 255, 0.2); padding: 16px 24px; }
+  .social-card .carta-label { color: var(--accent-reflect); }
+  .social-card .carta-title { color: #ffffff; }
+  .social-card .carta-body { padding: 20px 24px 24px; }
+  .social-questions { list-style: none; counter-reset: social; padding: 0; margin: 18px 0 0; }
+  .social-questions li {
+    counter-increment: social; position: relative;
+    padding: 16px 18px 16px 62px;
+    background: rgba(184, 165, 255, 0.06);
+    border: 1px solid rgba(184, 165, 255, 0.2);
+    border-radius: 10px; margin-bottom: 12px;
+    font-size: 18px; line-height: 1.6; color: var(--ink);
+  }
+  .social-questions li:last-child { margin-bottom: 0; }
+  .social-questions li::before {
+    content: counter(social); position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(184, 165, 255, 0.18); border: 1px solid var(--accent-reflect);
+    color: var(--accent-reflect); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* EXPORT */
+  .export-panel { background: linear-gradient(135deg, var(--accent-soft), var(--card)); border: 1px solid var(--accent-line); border-radius: var(--radius); padding: 28px; margin: 28px 0; text-align: center; }
+  .export-panel h3 { font-size: 24px; color: #ffffff; margin: 0 0 10px; }
+  .export-panel p { color: var(--ink-soft); margin: 0 0 20px; font-size: 17px; max-width: none; }
+  .btn-secondary { display: inline-block; background: transparent; color: var(--accent); font-weight: 700; font-size: 16px; padding: 12px 24px; border-radius: 999px; border: 1.5px solid var(--accent); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .btn-secondary:hover { background: var(--accent); color: #04221f; }
+  .export-status { font-size: 14px; color: var(--accent); margin-top: 12px; min-height: 20px; }
+
+  /* FOOTER */
+  footer.doc-foot { border-top: 1px solid var(--rule-strong); padding: 40px 26px 60px; text-align: center; color: var(--ink-faint); font-size: 15px; }
+  footer.doc-foot strong { color: var(--accent); }
+  footer.doc-foot p { margin: 6px 0; max-width: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    body { font-size: 17px; }
+    .wrap { padding: 0 18px; }
+    nav.nav { padding: 10px 16px; gap: 12px; }
+    .nav-steps { display: none; }
+    h1 { font-size: 30px; }
+    .h1-translation { font-size: 18px; }
+    .hero { padding: 48px 0 40px; }
+    .hero .lead { font-size: 18px; }
+    .fase { padding: 44px 0 30px; }
+    .fase-head h2 { font-size: 24px; }
+    .fase-time { margin-left: 0; }
+    .outcomes-section { padding: 36px 0 30px; }
+    .outcomes-section h2 { font-size: 22px; }
+    .carta-head { padding: 14px 18px 0; }
+    .carta-body { padding: 8px 18px 20px; }
+    details.carta > summary { padding: 16px 18px; }
+    .q-text { font-size: 18px; }
+    .option { font-size: 16px; padding: 12px 14px; }
+    .q-textarea { font-size: 16px; }
+    .abstract-table { font-size: 14px; }
+    .abstract-table th, .abstract-table td { padding: 9px 11px; }
+    .abstract-table td:first-child { width: 34%; }
+    .social-questions li { font-size: 16px; padding: 14px 14px 14px 54px; }
+    .social-questions li::before { left: 14px; width: 26px; height: 26px; font-size: 13px; }
+    .social-card .carta-head { padding: 14px 18px; }
+    .social-card .carta-body { padding: 16px 18px 20px; }
+    .svg-figure { padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .svg-figure svg { min-width: 540px; }
+    .svg-caption { min-width: 540px; text-align: left; font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Progreso del laboratorio">
+  <div class="nav-brand">Lengua y pensamiento</div>
+  <ol class="nav-steps" id="navSteps">
+    <li data-step="1">01 · Marco teórico</li>
+    <li data-step="2">02 · Calentamiento</li>
+    <li data-step="3">03 · Desafío 1</li>
+    <li data-step="4">04 · Desafío 2</li>
+    <li data-step="5">05 · Cierre</li>
+  </ol>
+  <div class="nav-progress"><span id="answered">0</span>/<span id="total">0</span> respuestas</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Laboratorio interactivo · 45 minutos</p>
+    <h1>¿Piensas con palabras?</h1>
+    <p class="h1-translation">El debate entre lenguaje y pensamiento: del determinismo lingüístico a la mente extendida.</p>
+    <p class="h1-attribution">Cinco fases · Un recorrido de Humboldt y Sapir-Whorf a Vygotsky, Slobin y Clark</p>
+    <p class="lead">Un laboratorio digital para examinar una de las preguntas más antiguas de la psicología: ¿el lenguaje que hablamos determina lo que podemos pensar, o el pensamiento tiene una vida propia que el lenguaje apenas roza?</p>
+    <p class="author">Diseñado por <strong>Juan Carlos Valderrama Cárdenas</strong></p>
+    <div class="meta">
+      <span>5 fases</span>
+      <span>45 minutos</span>
+      <span>3 conceptos clave</span>
+      <span>10 preguntas cerradas</span>
+    </div>
+    <a href="#fase1" class="btn-primary">Comenzar →</a>
+  </div>
+</header>
+
+<!-- OUTCOMES -->
+<section class="outcomes-section">
+  <div class="wrap">
+    <p class="outcomes-label">Resultados de aprendizaje</p>
+    <h2>Al finalizar este laboratorio podrás…</h2>
+    <div class="outcomes">
+      <div class="outcome-card">
+        <span class="outcome-num">RA1 · Distinguir</span>
+        <p>Distinguir el determinismo lingüístico fuerte de la relatividad lingüística, justificando la diferencia con al menos dos criterios (tipo de relación y posibilidad de cambio conceptual), y ubicar ambas posiciones en el continuo de teorías sobre la relación entre lenguaje y pensamiento.</p>
+      </div>
+      <div class="outcome-card">
+        <span class="outcome-num">RA2 · Analizar</span>
+        <p>Analizar una situación cotidiana de aprendizaje o comunicación identificando qué aspectos del pensamiento operan sin lenguaje, cuáles están mediados por el lenguaje y cuáles son constituidos por prácticas lingüísticas y culturales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- ============================================================= -->
+  <!-- FASE 1 · MARCO TEÓRICO (12 min)                                -->
+  <!-- ============================================================= -->
+  <section id="fase1" class="fase" data-step="1">
+    <header class="fase-head">
+      <span class="fase-num">Fase 01</span>
+      <h2>Marco teórico</h2>
+      <span class="fase-time">12 min</span>
+    </header>
+    <p class="fase-intro">Esta es tu primera actividad: <strong>leer</strong>. Recorrerás cinco cartas que condensan el debate sobre la relación entre lenguaje y pensamiento, con sus respectivos esquemas visuales. Al final encontrarás una pregunta de verificación y una reflexión.</p>
+    <div class="reading-note">Tiempo estimado de lectura: 9-10 minutos</div>
+
+    <!-- Carta 01 · El problema de fondo -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 01 · El problema de fondo</span>
+        <h3 class="carta-title">¿Pensamos mediante el lenguaje?</h3>
+      </div>
+      <div class="carta-body">
+        <p>La pregunta «¿qué relación existe entre lenguaje y pensamiento?» es demasiado amplia para responderse de una vez. Conviene descomponerla en seis preguntas más precisas, que producen respuestas teóricas muy diferentes:</p>
+        <ul>
+          <li><strong>Dependencia:</strong> ¿es posible pensar sin lenguaje?</li>
+          <li><strong>Determinación:</strong> ¿la lengua que hablamos establece qué podemos pensar?</li>
+          <li><strong>Influencia:</strong> aunque podamos pensar sin palabras, ¿la lengua hace que atendamos, recordemos o categoricemos la realidad de determinadas maneras?</li>
+          <li><strong>Desarrollo:</strong> ¿primero aprendemos a pensar y después a hablar, o el lenguaje transforma cualitativamente nuestro pensamiento?</li>
+          <li><strong>Mediación:</strong> ¿el lenguaje funciona como una herramienta que utilizamos para organizar procesos cognitivos?</li>
+          <li><strong>Constitución:</strong> ¿algunas formas específicamente humanas de pensamiento existirían sin prácticas lingüísticas y culturales?</li>
+        </ul>
+        <p>Las teorías no se reparten entre «quienes afirman que el lenguaje determina el pensamiento» y «quienes lo niegan». Existe un <strong>continuo</strong> que va desde la independencia entre ambos hasta formas fuertes de determinación, pasando por posiciones de influencia, mediación, constitución social y cognición situada.</p>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-c1-title">
+            <title id="svg-c1-title">Continuo de posiciones teóricas entre independencia y determinación</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">EL CONTINUO LENGUAJE · PENSAMIENTO</text>
+
+            <line x1="50" y1="150" x2="755" y2="150" stroke="#2b7a76" stroke-width="2"/>
+            <polygon points="755,144 768,150 755,156" fill="#2b7a76"/>
+
+            <text x="60" y="192" text-anchor="start" fill="#4ecdc4" font-size="12" font-weight="700" letter-spacing="1">INDEPENDENCIA</text>
+            <text x="60" y="208" text-anchor="start" fill="#7f97ab" font-size="10" font-style="italic">pensamiento sin lenguaje</text>
+
+            <text x="740" y="192" text-anchor="end" fill="#ffc15e" font-size="12" font-weight="700" letter-spacing="1">DETERMINACIÓN</text>
+            <text x="740" y="208" text-anchor="end" fill="#7f97ab" font-size="10" font-style="italic">la lengua fija lo pensable</text>
+
+            <!-- Pinker -->
+            <circle cx="110" cy="150" r="7" fill="#4ecdc4"/>
+            <line x1="110" y1="143" x2="110" y2="115" stroke="#4ecdc4" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="110" y="108" text-anchor="middle" fill="#e9f1f6" font-size="11" font-weight="700">Pinker</text>
+            <text x="110" y="242" text-anchor="middle" fill="#7f97ab" font-size="10">Autonomía</text>
+            <text x="110" y="256" text-anchor="middle" fill="#7f97ab" font-size="10">relativa</text>
+
+            <!-- Piaget -->
+            <circle cx="245" cy="150" r="7" fill="#4ecdc4"/>
+            <line x1="245" y1="143" x2="245" y2="115" stroke="#4ecdc4" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="245" y="108" text-anchor="middle" fill="#e9f1f6" font-size="11" font-weight="700">Piaget</text>
+            <text x="245" y="242" text-anchor="middle" fill="#7f97ab" font-size="10">Cognición</text>
+            <text x="245" y="256" text-anchor="middle" fill="#7f97ab" font-size="10">→ lenguaje</text>
+
+            <!-- Vygotsky -->
+            <circle cx="380" cy="150" r="7" fill="#b8a5ff"/>
+            <line x1="380" y1="143" x2="380" y2="115" stroke="#b8a5ff" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="380" y="108" text-anchor="middle" fill="#e9f1f6" font-size="11" font-weight="700">Vygotsky</text>
+            <text x="380" y="242" text-anchor="middle" fill="#b8a5ff" font-size="10">Transformación</text>
+            <text x="380" y="256" text-anchor="middle" fill="#b8a5ff" font-size="10">mutua</text>
+
+            <!-- Slobin -->
+            <circle cx="515" cy="150" r="7" fill="#ffc15e"/>
+            <line x1="515" y1="143" x2="515" y2="115" stroke="#ffc15e" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="515" y="108" text-anchor="middle" fill="#e9f1f6" font-size="11" font-weight="700">Slobin</text>
+            <text x="515" y="242" text-anchor="middle" fill="#7f97ab" font-size="10">Thinking</text>
+            <text x="515" y="256" text-anchor="middle" fill="#7f97ab" font-size="10">for speaking</text>
+
+            <!-- Relatividad -->
+            <circle cx="630" cy="150" r="7" fill="#ffc15e"/>
+            <line x1="630" y1="143" x2="630" y2="115" stroke="#ffc15e" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="630" y="108" text-anchor="middle" fill="#e9f1f6" font-size="11" font-weight="700">Relatividad</text>
+            <text x="630" y="242" text-anchor="middle" fill="#7f97ab" font-size="10">Influye en</text>
+            <text x="630" y="256" text-anchor="middle" fill="#7f97ab" font-size="10">hábitos</text>
+
+            <!-- Determinismo -->
+            <circle cx="720" cy="150" r="7" fill="#ffc15e"/>
+            <line x1="720" y1="143" x2="720" y2="115" stroke="#ffc15e" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="720" y="108" text-anchor="middle" fill="#e9f1f6" font-size="11" font-weight="700">Sapir-Whorf</text>
+            <text x="720" y="242" text-anchor="middle" fill="#7f97ab" font-size="10">Determinismo</text>
+            <text x="720" y="256" text-anchor="middle" fill="#7f97ab" font-size="10">fuerte</text>
+          </svg>
+          <p class="svg-caption">El debate no es binario: es un espectro. Cada posición teórica privilegia una dirección causal distinta entre lengua y pensamiento.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carta 02 · Determinismo vs relatividad -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 02 · Determinismo vs relatividad</span>
+        <h3 class="carta-title">Dos versiones de una misma hipótesis</h3>
+      </div>
+      <div class="carta-body">
+        <p>La discusión suele asociarse con Edward Sapir y Benjamin Lee Whorf, aunque la llamada «hipótesis Sapir-Whorf» es en buena medida una reconstrucción posterior: no formularon juntos una hipótesis experimental con ese nombre. Conviene distinguir dos versiones de la relación entre lengua y pensamiento:</p>
+
+        <table class="abstract-table">
+          <thead>
+            <tr><th></th><th>Determinismo</th><th>Relatividad</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tesis</td><td>La lengua establece qué podemos pensar.</td><td>La lengua influye en cómo pensamos habitualmente.</td></tr>
+            <tr><td>Relación</td><td>Necesaria.</td><td>Probabilística.</td></tr>
+            <tr><td>Efectos</td><td>Generales.</td><td>Específicos y contextuales.</td></tr>
+            <tr><td>Cambio conceptual</td><td>Difícil.</td><td>Flexibilidad cognitiva.</td></tr>
+            <tr><td>Lenguaje como…</td><td>Límite.</td><td>Orientación.</td></tr>
+          </tbody>
+        </table>
+
+        <p>Hoy la segunda posición resulta mucho más defendible. Un hablante no está encerrado dentro de su lengua, pero hablar habitualmente una lengua puede hacer más accesibles algunas distinciones, estrategias o categorías. La relatividad contemporánea no pregunta «¿puede alguien pensar X si su lengua no tiene palabra para X?», sino «¿hablar habitualmente una lengua modifica la probabilidad de que atendamos, recordemos o categoricemos una experiencia de determinada manera?».</p>
+      </div>
+    </div>
+
+    <!-- Carta 03 · Panorama de posiciones -->
+    <details class="carta">
+      <summary>
+        <div class="summary-text">
+          <span class="carta-label">Carta 03 · Panorama de posiciones</span>
+          <p class="summary-title">Ocho perspectivas teóricas</p>
+        </div>
+      </summary>
+      <div class="carta-body">
+        <p>Cada tradición privilegia una dirección causal diferente entre lenguaje y pensamiento. Esta tabla condensa las ocho perspectivas principales:</p>
+
+        <table class="abstract-table">
+          <thead>
+            <tr>
+              <th>Perspectiva</th>
+              <th>Relación fundamental</th>
+              <th>¿Pensamiento sin lenguaje?</th>
+              <th>Papel del lenguaje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Determinismo lingüístico</td>
+              <td>Lenguaje → pensamiento</td>
+              <td>Muy limitado</td>
+              <td>Determinante</td>
+            </tr>
+            <tr>
+              <td>Relatividad lingüística</td>
+              <td>Lenguaje ⇢ pensamiento</td>
+              <td>Sí</td>
+              <td>Orienta hábitos</td>
+            </tr>
+            <tr>
+              <td>Piaget</td>
+              <td>Cognición → lenguaje</td>
+              <td>Sí</td>
+              <td>Expresa y amplía estructuras</td>
+            </tr>
+            <tr>
+              <td>Vygotsky</td>
+              <td>Pensamiento ⇄ lenguaje</td>
+              <td>Sí, inicialmente</td>
+              <td>Reorganiza la cognición</td>
+            </tr>
+            <tr>
+              <td>Universalismo (Chomsky)</td>
+              <td>Cognición → capacidad lingüística</td>
+              <td>Sí</td>
+              <td>Facultad especializada</td>
+            </tr>
+            <tr>
+              <td>Thinking for speaking (Slobin)</td>
+              <td>Lengua → atención al hablar</td>
+              <td>Sí</td>
+              <td>Orienta selección de información</td>
+            </tr>
+            <tr>
+              <td>Cognición corporizada</td>
+              <td>Cuerpo/acción ⇄ cognición</td>
+              <td>Sí</td>
+              <td>Un recurso cognitivo entre otros</td>
+            </tr>
+            <tr>
+              <td>Cognición extendida (Clark &amp; Chalmers)</td>
+              <td>Individuo ⇄ entorno</td>
+              <td>Sí</td>
+              <td>Tecnología cognitiva</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:14px; font-size:16px; color:var(--ink-soft)">Salvo el determinismo fuerte, todas las perspectivas admiten algún grado de pensamiento no lingüístico. Lo que cambia es el peso relativo que otorgan al lenguaje como <em>herramienta</em>, <em>mediador</em> o <em>constituyente</em> de procesos cognitivos.</p>
+      </div>
+    </details>
+
+    <!-- Carta 04 · Los tres niveles + SVG -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 04 · Los tres niveles</span>
+        <h3 class="carta-title">Del pensamiento sin lenguaje al pensamiento constituido</h3>
+      </div>
+      <div class="carta-body">
+        <p>Una forma útil de organizar el debate es distinguir tres niveles de relación entre pensamiento y lenguaje. No son compartimentos estancos, sino grados crecientes de participación lingüística:</p>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-c4-title">
+            <title id="svg-c4-title">Tres niveles de relación entre pensamiento y lenguaje</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">TRES NIVELES DE RELACIÓN</text>
+
+            <!-- Nivel A -->
+            <rect x="30" y="55" width="240" height="220" rx="10" fill="#16374f" stroke="#2b7a76" stroke-width="1.5"/>
+            <text x="150" y="84" text-anchor="middle" fill="#4ecdc4" font-size="13" font-weight="700" letter-spacing="1">NIVEL A</text>
+            <text x="150" y="108" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700">Pensamiento no lingüístico</text>
+            <text x="150" y="140" text-anchor="middle" fill="#b8c9d6" font-size="13">Reconocer una cara</text>
+            <text x="150" y="160" text-anchor="middle" fill="#b8c9d6" font-size="13">Rotar un objeto</text>
+            <text x="150" y="180" text-anchor="middle" fill="#b8c9d6" font-size="13">Orientarse espacialmente</text>
+            <text x="150" y="200" text-anchor="middle" fill="#b8c9d6" font-size="13">Anticipar una trayectoria</text>
+            <rect x="55" y="230" width="190" height="28" rx="14" fill="rgba(78, 205, 196, 0.15)" stroke="#2b7a76"/>
+            <text x="150" y="249" text-anchor="middle" fill="#4ecdc4" font-size="12" font-weight="700">SIN LENGUAJE</text>
+
+            <!-- Nivel B -->
+            <rect x="280" y="55" width="240" height="220" rx="10" fill="#16374f" stroke="#4ecdc4" stroke-width="1.5"/>
+            <text x="400" y="84" text-anchor="middle" fill="#4ecdc4" font-size="13" font-weight="700" letter-spacing="1">NIVEL B</text>
+            <text x="400" y="108" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700">Pensamiento mediado</text>
+            <text x="400" y="140" text-anchor="middle" fill="#b8c9d6" font-size="13">«Si termino A, haré B»</text>
+            <text x="400" y="160" text-anchor="middle" fill="#b8c9d6" font-size="13">Planificación</text>
+            <text x="400" y="180" text-anchor="middle" fill="#b8c9d6" font-size="13">Control ejecutivo</text>
+            <text x="400" y="200" text-anchor="middle" fill="#b8c9d6" font-size="13">Autorregulación</text>
+            <rect x="305" y="230" width="190" height="28" rx="14" fill="rgba(78, 205, 196, 0.15)" stroke="#2b7a76"/>
+            <text x="400" y="249" text-anchor="middle" fill="#4ecdc4" font-size="12" font-weight="700">HERRAMIENTA</text>
+
+            <!-- Nivel C -->
+            <rect x="530" y="55" width="240" height="220" rx="10" fill="#16374f" stroke="#ffc15e" stroke-width="1.5"/>
+            <text x="650" y="84" text-anchor="middle" fill="#ffc15e" font-size="13" font-weight="700" letter-spacing="1">NIVEL C</text>
+            <text x="650" y="108" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700">Pensamiento constituido</text>
+            <text x="650" y="140" text-anchor="middle" fill="#b8c9d6" font-size="13">Democracia</text>
+            <text x="650" y="160" text-anchor="middle" fill="#b8c9d6" font-size="13">Inflación</text>
+            <text x="650" y="180" text-anchor="middle" fill="#b8c9d6" font-size="13">Derechos humanos</text>
+            <text x="650" y="200" text-anchor="middle" fill="#b8c9d6" font-size="13">Número negativo</text>
+            <rect x="555" y="230" width="190" height="28" rx="14" fill="rgba(255, 193, 94, 0.15)" stroke="#ffc15e"/>
+            <text x="650" y="249" text-anchor="middle" fill="#ffc15e" font-size="12" font-weight="700">CONSTITUYENTE</text>
+
+            <!-- Gradiente inferior -->
+            <defs>
+              <linearGradient id="grad-levels" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#4ecdc4" stop-opacity="0.3"/>
+                <stop offset="50%" stop-color="#4ecdc4" stop-opacity="0.7"/>
+                <stop offset="100%" stop-color="#ffc15e" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <rect x="30" y="295" width="740" height="8" rx="4" fill="url(#grad-levels)"/>
+            <text x="30" y="322" fill="#7f97ab" font-size="11" font-style="italic">menor participación del lenguaje</text>
+            <text x="770" y="322" text-anchor="end" fill="#7f97ab" font-size="11" font-style="italic">mayor participación del lenguaje</text>
+          </svg>
+          <p class="svg-caption">Los tres niveles no son compartimentos estancos: describen grados crecientes de participación lingüística en el pensamiento.</p>
+        </div>
+
+        <p><strong>Nivel A</strong>: reconocer una cara, rotar mentalmente un objeto o anticipar la trayectoria de una pelota no parecen requerir formulaciones lingüísticas completas. <strong>Nivel B</strong>: el lenguaje facilita la planificación y el control ejecutivo (por ejemplo, decirse «si termino A, después podré hacer B»). <strong>Nivel C</strong>: algunas categorías abstractas son difíciles de separar de los sistemas simbólicos utilizados para elaborarlas. No significa que la palabra produzca mágicamente el concepto: significa que la adquisición de conceptos culturales altamente abstractos está vinculada con prácticas discursivas, educativas y simbólicas.</p>
+      </div>
+    </div>
+
+    <!-- Carta 05 · La internalización vygotskiana + SVG -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 05 · La internalización</span>
+        <h3 class="carta-title">Cómo el lenguaje se vuelve pensamiento</h3>
+      </div>
+      <div class="carta-body">
+        <p>Vygotsky ofrece una de las respuestas más elegantes al problema. Inicialmente, pensamiento y lenguaje tienen trayectorias parcialmente diferenciadas; durante el desarrollo se produce su convergencia. El lenguaje social se convierte progresivamente en <strong>habla interna</strong> y funciona como instrumento de regulación del propio pensamiento.</p>
+        <p>Un niño que al principio resuelve un rompecabezas directamente puede aprender a decirse «primero voy a buscar las esquinas». Después ya no necesita pronunciar la frase: usa una forma abreviada de habla interna para planificar su comportamiento. El lenguaje se transforma así en una <strong>herramienta psicológica</strong>.</p>
+
+        <div class="svg-figure">
+          <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-c5-title">
+            <title id="svg-c5-title">Internalización del habla según Vygotsky</title>
+            <text x="400" y="26" text-anchor="middle" fill="#7f97ab" font-size="12" letter-spacing="2">INTERNALIZACIÓN DEL HABLA</text>
+
+            <!-- Caja 1 -->
+            <rect x="30" y="70" width="160" height="90" rx="10" fill="#16374f" stroke="#b8a5ff" stroke-width="1.5"/>
+            <text x="110" y="100" text-anchor="middle" fill="#b8a5ff" font-size="13" font-weight="700">HABLA SOCIAL</text>
+            <text x="110" y="122" text-anchor="middle" fill="#b8c9d6" font-size="12">El niño habla con</text>
+            <text x="110" y="140" text-anchor="middle" fill="#b8c9d6" font-size="12">otros mientras juega</text>
+
+            <!-- Flecha 1 -->
+            <line x1="190" y1="115" x2="220" y2="115" stroke="#b8a5ff" stroke-width="2"/>
+            <polygon points="219,109 231,115 219,121" fill="#b8a5ff"/>
+
+            <!-- Caja 2 -->
+            <rect x="232" y="70" width="160" height="90" rx="10" fill="#16374f" stroke="#b8a5ff" stroke-width="1.5"/>
+            <text x="312" y="100" text-anchor="middle" fill="#b8a5ff" font-size="13" font-weight="700">HABLA EGOCÉNTRICA</text>
+            <text x="312" y="122" text-anchor="middle" fill="#b8c9d6" font-size="12">Se habla a sí mismo</text>
+            <text x="312" y="140" text-anchor="middle" fill="#b8c9d6" font-size="12">en voz alta</text>
+
+            <!-- Flecha 2 -->
+            <line x1="392" y1="115" x2="422" y2="115" stroke="#b8a5ff" stroke-width="2"/>
+            <polygon points="421,109 433,115 421,121" fill="#b8a5ff"/>
+
+            <!-- Caja 3 -->
+            <rect x="434" y="70" width="160" height="90" rx="10" fill="#16374f" stroke="#b8a5ff" stroke-width="1.5"/>
+            <text x="514" y="100" text-anchor="middle" fill="#b8a5ff" font-size="13" font-weight="700">HABLA INTERNA</text>
+            <text x="514" y="122" text-anchor="middle" fill="#b8c9d6" font-size="12">Se habla a sí mismo</text>
+            <text x="514" y="140" text-anchor="middle" fill="#b8c9d6" font-size="12">en silencio</text>
+
+            <!-- Flecha 3 -->
+            <line x1="594" y1="115" x2="624" y2="115" stroke="#b8a5ff" stroke-width="2"/>
+            <polygon points="623,109 635,115 623,121" fill="#b8a5ff"/>
+
+            <!-- Caja 4 -->
+            <rect x="636" y="70" width="140" height="90" rx="10" fill="#0f3b47" stroke="#4ecdc4" stroke-width="2"/>
+            <text x="706" y="100" text-anchor="middle" fill="#4ecdc4" font-size="13" font-weight="700">REGULACIÓN</text>
+            <text x="706" y="122" text-anchor="middle" fill="#b8c9d6" font-size="12">El lenguaje regula</text>
+            <text x="706" y="140" text-anchor="middle" fill="#b8c9d6" font-size="12">el pensamiento</text>
+
+            <!-- Flecha grande inferior -->
+            <defs>
+              <linearGradient id="grad-internal" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#b8a5ff" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#4ecdc4" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+            <rect x="30" y="195" width="746" height="8" rx="4" fill="url(#grad-internal)"/>
+            <polygon points="770,187 785,199 770,211" fill="#4ecdc4"/>
+            <text x="30" y="230" fill="#b8a5ff" font-size="12" font-weight="700" letter-spacing="1">EXTERNO</text>
+            <text x="30" y="248" fill="#7f97ab" font-size="11" font-style="italic">el lenguaje está afuera</text>
+            <text x="770" y="230" text-anchor="end" fill="#4ecdc4" font-size="12" font-weight="700" letter-spacing="1">INTERNO</text>
+            <text x="770" y="248" text-anchor="end" fill="#7f97ab" font-size="11" font-style="italic">el lenguaje se vuelve herramienta</text>
+          </svg>
+          <p class="svg-caption">El lenguaje no contiene desde el principio el pensamiento: se internaliza y transforma la cognición a lo largo del desarrollo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carta 06 · La síntesis + verificación -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 06 · La síntesis</span>
+        <h3 class="carta-title">El punto conceptual más importante</h3>
+      </div>
+      <div class="carta-body">
+        <p>El debate contemporáneo no es una elección binaria entre «pensamos con palabras» y «el lenguaje no afecta al pensamiento». Es mucho más fructífero trabajar con <strong>niveles de influencia</strong>. Una persona puede poseer una representación conceptual independientemente de una palabra específica y, simultáneamente, la disponibilidad de determinadas estructuras lingüísticas puede facilitar que categorice una experiencia, la mantenga en memoria, la compare, la comunique o la convierta en objeto de reflexión.</p>
+        <div class="caso-escena" style="border-left-color: var(--accent-warm); margin-top:18px">
+          <p style="margin:0; font-size:18px; color:var(--ink); line-height:1.6"><strong>La síntesis:</strong> el pensamiento no es reducible al lenguaje, pero el lenguaje transforma profundamente determinadas formas de pensamiento.</p>
+        </div>
+
+        <hr class="divider" />
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Cuál es la diferencia central entre el determinismo lingüístico fuerte y la relatividad lingüística?</p>
+        <div class="options" data-group="q01">
+          <button class="option" data-correct="false" data-feedback="No. Ambas posiciones se refieren a la influencia del lenguaje sobre el pensamiento; lo que cambia es si esa influencia es determinante o solo orientadora.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Una habla de gestos y la otra de palabras.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. El determinismo afirma que la lengua fija qué podemos pensar; la relatividad sostiene que influye en cómo pensamos habitualmente, sin imponer límites absolutos.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">El determinismo afirma que la lengua fija lo pensable; la relatividad, que influye en hábitos de pensamiento.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Ambas posiciones admiten algún tipo de relación entre lengua y pensamiento; la diferencia está en el grado y el tipo de esa relación.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Solo el determinismo admite pensamiento sin lenguaje.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Ninguna de las dos posiciones afirma eso. El debate se refiere a la dirección e intensidad de la influencia, no a la existencia de lenguaje.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Solo la relatividad admite la existencia de lenguas distintas.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">Piensa en un momento en el que hayas tenido una idea que te costó mucho poner en palabras. ¿Qué revela esa experiencia sobre la relación entre pensamiento y lenguaje?</p>
+        <textarea class="q-textarea" data-label="Fase 1 · Reflexión cotidiana: una idea difícil de poner en palabras" rows="4" placeholder="Describe la situación: qué querías decir, por qué no encontrabas las palabras, qué hiciste para expresarlo…"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 2 · CALENTAMIENTO (5 min)                                 -->
+  <!-- ============================================================= -->
+  <section id="fase2" class="fase" data-step="2">
+    <header class="fase-head">
+      <span class="fase-num">Fase 02</span>
+      <h2>Calentamiento</h2>
+      <span class="fase-time">5 min</span>
+    </header>
+    <p class="fase-intro">Ya tienes el marco. Ahora entras en la misión: pondrás a prueba tu comprensión clasificando afirmaciones y analizando un caso real de aprendizaje.</p>
+
+    <!-- Carta 07 · Detonadora + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 07 · Pregunta detonadora</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">Después de leer el marco teórico: ¿cuál de estas afirmaciones se acerca más a lo que sostiene la investigación contemporánea?</p>
+        <div class="options" data-group="q02">
+          <button class="option" data-correct="false" data-feedback="No. La versión fuerte del determinismo tiene poco respaldo empírico: las personas pueden discriminar fenómenos para los que no tienen una palabra específica.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">La lengua que hablamos determina por completo lo que podemos pensar.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. El pensamiento no es reducible al lenguaje, pero el lenguaje transforma profundamente determinadas formas de pensamiento: influye en la atención, la memoria y la categorización.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">El pensamiento no se reduce al lenguaje, pero el lenguaje transforma profundamente algunas formas de pensar.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Esta es la posición opuesta al determinismo, pero también es demasiado extrema: el lenguaje sí tiene efectos sobre ciertos procesos cognitivos.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">El lenguaje no tiene ningún efecto sobre el pensamiento.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La investigación contemporánea no considera que pensamiento y lenguaje sean lo mismo; de hecho, uno de los argumentos clásicos es que a menudo sabemos lo que queremos decir antes de encontrar las palabras.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Pensamiento y lenguaje son exactamente lo mismo.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">Piensa en una palabra que hayas aprendido recientemente y que te haya permitido entender algo que antes no lograbas nombrar. Descríbela y cuenta qué cambió en tu forma de pensar sobre ese algo.</p>
+        <textarea class="q-textarea" data-label="Fase 2 · Reflexión cotidiana: una palabra que abrió una puerta" rows="5" placeholder="Por ejemplo: «Aprendí la palabra “procrastinación” y de pronto todo lo que hacía los domingos por la tarde cobró sentido…»"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 3 · DESAFÍO 1 (12 min)                                    -->
+  <!-- ============================================================= -->
+  <section id="fase3" class="fase" data-step="3">
+    <header class="fase-head">
+      <span class="fase-num">Fase 03</span>
+      <h2>Desafío 1 · El clasificador de teorías</h2>
+      <span class="fase-time">12 min</span>
+    </header>
+    <p class="fase-intro">Tu tarea: leer cuatro afirmaciones y decidir qué posición teórica representa cada una. No hay puntos por rapidez; los hay por calidad de la justificación. No se trata de adivinar nombres, sino de reconocer la <strong>dirección causal</strong> que cada afirmación presupone.</p>
+
+    <!-- Carta 08 · Casos A y B -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 08 · Los dos extremos</span>
+        <h3 class="carta-title">Determinismo fuerte vs. relatividad</h3>
+      </div>
+      <div class="carta-body">
+        <div class="caso-escena">
+          <strong style="color:var(--accent-warm); display:block; margin-bottom:6px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase">Caso A</strong>
+          «Si una lengua no tiene una palabra para “azul”, sus hablantes no pueden distinguir ese color de otros.»
+        </div>
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Qué posición teórica representa el Caso A?</p>
+        <div class="options" data-group="q03">
+          <button class="option" data-correct="true" data-feedback="Correcto. Es determinismo fuerte: la ausencia de una palabra se traduce en una imposibilidad cognitiva. La evidencia contemporánea muestra que las personas pueden discriminar colores para los que no tienen un término específico.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Determinismo lingüístico fuerte.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La relatividad lingüística no afirma imposibilidad cognitiva: sostiene que la lengua influye en hábitos de atención, no que fije límites absolutos.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Relatividad lingüística.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Piaget no afirma que la lengua determine el pensamiento; de hecho, sostiene que la cognición precede parcialmente al lenguaje.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Piaget: la cognición precede al lenguaje.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Vygotsky sostiene que pensamiento y lenguaje se transforman mutuamente, no que uno determine al otro de forma unidireccional.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Vygotsky: transformación mutua.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <div class="caso-escena">
+          <strong style="color:var(--accent); display:block; margin-bottom:6px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase">Caso B</strong>
+          «Hablar una lengua que distingue entre “azul celeste” y “azul marino” hace más probable que sus hablantes atiendan a esa diferencia en una tarea rápida.»
+        </div>
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Qué posición teórica representa el Caso B?</p>
+        <div class="options" data-group="q04">
+          <button class="option" data-correct="false" data-feedback="No. El Caso B no afirma imposibilidad cognitiva: solo una mayor probabilidad de atender a una distinción. Eso es relatividad, no determinismo.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Determinismo lingüístico fuerte.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es relatividad lingüística en su versión contemporánea: la lengua influye en hábitos de atención, sin imponer límites absolutos.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Relatividad lingüística.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Piaget se centra en el desarrollo cognitivo previo al lenguaje, no en los efectos de la lengua sobre la atención.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Piaget: la cognición precede al lenguaje.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No exactamente. Vygotsky se centra en la internalización del habla y su función reguladora, no en los efectos de la lengua sobre la atención perceptiva.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Vygotsky: internalización del habla.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type abierta">Abierta · justificación</span>
+        <p class="q-text">Explica con tus palabras qué diferencia al Caso A del Caso B. ¿Por qué uno es determinismo y el otro relatividad?</p>
+        <textarea class="q-textarea" data-label="Fase 3 · Casos A y B: diferencia entre determinismo y relatividad" rows="4" placeholder="Fíjate en el tipo de relación que cada afirmación postula: ¿necesaria o probabilística? ¿Hay imposibilidad cognitiva o solo una mayor probabilidad de atender?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 09 · Casos C y D -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 09 · Las posiciones intermedias</span>
+        <h3 class="carta-title">Piaget vs. Vygotsky</h3>
+      </div>
+      <div class="carta-body">
+        <div class="caso-escena">
+          <strong style="color:var(--accent-reflect); display:block; margin-bottom:6px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase">Caso C</strong>
+          «Antes de aprender a hablar, un bebé ya puede reconocer que un objeto sigue existiendo aunque esté oculto.»
+        </div>
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Qué posición teórica representa el Caso C?</p>
+        <div class="options" data-group="q05">
+          <button class="option" data-correct="false" data-feedback="No. Esta afirmación no postula que la lengua determine el pensamiento; al contrario, muestra cognición antes del lenguaje.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Determinismo lingüístico fuerte.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La relatividad lingüística se centra en efectos de la lengua sobre la cognición; aquí el punto es que hay cognición previa al lenguaje.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Relatividad lingüística.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es Piaget: el desarrollo cognitivo no puede reducirse al desarrollo lingüístico. Antes del lenguaje ya hay exploración, permanencia del objeto y esquemas de acción.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Piaget: la cognición precede parcialmente al lenguaje.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Vygotsky se centra en la internalización del habla; aunque reconoce trayectorias iniciales diferenciadas, su énfasis está en la transformación mutua.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Vygotsky: internalización del habla.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <div class="caso-escena">
+          <strong style="color:var(--accent); display:block; margin-bottom:6px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase">Caso D</strong>
+          «Un niño aprende a decir “primero busco las esquinas” mientras arma un rompecabezas; meses después, se lo dice en voz baja y resuelve más rápido.»
+        </div>
+
+        <span class="q-type cerrada">Cerrada</span>
+        <p class="q-text">¿Qué posición teórica representa el Caso D?</p>
+        <div class="options" data-group="q06">
+          <button class="option" data-correct="false" data-feedback="No. El Caso D no afirma que la lengua determine por sí sola el pensamiento: describe una internalización progresiva del habla.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Determinismo lingüístico fuerte.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. El Caso D no describe solo una influencia de la lengua sobre la atención: describe una transformación en la regulación del pensamiento.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Relatividad lingüística.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. El Caso D se centra en cómo el lenguaje se internaliza y regula la acción, no en cómo la cognición precede al lenguaje.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Piaget: la cognición precede al lenguaje.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es Vygotsky: el habla social se convierte en habla egocéntrica, luego en habla interna y finalmente regula el pensamiento. El lenguaje funciona como herramienta psicológica.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Vygotsky: internalización del habla y regulación del pensamiento.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">¿Recuerdas haber aprendido algo complejo hablándotelo en voz baja o explicándoselo a alguien? Describe la situación y qué papel jugó el lenguaje en tu aprendizaje.</p>
+        <textarea class="q-textarea" data-label="Fase 3 · Reflexión cotidiana: aprender hablándome" rows="4" placeholder="Piensa en un examen, una receta, un problema de matemáticas, una mudanza… ¿Te dijiste algo mientras lo hacías?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 4 · DESAFÍO 2 (10 min)                                    -->
+  <!-- ============================================================= -->
+  <section id="fase4" class="fase" data-step="4">
+    <header class="fase-head">
+      <span class="fase-num">Fase 04</span>
+      <h2>Desafío 2 · El caso de Camila</h2>
+      <span class="fase-time">10 min</span>
+    </header>
+    <p class="fase-intro">Ahora vas a aplicar los tres niveles de relación entre pensamiento y lenguaje a un caso de aprendizaje real. Lee el caso y resuelve los tres candados.</p>
+
+    <!-- Carta 10 · El caso + candado 1 -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 10 · El caso</span>
+        <h3 class="carta-title">Camila estudia «inflación»</h3>
+      </div>
+      <div class="carta-body">
+        <div class="caso-escena">
+          Camila estudia economía. Lee la definición de <strong>«inflación»</strong> y no la entiende. Se dibuja un diagrama con flechas que suben y bajan. Se dice a sí misma: <em>«Si los precios suben, el dinero vale menos»</em>. Se lo explica a su compañera. Al terminar, dice: <em>«Ahora sí lo entiendo, puedo explicarlo con mis palabras»</em>.
+        </div>
+
+        <span class="q-type cerrada">Candado 1 · Cerrada</span>
+        <p class="q-text">¿Qué ocurre en el primer momento, cuando Camila reconoce la palabra «inflación» pero no la entiende?</p>
+        <div class="options" data-group="q07">
+          <button class="option" data-correct="false" data-feedback="No. El nivel A es pensamiento sin lenguaje; aquí el problema es que la palabra está pero el concepto no se ha constituido. Eso corresponde al nivel C. Código: IDEA.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Está operando el nivel A: pensamiento no lingüístico.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No del todo. El nivel B se refiere a la mediación lingüística (planificación, autorregulación). Aquí el problema es que el concepto abstracto no se ha constituido. Código: IDEA.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Está operando el nivel B: el lenguaje media la comprensión.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es el nivel C: la palabra está disponible, pero el concepto abstracto no se ha constituido mediante prácticas discursivas y simbólicas. Código del candado 1: IDEA.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Está operando el nivel C: la palabra está, pero el concepto no se ha constituido.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Vygotsky describe la internalización del habla, pero aquí el problema es que el concepto abstracto aún no se ha constituido. Código: IDEA.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Está operando la internalización vygotskiana.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type abierta">Abierta · análisis</span>
+        <p class="q-text">Describe los cinco momentos del caso de Camila e identifica qué nivel de pensamiento opera en cada uno.</p>
+        <textarea class="q-textarea" data-label="Fase 4 · Análisis de los cinco momentos de Camila" rows="6" placeholder="1) Lee la definición… 2) Dibuja el diagrama… 3) Se dice «si los precios suben…» 4) Se lo explica a su compañera… 5) «Puedo explicarlo con mis palabras…»"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 11 · Candado 2 + reflexión -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 11 · Candado 2</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Qué posición teórica explica mejor el paso del momento 3 (decirse «si los precios suben…») al momento 5 (poder explicarlo con sus palabras)?</p>
+        <div class="options" data-group="q08">
+          <button class="option" data-correct="false" data-feedback="No. El determinismo fuerte no explicaría el cambio: si la lengua determinara el pensamiento, no habría un proceso de comprensión progresiva. Código: VYGOT.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Determinismo lingüístico fuerte.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La relatividad lingüística se centra en efectos de la lengua sobre la atención, no en la internalización del habla. Código: VYGOT.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">Relatividad lingüística.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. Piaget se centra en la cognición previa al lenguaje, no en cómo el lenguaje se internaliza y regula el pensamiento. Código: VYGOT.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">Piaget: la cognición precede al lenguaje.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es Vygotsky: el lenguaje pasa de ser externo (decírselo a sí misma) a ser una herramienta interna que regula la comprensión y permite explicarla con palabras propias. Código del candado 2: VYGOT.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">Vygotsky: el lenguaje se internaliza y se convierte en herramienta de regulación.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+
+        <hr class="divider" />
+
+        <span class="q-type reflexiva">Abierta · reflexión cotidiana</span>
+        <p class="q-text">¿Has tenido una experiencia parecida al estudiar algo? Describe qué papel jugó el lenguaje (leer, decirte cosas, explicar a otros, escribir) en tu comprensión.</p>
+        <textarea class="q-textarea" data-label="Fase 4 · Reflexión cotidiana: el papel del lenguaje en mi aprendizaje" rows="5" placeholder="Piensa en un concepto que no entendías y que de pronto entendiste. ¿Qué hiciste? ¿Leíste? ¿Te lo explicaste? ¿Se lo contaste a alguien?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FASE 5 · CIERRE (6 min)                                        -->
+  <!-- ============================================================= -->
+  <section id="fase5" class="fase" data-step="5">
+    <header class="fase-head">
+      <span class="fase-num">Fase 05</span>
+      <h2>Cierre</h2>
+      <span class="fase-time">6 min</span>
+    </header>
+    <p class="fase-intro">Antes de terminar, una síntesis, dos preguntas de metacognición, una reflexión final y tres preguntas para la conversación en grupo.</p>
+
+    <!-- Carta 12 · Síntesis -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 12 · Síntesis</span>
+        <span class="q-type cerrada">Cerrada</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Cuál de estas afirmaciones resume mejor la síntesis del debate sobre lenguaje y pensamiento?</p>
+        <div class="options" data-group="q09">
+          <button class="option" data-correct="false" data-feedback="No. El pensamiento no es reducible al lenguaje: hay cognición no lingüística y representaciones que no coinciden con las palabras.">
+            <span class="opt-letter">A</span>
+            <span class="opt-text">Pensar es hablar en silencio.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. El lenguaje sí tiene efectos: influye en la atención, la memoria y la categorización, y se internaliza como herramienta de regulación.">
+            <span class="opt-letter">B</span>
+            <span class="opt-text">El lenguaje no afecta al pensamiento: son dos sistemas independientes.</span>
+          </button>
+          <button class="option" data-correct="true" data-feedback="Correcto. Es la formulación que conserva simultáneamente tres evidencias: hay cognición no lingüística, hay efectos del lenguaje sobre procesos cognitivos y la interacción con sistemas simbólicos produce nuevas herramientas para pensar.">
+            <span class="opt-letter">C</span>
+            <span class="opt-text">El pensamiento no es reducible al lenguaje, pero el lenguaje transforma profundamente algunas formas de pensamiento.</span>
+          </button>
+          <button class="option" data-correct="false" data-feedback="No. La versión fuerte del determinismo tiene poco respaldo empírico: las personas pueden discriminar y aprender fenómenos para los que no tienen palabras específicas.">
+            <span class="opt-letter">D</span>
+            <span class="opt-text">La lengua que hablamos determina por completo lo que podemos pensar.</span>
+          </button>
+        </div>
+        <div class="feedback" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <!-- Carta 13 · Metacognición 1 -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 13 · Metacognición</span>
+        <span class="q-type abierta">Abierta</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿Qué concepto te resultó más difícil de distinguir y qué hiciste para corregir la confusión?</p>
+        <textarea class="q-textarea" data-label="Fase 5 · Metacognición: concepto más difícil" rows="4" placeholder="Nombra el concepto (determinismo vs. relatividad, los tres niveles, la internalización) y describe el momento en que lograste distinguirlo."></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 14 · Metacognición 2 -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 14 · Metacognición</span>
+        <span class="q-type abierta">Abierta</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">¿En qué momento del análisis del caso de Camila te diste cuenta de que el lenguaje estaba haciendo algo más que «acompañar» su pensamiento?</p>
+        <textarea class="q-textarea" data-label="Fase 5 · Metacognición: momento de descubrimiento en el caso" rows="4" placeholder="Describe el instante: ¿fue al ver el diagrama, al leer el «si…», al imaginar la explicación a su compañera?"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 15 · Reflexión final -->
+    <div class="carta">
+      <div class="carta-head">
+        <span class="carta-label">Carta 15 · Reflexión cotidiana</span>
+        <span class="q-type reflexiva">Abierta · reflexión</span>
+      </div>
+      <div class="carta-body">
+        <p class="q-text">Después de este laboratorio, ¿qué situación de tu vida cotidiana mirarás de otra manera? Descríbela y explica por qué.</p>
+        <textarea class="q-textarea" data-label="Fase 5 · Reflexión cotidiana: situación que mirarás distinto" rows="4" placeholder="Puede ser una conversación, una clase, una discusión, un momento de estudio, una traducción, una decisión…"></textarea>
+        <div class="saved-hint">Guardado automáticamente</div>
+      </div>
+    </div>
+
+    <!-- Carta 16 · Socialización -->
+    <div class="social-card">
+      <div class="carta-head">
+        <span class="carta-label">Carta 16 · Socialización en grupo</span>
+        <h3 class="carta-title">Tres preguntas para conversar</h3>
+      </div>
+      <div class="carta-body">
+        <p style="max-width:64ch; margin:0 0 4px">Cuando el facilitador abra la conversación grupal, estas tres preguntas orientarán la puesta en común. No hay respuestas correctas: se trata de contrastar lo que cada uno vivió, pensó y descubrió durante el laboratorio.</p>
+        <ol class="social-questions">
+          <li>¿Cómo cambió tu forma de mirar la relación entre lo que piensas y las palabras con las que lo dices?</li>
+          <li>Después de leer el panorama de posiciones, ¿dónde ubicarías tu propia comprensión de la relación entre lenguaje y pensamiento? ¿Por qué?</li>
+          <li>¿Qué consecuencias tiene este debate para tu formación como psicólogo/a o para tu práctica profesional?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Export -->
+    <div class="export-panel">
+      <h3>Has completado el laboratorio</h3>
+      <p>Descarga tus respuestas para entregarlas o consérvalas como evidencia de tu proceso.</p>
+      <button class="btn-secondary" id="btnExport">Descargar mis respuestas</button>
+      <div class="export-status" id="exportStatus"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="doc-foot">
+  <p><strong>Autor del recurso:</strong> Juan Carlos Valderrama Cárdenas</p>
+  <p>Laboratorio digital sobre el debate entre lenguaje y pensamiento: del determinismo lingüístico a la mente extendida.</p>
+  <p>El marco teórico se apoya en Humboldt, Sapir, Whorf, Chomsky, Piaget, Vygotsky, Slobin, Pinker, Clark &amp; Chalmers, y en la distinción contemporánea entre determinismo y relatividad lingüística.</p>
+  <p style="margin-top:14px; font-size:13px;">5 fases · 12 + 5 + 12 + 10 + 6 = 45 minutos · Las respuestas se guardan automáticamente en este dispositivo.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  document.querySelectorAll('.options').forEach(function (group) {
+    group.querySelectorAll('.option').forEach(function (option) {
+      option.addEventListener('click', function () {
+        group.querySelectorAll('.option').forEach(function (o) {
+          o.classList.remove('selected', 'correct', 'incorrect');
+        });
+        option.classList.add('selected');
+        var isCorrect = option.dataset.correct === 'true';
+        var feedback = group.parentElement.querySelector('.feedback');
+        if (isCorrect) {
+          option.classList.add('correct');
+          if (feedback) {
+            feedback.textContent = option.dataset.feedback || 'Correcto.';
+            feedback.className = 'feedback show good';
+          }
+        } else {
+          option.classList.add('incorrect');
+          if (feedback) {
+            feedback.textContent = option.dataset.feedback || 'Revisa el concepto y vuelve a intentarlo.';
+            feedback.className = 'feedback show bad';
+          }
+        }
+      });
+    });
+  });
+
+  var textareas = document.querySelectorAll('textarea[data-label]');
+  var totalEl = document.getElementById('total');
+  var answeredEl = document.getElementById('answered');
+  if (totalEl) totalEl.textContent = textareas.length;
+
+  function updateCounter() {
+    var filled = 0;
+    textareas.forEach(function (ta) { if (ta.value.trim().length > 0) filled++; });
+    if (answeredEl) answeredEl.textContent = filled;
+  }
+
+  textareas.forEach(function (ta) {
+    var key = 'lab_lengua_v1_' + ta.dataset.label;
+    var saved = localStorage.getItem(key);
+    if (saved) ta.value = saved;
+    var hint = ta.parentElement.querySelector('.saved-hint');
+    ta.addEventListener('input', function () {
+      localStorage.setItem(key, ta.value);
+      if (hint) {
+        hint.classList.add('saved');
+        hint.textContent = 'Guardado';
+        clearTimeout(hint._t);
+        hint._t = setTimeout(function () {
+          hint.classList.remove('saved');
+          hint.textContent = 'Guardado automáticamente';
+        }, 1200);
+      }
+      updateCounter();
+    });
+  });
+
+  updateCounter();
+
+  var sections = document.querySelectorAll('.fase[data-step]');
+  var navItems = document.querySelectorAll('#navSteps li');
+  navItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      var target = document.getElementById('fase' + item.dataset.step);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var step = entry.target.dataset.step;
+          navItems.forEach(function (li) {
+            li.classList.toggle('active', li.dataset.step === step);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  var btnExport = document.getElementById('btnExport');
+  var exportStatus = document.getElementById('exportStatus');
+  if (btnExport) {
+    btnExport.addEventListener('click', function () {
+      var lines = [];
+      lines.push('RESPUESTAS · LABORATORIO «¿PIENSAS CON PALABRAS?»');
+      lines.push('Recurso diseñado por Juan Carlos Valderrama Cárdenas');
+      lines.push('Laboratorio sobre el debate entre lenguaje y pensamiento:');
+      lines.push('del determinismo lingüístico a la mente extendida.');
+      lines.push('='.repeat(64));
+      lines.push('');
+      lines.push('RESULTADOS DE APRENDIZAJE DEL LABORATORIO');
+      lines.push('RA1 · Distinguir el determinismo lingüístico fuerte de la relatividad lingüística.');
+      lines.push('RA2 · Analizar una situación cotidiana identificando los tres niveles de relación entre pensamiento y lenguaje.');
+      lines.push('');
+      lines.push('='.repeat(64));
+      lines.push('');
+      textareas.forEach(function (ta) {
+        var label = ta.dataset.label || 'Respuesta';
+        lines.push('▸ ' + label);
+        lines.push((ta.value.trim() || '(sin respuesta)'));
+        lines.push('');
+      });
+      lines.push('='.repeat(64));
+      lines.push('PREGUNTAS PARA LA SOCIALIZACIÓN EN GRUPO');
+      lines.push('1. ¿Cómo cambió tu forma de mirar la relación entre lo que piensas y las palabras con las que lo dices?');
+      lines.push('2. Después de leer el panorama de posiciones, ¿dónde ubicarías tu propia comprensión de la relación entre lenguaje y pensamiento? ¿Por qué?');
+      lines.push('3. ¿Qué consecuencias tiene este debate para tu formación como psicólogo/a o para tu práctica profesional?');
+      var text = lines.join('\n');
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'respuestas_piensas_con_palabras.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      exportStatus.textContent = '✓ Archivo descargado. Revisa tu carpeta de descargas.';
+      setTimeout(function () { exportStatus.textContent = ''; }, 5000);
+    });
+  }
+
+  var details = document.querySelectorAll('details.carta');
+  details.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) {
+        details.forEach(function (other) { if (other !== d) other.open = false; });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
