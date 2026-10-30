@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pensamiento y Lenguaje · ¿Determina la lengua lo que podemos pensar?</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿Determina la lengua lo que podemos pensar?">
+<meta name="jc-descripcion" content="Masterclass interactiva sobre las relaciones entre lenguaje y pensamiento, desde el determinismo y la relatividad lingüística hasta Vygotsky, Piaget, Chomsky, Slobin, la cognición corporizada y la mente extendida, con énfasis en mediación, internalización y niveles de influencia.">
+<meta name="jc-tipo" content="Masterclass interactiva">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, Lenguaje, Pensamiento, Determinismo lingüístico, Relatividad lingüística, Hipótesis Sapir-Whorf, Edward Sapir, Benjamin Lee Whorf, Jean Piaget, Lev Vygotsky, Noam Chomsky, Dan Slobin, Thinking for speaking, Habla interna, Internalización, Mediación lingüística, Universalismo, Cognición corporizada, Cognición extendida, Atención, Memoria, Categorización, Desarrollo cognitivo, Conceptos abstractos, Tecnología cognitiva, Cognición distribuida">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  :root{
+    --ink:#14171c;
+    --ink-2:#3b434e;
+    --muted:#5a6472;
+    --accent:#17608a;
+    --accent-2:#4a91b8;
+    --tint:#e9f2f7;
+    --tint-2:#f5f9fb;
+    --line:#d7dee4;
+    --line-2:#e6ebef;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+
+  body{
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:#fff;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .viewport{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+
+  .stage{
+    width:1280px;height:720px;flex:none;position:relative;
+    background:#fff;
+    transform-origin:center center;
+  }
+
+  /* ---------- Slides ---------- */
+  .slide{
+    position:absolute;inset:0;
+    background:#fff;
+    padding:26px 42px 28px;
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .slide.is-active{display:flex}
+
+  .kicker{
+    font-size:21px;font-weight:600;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);
+    margin-bottom:8px;
+  }
+
+  .s-head{flex:none;margin-bottom:12px}
+  .s-head h2{
+    font-size:50px;line-height:1.1;font-weight:700;letter-spacing:-.015em;
+  }
+  .s-head::after{
+    content:"";display:block;width:70px;height:3px;
+    background:var(--accent);margin-top:10px;border-radius:2px;
+  }
+
+  .s-body{flex:1;min-height:0;display:flex;flex-direction:column}
+
+  .caption{
+    font-size:21px;line-height:1.34;color:var(--muted);
+    margin-top:10px;
+  }
+
+  .note-bar{
+    background:var(--tint-2);border-left:4px solid var(--accent);
+    padding:14px 22px;font-size:21px;line-height:1.34;color:var(--ink-2);
+    border-radius:0 6px 6px 0;
+  }
+  .note-bar b{color:var(--accent)}
+
+  /* ---------- Portada ---------- */
+  .cover{
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:0 72px;
+    position:relative;
+  }
+  .cover .kicker{margin-bottom:18px}
+  .cover h1{
+    font-size:74px;line-height:1.05;font-weight:700;letter-spacing:-.022em;
+    margin-bottom:26px;
+  }
+  .cover .lead{
+    font-size:28px;line-height:1.38;color:var(--ink-2);
+    max-width:880px;margin:0 auto 44px;
+  }
+  .cover .author{
+    font-size:24px;font-weight:600;color:var(--accent);
+    border-top:2px solid var(--accent);
+    padding-top:18px;
+    margin:0 auto;
+    width:fit-content;
+    letter-spacing:.02em;
+  }
+  .cover-art{
+    position:absolute;top:-80px;right:-80px;width:440px;height:440px;
+    pointer-events:none;
+  }
+  .cover-art circle{fill:none;stroke-width:1.5}
+
+  /* ---------- SVG genéricos ---------- */
+  svg.fig{width:100%;height:auto;display:block}
+  .fig .box{fill:#fff;stroke:#c9d6de;stroke-width:1.5}
+  .fig .box-acc{fill:var(--tint);stroke:var(--accent);stroke-width:2}
+  .fig .ln{stroke:var(--accent-2);stroke-width:2;fill:none}
+  .fig .ln-soft{stroke:#c9d6de;stroke-width:2;fill:none}
+  .fig .t{font-size:22px;font-weight:700;fill:var(--ink);text-anchor:middle}
+  .fig .t-acc{font-size:22px;font-weight:700;fill:var(--accent);text-anchor:middle}
+  .fig .s{font-size:20px;fill:var(--ink-2);text-anchor:middle}
+  .fig .s-mut{font-size:20px;fill:var(--muted);text-anchor:middle}
+
+  /* ---------- Tabla ---------- */
+  table.cmp{width:100%;border-collapse:collapse}
+  table.cmp th,table.cmp td{
+    text-align:left;vertical-align:middle;
+    padding:14px 18px;border-bottom:1px solid var(--line-2);
+  }
+  table.cmp thead th{
+    font-size:22px;font-weight:700;color:var(--accent);
+    border-bottom:2px solid var(--accent);
+    padding-bottom:11px;
+  }
+  table.cmp thead th:first-child{width:230px}
+  table.cmp tbody th{
+    font-size:22px;font-weight:700;color:var(--ink);
+    letter-spacing:.01em;
+  }
+  table.cmp tbody td{font-size:22px;color:var(--ink-2);line-height:1.3}
+
+  /* ---------- Cadena ---------- */
+  .chain{display:flex;align-items:stretch;margin-bottom:12px}
+  .cnode{
+    flex:1;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:14px 12px;
+    display:flex;flex-direction:column;justify-content:center;
+    text-align:center;
+    min-height:92px;
+    background:#fff;
+  }
+  .cnode span{display:block}
+  .cnode .n1{font-size:22px;font-weight:700;line-height:1.2;color:var(--ink)}
+  .cnode .n2{font-size:21px;line-height:1.25;color:var(--muted);margin-top:4px}
+  .cnode.hl{background:var(--tint);border-color:var(--accent)}
+  .cnode.hl .n1{color:var(--accent)}
+  .carrow{
+    flex:none;width:44px;display:flex;align-items:center;justify-content:center;
+    font-size:26px;color:var(--accent);font-weight:700;
+  }
+  .chain-cap{
+    font-size:21px;color:var(--muted);text-align:center;
+    margin-bottom:14px;letter-spacing:.02em;
+  }
+
+  /* ---------- Dos columnas ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .blk{
+    padding:16px 22px;border-radius:8px;
+    background:var(--tint-2);border:1px solid var(--line-2);
+  }
+  .blk .bt{
+    font-size:21px;font-weight:700;color:var(--accent);
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;
+  }
+  .blk p{font-size:21px;line-height:1.34;color:var(--ink-2)}
+
+  /* ---------- Espectro ---------- */
+  .axis-ends{
+    display:flex;justify-content:space-between;
+    font-size:20px;font-weight:600;color:var(--muted);
+    letter-spacing:.04em;margin-bottom:6px;
+  }
+  .spectrum{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    grid-template-rows:auto 36px auto;
+    align-items:center;
+  }
+  .sp-lbl{text-align:center;padding:0 8px;line-height:1.26}
+  .sp-lbl .t1{
+    display:block;font-size:20px;font-weight:700;
+    color:var(--accent);margin-bottom:4px;
+  }
+  .sp-lbl .t2{display:block;font-size:19px;color:var(--ink-2)}
+  .sp-lbl.top{align-self:end;padding-bottom:12px}
+  .sp-lbl.bottom{align-self:start;padding-top:12px}
+  .sp-dot{position:relative;height:36px;display:flex;align-items:center;justify-content:center}
+  .sp-dot::before{
+    content:"";position:absolute;top:50%;left:50%;
+    width:100%;height:2px;background:var(--line);
+    transform:translateY(-50%);
+  }
+  .sp-dot.end::before{display:none}
+  .sp-dot i{
+    position:relative;width:18px;height:18px;border-radius:50%;
+    background:#fff;border:3px solid var(--accent-2);display:block;
+  }
+  .sp-dot.strong i{background:var(--accent);border-color:var(--accent)}
+
+  /* ---------- Desplazamiento ---------- */
+  .shift{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .shift-col{padding:14px 20px;border-radius:10px}
+  .shift-col.old{background:#f2f4f6;border:1px solid #e0e5ea}
+  .shift-col.new{background:var(--tint);border:1px solid #b9d5e4}
+  .shift-tag{
+    font-size:20px;font-weight:700;letter-spacing:.07em;
+    text-transform:uppercase;margin-bottom:8px;color:var(--muted);
+  }
+  .shift-col.new .shift-tag{color:var(--accent)}
+  .shift-col p{font-size:20px;line-height:1.3;color:var(--ink-2)}
+  .shift-col.new p{color:var(--ink);font-weight:500}
+
+  /* ---------- Fórmula ---------- */
+  .formula{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:14px 22px;border-left:4px solid var(--accent);
+    background:var(--tint-2);font-size:21px;line-height:1.3;color:var(--ink-2);
+  }
+  .formula b{color:var(--accent);font-weight:700}
+  .formula .no{
+    color:var(--muted);text-decoration:line-through;
+    text-decoration-color:#b0b9c2;font-size:20px;
+  }
+  .domains{font-size:20px;line-height:1.3;color:var(--ink-2)}
+  .domains b{color:var(--accent);font-weight:700}
+
+  /* ---------- Posiciones ---------- */
+  .positions{list-style:none;display:flex;flex-direction:column;flex:1;min-height:0}
+  .positions li{
+    display:grid;
+    grid-template-columns:270px 350px 1fr;
+    align-items:center;gap:18px;
+    padding:10px 0;
+    border-bottom:1px solid var(--line-2);
+  }
+  .positions li:last-child{border-bottom:none}
+  .pos-name{font-size:21px;font-weight:700;line-height:1.2}
+  .pos-rel{font-size:20px;font-weight:600;color:var(--accent);line-height:1.3}
+  .pos-rel .weak{color:var(--accent-2);font-weight:500}
+  .pos-claim{font-size:20px;color:var(--ink-2);line-height:1.3}
+
+  /* ---------- Niveles ---------- */
+  .levels{display:flex;flex-direction:column;gap:14px;flex:1;min-height:0;justify-content:center}
+  .lv{
+    display:grid;grid-template-columns:54px 1fr;gap:18px;
+    align-items:center;
+    padding:16px 22px;border-radius:8px;
+    border:1px solid var(--line-2);
+  }
+  .lv .tag{
+    width:46px;height:46px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:21px;font-weight:700;
+    border:2px solid var(--accent-2);color:var(--accent);
+    background:#fff;
+  }
+  .lv h3{font-size:22px;font-weight:700;line-height:1.2;margin-bottom:5px}
+  .lv p{font-size:20px;line-height:1.3;color:var(--ink-2)}
+  .lv.a{background:#fff}
+  .lv.b{background:#f7fbfd}
+  .lv.c{background:var(--tint);border-color:#c2dbe9}
+  .lv.c .tag{background:var(--accent);border-color:var(--accent);color:#fff}
+  .lv.c h3{color:var(--accent)}
+
+  /* ---------- Síntesis ---------- */
+  .synth-model{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .sm-node{
+    padding:12px 20px;border-radius:8px;
+    border:1.5px solid var(--accent-2);
+    font-size:22px;font-weight:600;color:var(--accent);
+    background:#fff;
+  }
+  .sm-op{font-size:24px;font-weight:700;color:var(--muted)}
+  .synth-claim{
+    font-size:26px;line-height:1.35;font-weight:600;
+    padding-left:20px;border-left:4px solid var(--accent);
+    margin-bottom:26px;color:var(--ink);
+  }
+  .ideas{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .idea{border-top:2px solid var(--line);padding-top:12px}
+  .idea span{
+    display:block;font-size:21px;font-weight:700;color:var(--accent);
+    margin-bottom:6px;
+  }
+  .idea p{font-size:21px;line-height:1.3;color:var(--ink-2)}
+
+  /* ---------- Conclusiones ---------- */
+  .concl{
+    list-style:none;
+    display:flex;flex-direction:column;gap:8px;
+    margin-bottom:14px;
+  }
+  .concl li{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:18px;align-items:start;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line-2);
+  }
+  .concl li:last-child{border-bottom:none;padding-bottom:0}
+  .concl .num{
+    width:46px;height:46px;border-radius:50%;
+    border:2px solid var(--accent-2);background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;font-weight:700;color:var(--accent);
+  }
+  .concl h3{
+    font-size:23px;font-weight:700;line-height:1.2;
+    margin-bottom:4px;color:var(--ink);
+  }
+  .concl p{font-size:20px;line-height:1.28;color:var(--ink-2)}
+
+  .open-q{
+    background:var(--tint);border-radius:10px;
+    padding:13px 20px;
+  }
+  .oq-tag{
+    display:block;font-size:21px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:6px;
+  }
+  .open-q p{font-size:20px;line-height:1.3;color:var(--ink-2)}
+  .open-q p b{color:var(--ink)}
+
+  /* ---------- Navegación ---------- */
+  .nav{
+    position:fixed;left:50%;bottom:10px;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;
+    background:#fff;border:1px solid #dfe5ea;border-radius:999px;
+    padding:5px 11px;
+    box-shadow:0 2px 12px rgba(20,23,28,.08);
+    font-size:15px;color:var(--muted);z-index:10;
+    font-family:inherit;
+  }
+  .nav button{
+    width:30px;height:30px;border-radius:50%;
+    border:1px solid #dfe5ea;background:#fff;color:var(--accent);
+    font-size:16px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s,border-color .15s;
+  }
+  .nav button:hover:not(:disabled){background:var(--tint);border-color:var(--accent-2)}
+  .nav button:disabled{opacity:.32;cursor:default}
+  .nav .counter{font-variant-numeric:tabular-nums;letter-spacing:.06em;padding:0 6px}
+
+  /* ---------- Impresión / PDF ---------- */
+  @media print{
+    @page{size:13.333in 7.5in;margin:0}
+    html,body{width:1280px;height:auto;background:#fff}
+    .viewport{position:static;display:block;overflow:visible}
+    .stage{
+      transform:none !important;
+      width:1280px;height:auto;
+    }
+    .slide{
+      position:relative;
+      display:flex !important;
+      width:1280px;height:720px;
+      break-after:page;page-break-after:always;
+      break-inside:avoid;page-break-inside:avoid;
+    }
+    .slide:last-child{break-after:auto;page-break-after:auto}
+    .nav{display:none !important}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="viewport">
+  <div class="stage" id="stage">
+
+    <!-- ================= 1 · PORTADA ================= -->
+    <section class="slide cover is-active">
+      <svg class="cover-art" viewBox="0 0 440 440" aria-hidden="true">
+        <circle cx="220" cy="220" r="190" stroke="#eef4f8"></circle>
+        <circle cx="220" cy="220" r="138" stroke="#e0edf4"></circle>
+        <circle cx="220" cy="220" r="86" stroke="#cbe1ec"></circle>
+      </svg>
+      <div class="kicker">Pensamiento y Lenguaje</div>
+      <h1>¿Determina la lengua<br>lo que podemos pensar?</h1>
+      <p class="lead">Del determinismo fuerte a la relatividad lingüística: un continuo de niveles de influencia, no una elección binaria.</p>
+      <div class="author">Juan Carlos Valderrama Cárdenas</div>
+    </section>
+
+    <!-- ================= 2 · EL PROBLEMA ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">01 · El problema</div>
+        <h2>Un problema, seis preguntas</h2>
+      </div>
+      <div class="s-body">
+        <svg class="fig" viewBox="0 0 1144 396" role="img" aria-label="La pregunta central se descompone en seis preguntas: dependencia, determinación, influencia, desarrollo, mediación y constitución.">
+          <g class="ln-soft">
+            <path d="M572 92 V126"></path>
+            <path d="M170 126 H974"></path>
+            <path d="M170 126 V158"></path>
+            <path d="M572 126 V158"></path>
+            <path d="M974 126 V158"></path>
+            <path d="M170 248 V288"></path>
+            <path d="M572 248 V288"></path>
+            <path d="M974 248 V288"></path>
+          </g>
+
+          <rect class="box-acc" x="252" y="14" width="640" height="78" rx="10"></rect>
+          <text class="t" x="572" y="62" style="font-size:23px;">¿Qué relación hay entre lenguaje y pensamiento?</text>
+
+          <g>
+            <rect class="box" x="0" y="158" width="340" height="90" rx="8"></rect>
+            <text class="t-acc" x="170" y="188">Dependencia</text>
+            <text class="s" x="170" y="214">¿Puede haber pensamiento</text>
+            <text class="s" x="170" y="236">sin lenguaje?</text>
+          </g>
+          <g>
+            <rect class="box" x="402" y="158" width="340" height="90" rx="8"></rect>
+            <text class="t-acc" x="572" y="188">Determinación</text>
+            <text class="s" x="572" y="214">¿La lengua fija lo que</text>
+            <text class="s" x="572" y="236">podemos pensar?</text>
+          </g>
+          <g>
+            <rect class="box" x="804" y="158" width="340" height="90" rx="8"></rect>
+            <text class="t-acc" x="974" y="188">Influencia</text>
+            <text class="s" x="974" y="214">¿Orienta la atención, la</text>
+            <text class="s" x="974" y="236">memoria y las categorías?</text>
+          </g>
+
+          <g>
+            <rect class="box" x="0" y="288" width="340" height="90" rx="8"></rect>
+            <text class="t-acc" x="170" y="318">Desarrollo</text>
+            <text class="s" x="170" y="344">¿Qué se adquiere primero:</text>
+            <text class="s" x="170" y="366">pensar o hablar?</text>
+          </g>
+          <g>
+            <rect class="box" x="402" y="288" width="340" height="90" rx="8"></rect>
+            <text class="t-acc" x="572" y="318">Mediación</text>
+            <text class="s" x="572" y="344">¿Es una herramienta para</text>
+            <text class="s" x="572" y="366">organizar la cognición?</text>
+          </g>
+          <g>
+            <rect class="box" x="804" y="288" width="340" height="90" rx="8"></rect>
+            <text class="t-acc" x="974" y="318">Constitución</text>
+            <text class="s" x="974" y="344">¿Qué pensamiento exige</text>
+            <text class="s" x="974" y="366">prácticas lingüísticas?</text>
+          </g>
+        </svg>
+        <p class="caption">El desacuerdo no es uno solo: son seis discusiones conectadas, y cada una admite respuestas teóricas distintas.</p>
+      </div>
+    </section>
+
+    <!-- ================= 3 · EL CONTINUO ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">02 · El mapa del desacuerdo</div>
+        <h2>No es un binomio: es un continuo</h2>
+      </div>
+      <div class="s-body">
+        <div class="axis-ends">
+          <span>← Menor dependencia</span>
+          <span>Mayor determinación →</span>
+        </div>
+
+        <div class="spectrum">
+          <div class="sp-lbl top" style="grid-area:1/1">
+            <span class="t1">Independencia</span>
+            <span class="t2">El pensamiento no requiere lenguaje</span>
+          </div>
+          <div class="sp-lbl top" style="grid-area:1/3">
+            <span class="t1">Mediación</span>
+            <span class="t2">El lenguaje es herramienta cognitiva</span>
+          </div>
+          <div class="sp-lbl top" style="grid-area:1/5">
+            <span class="t1">Determinación fuerte</span>
+            <span class="t2">La lengua fija los límites de lo pensable</span>
+          </div>
+
+          <div class="sp-dot" style="grid-area:2/1"><i></i></div>
+          <div class="sp-dot" style="grid-area:2/2"><i></i></div>
+          <div class="sp-dot" style="grid-area:2/3"><i></i></div>
+          <div class="sp-dot" style="grid-area:2/4"><i></i></div>
+          <div class="sp-dot end strong" style="grid-area:2/5"><i></i></div>
+
+          <div class="sp-lbl bottom" style="grid-area:3/2">
+            <span class="t1">Influencia</span>
+            <span class="t2">La lengua orienta hábitos de atención</span>
+          </div>
+          <div class="sp-lbl bottom" style="grid-area:3/4">
+            <span class="t1">Constitución social</span>
+            <span class="t2">Ciertos conceptos dependen de prácticas culturales</span>
+          </div>
+        </div>
+
+        <div class="shift" style="margin-top:22px;">
+          <div class="shift-col old">
+            <div class="shift-tag">Pregunta abandonada</div>
+            <p>«¿Puede alguien pensar X si su lengua no tiene palabra para X?»</p>
+          </div>
+          <div class="shift-col new">
+            <div class="shift-tag">Pregunta investigable</div>
+            <p>«¿Cambia hablar una lengua la probabilidad de atender, recordar o categorizar de cierta manera?»</p>
+          </div>
+        </div>
+
+        <div class="note-bar" style="margin-top:18px;">
+          La investigación contemporánea se concentra entre la influencia y la mediación: el extremo determinista no se sostiene como tesis general.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4 · DETERMINISMO VS RELATIVIDAD ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">03 · La distinción decisiva</div>
+        <h2>Determinismo no es relatividad</h2>
+      </div>
+      <div class="s-body">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th scope="col">Criterio</th>
+              <th scope="col">Determinismo lingüístico</th>
+              <th scope="col">Relatividad lingüística</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Qué afirma</th>
+              <td>La lengua determina el pensamiento</td>
+              <td>La lengua influye en hábitos de pensamiento</td>
+            </tr>
+            <tr>
+              <th scope="row">Tipo de relación</th>
+              <td>Necesaria</td>
+              <td>Probabilística</td>
+            </tr>
+            <tr>
+              <th scope="row">Alcance de los efectos</th>
+              <td>Generales</td>
+              <td>Específicos y contextuales</td>
+            </tr>
+            <tr>
+              <th scope="row">Cambio conceptual</th>
+              <td>Difícil</td>
+              <td>Flexibilidad cognitiva</td>
+            </tr>
+            <tr>
+              <th scope="row">El lenguaje funciona como</th>
+              <td>Un límite</td>
+              <td>Una orientación</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="caption">La llamada «hipótesis Sapir-Whorf» es una reconstrucción posterior: no fue formulada conjuntamente como una hipótesis experimental.</p>
+      </div>
+    </section>
+
+    <!-- ================= 5 · DIRECCIÓN CAUSAL ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">04 · Mapa de posiciones</div>
+        <h2>La dirección de la flecha</h2>
+      </div>
+      <div class="s-body">
+        <ul class="positions">
+          <li>
+            <div class="pos-name">Determinismo lingüístico</div>
+            <div class="pos-rel">Lenguaje → Pensamiento</div>
+            <div class="pos-claim">La estructura lingüística fija las categorías cognitivas</div>
+          </li>
+          <li>
+            <div class="pos-name">Relatividad lingüística</div>
+            <div class="pos-rel"><span class="weak">Lenguaje ⇢ Pensamiento</span></div>
+            <div class="pos-claim">Favorece hábitos de atención y de categorización</div>
+          </li>
+          <li>
+            <div class="pos-name">Piaget</div>
+            <div class="pos-rel">Cognición → Lenguaje</div>
+            <div class="pos-claim">Las estructuras cognitivas posibilitan el lenguaje</div>
+          </li>
+          <li>
+            <div class="pos-name">Universalismo (Chomsky)</div>
+            <div class="pos-rel">Arquitectura cognitiva → Lenguas</div>
+            <div class="pos-claim">Capacidades compartidas hacen posible cualquier lengua</div>
+          </li>
+          <li>
+            <div class="pos-name">Vygotsky</div>
+            <div class="pos-rel">Pensamiento ↔ Lenguaje</div>
+            <div class="pos-claim">Orígenes distintos; la interacción transforma el desarrollo</div>
+          </li>
+          <li>
+            <div class="pos-name">Thinking for speaking</div>
+            <div class="pos-rel">Lengua → Atención al hablar</div>
+            <div class="pos-claim">Hablar entrena rutinas de selección de información</div>
+          </li>
+          <li>
+            <div class="pos-name">Cognición corporizada</div>
+            <div class="pos-rel">Cuerpo ⇄ Percepción ⇄ Acción</div>
+            <div class="pos-claim">La cognición no se reduce a lo lingüístico</div>
+          </li>
+          <li>
+            <div class="pos-name">Cognición extendida</div>
+            <div class="pos-rel">Mente ↔ Entorno</div>
+            <div class="pos-claim">El pensamiento se distribuye en artefactos y símbolos</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 6 · VYGOTSKY ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">05 · El mecanismo de la internalización</div>
+        <h2>El lenguaje se vuelve herramienta interna</h2>
+      </div>
+      <div class="s-body">
+        <div class="chain">
+          <div class="cnode">
+            <span class="n1">Habla interpersonal</span>
+          </div>
+          <div class="carrow">→</div>
+          <div class="cnode">
+            <span class="n1">Habla privada</span>
+            <span class="n2">regula la acción</span>
+          </div>
+          <div class="carrow">→</div>
+          <div class="cnode">
+            <span class="n1">Habla interna</span>
+          </div>
+          <div class="carrow">→</div>
+          <div class="cnode hl">
+            <span class="n1">Regulación del</span>
+            <span class="n1">pensamiento</span>
+          </div>
+        </div>
+        <p class="chain-cap">Internalización: lo social se convierte en intrapsicológico</p>
+
+        <div class="note-bar" style="margin-bottom:20px;">
+          El lenguaje no contiene el pensamiento desde el inicio: lo <b>transforma</b> al interiorizarse. Evita tanto el determinismo como la independencia absoluta.
+        </div>
+
+        <div class="two-col">
+          <div class="blk">
+            <div class="bt">Ejemplo</div>
+            <p>«Primero busco las esquinas» → la frase se abrevia → planificación sin enunciado completo.</p>
+          </div>
+          <div class="blk">
+            <div class="bt">Consecuencia educativa</div>
+            <p>Las prácticas discursivas en el aula no solo comunican aprendizajes: organizan procesos de aprendizaje.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7 · TRES NIVELES ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">06 · Grados de relación</div>
+        <h2>Tres niveles, no uno</h2>
+      </div>
+      <div class="s-body">
+        <div class="levels">
+          <div class="lv a">
+            <div class="tag">A</div>
+            <div>
+              <h3>Pensamiento no lingüístico</h3>
+              <p>Reconocer una cara · rotar un objeto · orientarse · anticipar una trayectoria</p>
+            </div>
+          </div>
+          <div class="lv b">
+            <div class="tag">B</div>
+            <div>
+              <h3>Pensamiento mediado lingüísticamente</h3>
+              <p>«Si termino primero A, después podré hacer B»: planificación y control ejecutivo</p>
+            </div>
+          </div>
+          <div class="lv c">
+            <div class="tag">C</div>
+            <div>
+              <h3>Pensamiento constituido en prácticas lingüísticas</h3>
+              <p>Democracia · inflación · responsabilidad · número negativo · derechos humanos</p>
+            </div>
+          </div>
+        </div>
+        <p class="caption">La palabra no produce el concepto por sí sola: los conceptos abstractos se adquieren en prácticas discursivas, educativas y simbólicas.</p>
+      </div>
+    </section>
+
+    <!-- ================= 8 · RELATIVIDAD CONTEMPORÁNEA ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">07 · Relatividad contemporánea</div>
+        <h2>De la imposibilidad a la probabilidad</h2>
+      </div>
+      <div class="s-body">
+        <div class="shift">
+          <div class="shift-col old">
+            <div class="shift-tag">Pregunta abandonada</div>
+            <p>«¿Puede una persona pensar X si su lengua no tiene palabra para X?»</p>
+          </div>
+          <div class="shift-col new">
+            <div class="shift-tag">Pregunta investigable</div>
+            <p>«¿Modifica hablar una lengua la probabilidad de atender, recordar o categorizar de cierta manera?»</p>
+          </div>
+        </div>
+
+        <div class="formula" style="margin-top:18px;">
+          <span><b>Lengua + tarea + atención + contexto</b> → modificación de operaciones cognitivas</span>
+          <span class="no">Lengua = límite absoluto del pensamiento</span>
+        </div>
+
+        <p class="domains" style="margin-top:16px;">
+          <b>Dominios estudiados:</b> color · orientación espacial · género gramatical · número · tiempo · movimiento · memoria de acontecimientos · atribución de agencia
+        </p>
+
+        <div class="note-bar" style="margin-top:16px;">
+          <b>Thinking for speaking</b> (Slobin): al hablar, la gramática y el léxico obligan a seleccionar información. La influencia es más intensa en la conceptualización previa al enunciado: la lengua entrena rutinas de atención.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 9 · COGNICIÓN CORPORIZADA Y EXTENDIDA ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">08 · Integración</div>
+        <h2>La cognición como sistema distribuido</h2>
+      </div>
+      <div class="s-body">
+        <svg class="fig" viewBox="0 0 1144 392" role="img" aria-label="La cognición humana se relaciona bidireccionalmente con el lenguaje, el cuerpo y la acción, los artefactos y el entorno social y cultural.">
+          <defs>
+            <marker id="ar9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#4a91b8"></path>
+            </marker>
+          </defs>
+
+          <g class="ln" marker-start="url(#ar9)" marker-end="url(#ar9)">
+            <line x1="572" y1="82" x2="572" y2="108"></line>
+            <line x1="340" y1="206" x2="472" y2="206"></line>
+            <line x1="672" y1="206" x2="804" y2="206"></line>
+            <line x1="572" y1="304" x2="572" y2="330"></line>
+          </g>
+
+          <circle cx="572" cy="206" r="98" fill="#e9f2f7" stroke="#17608a" stroke-width="2"></circle>
+          <text class="t" x="572" y="200" style="font-size:22px;letter-spacing:.04em;">COGNICIÓN</text>
+          <text class="s-mut" x="572" y="226">humana</text>
+
+          <g>
+            <rect class="box" x="422" y="6" width="300" height="76" rx="8"></rect>
+            <text class="t-acc" x="572" y="40">Lenguaje</text>
+            <text class="s" x="572" y="64">oral y escrito</text>
+          </g>
+          <g>
+            <rect class="box" x="40" y="168" width="300" height="76" rx="8"></rect>
+            <text class="t-acc" x="190" y="202">Cuerpo</text>
+            <text class="s" x="190" y="226">percepción y acción</text>
+          </g>
+          <g>
+            <rect class="box" x="804" y="168" width="300" height="76" rx="8"></rect>
+            <text class="t-acc" x="954" y="202">Artefactos</text>
+            <text class="s" x="954" y="226">escritura, cálculo, IA</text>
+          </g>
+          <g>
+            <rect class="box" x="422" y="330" width="300" height="76" rx="8"></rect>
+            <text class="t-acc" x="572" y="364">Entorno social</text>
+            <text class="s" x="572" y="388">cultura e instituciones</text>
+          </g>
+        </svg>
+        <p class="caption">Cognición corporizada y mente extendida: el lenguaje es una tecnología cognitiva potente, pero ni la única ni la que todo lo determina.</p>
+      </div>
+    </section>
+
+    <!-- ================= 10 · SÍNTESIS ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">09 · Síntesis</div>
+        <h2>Niveles de influencia, no una elección binaria</h2>
+      </div>
+      <div class="s-body">
+        <div class="synth-model">
+          <div class="sm-node">Cognición no lingüística</div>
+          <span class="sm-op">+</span>
+          <div class="sm-node">Efectos del lenguaje</div>
+          <span class="sm-op">+</span>
+          <div class="sm-node">Herramientas culturales</div>
+        </div>
+
+        <p class="synth-claim">El pensamiento no es reducible al lenguaje, pero el lenguaje transforma profundamente determinadas formas de pensamiento.</p>
+
+        <div class="ideas">
+          <div class="idea">
+            <span>1</span>
+            <p>Determinismo y relatividad no son sinónimos: límite frente a orientación.</p>
+          </div>
+          <div class="idea">
+            <span>2</span>
+            <p>Existe cognición sin lenguaje: el lenguaje no es condición de todo pensamiento.</p>
+          </div>
+          <div class="idea">
+            <span>3</span>
+            <p>La influencia es específica: depende de la tarea, la atención y el contexto.</p>
+          </div>
+          <div class="idea">
+            <span>4</span>
+            <p>La interacción sostenida con sistemas simbólicos crea nuevas herramientas para pensar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 11 · CONCLUSIONES ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">10 · Conclusiones</div>
+        <h2>Qué cambia en la pregunta</h2>
+      </div>
+      <div class="s-body">
+        <ol class="concl">
+          <li>
+            <span class="num">1</span>
+            <div>
+              <h3>No hay prisión lingüística</h3>
+              <p>La versión fuerte del determinismo no se sostiene: existen representaciones sin palabra específica.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div>
+              <h3>Tampoco hay independencia</h3>
+              <p>El lenguaje orienta la atención, la memoria y la categorización en dominios específicos.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div>
+              <h3>El lenguaje es una tecnología cognitiva</h3>
+              <p>Se interioriza (Vygotsky) y se distribuye en artefactos y prácticas culturales.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <div>
+              <h3>Implicación educativa</h3>
+              <p>Las restricciones lingüísticas de la escritura pueden ser variables cognitivas, no solo estilísticas.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="open-q">
+          <span class="oq-tag">Problema abierto</span>
+          <p>Si escribir impone una restricción lineal a representaciones globales, ¿basta con observar lo que un estudiante <b>dice</b> o hace falta medir cómo la restricción <b>reorganiza</b> su planificación, memoria y flexibilidad argumentativa?</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="nav">
+  <button id="prev" type="button" aria-label="Diapositiva anterior">‹</button>
+  <span class="counter" id="counter">01 / 11</span>
+  <button id="next" type="button" aria-label="Diapositiva siguiente">›</button>
+</div>
+
+<script>
+  (function(){
+    var stage   = document.getElementById('stage');
+    var slides  = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var counter = document.getElementById('counter');
+    var prevBtn = document.getElementById('prev');
+    var nextBtn = document.getElementById('next');
+    var index = 0;
+
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+    function render(){
+      for (var k = 0; k < slides.length; k++){
+        slides[k].classList.toggle('is-active', k === index);
+      }
+      counter.textContent = pad(index + 1) + ' / ' + pad(slides.length);
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+    }
+
+    function go(n){
+      index = Math.max(0, Math.min(slides.length - 1, n));
+      render();
+    }
+
+    prevBtn.addEventListener('click', function(){ go(index - 1); });
+    nextBtn.addEventListener('click', function(){ go(index + 1); });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){
+        e.preventDefault(); go(index + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){
+        e.preventDefault(); go(index - 1);
+      } else if (e.key === 'Home'){
+        e.preventDefault(); go(0);
+      } else if (e.key === 'End'){
+        e.preventDefault(); go(slides.length - 1);
+      }
+    });
+
+    function fit(){
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var scale = Math.min(w / 1280, (h - 54) / 720);
+      stage.style.transform = 'scale(' + scale + ')';
+    }
+
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', fit);
+
+    fit();
+    render();
+  })();
+</script>
+
+</body>
+</html>

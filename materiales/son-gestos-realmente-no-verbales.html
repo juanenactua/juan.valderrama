@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Son los gestos realmente no verbales?</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="¿Son los gestos realmente no verbales?">
+<meta name="jc-descripcion" content="Masterclass interactiva sobre la tesis de David McNeill acerca de gesto y habla como manifestaciones coordinadas de un mismo proceso cognitivo, con emblemas, gestos espontáneos, contenido representacional, sincronía, distribución del significado, tipologías gestuales y evidencias clínicas, evolutivas y culturales.">
+<meta name="jc-tipo" content="Masterclass interactiva">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, David McNeill, Gesto, Habla, Gesto y habla, Comunicación no verbal, Psicolingüística, Emblemas, Gestos espontáneos, Gestos icónicos, Gestos metafóricos, Gestos deícticos, Beats, Contenido representacional, Significado, Sincronización gesto-habla, Representación distribuida, Representación imagística, Representación lingüística, Afasia, Desarrollo del lenguaje, Habla interna, Cognición, Análisis del discurso, Cognición corporizada">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  :root{
+    --ink:#14171c;
+    --ink-2:#3b434e;
+    --muted:#5a6472;
+    --accent:#17608a;
+    --accent-2:#4a91b8;
+    --tint:#e9f2f7;
+    --tint-2:#f5f9fb;
+    --line:#d7dee4;
+    --line-2:#e6ebef;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+
+  body{
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:#fff;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .viewport{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+
+  .stage{
+    width:1280px;height:720px;flex:none;position:relative;
+    background:#fff;
+    transform-origin:center center;
+  }
+
+  /* ---------- Slides ---------- */
+  .slide{
+    position:absolute;inset:0;
+    background:#fff;
+    padding:40px 52px 32px;
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .slide.is-active{display:flex}
+
+  .kicker{
+    font-size:21px;font-weight:600;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);
+    margin-bottom:10px;
+  }
+
+  .s-head{flex:none;margin-bottom:16px}
+  .s-head h2{
+    font-size:50px;line-height:1.12;font-weight:700;letter-spacing:-.015em;
+  }
+  .s-head::after{
+    content:"";display:block;width:70px;height:3px;
+    background:var(--accent);margin-top:12px;border-radius:2px;
+  }
+
+  .s-body{flex:1;min-height:0;display:flex;flex-direction:column}
+
+  .caption{
+    font-size:21px;line-height:1.34;color:var(--muted);
+    margin-top:12px;
+  }
+
+  .note-bar{
+    background:var(--tint-2);border-left:4px solid var(--accent);
+    padding:14px 22px;font-size:21px;line-height:1.34;color:var(--ink-2);
+    border-radius:0 6px 6px 0;
+  }
+  .note-bar b{color:var(--accent)}
+
+  /* ---------- Portada ---------- */
+  .cover{justify-content:center;padding:0 88px;position:relative}
+  .cover .kicker{margin-bottom:20px}
+  .cover h1{
+    font-size:72px;line-height:1.05;font-weight:700;letter-spacing:-.022em;
+    margin-bottom:24px;
+  }
+  .cover .lead{
+    font-size:28px;line-height:1.38;color:var(--ink-2);
+    max-width:900px;margin-bottom:44px;
+  }
+  .cover .author{
+    font-size:24px;font-weight:600;color:var(--accent);
+    border-top:2px solid var(--accent);
+    padding-top:18px;width:fit-content;letter-spacing:.02em;
+  }
+  .cover-art{
+    position:absolute;top:-80px;right:-80px;width:440px;height:440px;
+    pointer-events:none;
+  }
+  .cover-art circle{fill:none;stroke-width:1.5}
+
+  /* ---------- SVG genéricos ---------- */
+  svg.fig{width:100%;height:auto;display:block}
+  .fig .box{fill:#fff;stroke:#c9d6de;stroke-width:1.5}
+  .fig .box-acc{fill:var(--tint);stroke:var(--accent);stroke-width:2}
+  .fig .box-dash{fill:#fff;stroke:var(--accent-2);stroke-width:1.5;stroke-dasharray:6 5}
+  .fig .ln{stroke:var(--accent-2);stroke-width:2;fill:none}
+  .fig .ln-soft{stroke:#c9d6de;stroke-width:2;fill:none}
+  .fig .t{font-size:22px;font-weight:700;fill:var(--ink);text-anchor:middle}
+  .fig .t-acc{font-size:22px;font-weight:700;fill:var(--accent);text-anchor:middle}
+  .fig .s{font-size:20px;fill:var(--ink-2);text-anchor:middle}
+  .fig .s-mut{font-size:20px;fill:var(--muted);text-anchor:middle}
+  .fig .divider{stroke:#e6ebef;stroke-width:2}
+
+  /* ---------- Tabla ---------- */
+  table.cmp{width:100%;border-collapse:collapse}
+  table.cmp th,table.cmp td{
+    text-align:left;vertical-align:middle;
+    padding:14px 18px;border-bottom:1px solid var(--line-2);
+  }
+  table.cmp thead th{
+    font-size:22px;font-weight:700;color:var(--accent);
+    border-bottom:2px solid var(--accent);
+    padding-bottom:11px;
+  }
+  table.cmp thead th:first-child{width:220px}
+  table.cmp tbody th{
+    font-size:22px;font-weight:700;color:var(--ink);
+    letter-spacing:.01em;
+  }
+  table.cmp tbody td{font-size:22px;color:var(--ink-2);line-height:1.3}
+
+  /* ---------- Cadena ---------- */
+  .chain{display:flex;align-items:stretch;margin-bottom:12px}
+  .cnode{
+    flex:1;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:14px 12px;
+    display:flex;flex-direction:column;justify-content:center;
+    text-align:center;
+    min-height:92px;
+    background:#fff;
+  }
+  .cnode span{display:block}
+  .cnode .n1{font-size:22px;font-weight:700;line-height:1.2;color:var(--ink)}
+  .cnode .n2{font-size:21px;line-height:1.25;color:var(--muted);margin-top:4px}
+  .cnode.hl{background:var(--tint);border-color:var(--accent)}
+  .cnode.hl .n1{color:var(--accent)}
+  .carrow{
+    flex:none;width:44px;display:flex;align-items:center;justify-content:center;
+    font-size:26px;color:var(--accent);font-weight:700;
+  }
+  .chain-cap{
+    font-size:21px;color:var(--muted);text-align:center;
+    margin-bottom:16px;letter-spacing:.02em;
+  }
+
+  /* ---------- Dos columnas ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .blk{
+    padding:16px 22px;border-radius:8px;
+    background:var(--tint-2);border:1px solid var(--line-2);
+  }
+  .blk .bt{
+    font-size:21px;font-weight:700;color:var(--accent);
+    letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;
+  }
+  .blk p{font-size:21px;line-height:1.34;color:var(--ink-2)}
+
+  /* ---------- Formatos lineal / global ---------- */
+  .fmt{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .fmt-col{border:1px solid var(--line-2);border-radius:10px;padding:16px 22px 18px}
+  .fmt-col.hl{background:var(--tint-2);border-color:#c8dfec}
+  .fmt-tag{
+    font-size:22px;font-weight:700;color:var(--accent);
+    letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;
+  }
+  .fmt-sub{font-size:21px;color:var(--muted);margin-bottom:14px}
+  .seq{display:flex;align-items:center;gap:6px;height:54px}
+  .seqbox{
+    width:48px;height:48px;border-radius:6px;
+    border:1.5px solid var(--accent-2);background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:21px;font-weight:700;color:var(--accent);
+  }
+  .seqar{font-size:22px;color:var(--accent-2);font-weight:700}
+  .blob{
+    height:54px;border:2px dashed var(--accent-2);border-radius:27px;
+    display:flex;align-items:center;justify-content:center;padding:0 10px;
+  }
+  .blob span{
+    width:46px;height:46px;border-radius:50%;
+    background:var(--tint);border:1.5px solid var(--accent-2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:21px;font-weight:700;color:var(--accent);
+  }
+  .blob span + span{margin-left:-9px}
+  .fmt-note{font-size:21px;line-height:1.3;color:var(--ink-2);margin-top:12px}
+
+  /* ---------- Evidencias ---------- */
+  .evid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .ev{border-top:3px solid var(--accent-2);padding-top:12px}
+  .ev .tag{
+    display:block;font-size:21px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:6px;
+  }
+  .ev h3{font-size:22px;font-weight:700;line-height:1.2;margin-bottom:6px}
+  .ev p{font-size:21px;line-height:1.32;color:var(--ink-2)}
+
+  /* ---------- Síntesis ---------- */
+  .synth-model{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .sm-node{
+    padding:12px 20px;border-radius:8px;
+    border:1.5px solid var(--accent-2);
+    font-size:22px;font-weight:600;color:var(--accent);
+    background:#fff;
+  }
+  .sm-op{font-size:24px;font-weight:700;color:var(--muted)}
+  .synth-claim{
+    font-size:26px;line-height:1.35;font-weight:600;
+    padding-left:20px;border-left:4px solid var(--accent);
+    margin-bottom:24px;color:var(--ink);
+  }
+  .ideas{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .idea{border-top:2px solid var(--line);padding-top:12px}
+  .idea span{
+    display:block;font-size:21px;font-weight:700;color:var(--accent);
+    margin-bottom:6px;
+  }
+  .idea p{font-size:21px;line-height:1.3;color:var(--ink-2)}
+
+  /* ---------- Conclusiones ---------- */
+  .concl{
+    list-style:none;
+    display:flex;flex-direction:column;gap:8px;
+    margin-bottom:16px;
+  }
+  .concl li{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:18px;align-items:start;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line-2);
+  }
+  .concl li:last-child{border-bottom:none;padding-bottom:0}
+  .concl .num{
+    width:46px;height:46px;border-radius:50%;
+    border:2px solid var(--accent-2);background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;font-weight:700;color:var(--accent);
+  }
+  .concl h3{
+    font-size:23px;font-weight:700;line-height:1.2;
+    margin-bottom:6px;color:var(--ink);
+  }
+  .concl p{font-size:20px;line-height:1.28;color:var(--ink-2)}
+
+  .open-q{
+    background:var(--tint);border-radius:10px;
+    padding:14px 20px;
+  }
+  .oq-tag{
+    display:block;font-size:21px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:8px;
+  }
+  .open-q p{font-size:21px;line-height:1.3;color:var(--ink-2)}
+  .open-q p b{color:var(--ink)}
+
+  /* ---------- Navegación ---------- */
+  .nav{
+    position:fixed;left:50%;bottom:14px;transform:translateX(-50%);
+    display:flex;align-items:center;gap:10px;
+    background:#fff;border:1px solid #dfe5ea;border-radius:999px;
+    padding:6px 12px;
+    box-shadow:0 2px 12px rgba(20,23,28,.08);
+    font-size:15px;color:var(--muted);z-index:10;
+    font-family:inherit;
+  }
+  .nav button{
+    width:32px;height:32px;border-radius:50%;
+    border:1px solid #dfe5ea;background:#fff;color:var(--accent);
+    font-size:17px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s,border-color .15s;
+  }
+  .nav button:hover:not(:disabled){background:var(--tint);border-color:var(--accent-2)}
+  .nav button:disabled{opacity:.32;cursor:default}
+  .nav .counter{font-variant-numeric:tabular-nums;letter-spacing:.06em;padding:0 6px}
+
+  /* ---------- Impresión / PDF ---------- */
+  @media print{
+    @page{size:13.333in 7.5in;margin:0}
+    html,body{width:1280px;height:auto;background:#fff}
+    .viewport{position:static;display:block;overflow:visible}
+    .stage{
+      transform:none !important;
+      width:1280px;height:auto;
+    }
+    .slide{
+      position:relative;
+      display:flex !important;
+      width:1280px;height:720px;
+      break-after:page;page-break-after:always;
+      break-inside:avoid;page-break-inside:avoid;
+    }
+    .slide:last-child{break-after:auto;page-break-after:auto}
+    .nav{display:none !important}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="viewport">
+  <div class="stage" id="stage">
+
+    <!-- ================= 1 · PORTADA ================= -->
+    <section class="slide cover is-active">
+      <svg class="cover-art" viewBox="0 0 440 440" aria-hidden="true">
+        <circle cx="220" cy="220" r="190" stroke="#eef4f8"></circle>
+        <circle cx="220" cy="220" r="138" stroke="#e0edf4"></circle>
+        <circle cx="220" cy="220" r="86" stroke="#cbe1ec"></circle>
+      </svg>
+      <div class="kicker">Masterclass · Gesto y cognición</div>
+      <h1>¿Son los gestos<br>realmente no verbales?</h1>
+      <p class="lead">Habla y gesto como dos manifestaciones de un mismo proceso cognitivo: la tesis de David McNeill.</p>
+      <div class="author">Juan Carlos Valderrama Cárdenas</div>
+    </section>
+
+    <!-- ================= 2 · PLANTEAMIENTO ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">01 · El planteamiento</div>
+        <h2>Una clasificación que conviene revisar</h2>
+      </div>
+      <div class="s-body">
+        <svg class="fig" viewBox="0 0 1144 250" role="img" aria-label="A la izquierda, la clasificación habitual que separa comunicación verbal y no verbal. A la derecha, la propuesta de McNeill: un pensamiento en formación con una etapa de procesamiento compartida que produce habla y gesto.">
+          <defs>
+            <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#4a91b8"></path>
+            </marker>
+          </defs>
+
+          <line class="divider" x1="576" y1="4" x2="576" y2="244"></line>
+
+          <rect class="box" x="140" y="0" width="260" height="56" rx="8"></rect>
+          <text class="t" x="270" y="35">Comunicación</text>
+
+          <path class="ln-soft" d="M270 56 V84 H110 M270 84 H430 M110 84 V106 M430 84 V106"></path>
+
+          <rect class="box" x="30" y="106" width="160" height="56" rx="8"></rect>
+          <text class="t" x="110" y="141">Verbal</text>
+
+          <rect class="box-dash" x="350" y="106" width="160" height="56" rx="8"></rect>
+          <text class="t-acc" x="430" y="141">No verbal</text>
+
+          <text class="s-mut" x="430" y="192">gestos · postura · mirada</text>
+          <text class="s" x="430" y="224" style="fill:#17608a;font-weight:600;">¿Todo eso es no lingüístico?</text>
+
+          <rect class="box-acc" x="712" y="0" width="340" height="56" rx="8"></rect>
+          <text class="t" x="882" y="35">Pensamiento en formación</text>
+
+          <path class="ln" marker-end="url(#ar2)" d="M882 56 V78"></path>
+
+          <rect class="box" x="672" y="78" width="420" height="46" rx="8"></rect>
+          <text class="t" x="882" y="107" style="font-size:21px;">Una etapa de procesamiento compartida</text>
+
+          <path class="ln" marker-end="url(#ar2)" d="M882 124 V142 H745 V162"></path>
+          <path class="ln" marker-end="url(#ar2)" d="M882 142 H1019 V162"></path>
+
+          <rect class="box" x="620" y="162" width="250" height="56" rx="8"></rect>
+          <text class="t-acc" x="745" y="197">Habla</text>
+
+          <rect class="box" x="894" y="162" width="250" height="56" rx="8"></rect>
+          <text class="t-acc" x="1019" y="197">Gesto</text>
+
+          <text class="s-mut" x="745" y="240">lineal y segmentada</text>
+          <text class="s-mut" x="1019" y="240">global y sintética</text>
+        </svg>
+        <p class="caption">McNeill no defiende «la importancia de lo no verbal»: sostiene que habla y gesto comparten una misma etapa computacional.</p>
+      </div>
+    </section>
+
+    <!-- ================= 3 · EMBLEMAS VS GESTOS ESPONTÁNEOS ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">02 · Una precisión indispensable</div>
+        <h2>No todos los gestos son el objeto</h2>
+      </div>
+      <div class="s-body">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th scope="col">Criterio</th>
+              <th scope="col">Emblemas</th>
+              <th scope="col">Gestos espontáneos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Origen</th>
+              <td>Convención cultural compartida</td>
+              <td>Producción individual e idiosincrásica</td>
+            </tr>
+            <tr>
+              <th scope="row">¿Se entienden sin habla?</th>
+              <td>Sí: significado relativamente fijo</td>
+              <td>No: dependen del discurso que acompañan</td>
+            </tr>
+            <tr>
+              <th scope="row">Relación con la oración</th>
+              <td>Independiente, sustituible</td>
+              <td>Sincronizada con unidades semánticas</td>
+            </tr>
+            <tr>
+              <th scope="row">Ejemplos</th>
+              <td>El signo de «OK», el dedo en la sien</td>
+              <td>La mano que asciende al describir una subida</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note-bar" style="margin-top:18px;">
+          La tesis se refiere a los gestos que aparecen <b>mientras hablamos</b>. No son un «segundo lenguaje» paralelo: son otra modalidad expresiva de la misma representación cognitiva.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4 · EL GESTO ES SÍMBOLO ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">03 · Primer argumento</div>
+        <h2>El gesto tiene contenido representacional</h2>
+      </div>
+      <div class="s-body">
+        <svg class="fig" viewBox="0 0 1144 222" role="img" aria-label="Tres formulaciones verbales distintas convergen en un mismo gesto: el movimiento ascendente de la mano. Ese movimiento funciona como significante de la representación del ascenso.">
+          <defs>
+            <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#4a91b8"></path>
+            </marker>
+          </defs>
+
+          <rect class="box" x="0" y="0" width="340" height="56" rx="8"></rect>
+          <text class="s" x="170" y="35">«subió por la tubería»</text>
+
+          <rect class="box" x="402" y="0" width="340" height="56" rx="8"></rect>
+          <text class="s" x="572" y="35">«ascendió por el tubo»</text>
+
+          <rect class="box" x="804" y="0" width="340" height="56" rx="8"></rect>
+          <text class="s" x="974" y="35">«trepó hacia arriba»</text>
+
+          <path class="ln" marker-end="url(#ar4)" d="M170 56 V100 H572 M572 100 V110"></path>
+          <path class="ln" marker-end="url(#ar4)" d="M974 56 V100"></path>
+
+          <rect class="box-acc" x="252" y="110" width="640" height="56" rx="8"></rect>
+          <text class="t-acc" x="572" y="134" style="font-size:21px;">Un mismo gesto: la mano asciende</text>
+          <text class="s-mut" x="572" y="156" style="font-size:20px;">Significante gestual</text>
+
+          <path class="ln" marker-start="url(#ar4)" marker-end="url(#ar4)" d="M892 138 H980"></path>
+
+          <rect class="box" x="980" y="110" width="164" height="56" rx="8"></rect>
+          <text class="t" x="1062" y="134" style="font-size:21px;">Significado</text>
+          <text class="s-mut" x="1062" y="156" style="font-size:20px;">el ascenso</text>
+
+          <text class="s-mut" x="572" y="206">Distintas palabras, un mismo gesto: el movimiento no es un residuo del habla</text>
+        </svg>
+        <p class="caption">El gesto no es un movimiento corporal irrelevante añadido al pensamiento: tiene carácter simbólico, con significante y significado.</p>
+      </div>
+    </section>
+
+    <!-- ================= 5 · REPARTO DEL SIGNIFICADO ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">04 · Segundo argumento</div>
+        <h2>Habla y gesto se reparten el significado</h2>
+      </div>
+      <div class="s-body">
+        <svg class="fig" viewBox="0 0 1144 210" role="img" aria-label="Una representación cognitiva se distribuye en dos canales: el habla aporta la persecución, la expulsión y la repetición; el gesto aporta el instrumento, un paraguas.">
+          <defs>
+            <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#4a91b8"></path>
+            </marker>
+          </defs>
+
+          <rect class="box-acc" x="322" y="0" width="500" height="56" rx="8"></rect>
+          <text class="t" x="572" y="35">Representación cognitiva del hablante</text>
+
+          <path class="ln" marker-end="url(#ar5)" d="M572 56 V78 H300 V98"></path>
+          <path class="ln" marker-end="url(#ar5)" d="M572 78 H844 V98"></path>
+
+          <rect class="box" x="80" y="98" width="440" height="90" rx="8"></rect>
+          <text class="t-acc" x="300" y="124" style="font-size:21px;">Habla</text>
+          <text class="s" x="300" y="150">«Ella lo persigue y lo echa otra vez»</text>
+          <text class="s-mut" x="300" y="174">persecución · expulsión · repetición</text>
+
+          <rect class="box" x="624" y="98" width="440" height="90" rx="8"></rect>
+          <text class="t-acc" x="844" y="124" style="font-size:21px;">Gesto</text>
+          <text class="s" x="844" y="150">La mano blande un objeto</text>
+          <text class="s-mut" x="844" y="174">el instrumento: un paraguas</text>
+
+          <text class="s-mut" x="572" y="208">Representación completa ≠ contenido exclusivamente verbal</text>
+        </svg>
+        <div class="note-bar" style="margin-top:14px;">
+          La oración está completa gramaticalmente y el gesto no corrige ningún error verbal. Los dos canales han <b>distribuido</b> una representación común.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6 · SINCRONÍA Y ANTICIPACIÓN ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">05 · Tercer argumento</div>
+        <h2>El gesto llega antes que la palabra</h2>
+      </div>
+      <div class="s-body">
+        <div class="chain">
+          <div class="cnode">
+            <span class="n1">Representación</span>
+            <span class="n2">conceptual disponible</span>
+          </div>
+          <div class="carrow">→</div>
+          <div class="cnode hl">
+            <span class="n1">El gesto la</span>
+            <span class="n1">exterioriza</span>
+          </div>
+          <div class="carrow">→</div>
+          <div class="cnode">
+            <span class="n1">La gramática</span>
+            <span class="n2">impone un orden</span>
+          </div>
+          <div class="carrow">→</div>
+          <div class="cnode">
+            <span class="n1">La palabra</span>
+            <span class="n2">aparece después</span>
+          </div>
+        </div>
+        <p class="chain-cap">Un gesto espacial indica «allí» varias palabras antes de que la oración pueda decirlo</p>
+
+        <div class="two-col" style="margin-bottom:14px;">
+          <div class="blk">
+            <div class="bt">Sincronía</div>
+            <p>Los gestos coinciden con las unidades lingüísticas con las que guardan relación semántica. El hablante sostiene la postura hasta cerrar la cláusula correspondiente.</p>
+          </div>
+          <div class="blk">
+            <div class="bt">Datos que cita McNeill</div>
+            <p>Unas 100 horas de grabación: miles de gestos de hablantes y prácticamente ninguno comparable en oyentes. Cerca del 90 % de los gestos previos a cláusulas ocurren durante habla efectiva.</p>
+          </div>
+        </div>
+
+        <div class="note-bar">
+          Si gesto y palabra coinciden sistemáticamente al aparecer un mismo significado, lo más probable es que procedan de un <b>mecanismo cognitivo común</b>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7 · LINEAL VS GLOBAL ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">06 · La distinción decisiva</div>
+        <h2>Dos formatos, una misma idea</h2>
+      </div>
+      <div class="s-body">
+        <div class="fmt">
+          <div class="fmt-col">
+            <div class="fmt-tag">Habla</div>
+            <div class="fmt-sub">A → B → C → D</div>
+            <div class="seq">
+              <span class="seqbox">A</span><span class="seqar">→</span>
+              <span class="seqbox">B</span><span class="seqar">→</span>
+              <span class="seqbox">C</span><span class="seqar">→</span>
+              <span class="seqbox">D</span>
+            </div>
+            <div class="fmt-note">El gato / subió / rápidamente / por / la tubería. Las palabras aparecen necesariamente unas después de otras.</div>
+          </div>
+          <div class="fmt-col hl">
+            <div class="fmt-tag">Gesto</div>
+            <div class="fmt-sub">[ A + B + C + D ]</div>
+            <div class="blob">
+              <span>A</span><span>B</span><span>C</span><span>D</span>
+            </div>
+            <div class="fmt-note">Quién se mueve · hacia dónde · cómo · trayectoria · perspectiva: todo en un solo movimiento.</div>
+          </div>
+        </div>
+
+        <div class="note-bar" style="margin-top:18px;">
+          Si el gesto fuese una traducción del plan verbal, duplicaría su información, llegaría después y compartiría su estructura segmentada. Ocurre lo contrario: <b>complementa, anticipa y sintetiza</b>.
+        </div>
+        <p class="caption">Dos modalidades coordinadas desde etapas tempranas de la generación del enunciado, no una imagen que después se traduce a palabras.</p>
+      </div>
+    </section>
+
+    <!-- ================= 8 · TIPOS DE GESTO ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">07 · Tipología</div>
+        <h2>Qué revela cada tipo de gesto</h2>
+      </div>
+      <div class="s-body">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th scope="col">Tipo de gesto</th>
+              <th scope="col">Qué representa</th>
+              <th scope="col">Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Icónico</th>
+              <td>Objetos y acciones concretas</td>
+              <td>La mano que asciende al describir una subida</td>
+            </tr>
+            <tr>
+              <th scope="row">Metafórico</th>
+              <td>Abstracciones mediante metáfora corporal</td>
+              <td>Sostener una idea como si fuera un objeto</td>
+            </tr>
+            <tr>
+              <th scope="row">Deíctico</th>
+              <td>Atención y localización</td>
+              <td>Señalar un punto del espacio de referencia</td>
+            </tr>
+            <tr>
+              <th scope="row">Beat</th>
+              <td>Arquitectura del discurso</td>
+              <td>Marcar contraste, énfasis o cierre de una lista</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="note-bar" style="margin-top:18px;">
+          El cuerpo participa tanto del <b>contenido conceptual</b> como de la <b>estructura discursiva</b>. Y también de lo abstracto: McNeill analiza matemáticos que representan dualidad y límite con movimientos espaciales de las manos.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 9 · EVIDENCIAS CONVERGENTES ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">08 · Evidencias</div>
+        <h2>Cuatro fuentes, un mismo patrón</h2>
+      </div>
+      <div class="s-body">
+        <div class="evid">
+          <div class="ev">
+            <span class="tag">Clínica</span>
+            <h3>Afasias</h3>
+            <p>En Broca se conservan gestos icónicos pero se pierden los de organización textual; en Wernicke ocurre el patrón inverso.</p>
+          </div>
+          <div class="ev">
+            <span class="tag">Ontogenia</span>
+            <h3>Desarrollo</h3>
+            <p>De la acción corporal concreta al gesto icónico y de ahí a la simbolización abstracta, en una progresión paralela a la del lenguaje.</p>
+          </div>
+          <div class="ev">
+            <span class="tag">Cultura</span>
+            <h3>Comparación</h3>
+            <p>Los <em>conduit gestures</em> de hablantes norteamericanos apenas aparecen en el material Turkana que examina McNeill, quien advierte cautela interpretativa.</p>
+          </div>
+          <div class="ev">
+            <span class="tag">Internalización</span>
+            <h3>Habla interna</h3>
+            <p>El gesto deja ver la interacción entre lo lingüístico y lo imagístico allí donde el habla externa no la muestra.</p>
+          </div>
+        </div>
+
+        <div class="note-bar" style="margin-top:22px;">
+          Si el gesto y el lenguaje fueran sistemas psicológicamente independientes, la <b>disolución paralela</b> —clínica, evolutiva y cultural— sería difícil de explicar. Para McNeill, apunta a una arquitectura compartida.
+        </div>
+        <p class="caption">Un ejemplo del propio artículo: al decir «encuentra un gran cuchillo», el gesto simultáneo concentra el agarre, la posición desde donde se toma y propiedades de la forma.</p>
+      </div>
+    </section>
+
+    <!-- ================= 10 · SÍNTESIS ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">09 · Síntesis</div>
+        <h2>Dos modalidades, un mismo proceso</h2>
+      </div>
+      <div class="s-body">
+        <div class="synth-model">
+          <div class="sm-node">Imagístico · global</div>
+          <span class="sm-op">+</span>
+          <div class="sm-node">Lingüístico · sintáctico</div>
+          <span class="sm-op">→</span>
+          <div class="sm-node">Gesto + habla</div>
+        </div>
+
+        <p class="synth-claim">La palabra revela cómo el pensamiento se desempaqueta; el gesto muestra cómo estaba organizado antes y durante ese desempaquetamiento.</p>
+
+        <div class="ideas">
+          <div class="idea">
+            <span>1</span>
+            <p>El gesto espontáneo no acompaña al habla: es otra salida del mismo proceso.</p>
+          </div>
+          <div class="idea">
+            <span>2</span>
+            <p>Habla y gesto se reparten el significado; ninguno repara al otro.</p>
+          </div>
+          <div class="idea">
+            <span>3</span>
+            <p>El gesto es global y simultáneo; el habla, lineal y segmentada.</p>
+          </div>
+          <div class="idea">
+            <span>4</span>
+            <p>Lo imagístico no es un sistema aparte: se coordina con lo lingüístico desde el inicio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 11 · CONCLUSIONES ================= -->
+    <section class="slide">
+      <div class="s-head">
+        <div class="kicker">10 · Conclusiones</div>
+        <h2>Qué cambia en la pregunta</h2>
+      </div>
+      <div class="s-body">
+        <ol class="concl">
+          <li>
+            <span class="num">1</span>
+            <div>
+              <h3>No hay prisión lingüística</h3>
+              <p>La versión fuerte del determinismo no se sostiene: existen representaciones sin palabra específica y discriminaciones sin término previo.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div>
+              <h3>Pero tampoco independencia</h3>
+              <p>Habla y gesto se coordinan desde etapas tempranas: el lenguaje transforma determinadas formas de pensamiento.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div>
+              <h3>El gesto revela lo no verbal</h3>
+              <p>El pensamiento tiene propiedades globales e imagísticas no reducibles a la secuencia verbal.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <div>
+              <h3>Implicación educativa</h3>
+              <p>Si escribir suprime el gesto, las restricciones de escritura son variables cognitivas, no solo estilísticas.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="open-q">
+          <span class="oq-tag">Problema abierto</span>
+          <p>¿Qué le ocurre a una representación global cuando el único canal es la secuencia verbal? ¿Es la restricción de escritura una <b>variable cognitiva medible</b>?</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="nav">
+  <button id="prev" type="button" aria-label="Diapositiva anterior">‹</button>
+  <span class="counter" id="counter">01 / 11</span>
+  <button id="next" type="button" aria-label="Diapositiva siguiente">›</button>
+</div>
+
+<script>
+  (function(){
+    var stage   = document.getElementById('stage');
+    var slides  = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var counter = document.getElementById('counter');
+    var prevBtn = document.getElementById('prev');
+    var nextBtn = document.getElementById('next');
+    var index = 0;
+
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+    function render(){
+      for (var k = 0; k < slides.length; k++){
+        slides[k].classList.toggle('is-active', k === index);
+      }
+      counter.textContent = pad(index + 1) + ' / ' + pad(slides.length);
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+    }
+
+    function go(n){
+      index = Math.max(0, Math.min(slides.length - 1, n));
+      render();
+    }
+
+    prevBtn.addEventListener('click', function(){ go(index - 1); });
+    nextBtn.addEventListener('click', function(){ go(index + 1); });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){
+        e.preventDefault(); go(index + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){
+        e.preventDefault(); go(index - 1);
+      } else if (e.key === 'Home'){
+        e.preventDefault(); go(0);
+      } else if (e.key === 'End'){
+        e.preventDefault(); go(slides.length - 1);
+      }
+    });
+
+    function fit(){
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var scale = Math.min(w / 1280, (h - 70) / 720);
+      stage.style.transform = 'scale(' + scale + ')';
+    }
+
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', fit);
+
+    fit();
+    render();
+  })();
+</script>
+
+</body>
+</html>

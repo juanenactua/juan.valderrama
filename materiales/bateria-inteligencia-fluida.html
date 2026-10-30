@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🧠 Batería de Inteligencia Fluida · SOM4TICA</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Batería de Inteligencia Fluida · SOM4TICA">
+<meta name="jc-descripcion" content="Batería interactiva de seis tareas de razonamiento abstracto e inteligencia fluida: analogías visuales, series de figuras, clasificación, problemas de Bongard, rotación mental y cubos de Kohs, con configuración, retroalimentación, tiempos de respuesta, resultados y exportación CSV.">
+<meta name="jc-tipo" content="Batería cognitiva interactiva">
+<meta name="jc-etiquetas" content="Psicología cognitiva, Inteligencia, Inteligencia fluida, Razonamiento abstracto, Razonamiento no verbal, Analogías visuales, Series de figuras, Clasificación de figuras, Problemas de Bongard, Rotación mental, Cubos de Kohs, Habilidad visoespacial, Patrones visuales, Tiempo de respuesta, Precisión, Evaluación cognitiva, Medición psicológica, Psicometría, Tareas cognitivas, Datos locales, Privacidad, Exportación CSV, SOM4TICA, Semillero de investigación">
+<meta name="jc-curso" content="Enfoque Cognitivo">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .app {
+            max-width: 1150px;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .start-icon { font-size: 5rem; text-align: center; color: #60a5fa; margin-bottom: 1rem; }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #f1f5f9;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* ===== CRÉDITOS ===== */
+        .credits {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 20px;
+        }
+
+        .credits .author { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.3rem; }
+        .credits .author i { color: #60a5fa; margin-right: 8px; }
+        .credits .semillero { font-size: 1rem; color: #a78bfa; font-weight: 600; letter-spacing: 0.5px; }
+        .credits .semillero i { margin-right: 6px; }
+
+        /* ===== AVISO DE PRIVACIDAD ===== */
+        .privacy-notice {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #86efac;
+            line-height: 1.5;
+        }
+
+        .privacy-notice i { font-size: 1.6rem; color: #22c55e; flex-shrink: 0; }
+        .privacy-notice strong { color: #bbf7d0; }
+
+        /* ===== MENÚ ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(100, 116, 139, 0.2);
+            border-radius: 20px;
+            padding: 1.4rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: left;
+            font-family: inherit;
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card:hover {
+            border-color: #60a5fa;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .menu-card .menu-icon { font-size: 2rem; color: #60a5fa; margin-bottom: 0.6rem; }
+        .menu-card .menu-title { font-size: 1.05rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0.3rem; }
+        .menu-card .menu-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
+        .menu-card .menu-meta { margin-top: 0.6rem; font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+
+        /* ===== FORMULARIO ===== */
+        .form-group { margin-bottom: 1.2rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(100, 116, 139, 0.3);
+            border-radius: 14px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #3b82f6; }
+
+        .btn-main {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+            margin-top: 0.5rem;
+            font-family: inherit;
+        }
+
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59, 130, 246, 0.45); }
+        .btn-main:active { transform: translateY(0); }
+
+        /* ===== TEST HEADER ===== */
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .trial-counter { font-size: 0.95rem; font-weight: 600; color: #94a3b8; white-space: nowrap; }
+
+        .progress-bar-container {
+            flex: 1;
+            height: 10px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 20px;
+            margin: 0 1.2rem;
+            overflow: hidden;
+            min-width: 100px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .score-display { font-size: 0.95rem; font-weight: 700; color: #94a3b8; white-space: nowrap; }
+
+        .test-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(96, 165, 250, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #93c5fd;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== ESTÍMULO ===== */
+        .stimulus-box {
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 28px;
+            border: 2px solid rgba(100, 116, 139, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .analogy-display { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .analogy-pair { display: flex; align-items: center; gap: 8px; }
+        .analogy-sep { font-size: 1.8rem; color: #64748b; font-weight: 300; }
+        .unknown-box {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 90px; height: 90px;
+            border: 2px dashed #fbbf24; border-radius: 12px;
+            color: #fbbf24; font-size: 2.2rem; font-weight: 800;
+        }
+
+        .bongard-groups { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .bongard-group {
+            background: rgba(59, 130, 246, 0.08);
+            padding: 15px 18px; border-radius: 16px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+        .bongard-group h4 { text-align: center; margin-bottom: 10px; color: #93c5fd; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .bongard-figures { display: flex; gap: 8px; }
+
+        .series-display { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .series-arrow { color: #64748b; font-size: 1.5rem; }
+
+        .rotation-ref { text-align: center; }
+        .rotation-ref .label { color: #94a3b8; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        .kohs-scene { text-align: center; }
+        .kohs-scene .label { color: #94a3b8; font-size: 0.95rem; margin-bottom: 10px; font-weight: 600; }
+
+        /* ===== OPCIONES ===== */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-btn {
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(100, 116, 139, 0.3);
+            border-radius: 16px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 100px;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: #60a5fa;
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .option-btn:disabled { cursor: default; pointer-events: none; }
+
+        .option-btn .option-letter {
+            background: rgba(96, 165, 250, 0.2);
+            color: #60a5fa;
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.8rem;
+            flex-shrink: 0;
+            position: absolute;
+            top: 8px; left: 8px;
+        }
+
+        .option-btn { position: relative; }
+
+        .option-btn.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.15);
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+        }
+        .option-btn.correct .option-letter { background: rgba(34, 197, 94, 0.3); color: #86efac; }
+
+        .option-btn.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+        }
+        .option-btn.incorrect .option-letter { background: rgba(239, 68, 68, 0.3); color: #fca5a5; }
+
+        .option-btn.text-option { font-size: 1.8rem; font-weight: 800; color: #60a5fa; }
+
+        /* ===== FEEDBACK ===== */
+        .feedback {
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 700;
+            min-height: 1.8rem;
+            margin-top: 0.6rem;
+            transition: all 0.2s;
+        }
+        .feedback.correct { color: #22c55e; }
+        .feedback.incorrect { color: #ef4444; }
+
+        .feedback-explanation {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 0.4rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .timer-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #60a5fa;
+            margin-top: 0.5rem;
+            font-variant-numeric: tabular-nums;
+        }
+        .timer-display.warning { color: #fbbf24; }
+        .timer-display.danger { color: #ef4444; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        /* ===== RESULTADOS ===== */
+        .results-title { text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: #f1f5f9; }
+        .results-sub { text-align: center; color: #94a3b8; margin-bottom: 1.5rem; font-size: 1rem; }
+
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 1.2rem; }
+
+        .metric-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 18px; padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(100, 116, 139, 0.15);
+        }
+        .metric-value { font-size: 1.7rem; font-weight: 800; color: #60a5fa; margin-bottom: 0.2rem; }
+        .metric-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            border: 2px solid rgba(96, 165, 250, 0.4);
+            border-radius: 22px; padding: 1.5rem;
+            text-align: center; margin-bottom: 1.2rem;
+        }
+        .highlight-box .label { font-size: 0.95rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 0.4rem; }
+        .highlight-box .value { font-size: 2.6rem; font-weight: 800; color: #a78bfa; }
+        .highlight-box .interpretation { font-size: 0.95rem; color: #cbd5e1; margin-top: 0.5rem; line-height: 1.5; }
+
+        .results-table {
+            width: 100%; border-collapse: collapse;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 14px; overflow: hidden;
+            margin-bottom: 1.2rem;
+        }
+        .results-table th, .results-table td {
+            padding: 0.6rem 0.9rem;
+            text-align: left; font-size: 0.85rem;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+        }
+        .results-table th {
+            background: rgba(30, 41, 59, 0.8);
+            color: #94a3b8; font-weight: 600;
+            text-transform: uppercase; font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        .results-table td { color: #e2e8f0; }
+        .results-table tr:last-child td { border-bottom: none; }
+
+        .button-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+        .btn-secondary {
+            flex: 1; padding: 0.8rem 1.2rem;
+            background: rgba(59, 130, 246, 0.15);
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            border-radius: 12px; color: #93c5fd;
+            font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-secondary:hover { background: rgba(59, 130, 246, 0.25); border-color: #3b82f6; }
+        .btn-secondary i { margin-right: 6px; }
+
+        @media (max-width: 700px) {
+            .app { padding: 1.5rem; border-radius: 28px; }
+            h1 { font-size: 1.6rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: 1fr 1fr; }
+            .options-grid { grid-template-columns: 1fr; }
+            .stimulus-box { padding: 1rem; }
+            .unknown-box { width: 70px; height: 70px; font-size: 1.6rem; }
+            .analogy-sep { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Patrones SVG globales -->
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+    <defs>
+        <pattern id="pat-stripes-v" patternUnits="userSpaceOnUse" width="10" height="10">
+            <line x1="0" y1="0" x2="0" y2="10" stroke="#1e3a8a" stroke-width="3"/>
+        </pattern>
+        <pattern id="pat-stripes-h" patternUnits="userSpaceOnUse" width="10" height="10">
+            <line x1="0" y1="0" x2="10" y2="0" stroke="#1e3a8a" stroke-width="3"/>
+        </pattern>
+        <pattern id="pat-dots" patternUnits="userSpaceOnUse" width="12" height="12">
+            <circle cx="6" cy="6" r="3" fill="#1e3a8a"/>
+        </pattern>
+    </defs>
+</svg>
+
+<div class="app">
+
+    <!-- ================= MENÚ ================= -->
+    <div class="screen active" id="screenMenu">
+        <div class="start-icon"><i class="fas fa-brain"></i></div>
+        <h1>Batería de Inteligencia Fluida</h1>
+        <p class="subtitle">6 pruebas para evaluar el razonamiento abstracto y la inteligencia fluida (Gf)</p>
+
+        <div class="credits">
+            <div class="author"><i class="fas fa-user-graduate"></i> Juan Carlos Valderrama Cárdenas</div>
+            <div class="semillero"><i class="fas fa-flask"></i> Producto del Semillero de Investigación SOM4TICA</div>
+        </div>
+
+        <div class="privacy-notice">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+                <strong>Esta batería no recopila información personal.</strong><br>
+                Todos los datos se procesan únicamente en tu navegador y no se almacenan ni se envían a ningún servidor.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="participantName"><i class="fas fa-user"></i> Nombre del participante (opcional)</label>
+            <input type="text" id="participantName" placeholder="Puedes dejarlo en blanco si prefieres el anonimato" autocomplete="off" />
+        </div>
+
+        <div class="menu-grid">
+            <button class="menu-card" data-test="analogy">
+                <div class="menu-icon"><i class="fas fa-arrows-left-right"></i></div>
+                <div class="menu-title">Analogías Visuales</div>
+                <div class="menu-desc">Descubre la transformación A : B :: C : ?</div>
+                <div class="menu-meta">6 ítems · 4-5 min</div>
+            </button>
+            <button class="menu-card" data-test="series">
+                <div class="menu-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                <div class="menu-title">Series de Figuras</div>
+                <div class="menu-desc">Continúa el patrón de la secuencia visual</div>
+                <div class="menu-meta">6 ítems · 4-5 min</div>
+            </button>
+            <button class="menu-card" data-test="classification">
+                <div class="menu-icon"><i class="fas fa-filter"></i></div>
+                <div class="menu-title">Clasificación de Figuras</div>
+                <div class="menu-desc">Identifica el intruso entre las figuras</div>
+                <div class="menu-meta">6 ítems · 3-4 min</div>
+            </button>
+            <button class="menu-card" data-test="bongard">
+                <div class="menu-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="menu-title">Razonamiento Abstracto (Bongard)</div>
+                <div class="menu-desc">Infiere la regla que separa los grupos A y B</div>
+                <div class="menu-meta">4 ítems · 4-6 min</div>
+            </button>
+            <button class="menu-card" data-test="rotation">
+                <div class="menu-icon"><i class="fas fa-rotate"></i></div>
+                <div class="menu-title">Rotación Mental</div>
+                <div class="menu-desc">Identifica la figura rotada en el espacio</div>
+                <div class="menu-meta">6 ítems · 4-5 min</div>
+            </button>
+            <button class="menu-card" data-test="kohs">
+                <div class="menu-icon"><i class="fas fa-cubes"></i></div>
+                <div class="menu-title">Test de Cubos (Kohs)</div>
+                <div class="menu-desc">Cuenta los cubos en la escena isométrica</div>
+                <div class="menu-meta">6 ítems · 4-5 min</div>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= CONFIGURACIÓN ================= -->
+    <div class="screen" id="screenConfig">
+        <div class="test-badge" id="configBadge"><i class="fas fa-cog"></i> Configuración</div>
+        <h1 id="configTitle" style="font-size:1.8rem;">Test</h1>
+        <p class="subtitle" id="configDesc">Configura las opciones del test</p>
+
+        <div class="form-group">
+            <label for="configFeedback"><i class="fas fa-comment"></i> Feedback</label>
+            <select id="configFeedback">
+                <option value="immediate" selected>Inmediato con explicación</option>
+                <option value="delayed">Diferido (solo al final)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="configTime"><i class="fas fa-hourglass-half"></i> Tiempo por ítem</label>
+            <select id="configTime">
+                <option value="0" selected>Sin límite</option>
+                <option value="30">30 segundos</option>
+                <option value="60">60 segundos</option>
+            </select>
+        </div>
+
+        <button class="btn-main" id="btnBeginTest"><i class="fas fa-play"></i> Comenzar test</button>
+        <button class="btn-secondary" id="btnBackToMenu" style="margin-top:0.8rem; width:100%;">
+            <i class="fas fa-arrow-left"></i> Volver al menú
+        </button>
+    </div>
+
+    <!-- ================= TEST ================= -->
+    <div class="screen" id="screenTest">
+        <div class="test-header">
+            <div class="trial-counter" id="trialCounter">Ítem 1 / 6</div>
+            <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="score-display" id="scoreDisplay">✓ 0 · ✗ 0</div>
+        </div>
+
+        <div class="test-badge" id="testBadge"><i class="fas fa-tag"></i> Test</div>
+
+        <div class="stimulus-box" id="stimulusBox"></div>
+
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="feedback" id="feedback"></div>
+        <div class="feedback-explanation" id="feedbackExplanation"></div>
+        <div class="timer-display" id="timerDisplay" style="display:none;">—</div>
+    </div>
+
+    <!-- ================= RESULTADOS ================= -->
+    <div class="screen" id="screenResults">
+        <h2 class="results-title"><i class="fas fa-chart-bar" style="color:#60a5fa;"></i> Resultados</h2>
+        <p class="results-sub" id="resultsSub">—</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="metricAccuracy">—</div>
+                <div class="metric-label">Precisión</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metricHits">—</div>
+                <div class="metric-label">Aciertos</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metricAvgRT">—</div>
+                <div class="metric-label">TR promedio</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="metricErrors">—</div>
+                <div class="metric-label">Errores</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <div class="label"><i class="fas fa-brain"></i> Índice de inteligencia fluida</div>
+            <div class="value" id="indexValue">—</div>
+            <div class="interpretation" id="indexInterp">—</div>
+        </div>
+
+        <table class="results-table">
+            <thead>
+                <tr><th>#</th><th>Ítem</th><th>Respuesta</th><th>Correcta</th><th>Resultado</th><th>TR</th></tr>
+            </thead>
+            <tbody id="resultsTableBody"></tbody>
+        </table>
+
+        <div class="button-row">
+            <button class="btn-secondary" id="btnDownload"><i class="fas fa-download"></i> CSV</button>
+            <button class="btn-secondary" id="btnRestart"><i class="fas fa-redo"></i> Nuevo test</button>
+            <button class="btn-secondary" id="btnMenu"><i class="fas fa-home"></i> Menú</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ==================== RENDERIZADOR DE FIGURAS ====================
+let svgCounter = 0;
+
+function fig(spec, defaultSize = 80) {
+    const size = spec.size || defaultSize;
+    const pad = 12;
+    const total = size + pad * 2;
+    const cx = total / 2, cy = total / 2;
+    const half = size / 2;
+    const fill = spec.fill || '#3b82f6';
+    const stroke = spec.stroke || '#1e3a8a';
+    const sw = 2;
+
+    let shape = '';
+    switch (spec.shape) {
+        case 'circle':
+            shape = `<circle cx="${cx}" cy="${cy}" r="${half}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+            break;
+        case 'square':
+            shape = `<rect x="${cx-half}" y="${cy-half}" width="${size}" height="${size}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+            break;
+        case 'triangle':
+            shape = `<polygon points="${cx},${cy-half} ${cx+half},${cy+half} ${cx-half},${cy+half}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+            break;
+        case 'diamond':
+            shape = `<polygon points="${cx},${cy-half} ${cx+half},${cy} ${cx},${cy+half} ${cx-half},${cy}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+            break;
+        case 'hexagon': {
+            let pts = [];
+            for (let i = 0; i < 6; i++) {
+                const a = (Math.PI / 3) * i - Math.PI / 6;
+                pts.push(`${cx + half * Math.cos(a)},${cy + half * Math.sin(a)}`);
+            }
+            shape = `<polygon points="${pts.join(' ')}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+            break;
+        }
+        case 'pentagon': {
+            let pts = [];
+            for (let i = 0; i < 5; i++) {
+                const a = (2 * Math.PI / 5) * i - Math.PI / 2;
+                pts.push(`${cx + half * Math.cos(a)},${cy + half * Math.sin(a)}`);
+            }
+            shape = `<polygon points="${pts.join(' ')}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+            break;
+        }
+    }
+
+    let patternOverlay = '';
+    if (spec.pattern) {
+        // Repetir la misma forma con el patrón como fill
+        switch (spec.shape) {
+            case 'circle':
+                patternOverlay = `<circle cx="${cx}" cy="${cy}" r="${half}" fill="url(#pat-${spec.pattern})" stroke="none"/>`;
+                break;
+            case 'square':
+                patternOverlay = `<rect x="${cx-half}" y="${cy-half}" width="${size}" height="${size}" fill="url(#pat-${spec.pattern})" stroke="none"/>`;
+                break;
+            case 'triangle':
+                patternOverlay = `<polygon points="${cx},${cy-half} ${cx+half},${cy+half} ${cx-half},${cy+half}" fill="url(#pat-${spec.pattern})" stroke="none"/>`;
+                break;
+            case 'diamond':
+                patternOverlay = `<polygon points="${cx},${cy-half} ${cx+half},${cy} ${cx},${cy+half} ${cx-half},${cy}" fill="url(#pat-${spec.pattern})" stroke="none"/>`;
+                break;
+            case 'hexagon': {
+                let pts = [];
+                for (let i = 0; i < 6; i++) {
+                    const a = (Math.PI / 3) * i - Math.PI / 6;
+                    pts.push(`${cx + half * Math.cos(a)},${cy + half * Math.sin(a)}`);
+                }
+                patternOverlay = `<polygon points="${pts.join(' ')}" fill="url(#pat-${spec.pattern})" stroke="none"/>`;
+                break;
+            }
+            case 'pentagon': {
+                let pts = [];
+                for (let i = 0; i < 5; i++) {
+                    const a = (2 * Math.PI / 5) * i - Math.PI / 2;
+                    pts.push(`${cx + half * Math.cos(a)},${cy + half * Math.sin(a)}`);
+                }
+                patternOverlay = `<polygon points="${pts.join(' ')}" fill="url(#pat-${spec.pattern})" stroke="none"/>`;
+                break;
+            }
+        }
+    }
+
+    let inner = '';
+    if (spec.inner) {
+        inner = `<circle cx="${cx}" cy="${cy}" r="${half * 0.3}" fill="${spec.innerColor || '#fef3c7'}"/>`;
+    }
+
+    const rot = spec.rotation || 0;
+    const transform = rot !== 0 ? ` transform="rotate(${rot} ${cx} ${cy})"` : '';
+
+    return `<svg viewBox="0 0 ${total} ${total}" width="${total}" height="${total}" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; max-width:100%;">
+        <g${transform}>${shape}${patternOverlay}${inner}</g>
+    </svg>`;
+}
+
+function multiFig(spec, count, size = 55) {
+    let html = '<span style="display:inline-flex; gap:4px; align-items:center;">';
+    for (let i = 0; i < count; i++) html += fig(spec, size);
+    html += '</span>';
+    return html;
+}
+
+// Tetrominós para rotación mental
+const TETROMINOES = {
+    L: [[0,0],[0,1],[0,2],[1,2]],
+    J: [[1,0],[1,1],[0,2],[1,2]],
+    T: [[0,0],[1,0],[2,0],[1,1]],
+    S: [[1,0],[2,0],[0,1],[1,1]],
+    Z: [[0,0],[1,0],[1,1],[2,1]],
+    I: [[0,0],[1,0],[2,0],[3,0]],
+    O: [[0,0],[1,0],[0,1],[1,1]]
+};
+
+function renderTetromino(cells, cellSize = 22, color = '#3b82f6', rotation = 0) {
+    const xs = cells.map(c => c[0]), ys = cells.map(c => c[1]);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const cols = maxX - minX + 1, rows = maxY - minY + 1;
+
+    const gridSize = Math.max(cols, rows) * cellSize;
+    const pad = 18;
+    const total = gridSize + pad * 2;
+    const cx = total / 2, cy = total / 2;
+
+    const offsetX = (total - cols * cellSize) / 2;
+    const offsetY = (total - rows * cellSize) / 2;
+
+    let rects = '';
+    for (const [x, y] of cells) {
+        const rx = offsetX + (x - minX) * cellSize;
+        const ry = offsetY + (y - minY) * cellSize;
+        rects += `<rect x="${rx}" y="${ry}" width="${cellSize}" height="${cellSize}" fill="${color}" stroke="#1e3a8a" stroke-width="1.5"/>`;
+    }
+
+    const transform = rotation !== 0 ? ` transform="rotate(${rotation} ${cx} ${cy})"` : '';
+    return `<svg viewBox="0 0 ${total} ${total}" width="${total}" height="${total}" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
+        <g${transform}>${rects}</g>
+    </svg>`;
+}
+
+// Escena isométrica de cubos
+function renderIsometric(counts) {
+    const w = 26, h = 15, d = 30;
+    const rows = counts.length;
+    const cols = counts[0].length;
+
+    const cubes = [];
+    for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+            for (let z = 0; z < counts[y][x]; z++) {
+                cubes.push({ x, y, z });
+            }
+        }
+    }
+
+    const originX = 120, originY = 90;
+    const positioned = [];
+    let minCx = Infinity, maxCx = -Infinity, minCy = Infinity, maxCy = -Infinity;
+
+    for (const c of cubes) {
+        const px = originX + (c.x - c.y) * w;
+        const py = originY + (c.x + c.y) * h - c.z * d;
+        positioned.push({ ...c, px, py });
+        minCx = Math.min(minCx, px - w);
+        maxCx = Math.max(maxCx, px + w);
+        minCy = Math.min(minCy, py - h);
+        maxCy = Math.max(maxCy, py + h + d);
+    }
+
+    // Sort back-to-front: (x+y) ascending, then z ascending
+    positioned.sort((a, b) => {
+        const sa = a.x + a.y, sb = b.x + b.y;
+        if (sa !== sb) return sa - sb;
+        return a.z - b.z;
+    });
+
+    let svg = '';
+    for (const c of positioned) {
+        const px = c.px, py = c.py;
+        const top = `${px},${py-h} ${px+w},${py} ${px},${py+h} ${px-w},${py}`;
+        const left = `${px-w},${py} ${px},${py+h} ${px},${py+h+d} ${px-w},${py+d}`;
+        const right = `${px+w},${py} ${px},${py+h} ${px},${py+h+d} ${px+w},${py+d}`;
+        svg += `<polygon points="${top}" fill="#93c5fd" stroke="#1e3a8a" stroke-width="1.5"/>`;
+        svg += `<polygon points="${left}" fill="#3b82f6" stroke="#1e3a8a" stroke-width="1.5"/>`;
+        svg += `<polygon points="${right}" fill="#60a5fa" stroke="#1e3a8a" stroke-width="1.5"/>`;
+    }
+
+    const padding = 25;
+    const vbX = minCx - padding;
+    const vbY = minCy - padding;
+    const vbW = (maxCx - minCx) + padding * 2;
+    const vbH = (maxCy - minCy) + padding * 2;
+
+    return `<svg viewBox="${vbX} ${vbY} ${vbW} ${vbH}" width="100%" style="max-width:${Math.max(vbW, 300)}px;" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
+}
+
+// ==================== BANCOS DE ÍTEMS ====================
+
+function buildAnalogyItems() {
+    return [
+        {
+            stimulus: `<div class="analogy-display">
+                <div class="analogy-pair">${fig({shape:'circle', fill:'#3b82f6'})}<span class="analogy-sep">:</span>${fig({shape:'circle', fill:'#3b82f6', pattern:'stripes-v'})}</div>
+                <span class="analogy-sep" style="font-size:2.2rem;">::</span>
+                <div class="analogy-pair">${fig({shape:'square', fill:'#3b82f6'})}<span class="analogy-sep">:</span><span class="unknown-box">?</span></div>
+            </div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#3b82f6', pattern:'stripes-v'}), correct: true},
+                {html: fig({shape:'square', fill:'#3b82f6', pattern:'stripes-h'}), correct: false},
+                {html: fig({shape:'square', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6', pattern:'stripes-v'}), correct: false}
+            ],
+            explanation: 'La relación es "agregar franjas verticales". Al aplicar la transformación al cuadrado sólido, obtenemos un cuadrado con franjas verticales.'
+        },
+        {
+            stimulus: `<div class="analogy-display">
+                <div class="analogy-pair">${fig({shape:'triangle', size:110, fill:'#10b981'})}<span class="analogy-sep">:</span>${fig({shape:'triangle', size:55, fill:'#10b981'})}</div>
+                <span class="analogy-sep" style="font-size:2.2rem;">::</span>
+                <div class="analogy-pair">${fig({shape:'hexagon', size:110, fill:'#10b981'})}<span class="analogy-sep">:</span><span class="unknown-box">?</span></div>
+            </div>`,
+            options: [
+                {html: fig({shape:'hexagon', size:55, fill:'#10b981'}), correct: true},
+                {html: fig({shape:'hexagon', size:110, fill:'#10b981'}), correct: false},
+                {html: fig({shape:'triangle', size:55, fill:'#10b981'}), correct: false},
+                {html: fig({shape:'square', size:55, fill:'#10b981'}), correct: false}
+            ],
+            explanation: 'La relación es "reducir el tamaño a la mitad". Aplicando la transformación al hexágono grande, obtenemos un hexágono pequeño.'
+        },
+        {
+            stimulus: `<div class="analogy-display">
+                <div class="analogy-pair">${fig({shape:'circle', fill:'#ef4444'})}<span class="analogy-sep">:</span>${fig({shape:'circle', fill:'#3b82f6'})}</div>
+                <span class="analogy-sep" style="font-size:2.2rem;">::</span>
+                <div class="analogy-pair">${fig({shape:'square', fill:'#ef4444'})}<span class="analogy-sep">:</span><span class="unknown-box">?</span></div>
+            </div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#3b82f6'}), correct: true},
+                {html: fig({shape:'square', fill:'#ef4444'}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#ef4444'}), correct: false}
+            ],
+            explanation: 'La relación es "cambiar el color de rojo a azul". Al aplicar al cuadrado rojo, obtenemos un cuadrado azul.'
+        },
+        {
+            stimulus: `<div class="analogy-display">
+                <div class="analogy-pair">${fig({shape:'circle', fill:'#a855f7', inner:true})}<span class="analogy-sep">:</span>${fig({shape:'circle', fill:'#a855f7', inner:false})}</div>
+                <span class="analogy-sep" style="font-size:2.2rem;">::</span>
+                <div class="analogy-pair">${fig({shape:'square', fill:'#a855f7', inner:true})}<span class="analogy-sep">:</span><span class="unknown-box">?</span></div>
+            </div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#a855f7', inner:false}), correct: true},
+                {html: fig({shape:'square', fill:'#a855f7', inner:true}), correct: false},
+                {html: fig({shape:'circle', fill:'#a855f7', inner:false}), correct: false},
+                {html: fig({shape:'circle', fill:'#a855f7', inner:true}), correct: false}
+            ],
+            explanation: 'La relación es "quitar el punto interior". Al aplicar al cuadrado con punto, obtenemos un cuadrado sin punto.'
+        },
+        {
+            stimulus: `<div class="analogy-display">
+                <div class="analogy-pair">${multiFig({shape:'circle', fill:'#eab308'}, 1)}<span class="analogy-sep">:</span>${multiFig({shape:'circle', fill:'#eab308'}, 2)}</div>
+                <span class="analogy-sep" style="font-size:2.2rem;">::</span>
+                <div class="analogy-pair">${multiFig({shape:'square', fill:'#eab308'}, 1)}<span class="analogy-sep">:</span><span class="unknown-box">?</span></div>
+            </div>`,
+            options: [
+                {html: multiFig({shape:'square', fill:'#eab308'}, 2), correct: true},
+                {html: multiFig({shape:'square', fill:'#eab308'}, 3), correct: false},
+                {html: multiFig({shape:'circle', fill:'#eab308'}, 2), correct: false},
+                {html: multiFig({shape:'circle', fill:'#eab308'}, 1), correct: false}
+            ],
+            explanation: 'La relación es "duplicar la cantidad de figuras". Al aplicar al cuadrado único, obtenemos dos cuadrados.'
+        },
+        {
+            stimulus: `<div class="analogy-display">
+                <div class="analogy-pair">${fig({shape:'diamond', fill:'#06b6d4'})}<span class="analogy-sep">:</span>${fig({shape:'square', fill:'#06b6d4'})}</div>
+                <span class="analogy-sep" style="font-size:2.2rem;">::</span>
+                <div class="analogy-pair">${fig({shape:'diamond', fill:'#f43f5e'})}<span class="analogy-sep">:</span><span class="unknown-box">?</span></div>
+            </div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#f43f5e'}), correct: true},
+                {html: fig({shape:'diamond', fill:'#f43f5e'}), correct: false},
+                {html: fig({shape:'square', fill:'#06b6d4'}), correct: false},
+                {html: fig({shape:'diamond', fill:'#06b6d4'}), correct: false}
+            ],
+            explanation: 'La relación es "rotar 45° para convertir el rombo en cuadrado". Al aplicar al rombo rosa, obtenemos un cuadrado rosa.'
+        }
+    ];
+}
+
+function buildSeriesItems() {
+    return [
+        {
+            stimulus: `<div class="series-display">
+                ${multiFig({shape:'circle', fill:'#3b82f6'}, 1, 45)}
+                <span class="series-arrow">→</span>
+                ${multiFig({shape:'circle', fill:'#3b82f6'}, 2, 45)}
+                <span class="series-arrow">→</span>
+                ${multiFig({shape:'circle', fill:'#3b82f6'}, 3, 45)}
+                <span class="series-arrow">→</span>
+                <span class="unknown-box">?</span>
+            </div>`,
+            options: [
+                {html: multiFig({shape:'circle', fill:'#3b82f6'}, 4, 45), correct: true},
+                {html: multiFig({shape:'circle', fill:'#3b82f6'}, 3, 45), correct: false},
+                {html: multiFig({shape:'circle', fill:'#3b82f6'}, 5, 45), correct: false},
+                {html: multiFig({shape:'circle', fill:'#3b82f6'}, 2, 45), correct: false}
+            ],
+            explanation: 'El patrón es aumentar en 1 el número de círculos: 1, 2, 3 → 4.'
+        },
+        {
+            stimulus: `<div class="series-display">
+                ${fig({shape:'triangle', fill:'#a855f7', rotation:0})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'triangle', fill:'#a855f7', rotation:90})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'triangle', fill:'#a855f7', rotation:180})}
+                <span class="series-arrow">→</span>
+                <span class="unknown-box">?</span>
+            </div>`,
+            options: [
+                {html: fig({shape:'triangle', fill:'#a855f7', rotation:270}), correct: true},
+                {html: fig({shape:'triangle', fill:'#a855f7', rotation:0}), correct: false},
+                {html: fig({shape:'triangle', fill:'#a855f7', rotation:90}), correct: false},
+                {html: fig({shape:'triangle', fill:'#a855f7', rotation:180}), correct: false}
+            ],
+            explanation: 'El triángulo rota 90° en sentido horario en cada paso. Después de 180°, sigue 270° (apuntando a la izquierda).'
+        },
+        {
+            stimulus: `<div class="series-display">
+                ${fig({shape:'square', fill:'#10b981', size:45})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#10b981', size:65})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#10b981', size:90})}
+                <span class="series-arrow">→</span>
+                <span class="unknown-box">?</span>
+            </div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#10b981', size:120}), correct: true},
+                {html: fig({shape:'square', fill:'#10b981', size:90}), correct: false},
+                {html: fig({shape:'square', fill:'#10b981', size:65}), correct: false},
+                {html: fig({shape:'square', fill:'#10b981', size:45}), correct: false}
+            ],
+            explanation: 'El tamaño aumenta progresivamente. Después del grande (90), sigue el extra-grande (120).'
+        },
+        {
+            stimulus: `<div class="series-display">
+                ${fig({shape:'circle', fill:'#ef4444'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'circle', fill:'#3b82f6'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'circle', fill:'#ef4444'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'circle', fill:'#3b82f6'})}
+                <span class="series-arrow">→</span>
+                <span class="unknown-box">?</span>
+            </div>`,
+            options: [
+                {html: fig({shape:'circle', fill:'#ef4444'}), correct: true},
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'square', fill:'#ef4444'}), correct: false},
+                {html: fig({shape:'square', fill:'#3b82f6'}), correct: false}
+            ],
+            explanation: 'Los colores alternan rojo, azul, rojo, azul... El siguiente es rojo.'
+        },
+        {
+            stimulus: `<div class="series-display">
+                ${fig({shape:'square', fill:'#f59e0b'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#f59e0b', pattern:'stripes-v'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#f59e0b'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#f59e0b', pattern:'stripes-v'})}
+                <span class="series-arrow">→</span>
+                <span class="unknown-box">?</span>
+            </div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#f59e0b'}), correct: true},
+                {html: fig({shape:'square', fill:'#f59e0b', pattern:'stripes-v'}), correct: false},
+                {html: fig({shape:'square', fill:'#f59e0b', pattern:'dots'}), correct: false},
+                {html: fig({shape:'circle', fill:'#f59e0b'}), correct: false}
+            ],
+            explanation: 'Los patrones alternan: sólido, rayado, sólido, rayado... El siguiente es sólido.'
+        },
+        {
+            stimulus: `<div class="series-display">
+                ${fig({shape:'circle', fill:'#06b6d4'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#06b6d4'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'circle', fill:'#06b6d4'})}
+                <span class="series-arrow">→</span>
+                ${fig({shape:'square', fill:'#06b6d4'})}
+                <span class="series-arrow">→</span>
+                <span class="unknown-box">?</span>
+            </div>`,
+            options: [
+                {html: fig({shape:'circle', fill:'#06b6d4'}), correct: true},
+                {html: fig({shape:'square', fill:'#06b6d4'}), correct: false},
+                {html: fig({shape:'triangle', fill:'#06b6d4'}), correct: false},
+                {html: fig({shape:'diamond', fill:'#06b6d4'}), correct: false}
+            ],
+            explanation: 'Las formas alternan: círculo, cuadrado, círculo, cuadrado... El siguiente es círculo.'
+        }
+    ];
+}
+
+function buildClassificationItems() {
+    return [
+        {
+            stimulus: `<div style="text-align:center; color:#94a3b8; font-size:1rem;">¿Cuál figura es el intruso?</div>`,
+            options: [
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'square', fill:'#3b82f6'}), correct: true}
+            ],
+            explanation: 'Tres son círculos y uno es cuadrado. El intruso es el cuadrado.'
+        },
+        {
+            stimulus: `<div style="text-align:center; color:#94a3b8; font-size:1rem;">¿Cuál figura es el intruso?</div>`,
+            options: [
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6'}), correct: false},
+                {html: fig({shape:'circle', fill:'#ef4444'}), correct: true}
+            ],
+            explanation: 'Tres son azules y uno es rojo. El intruso es el rojo.'
+        },
+        {
+            stimulus: `<div style="text-align:center; color:#94a3b8; font-size:1rem;">¿Cuál figura es el intruso?</div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#a855f7', pattern:'stripes-v'}), correct: false},
+                {html: fig({shape:'square', fill:'#a855f7', pattern:'stripes-v'}), correct: false},
+                {html: fig({shape:'square', fill:'#a855f7', pattern:'stripes-v'}), correct: false},
+                {html: fig({shape:'square', fill:'#a855f7'}), correct: true}
+            ],
+            explanation: 'Tres tienen franjas verticales y uno es sólido. El intruso es el sólido.'
+        },
+        {
+            stimulus: `<div style="text-align:center; color:#94a3b8; font-size:1rem;">¿Cuál figura es el intruso?</div>`,
+            options: [
+                {html: fig({shape:'circle', fill:'#10b981', inner:true}), correct: false},
+                {html: fig({shape:'circle', fill:'#10b981', inner:true}), correct: false},
+                {html: fig({shape:'circle', fill:'#10b981', inner:true}), correct: false},
+                {html: fig({shape:'circle', fill:'#10b981', inner:false}), correct: true}
+            ],
+            explanation: 'Tres tienen un punto interior y uno no. El intruso es el círculo sin punto.'
+        },
+        {
+            stimulus: `<div style="text-align:center; color:#94a3b8; font-size:1rem;">¿Cuál figura es el intruso?</div>`,
+            options: [
+                {html: fig({shape:'triangle', fill:'#f59e0b'}), correct: false},
+                {html: fig({shape:'triangle', fill:'#f59e0b'}), correct: false},
+                {html: fig({shape:'triangle', fill:'#f59e0b'}), correct: false},
+                {html: fig({shape:'hexagon', fill:'#f59e0b'}), correct: true}
+            ],
+            explanation: 'Tres son triángulos y uno es hexágono. El intruso es el hexágono.'
+        },
+        {
+            stimulus: `<div style="text-align:center; color:#94a3b8; font-size:1rem;">¿Cuál figura es el intruso?</div>`,
+            options: [
+                {html: fig({shape:'square', fill:'#06b6d4', size:55}), correct: false},
+                {html: fig({shape:'square', fill:'#06b6d4', size:55}), correct: false},
+                {html: fig({shape:'square', fill:'#06b6d4', size:55}), correct: false},
+                {html: fig({shape:'square', fill:'#06b6d4', size:100}), correct: true}
+            ],
+            explanation: 'Tres son pequeños y uno es grande. El intruso es el cuadrado grande.'
+        }
+    ];
+}
+
+function buildBongardItems() {
+    return [
+        {
+            stimulus: `<div class="bongard-groups">
+                <div class="bongard-group">
+                    <h4>Grupo A</h4>
+                    <div class="bongard-figures">
+                        ${fig({shape:'circle', fill:'#3b82f6', inner:true}, 65)}
+                        ${fig({shape:'square', fill:'#3b82f6', inner:true}, 65)}
+                        ${fig({shape:'triangle', fill:'#3b82f6', inner:true}, 65)}
+                    </div>
+                </div>
+                <div class="bongard-group">
+                    <h4>Grupo B</h4>
+                    <div class="bongard-figures">
+                        ${fig({shape:'circle', fill:'#3b82f6', inner:false}, 65)}
+                        ${fig({shape:'square', fill:'#3b82f6', inner:false}, 65)}
+                        ${fig({shape:'triangle', fill:'#3b82f6', inner:false}, 65)}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; color:#94a3b8; font-size:0.95rem; margin-top:12px;">¿Cuál figura pertenece al Grupo A?</div>`,
+            options: [
+                {html: fig({shape:'pentagon', fill:'#3b82f6', inner:true}), correct: true},
+                {html: fig({shape:'pentagon', fill:'#3b82f6', inner:false}), correct: false},
+                {html: fig({shape:'hexagon', fill:'#3b82f6', inner:false}), correct: false},
+                {html: fig({shape:'circle', fill:'#3b82f6', inner:false}), correct: false}
+            ],
+            explanation: 'La regla del Grupo A es "tener un punto interior". El pentágono con punto pertenece al Grupo A.'
+        },
+        {
+            stimulus: `<div class="bongard-groups">
+                <div class="bongard-group">
+                    <h4>Grupo A</h4>
+                    <div class="bongard-figures">
+                        ${fig({shape:'circle', fill:'#a855f7', pattern:'stripes-v'}, 65)}
+                        ${fig({shape:'square', fill:'#a855f7', pattern:'stripes-v'}, 65)}
+                        ${fig({shape:'triangle', fill:'#a855f7', pattern:'stripes-v'}, 65)}
+                    </div>
+                </div>
+                <div class="bongard-group">
+                    <h4>Grupo B</h4>
+                    <div class="bongard-figures">
+                        ${fig({shape:'circle', fill:'#a855f7'}, 65)}
+                        ${fig({shape:'square', fill:'#a855f7'}, 65)}
+                        ${fig({shape:'triangle', fill:'#a855f7'}, 65)}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; color:#94a3b8; font-size:0.95rem; margin-top:12px;">¿Cuál figura pertenece al Grupo A?</div>`,
+            options: [
+                {html: fig({shape:'hexagon', fill:'#a855f7', pattern:'stripes-v'}), correct: true},
+                {html: fig({shape:'hexagon', fill:'#a855f7'}), correct: false},
+                {html: fig({shape:'pentagon', fill:'#a855f7'}), correct: false},
+                {html: fig({shape:'circle', fill:'#a855f7'}), correct: false}
+            ],
+            explanation: 'La regla del Grupo A es "tener franjas verticales". El hexágono rayado pertenece al Grupo A.'
+        },
+        {
+            stimulus: `<div class="bongard-groups">
+                <div class="bongard-group">
+                    <h4>Grupo A</h4>
+                    <div class="bongard-figures">
+                        ${fig({shape:'triangle', fill:'#10b981'}, 65)}
+                        ${fig({shape:'pentagon', fill:'#10b981'}, 65)}
+                        ${fig({shape:'triangle', fill:'#10b981'}, 65)}
+                    </div>
+                </div>
+                <div class="bongard-group">
+                    <h4>Grupo B</h4>
+                    <div class="bongard-figures">
+                        ${fig({shape:'square', fill:'#10b981'}, 65)}
+                        ${fig({shape:'hexagon', fill:'#10b981'}, 65)}
+                        ${fig({shape:'square', fill:'#10b981'}, 65)}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; color:#94a3b8; font-size:0.95rem; margin-top:12px;">¿Cuál figura pertenece al Grupo A?</div>`,
+            options: [
+                {html: fig({shape:'pentagon', fill:'#10b981'}), correct: true},
+                {html: fig({shape:'hexagon', fill:'#10b981'}), correct: false},
+                {html: fig({shape:'square', fill:'#10b981'}), correct: false},
+                {html: fig({shape:'diamond', fill:'#10b981'}), correct: false}
+            ],
+            explanation: 'La regla del Grupo A es "tener un número impar de lados" (3 o 5). El pentágono (5 lados) pertenece al Grupo A.'
+        },
+        {
+            stimulus: `<div class="bongard-groups">
+                <div class="bongard-group">
+                    <h4>Grupo A</h4>
+                    <div class="bongard-figures">
+                        ${multiFig({shape:'circle', fill:'#f59e0b'}, 1, 45)}
+                        ${multiFig({shape:'square', fill:'#f59e0b'}, 1, 45)}
+                        ${multiFig({shape:'triangle', fill:'#f59e0b'}, 1, 45)}
+                    </div>
+                </div>
+                <div class="bongard-group">
+                    <h4>Grupo B</h4>
+                    <div class="bongard-figures">
+                        ${multiFig({shape:'circle', fill:'#f59e0b'}, 2, 45)}
+                        ${multiFig({shape:'square', fill:'#f59e0b'}, 2, 45)}
+                        ${multiFig({shape:'triangle', fill:'#f59e0b'}, 2, 45)}
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; color:#94a3b8; font-size:0.95rem; margin-top:12px;">¿Cuál figura pertenece al Grupo A?</div>`,
+            options: [
+                {html: multiFig({shape:'circle', fill:'#f59e0b'}, 1, 45), correct: true},
+                {html: multiFig({shape:'circle', fill:'#f59e0b'}, 2, 45), correct: false},
+                {html: multiFig({shape:'square', fill:'#f59e0b'}, 2, 45), correct: false},
+                {html: multiFig({shape:'triangle', fill:'#f59e0b'}, 2, 45), correct: false}
+            ],
+            explanation: 'La regla del Grupo A es "una sola figura". El grupo A contiene figuras únicas.'
+        }
+    ];
+}
+
+function buildRotationItems() {
+    const items = [];
+    const configs = [
+        { ref: 'L', rot: 90, distractors: ['J', 'T', 'I'], color: '#3b82f6' },
+        { ref: 'J', rot: 180, distractors: ['L', 'S', 'O'], color: '#a855f7' },
+        { ref: 'T', rot: 90, distractors: ['L', 'J', 'I'], color: '#10b981' },
+        { ref: 'S', rot: 90, distractors: ['Z', 'L', 'T'], color: '#f59e0b' },
+        { ref: 'L', rot: 270, distractors: ['J', 'S', 'I'], color: '#ef4444' },
+        { ref: 'J', rot: 90, distractors: ['L', 'Z', 'T'], color: '#06b6d4' }
+    ];
+
+    for (const cfg of configs) {
+        const refHTML = renderTetromino(TETROMINOES[cfg.ref], 22, cfg.color, 0);
+        const correctHTML = renderTetromino(TETROMINOES[cfg.ref], 22, cfg.color, cfg.rot);
+        const options = [
+            { html: correctHTML, correct: true }
+        ];
+        for (const d of cfg.distractors) {
+            options.push({ html: renderTetromino(TETROMINOES[d], 22, cfg.color, 0), correct: false });
+        }
+
+        items.push({
+            stimulus: `<div class="rotation-ref">
+                <div class="label">Figura de referencia</div>
+                ${refHTML}
+                <div style="color:#94a3b8; font-size:0.95rem; margin-top:12px;">¿Cuál opción es la misma figura rotada?</div>
+            </div>`,
+            options: options,
+            explanation: 'La figura correcta es la misma forma girada (no reflejada). Las demás son formas diferentes o reflejadas.'
+        });
+    }
+    return items;
+}
+
+function buildKohsItems() {
+    return [
+        {
+            stimulus: `<div class="kohs-scene">
+                <div class="label">¿Cuántos cubos hay en total?</div>
+                ${renderIsometric([[2,1],[1,0]])}
+            </div>`,
+            options: [
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">3</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">4</span>', correct: true },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">5</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">6</span>', correct: false }
+            ],
+            explanation: 'Hay una columna de 2 cubos y dos columnas de 1 cubo: 2 + 1 + 1 = 4 cubos.'
+        },
+        {
+            stimulus: `<div class="kohs-scene">
+                <div class="label">¿Cuántos cubos hay en total?</div>
+                ${renderIsometric([[3,2],[1,0]])}
+            </div>`,
+            options: [
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">5</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">6</span>', correct: true },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">7</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">8</span>', correct: false }
+            ],
+            explanation: 'Columnas de 3, 2 y 1 cubos: 3 + 2 + 1 = 6 cubos.'
+        },
+        {
+            stimulus: `<div class="kohs-scene">
+                <div class="label">¿Cuántos cubos hay en total?</div>
+                ${renderIsometric([[2,2],[2,1]])}
+            </div>`,
+            options: [
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">6</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">7</span>', correct: true },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">8</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">9</span>', correct: false }
+            ],
+            explanation: 'Columnas de 2, 2, 2 y 1 cubos: 2 + 2 + 2 + 1 = 7 cubos.'
+        },
+        {
+            stimulus: `<div class="kohs-scene">
+                <div class="label">¿Cuántos cubos hay en total?</div>
+                ${renderIsometric([[1,1],[1,0]])}
+            </div>`,
+            options: [
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">2</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">3</span>', correct: true },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">4</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">5</span>', correct: false }
+            ],
+            explanation: 'Tres columnas de 1 cubo cada una: 1 + 1 + 1 = 3 cubos.'
+        },
+        {
+            stimulus: `<div class="kohs-scene">
+                <div class="label">¿Cuántos cubos hay en total?</div>
+                ${renderIsometric([[2,3],[0,1]])}
+            </div>`,
+            options: [
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">5</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">6</span>', correct: true },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">7</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">8</span>', correct: false }
+            ],
+            explanation: 'Columnas de 2, 3 y 1 cubos: 2 + 3 + 1 = 6 cubos.'
+        },
+        {
+            stimulus: `<div class="kohs-scene">
+                <div class="label">¿Cuántos cubos hay en total?</div>
+                ${renderIsometric([[1,2,1],[1,0,0]])}
+            </div>`,
+            options: [
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">4</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">5</span>', correct: true },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">6</span>', correct: false },
+                { html: '<span style="font-size:2rem; font-weight:800; color:#60a5fa;">7</span>', correct: false }
+            ],
+            explanation: 'Columnas de 1, 2, 1 y 1 cubos: 1 + 2 + 1 + 1 = 5 cubos.'
+        }
+    ];
+}
+
+// ==================== CONFIGURACIÓN DE TESTS ====================
+const TEST_CONFIG = {
+    analogy: { title: 'Analogías Visuales', desc: 'Descubre la transformación A : B :: C : ?', icon: 'fa-arrows-left-right', badge: 'Analogías', builder: buildAnalogyItems },
+    series: { title: 'Series de Figuras', desc: 'Continúa el patrón de la secuencia', icon: 'fa-arrow-trend-up', badge: 'Series', builder: buildSeriesItems },
+    classification: { title: 'Clasificación de Figuras', desc: 'Identifica el intruso', icon: 'fa-filter', badge: 'Clasificación', builder: buildClassificationItems },
+    bongard: { title: 'Razonamiento Abstracto (Bongard)', desc: 'Infiere la regla que separa los grupos', icon: 'fa-layer-group', badge: 'Bongard', builder: buildBongardItems },
+    rotation: { title: 'Rotación Mental', desc: 'Identifica la figura rotada', icon: 'fa-rotate', badge: 'Rotación', builder: buildRotationItems },
+    kohs: { title: 'Test de Cubos (Kohs)', desc: 'Cuenta los cubos en la escena isométrica', icon: 'fa-cubes', badge: 'Cubos', builder: buildKohsItems }
+};
+
+// ==================== ESTADO ====================
+let state = {
+    participant: '',
+    currentTestKey: null,
+    feedbackMode: 'immediate',
+    timeLimit: 0,
+    items: [],
+    currentIndex: 0,
+    responses: [],
+    stimulusOnset: 0,
+    awaitingResponse: false,
+    testActive: false,
+    itemTimer: null,
+    itemTimeLeft: 0,
+    answered: false
+};
+
+// ==================== NAVEGACIÓN ====================
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+// ==================== LÓGICA DEL TEST ====================
+function startTest(testKey) {
+    state.currentTestKey = testKey;
+    const config = TEST_CONFIG[testKey];
+
+    state.items = config.builder();
+    state.currentIndex = 0;
+    state.responses = [];
+    state.testActive = true;
+
+    document.getElementById('testBadge').innerHTML = `<i class="fas ${config.icon}"></i> ${config.badge}`;
+    showScreen('screenTest');
+    updateCounter();
+    updateScore();
+    setTimeout(nextItem, 400);
+}
+
+function updateCounter() {
+    document.getElementById('trialCounter').textContent = `Ítem ${state.currentIndex + 1} / ${state.items.length}`;
+    document.getElementById('progressBar').style.width = ((state.currentIndex / state.items.length) * 100) + '%';
+}
+
+function updateScore() {
+    const hits = state.responses.filter(r => r.correct).length;
+    const errors = state.responses.filter(r => !r.correct).length;
+    document.getElementById('scoreDisplay').textContent = `✓ ${hits} · ✗ ${errors}`;
+}
+
+function nextItem() {
+    if (state.currentIndex >= state.items.length) { finishTest(); return; }
+
+    const item = state.items[state.currentIndex];
+    state.answered = false;
+
+    // Estímulo
+    document.getElementById('stimulusBox').innerHTML = item.stimulus;
+
+    // Opciones
+    const grid = document.getElementById('optionsGrid');
+    grid.innerHTML = '';
+    item.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        // Detectar si es texto simple (para opciones numéricas)
+        if (!opt.html.includes('<svg') && !opt.html.includes('<span')) {
+            btn.classList.add('text-option');
+        }
+        btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + i)}</span>${opt.html}`;
+        btn.addEventListener('click', () => handleAnswer(i, btn));
+        grid.appendChild(btn);
+    });
+
+    // Limpiar feedback
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('feedbackExplanation').textContent = '';
+
+    // Timer
+    if (state.timeLimit > 0) {
+        document.getElementById('timerDisplay').style.display = 'block';
+        state.itemTimeLeft = state.timeLimit;
+        updateTimerDisplay();
+        if (state.itemTimer) clearInterval(state.itemTimer);
+        state.itemTimer = setInterval(() => {
+            state.itemTimeLeft--;
+            updateTimerDisplay();
+            if (state.itemTimeLeft <= 0) {
+                clearInterval(state.itemTimer);
+                if (state.awaitingResponse) handleAnswer(null, null);
+            }
+        }, 1000);
+    } else {
+        document.getElementById('timerDisplay').style.display = 'none';
+    }
+
+    state.stimulusOnset = performance.now();
+    state.awaitingResponse = true;
+}
+
+function updateTimerDisplay() {
+    const el = document.getElementById('timerDisplay');
+    el.textContent = state.itemTimeLeft + ' s';
+    el.className = 'timer-display';
+    if (state.itemTimeLeft <= 3) el.classList.add('danger');
+    else if (state.itemTimeLeft <= 6) el.classList.add('warning');
+}
+
+function handleAnswer(selectedIndex, btnEl) {
+    if (!state.awaitingResponse || !state.testActive || state.answered) return;
+    state.answered = true;
+    if (state.itemTimer) clearInterval(state.itemTimer);
+
+    const item = state.items[state.currentIndex];
+    const correctIndex = item.options.findIndex(o => o.correct);
+    const rt = selectedIndex !== null ? performance.now() - state.stimulusOnset : null;
+    const isCorrect = selectedIndex === correctIndex;
+
+    state.responses.push({
+        itemNumber: state.currentIndex + 1,
+        selectedIndex,
+        correctIndex,
+        correct: isCorrect,
+        rt
+    });
+
+    state.awaitingResponse = false;
+
+    // Marcar opciones
+    document.querySelectorAll('.option-btn').forEach((b, i) => {
+        b.disabled = true;
+        if (i === correctIndex) b.classList.add('correct');
+        if (i === selectedIndex && !isCorrect) b.classList.add('incorrect');
+    });
+
+    // Feedback
+    const fb = document.getElementById('feedback');
+    const exp = document.getElementById('feedbackExplanation');
+    if (selectedIndex === null) {
+        fb.textContent = '⏱ Tiempo agotado';
+        fb.className = 'feedback incorrect';
+    } else if (isCorrect) {
+        fb.textContent = `✓ Correcto · ${rt.toFixed(0)} ms`;
+        fb.className = 'feedback correct';
+    } else {
+        fb.textContent = '✗ Incorrecto';
+        fb.className = 'feedback incorrect';
+    }
+    if (state.feedbackMode === 'immediate') exp.textContent = '💡 ' + item.explanation;
+    updateScore();
+
+    setTimeout(() => {
+        state.currentIndex++;
+        updateCounter();
+        if (state.currentIndex < state.items.length) nextItem();
+        else finishTest();
+    }, state.feedbackMode === 'immediate' ? 1800 : 700);
+}
+
+function finishTest() {
+    state.testActive = false;
+    if (state.itemTimer) clearInterval(state.itemTimer);
+    document.getElementById('progressBar').style.width = '100%';
+    showResults();
+}
+
+// ==================== RESULTADOS ====================
+function showResults() {
+    showScreen('screenResults');
+    const config = TEST_CONFIG[state.currentTestKey];
+    const responses = state.responses;
+    const total = responses.length;
+    const correct = responses.filter(r => r.correct).length;
+    const accuracy = total > 0 ? (correct / total * 100).toFixed(1) : 0;
+
+    const correctRTs = responses.filter(r => r.correct && r.rt).map(r => r.rt);
+    const avgRT = correctRTs.length > 0 ? (correctRTs.reduce((s, r) => s + r, 0) / correctRTs.length).toFixed(0) : '—';
+
+    document.getElementById('resultsSub').textContent = `${config.title} · Participante: ${state.participant} · ${total} ítems`;
+    document.getElementById('metricAccuracy').textContent = accuracy + '%';
+    document.getElementById('metricHits').textContent = `${correct} / ${total}`;
+    document.getElementById('metricAvgRT').textContent = avgRT !== '—' ? avgRT + ' ms' : '—';
+    document.getElementById('metricErrors').textContent = (total - correct);
+
+    const indexEl = document.getElementById('indexValue');
+    const interpEl = document.getElementById('indexInterp');
+    indexEl.textContent = accuracy + '%';
+
+    let interp = '', color = '';
+    if (accuracy >= 90) { interp = '🌟 Desempeño excepcional en razonamiento fluido.'; color = '#4ade80'; }
+    else if (accuracy >= 75) { interp = '✅ Desempeño alto. Buena capacidad de razonamiento abstracto.'; color = '#86efac'; }
+    else if (accuracy >= 60) { interp = '📊 Desempeño promedio. Dentro del rango esperado.'; color = '#fbbf24'; }
+    else if (accuracy >= 45) { interp = '📉 Desempeño por debajo del promedio.'; color = '#fb923c'; }
+    else { interp = '⚠️ Desempeño bajo. Se recomienda evaluación adicional.'; color = '#f87171'; }
+    interpEl.textContent = interp;
+    indexEl.style.color = color;
+
+    const tbody = document.getElementById('resultsTableBody');
+    tbody.innerHTML = '';
+    responses.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${r.itemNumber}</td>
+            <td>Ítem ${r.itemNumber}</td>
+            <td>${r.selectedIndex !== null ? String.fromCharCode(65 + r.selectedIndex) : '—'}</td>
+            <td>${String.fromCharCode(65 + r.correctIndex)}</td>
+            <td>${r.correct ? '✅' : '❌'}</td>
+            <td>${r.rt ? r.rt.toFixed(0) + ' ms' : '—'}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+// ==================== EVENTOS ====================
+document.querySelectorAll('.menu-card').forEach(card => {
+    card.addEventListener('click', function() {
+        state.participant = document.getElementById('participantName').value.trim() || 'Anónimo';
+        state.currentTestKey = this.dataset.test;
+        const config = TEST_CONFIG[state.currentTestKey];
+        document.getElementById('configTitle').textContent = config.title;
+        document.getElementById('configDesc').textContent = config.desc;
+        document.getElementById('configBadge').innerHTML = `<i class="fas ${config.icon}"></i> ${config.badge}`;
+        showScreen('screenConfig');
+    });
+});
+
+document.getElementById('btnBeginTest').addEventListener('click', function() {
+    state.feedbackMode = document.getElementById('configFeedback').value;
+    state.timeLimit = parseInt(document.getElementById('configTime').value);
+    startTest(state.currentTestKey);
+});
+
+document.getElementById('btnBackToMenu').addEventListener('click', () => showScreen('screenMenu'));
+document.getElementById('btnRestart').addEventListener('click', function() {
+    if (state.itemTimer) clearInterval(state.itemTimer);
+    showScreen('screenConfig');
+});
+document.getElementById('btnMenu').addEventListener('click', function() {
+    if (state.itemTimer) clearInterval(state.itemTimer);
+    showScreen('screenMenu');
+});
+
+document.getElementById('btnDownload').addEventListener('click', function() {
+    const config = TEST_CONFIG[state.currentTestKey];
+    const header = 'item,respuesta,correcta,acierto,tr_ms';
+    const rows = state.responses.map(r => [
+        r.itemNumber,
+        r.selectedIndex !== null ? String.fromCharCode(65 + r.selectedIndex) : '',
+        String.fromCharCode(65 + r.correctIndex),
+        r.correct ? '1' : '0',
+        r.rt ? r.rt.toFixed(1) : ''
+    ].join(','));
+    const csv = [header].concat(rows).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${state.currentTestKey}_${state.participant.replace(/\s+/g, '_')}.csv`;
+    link.click();
+});
+</script>
+
+</body>
+</html>
