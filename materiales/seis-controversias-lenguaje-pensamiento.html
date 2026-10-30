@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lenguaje y pensamiento · Seis posiciones</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Lenguaje y pensamiento · Seis controversias">
+<meta name="jc-descripcion" content="Artefacto instruccional interactivo que organiza seis controversias sobre la relación entre lenguaje y pensamiento: dependencia, determinación, influencia, desarrollo, mediación y constitución, con preguntas, autores, evidencias, objeciones y síntesis comparativa.">
+<meta name="jc-tipo" content="Guía conceptual interactiva">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, Lenguaje, Pensamiento, Dependencia lingüística, Determinismo lingüístico, Relatividad lingüística, Hipótesis Sapir-Whorf, Influencia lingüística, Desarrollo cognitivo, Mediación semiótica, Constitución discursiva, Habla interna, Pensamiento no verbal, Cognición, Atención, Memoria, Categorización, Planificación, Autorregulación, Pensamiento narrativo, Prácticas discursivas, Cognición extendida, Mente extendida, Piaget, Vygotsky, Sapir, Whorf, Slobin, Fodor, Bruner, Wittgenstein, Austin, Searle, Bajtín, Foucault, Clark y Chalmers, Tabla comparativa, Aprendizaje autónomo">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8fafc;--surface:#fff;--text:#1a2a3a;--soft:#2e4055;--border:#e2e9f0;--accent:#1d5b8c;--radius:10px;--font:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+--dep:#1d5b8c;--dep-bg:#eaf1f9;--det:#a64b2a;--det-bg:#fbf0ea;--inf:#2a7a5c;--inf-bg:#eaf5f0;--des:#7a4e9c;--des-bg:#f2edf8;--med:#b8860b;--med-bg:#fbf5e0;--con:#8b3a62;--con-bg:#f8eaf0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;padding:1.5rem 1.2rem 2rem;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+.page{max-width:1100px;width:100%}
+.header{margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem}
+.header h1{font-size:2rem;font-weight:600;line-height:1.2;color:#0a1e2e;margin-bottom:.6rem}
+.subhead{font-size:1rem;color:var(--soft);max-width:800px;margin-bottom:.8rem}
+.badge{display:inline-block;font-size:.88rem;font-weight:500;color:var(--accent);background:var(--dep-bg);padding:.2rem .9rem;border-radius:20px}
+.objetivos{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:1.8rem}
+.objetivos h2{font-size:1.1rem;font-weight:600;color:var(--accent);margin-bottom:.6rem}
+.objetivos ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+.objetivos li{font-size:.93rem;color:var(--soft)}
+.objetivos li::before{content:"→ ";color:var(--accent);font-weight:500}
+.intro{background:var(--surface);border-left:4px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:1.2rem 1.4rem;margin-bottom:2.2rem;font-size:.98rem;color:var(--soft)}
+.posicion{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.6rem;overflow:hidden}
+.pos-header{padding:.85rem 1.3rem;border-left:5px solid var(--accent);background:#fafcff;display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:baseline}
+.pos-header h2{font-size:1.25rem;font-weight:600;line-height:1.2}
+.pregunta{font-size:.92rem;color:var(--soft);font-style:italic;margin-left:auto}
+.pos-body{padding:1rem 1.3rem 1.3rem}
+.pos-body>p{font-size:.96rem;color:var(--soft)}
+.p-dep .pos-header{border-left-color:var(--dep);background:var(--dep-bg)}.p-dep h2,.p-dep .preguntas h4{color:var(--dep)}.p-dep .btn{color:var(--dep);border-color:var(--dep)}.p-dep .detalle{border-left-color:var(--dep)}.p-dep .tag{background:var(--dep-bg);color:var(--dep)}
+.p-det .pos-header{border-left-color:var(--det);background:var(--det-bg)}.p-det h2,.p-det .preguntas h4{color:var(--det)}.p-det .btn{color:var(--det);border-color:var(--det)}.p-det .detalle{border-left-color:var(--det)}.p-det .tag{background:var(--det-bg);color:var(--det)}
+.p-inf .pos-header{border-left-color:var(--inf);background:var(--inf-bg)}.p-inf h2,.p-inf .preguntas h4{color:var(--inf)}.p-inf .btn{color:var(--inf);border-color:var(--inf)}.p-inf .detalle{border-left-color:var(--inf)}.p-inf .tag{background:var(--inf-bg);color:var(--inf)}
+.p-des .pos-header{border-left-color:var(--des);background:var(--des-bg)}.p-des h2,.p-des .preguntas h4{color:var(--des)}.p-des .btn{color:var(--des);border-color:var(--des)}.p-des .detalle{border-left-color:var(--des)}.p-des .tag{background:var(--des-bg);color:var(--des)}
+.p-med .pos-header{border-left-color:var(--med);background:var(--med-bg)}.p-med h2,.p-med .preguntas h4{color:var(--med)}.p-med .btn{color:var(--med);border-color:var(--med)}.p-med .detalle{border-left-color:var(--med)}.p-med .tag{background:var(--med-bg);color:var(--med)}
+.p-con .pos-header{border-left-color:var(--con);background:var(--con-bg)}.p-con h2,.p-con .preguntas h4{color:var(--con)}.p-con .btn{color:var(--con);border-color:var(--con)}.p-con .detalle{border-left-color:var(--con)}.p-con .tag{background:var(--con-bg);color:var(--con)}
+.preguntas{margin:1rem 0 .7rem;background:#fcfdff;border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem}
+.preguntas h4{font-size:.92rem;font-weight:600;margin-bottom:.5rem}
+.preguntas ol{padding-left:1.3rem;font-size:.9rem;color:var(--soft)}
+.preguntas li{margin-bottom:.4rem}.preguntas li:last-child{margin-bottom:0}
+.autores{font-size:.87rem;color:var(--soft);margin:.7rem 0 .3rem;display:flex;flex-wrap:wrap;gap:.3rem .5rem;align-items:baseline}
+.autores strong{color:var(--text)}
+.tag{padding:.1rem .55rem;border-radius:12px;font-size:.78rem;font-weight:500}
+.btn{background:none;font-size:.8rem;font-weight:500;cursor:pointer;padding:.3rem .7rem;margin-top:.3rem;border-radius:4px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:.3rem;font-family:var(--font)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.detalle{display:none;margin-top:.7rem;background:#f6f9fc;border-left:3px solid var(--accent);padding:.8rem 1rem;border-radius:0 8px 8px 0;font-size:.88rem}
+.detalle.visible{display:block}
+.detalle p{margin-bottom:.5rem}.detalle p:last-child{margin-bottom:0}
+.tabla-final{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;margin-bottom:2.2rem;overflow-x:auto}
+.tabla-final h2{font-size:1.2rem;font-weight:600;margin-bottom:.9rem;color:#0a1e2e}
+.tabla{width:100%;border-collapse:collapse;font-size:.85rem;min-width:720px}
+.tabla th{text-align:left;padding:.6rem .5rem;font-weight:600;color:#fff;background:var(--accent);font-size:.75rem;text-transform:uppercase;letter-spacing:.3px}
+.tabla td{padding:.6rem .5rem;vertical-align:top;border-bottom:1px solid var(--border)}
+.tabla tr:last-child td{border-bottom:none}
+.tabla tr:nth-child(even){background:#f7fafd}
+.tp{font-weight:600;font-size:.83rem}
+.tp.dep{color:var(--dep)}.tp.det{color:var(--det)}.tp.inf{color:var(--inf)}.tp.des{color:var(--des)}.tp.med{color:var(--med)}.tp.con{color:var(--con)}
+.sintesis{background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:var(--radius);padding:1.4rem 1.6rem;margin-bottom:2.2rem}
+.sintesis h2{font-size:1.15rem;font-weight:600;margin-bottom:.8rem;color:#0a1e2e}
+.sintesis p{font-size:.95rem;color:var(--soft);margin-bottom:.7rem}
+.sintesis ul{list-style:none;margin:.6rem 0 .8rem}
+.sintesis li{font-size:.91rem;margin-bottom:.4rem;padding-left:1.2rem;position:relative}
+.sintesis li::before{content:"•";color:var(--accent);font-weight:700;position:absolute;left:.1rem}
+.reflexion{background:#f0f6fc;border:1px solid #d2e2f0;border-radius:8px;padding:.8rem 1rem;margin-top:1rem;font-size:.91rem;display:flex;gap:.6rem;align-items:flex-start}
+.reflexion span{font-size:1.1rem;line-height:1}
+.footer{border-top:1px solid var(--border);padding-top:1.3rem;font-size:.84rem;color:#5b6f82;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem}
+.footer .autor{font-weight:500;color:var(--text)}
+@media(max-width:700px){body{padding:1rem .9rem 1.5rem}.header h1{font-size:1.6rem}.objetivos ul{flex-direction:column;gap:.3rem}.pos-header{flex-direction:column;align-items:flex-start}.pregunta{margin-left:0;text-align:left}.pos-body{padding:.9rem 1rem 1.1rem}.sintesis{padding:1.1rem}.footer{flex-direction:column;align-items:flex-start;gap:.2rem}.tabla{font-size:.78rem;min-width:640px}.tabla-final{padding:.9rem}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="header">
+<h1>Lenguaje y pensamiento:<br>seis posiciones conectadas</h1>
+<p class="subhead">Dependencia, determinación, influencia, desarrollo, mediación y constitución. Cada posición responde a una pregunta distinta y admite evidencia, autores y objeciones propias.</p>
+<span class="badge">Juan Carlos Valderrama Cárdenas · autor del artefacto</span>
+</header>
+
+<section class="objetivos">
+<h2>Objetivos de aprendizaje</h2>
+<ul>
+<li>Distinguir las seis posiciones y sus preguntas centrales.</li>
+<li>Reconocer autores, evidencias y límites de cada debate.</li>
+<li>Formular ejemplos cotidianos para cada posición.</li>
+<li>Integrar las seis discusiones en una tesis no reduccionista.</li>
+</ul>
+</section>
+
+<section class="intro">
+<p><strong>¿Qué relación hay entre lenguaje y pensamiento?</strong> La pregunta se organiza en seis controversias conectadas: dependencia, determinación, influencia, desarrollo, mediación y constitución. Cada una exige evidencia distinta y no se resuelve con una única teoría. La investigación contemporánea favorece una interacción recíproca y situada: existen procesos cognitivos no lingüísticos, pero el lenguaje reorganiza la atención, la memoria, la planificación y la autorregulación. Algunas formas de pensamiento —científicas, narrativas, normativas y metacognitivas— se constituyen en prácticas lingüísticas socialmente reguladas.</p>
+</section>
+
+<section class="posicion p-dep">
+<div class="pos-header"><h2>1. Dependencia</h2><span class="pregunta">¿Puede haber pensamiento sin lenguaje?</span></div>
+<div class="pos-body">
+<p>La dependencia indaga si el lenguaje es condición necesaria para pensar. La respuesta depende de qué entendamos por «pensamiento». La posición más defendible es diferenciada: hay pensamiento sin lenguaje, pero algunas formas complejas de razonamiento se apoyan decisivamente en recursos lingüísticos.</p>
+<div class="preguntas"><h4>Preguntas abiertas para concluir y ejemplificar</h4><ol>
+<li>¿Qué ejemplos cotidianos muestran pensamiento sin palabras? Piensa en reconocer una cara, orientarte en una ciudad o resolver un rompecabezas.</li>
+<li>¿Qué pensamientos te resultan imposibles sin formularlos lingüísticamente? Por ejemplo, un razonamiento contrafáctico o una hipótesis científica.</li>
+<li>¿La dependencia es gradual o absoluta? Ordena de menor a mayor dependencia lingüística: percepción, memoria visual, planificación, deliberación moral.</li>
+</ol></div>
+<div class="autores"><strong>Autores clave:</strong><span class="tag">Fodor</span><span class="tag">Piaget</span><span class="tag">Spelke</span><span class="tag">Kosslyn</span><span class="tag">Bermúdez</span></div>
+<button class="btn" data-target="d1" aria-expanded="false">+ Evidencia y matices</button>
+<div id="d1" class="detalle">
+<p><strong>Dependencia fuerte:</strong> sin lenguaje no hay pensamiento proposicional. Fodor (1975) propone un «lenguaje del pensamiento» con sintaxis y semántica combinatorias que explica productividad, sistematicidad y composicionalidad.</p>
+<p><strong>Independencia relativa:</strong> Piaget mostró que la inteligencia sensoriomotora precede al lenguaje; Spelke documentó sistemas nucleares tempranos; Kosslyn defendió representaciones imaginísticas; la afasia severa y la cognición animal muestran capacidades no verbales preservadas.</p>
+<p><strong>Límite:</strong> la afasia no es prueba limpia porque las lesiones afectan redes múltiples.</p>
+</div>
+</div>
+</section>
+
+<section class="posicion p-det">
+<div class="pos-header"><h2>2. Determinación</h2><span class="pregunta">¿La lengua fija lo que podemos pensar?</span></div>
+<div class="pos-body">
+<p>La determinación se refiere a si una lengua particular —vocabulario y gramática— establece los límites de lo pensable. La versión fuerte (Sapir-Whorf extremo) sostiene que solo se puede pensar lo que la lengua permite codificar. Las versiones contemporáneas hablan de relatividad moderada: la lengua orienta hábitos atencionales y categorizaciones, pero no impide aprender conceptos nuevos ni traducir.</p>
+<div class="preguntas"><h4>Preguntas abiertas para concluir y ejemplificar</h4><ol>
+<li>¿Conoces una palabra en otra lengua sin traducción directa al español? ¿Eso impide comprender el concepto o solo requiere una paráfrasis?</li>
+<li>¿Cómo describirías el tiempo o el espacio si tu lengua no tuviera términos como «izquierda» o «derecha»?</li>
+<li>¿La lengua materna limita lo que puedes aprender en ciencias? Piensa en «correlación» o «validez»: ¿los aprendiste con palabras o a pesar de ellas?</li>
+</ol></div>
+<div class="autores"><strong>Autores clave:</strong><span class="tag">Humboldt</span><span class="tag">Sapir</span><span class="tag">Whorf</span><span class="tag">Lucy</span><span class="tag">Levinson</span></div>
+<button class="btn" data-target="d2" aria-expanded="false">+ Objeciones al determinismo fuerte</button>
+<div id="d2" class="detalle">
+<p><strong>Objeción 1:</strong> podemos aprender palabras y conceptos nuevos (segundas lenguas, neologismos, metáforas).</p>
+<p><strong>Objeción 2:</strong> no tener una palabra no equivale a no poder expresar o comprender una distinción (podemos parafrasear).</p>
+<p><strong>Objeción 3:</strong> los hablantes de una misma lengua no piensan igual (educación, profesión, bilingüismo, ideología).</p>
+<p><strong>Objeción 4:</strong> las lenguas cambian e incorporan categorías.</p>
+<p><strong>Conclusión:</strong> la lengua no fija de manera absoluta lo pensable, pero favorece ciertas distinciones habituales.</p>
+</div>
+</div>
+</section>
+
+<section class="posicion p-inf">
+<div class="pos-header"><h2>3. Influencia</h2><span class="pregunta">¿La lengua orienta la atención, la memoria y las categorías?</span></div>
+<div class="pos-body">
+<p>Una vez abandonada la versión fuerte del determinismo, surge una pregunta más precisa: ¿de qué manera influye la lengua en procesos cognitivos particulares? La influencia no impide percibir otras propiedades; hace que ciertas distinciones sean más accesibles, frecuentes o fáciles de recordar. La lengua actúa como sistema de rutas preferentes.</p>
+<div class="preguntas"><h4>Preguntas abiertas para concluir y ejemplificar</h4><ol>
+<li>¿Recuerdas un evento porque lo contaste muchas veces? ¿La versión que recuerdas se parece más a la historia que narras que a lo sucedido?</li>
+<li>¿Cómo influye el vocabulario de tu profesión en lo que notas al observar una situación? Piensa en un psicólogo y un profano ante una conducta.</li>
+<li>¿Las etiquetas que usamos para clasificar a las personas facilitan la generalización o endurecen estereotipos?</li>
+</ol></div>
+<div class="autores"><strong>Autores clave:</strong><span class="tag">Slobin</span><span class="tag">Lupyan</span><span class="tag">Levinson</span><span class="tag">Boroditsky</span><span class="tag">Loftus</span></div>
+<button class="btn" data-target="d3" aria-expanded="false">+ Evidencia y límites</button>
+<div id="d3" class="detalle">
+<p><strong>Atención:</strong> «thinking for speaking» (Slobin): al preparar un enunciado se seleccionan los rasgos que la lengua codifica fácilmente (tiempo, género, trayectoria). La repetición genera hábitos atencionales.</p>
+<p><strong>Categorías:</strong> la retroalimentación de etiquetas (Lupyan) realza rasgos categoriales, pero también puede endurecer estereotipos.</p>
+<p><strong>Espacio:</strong> lenguas con marcos absolutos (Levinson) favorecen la atención a la orientación geográfica.</p>
+<p><strong>Memoria:</strong> la descripción verbal de un evento se convierte en pista de recuperación (Loftus).</p>
+<p><strong>Límites:</strong> los efectos son situados, graduales y dependen de la tarea; coexisten con restricciones perceptivas universales (Rosch, Kay y Berlin).</p>
+</div>
+</div>
+</section>
+
+<section class="posicion p-des">
+<div class="pos-header"><h2>4. Desarrollo</h2><span class="pregunta">¿Qué se adquiere primero: pensar o hablar?</span></div>
+<div class="pos-body">
+<p>«Pensar» y «hablar» no son capacidades unitarias. El principal desacuerdo histórico se encuentra entre Piaget y Vygotsky. La respuesta contemporánea no es «primero uno, después el otro», sino transformación recíproca: algunas capacidades cognitivas anteceden al habla, pero el lenguaje reorganiza su desarrollo.</p>
+<div class="preguntas"><h4>Preguntas abiertas para concluir y ejemplificar</h4><ol>
+<li>¿Recuerdas haberte hablado en voz alta de niño mientras jugabas o resolvías un problema? ¿Qué función cumplía ese habla?</li>
+<li>¿Qué capacidades cognitivas muestran los bebés antes de hablar? Piensa en la permanencia del objeto, la anticipación de trayectorias o el reconocimiento de cantidades.</li>
+<li>¿El lenguaje solo expresa lo que ya pensamos o también reorganiza lo que podemos pensar? Da un ejemplo de un aprendizaje escolar donde el lenguaje haya transformado tu comprensión.</li>
+</ol></div>
+<div class="autores"><strong>Autores clave:</strong><span class="tag">Piaget</span><span class="tag">Vygotsky</span><span class="tag">Bruner</span><span class="tag">Tomasello</span><span class="tag">Berk</span></div>
+<button class="btn" data-target="d4" aria-expanded="false">+ Piaget, Vygotsky y la respuesta contemporánea</button>
+<div id="d4" class="detalle">
+<p><strong>Piaget:</strong> la inteligencia sensoriomotora precede al lenguaje. El habla egocéntrica refleja dificultad para coordinar perspectivas y disminuye con la descentración cognitiva.</p>
+<p><strong>Vygotsky:</strong> pensamiento y habla tienen raíces distintas pero convergen. Secuencia: interacción social → habla externa → habla privada → habla interna → autorregulación.</p>
+<p><strong>Bruner:</strong> formatos de interacción y andamiaje. <strong>Tomasello:</strong> atención conjunta e intención compartida. <strong>Berk:</strong> función autorreguladora del habla privada.</p>
+<p><strong>Respuesta contemporánea:</strong> capacidades cognitivas y comunicativas previas permiten iniciar el aprendizaje lingüístico; la interacción lingüística transforma la cognición; la cognición transformada permite usos lingüísticos más complejos.</p>
+</div>
+</div>
+</section>
+
+<section class="posicion p-med">
+<div class="pos-header"><h2>5. Mediación</h2><span class="pregunta">¿Es el lenguaje una herramienta para organizar la cognición?</span></div>
+<div class="pos-body">
+<p>La mediación pregunta si las palabras, los signos, la escritura y el diálogo actúan como instrumentos psicológicos con los que las personas realizan actividades cognitivas. El lenguaje permite fijar metas, formular planes, dividir tareas, recordar reglas, comparar alternativas, inhibir respuestas, revisar acciones y justificar decisiones.</p>
+<div class="preguntas"><h4>Preguntas abiertas para concluir y ejemplificar</h4><ol>
+<li>¿Has usado una lista o un diagrama para resolver un problema? ¿La herramienta externa cambió la tarea o solo la registró?</li>
+<li>¿Qué diferencia hay entre decir «tengo que hacer el proyecto» y descomponerlo en pasos escritos? ¿El lenguaje solo comunica el plan o contribuye a crearlo?</li>
+<li>¿En qué situaciones te hablas a ti mismo para regular tu conducta? Piensa en estudiar, cocinar o controlar un impulso.</li>
+</ol></div>
+<div class="autores"><strong>Autores clave:</strong><span class="tag">Vygotsky</span><span class="tag">Luria</span><span class="tag">Wertsch</span><span class="tag">Bajtín</span><span class="tag">Clark & Chalmers</span></div>
+<button class="btn" data-target="d5" aria-expanded="false">+ Herramientas psicológicas y cognición extendida</button>
+<div id="d5" class="detalle">
+<p><strong>Vygotsky:</strong> las herramientas psicológicas (palabras, números, escritura, diagramas) median la actividad mental y permiten definir metas, recordar reglas, inhibir impulsos y revisar errores.</p>
+<p><strong>Luria:</strong> el lenguaje participa en la programación y regulación de la conducta.</p>
+<p><strong>Wertsch:</strong> acción mediada. El rendimiento depende de los instrumentos culturales disponibles y del dominio que la persona tenga de ellos.</p>
+<p><strong>Bajtín:</strong> dialogismo. El pensamiento verbal responde a discursos previos y anticipa objeciones.</p>
+<p><strong>Clark y Chalmers:</strong> mente extendida. Un recurso externo integrado de forma estable y funcional en una tarea puede considerarse parte del sistema cognitivo.</p>
+</div>
+</div>
+</section>
+
+<section class="posicion p-con">
+<div class="pos-header"><h2>6. Constitución</h2><span class="pregunta">¿Qué formas de pensamiento exigen prácticas lingüísticas?</span></div>
+<div class="pos-body">
+<p>La constitución pregunta si algunas formas de pensamiento solo existen dentro de determinadas prácticas lingüísticas, sociales e institucionales. Es el nivel más fuerte de la relación: la práctica lingüística participa en la existencia misma de esa forma de pensamiento.</p>
+<div class="preguntas"><h4>Preguntas abiertas para concluir y ejemplificar</h4><ol>
+<li>¿Puedes pensar «promesa» sin las prácticas sociales que la hacen posible? ¿Qué diferencia hay entre sentir algo y declarar una obligación?</li>
+<li>¿Qué conceptos de tu disciplina no existen fuera de sus prácticas discursivas? Piensa en «validez», «democracia» o «inconsciente».</li>
+<li>¿La narración de tu vida se parece más a lo que viviste o a la historia que te has contado?</li>
+</ol></div>
+<div class="autores"><strong>Autores clave:</strong><span class="tag">Wittgenstein</span><span class="tag">Austin</span><span class="tag">Searle</span><span class="tag">Bruner</span><span class="tag">Bajtín</span><span class="tag">Foucault</span></div>
+<button class="btn" data-target="d6" aria-expanded="false">+ Juegos de lenguaje, actos de habla y pensamiento disciplinar</button>
+<div id="d6" class="detalle">
+<p><strong>Wittgenstein:</strong> el significado se comprende por el uso dentro de una forma de vida.</p>
+<p><strong>Austin y Searle:</strong> los actos de habla realizan acciones (prometer, declarar, sentenciar). Los hechos institucionales dependen de reglas constitutivas y reconocimiento colectivo.</p>
+<p><strong>Bruner:</strong> pensamiento narrativo; al narrar se selecciona, ordena y jerarquiza.</p>
+<p><strong>Bajtín:</strong> géneros discursivos; pensar científicamente implica aprender sus géneros.</p>
+<p><strong>Foucault:</strong> las formaciones discursivas establecen condiciones para que los objetos sean tratados como conocimiento.</p>
+<p><strong>Precaución:</strong> no toda la realidad es una invención verbal; debe distinguirse constitución física, conceptual, social e institucional.</p>
+</div>
+</div>
+</section>
+
+<section class="tabla-final">
+<h2>Tabla comparativa: las seis posiciones</h2>
+<table class="tabla">
+<thead><tr><th>Posición</th><th>Pregunta central</th><th>Relación propuesta</th><th>Autores de referencia</th></tr></thead>
+<tbody>
+<tr><td class="tp dep">Dependencia</td><td>¿Puede haber pensamiento sin lenguaje?</td><td>Algunas formas cognitivas son no verbales; el pensamiento proposicional complejo puede requerir sistemas simbólicos.</td><td>Fodor, Piaget, Spelke, Kosslyn, Bermúdez</td></tr>
+<tr><td class="tp det">Determinación</td><td>¿La lengua fija lo pensable?</td><td>La versión fuerte afirma que sí; las perspectivas contemporáneas rechazan el cierre absoluto y hablan de relatividad moderada.</td><td>Humboldt, Sapir, Whorf, Lucy, Levinson</td></tr>
+<tr><td class="tp inf">Influencia</td><td>¿La lengua orienta procesos cognitivos?</td><td>Modula atención, categorización, memoria y descripción de acontecimientos; los efectos son situados y graduales.</td><td>Slobin, Lupyan, Levinson, Boroditsky, Loftus</td></tr>
+<tr><td class="tp des">Desarrollo</td><td>¿Qué aparece primero?</td><td>Hay cognición prelingüística, pero el lenguaje reorganiza el desarrollo; relación de transformación recíproca.</td><td>Piaget, Vygotsky, Bruner, Tomasello, Berk</td></tr>
+<tr><td class="tp med">Mediación</td><td>¿Es el lenguaje una herramienta cognitiva?</td><td>Los signos permiten planificar, regular, recordar y distribuir la cognición.</td><td>Vygotsky, Luria, Wertsch, Bajtín, Clark y Chalmers</td></tr>
+<tr><td class="tp con">Constitución</td><td>¿Qué pensamientos existen dentro de prácticas lingüísticas?</td><td>Algunas categorías científicas, normativas e institucionales dependen de prácticas discursivas.</td><td>Wittgenstein, Austin, Searle, Bruner, Bajtín, Foucault</td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="sintesis">
+<h2>Síntesis: una relación interactiva y diferenciada</h2>
+<p>El pensamiento no se reduce al lenguaje, pero tampoco se desarrolla al margen de este. La posición más defendible evita cuatro extremos:</p>
+<ul>
+<li><strong>Reduccionismo lingüístico:</strong> todo pensamiento es lenguaje.</li>
+<li><strong>Determinismo:</strong> una lengua fija completamente lo pensable.</li>
+<li><strong>Independencia absoluta:</strong> lenguaje y pensamiento no se afectan.</li>
+<li><strong>Instrumentalismo simple:</strong> el lenguaje solo comunica pensamientos terminados.</li>
+</ul>
+<p>En cambio, existe una <strong>interacción recíproca y situada</strong>: capacidades cognitivas no verbales preceden al lenguaje, pero la adquisición y el uso social de sistemas lingüísticos reorganizan la atención, la memoria, la planificación y la autorregulación. Algunas formas de pensamiento abstracto, normativo, disciplinar y metacognitivo se constituyen dentro de prácticas lingüísticas históricas y culturalmente compartidas.</p>
+<div class="reflexion"><span>💬</span><div><strong>Pregunta para reflexionar:</strong> ¿Puedes identificar un concepto de tu disciplina que hayas aprendido principalmente a través del discurso y que difícilmente podrías pensar sin las palabras que lo definen?</div></div>
+</section>
+
+<footer class="footer">
+<span class="autor">Juan Carlos Valderrama Cárdenas</span>
+<span>Artefacto instruccional · Lenguaje y pensamiento · Seis posiciones</span>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('.btn').forEach(function(b){
+b.addEventListener('click',function(){
+var t=document.getElementById(this.getAttribute('data-target'));
+var v=t.classList.contains('visible');
+t.classList.toggle('visible');
+this.setAttribute('aria-expanded',!v);
+this.textContent=v?'+ '+this.textContent.slice(2):'- '+this.textContent.slice(2);
+});
+});
+</script>
+</body>
+</html>
