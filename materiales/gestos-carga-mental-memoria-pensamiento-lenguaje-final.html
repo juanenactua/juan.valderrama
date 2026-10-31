@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestos, carga mental y memoria · Curso Pensamiento y Lenguaje</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Gestos, carga mental y memoria">
+<meta name="jc-descripcion" content="Propuesta interactiva de investigación sobre el efecto de permitir o restringir los gestos durante la recuperación de información verbal, con diseño mixto convergente intra-sujeto, medición de memoria, escala Paas de carga mental y análisis de estrategias cognitivas.">
+<meta name="jc-tipo" content="Propuesta de investigación interactiva">
+<meta name="jc-etiquetas" content="Pensamiento y lenguaje, Psicología cognitiva, Gesto, Gestos, Memoria, Memoria verbal, Recuperación de información, Recuerdo libre, Carga mental, Carga cognitiva, Memoria de trabajo, Cognición encarnada, Cognición corporizada, Andamiaje multimodal, Escala Paas, Diseño intra-sujeto, Diseño factorial, Métodos mixtos, Enfoque convergente, Latin Square, Contrabalanceo, ANOVA de medidas repetidas, Tamaño del efecto, Análisis temático, Estrategias cognitivas, Investigación experimental, Educación, Evaluación, Escritura, Investigación en psicología">
+<meta name="jc-curso" content="Pensamiento y Lenguaje">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+  :root{
+    --bg:        #f6f5f1;
+    --surface:   #ffffff;
+    --ink:       #1b232e;
+    --ink-soft:  #34404d;
+    --muted:     #6a7785;
+    --accent:    #0e6b63;
+    --accent-2:  #b98a3c;
+    --accent-bg: #e7f1ef;
+    --border:    #e3ded4;
+    --shadow:    0 1px 2px rgba(20,30,40,.05), 0 12px 28px -18px rgba(20,30,40,.35);
+    --serif: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.72;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position: relative;
+    background:
+      radial-gradient(900px 420px at 88% -10%, rgba(14,107,99,.16), transparent 65%),
+      radial-gradient(700px 380px at 6% 110%, rgba(185,138,60,.14), transparent 60%),
+      linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 76px 32px 64px;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-1px; height:3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 32%, var(--accent-2) 32%, var(--accent-2) 48%, transparent 48%);
+    opacity:.85;
+  }
+  .hero-inner{ max-width: 1080px; margin: 0 auto; }
+
+  .eyebrow{
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: .74rem; letter-spacing: .16em; text-transform: uppercase;
+    font-weight: 700; color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid rgba(14,107,99,.16);
+    padding: 7px 15px; border-radius: 999px;
+    margin: 0 0 26px;
+  }
+  .eyebrow .dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-2);
+  }
+
+  .hero h1{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    line-height: 1.12;
+    letter-spacing: -.015em;
+    margin: 0 0 14px;
+    max-width: 20ch;
+    color: var(--ink);
+  }
+  .hero h1 em{
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero .subtitle{
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 0 0 26px;
+    max-width: 46ch;
+  }
+  .hero .lead{
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 1.02rem;
+    margin: 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* Franja de datos */
+  .facts{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 44px 0 0;
+    box-shadow: var(--shadow);
+  }
+  .fact{
+    background: var(--surface);
+    padding: 18px 20px;
+  }
+  .fact .n{
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.1;
+    display: block;
+  }
+  .fact .l{
+    font-size: .74rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* ============ LAYOUT ============ */
+  .layout{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+    display: grid;
+    grid-template-columns: 268px minmax(0,1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* ============ ÍNDICE ============ */
+  .toc{
+    position: sticky;
+    top: 32px;
+  }
+  .toc h2{
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc ol{
+    list-style: none;
+    margin: 0; padding: 0;
+    counter-reset: toc;
+  }
+  .toc li{ counter-increment: toc; }
+  .toc a{
+    display: flex;
+    gap: 12px;
+    padding: 9px 12px 9px 10px;
+    border-radius: 9px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: .92rem;
+    line-height: 1.35;
+    border-left: 2px solid transparent;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .toc a::before{
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--serif);
+    font-size: .8rem;
+    color: var(--accent-2);
+    font-weight: 600;
+    flex: none;
+    padding-top: 2px;
+  }
+  .toc a:hover{
+    background: #ffffff;
+    color: var(--accent);
+  }
+  .toc a.active{
+    background: var(--surface);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    box-shadow: var(--shadow);
+    font-weight: 600;
+  }
+  .toc .toc-note{
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: .78rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ============ SECCIONES ============ */
+  main{ min-width: 0; }
+
+  .section{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 44px 44px;
+    margin: 0 0 30px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 28px;
+  }
+
+  .section-head{
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num{
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent-2);
+    flex: none;
+  }
+  .section h2{
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.4vw, 1.78rem);
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .section p{ margin: 0 0 16px; color: var(--ink-soft); }
+  .section p:last-child{ margin-bottom: 0; }
+
+  strong{ color: var(--ink); font-weight: 650; }
+
+  /* Caja destacada */
+  .callout{
+    background: linear-gradient(180deg, #fbfaf6 0%, #f7f4ec 100%);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-2);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin: 24px 0 0;
+  }
+  .callout .callout-title{
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent-2);
+    margin: 0 0 14px;
+  }
+  .stats{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 44px;
+    align-items: baseline;
+  }
+  .stat .v{
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+    line-height: 1.15;
+  }
+  .stat .k{
+    font-size: .78rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .stat .v small{ font-size: .9rem; color: var(--muted); font-weight: 400; }
+
+  /* Objetivo general */
+  .goal{
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--accent-bg);
+    border-radius: 12px;
+    padding: 26px 30px;
+    margin: 0;
+    border: 1px solid rgba(14,107,99,.14);
+  }
+
+  /* Lista numerada de objetivos */
+  .obj-list{
+    list-style: none;
+    margin: 0; padding: 0;
+    counter-reset: obj;
+    display: grid;
+    gap: 14px;
+  }
+  .obj-list li{
+    counter-increment: obj;
+    position: relative;
+    padding: 16px 20px 16px 62px;
+    background: #fbfaf7;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .obj-list li::before{
+    content: counter(obj);
+    position: absolute;
+    left: 18px; top: 50%;
+    transform: translateY(-50%);
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--serif);
+    font-size: .9rem;
+    font-weight: 600;
+  }
+
+  /* Bloques de método */
+  .method-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+  .method-card{
+    background: #fbfaf7;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .method-card.full{ grid-column: 1 / -1; }
+  .method-card h3{
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .method-card p{ margin: 0; font-size: .96rem; color: var(--ink-soft); }
+
+  .tag{
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid rgba(14,107,99,.16);
+    border-radius: 999px;
+    padding: 2px 11px;
+    margin: 0 6px 6px 0;
+  }
+
+  /* Sub-encabezado */
+  h3.sub{
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Tabla de variables */
+  .table-wrap{
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 0 0 8px;
+  }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .92rem;
+    min-width: 560px;
+  }
+  thead th{
+    background: #f2f0ea;
+    text-align: left;
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td{
+    padding: 14px 18px;
+    border-bottom: 1px solid #efebe3;
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  tbody tr:last-child td{ border-bottom: none; }
+  tbody tr:nth-child(even){ background: #fcfbf8; }
+  tbody td:first-child{ font-weight: 600; color: var(--ink); }
+
+  /* Referencia */
+  .ref{
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    padding: 22px 26px;
+    background: #fbfaf7;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-indent: -22px;
+    padding-left: 48px;
+  }
+  .ref a{
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(14,107,99,.35);
+    word-break: break-all;
+    pointer-events: auto;
+  }
+  .ref a:hover{ border-bottom-color: var(--accent); }
+
+  /* Footer */
+  footer{
+    border-top: 1px solid var(--border);
+    background: #ffffff;
+    padding: 30px 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: .84rem;
+    letter-spacing: .02em;
+  }
+  footer strong{ color: var(--ink-soft); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 960px){
+    .layout{
+      grid-template-columns: minmax(0,1fr);
+      gap: 28px;
+      padding: 36px 20px 72px;
+    }
+    .toc{
+      position: static;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 18px;
+      box-shadow: var(--shadow);
+    }
+    .toc ol{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .toc a{
+      border-left: none;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: .85rem;
+      background: #fbfaf7;
+    }
+    .toc a::before{ display: none; }
+    .toc a.active{
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      box-shadow: none;
+    }
+    .toc .toc-note{ display: none; }
+    .hero{ padding: 52px 20px 48px; }
+    .facts{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .section{ padding: 28px 22px 32px; border-radius: 14px; }
+    .section-head{ flex-direction: column; gap: 6px; }
+    .method-grid{ grid-template-columns: minmax(0,1fr); }
+    .ref{ padding-left: 24px; text-indent: 0; }
+  }
+
+  @media (max-width: 520px){
+    body{ font-size: 16px; }
+    .hero h1{ max-width: none; }
+    .stats{ gap: 20px 32px; }
+    .stat .v{ font-size: 1.4rem; }
+    .facts{ grid-template-columns: minmax(0,1fr); }
+  }
+
+  @media print{
+    .toc{ display: none; }
+    .section{ box-shadow: none; break-inside: avoid; }
+  }
+
+  ::selection{ background: #cde4e0; color: var(--ink); }
+  ::-moz-selection{ background: #cde4e0; color: var(--ink); }
+
+  .skip-link{position:fixed;left:18px;top:-80px;z-index:1000;background:var(--ink);color:#fff;text-decoration:none;padding:10px 16px;border-radius:0 0 10px 10px;transition:top .15s ease}
+  .skip-link:focus{top:0}
+  a:focus-visible{outline:3px solid rgba(185,138,60,.58);outline-offset:3px}
+  .resource-intro{max-width:66ch}
+  .resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
+  .resource-card{display:flex;flex-direction:column;min-height:230px;padding:24px;color:var(--ink);text-decoration:none;background:linear-gradient(145deg,#fff 0%,#f8faf9 100%);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+  .resource-card:hover{transform:translateY(-3px);border-color:rgba(14,107,99,.42);box-shadow:0 16px 34px -22px rgba(14,107,99,.55)}
+  .resource-kicker{display:inline-flex;align-self:flex-start;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:750;color:var(--accent);background:var(--accent-bg);border:1px solid rgba(14,107,99,.14);border-radius:999px;padding:5px 10px;margin-bottom:18px}
+  .resource-card h3{font-family:var(--serif);font-size:1.32rem;line-height:1.25;margin:0 0 10px;color:var(--ink)}
+  .resource-card p{margin:0 0 20px;color:var(--muted);font-size:.93rem;line-height:1.58}
+  .resource-action{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--accent);font-size:.86rem;font-weight:700}
+  .resource-action::after{content:"↗";width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--accent-bg);font-size:1rem}
+  .resource-note{margin-top:18px;padding:14px 17px;background:#fbfaf7;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:.85rem}
+  @media(max-width:680px){.resource-grid{grid-template-columns:1fr}.resource-card{min-height:0}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+
+  .author-line{margin:8px 0 0;color:rgba(255,255,255,.82);font-size:.92rem;font-weight:650;letter-spacing:.025em}
+  .bibliography-list{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px}
+  .bibliography-list li{padding:16px 18px;background:#fbfcfb;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;line-height:1.62}
+  .bibliography-list a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px;overflow-wrap:anywhere}
+  .bibliography-note{color:var(--muted);max-width:72ch}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="dot"></span> Curso Pensamiento y Lenguaje · 2026</p>
+    <p class="author-line">Juan Carlos Valderrama Cárdenas</p>
+
+    <h1>Gestos, carga mental y <em>memoria</em></h1>
+    <p class="subtitle">Cómo las manos participan en recordar</p>
+    <p class="lead">
+      Un proyecto de investigación sobre el papel del cuerpo —y en particular de los gestos—
+      durante la recuperación de información en la memoria verbal.
+    </p>
+
+    <div class="facts">
+      <div class="fact"><span class="n">4</span><span class="l">Participantes</span></div>
+      <div class="fact"><span class="n">4 × 2</span><span class="l">Diseño intra-sujeto</span></div>
+      <div class="fact"><span class="n">2</span><span class="l">Condiciones de gestos</span></div>
+      <div class="fact"><span class="n">Mixto</span><span class="l">Enfoque convergente</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= LAYOUT ================= -->
+<div class="layout">
+
+  <!-- ---------- ÍNDICE ---------- -->
+  <aside class="toc" aria-label="Índice de contenidos">
+    <h2>Índice</h2>
+    <nav>
+      <ol>
+        <li><a href="#porque">¿Por qué este proyecto?</a></li>
+        <li><a href="#problema">El problema</a></li>
+        <li><a href="#justificacion">Justificación</a></li>
+        <li><a href="#objetivos">Objetivos</a></li>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#recursos">Recursos y protocolo</a></li>
+        <li><a href="#referencia">Referencia principal</a></li>
+        <li><a href="#bibliografia">Bibliografía recomendada</a></li>
+      </ol>
+    </nav>
+    <p class="toc-note">Juan Carlos Valderrama Cárdenas · Curso Pensamiento y Lenguaje · 2026</p>
+  </aside>
+
+  <!-- ---------- CONTENIDO ---------- -->
+  <main id="contenido-principal">
+
+    <!-- 01 -->
+    <section class="section" id="porque">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>¿Por qué este proyecto?</h2>
+      </div>
+      <p>
+        La memoria humana no funciona como una cámara que reproduce lo que pasó. Cada vez que
+        recordamos algo, <strong>reconstruimos la experiencia</strong> usando las herramientas que tenemos
+        a la mano, literalmente. Los gestos que hacemos al hablar no son un adorno: acompañan el
+        pensamiento, organizan lo que queremos decir y ayudan a descargar la memoria de trabajo.
+      </p>
+      <p>
+        La pregunta es: <strong>¿qué pasa cuando les quitamos las manos a las personas en el momento
+        de recordar?</strong>
+      </p>
+    </section>
+
+    <!-- 02 -->
+    <section class="section" id="problema">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>El problema</h2>
+      </div>
+      <p>
+        La mayoría de los estudios sobre gestos y memoria se han enfocado en la
+        <strong>codificación</strong>, es decir, en la fase de aprendizaje (Cook et al., 2010;
+        Sweller et al., 2024). Pocos se han detenido a mirar qué ocurre durante la
+        <strong>recuperación</strong>, cuando la persona intenta traer de vuelta lo que leyó.
+      </p>
+      <p>
+        En un estudio piloto reciente con seis participantes, Valderrama et al. (2026) encontraron
+        que quienes podían gesticular libremente durante el recuerdo narrativo recordaron más
+        unidades de información que quienes tenían las manos quietas. Sin embargo, el estudio usó
+        un diseño entre sujetos con muestra pequeña, lo que impide controlar la variabilidad
+        individual y generalizar los resultados.
+      </p>
+
+      <div class="callout">
+        <p class="callout-title">Hallazgo piloto · Valderrama et al. (2026)</p>
+        <div class="stats">
+          <div class="stat">
+            <span class="v">12.33 <small>vs.</small> 8.00</span>
+            <span class="k">Unidades recordadas</span>
+          </div>
+          <div class="stat">
+            <span class="v">g = 1.60</span>
+            <span class="k">Tamaño del efecto</span>
+          </div>
+          <div class="stat">
+            <span class="v">n = 6</span>
+            <span class="k">Diseño entre sujetos</span>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px;">
+        Nadie ha aislado sistemáticamente el efecto de restringir los gestos durante la
+        recuperación, ni ha medido si esa restricción aumenta la carga mental percibida.
+        <strong>Este proyecto busca llenar ese vacío.</strong>
+      </p>
+    </section>
+
+    <!-- 03 -->
+    <section class="section" id="justificacion">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Justificación</h2>
+      </div>
+      <p>
+        Desde la cognición encarnada, el cuerpo no es un mero vehículo de la mente: forma parte
+        activa de los procesos de pensamiento y memoria (Valderrama et al., 2026). Si los gestos
+        actúan como un <strong>andamio multimodal</strong> durante el recuerdo, restringirlos debería
+        aumentar la demanda sobre la memoria de trabajo y reducir la cantidad de información
+        recuperada.
+      </p>
+      <p>
+        Esto tiene relevancia directa para la educación. En los exámenes escolares, los estudiantes
+        escriben con las manos quietas sobre el papel. Si esa restricción limita su capacidad de
+        recordar, estaríamos poniendo una <strong>barrera invisible que no hemos medido</strong>. Este
+        estudio busca aportar evidencia empírica sobre ese fenómeno.
+      </p>
+    </section>
+
+    <!-- 04 -->
+    <section class="section" id="objetivos">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Objetivos</h2>
+      </div>
+
+      <h3 class="sub">Objetivo general</h3>
+      <p class="goal">
+        Analizar el efecto de las condiciones con gestos y sin gestos durante la fase de recuerdo
+        sobre la memoria y la carga mental percibida en adultos que leen textos escritos.
+      </p>
+
+      <h3 class="sub">Objetivos específicos</h3>
+      <ol class="obj-list">
+        <li>Comparar la proporción de recuerdo entre la condición con gestos (CG) y la condición sin gestos (SG).</li>
+        <li>Comparar la carga mental percibida, medida con la escala Paas, entre CG y SG.</li>
+        <li>Explorar las estrategias cognitivas y la experiencia subjetiva de los participantes mediante preguntas abiertas.</li>
+      </ol>
+    </section>
+
+    <!-- 05 -->
+    <section class="section" id="metodo">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Método</h2>
+      </div>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <h3>Diseño</h3>
+          <p>
+            Mixto convergente con componente cuantitativo predominante. La fase cuantitativa usa un
+            diseño factorial intra-sujeto <strong>4 × 2</strong>: cuatro textos experimentales cruzados
+            con dos condiciones de gestos, más un texto de práctica en condición neutra.
+          </p>
+        </div>
+
+        <div class="method-card">
+          <h3>Participantes</h3>
+          <p><strong>4 adultos.</strong></p>
+          <p style="margin-top:10px;">
+            <span class="tag">Intra-sujeto</span>
+            <span class="tag">Contrabalanceo</span>
+          </p>
+        </div>
+
+        <div class="method-card full">
+          <h3>Procedimiento</h3>
+          <p>
+            Cada participante lee un texto sin restricciones. Se retira el texto. Inmediatamente
+            después recibe las instrucciones de CG o SG y escribe todo lo que recuerda. Luego
+            responde la escala Paas. Entre ensayos hay una pausa con tarea de distracción. El orden
+            de los textos y las condiciones está contrabalanceado mediante un
+            <strong>Latin Square 4 × 4 modificado</strong>.
+          </p>
+        </div>
+      </div>
+
+      <h3 class="sub">Variables</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Texto</td>
+              <td>Independiente intra-sujeto</td>
+              <td>4 niveles: T1 (narrativo), T2 (expositivo), T3 (procedural), T4 (narrativo)</td>
+            </tr>
+            <tr>
+              <td>Condición de gestos</td>
+              <td>Independiente intra-sujeto</td>
+              <td>2 niveles: CG (gestos libres durante el recuerdo) vs. SG (manos inmóviles durante el recuerdo)</td>
+            </tr>
+            <tr>
+              <td>Memoria</td>
+              <td>Dependiente cuantitativa</td>
+              <td>Proporción de unidades de recuerdo correctas sobre el total de cada texto</td>
+            </tr>
+            <tr>
+              <td>Carga mental</td>
+              <td>Dependiente cuantitativa</td>
+              <td>Puntuación en escala Paas de 1 a 9</td>
+            </tr>
+            <tr>
+              <td>Estrategias cognitivas</td>
+              <td>Dependiente cualitativa</td>
+              <td>Respuestas a dos preguntas abiertas sobre experiencia subjetiva</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub">Análisis</h3>
+      <p>
+        ANOVA de dos vías intra-sujeto (Texto × Gestos) con cálculo de tamaño del efecto
+        (<strong>η²p</strong>) para los datos cuantitativos. Categorización temática inductiva para las
+        respuestas abiertas, integrando ambos tipos de datos en la discusión.
+      </p>
+    </section>
+
+    <!-- 06 -->
+    <section class="section" id="recursos">
+      <div class="section-head"><span class="section-num">06</span><h2>Recursos y protocolo</h2></div>
+      <p class="resource-intro">Estos materiales reúnen las instrucciones operativas del estudio y los textos experimentales. Ábralos en una pestaña nueva para conservar esta página como guía general del proyecto.</p>
+      <div class="resource-grid">
+        <a class="resource-card" href="https://gestos-protocolo.kimi.page/" target="_blank" rel="noopener noreferrer" title="Protocolo completo" aria-label="Abrir el protocolo completo en una pestaña nueva">
+          <span class="resource-kicker">Enlace 1</span><h3>Protocolo completo</h3>
+          <p>Versión integral para consultar la secuencia del estudio, las condiciones experimentales, el procedimiento y las orientaciones de aplicación.</p>
+          <span class="resource-action">Abrir protocolo completo</span>
+        </a>
+        <a class="resource-card" href="https://app.box.com/s/iqf6nadv1qqrcdg1cbkavla44byrbl0h" target="_blank" rel="noopener noreferrer" title="Protocolo con textos y escala" aria-label="Abrir el protocolo con textos y escala en una pestaña nueva">
+          <span class="resource-kicker">Enlace 2</span><h3>Protocolo con textos y escala</h3>
+          <p>Material operativo que integra los textos del estudio y la escala de carga mental para facilitar la administración con participantes.</p>
+          <span class="resource-action">Abrir materiales en Box</span>
+        </a>
+      </div>
+      <p class="resource-note"><strong>Nota:</strong> ambos recursos se abren en una pestaña nueva. Verifique el acceso antes de iniciar cada sesión de aplicación.</p>
+    </section>
+
+    <!-- 07 -->
+    <section class="section" id="referencia">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2>Referencia principal</h2>
+      </div>
+      <p class="ref">
+        Valderrama Cárdenas, J. C., Márquez Quesada, E., Aponte Patiño, C. D., &amp; Paba Franco, A. C.
+        (2026). <em>Gestures and free recall: The embodied nature of verbal memory retrieval</em>.
+        SSRN. <a href="https://doi.org/10.2139/ssrn.7322438" target="_blank" rel="noopener">https://doi.org/10.2139/ssrn.7322438</a>
+      </p>
+    </section>
+
+
+    <!-- 08 -->
+    <section class="section" id="bibliografia">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2>Bibliografía recomendada</h2>
+      </div>
+      <p class="bibliography-note">Selección para profundizar en gesto, cognición corporeizada, lenguaje, memoria de trabajo, aprendizaje y carga cognitiva. Las referencias se presentan en formato APA.</p>
+      <ol class="bibliography-list">
+        <li>Baddeley, A. (2000). The episodic buffer: A new component of working memory? <em>Trends in Cognitive Sciences, 4</em>(11), 417–423. <a href="https://doi.org/10.1016/S1364-6613(00)01538-2" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/S1364-6613(00)01538-2</a></li>
+        <li>Cook, S. W., Mitchell, Z., &amp; Goldin-Meadow, S. (2008). Gesturing makes learning last. <em>Cognition, 106</em>(2), 1047–1058. <a href="https://doi.org/10.1016/j.cognition.2007.04.010" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.cognition.2007.04.010</a></li>
+        <li>Goldin-Meadow, S. (2003). <em>Hearing gesture: How our hands help us think</em>. Harvard University Press.</li>
+        <li>Goldin-Meadow, S., &amp; Alibali, M. W. (2013). Gesture’s role in speaking, learning, and creating language. <em>Annual Review of Psychology, 64</em>, 257–283. <a href="https://doi.org/10.1146/annurev-psych-113011-143802" target="_blank" rel="noopener noreferrer">https://doi.org/10.1146/annurev-psych-113011-143802</a></li>
+        <li>Hostetter, A. B., &amp; Alibali, M. W. (2008). Visible embodiment: Gestures as simulated action. <em>Psychonomic Bulletin &amp; Review, 15</em>(3), 495–514. <a href="https://doi.org/10.3758/PBR.15.3.495" target="_blank" rel="noopener noreferrer">https://doi.org/10.3758/PBR.15.3.495</a></li>
+        <li>McNeill, D. (1992). <em>Hand and mind: What gestures reveal about thought</em>. University of Chicago Press.</li>
+        <li>Paas, F., Renkl, A., &amp; Sweller, J. (2003). Cognitive load theory and instructional design: Recent developments. <em>Educational Psychologist, 38</em>(1), 1–4. <a href="https://doi.org/10.1207/S15326985EP3801_1" target="_blank" rel="noopener noreferrer">https://doi.org/10.1207/S15326985EP3801_1</a></li>
+        <li>Wilson, M. (2002). Six views of embodied cognition. <em>Psychonomic Bulletin &amp; Review, 9</em>(4), 625–636. <a href="https://doi.org/10.3758/BF03196322" target="_blank" rel="noopener noreferrer">https://doi.org/10.3758/BF03196322</a></li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <strong>Gestos, carga mental y memoria</strong> · Juan Carlos Valderrama Cárdenas · Curso Pensamiento y Lenguaje · 2026
+</footer>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var sections = links
+      .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+      .filter(Boolean);
+
+    if (!('IntersectionObserver' in window) || sections.length === 0) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (l) {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, {
+      rootMargin: '-45% 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  })();
+</script>
+
+</body>
+</html>
