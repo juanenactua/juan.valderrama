@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lista de chequeo para evaluar la formulación inicial de un proyecto de investigación en psicología.">
+  <title>Lista de chequeo | Formulación de proyectos de investigación en psicología</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Lista de chequeo · Formulación de proyectos de investigación en psicología">
+<meta name="jc-descripcion" content="Instrumento interactivo de autoevaluación para revisar la claridad, delimitación, viabilidad y coherencia interna de un proyecto de investigación en psicología, incluyendo objeto de estudio, problema, justificación, pregunta, objetivo general, objetivos específicos y resultado global.">
+<meta name="jc-tipo" content="Instrumento de autoevaluación interactivo">
+<meta name="jc-etiquetas" content="Formulación de proyectos, Investigación en psicología, Lista de chequeo, Autoevaluación, Objeto de estudio, Planteamiento del problema, Justificación, Pregunta de investigación, Objetivo general, Objetivos específicos, Coherencia interna, Delimitación, Viabilidad, Investigabilidad, Criterios de evaluación, Retroalimentación académica, Evaluación formativa, Metodología de investigación, Investigación cuantitativa, Investigación cualitativa, Métodos mixtos, Diseño de investigación, Formulación científica, Escritura académica, Instrumento académico, Aprendizaje autónomo">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+  <style>
+    :root{
+      --ink:#17212b; --muted:#65717d; --line:#d9e0e6; --paper:#fff;
+      --surface:#f5f7f8; --brand:#244f5a; --brand-2:#3f7478; --accent:#b27b35;
+      --ok:#2f765c; --warn:#a36b25; --bad:#a24b4b; --radius:16px;
+      --shadow:0 10px 30px rgba(23,33,43,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--surface);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+    button,input,textarea{font:inherit}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1200px;margin:auto;padding:10px 24px;display:flex;align-items:center;gap:12px}
+    .brand{font-weight:750;letter-spacing:-.02em;margin-right:auto;color:var(--brand)}
+    .btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 13px;cursor:pointer;font-weight:650;transition:.2s}
+    .btn:hover{border-color:var(--brand-2);transform:translateY(-1px)}
+    .btn.primary{background:var(--brand);color:white;border-color:var(--brand)}
+    .btn.danger{color:var(--bad)}
+    .hero{background:linear-gradient(132deg,#173a43,#2b6268);color:white;padding:58px 24px 78px}
+    .hero-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr .8fr;gap:40px;align-items:end}
+    .eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.74rem;font-weight:800;color:#cbdfe0}
+    h1{font-size:clamp(2rem,5vw,4rem);line-height:1.03;letter-spacing:-.045em;margin:12px 0 18px;max-width:900px}
+    .lead{font-size:1.08rem;color:#dbe8e9;max-width:720px;margin:0}
+    .hero-card{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.08);padding:20px;border-radius:var(--radius)}
+    .hero-card strong{display:block;font-size:1.8rem;margin-top:4px}
+    .layout{max-width:1200px;margin:-42px auto 70px;padding:0 24px;display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}
+    aside{position:sticky;top:72px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    aside h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px;color:var(--muted)}
+    nav a{display:block;color:var(--ink);text-decoration:none;padding:8px 10px;border-radius:8px;font-size:.9rem}
+    nav a:hover{background:var(--surface);color:var(--brand)}
+    .progress-wrap{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+    .progress-meta{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:7px}
+    .bar{height:8px;background:#e8edef;border-radius:999px;overflow:hidden}
+    .bar span{display:block;height:100%;width:0;background:var(--brand-2);transition:.25s}
+    main{min-width:0}
+    .intro,.student,.section,.summary{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px}
+    .intro,.student,.summary{padding:24px}
+    .intro h2,.summary h2{margin-top:0;letter-spacing:-.02em}
+    .scale{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+    .scale div{background:var(--surface);border-radius:10px;padding:12px;font-size:.87rem}
+    .scale b{display:block;color:var(--brand);font-size:1.05rem}
+    .student-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
+    label.field{font-size:.78rem;font-weight:750;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+    .field input{display:block;width:100%;margin-top:6px;border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff;color:var(--ink)}
+    .section{overflow:hidden;scroll-margin-top:84px}
+    .section-head{padding:21px 24px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:flex-start}
+    .num{flex:0 0 40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#e5eff0;color:var(--brand);font-weight:800}
+    .section h2{margin:0;font-size:1.3rem;letter-spacing:-.02em}
+    .section-desc{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+    .item{display:grid;grid-template-columns:1fr 232px;gap:18px;padding:18px 24px;border-bottom:1px solid #edf0f2}
+    .item:last-child{border-bottom:0}
+    .criterion{font-size:.96rem}
+    .criterion span{font-weight:800;color:var(--brand);margin-right:8px}
+    .ratings{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+    .ratings label{cursor:pointer}
+    .ratings input{position:absolute;opacity:0;pointer-events:none}
+    .ratings em{font-style:normal;display:block;text-align:center;border:1px solid var(--line);border-radius:8px;padding:7px 3px;font-size:.78rem;color:var(--muted);transition:.15s}
+    .ratings input:checked + em{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:750}
+    .note{grid-column:1/-1;width:100%;min-height:54px;resize:vertical;border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--ink);background:#fbfcfc}
+    .section-foot{background:#fafbfb;padding:14px 24px;display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem}
+    .section-score{font-weight:800;color:var(--brand)}
+    .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .metric{background:var(--surface);border-radius:12px;padding:16px}
+    .metric small{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:750}
+    .metric strong{display:block;font-size:1.65rem;color:var(--brand);margin-top:4px}
+    .result{margin-top:16px;border-left:4px solid var(--accent);padding:13px 15px;background:#fbf8f3;border-radius:0 9px 9px 0}
+    .reflection{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+    .reflection label{font-weight:700;font-size:.9rem}
+    .reflection textarea{display:block;width:100%;min-height:100px;margin-top:6px;border:1px solid var(--line);border-radius:9px;padding:10px;resize:vertical}
+    footer{text-align:center;color:var(--muted);font-size:.82rem;padding:10px 24px 40px}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-card{display:none}.layout{grid-template-columns:1fr;margin-top:-35px}aside{position:relative;top:0}nav{display:none}.student-grid,.summary-grid{grid-template-columns:1fr}.scale{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.topbar-inner{padding:9px 12px}.brand{font-size:.85rem}.btn span{display:none}.hero{padding:42px 18px 68px}.layout{padding:0 12px}.item{grid-template-columns:1fr;padding:16px}.ratings{grid-template-columns:repeat(3,1fr)}.section-head{padding:18px}.reflection{grid-template-columns:1fr}.scale{grid-template-columns:1fr}}
+    @media print{body{background:#fff;font-size:10pt}.topbar,aside,.hero-card{display:none}.hero{padding:20px;color:#000;background:#fff;border-bottom:2px solid #333}.hero .eyebrow,.hero .lead{color:#333}.hero h1{font-size:23pt}.layout{display:block;margin:0;max-width:none;padding:12px}.intro,.student,.section,.summary{box-shadow:none;break-inside:avoid}.item{grid-template-columns:1fr 190px;padding:10px 14px}.note{min-height:34px}.section-head{padding:14px}.reflection textarea{min-height:70px}footer{padding:10px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Investigación en Psicología</div>
+      <button class="btn" onclick="window.print()" title="Imprimir o guardar como PDF">Imprimir <span>/ PDF</span></button>
+      <button class="btn danger" onclick="resetChecklist()">Reiniciar</button>
+      <button class="btn primary" onclick="downloadResults()">Descargar resultados</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Instrumento de autoevaluación académica</div>
+        <h1>Lista de chequeo para la formulación del proyecto</h1>
+        <p class="lead">Curso: Formulación de proyectos de investigación en psicología. Revise la claridad, delimitación, viabilidad y coherencia interna de los componentes iniciales de su propuesta.</p>
+      </div>
+      <div class="hero-card"><span>Progreso del instrumento</span><strong id="heroProgress">0 %</strong><small>Las respuestas se guardan automáticamente en este navegador.</small></div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside>
+      <h2>Secciones</h2>
+      <nav id="nav"></nav>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Respondido</span><b id="progressText">0/0</b></div>
+        <div class="bar"><span id="progressBar"></span></div>
+      </div>
+    </aside>
+
+    <main>
+      <section class="intro">
+        <h2>Cómo utilizar esta lista</h2>
+        <p>Valore cada criterio según el estado actual de su proyecto. Use el campo de observaciones para registrar el ajuste que debe realizar. El puntaje orienta la revisión, pero no sustituye la retroalimentación académica.</p>
+        <div class="scale">
+          <div><b>2 · Cumple</b>Claro, suficiente y coherente.</div>
+          <div><b>1 · Parcial</b>Está presente, pero necesita ajustes.</div>
+          <div><b>0 · No cumple</b>Está ausente, confuso o no corresponde.</div>
+          <div><b>N/A</b>No aplica al tipo de investigación.</div>
+        </div>
+      </section>
+
+      <section class="student">
+        <div class="student-grid">
+          <label class="field">Nombre del estudiante<input id="studentName" data-save type="text" placeholder="Nombre completo"></label>
+          <label class="field">Título provisional<input id="projectTitle" data-save type="text" placeholder="Título del proyecto"></label>
+          <label class="field">Fecha de revisión<input id="reviewDate" data-save type="date"></label>
+        </div>
+      </section>
+
+      <div id="sections"></div>
+
+      <section class="summary" id="resumen">
+        <h2>Resultado global</h2>
+        <div class="summary-grid">
+          <div class="metric"><small>Puntaje</small><strong id="score">0 / 0</strong></div>
+          <div class="metric"><small>Porcentaje de logro</small><strong id="percent">0 %</strong></div>
+          <div class="metric"><small>Nivel</small><strong id="level">Sin valorar</strong></div>
+        </div>
+        <div class="result" id="recommendation">Complete la valoración para obtener una recomendación.</div>
+        <div class="reflection">
+          <label>Fortalezas identificadas<textarea id="strengths" data-save placeholder="Registre los aspectos mejor formulados..."></textarea></label>
+          <label>Ajustes prioritarios<textarea id="adjustments" data-save placeholder="Indique qué debe corregirse antes de avanzar..."></textarea></label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>Instrumento académico · Formulación de proyectos de investigación en psicología</footer>
+
+<script>
+const sections = [
+ {title:'Objeto de estudio', desc:'Precise qué fenómeno, proceso, relación, experiencia o situación se investigará.', items:[
+  'El objeto de estudio está expresado de manera clara y comprensible.',
+  'Se diferencia de un tema demasiado amplio o general.',
+  'Identifica un fenómeno, proceso, relación, práctica, experiencia o situación susceptible de investigación.',
+  'El fenómeno central se encuentra conceptualmente delimitado.',
+  'Se identifica la población, los participantes, las unidades de análisis o las fuentes pertinentes.',
+  'Se establece el contexto institucional, social, educativo, cultural o territorial.',
+  'Se delimita un periodo temporal cuando resulta necesario.',
+  'El objeto puede abordarse mediante procedimientos sistemáticos de investigación.',
+  'Coincide con el fenómeno presentado en el planteamiento del problema.',
+  'Su alcance es apropiado para el tiempo, los recursos y el nivel académico del proyecto.'
+ ]},
+ {title:'Planteamiento del problema', desc:'Explique qué ocurre, cómo se manifiesta, qué se conoce y qué falta por comprender.', items:[
+  'Presenta claramente la situación problemática y el contexto en el que aparece.',
+  'Identifica la población, los actores o las unidades involucradas.',
+  'Describe cómo se manifiesta el problema mediante hechos o evidencias.',
+  'Incluye antecedentes, estudios, documentos, registros o diagnósticos pertinentes.',
+  'Las afirmaciones importantes están respaldadas por fuentes o evidencias.',
+  'Diferencia hechos comprobados de opiniones o suposiciones.',
+  'Define o explica los conceptos centrales del problema.',
+  'Presenta posibles causas o factores asociados sin tratarlos como certezas no demostradas.',
+  'Expone las implicaciones o consecuencias de la situación problemática.',
+  'Explica qué se conoce actualmente sobre el fenómeno.',
+  'Identifica un vacío, contradicción o aspecto insuficientemente estudiado.',
+  'Delimita el problema conceptual, poblacional, contextual y temporalmente, cuando corresponde.',
+  'Evita formular el problema como queja, juicio moral o afirmación de sentido común.',
+  'Conduce de manera lógica a la pregunta de investigación.'
+ ]},
+ {title:'Justificación', desc:'Argumente por qué vale la pena realizar el estudio y cuál podría ser su aporte.', items:[
+  'Explica claramente por qué es importante investigar el problema.',
+  'Sustenta la importancia del estudio con argumentos y no solo con opiniones.',
+  'Identifica personas, grupos, instituciones o campos que podrían beneficiarse.',
+  'Explica la relevancia social, educativa, institucional, cultural o profesional.',
+  'Expone el posible aporte teórico o conceptual.',
+  'Expone el posible aporte práctico o aplicado.',
+  'Señala el posible aporte metodológico, cuando corresponde.',
+  'Explica cómo atenderá el vacío identificado en el problema.',
+  'Propone aportes realistas y proporcionales al alcance de la investigación.',
+  'Evita prometer que la investigación resolverá por completo el problema.',
+  'Justifica la pertinencia de la población y el contexto seleccionados.',
+  'Permite reconocer la viabilidad académica y operativa del estudio.'
+ ]},
+ {title:'Pregunta de investigación', desc:'Convierta el problema en un interrogante claro, delimitado e investigable.', items:[
+  'Está formulada explícitamente como pregunta y se comprende con una sola lectura.',
+  'Incluye el fenómeno, proceso, relación o experiencia central.',
+  'Identifica la población o unidad de análisis cuando es necesario.',
+  'Delimita el contexto y, cuando corresponde, el periodo temporal.',
+  'Puede responderse mediante recolección y análisis sistemático de información.',
+  'No puede contestarse únicamente con “sí” o “no”.',
+  'No anticipa una relación causal que todavía no ha sido demostrada.',
+  'No contiene juicios de valor, ambigüedades ni formulaciones prejuiciosas.',
+  'Su alcance es viable según el tiempo, el acceso y los recursos disponibles.',
+  'Se deriva directamente del planteamiento del problema.',
+  'Coincide con el objeto de estudio.',
+  'Puede transformarse directamente en el objetivo general.',
+  'Formula una sola pregunta central o integra dimensiones claramente relacionadas.'
+ ]},
+ {title:'Objetivo general', desc:'Exprese el logro cognitivo principal que permitirá responder la pregunta.', items:[
+  'Comienza con un verbo en infinitivo.',
+  'Usa un verbo investigativo preciso: analizar, describir, comprender, determinar, comparar, evaluar o interpretar.',
+  'Expresa con claridad el resultado de conocimiento esperado.',
+  'Incluye los fenómenos, variables, categorías o conceptos centrales.',
+  'Identifica la población o unidad de análisis y el contexto.',
+  'Incluye el periodo temporal cuando es necesario.',
+  'Corresponde directamente con la pregunta de investigación.',
+  'Mantiene el mismo alcance anunciado en la pregunta.',
+  'Es viable de acuerdo con el diseño, el tiempo, los recursos y el acceso a la información.',
+  'Formula un propósito principal y no una lista de actividades.',
+  'No promete solucionar o erradicar el problema, salvo que el diseño lo permita.',
+  'Evita verbos vagos como conocer, aprender, saber o concientizar.',
+  'Puede alcanzarse mediante el cumplimiento de los objetivos específicos.'
+ ]},
+ {title:'Objetivos específicos', desc:'Desagregue el objetivo general en resultados parciales, lógicos y verificables.', items:[
+  'Cada objetivo comienza con un verbo en infinitivo.',
+  'Cada objetivo expresa un resultado parcial de conocimiento.',
+  'Se derivan del objetivo general y, en conjunto, permiten alcanzarlo.',
+  'Se organizan en una secuencia lógica.',
+  'Cada uno aborda una dimensión concreta del objeto de estudio.',
+  'No repiten el objetivo general con palabras diferentes.',
+  'No introducen fenómenos, poblaciones o contextos ausentes en el objetivo general.',
+  'No se superponen innecesariamente entre sí.',
+  'Son viables y compatibles con la metodología prevista.',
+  'Pueden relacionarse con fuentes, técnicas e instrumentos de recolección.',
+  'Pueden traducirse en apartados de presentación y análisis de resultados.',
+  'Evitan formular actividades como aplicar encuestas o realizar entrevistas.',
+  'Evitan productos administrativos como elaborar un cronograma o entregar un informe.',
+  'Utilizan verbos acordes con el alcance del estudio.',
+  'Existe un número manejable de objetivos, generalmente entre tres y cinco.'
+ ]},
+ {title:'Coherencia interna', desc:'Compruebe que todos los componentes correspondan a una misma investigación.', items:[
+  'El objeto de estudio corresponde al fenómeno central del problema.',
+  'El planteamiento conduce lógicamente a la pregunta.',
+  'La justificación se refiere al problema realmente formulado.',
+  'La pregunta aborda el vacío de conocimiento identificado.',
+  'El objetivo general constituye la versión afirmativa y operativa de la pregunta.',
+  'Los objetivos específicos desarrollan las dimensiones necesarias del objetivo general.',
+  'Se mantiene la misma población y el mismo contexto en todos los componentes.',
+  'Los conceptos centrales se utilizan de forma consistente.',
+  'El alcance se mantiene estable: describir, comprender, relacionar, comparar, explicar o evaluar.',
+  'No se afirma causalidad si el diseño solo permite describir asociaciones.',
+  'Es posible anticipar qué información se necesita para cumplir cada objetivo.'
+ ]}
+];
+
+const root=document.getElementById('sections'), nav=document.getElementById('nav');
+let globalIndex=0;
+sections.forEach((s,si)=>{
+ const id='seccion-'+(si+1);
+ nav.insertAdjacentHTML('beforeend',`<a href="#${id}">${si+1}. ${s.title}</a>`);
+ let items='';
+ s.items.forEach((text,ii)=>{
+   const idx=globalIndex++, code=`${si+1}.${ii+1}`;
+   items+=`<div class="item"><div class="criterion"><span>${code}</span>${text}</div>
+   <div class="ratings" role="radiogroup" aria-label="Valoración ${code}">
+    ${[['0','0'],['1','1'],['2','2'],['na','N/A']].map(([v,l])=>`<label><input type="radio" name="q${idx}" value="${v}"><em>${l}</em></label>`).join('')}
+   </div><textarea class="note" data-save id="note${idx}" placeholder="Observaciones o ajuste necesario..."></textarea></div>`;
+ });
+ root.insertAdjacentHTML('beforeend',`<section class="section" id="${id}" data-section="${si}"><div class="section-head"><div class="num">${si+1}</div><div><h2>${s.title}</h2><p class="section-desc">${s.desc}</p></div></div>${items}<div class="section-foot"><span>${s.items.length} criterios</span><span class="section-score" id="sectionScore${si}">Sin valorar</span></div></section>`);
+});
+nav.insertAdjacentHTML('beforeend','<a href="#resumen">8. Resultado global</a>');
+
+const key='checklist-investigacion-psicologia-v1';
+function collect(){
+ const data={fields:{},ratings:{}};
+ document.querySelectorAll('[data-save]').forEach(el=>data.fields[el.id]=el.value);
+ document.querySelectorAll('.ratings input:checked').forEach(el=>data.ratings[el.name]=el.value);
+ return data;
+}
+function save(){localStorage.setItem(key,JSON.stringify(collect()));update();}
+function load(){
+ const data=JSON.parse(localStorage.getItem(key)||'{}');
+ Object.entries(data.fields||{}).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v});
+ Object.entries(data.ratings||{}).forEach(([name,v])=>{const el=document.querySelector(`input[name="${name}"][value="${v}"]`);if(el)el.checked=true});
+ if(!document.getElementById('reviewDate').value) document.getElementById('reviewDate').value=new Date().toISOString().slice(0,10);
+ update();
+}
+function update(){
+ const all=[...document.querySelectorAll('.ratings')], checked=[...document.querySelectorAll('.ratings input:checked')];
+ const answered=checked.length, completion=Math.round(answered/all.length*100);
+ document.getElementById('progressText').textContent=`${answered}/${all.length}`;
+ document.getElementById('progressBar').style.width=completion+'%';
+ document.getElementById('heroProgress').textContent=completion+' %';
+ let applicable=checked.filter(x=>x.value!=='na'), points=applicable.reduce((a,x)=>a+Number(x.value),0), max=applicable.length*2;
+ let pct=max?Math.round(points/max*100):0, level='Sin valorar', rec='Complete la valoración para obtener una recomendación.';
+ if(max){
+   if(pct>=90){level='Consolidado';rec='Puede avanzar al diseño metodológico y realizar ajustes menores en los criterios pendientes.'}
+   else if(pct>=75){level='Adecuado';rec='Realice ajustes puntuales antes de continuar con el diseño metodológico.'}
+   else if(pct>=60){level='En construcción';rec='Revise prioritariamente los criterios valorados con 0 o 1 antes de avanzar.'}
+   else{level='Requiere reformulación';rec='Conviene revisar la delimitación del objeto y la coherencia entre problema, pregunta y objetivos.'}
+ }
+ document.getElementById('score').textContent=`${points} / ${max}`;
+ document.getElementById('percent').textContent=pct+' %';
+ document.getElementById('level').textContent=level;
+ document.getElementById('recommendation').textContent=rec;
+ sections.forEach((s,si)=>{
+  const sec=document.querySelector(`[data-section="${si}"]`), vals=[...sec.querySelectorAll('.ratings input:checked')].filter(x=>x.value!=='na');
+  const p=vals.reduce((a,x)=>a+Number(x.value),0), m=vals.length*2;
+  document.getElementById('sectionScore'+si).textContent=m?`${Math.round(p/m*100)} % de logro`:'Sin valorar';
+ });
+}
+function resetChecklist(){
+ if(confirm('¿Desea borrar todas las respuestas guardadas?')){localStorage.removeItem(key);document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);document.querySelectorAll('[data-save]').forEach(x=>x.value='');load()}
+}
+function downloadResults(){
+ const data=collect(), lines=[];
+ lines.push('LISTA DE CHEQUEO — FORMULACIÓN DE PROYECTOS DE INVESTIGACIÓN EN PSICOLOGÍA','');
+ lines.push(`Estudiante: ${data.fields.studentName||''}`,`Título provisional: ${data.fields.projectTitle||''}`,`Fecha: ${data.fields.reviewDate||''}`,'');
+ let q=0,total=0,max=0;
+ sections.forEach((s,si)=>{lines.push(`${si+1}. ${s.title.toUpperCase()}`);let sp=0,sm=0;
+  s.items.forEach((item,ii)=>{const val=data.ratings['q'+q]??'Sin responder';const note=data.fields['note'+q]||'';lines.push(`${si+1}.${ii+1} [${val}] ${item}${note?' | Observación: '+note:''}`);if(val!=='na'&&val!=='Sin responder'){sp+=Number(val);sm+=2}q++});
+  total+=sp;max+=sm;lines.push(`Resultado de sección: ${sm?Math.round(sp/sm*100):0}%`,'');
+ });
+ lines.push(`RESULTADO GLOBAL: ${total}/${max} (${max?Math.round(total/max*100):0}%)`,'',`Fortalezas: ${data.fields.strengths||''}`,`Ajustes prioritarios: ${data.fields.adjustments||''}`);
+ const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='resultados_lista_chequeo_investigacion.txt';a.click();URL.revokeObjectURL(a.href);
+}
+document.addEventListener('change',save);document.addEventListener('input',e=>{if(e.target.matches('[data-save]'))save()});load();
+</script>
+</body>
+</html>
