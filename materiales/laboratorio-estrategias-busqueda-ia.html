@@ -1,0 +1,346 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Secuencia interactiva de prompts para diseñar estrategias de búsqueda en revisiones narrativas."><title>Laboratorio de estrategias de búsqueda con IA</title>
+<!-- METADATOS DE LA BIBLIOTECA DIGITAL -->
+<meta name="jc-titulo" content="Laboratorio de estrategias de búsqueda con IA">
+<meta name="jc-descripcion" content="Recurso interactivo para diseñar, adaptar, probar y documentar estrategias de búsqueda bibliográfica con apoyo de inteligencia artificial en revisiones narrativas de Psicología y Ciencias Sociales, mediante bloques conceptuales, vocabulario trilingüe, operadores booleanos y ecuaciones específicas para diversas bases de datos.">
+<meta name="jc-tipo" content="Laboratorio educativo interactivo">
+<meta name="jc-etiquetas" content="Inteligencia artificial, IA generativa, Revisión narrativa, Revisión de literatura, Estrategia de búsqueda, Búsqueda bibliográfica, Búsqueda documental, Ecuaciones de búsqueda, Operadores booleanos, AND, OR, NOT, Bloques conceptuales, PICO, PICo, SPIDER, PCC, Descriptores controlados, Lenguaje libre, MeSH, DeCS, Scopus, PubMed, Dialnet, LILACS, Biblioteca Virtual en Salud, BVS, Redalyc, TITLE-ABS-KEY, Truncamiento, Operadores de proximidad, Sensibilidad, Precisión, Validación de búsquedas, Reproducibilidad, Trazabilidad, Artículos centinela, Psicología, Ciencias sociales, Metodología de investigación, Escritura académica, Prompt engineering">
+<meta name="jc-curso" content="Formulación de Proyectos de Investigación en Psicología">
+<meta name="jc-autor" content="Juan Carlos Valderrama Cárdenas">
+
+<style>
+:root{--navy:#123047;--teal:#087f7a;--mint:#dff3ee;--gold:#e9a23b;--ink:#1b2730;--muted:#65727c;--paper:#f5f7f8;--card:#fff;--line:#d9e2e7;--shadow:0 12px 32px rgba(18,48,71,.10);--radius:18px}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);line-height:1.65}body.dark{--ink:#edf6f6;--muted:#afc0c6;--paper:#0d1921;--card:#142630;--line:#29404c;--navy:#d8f4f1;--mint:#173f3c;--shadow:0 12px 34px rgba(0,0,0,.28)}a{color:var(--teal)}button,input{font:inherit}.progress{position:fixed;top:0;left:0;height:4px;background:var(--gold);z-index:100;width:0}.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.topbar-inner{max-width:1400px;margin:auto;display:flex;align-items:center;gap:14px;padding:12px 22px}.brand{font-weight:800;color:var(--navy);margin-right:auto}.icon-btn,.menu-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 12px;cursor:pointer}.menu-btn{display:none}.hero{background:linear-gradient(135deg,#0d2d43 0%,#075f62 60%,#087f7a 100%);color:white;overflow:hidden;position:relative}.hero:before{content:"";position:absolute;width:240px;height:240px;background:radial-gradient(circle,rgba(158,228,220,.22),transparent 68%);left:7%;bottom:-80px;border-radius:50%;animation:heroFloat 8s ease-in-out infinite alternate}.hero:after{animation:heroRing 10s ease-in-out infinite alternate}.hero .eyebrow{animation:heroFade .7s ease-out both}.hero h1{animation:heroFade .8s .12s ease-out both}.hero p{animation:heroFade .8s .24s ease-out both}.hero .author{animation:heroFade .8s .36s ease-out both}@keyframes heroFade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}@keyframes heroFloat{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(32px,-24px,0) scale(1.12)}}@keyframes heroRing{from{transform:rotate(0deg) scale(1)}to{transform:rotate(12deg) scale(1.08)}}@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.hero .eyebrow,.hero h1,.hero p,.hero .author{animation:none!important}}.hero:after{content:"";position:absolute;width:440px;height:440px;border:70px solid rgba(255,255,255,.07);border-radius:50%;right:-130px;top:-170px}.hero-inner{max-width:1180px;margin:auto;padding:78px 32px 68px;position:relative;z-index:1}.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:#9ee4dc}.hero h1{font-size:clamp(2.25rem,5vw,4.5rem);line-height:1.02;max-width:900px;margin:.35em 0 .3em}.hero p{font-size:1.12rem;max-width:780px;color:#d9efee}.author{margin-top:30px;display:flex;gap:10px;align-items:center;font-weight:700}.author:before{content:"";width:34px;height:2px;background:var(--gold)}.layout{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:280px minmax(0,1fr);gap:30px;padding:36px 24px}.toc{position:sticky;top:82px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.toc h2{font-size:.9rem;text-transform:uppercase;letter-spacing:.12em;margin:0 0 12px;color:var(--muted)}.toc a{display:block;text-decoration:none;color:var(--muted);padding:7px 10px;border-left:3px solid transparent;font-size:.92rem}.toc a:hover,.toc a.active{color:var(--teal);background:var(--mint);border-left-color:var(--teal);border-radius:0 8px 8px 0}.content{min-width:0}.section{margin-bottom:54px}.section h2{font-size:clamp(1.65rem,3vw,2.35rem);line-height:1.2;color:var(--navy);margin:0 0 12px}.lead{font-size:1.08rem;color:var(--muted);max-width:850px}.purpose-grid,.concept-grid,.db-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.mini,.db{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}.mini strong,.db strong{display:block;color:var(--navy);margin-bottom:5px}.callout{background:var(--mint);border-left:5px solid var(--teal);padding:18px 20px;border-radius:0 14px 14px 0;margin:22px 0}.warning{background:#fff5df;border-left-color:var(--gold)}body.dark .warning{background:#3b2f1d}.form-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.form-grid label{display:flex;flex-direction:column;gap:6px;font-size:.9rem;font-weight:700}.form-grid input{padding:12px 13px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.primary,.secondary,.copy{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.primary,.copy{background:var(--teal);color:white}.secondary{background:var(--mint);color:var(--teal)}.prompt-tools{display:flex;gap:10px;margin-bottom:18px}.prompt-tools input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}.prompt-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin:0 0 18px;overflow:hidden;box-shadow:var(--shadow)}.prompt-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:19px 20px;border-bottom:1px solid var(--line)}.prompt-head h3{margin:5px 0 0;color:var(--navy)}.step{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:900}.prompt-purpose{padding:16px 20px;background:var(--mint);color:var(--ink);border-bottom:1px solid var(--line);font-size:.96rem;line-height:1.55}.prompt-purpose strong{color:var(--teal)}.prompt-card pre{margin:0;padding:20px;white-space:pre-wrap;overflow-wrap:anywhere;background:color-mix(in srgb,var(--paper) 58%,var(--card));font: .9rem/1.62 ui-monospace,SFMono-Regular,Consolas,monospace;max-height:560px;overflow:auto}.integrated{border:2px solid var(--teal)}.workflow{counter-reset:w;display:grid;gap:12px}.workflow div{counter-increment:w;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 62px;position:relative}.workflow div:before{content:counter(w);position:absolute;left:16px;top:14px;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--teal);color:#fff;font-weight:900}.checks{columns:2;gap:28px}.checks li{break-inside:avoid;margin-bottom:10px}.resources{display:flex;flex-wrap:wrap;gap:10px}.resources a{background:var(--card);border:1px solid var(--line);padding:10px 14px;border-radius:999px;text-decoration:none}.footer{background:#0d2d43;color:#dbe9ec;padding:36px 24px;text-align:center}.footer strong{color:white}.toast{position:fixed;right:20px;bottom:20px;background:#142630;color:#fff;padding:12px 18px;border-radius:12px;opacity:0;transform:translateY(12px);transition:.25s;z-index:100}.toast.show{opacity:1;transform:none}.reveal{opacity:0;transform:translateY(14px);transition:.55s}.reveal.visible{opacity:1;transform:none}@media(max-width:980px){.layout{grid-template-columns:1fr}.toc{position:fixed;left:14px;right:14px;top:70px;z-index:60;display:none;max-height:75vh}.toc.open{display:block}.menu-btn{display:inline-block}.purpose-grid,.concept-grid,.db-grid{grid-template-columns:1fr 1fr}}@media(max-width:640px){.hero-inner{padding:55px 20px}.layout{padding:25px 15px}.purpose-grid,.concept-grid,.db-grid,.form-grid{grid-template-columns:1fr}.checks{columns:1}.brand{font-size:.85rem}.prompt-head{align-items:center}.prompt-card pre{font-size:.82rem}}
+@media print{.topbar,.toc,.copy,.prompt-tools,.form-actions,.progress{display:none!important}.layout{display:block;max-width:none}.prompt-card pre{max-height:none}.reveal{opacity:1;transform:none}.hero{background:white;color:#111}.hero p{color:#333}}
+</style></head><body><div class="progress" id="progress"></div><header class="topbar"><div class="topbar-inner"><button class="menu-btn" id="menu">Índice</button><div class="brand">Laboratorio de búsqueda documental</div><button class="icon-btn" id="theme" aria-label="Cambiar tema">◐</button><button class="icon-btn" onclick="window.print()">Imprimir</button></div></header>
+<section class="hero" id="inicio"><div class="hero-inner"><div class="eyebrow">Recurso interactivo para estudiantes</div><h1>Diseño de estrategias de búsqueda con apoyo de IA</h1><p>Secuencia guiada de prompts para formular, adaptar, probar y documentar ecuaciones booleanas en revisiones narrativas de psicología y ciencias sociales.</p><div class="author">Autor: Juan Carlos Valderrama Cárdenas</div></div></section>
+<div class="layout"><aside class="toc" id="toc"><h2>Índice dinámico</h2><a href="#proposito">Propósito</a><a href="#fundamentos">Fundamentos</a><a href="#datos">Datos iniciales</a><a href="#secuencia">Prompts 1 a 8</a><a href="#integrado">Prompt integrado</a><a href="#ruta">Ruta de aplicación</a><a href="#verificacion">Lista de verificación</a><a href="#recursos">Recursos</a></aside><main class="content">
+<section class="section reveal" id="proposito"><h2>Propósito del recurso</h2><p class="lead">Orientar al estudiante en la construcción de una estrategia de búsqueda transparente, reproducible y sensible a las diferencias entre bases de datos. La IA apoya la formulación y la revisión, pero no sustituye la verificación de los descriptores ni la prueba directa de las ecuaciones.</p><div class="purpose-grid"><div class="mini"><strong>Conceptualizar</strong>Delimitar la pregunta y organizarla en un máximo de tres bloques.</div><div class="mini"><strong>Traducir</strong>Convertir conceptos en términos libres, MeSH y DeCS, en tres idiomas.</div><div class="mini"><strong>Documentar</strong>Registrar sintaxis, fecha, filtros, resultados y decisiones de ajuste.</div></div><div class="callout"><strong>Producto final:</strong> una estrategia documentada y ecuaciones adaptadas para Scopus, PubMed, Dialnet, LILACS mediante BVS y Redalyc.</div></section>
+<section class="section reveal" id="fundamentos"><h2>Fundamentos para usar la secuencia</h2><div class="concept-grid"><div class="mini"><strong>OR amplía</strong>Agrupa sinónimos, variantes y equivalentes del mismo concepto.</div><div class="mini"><strong>AND relaciona</strong>Exige la presencia de bloques conceptuales diferentes.</div><div class="mini"><strong>NOT exige cautela</strong>Puede eliminar de forma silenciosa estudios relevantes.</div></div><div class="callout warning"><strong>Principio de validación:</strong> una ecuación propuesta por IA es una hipótesis de búsqueda. Solo puede considerarse probada después de ejecutarla en la plataforma, revisar títulos pertinentes y no pertinentes, y registrar los ajustes.</div><div class="db-grid"><div class="db"><strong>Scopus</strong>Adaptación con TITLE-ABS-KEY y proximidad solo cuando aporte precisión.</div><div class="db"><strong>PubMed</strong>Combinación de MeSH verificados y términos en título/resumen.</div><div class="db"><strong>LILACS/BVS</strong>Uso complementario de DeCS verificados y lenguaje libre trilingüe.</div><div class="db"><strong>Dialnet</strong>Búsquedas simplificadas, preferentemente en español y, si hace falta, divididas.</div><div class="db"><strong>Redalyc</strong>Búsquedas breves en español y portugués, con filtros manuales verificados.</div></div></section>
+<section class="section reveal" id="datos"><h2>Datos que deben completarse</h2><p class="lead">Complete los campos antes de copiar los prompts. La información se guarda únicamente en este navegador mediante almacenamiento local.</p><div class="form-card"><div class="form-grid"><label><span>1. Tema</span><input id="f-tema" data-save placeholder="tema de la revisión"></label><label><span>2. Pregunta de revisión</span><input id="f-pregunta" data-save placeholder="pregunta principal"></label><label><span>3. Población o contexto</span><input id="f-poblacion" data-save placeholder="población, comunidad o escenario"></label><label><span>4. Concepto o fenómeno principal</span><input id="f-fenomeno" data-save placeholder="fenómeno estudiado"></label><label><span>5. Concepto complementario</span><input id="f-complementario" data-save placeholder="intervención, exposición, experiencia o variable"></label><label><span>6. Periodo</span><input id="f-periodo" data-save placeholder="años de publicación"></label><label><span>7. Idiomas</span><input id="f-idiomas" data-save placeholder="español, inglés, portugués"></label><label><span>8. Tipos de documentos</span><input id="f-tipos" data-save placeholder="artículos, revisiones, estudios empíricos"></label><label><span>9. Exclusiones justificadas</span><input id="f-exclusiones" data-save placeholder="temas que deben excluirse"></label></div><div class="form-actions"><button class="primary" id="copyData">Copiar ficha</button><button class="secondary" id="clearData">Limpiar datos</button></div></div></section>
+<section class="section" id="secuencia"><h2>Secuencia de prompts</h2><p class="lead">Use los prompts en orden. Cada resultado alimenta el siguiente paso. También puede buscar por título o contenido.</p><div class="prompt-tools"><input id="search" type="search" placeholder="Buscar en los prompts, por ejemplo: MeSH, NOT, Scopus..."></div><article class="prompt-card reveal" id="p1" data-title="Prompt 1 Delimitar la pregunta de la revisión narrativa">
+      <div class="prompt-head"><div><span class="step">Prompt 1</span><h3>Delimitar la pregunta de la revisión narrativa</h3></div><button class="copy" data-copy="code-p1" aria-label="Copiar Prompt 1">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Delimitar una pregunta de revisión clara, investigable y coherente, y convertirla en bloques conceptuales útiles para iniciar la búsqueda.</div><pre id="code-p1"><code>Actúa como metodólogo experto en revisiones narrativas de la literatura, psicología y búsqueda bibliográfica.
+
+Tema de la revisión:
+[TEMA]
+Pregunta preliminar:
+[PREGUNTA]
+Población o contexto:
+[POBLACIÓN O CONTEXTO]
+Fenómeno principal:
+[FENÓMENO]
+Concepto complementario:
+[CONCEPTO COMPLEMENTARIO]
+
+Tu tarea es:
+1. Evaluar si la pregunta es clara, investigable y apropiada para una revisión narrativa.
+2. Reformularla utilizando el marco más adecuado entre PICO, PICo, SPIDER, PCC o estructura Concepto-Contexto-Población.
+3. Justificar brevemente la elección del marco.
+4. Separar la pregunta en un máximo de tres bloques conceptuales.
+5. Identificar qué componentes deben incluirse en la ecuación de búsqueda y cuáles deben reservarse para los criterios de selección.
+6. Proponer: a) una pregunta principal; b) tres preguntas secundarias; c) el objetivo general de la revisión.
+7. No inventar variables que no estén presentes en la información proporcionada.
+
+Presenta el resultado en una tabla con las columnas:
+Elemento | Formulación propuesta | Función dentro de la búsqueda | Justificación.
+
+RESULTADO ESPERADO: pregunta delimitada y bloques conceptuales iniciales.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p2" data-title="Prompt 2 Construir el mapa de términos">
+      <div class="prompt-head"><div><span class="step">Prompt 2</span><h3>Construir el mapa de términos</h3></div><button class="copy" data-copy="code-p2" aria-label="Copiar Prompt 2">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Construir un vocabulario trilingüe organizado por bloques, diferenciando lenguaje libre, variantes y posibles descriptores controlados que deben verificarse.</div><pre id="code-p2"><code>Actúa como bibliotecólogo especializado en psicología, ciencias de la salud y recuperación de información científica.
+
+Utiliza los siguientes bloques conceptuales:
+Bloque 1: [CONCEPTO 1]
+Bloque 2: [CONCEPTO 2]
+Bloque 3: [CONCEPTO 3, SI ES NECESARIO]
+
+Para cada bloque:
+1. Propón el término principal en español, inglés y portugués.
+2. Identifica sinónimos, variantes ortográficas, formas plurales, acrónimos y términos relacionados.
+3. Diferencia claramente: a) descriptores controlados; b) términos de lenguaje libre; c) términos demasiado amplios; d) términos potencialmente ambiguos.
+4. Sugiere posibles descriptores MeSH para PubMed.
+5. Sugiere posibles descriptores DeCS para LILACS.
+6. Antes de presentar un descriptor, indica que debe verificarse en el navegador oficial de MeSH o DeCS.
+7. No inventes descriptores controlados.
+8. No incluyas términos relacionados solo de manera indirecta con la pregunta.
+9. Señala qué términos podrían generar ruido documental.
+
+Entrega una matriz con las columnas:
+Bloque | Español | Inglés | Portugués | MeSH por verificar | DeCS por verificar | Acrónimos | Variantes | Riesgo de ruido.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p3" data-title="Prompt 3 Depurar y validar los términos">
+      <div class="prompt-head"><div><span class="step">Prompt 3</span><h3>Depurar y validar los términos</h3></div><button class="copy" data-copy="code-p3" aria-label="Copiar Prompt 3">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Depurar el mapa terminológico, reducir el ruido documental y establecer la lógica preliminar entre sinónimos y bloques conceptuales.</div><pre id="code-p3"><code>Actúa como revisor metodológico de una estrategia de búsqueda bibliográfica.
+
+Analiza la siguiente matriz de términos:
+[PEGAR MATRIZ DEL PROMPT 2]
+
+Realiza las siguientes tareas:
+1. Elimina términos redundantes.
+2. Identifica términos demasiado generales, ambiguos o alejados de la pregunta.
+3. Detecta posibles falsos amigos entre español, inglés y portugués.
+4. Organiza los términos definitivos por bloques conceptuales.
+5. Une los sinónimos del mismo bloque con OR.
+6. Indica qué bloques deben combinarse con AND.
+7. Evita utilizar NOT, excepto cuando exista una justificación metodológica clara.
+8. Si propones una exclusión con NOT, explica qué estudios relevantes podrían perderse.
+9. Marca con “requiere verificación” cualquier descriptor MeSH o DeCS que no pueda validarse.
+10. No construyas todavía ecuaciones específicas para las bases de datos.
+
+Presenta el resultado en este formato:
+BLOQUE 1: (término OR sinónimo OR variante)
+BLOQUE 2: (término OR sinónimo OR variante)
+BLOQUE 3: (término OR sinónimo OR variante)
+COMBINACIÓN PRELIMINAR: (BLOQUE 1) AND (BLOQUE 2) AND (BLOQUE 3)
+
+Finaliza con una tabla:
+Término eliminado | Motivo | Riesgo de conservarlo.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p4" data-title="Prompt 4 Construir la ecuación booleana maestra">
+      <div class="prompt-head"><div><span class="step">Prompt 4</span><h3>Construir la ecuación booleana maestra</h3></div><button class="copy" data-copy="code-p4" aria-label="Copiar Prompt 4">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Transformar los bloques depurados en tres versiones de una ecuación maestra, con distintos niveles de sensibilidad y precisión.</div><pre id="code-p4"><code>Actúa como especialista en diseño de ecuaciones de búsqueda reproducibles.
+
+Utiliza exclusivamente los siguientes bloques:
+[PEGAR BLOQUES DEPURADOS DEL PROMPT 3]
+
+Construye una ecuación booleana maestra con estas reglas:
+1. Une sinónimos y equivalentes mediante OR.
+2. Une bloques conceptuales distintos mediante AND.
+3. Utiliza paréntesis para conservar la lógica de búsqueda.
+4. Utiliza comillas para expresiones compuestas cuando corresponda.
+5. Propón truncamientos únicamente cuando sean seguros.
+6. Explica qué variantes recuperaría cada truncamiento.
+7. No utilices etiquetas de campo propias de una base de datos.
+8. No incluyas filtros de año, idioma o tipo documental dentro de la ecuación, salvo que sean indispensables.
+9. Evita NOT como opción predeterminada.
+10. Construye tres versiones:
+A. Búsqueda amplia: máxima sensibilidad, con más sinónimos y términos relacionados.
+B. Búsqueda equilibrada: balance entre sensibilidad y precisión.
+C. Búsqueda específica: mayor precisión, usando únicamente los conceptos centrales.
+
+Para cada versión, presenta: ecuación completa, propósito, ventaja, riesgo y momento recomendado para utilizarla.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p5" data-title="Prompt 5 Traducir la estrategia a cada base de datos">
+      <div class="prompt-head"><div><span class="step">Prompt 5</span><h3>Traducir la estrategia a cada base de datos</h3></div><button class="copy" data-copy="code-p5" aria-label="Copiar Prompt 5">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Adaptar la ecuación maestra a la sintaxis y posibilidades reales de Scopus, PubMed, Dialnet, LILACS/BVS y Redalyc, sin asumir compatibilidad automática.</div><pre id="code-p5"><code>Actúa como bibliotecólogo experto en Scopus, PubMed, Dialnet, LILACS y Redalyc.
+
+Ecuación booleana maestra:
+[PEGAR ECUACIÓN DEL PROMPT 4]
+Pregunta de revisión:
+[PEGAR PREGUNTA DEFINITIVA]
+
+Adapta la ecuación por separado para:
+1. Scopus.
+2. PubMed.
+3. Dialnet.
+4. LILACS mediante la Biblioteca Virtual en Salud.
+5. Redalyc.
+
+REQUISITOS
+A. Scopus
+- Construye una versión utilizando TITLE-ABS-KEY.
+- Conserva AND, OR, comillas y paréntesis.
+- Propón operadores de proximidad solo si mejoran claramente la precisión.
+- Si utilizas W/n o PRE/n, explica su función.
+
+B. PubMed
+- Combina descriptores MeSH verificados con palabras de título y resumen.
+- Utiliza [MeSH Terms] y [Title/Abstract] cuando corresponda.
+- No asumas que todo término libre es un término MeSH.
+- Presenta una versión sensible y otra específica.
+
+C. Dialnet
+- Construye una ecuación simplificada compatible con su interfaz.
+- Prioriza términos en español.
+- Si la ecuación completa resulta demasiado extensa, divídela en búsquedas complementarias numeradas.
+- Indica los filtros que deben aplicarse manualmente.
+
+D. LILACS
+- Adapta la búsqueda para el portal BVS.
+- Combina descriptores DeCS verificados con términos libres.
+- Incluye español, inglés y portugués.
+- Diferencia los términos de asunto de las palabras de título, resumen o texto.
+
+E. Redalyc
+- Prioriza términos en español y portugués.
+- Construye búsquedas breves y complementarias.
+- No atribuyas a Redalyc etiquetas de campo que no estén disponibles o verificadas.
+- Indica qué filtros deben aplicarse manualmente.
+
+Para cada base de datos entrega:
+1. Ecuación lista para copiar.
+2. Explicación de su estructura.
+3. Campos consultados.
+4. Filtros manuales recomendados.
+5. Posibles errores de sintaxis.
+6. Versión alternativa si la ecuación produce cero resultados.
+7. Versión de reducción si produce demasiados resultados.
+
+No presentes una misma ecuación como si fuera directamente compatible con todas las bases. No inventes etiquetas de campos. Cuando exista incertidumbre sobre una función, indícalo expresamente.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p6" data-title="Prompt 6 Evaluar la calidad de las ecuaciones">
+      <div class="prompt-head"><div><span class="step">Prompt 6</span><h3>Evaluar la calidad de las ecuaciones</h3></div><button class="copy" data-copy="code-p6" aria-label="Copiar Prompt 6">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Auditar la calidad metodológica y sintáctica de las ecuaciones antes de considerarlas versiones finales para prueba en cada plataforma.</div><pre id="code-p6"><code>Actúa como auditor metodológico de estrategias de búsqueda para revisiones de literatura.
+
+Pregunta de revisión:
+[PREGUNTA]
+Ecuaciones propuestas:
+[PEGAR LAS CINCO ECUACIONES]
+
+Evalúa cada ecuación utilizando estos criterios:
+1. Coherencia con la pregunta.
+2. Cobertura de conceptos centrales.
+3. Uso adecuado de AND y OR.
+4. Agrupación correcta mediante paréntesis.
+5. Uso adecuado de frases exactas.
+6. Calidad de los términos en español, inglés y portugués.
+7. Correspondencia entre MeSH, DeCS y lenguaje libre.
+8. Riesgo de exceso de sensibilidad.
+9. Riesgo de exceso de especificidad.
+10. Riesgo de perder estudios relevantes.
+11. Compatibilidad con la sintaxis de cada base.
+12. Reproducibilidad.
+
+Asigna a cada criterio una calificación: Adecuado, Requiere ajuste, Inadecuado o No verificable.
+Luego:
+1. Corrige los errores encontrados.
+2. Presenta la versión final de cada ecuación.
+3. Explica cada modificación.
+4. Señala qué componentes deben probarse directamente en la plataforma.
+5. No afirmes que una ecuación funciona si no ha sido ejecutada en la base de datos.
+6. Sugiere entre tres y cinco artículos centinela exclusivamente si se proporcionan previamente sus títulos o DOI.
+
+Presenta una tabla por cada base de datos.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p7" data-title="Prompt 7 Refinar las ecuaciones con resultados reales">
+      <div class="prompt-head"><div><span class="step">Prompt 7</span><h3>Refinar las ecuaciones con resultados reales</h3></div><button class="copy" data-copy="code-p7" aria-label="Copiar Prompt 7">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Refinar una ecuación a partir de resultados reales, distinguiendo los términos que recuperan literatura pertinente de aquellos que producen ruido.</div><pre id="code-p7"><code>Actúa como especialista en optimización de búsquedas bibliográficas.
+
+Base de datos:
+[NOMBRE]
+Ecuación ejecutada:
+[ECUACIÓN]
+Fecha de búsqueda:
+[FECHA]
+Número de resultados:
+[NÚMERO]
+Ejemplos de resultados pertinentes:
+[PEGAR ENTRE 5 Y 10 TÍTULOS]
+Ejemplos de resultados no pertinentes:
+[PEGAR ENTRE 5 Y 10 TÍTULOS]
+
+Analiza el comportamiento de la ecuación y:
+1. Identifica qué términos generan documentos pertinentes.
+2. Identifica qué términos generan ruido.
+3. Detecta conceptos ausentes.
+4. Propón términos adicionales solo si están respaldados por los títulos pertinentes.
+5. Indica si conviene: a) agregar sinónimos; b) eliminar términos; c) añadir una frase exacta; d) utilizar un campo específico; e) aplicar proximidad; f) dividir la búsqueda.
+6. No propongas NOT como primera solución.
+7. Compara la ecuación original y la ecuación revisada.
+8. Explica qué cambio debería producirse en sensibilidad y precisión.
+9. Entrega una única versión corregida lista para copiar.
+
+Finaliza con una tabla:
+Modificación | Justificación | Efecto esperado | Riesgo.</code></pre>
+    </article>
+<article class="prompt-card reveal" id="p8" data-title="Prompt 8 Elaborar la tabla final de la estrategia">
+      <div class="prompt-head"><div><span class="step">Prompt 8</span><h3>Elaborar la tabla final de la estrategia</h3></div><button class="copy" data-copy="code-p8" aria-label="Copiar Prompt 8">Copiar</button></div>
+      <div class="prompt-purpose"><strong>Propósito:</strong> Documentar de forma reproducible la estrategia final y redactar el apartado metodológico de la revisión sin inventar datos ausentes.</div><pre id="code-p8"><code>Actúa como asistente metodológico para la elaboración del informe de una revisión narrativa.
+
+Utiliza exclusivamente la información proporcionada a continuación:
+Pregunta: [PREGUNTA]
+Bases consultadas: [BASES]
+Ecuaciones finales: [ECUACIONES]
+Fechas de búsqueda: [FECHAS]
+Resultados obtenidos: [RESULTADOS]
+Filtros: [FILTROS]
+Criterios de selección: [CRITERIOS]
+
+Elabora una tabla reproducible con las columnas:
+Base de datos | Fecha de búsqueda | Campos consultados | Ecuación completa | Filtros aplicados | Resultados recuperados | Observaciones.
+
+Después de la tabla, redacta un apartado metodológico de entre 250 y 350 palabras que explique:
+1. Cómo se formularon los bloques conceptuales.
+2. Cómo se identificaron los términos libres y controlados.
+3. Cómo se combinaron los términos mediante AND y OR.
+4. Cómo se adaptó la sintaxis a cada base.
+5. Cómo se realizaron las búsquedas en español, inglés y portugués.
+6. Cómo se ajustaron las ecuaciones después de las pruebas iniciales.
+7. Por qué las búsquedas de Dialnet y Redalyc se dividieron, si fue necesario.
+
+No inventes fechas, resultados, filtros ni números. Si falta algún dato, escribe “no informado”. Emplea un tono académico, preciso y natural.</code></pre>
+    </article></section>
+<section class="section" id="integrado"><h2>Prompt integrado para estudiantes</h2><p class="lead">Úselo cuando se requiera producir un primer borrador completo en una sola interacción. Después, pruebe y audite cada ecuación por separado.</p><article class="prompt-card integrated reveal"><div class="prompt-head"><div><span class="step">Versión integral</span><h3>Estrategia completa en ocho etapas</h3></div><button class="copy" data-copy="integrated-code">Copiar</button></div><div class="prompt-purpose"><strong>Propósito:</strong> Obtener un primer borrador integral de la estrategia de búsqueda en una sola interacción, para después probar, revisar y documentar cada ecuación por separado.</div><pre id="integrated-code"><code>Actúa como un equipo integrado por:
+1. Un metodólogo experto en revisiones narrativas.
+2. Un bibliotecólogo especialista en Scopus y PubMed.
+3. Un documentalista especializado en Dialnet y Redalyc.
+4. Un experto en DeCS, LILACS y Biblioteca Virtual en Salud.
+5. Un investigador en psicología.
+
+Diseña una estrategia de búsqueda para una revisión narrativa sobre:
+Tema: [TEMA]
+Pregunta: [PREGUNTA]
+Población o contexto: [POBLACIÓN]
+Concepto principal: [CONCEPTO 1]
+Concepto complementario: [CONCEPTO 2]
+Periodo: [AÑOS]
+Idiomas: español, inglés y portugués
+Tipos de documentos: [TIPOS]
+Exclusiones justificadas: [EXCLUSIONES]
+
+Desarrolla el trabajo en ocho etapas:
+1. Evalúa y reformula la pregunta utilizando PICO, PICo, SPIDER o PCC.
+2. Divide la pregunta en un máximo de tres bloques conceptuales.
+3. Construye una matriz de términos en español, inglés y portugués.
+4. Diferencia términos libres, términos MeSH y términos DeCS.
+5. Señala cuáles descriptores requieren verificación.
+6. Construye una ecuación booleana maestra.
+7. Adapta la ecuación para Scopus, PubMed, Dialnet, LILACS mediante BVS y Redalyc.
+8. Presenta una tabla final reproducible.
+
+Reglas obligatorias:
+- Utiliza OR entre sinónimos.
+- Utiliza AND entre conceptos diferentes.
+- Agrupa cada bloque con paréntesis.
+- Utiliza comillas cuando corresponda buscar frases exactas.
+- Evita NOT salvo justificación explícita.
+- No inventes descriptores MeSH o DeCS.
+- No inventes etiquetas de campo.
+- No afirmes que las ecuaciones fueron validadas si no se ejecutaron.
+- Si Dialnet o Redalyc no admiten adecuadamente una ecuación extensa, divídela en búsquedas complementarias.
+- Presenta ecuaciones listas para copiar.
+- Explica cómo ampliar una búsqueda con pocos resultados.
+- Explica cómo reducir una búsqueda con demasiados resultados.
+- Identifica los filtros que deben aplicarse manualmente.
+- Conserva las variantes terminológicas propias de América Latina.
+
+Producto final:
+A. Pregunta reformulada.
+B. Tabla de bloques conceptuales.
+C. Matriz trilingüe de términos.
+D. Ecuación maestra.
+E. Ecuación para Scopus.
+F. Ecuación para PubMed.
+G. Búsquedas complementarias para Dialnet.
+H. Ecuación para LILACS/BVS.
+I. Búsquedas complementarias para Redalyc.
+J. Tabla de documentación y reproducibilidad.
+K. Advertencias sobre limitaciones y aspectos que requieren verificación.</code></pre></article></section>
+<section class="section reveal" id="ruta"><h2>Ruta recomendada de aplicación</h2><div class="workflow"><div>Ejecutar los prompts 1 a 5 para definir y traducir la estrategia.</div><div>Probar manualmente las ecuaciones en cada base de datos.</div><div>Registrar fecha, filtros, número de resultados y una muestra de títulos.</div><div>Aplicar el prompt 7 para refinar la ecuación con resultados reales.</div><div>Aplicar el prompt 6 como auditoría y el prompt 8 para producir el informe final.</div></div></section>
+<section class="section reveal" id="verificacion"><h2>Lista de verificación antes de entregar</h2><ul class="checks"><li>La pregunta está delimitada y es coherente con una revisión narrativa.</li><li>La búsqueda contiene como máximo tres bloques conceptuales centrales.</li><li>Los sinónimos están unidos con OR y los bloques con AND.</li><li>Las frases exactas emplean comillas y la lógica usa paréntesis.</li><li>Los términos aparecen en español, inglés y portugués cuando es pertinente.</li><li>Los MeSH y DeCS fueron verificados en sus navegadores oficiales.</li><li>No se copiaron etiquetas de campo entre bases incompatibles.</li><li>NOT solo aparece con una justificación y un análisis del riesgo.</li><li>Se probaron versiones para cero resultados y exceso de resultados.</li><li>Se registraron fecha, filtros, campos y número de resultados.</li><li>Se revisaron títulos pertinentes y no pertinentes.</li><li>El informe diferencia claramente propuesta, prueba y validación.</li></ul></section>
+<section class="section reveal" id="recursos"><h2>Recursos enlazados</h2><p class="lead">Materiales de apoyo incluidos en la propuesta original. Verifique siempre la sintaxis en la ayuda oficial de cada plataforma.</p><div class="resources"><a href="https://articulosciencia.com/blog/busqueda-bibliografica-pubmed-scopus" target="_blank" rel="noopener">PubMed y Scopus</a><a href="https://www.synthia.cl/blog/operadores-booleanos-busqueda-bibliografica" target="_blank" rel="noopener">Operadores booleanos</a><a href="https://marianapalma.com/operadoresbooleanos/" target="_blank" rel="noopener">Guía de operadores</a><a href="https://www.redalyc.org/journal/3497/349745408003/html/" target="_blank" rel="noopener">Lectura en Redalyc</a></div></section>
+</main></div><footer class="footer"><strong>Diseño de estrategias de búsqueda con apoyo de IA</strong><br>Recurso educativo elaborado por Juan Carlos Valderrama Cárdenas</footer><div class="toast" id="toast" role="status">Copiado</div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600)};
+$$('.copy').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText($('#'+b.dataset.copy).innerText);toast('Prompt copiado')});
+const stored=JSON.parse(localStorage.getItem('fichaBusqueda')||'{}');$$('[data-save]').forEach(i=>{i.value=stored[i.id]||'';i.addEventListener('input',()=>{const d={};$$('[data-save]').forEach(x=>d[x.id]=x.value);localStorage.setItem('fichaBusqueda',JSON.stringify(d))})});
+$('#copyData').onclick=async()=>{const txt=$$('[data-save]').map(x=>`${x.previousElementSibling.textContent}: ${x.value||'[NO INFORMADO]'}`).join('\n');await navigator.clipboard.writeText(txt);toast('Ficha copiada')};
+$('#clearData').onclick=()=>{$$('[data-save]').forEach(x=>x.value='');localStorage.removeItem('fichaBusqueda');toast('Datos eliminados')};
+$('#search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();$$('#secuencia .prompt-card').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?'':'none')});
+$('#theme').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light')};if(localStorage.getItem('theme')==='dark')document.body.classList.add('dark');
+$('#menu').onclick=()=>$('#toc').classList.toggle('open');$$('#toc a').forEach(a=>a.onclick=()=>$('#toc').classList.remove('open'));
+const sections=$$('main section[id]');const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('#toc a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-25% 0px -65%'});sections.forEach(s=>obs.observe(s));
+const rev=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});$$('.reveal').forEach(x=>rev.observe(x));
+addEventListener('scroll',()=>{const h=document.documentElement;$('#progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+</script></body></html>
